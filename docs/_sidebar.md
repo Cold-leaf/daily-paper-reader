@@ -1,6 +1,9 @@
 * <a class="dpr-sidebar-root-link" href="#/">首页</a>
 * <a class="dpr-sidebar-root-link dpr-sidebar-noactive-link" href="javascript:void(0)" data-dpr-hash="#/tutorial/README">使用教程</a>
 * Daily Papers
+  * 2026-06-01 <!--dpr-date:20260601-->
+    * 速读区
+      * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202606/01/2605.27757v1-clipgen-a-chiplet-link-ip-modeling-and-generation-framework-for-25d-architecture-exploration" data-sidebar-item="{&quot;title&quot;: &quot;CLIPGen: A Chiplet Link IP Modeling and Generation Framework for 2.5D Architecture Exploration&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2605.27757v1-clipgen-a-chiplet-link-ip-modeling-and-generation-framework-for-25d-architecture-exploration&quot;, &quot;score&quot;: &quot;6.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;cim&quot;}], &quot;evidence&quot;: &quot;面向2.5D芯片互联IP生成的架构探索框架&quot;}">CLIPGen: A Chiplet Link IP Modeling and Generation Framework for 2.5D Architecture Exploration</a>
   * 2026-05-23 ~ 2026-06-01 <!--dpr-date:20260523-20260601-->
     * 精读区
       * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/20260523-20260601/2605.24788v1-xl-hd-extended-learning-in-hyperdimensional-computing-via-deterministic-projections-for-in-memory-accelerators" data-sidebar-item="{&quot;title&quot;: &quot;XL-HD: Extended Learning in Hyperdimensional Computing via Deterministic Projections for In-Memory Accelerators&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2605.24788v1-xl-hd-extended-learning-in-hyperdimensional-computing-via-deterministic-projections-for-in-memory-accelerators&quot;, &quot;score&quot;: &quot;9.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;cim&quot;}], &quot;evidence&quot;: &quot;面向内存加速器的超维计算框架&quot;}">XL-HD: Extended Learning in Hyperdimensional Computing via Deterministic Projections for In-Memory Accelerators</a>

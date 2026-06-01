@@ -1,0 +1,24 @@
+{
+  "label": "2026-06-01",
+  "date": "2026-06-01",
+  "generated_at": "2026-06-01T22:55:19",
+  "count": 1,
+  "papers": [
+    {
+      "paper_id": "202606/01/2605.27757v1-clipgen-a-chiplet-link-ip-modeling-and-generation-framework-for-25d-architecture-exploration",
+      "section": "quick",
+      "title_en": "CLIPGen: A Chiplet Link IP Modeling and Generation Framework for 2.5D Architecture Exploration",
+      "authors": "Zhengping Zhu, Austin Rovinski",
+      "date": "2026-05-26",
+      "pdf": "https://arxiv.org/pdf/2605.27757v1",
+      "score": "6.0",
+      "evidence": "面向2.5D芯片互联IP生成的架构探索框架",
+      "tldr": "针对2.5D系统级封装早期架构探索缺乏合适框架的问题，提出了CLIPGen自动芯片互连IP生成框架。该框架能够为多种封装和通信配置提供功耗、性能和面积估计，并生成Verilog、Liberty、LEF等标准设计物，支持从高层次仿真到布局布线的全流程。通过UCIe接口案例，验证了框架可快速评估不同封装策略，实现封装与芯片架构的协同优化。该工作使架构师能高效进行设计空间探索，加速高性能2.5D系统的开发。",
+      "tags": "query:cim",
+      "abstract_en": "Advanced 2.5D Systems-in-Package (SiPs) compose a growing portion of high-performance systems. While the packaging and interconnect choices play a large role in the overall system design, system architects still lack a suitable framework for early design space exploration which takes these choices into account. Current interconnect models fall mostly into the categories of 1) detailed models which are generally inflexible and require deep packaging expertise, or 2) high-level models which don't provide enough information to make accurate architectural design decisions.   In this work, we present an automated chiplet IP generation framework which provides power, performance, and area estimates for various 2.5D packaging and communication configurations. The IP generator produces standard collaterals required for high-level simulation/estimation, RTL simulation, and place-and-route-level implementation (Verilog, Liberty, LEF, and datasheet). Using our framework, architects can co-optimize the package and chiplet architecture through rapid power, performance, and area estimates of various packaging strategies. As a case study, we examine generated UCIe interfaces across several packaging options.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

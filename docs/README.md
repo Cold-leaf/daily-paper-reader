@@ -6,41 +6,24 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-05-23 ~ 2026-06-01
-- 运行时间：2026-06-01 16:36:27 UTC
+- 最新运行日期：2026-06-01
+- 运行时间：2026-06-01 22:55:15 UTC
 - 运行状态：成功
-- 本次总论文数：7
-- 精读区：5
-- 速读区：2
+- 本次总论文数：1
+- 精读区：0
+- 速读区：1
 
 ### 今日简报（AI）
-本周日报聚焦超维计算、近似最近邻搜索及CXL内存集群等前沿方向。最值得精读的是两篇高分论文：XL-HD基于确定性投影的超维计算扩展方案，以及面向十亿级数据的图近似最近邻搜索与内存处理协同设计。建议关注超维计算硬件加速及近数据处理架构的协同优化趋势。
-- 详情：[/20260523-20260601/README](/20260523-20260601/README)
+今日聚焦2.5D芯片架构中的Chiplet链路IP建模与生成框架。该工作提供了自动化链路IP生成方法，有助于加速2.5D架构探索。建议芯片设计入门者关注其与先进封装的结合点。
+- 详情：[/202606/01/README](/202606/01/README)
 
 ### 精读区论文标签
-1. [XL-HD: Extended Learning in Hyperdimensional Computing via Deterministic Projections for In-Memory Accelerators](/20260523-20260601/2605.24788v1-xl-hd-extended-learning-in-hyperdimensional-computing-via-deterministic-projections-for-in-memory-accelerators)  
-   标签：评分：9.0/10、query:cim
-   evidence：面向内存加速器的超维计算框架
-2. [Co-Designing Graph-based Approximate Nearest Neighbor Search at Billion Scale for Processing-in-Memory](/20260523-20260601/2605.25522v1-co-designing-graph-based-approximate-nearest-neighbor-search-at-billion-scale-for-processing-in-memory)  
-   标签：评分：9.0/10、query:cim
-   evidence：面向处理中存储系统的图ANNS协同设计
-3. [Reconfigurable Multistate MRAM Synapses with Vortex STNO based Neurons for Scalable In-Memory Convolutional Neural Networks](/20260523-20260601/2605.29942v1-reconfigurable-multistate-mram-synapses-with-vortex-stno-based-neurons-for-scalable-in-memory-convolutional-neural-networks)  
-   标签：评分：9.0/10、query:cim
-   evidence：基于MRAM的内存储计算用于CNN
-4. [A Reconfigurable Computing In-Memory Macro with Charge-sharing-based Weighted Accumulator](/20260523-20260601/2605.30814v1-a-reconfigurable-computing-in-memory-macro-with-charge-sharing-based-weighted-accumulator)  
-   标签：评分：9.0/10、query:cim
-   evidence：基于电荷共享的可重构计算内存储宏单元
-5. [Compact and Energy-Efficient Memristive Spiking Neuromorphic Accelerator for Bio-inspired Interception Tasks](/20260523-20260601/2605.31141v1-compact-and-energy-efficient-memristive-spiking-neuromorphic-accelerator-for-bio-inspired-interception-tasks)  
-   标签：评分：9.0/10、query:cim
-   evidence：基于忆阻交叉阵列的存内计算实现节能加速
+- 本次无精读推荐。
 
 ### 速读区论文标签
-1. [CXL-ClusterSim: Modeling CXL-based Disaggregated Memory Cluster for Pooling and Sharing using gem5 and SST](/20260523-20260601/2605.27745v1-cxl-clustersim-modeling-cxl-based-disaggregated-memory-cluster-for-pooling-and-sharing-using-gem5-and-sst)  
-   标签：评分：7.0/10、query:cim
-   evidence：基于CXL的内存分解集群仿真工具
-2. [Uncertainty-triggered wake-up enables energy-efficient, error-resilient edge AI with memristor front ends](/20260523-20260601/2605.29533v1-uncertainty-triggered-wake-up-enables-energy-efficient-error-resilient-edge-ai-with-memristor-front-ends)  
-   标签：评分：7.0/10、query:cim
-   evidence：基于忆阻器的存算一体前端实现低功耗边缘人工智能
+1. [CLIPGen: A Chiplet Link IP Modeling and Generation Framework for 2.5D Architecture Exploration](/202606/01/2605.27757v1-clipgen-a-chiplet-link-ip-modeling-and-generation-framework-for-25d-architecture-exploration)  
+   标签：评分：6.0/10、query:cim
+   evidence：面向2.5D芯片互联IP生成的架构探索框架
 
 
 <div class="dpr-home-promo-card">

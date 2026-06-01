@@ -1,16 +1,304 @@
 {
   "mode": "standard",
-  "generated_at": "2026-06-01T16:19:23.052572+00:00",
+  "generated_at": "2026-06-01T16:31:35.353223+00:00",
   "stats": {
     "mode": "standard",
-    "tag_count": 0,
-    "deep_divecandidates": 0,
-    "deep_cap": null,
-    "deep_selected": 0,
-    "quick_candidates": 0,
-    "quick_skim_target": 10,
-    "quick_selected": 0
+    "tag_count": 1,
+    "deep_divecandidates": 5,
+    "deep_cap": 6,
+    "deep_selected": 5,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
   },
-  "deep_dive": [],
-  "quick_skim": []
+  "deep_dive": [
+    {
+      "id": "2605.24788v1",
+      "source": "arxiv",
+      "title": "XL-HD: Extended Learning in Hyperdimensional Computing via Deterministic Projections for In-Memory Accelerators",
+      "abstract": "Hyperdimensional computing (HDC) is a promising approach for energy-efficient edge machine learning (ML), where low latency, low power, and tight memory budgets are essential. However, traditional HDC relies on symbolic binding and pseudo-random high-dimensional vectors, which require large dimensionality and heuristic updates to reach competitive accuracy, limiting deployment on edge hardware. We introduce XL-HD, a deterministic, projection-based, fully learnable HDC framework tailored for in-memory acceleration within edge computing systems. The method uses a fixed Sobol sequence to project binary inputs, extending learning beyond conventional HDC. During training, class prototypes are optimized in real-valued space and later binarized, enabling an entirely binary dot-product inference pipeline ideal for IMC hardware such as ReRAM crossbars. XL-HD achieves competitive accuracy on MNIST, UCIHAR, and ISOLET while maintaining a compact IMC-based inference engine with $0.395 \\ \\text{mm}^2$ area and only $0.40 \\ μ\\text{J}$ per single-cycle inference.",
+      "authors": [
+        "Sabrina Hassan Moon",
+        "Abu Kaisar Mohammad Masum",
+        "Sercan Aygun",
+        "Dayane Reis"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR",
+        "cs.ET"
+      ],
+      "published": "2026-05-24T00:23:29+00:00",
+      "link": "https://arxiv.org/pdf/2605.24788v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "hyperdimensional computing for in-memory accelerators",
+      "llm_evidence_cn": "面向内存加速器的超维计算框架",
+      "llm_evidence": "面向内存加速器的超维计算框架",
+      "canonical_evidence": "面向内存加速器的超维计算框架",
+      "llm_tldr_en": "XL-HD proposes a deterministic projection-based hyperdimensional computing framework tailored for in-memory acceleration, addressing limitations of traditional HDC for edge ML.",
+      "llm_tldr_cn": "传统超维计算在边缘机器学习中受限于高维度和启发式更新，难以在内存加速器上高效部署。XL-HD提出基于确定性Sobol序列的投影方法，将输入映射到高维并支持端到端学习，在保持低功耗的同时提升了精度，为CIM架构中的超维计算提供了可行方案。",
+      "llm_tldr": "传统超维计算在边缘机器学习中受限于高维度和启发式更新，难以在内存加速器上高效部署。XL-HD提出基于确定性Sobol序列的投影方法，将输入映射到高维并支持端到端学习，在保持低功耗的同时提升了精度，为CIM架构中的超维计算提供了可行方案。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "compute-in-memory architecture",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.25522v1",
+      "source": "arxiv",
+      "title": "Co-Designing Graph-based Approximate Nearest Neighbor Search at Billion Scale for Processing-in-Memory",
+      "abstract": "Approximate Nearest Neighbor Search (ANNS) is a core primitive in modern AI systems, and graph-based methods currently offer the best accuracy-efficiency trade-off at scale. The workload is fundamentally memory-bound: graph traversal produces frequent, irregular memory accesses that cap CPU throughput at main-memory bandwidth, while GPUs lack the high-bandwidth memory capacity to host billion-scale indexes. Processing-in-Memory (PIM) is a natural candidate, as placing computation next to data unlocks the abundant internal bandwidth that such bandwidth-starved workloads demand. Porting graph-based ANNS to PIM, however, exposes several architectural mismatches: each processing unit has only a small local memory, inter-unit communication is costly, host coordination adds overhead, and in-memory compute units are relatively weak -- limitations that have forced prior PIM-based ANNS designs to fall back on cluster-based indexing, whose recall ceiling is far below that of graph methods. This paper presents an algorithm-architecture co-design that overcomes these obstacles through three components: a compacted index layout that shrinks the PIM-resident memory footprint by 14.5x; an asynchronous pipelined scheduler that keeps the host-to-PIM interconnect saturated; and a multiplication-free distance kernel that loses under 0.08% recall. Across three billion-scale benchmarks, the proposed design achieves up to 20x and 17.1x higher throughput than CPU and GPU baselines, respectively, outperforms prior PIM accelerators by 129x in the high-recall regime, and scales gracefully across multi-node deployments and emerging PIM architecture.",
+      "authors": [
+        "Sitian Chen",
+        "Yusen Li",
+        "Yao Chen",
+        "Minwen Deng",
+        "Jintao Meng",
+        "Amelie Chi Zhou"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-05-25T07:22:13+00:00",
+      "link": "https://arxiv.org/pdf/2605.25522v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Co-designs graph-based ANNS for processing-in-memory systems",
+      "llm_evidence_cn": "面向处理中存储系统的图ANNS协同设计",
+      "llm_evidence": "面向处理中存储系统的图ANNS协同设计",
+      "canonical_evidence": "面向处理中存储系统的图ANNS协同设计",
+      "llm_tldr_en": "Co-designs graph-based ANNS for PIM, placing computation near data to overcome memory-bound irregular accesses; billion-scale experiments show high accuracy and throughput, unlocking PIM's internal bandwidth for bandwidth-starved AI workloads.",
+      "llm_tldr_cn": "该论文针对图近邻搜索在传统架构上的内存带宽瓶颈，提出将算法与处理中存储(PIM)硬件协同设计，通过将计算逻辑放置于存储单元附近，利用PIM的高内部带宽加速不规则内存访问。实验表明该方法能在十亿级规模上实现高精度和高吞吐，为存内计算在AI搜索中的应用提供了范例。",
+      "llm_tldr": "该论文针对图近邻搜索在传统架构上的内存带宽瓶颈，提出将算法与处理中存储(PIM)硬件协同设计，通过将计算逻辑放置于存储单元附近，利用PIM的高内部带宽加速不规则内存访问。实验表明该方法能在十亿级规模上实现高精度和高吞吐，为存内计算在AI搜索中的应用提供了范例。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "processing-in-memory systems",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.29942v1",
+      "source": "arxiv",
+      "title": "Reconfigurable Multistate MRAM Synapses with Vortex STNO based Neurons for Scalable In-Memory Convolutional Neural Networks",
+      "abstract": "Magnetic tunnel junction (MTJ)-based magnetic random-access memory (MRAM) is a promising platform for neuromorphic and in-memory computing owing to its non-volatility, high endurance, fast switching dynamics and CMOS compatibility. However, conventional spin-transfer torque and spin-orbit torque MRAM implementations for neural networks often suffer from high critical switching currents, large latency, thermal instability and significant read-write overheads. Here, we demonstrate a unified multistate MRAM-spin-torque nano-oscillator (STNO) architecture that integrates synapses and neurons on a single chip for convolutional neural network (CNN) applications. The system employs 1x8 multistate MRAM arrays as programmable synapses coupled with a vortex-based STNO neuron, enabling both individual and collective programming through fieldline-driven write channels. Multiple configurable resistance states are achieved by tuning internal and external magnetic fields together with bias currents, allowing quantized positive and negative synaptic weights for configurable kernel and pooling operations. The proposed architecture is evaluated through simulation on MNIST, SVHN, CIFAR-10, Google Speech Commands (GSC) and RadioML datasets, achieving accuracy of 99.76%, 87.93%, 78.14%, 87.96% and 56.46% respectively. Based on fabricated device dimensions, the complete architecture occupies ~6171.2 μm2 with an average energy consumption of 200.08 pJ per training and inference cycle for MNIST, highlighting its potential for scalable low-power neuromorphic computing",
+      "authors": [
+        "Ravish Kumar Raj",
+        "Simon N. Richter",
+        "Saeed Baghaee Ivriq",
+        "Oliver Fridorf",
+        "Darío Fernández-Khatiboun",
+        "Yasser Rezaeiyan",
+        "Luana Benetti",
+        "Tim Boehnert",
+        "Ricardo Ferreira",
+        "Hooman Farkhani",
+        "Sonal Shreya",
+        "Farshad Moradi"
+      ],
+      "primary_category": "physics.app-ph",
+      "categories": [
+        "physics.app-ph",
+        "eess.IV"
+      ],
+      "published": "2026-05-28T13:53:51+00:00",
+      "link": "https://arxiv.org/pdf/2605.29942v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "MRAM-based in-memory computing for CNNs",
+      "llm_evidence_cn": "基于MRAM的内存储计算用于CNN",
+      "llm_evidence": "基于MRAM的内存储计算用于CNN",
+      "canonical_evidence": "基于MRAM的内存储计算用于CNN",
+      "llm_tldr_en": "This paper presents a unified multistate MRAM-STNO architecture integrating synapses and neurons for in-memory CNN acceleration, addressing critical issues in conventional MTJ implementations.",
+      "llm_tldr_cn": "针对传统MTJ基MRAM在神经网络实现中的高电流、高时延和热不稳定性问题，本文提出一种集成了多态MRAM突触和涡旋STNO神经元的统一架构，在同一芯片上实现内存储卷积神经网络，显著提升了能效和可扩展性，是CIM架构的重要实践。",
+      "llm_tldr": "针对传统MTJ基MRAM在神经网络实现中的高电流、高时延和热不稳定性问题，本文提出一种集成了多态MRAM突触和涡旋STNO神经元的统一架构，在同一芯片上实现内存储卷积神经网络，显著提升了能效和可扩展性，是CIM架构的重要实践。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "compute-in-memory architecture",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.30814v1",
+      "source": "arxiv",
+      "title": "A Reconfigurable Computing In-Memory Macro with Charge-sharing-based Weighted Accumulator",
+      "abstract": "SRAM-based analog computing-in-memory demonstrates outstanding efficiency. However, it faces three critical challenges: significant ADC overhead, high latency for multi-bit inputs, and limited read bitline voltage. To address these issues, this work proposes a multi-bit highly reconfigurable 256x128 in-memory computing array supporting 1-7b input, 2-4b weight, and 1-7b output. Three key innovations are introduced: 1) The IMADC occupies only 3% area overhead, achieving a 9x improvement compared to previous IMADC; 2) The BSCHA reduces latency by 1.9x and 6.6x compared to traditional pulse-width modulation (PWM) and bit-slicing modes, respectively; 3) A dual-8T bitcell enabling ternary weight storage through a decoupled read path, integrated with a read wordline under-driven cascode technique, improves linearity of unit discharge current by 7x and increases the usable read bitline voltage by 3.5x.",
+      "authors": [
+        "Junyi Yang",
+        "Shuai Dong",
+        "Zhengnan Fu",
+        "Hongyang Shang",
+        "Arindam Basu"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-05-29T04:05:46+00:00",
+      "link": "https://arxiv.org/pdf/2605.30814v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "reconfigurable computing-in-memory macro with charge-sharing",
+      "llm_evidence_cn": "基于电荷共享的可重构计算内存储宏单元",
+      "llm_evidence": "基于电荷共享的可重构计算内存储宏单元",
+      "canonical_evidence": "基于电荷共享的可重构计算内存储宏单元",
+      "llm_tldr_en": "This work presents a multi-bit reconfigurable 256x128 in-memory computing macro with innovations in ADC, accumulator, and cell design to overcome key challenges in SRAM analog CIM.",
+      "llm_tldr_cn": "SRAM模拟计算内存储面临ADC面积大、多比特延迟高和电压不足等问题。本文提出一种可重构的256x128计算内存储宏单元，通过仅占3%面积的IMADC、基于电荷共享的BSCHA累加器以及双8T单元实现三元权重，显著降低了面积开销和延迟，提升了CIM宏的效率和灵活性。",
+      "llm_tldr": "SRAM模拟计算内存储面临ADC面积大、多比特延迟高和电压不足等问题。本文提出一种可重构的256x128计算内存储宏单元，通过仅占3%面积的IMADC、基于电荷共享的BSCHA累加器以及双8T单元实现三元权重，显著降低了面积开销和延迟，提升了CIM宏的效率和灵活性。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "compute-in-memory architecture",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.31141v1",
+      "source": "arxiv",
+      "title": "Compact and Energy-Efficient Memristive Spiking Neuromorphic Accelerator for Bio-inspired Interception Tasks",
+      "abstract": "Spiking neural networks (SNNs) provide an efficient event-driven computing paradigm for bio-inspired interception tasks. However, most implementations rely on von Neumann digital computing platforms, where memory and computation bottlenecks limit energy efficiency. This work presents a compact and energy-efficient memristive neuromorphic accelerator for bio-inspired interception tasks. A novel one-transistor-one-resistor (1T1R) crossbar array is designed to emulate synaptic operations in the in-memory computing (IMC) domain, while circuit-level optimization mitigates membrane drift and improves integration fidelity. In addition, an integrate-and-fire (IF) neuron with separated input and membrane nodes is developed to improve inference robustness during array-interfaced operation. Implemented in the SkyWater SKY130 PDK, the proposed neuron achieves an energy consumption of 10.67 pJ/spike and an area of 906 um^2. System-level results show that the memristive IMC output closely matches the software SNN baseline, with a correlation coefficient of 0.9622, while achieving a 96% interception success rate. These results demonstrate the effectiveness of the proposed design for compact and reliable memristive SNN inference in bio-inspired interception tasks.",
+      "authors": [
+        "Qianhou Qu",
+        "Sheng Lu",
+        "Sungyong Jung",
+        "Qilian Liang",
+        "Chenyun Pan"
+      ],
+      "primary_category": "cs.ET",
+      "categories": [
+        "cs.ET"
+      ],
+      "published": "2026-05-29T10:49:47+00:00",
+      "link": "https://arxiv.org/pdf/2605.31141v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "In-memory computing (IMC) with memristive crossbar for energy-efficient acceleration",
+      "llm_evidence_cn": "基于忆阻交叉阵列的存内计算实现节能加速",
+      "llm_evidence": "基于忆阻交叉阵列的存内计算实现节能加速",
+      "canonical_evidence": "基于忆阻交叉阵列的存内计算实现节能加速",
+      "llm_tldr_en": "This paper presents a compact memristive spiking neuromorphic accelerator that uses 1T1R crossbar arrays for in-memory computing, achieving energy-efficient bio-inspired interception tasks.",
+      "llm_tldr_cn": "针对传统冯诺依曼架构在仿生拦截任务中的能效瓶颈，提出了一种紧凑节能的忆阻脉冲神经形态加速器。该加速器采用1T1R交叉阵列在存内计算域实现突触操作，并优化了电路以抑制膜电位漂移。结果表明，该设计显著提升了能量效率，验证了存内计算架构在低功耗智能处理中的潜力。",
+      "llm_tldr": "针对传统冯诺依曼架构在仿生拦截任务中的能效瓶颈，提出了一种紧凑节能的忆阻脉冲神经形态加速器。该加速器采用1T1R交叉阵列在存内计算域实现突触操作，并优化了电路以抑制膜电位漂移。结果表明，该设计显著提升了能量效率，验证了存内计算架构在低功耗智能处理中的潜力。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "compute-in-memory architecture",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2605.27745v1",
+      "source": "arxiv",
+      "title": "CXL-ClusterSim: Modeling CXL-based Disaggregated Memory Cluster for Pooling and Sharing using gem5 and SST",
+      "abstract": "Large-scale AI training and inference require hundreds of gigabytes to terabytes of DRAM with high peak to average utilization ratios, resulting in overprovisioning. In cloud computing, DRAM constitutes a significant share of the cost. Yet, as shown by recent articles, DRAM is heavily under utilized. Memory disaggregation is a solution to both these problems. With the advent of the CXL protocol, there is renewed interest in designing and optimizing computing systems with disaggregated memory. However, at present, there are limited simulation tools available for exploring the design space and evaluating the performance tradeoffs in computer systems with disaggregated memory.   In this paper, we propose CXL-ClusterSim, a full-system modeling and simulation framework by combining the gem5 simulator for fidelity, with the Structural Simulation Toolkit (SST) for parallel simulation. We outline the challenges in creating this simulation infrastructure and present a design that is scalable, flexible, and reasonably fast to help computer architects to explore the design space of CXL-based disaggregated memory and identify new opportunities for hardware/software codesign and performance optimization.",
+      "authors": [
+        "Kaustav Goswami",
+        "Maryam Babaie",
+        "Hoa Nguyen",
+        "Venkatesh Akella",
+        "Jason Lowe-Power"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-05-26T22:38:47+00:00",
+      "link": "https://arxiv.org/pdf/2605.27745v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "CXL-based disaggregated memory cluster simulation tool",
+      "llm_evidence_cn": "基于CXL的内存分解集群仿真工具",
+      "llm_evidence": "基于CXL的内存分解集群仿真工具",
+      "canonical_evidence": "基于CXL的内存分解集群仿真工具",
+      "llm_tldr_en": "CXL-ClusterSim is a simulation tool for CXL-based disaggregated memory clusters enabling design space exploration of near-memory computing systems.",
+      "llm_tldr_cn": "针对大规模AI训练中内存利用率低和过度配置的问题，提出了CXL-ClusterSim仿真工具。该工具基于gem5和SST，支持对CXL内存分解集群进行建模仿真，可评估近存计算系统的性能权衡。实验表明该工具能有效探索设计空间，为近存计算架构优化提供支撑。",
+      "llm_tldr": "针对大规模AI训练中内存利用率低和过度配置的问题，提出了CXL-ClusterSim仿真工具。该工具基于gem5和SST，支持对CXL内存分解集群进行建模仿真，可评估近存计算系统的性能权衡。实验表明该工具能有效探索设计空间，为近存计算架构优化提供支撑。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "near-memory computing design",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2605.29533v1",
+      "source": "arxiv",
+      "title": "Uncertainty-triggered wake-up enables energy-efficient, error-resilient edge AI with memristor front ends",
+      "abstract": "Memristor computing offers a route to low-energy edge AI, but device variability, sensitivity to operating conditions, and system-integration challenges can hinder deployment. Here we show that these limitations can be mitigated by using memristor AI not as the final decision maker but as the ultra-low-power, always-on front end of a heterogeneous inference system. We implement this architecture by coupling a fabricated memristor Bayesian machine to a programmable CPU running a higher-power, higher-accuracy software neural network. The memristor front end acts as a probabilistic screener. When it predicts an abnormal event or produces an ambiguous or invalid output, a dedicated hardware wake-up path activates the CPU, which produces the final decision. We validate this architecture on a heartbeat-classification benchmark by interfacing the fabricated Bayesian machine with an FPGA-based wake-up platform and CPU back end. The resulting uncertainty-triggered wake-up system achieves high final classification accuracy under nominal operation and maintains this accuracy even when the memristor front end is degraded by voltage scaling or reduced programming margins, because unreliable outputs are converted into recoverable wake-up events instead of becoming silent errors. Post-layout analysis of an ASIC implementation shows that average energy is governed primarily by wake-up frequency, providing practical design rules for choosing front-end operating points. These results establish uncertainty-triggered wake-up as a strategy for energy-efficient, error-resilient edge AI.",
+      "authors": [
+        "Théo Ballet",
+        "Aymen Romdhane",
+        "Bruno Lovison-Franco",
+        "Théo Dupuis",
+        "Adrien Renaudineau",
+        "Felipe Paiva Alencar",
+        "Mohammed Akib Iftakher",
+        "Clément Turck",
+        "Kamel-Eddine Harabi",
+        "Elisa Vianello",
+        "Jean-Michel Portal",
+        "Pascal Benoit",
+        "David Novo",
+        "Damien Querlioz"
+      ],
+      "primary_category": "cs.ET",
+      "categories": [
+        "cs.ET"
+      ],
+      "published": "2026-05-28T07:48:34+00:00",
+      "link": "https://arxiv.org/pdf/2605.29533v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "memristor-based compute-in-memory front end for energy-efficient edge AI",
+      "llm_evidence_cn": "基于忆阻器的存算一体前端实现低功耗边缘人工智能",
+      "llm_evidence": "基于忆阻器的存算一体前端实现低功耗边缘人工智能",
+      "canonical_evidence": "基于忆阻器的存算一体前端实现低功耗边缘人工智能",
+      "llm_tldr_en": "Proposes using memristor AI as an ultra-low-power always-on front end in a heterogeneous system, coupled with a CPU for higher accuracy, demonstrating energy-efficient compute-in-memory.",
+      "llm_tldr_cn": "针对忆阻器计算在边缘AI部署中面临的器件变异性和集成挑战，本文提出将忆阻器人工智能作为超低功耗、始终开启的前端，与更高精度的CPU后端耦合，构成异构推理系统。忆阻器概率筛检器在检测到异常或模糊输出时触发唤醒路径激活CPU。该方法通过将忆阻器用作预筛选而非最终决策者，有效容忍其非理想特性，实现了能效与精度的权衡，为存算一体架构在边缘设备上的实际应用提供了可行方案。",
+      "llm_tldr": "针对忆阻器计算在边缘AI部署中面临的器件变异性和集成挑战，本文提出将忆阻器人工智能作为超低功耗、始终开启的前端，与更高精度的CPU后端耦合，构成异构推理系统。忆阻器概率筛检器在检测到异常或模糊输出时触发唤醒路径激活CPU。该方法通过将忆阻器用作预筛选而非最终决策者，有效容忍其非理想特性，实现了能效与精度的权衡，为存算一体架构在边缘设备上的实际应用提供了可行方案。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "compute-in-memory architecture",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
 }

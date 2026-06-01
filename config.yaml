@@ -25,3 +25,73 @@ subscriptions:
     stage: A
     diff_threshold_pct: 15
   keyword_recall_mode: or
+  intent_profiles:
+    - tag: cim
+      description: 存算一体，主要关注基于混合键合的三维堆叠的近存计算
+      enabled: true
+      paper_sources:
+        - arxiv
+        - biorxiv
+      keywords:
+        - keyword: compute in memory
+          keyword_cn: 存内计算
+          query: compute-in-memory architecture
+        - keyword: hybrid bonding
+          keyword_cn: 混合键合
+          query: hybrid bonding 3D integration
+        - keyword: 3D stacking
+          keyword_cn: 三维堆叠
+          query: 3D stacking memory technology
+        - keyword: near memory computing
+          keyword_cn: 近存计算
+          query: near-memory computing design
+        - keyword: processing in memory
+          keyword_cn: 处理中存储
+          query: processing-in-memory systems
+        - keyword: 3D integrated circuit
+          keyword_cn: ''
+          query: 3D integrated circuit design
+      intent_queries:
+        - query: What are the key benefits of hybrid bonding for 3D stacked near memory computing?
+          query_cn: 混合键合对三维堆叠近存计算的主要优势是什么？
+          enabled: true
+          source: manual
+          note: ''
+        - query: How does compute in memory architecture improve energy efficiency?
+          query_cn: 存内计算架构如何提高能效？
+          enabled: true
+          source: manual
+          note: ''
+        - query: Design challenges of 3D stacking for near memory computing systems
+          query_cn: 面向近存计算系统的三维堆叠设计挑战
+          enabled: true
+          source: manual
+          note: ''
+      updated_at: '2026-06-01T16:27:08.813Z'
+source_backends:
+  arxiv:
+    papers_table: arxiv_papers
+    use_vector_rpc: true
+    vector_rpc: match_arxiv_papers
+    vector_rpc_exact: match_arxiv_papers_exact
+    use_bm25_rpc: true
+    bm25_rpc: match_arxiv_papers_bm25
+    sync_table: arxiv_sync_status
+    sync_success_value: success
+    schema: public
+    kind: supabase
+    enabled: true
+    url: https://lyucdwgefyfbmaiopjbk.supabase.co
+    anon_key: sb_publishable_lX-oi64Uxyd7SIVv3_w2Uw_MTOojeKq
+  biorxiv:
+    papers_table: biorxiv_papers
+    use_vector_rpc: true
+    vector_rpc: match_biorxiv_papers_exact
+    vector_rpc_exact: match_biorxiv_papers_exact
+    use_bm25_rpc: true
+    bm25_rpc: match_biorxiv_papers_bm25
+    schema: public
+    kind: supabase
+    enabled: true
+    url: https://lyucdwgefyfbmaiopjbk.supabase.co
+    anon_key: sb_publishable_lX-oi64Uxyd7SIVv3_w2Uw_MTOojeKq

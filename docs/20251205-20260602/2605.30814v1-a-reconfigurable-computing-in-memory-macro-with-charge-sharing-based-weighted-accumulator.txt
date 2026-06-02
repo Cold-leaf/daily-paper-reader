@@ -1,0 +1,983 @@
+Title: A Reconfigurable Computing In-Memory Macro with Charge-sharing-based Weighted Accumulator
+
+URL Source: https://arxiv.org/pdf/2605.30814v1
+
+Published Time: Mon, 01 Jun 2026 00:34:10 GMT
+
+Number of Pages: 15
+
+Markdown Content:
+> 1
+
+# A Reconfigurable Computing In-Memory Macro with Charge-sharing-based Weighted Accumulator 
+
+Junyi Yang , Graduate Student Member, IEEE , Shuai Dong , Zhengnan Fu , Hongyang Shang ,and Arindam Basu , Fellow, IEEE 
+
+Abstract —SRAM-based analog computing-in-memory demon-strates outstanding efficiency. However, it faces three critical challenges: significant ADC overhead, high latency for multi-bit inputs, and limited read bitline voltage. To address these issues, this work proposes a multi-bit highly reconfigurable 256 ×128 in-memory computing array supporting 1-7b input, 2-4b weight, and 1-7b output. The design employs bit-slicing (BS) with a charge-sharing-based binary-weighted accumulator (BSCHA) and a reconfigurable (1-7b) in-memory analog-to-digital converter (IMADC) with shared voltage references. Three key innovations are introduced: 1) The IMADC occupies only 3% area overhead, achieving a 9× improvement compared to previous IMADC; 2) The BSCHA reduces latency by 1.9× and 6.6× compared to traditional pulse-width modulation (PWM) and bit-slicing modes, respectively; 3) A dual-8T bitcell enabling ternary weight storage through a decoupled read path, integrated with a read wordline under-driven cascode technique, improves linearity of unit discharge current by 7× and increases the usable read bitline voltage by 3.5×. Using noise resilient training, we show software performance for a MLP on MNIST, VGG-8 on CIFAR-10, and Vision Transformer (ViT) on CIFAR-100 with respective accuracy reductions of only 0.1%, 0.4% and 0.4% due to non-idealities. The proposed macro demonstrates high energy/area efficiency (1023.2 TOPS/W, 27 TOPS/mm 2 at 1/2/1b and 8.4 TOPS/W, 0.014 TOPS/mm 2 at 7/4/7b) in 65 nm CMOS. It increases throughput (by 1.9×) and linearity (by 23×) compared to input pulse-width modulation by using BSCHA. Compared to conventional BS with digital accumulation after ADC, this method has 1.5×/6.6× better normalized energy-efficiency/throughput by reducing ADC operations in macro-level. The system-level hardware performance of VGG-8 on CIFAR-10 is evaluated through combined SPICE and NeuroSim simulations, demonstrating the significant 6× enhancements in normalized energy efficiency. 
+
+Index Terms —Computing In-memory, In-memory ADC, Dual 8T SRAM, Charge-sharing, Weighted accumulator. 
+
+I. I NTRODUCTION 
+
+The proliferation of deep neural networks (DNNs) has revolutionized the field of artificial intelligence (AI), enabling state-of-the-art performance in tasks, including computer vi-sion [1], speech processing [2], and image classification [3], [4]. However, the implementation of DNNs on conventional von Neumann computing architectures faces fundamental lim-itations, manifested through the memory wall phenomena [4], 
+
+This work was sponsored in part by RGC (C7003-24Y) and Innovation technology Fund Mid-Stream Research program under Grant ITS/018/22MS. 
+
+(Corresponding authors: Shuai Dong, Arindam Basu) 
+
+Junyi Yang, Shuai Dong, Zhengnan Fu, Hongyang Shang, Arindam Basu are with Department of Electrical Engineering, City University of Hong Kong, Hong Kong, China. (e-mail: shuaidong6-c@my.cityu.edu.hk; arin-basu@cityu.edu.hk.). 
+
+[5]. These bottlenecks originate from the energy-intensive data shuttling between processing units and memory hierarchies. The challenge is further compounded by the escalating scale of modern DNN models, where the storage and frequent access of millions to billions of parameters introduce prohibitive energy overheads and latency penalties that severely constrain system efficiency [6], [7], [8]. Computing in-memory (CIM) has emerged as a good so-lution to overcome these fundamental limitations [8], [9], [10]. By performing computations directly within the memory array, CIM eliminates the energy-intensive data movement characteristic of von Neumann architectures. This approach enables massively parallel multiply-and-accumulate (MAC) operations through concurrent row activation, simultaneously achieving both high computational density and significant reduction in the number of data read/write operations between the processor and memory [11]. According to storage technol-ogy, CIM can be broadly categorized into two classes. One is Non-Volatile Memory-based CIM (NVM-CIM), such as Re-sistive Random-Access Memory (RRAM), Magnetoresistive Random-Access Memory (MRAM), Phase-Change Memory (PCM), etc. Although RRAM-based CIM can achieve high area efficiency due to its small bitcell size, it faces two main issues: the significant programmed error and stuck-at-fault ratio of RRAM devices considerably degrade network accuracy [12]. The primary challenges for MRAM-based CIM are its low on/off ratio and the difficulty of integrating MRAM arrays with complex CMOS peripheral circuits [13]. PCMs [13] offer high ON/OFF ratios, high density, and scalability, making them ideal candidates for crossbars. However, several technology challenges, such as conductance drift over time, high write energy and latency, and low endurance, can ad-versely affect the functionality of PCM-based CIM. The other class is based on volatile memory, such as Dynamic Random-Access Memory (DRAM) and static random-access memory (SRAM). The main drawback of DRAM-based CIM stems from DRAM itself, as it requires periodic refreshing of the stored weights because of facing the challenge of leakage and noise impact [14], which significantly degrades the throughput of CIM. Compared with the aforementioned memories, SRAM-based analog CIM (ACIM) architectures have demonstrated particular promise, delivering better improvements in energy efficiency and throughput while maintaining area efficiency [15], [16], [17]. Compared to Digital CIM (DCIM), ACIM demonstrates superior energy efficiency and reconfigurability, particularly in low-resolution scenarios [4]. ACIM architec-
+
+> arXiv:2605.30814v1 [cs.AR] 29 May 2026 2
+
+tures can be broadly classified into three types [18]: voltage-domain, charge-domain, and current-domain. In voltage-domain CIM [19], a shared read bitline (RBL) is driven by parallel pull-up or pull-down paths, which are activated based on the multiplication results of individual bitcells. However, this voltage-mode approach is often plagued by residual non-linearity and susceptibility to process variations. Charge-domain [20] computing has been introduced to miti-gate the non-linearity and variation issues inherent in analog computation. While this method enhances energy efficiency and throughput, it requires an additional switch per bitcell, an extra cycle for the accumulation operation, and suffers from a larger area footprint due to the necessary capacitors. In current-domain CIM [21], it does not require a large number of capacitors in each bitcell, and the binary multiplication results from bitcells in the same column are accumulated by the voltage drop on the RBL. However, key challenges for current-domain ACIM persist in: (1) larger overhead analog-to-digital converter (ADC) [22], [23], (2) excessive latency of multi-bit input [24], [25], [26], (3) limited linearity of unit discharge current ( Iu) of bitcell and dynamic range (DR) of voltage of read bitline ( VRBL ) [11], [21], (4) process-voltage-temperature (PVT) variation introducing non-negligible errors for MAC operations [21], [27], [19]. This work proposes a multi-bit, highly reconfigurable CIM (1-7/2-4/1-7b, input/weight/output) by using bit-slicing (BS) with charge-sharing based binary weighted accumulator (BSCHA) and reconfigurable (1-7b) in-memory analog to digital converter (IMADC) with shared references. The prin-cipal contributions of this work in addressing aforementioned challenges include: (1) We propose a dual 8T bitcell architecture that enables ternary weights using a decoupled read path, integrated with a read word-line under-driven cascode (RWLUDC) technique. This technique achieves a 3.5× improvement in the DR of 
+
+VRBL compared to prior work [28] and a 1.4× enhancement over conventional cascode structures, while simultaneously improving Iu linearity by 7×. (2) Our work results in 1.9× and 6.6× improvement in latency over conventional pulse width modulation (PWM) mode and BS mode respectively under 7-bit input/output by using BSCHA as shown in Fig. 1(a). It also increases MAC linearity by ≈23× compared to PWM mode. (3) IMADC with shared references diminishes the hardware overhead of ADC without reducing throughput. Our ADC area overhead (ADC area/MAC array area) is merely 3%, which is much lesser than prior work in Fig. 1(b) (9× improvement compared to 27% for traditional IMADC [28] and 1.5× improvement compared to 4.7% for State-of-the-Art (SOTA) [29]). Post layout simulation results demonstrate the IMADC’s robustness to both temperature fluctuations and process variations through replica biasing. The standard deviation of IMADC operation error increases by merely 1.21× at 70 ◦C and 1.18× in SS process corner compared to the TT corner at room temperature (27 ◦C). (4) We select three representative networks based on MLP, VGG-8, and Vision Transformer (ViT) to evaluate the pro-posed method through quantization-aware training (QAT) and (b)       
+
+> IMA
+> JSSC ’25
+> ISSCC ’2 4
+> JSSC ’2 3-1
+> JSSC ’2 3-2
+> JSSC ’2 3-3
+> TCASI ’2 2
+> SAR SAR IMA
+> Our
+> SAR Flash SAR
+> IMA: In -memory ramp ADC
+> In/output bit number 3
+> work
+> (a)
+> 13
+> 4.7
+> Fig. 1. System latency and ADC area overhead: (a) System latency (Our method, PWM mode [30] and BS mode [11]. All three modes utilize the identical type of ADC, specifically the Ramp ADC.). (b) ADC area overhead (ADC area/MAC array area) of our work and previous works (JSSC’25 [31], ISSCC’24 [29], JSSC’23-1 [32], JSSC’23-2 [5], JSSC’23-3 [33], TCASI’22 [19]). Note that SAR and Flash ADCs may have a faster conversion time depending on how many neurons share one ADC.
+
+noise-resilient training (NRT). Under the influence of circuit non-idealities, these three models exhibit maximum accuracy degradations of 0.1%, 0.4%, and 0.4%, respectively, compared to their ideal quantized models. (5) The proposed macro demonstrates high energy/area efficiency (1023.2 TOPS/W, 27 TOPS/mm 2 at 1/2/1b) in 65 nm CMOS. It improves normalized energy efficiency by 1.4× and area efficiency by 2.6× over prior designs. Furthermore, system-level evaluation of VGG-8 on CIFAR-10, conducted using SPICE and NeuroSim, shows a normalized energy efficiency improvement of 6×. The rest of this article is organized as follows. In Section II, we introduce the background and related works on ACIM SRAM macros and Section III describes the design details of hardware. Section IV introduces analog weighted accumulator based on charge-sharing and software design. In Section V, we show the results of hardware and software. Finally, we conclude our article in Section VII. II. B ACKGROUND AND RELATED WORK 
+
+A. Overhead of ADC for ACIM 
+
+A critical bottleneck in analog CIM implementations lies in the tripartite trade-off between ADC-induced area over-head, energy consumption, and computational latency [34]. For ACIM, the ADC is essential as it quantizes the MAC value, which is an analog signal. While column multiplexing techniques (sharing one ADC per M columns) alleviate area costs [35], [36], they degrade throughput proportionally by 
+
+M ×.To mitigate the overhead of conventional ADCs, an IMADC architecture with a conventional ramp generator has been proposed to directly convert analog dot-product results into digital codes [21], [19], [30], [37]. The initial ramp voltage is established by discharging one bitline ( VBL ) after precharging, using 2no−1 replica bitcells for an no-bit resolution ADC, which are also employed in calibration. Subsequently, 2no
+
+replica bitcells dedicated to ramp generation modulate the complementary bitline voltage linearly to generate reference voltage levels. A sense amplifier compares the differential reference voltage ( VBL -VBLB ). In each cycle, the sense am-plifier produces a thermometer code based on the comparison 3
+
+between the dot-product output and the current reference level [30]. This has similar or better throughput as earlier designs [35], [36] but with the advantage of reconfigurability (of resolution and MAC size) as well as robustness to PVT variations due to replica biasing. However, such implementa-tions are limited to binary neural networks (BNNs), which ex-hibit significant accuracy degradation when executing complex neural architectures [21], [19]. Also, The per-column ADC integration imposes substantial hardware overhead that scales exponentially with resolution no, requiring 2no additional bitcells per column (e.g., 64 cells for no = 5 ). Fig. 1(b) shows ADC area overhead defined as the ratio of ADC area over MAC array area in previous works [5], [16], [19], [28], [31], [33]. 
+
+B. Design Challenges of multi-bit input 
+
+BS is a widely-adopted technique for enhancing input bit resolution ( ni) through sequential bit application and post-digitization partial sum (PSUM) accumulation [11], [26]. However, when employing a ramp ADC for output quantiza-tion, the total latency of BS required becomes ni × 2no clock cycles, since each bit demands 2no clocks. Moreover, this incurs ni times energy overhead of ADC as well as additional digital circuits for combining PSUMs. The principle of the PWM input scheme is that the input value is proportional to the pulse width. Given an input resolution of ni bits, the maximum representable value is 2ni , requiring up to 2ni clock cycles to encode. Therefore, for multi-bit input, PWM-based designs [38]–[40] incur a total time cost of ( 2ni + 2no ) clock cycles, where 2ni accounts for the input pulse duration and 
+
+2no for the output ADC conversion. Fig. 1(a) shows this tradeoff between system latency and input/output bit resolution (assuming ni = no). Another issue with the PWM approach for multi-bit in-put is the signal margin, which can be analyzed from the perspective of DR per MAC operation (DR/MAC) [21]. The MAC operation M AC = PNk=1 wkxk. Compared to the bit-slicing method ( x is a single bit), the input x (multi-bit) in the PWM scheme is inherently larger in magnitude. This leads to a significantly larger MAC result, which consequently substantially reduces the signal margin. 
+
+C. Limited DR of VRBL 
+
+While employing multiple read wordlines (RWLs) opera-tions improves energy efficiency and throughput, this tech-nique inherently expands the MAC output voltage range. Consequently, under the fixed DR of VRBL , the signal margin (the minimum voltage difference between successive MAC operations [40]) deteriorates significantly [21]. A smaller signal margin leads to higher quantization errors in the ADC. Therefore, increasing the DR of VRBL is imperative to mitigate this issue. A source degeneration architecture [11] that simul-taneously enhances the signal margin and extends the usable voltage swing range is proposed. This solution demonstrates a 1.44× improvement in signal margin compared to conventional 6T-SRAM cells while preserving MAC operation precision. 
+
+D. Quantization-aware training 
+
+To preserve system-level inference accuracy when deploy-ing networks on the proposed hardware in the presence of practical non-idealities (hardware noise and transistor mis-match), we adopt quantization-aware training (QAT) as an algorithm–hardware co-optimization step. Quantization-aware training is widely recognized as a key enabler for deploying deep neural networks on resource-constrained hardware plat-forms [41]. By explicitly modeling the quantization of weights and activations during training, QAT substantially alleviates the accuracy degradation (10%–80% in [42]) that can arise with post-training quantization (PTQ). This joint optimization allows the model to adapt to low-precision representations, reducing memory footprint and simplifying arithmetic opera-tions [43], [44]. As a result, the trained quantized networks can be mapped directly onto integer-based accelerators, delivering improvements in throughput and energy efficiency. Overall, QAT helps bridge algorithm design and practical hardware deployment, ensuring that hardware-level performance gains translate into robust system-level accuracy. III. P ROPOSED HARDWARE ARCHITECTURE AND 
+
+METHODOLOGY 
+
+A. Hardware Overall 
+
+The top-level schematic of the SRAM-based CIM and IMADC is illustrated in Fig. 2. The schematic includes a 
+
+256 × 127 array of dual 8T SRAM bitcells that perform MAC operations, along with a single reference column ( 256 ×1) that provides reference voltages for the reconfigurable ADC and is shared across the 127-column MAC array. The design also incorporates charge-sharing-based binary-weighted accumula-tors (CHAs), sense amplifiers (SAs), ripple counters (RCTs), input drivers, and voltage buffers. To clearly illustrate the system operation, Fig. 3 (a) depicts the timing sequences for both MAC operations and ADC conversion. During operation, the input bits bi are applied serially to generate the differential voltage VM AC = VM ACP −
+
+VM ACN = PNk=1 WkXik on the bitlines through current-mode operation, where N = 256 represents the dimension of the input vector. The near-memory capacitors CX1 and 
+
+CX2, which have equal capacitance values, perform binary-weighted accumulation of partial sums in charge mode to pro-duce the final accumulated voltage VAcc (+ VAcc − (−VAcc )) .Then, the ADC column generates a reference ramp voltage 
+
+VADC (+ VADC − (−VADC )) that increments every clock cy-cle. This ramp voltage is shared with all remaining columns, enabling each of the 127 SAs to simultaneously compare it with their corresponding VAcc values. Because the ramp voltage is shared across multiple columns, differential voltage buffers are implemented to enhance its driving capability. The RCTs then convert the thermometer-coded outputs from the SAs into binary format. Fig. 3(b) shows the signal waveforms at the four input terminals of the SA, while Fig. 3(c) illustrates the quantization process of the 2-bit ramp ADC and the output of the SA. 4BL PCH             
+
+> RWL  drivers
+> Dual 8T
+> array
+> (MAC)
+> Col. 0Col.126
+> SA
+> Voltage
+> buffer
+> …
+> Output
+> Input
+> …CHA
+> RCT
+> SA SA
+> CHA CHA
+> RCT RCT
+> Cell Cell
+> Dual 8T SRAM
+> RBLL
+> BLBL
+> WL
+> BLL
+> RBLR
+> BLBR
+> WL
+> BLR
+> VLVR
+> RWL
+> M0L M0R
+> M1L M1R
+> Weight( VL, VR)
+> Input (RWL)
+> 1 (H)
+> 0 (L) 0(NC)
+> -1(L, H)
+> NC: No change
+> 0(NC)
+> 0(NC)
+> 0(L, L)
+> 0(NC)
+> 1(H, L)
+> +1(+ △V)
+> (a)
+> (b)
+> One Col . For  AD C ref.
+> -1( -△V)
+> Cell Cell
+> Row0
+> Row255
+> …
+> Fig. 2. (a) Hardware structure of the proposed dual 8T SRAM CIM and IMADC. (b) Information of dual 8T SRAM bitcell.
+
+B. In-Memory Computing Using Dual 8T SRAM Bitcell 
+
+The proposed macro architecture employs a dual 8T SRAM bitcell, as illustrated in Fig. 2(b). This design enables bi-nary multiplication between input data and ternary weights through an decoupled read pathway implemented by four red NMOS transistors (arranged symmetrically as depicted in the schematic). The multiplication mechanism operates as follows: The read wordline (RWL) receives binary input signals represented by either high or low DC voltage levels. Meanwhile, each 6T-SRAM bitcell stores ternary weight values encoded in three possible states: -1 (V L=low, V R=high), 0 (both V L and VR=low), or 1 (V L=high, V R=low). Prior to computation, both read bitlines (RBLL and RBLR) are initialized to high potential through PMOS pre-charge transistors controlled by the PCH MAC signal (Fig. 3). The multiplication truth table appears in Fig. 2. Key ob-servations include: (1) With RWL at logic low (input=0), no current discharges the RBLL or RBLR, regardless of the weight stored in the 6T-SRAM bitcell. (2) When RWL activates (input=1), selective discharge occurs through the NMOS transistor, where the gate is linked to the internal 6T-SRAM cell with a high voltage (0.5 V), creating either positive or negative differential voltage between RBLL and RBLR (+ ∆V/-∆V). This voltage difference encodes the mul-tiplication result. When the weight is 0 both V L and V R=low), no current discharges the RBLL or RBLR, regardless of the inputs, which is called zero-skipping (ZOSKP) for weights. Accumulation is achieved through the simultaneous discharge of the bitline capacitor CBL by all bitcells within a column. The resulting MAC value exhibits a linear dependence on the voltage drop generated during this capacitive discharge process. A comprehensive analysis of this mechanism will be presented in Section IV. 
+
+C. RWL Underdrive enabled Cascode for enhanced DR of 
+
+VRBL 
+
+A fundamental limitation in current-based MAC architec-tures stems from the nonlinear discharge characteristics of the bitline capacitance CBL . This nonlinearity arises from the dependence of the unit bitcell discharge current Iu on the drain-source voltage VDS , which varies with the dynamically changing bitline voltage [19]. This can be improved by in-creasing the output impedance of the effective current source created by transistors M0 (L/R) and M1 (L/R) in Fig. 2 by making M1 behave as a cascode [45]. We propose to achieve this by RWL underdrive voltage enabled cascode (RWLUDC) technique–the supply voltages for RWL is set to 0.8 V while RBLL/RBLR pre-charging are set at 1 V while gate voltage of M0 is at 0.5 V (6T-SRAM supply voltage). The minimum RBL voltage for which M1 acts as a cascode is given by 
+
+Vmin = VRW L −VT 1 where VT 1 denotes the threshold voltage of M1, i.e. lower VRW L leads to higher RBL swing. After lowering VRW L , the saturation region range of the Cascode (from Vmin to VDD ) increases because Vmin decreases. From the simulation results in Fig. 4(b), the saturation region of the RWLUDC is 190 mV larger than that of the conventional cascode structure. We implemented the RWLUDC by reducing the power supply voltage of the RWL buffer to 0.8 V instead of VDD = 1 .0 V as illustrated in Fig. 4(a). The cost associated with this approach is the requirement for an additional 0.8 V DC power supply to provide power to the buffer. The proposed technique achieves a significant improvement in voltage swing characteristics, as demonstrated in Fig. 4. For a 1% variation in Iu, we obtain an RBL DR of 700 mV, which represents a 7 × reduction in current variation sensi-tivity compared to conventional implementations. In contrast, conventional approaches must constrain their DR to approxi-mately 510 mV (1.4 × reduction) to maintain the same 1% Iu
+
+variation tolerance. This performance limitation becomes even more pronounced in single-transistor (7T bitcell) discharge paths, where the achievable signal swing is further restricted to approximately 200 mV [28]. We simulated the timing of RWL at 0.8V and 1V, and found that the latency of RWL at 0.8V increases by 0.25 ns. Our maximum frequency is 200 MHz, corresponding to a cycle time of 5 ns. The additional delay of 0.25 ns accounts for only 5% of the cycle (0.25 ns/5 ns = 5%), which is negligible and will not affect the overall system throughput. 
+
+D. Reconfigurable 1-7 bit In-Memory Analog-Digital Con-verter (IMADC) with Shared References 
+
+Fig. 3 illustrates the architecture and operational sequence of the IMADC, highlighted in blue. The IMADC employs replica 5PCH_MAC 
+
+> RWL0
+> VDD
+> SA
+
+wm          
+
+> 1
+> 0
+> 1
+> b0
+> Char -
+> shar b1
+> 1
+> 1
+> 0
+> Char -
+> shar
+> MAC
+> input Enable (SADC )
+> Rp m+1
+> Rp n RWLn
+> PCH_ADC
+> Voltage
+> buffer
+> RCT
+> -VADC
+> Output
+> ADC Col.
+> MAC Col.0 MAC Col.1
+> SA
+> RCT
+> Output
+> S1 S1
+> S2 S2
+> CX1
+> CX2
+> SADC SADC
+> CX1
+> VON VON
+
+w0 -1
+
+wn
+
+> -1
+> +1
+> +1
+> Ini 0
+> Ini m
+> SA output ( VON )
+> RWLm
+
+w0
+
+wn
+
+wm    
+
+> VAcc 1
+> VMACN VMACP
+> RCT Output (binary) : 10
+> VADC =+ VADC -(-VADC )Ramp ADC (2b)
+> t
+> Vinit
+> VAcc =+ VAcc -（-VAcc ）
+
+wm     
+
+> CBL CBL CBL CBL
+> VAcc 2VAcc 2VAcc 2
+> +VADC
+> Calib
+> +VAcc
+> -VAcc
+> +VADC
+> -VADC
+> (a)
+> (b)
+> (c)
+> t
+> Internal SA
+> waveforms
+> Voltage
+
+Fig. 3. (a) Detailed circuit and timing diagram of MAC columns and IMADC. (b) Internal signals of SA. (c) IMADC principle. 510mV 
+
+700mV 
+
+ΔIu/I umax =1% 
+
+> ΔIu/I umax
+> =7%
+
+ΔIu/I umax =1% 510mV 
+
+700mV 
+
+ΔIu/I umax =1% 
+
+> ΔIu/I umax
+> =7%
+
+ΔIu/I umax =1% 
+
+Iu
+
+> RBL
+
+RWL 
+
+VDD CORE 
+
+(0.5V) 
+
+VDD (1.0 V) 
+
+6T -
+
+SRAM 
+
+(a) (b)
+
+M1 
+
+M0 
+
+0.8V 1.0 V
+
+BUF 
+
+Fig. 4. (a) Schematic of RWLUDC. (b) Voltage swings and current variations between the proposed RWLUDC and conventional cascode architecture based on SPICE simulation. 
+
+cells that are structurally identical to those used in the MAC array. The conversion process consists of two consecutive phases: (1) the initial ramp voltage Vinit is established within a single clock cycle by activating 2no−1 bit-cells assigned a weight of −1 as shown in Fig. 3; (2) subsequently, the ramp is generated by sequentially enabling 2no bit-cells with a weight of +1 at each clock cycle, followed by successive comparisons using a SA. The schematic in Fig. 3 outlines the global ramp reference voltage ( VADC ) generation for a 2-bit IMADC and the quantization process of the accumulated voltage ( VAcc ) in the MAC column. Our IMADC design fundamentally differs from prior archi-tectures through a shared reference scheme. Prior implemen-tations such as [19] employed per-column ramp generators, incurring an area overhead of approximately 50%. In our design, this is replaced by a single global reference gener-ator. To prevent overlap between MAC and ADC operations and minimize power dissipation from switching and voltage buffers, an Enable signal ( SADC ) is introduced to ensure the ADC starts after the MAC operation ends. SADC is used to gate the PCH and RWL to create PCH ADC and RP signals for the ADC column and it also controls the activation of the SA. The number of cells engaged in ramp generation can be configured according to the target resolution. With N = 256 
+
+rows available, a maximum resolution of no = 7 bits is achievable, utilizing 128 cells; the remaining 128 cells are reserved for the initial ramp voltage and calibration purposes to ensure the ramp crosses zero, as discussed in [19]. While the proposed approach achieves a significant reduc-tion in area overhead to ≈ 3% (Fig. 1(b)), it requires two modifications–(1) the SA has to be converted to a double 6Vin      
+
+> M1
+> M3
+> M2
+> M4
+> M6 (10 μ/60n)
+> M5 (10 μ/60n)
+> (10 μ/300n)
+> (10 μ/300n)
+> (a) (b) Monte -Carlo
+> (1k)
+> Offset (mV)
+> μ=3.3 mV
+> σ=0.1 mV
+> Vout
+> Fig. 5. Self-biased voltage buffer (a) Circuit Diagram. (b) Monte Carlo simulation for voltage offset showing it to be less than ADC LSB.
+
+differential one (Schematic of SA is shown in Fig. 3) [46] that compares the differential ramp voltage VADC with a differential VAcc and (2) a voltage buffer has to be used after the ramp generator to drive the input capacitance of 
+
+127 SAs. The output signal VON of the SA is the input of the RCT. In the scenario where VAcc = 2 , as illustrated in Fig. 3 (c), the output of the RCT is 10 . The RCT acts as a thermometer to binary code converter, eliminating the need for large register arrays to store the thermometer code, thereby improving overall area efficiency. The IMADC incorporates two self-biased voltage buffers (Fig. 5(a)). The principle of the self-biased voltage buffer is as follows. When the input voltage Vin increases, the drain voltages of M1 and M3 decrease. This triggers M6 to turn on, causing a surge in the branch current. This current flows through M4 to the output node, effectively charging the capacitive load (comprising 127 SAs). Under this condition, the current through M5 remains near zero. Conversely, when 
+
+Vin decreases, M5 becomes highly conductive, allowing a large current to be sunk from the output capacitor through 
+
+M2 to ground. This configuration allows the buffer to provide high sourcing and sinking peak currents on demand during transitions, while maintaining a very low quiescent (static) current during steady-state. The proposed self-biased buffer achieves a 62 MHz band-width and an 88V/μs slew rate with a dynamic power con-sumption of only 40 μW from a power supply of 1 V. With an ADC resolution of 4.8 mV, the settling time is merely 0.05 ns even when driving the input capacitance ( ≈ 100 fF ) of 127 SAs simultaneously. Consequently, even if the ADC operates at its maximum frequency of 200 MHz (with a 5 ns clock period), the settling time accounts for only 1% of the cycle, indicating a negligible impact on performance. In the Monte Carlo (MC) simulation depicted in Fig. 5(b), the offset voltage determined by the output difference of the two voltage buffers minus the input difference is shown. The MC simulation results (Fig. 5(b)) show the offset voltage distribution, defined as the output voltage difference minus the input voltage difference of the two buffers. The results indicate a mean offset of 3.3 mV with a standard deviation of 0.1 mV, which is well below the ADC’s LSB value of 4.8 mV, thereby eliminating the need for offset calibration. Despite the inclusion of these buffers and a more complex SA, the proposed architecture consumes approximately 3% less energy compared to the ramp generator in every column [19] owing to reduced bitline capacitances and lower switching energy achieved through the shared reference scheme. Comparing traditional analog buffers, such as a super source follower (SSF), our benefits are as follows. 1) Minimized input-output voltage drop: A major drawback of the SSF is the inherent VGS drop between the input and output, which typically ranges from 200 mV to 500 mV in 65 nm CMOS technology. Such a large drop significantly compresses the signal dynamic range, which is unacceptable for high-precision reference sharing. In contrast, our proposed buffer achieves a minimal input-output voltage offset of only 3.3 mV, ensuring nearly unity gain and maximizing the available voltage for the SAs. 2) Standard buffers often require complex external biasing networks to maintain stability and bandwidth. The proposed architecture utilizes a self-biasing mechanism, which not only reduces the overall silicon area and routing complexity but also allows the buffer to automatically adapt its power consumption based on the input level. We performed parasitic extraction for layout, and the equiv-alent total parasitic capacitance of the ADC reference signal is 96 fF, with a parasitic resistance of 160 ohms. After incorporating the parasitic parameters into the circuit for post-layout simulation, the settling time skew between the nearest column 1 and the farthest column 127 is approximately 0.1 ns, which is negligible compared to our fastest clock frequency of 200 MHz. 
+
+E. Method for multi-bit weight 
+
+Our hardware architecture supports multi-bit weights to cater to the requirements of complex networks. Multiple-bit weights can be realized by connecting multiple cells in parallel. Fig. 6 illustrates how multiple cells are used to represent a multi-bit weight in both cases (3-bit and 4-bit weights). For instance, in a 4-bit configuration, excluding the sign bit, the remaining three bits can be implemented using 1, 2, or 4 cells in parallel (for a total of 7 cells for one 4-bit weight). The sign of the weight can be intrinsically implemented using a dual 8T architecture based on the usage of the left or right cells. The inputs of 7 cells are identical. Although this approach require a significant number of cells, especially as the bit count increases, the advantages of this method include low latency—requiring only one cycle for implementing multi-bit weight—along with reconfigurability and high flexibility, as it can support weights ranging from 2 to 4 bits. It is worth noting that this method is primarily suitable for neural networks with low-precision weights. As the weight precision increases, the number of cells required to represent a single weight grows exponentially, which inevitably leads to an increased system level overhead. IV. A NALOG WEIGHTED ACCUMULATOR AND SOFTWARE DESIGN 
+
+A. Operating Principle of Analog Accumulator 
+
+Conventional BS in CIM applies the input bits b0 to bni−1
+
+serially over ni cycles while the MAC voltage is digitized 7W0=1         
+
+> W1=1 3 (1+2)
+> Cell # per weight
+> 1
+> 3 ( -3,...,3)
+> Signed weight bit #
+> 2 ( -1,0,1)
+> 7 (1+2+4) 4 ( -7,...,7)
+> Weight=+3 (0 1,3 bit)
+> 1
+> W2=1 2
+> W0=-1
+> W1=0
+> W3=-1
+> Weight= -5 (1 101,4 bit)
+> -1
+> W2=0
+> W4=-1
+> W5=-1
+> W6=-1
+> 0
+> -4
+> Sign bit 1Negative
+> 0Positive
+> Cell Cell
+> 1
+> Fig. 6. Method for multi-bit weight with two cases (3-bit and 4-bit weights).
+
+separately for every bit to produce psums P0 to Pni−1. The final MAC result is obtained by weighted summation in the digital domain as Pni−1 + Pni−2 
+
+> 2
+
++ ... + P0 
+
+> 2ni−1
+
+. The resulting energy ( Econv ) and latency ( Tconv ) in terms of clock cycles of the conventional BS approach are given by: 
+
+ Econv = ni (EM AC + EADC + Edig )
+
+Tconv = ni (TM AC + TADC + Tdig ) (1) where E(T )M AC , E(T )ADC and E(T )dig denote the en-ergy (latency) of MAC, ADC and digital weighted accumula-tion respectively for every cycle. This incurs a heavy penalty in terms of energy and latency due to the repeated operation of the ADC over ni cycles. To overcome this issue, we propose a binary weighted accumulation before digitization technique accomplished by the addition of two capacitors and four switches between RBLL and RBLR (Fig. 3). The simplified circuit diagram is illustrated in Fig. 7(a), where CBL represents the parasitic capacitance on RBL, and IM ACN and IM ACP are the total discharge currents of each column. By applying Kirchhoff’s Current Law, we can get Eq. (2). 
+
+ IMACN + ICBLN + ICXN = 0 
+
+IMACP + ICBLP + ICXP = 0 (2) From the capacitor’s current and voltage formulas, we can obtain Eq. (3) from Eq. (2). 
+
+
+
+IM ACN = −ICXN − ICBLN 
+
+= CX1
+
+d (VM ACP − VM ACN )
+
+dt − CBL 
+
+dV M ACN 
+
+dt IM ACP = −ICXP − ICBLP 
+
+= −CX1
+
+d (VM ACP − VM ACN )
+
+dt − CBL 
+
+dV M ACP 
+
+dt (3) Subtracting the two currents in Eq. (3) yields Eq. (4). 
+
+IMACP − IMACN = (2 CX1 + CBL ) d (VM ACN − VM ACP )
+
+dt (4) Intuitively, CX1 is used to sample the MAC voltage in every cycle for every input bit, and then redistribute it with an equally sized capacitor CX2. The bitcell array layout is designed to utilize metal layers M1 to M4. To optimize the overall chip area, metal layers M6 to M7 are allocated for constructing MOM capacitors CX1 and CX2, while metal layer M5 is grounded to shield the bitcell array from the capacitors. Each capacitor has an area of 3×47 μm 2 , enabling the straightforward placement of two MOM capacitors on top of every column in the bitcell array without incurring any additional area overhead. This process results in the binary weighted charge sharing based accumulation required to combine the partial sums for every bit. It is similar in principle to charge redistribution DACs [45]; however, instead of an input digital code, adifferent analog MAC voltage is input in every cycle. The detailed process is shown in Fig. 7(b) including the timing diagram of pre-charging, input pulse, and charge-sharing control switches S1 and S2. We analyze the case for the i-th bit of the input (assuming both capacitors were reset before the first input bit was presented): 1) During pre-charging, switch S1 is closed, and S2 is open. After pre-charging, the voltages of the two CBL s and the voltages across CX1 reach VDD resetting the previously stored voltages. 2) Subsequently, RWL is enabled for time ∆t, initiating the discharge of CBL . The voltage on CX1 changes as the two 
+
+CBL s discharge. We can derive Eq. (5) from Eq. (4) for the voltage VM AC = VM ACN − VM ACP as: 
+
+V iM AC =
+
+ Ii 
+
+> MACP
+
+− Ii
+
+> MACN
+
+ ∆t
+
+2CX1 + CBL 
+
+= Iu
+
+PNk=1 WkXik
+
+2CX1 + CBL 
+
+∆t
+
+(5) where V iM AC denotes the MAC voltage developed on the capacitors CBL and CX1 when the i-th input bit is presented to the circuit. A simplified equivalent circuit is presented in Fig. 7(b) (Step 1). 3) Subsequently, S1 opens, and S2 closes, initiating the charge-sharing between capacitors CX1 and CX2 as shown in Fig. 7(b) (Step 2). The voltage on capacitor CX2 denoting the final accumulated voltage VAcc becomes a combination of half of its previous value V i−1 
+
+> Acc
+
+and half of the the new MAC value V iM AC as shown in in Eq. (6): 
+
+
+
+CX2V i−1 
+
+> Acc
+
++ CX1V iM AC = V iAcc (CX1 + CX2)
+
+V iAcc = V i−1
+
+> Acc
+
+2 + V iM AC 
+
+2 =
+
+> i
+
+X
+
+> k=0
+
+V kM AC 
+
+2i+1 −k
+
+(6) The energy and latency for our approach can be written as: 
+
+(Eproposed = ni (EM AC + Eana ) + EADC 
+
+Tproposed = ni (TM AC + Tana ) + TADC 
+
+(7) where E(T )ana denotes the energy (latency) of analog weighted accumulation and other terms are as defined earlier. The major advantage of our approach stems from the fact that the ADC is now operated only once as opposed to ni times as in Eq. (1). The errors induced by the analog accumulation can be compensated by co-design of the algorithm as shown in Sec. IV-C. In contrast to the PWM mode where the input latency is 
+
+2ni , our method demonstrates clear advantages in terms of input latency, as shown in Fig. 1(b) (18× improvement for 8(b)             
+
+> PCH
+> RWL
+> Cycle 0
+> S1
+> Cycle 1 Cycle 2
+> S2
+> Input b 0Input b 1Input b 2
+> Step1
+> Step2
+> CBL
+> IMACN
+> ICBLN
+> ICXN
+> 2C X1
+> VMACN
+> CBL
+> IMACP
+> ICBLP
+> ICXP
+> 2C X1
+> VMACP
+> S1 S1
+> S2
+> CX2
+> S2
+> Step1
+> Charge -sharing
+> CX1
+> S1 S1
+> S2 S2
+> CX2
+> VMACN VMACP
+> CBL
+> IMACN
+> ICBLN
+> ICXN
+> CBL
+> IMACP
+> ICBLP
+> ICXP
+> Step2
+> (a) Charge -sharing
+> CX1
+> S1 S1
+> S2 S2
+> CX2
+> VMACN VMACP
+> CBL
+> IMACN
+> ICBLN
+> ICXN
+> CBL
+> IMACP
+> ICBLP
+> ICXP
+
+Fig. 7. (a) Effective circuit model for generation of differential MAC voltage and charge sharing. (b) Timing diagram of charge sharing and equivalent circuit for two steps. The MAC voltage is sampled on CX1 when S1 and RWL are enabled (Step 1), while charge redistribution between CX1 and 
+
+CX2 occurs when S2 is enabled (Step 2). Buffer noise (mV) Accumulator capacitance (fF) 
+
+Monte -Carlo 
+
+(1k) 
+
+μ=50.1 fF 
+
+σ=2.4 fF 
+
+Monte -Carlo 
+
+(1k) 
+
+μ=0.15 mV 
+
+σ=0.01 mV 
+
+(a) (b) 
+
+Fig. 8. (a) Monte Carlo simulation for buffer noise. (b) Monte Carlo simulation for capacitance of analog accumulator. 
+
+7-bit input). Furthermore, in comparison to the PWM mode for multi-bit input, our method exhibits superior linearity in generation of VAcc due to smaller voltage swing on VRBLL/R .As mentioned in Section III-C, Early effect of discharge transistor of the bitcell (M0, M1) results in a decrease in Iu,subsequently diminishing VAcc and giving rise to considerable errors. μ=-0.08 LSB 
+
+> σ=0.90 LSB
+> μ=-0.10 LSB
+> σ=0.92 LSB
+> ADC error without accumulator mismatch
+> (LSB)
+> ADC error with accumulator mismatch
+> (LSB)
+> Probability
+> Probability
+
+Fig. 9. ADC error distribution (ADC error= (simulated ADC output-theoretical ADC output)/resolution. 
+
+B. Non-ideality Analysis 
+
+(1) Noise analysis. Compared to other charge sharing methods [35], our proposed method does not require binary weighted capacitors, reducing area and matching requirements. Usage of differential architecture helps to reduce the effect of charge injection in the switches. In our implementation, 
+
+CX1 = CX2 = 50 fF is chosen to make it approximately similar to CBL /2 (balancing two parts in denominator of Eq. (5)) since it provides a good tradeoff between reducing thermal noise and maintaining large enough MAC voltages. Thermal noise comprises two primary components: sampling noise originating from the accumulator and the shared reference, and buffer noise associated with the shared reference. The contribution of sampling noise from each switch is kT/C (k is the Boltzmann constant and T is the absolute temperature in Kelvin), which is 20 μV in our design given CX1 = CX2 = 50 
+
+fF. As the accumulator operates over ni cycles, the total sampled noise is Pni−1 
+
+> k=0
+> Vnoise (k)
+> 2ni−k
+
+, which is dominated by the contribution from the final cycle, as noise from earlier cycles is attenuated by a factor of 1/2 during the accumulation process. For a 5-bit input system, the IMADC LSB (step size of IMADC) is 4.8 mV, while the total noise from the four switches, calculated by power summation due to their uncorrelated nature, is 40 μV. This indicates that the thermal noise is negligible. We performed a noise simulation on a buffer with a load capacitance of 100 fF. The noise was integrated over the frequency range of 1-1000 MHz to obtain the effective noise voltage value. MC simulations were performed on this effec-tive noise voltage value, yielding the results presented in Fig. 8(a), which show a mean noise value of 0.15 mV. This value is significantly smaller compared to the 4.8 mV (LSB of the IMADC), demonstrating negligible buffer noise impact on the quantization precision of IMADC. 
+
+(2) Mismatch analysis of analog accumulator. Consid-ering the impact of capacitor mismatch on charge sharing, we conducted MC simulations on the accumulator capacitance values, with results as shown in the Fig. 8(b). The capacitance values follow a normal distribution N(50.1 fF, 2.4 fF). Based on the 3σ rule, CX2 = μ + 3 σ = 57.3 fF are used for SPICE simulation while CX1=50 fF. We simulated the actual CIFAR-10 dataset on VGG-8 model under a 4-bit ADC and 2-bit 9μ=0. 32 mV     
+
+> σ=0.0 2mV
+> μ=-0.50 mV
+> σ=0. 18 mV
+> Fig. 10. (a) SA schematic. (b) Monte Carlo simulation for SA noise. (c) Monte Carlo simulation for SA mismatch.
+
+weight configuration, and the resulting ADC error distribution is shown in Fig. 9(left). Based on the distribution of MAC values in the quantized network, the step size of the ADC is 16. For comparison with the effect of mismatch, we also plotted the ADC error distribution without accumulator mismatch in Fig. 9(right). The standard deviation varied by only 2%. To further validate the impact of capacitor mismatch on network accuracy, we incorporated a noise model with mismatch into the VGG-8 network. The inference accuracy decreased by merely 0.5% compared to the same network utilizing noise model without mismatch. 
+
+(3) Mismatch and noise analysis of SA. Fig. 10 (a) shows the schematic of SA. We also performed a noise and mismatch MC simulation of SA using the same method as the buffer. Simulation results in Fig. 10 (b) and (c) indicate a mean noise of 0.32 mV and a mismatch of -0.5 mV. Both of the two values are significantly smaller compared to the 4.8 mV (LSB of the IMADC), demonstrating negligible SA noise and mismatch impact on the quantization precision of IMADC. 
+
+C. Quantization-aware training (QAT) and noise-resilient Training (NRT) 
+
+We adopt QAT to enable low-bit weight quantization [41]. Let m denote the per-layer (per-tensor) mean absolute weight: 
+
+m = 1
+
+|W| 
+
+X
+
+> i∈W
+
+|Wi| , (8) where W represents the number of all weights in the layer. For ternary weight quantization (±1, 0): α = 0 .7 m. Weights are quantized as follows: 
+
+Algorithm 1 Noise resilient training. Input: Xt, Wt and σ
+
+Output: Wt+1 
+
+loop 
+
+Feed forward propagation: 
+
+Yt ← Q(Wt · Xt)
+
+Zt ← f (Yt + σ)
+
+Back-propagation propagation: 
+
+gt ← calculate gradient based on Wt and f (Wt · Xt)
+
+Wt+1 ← Wt + η × gt
+
+end loop 
+
+Wi =
+
+
+
++1 , Wi > α 
+
+0, −α ≤ Wi ≤ α
+
+−1, Wi < −α
+
+(9) For signed 3-bit weight quantization (±3, ±2, ±1, 0): α =0.5 m, β = 1 .5 m, γ = 2 .5 m, Then weights are quantize as 
+
+Wi =
+
+
+
++3 , Wi > γ, 
+
++2 , β < W i ≤ γ, 
+
++1 , α < W i ≤ β, 
+
+0, −α ≤ Wi ≤ α, 
+
+−1, −β ≤ Wi < −α, 
+
+−2, −γ ≤ Wi < −β, 
+
+−3, Wi < −γ. 
+
+(10) The thresholds (α, β, γ ) are dynamically computed from the current full-precision weights at each training step. This on-the-fly calibration ensures balanced dynamic range coverage and encourages sparsity. The induced zeros allow for zero-skipping (ZOSKP) to reduce compute energy, as detailed in Section V-A. To address the detrimental impact of circuit non-idealities in the proposed architecture—including noise, mismatch and discharging currents of the bitcells—we employ NRT. This methodology compensates for inference accuracy degradation by explicitly modeling hardware imperfections during neural network training, drawing inspiration from QAT. As formal-ized in Algorithm 1, NRT incorporates stochastic noise pertur-bations ( δ) sampled from empirical distributions derived from SPICE-level circuit simulations (Fig. 11). These distributions capture the statistical signatures of hardware non-idealities, ensuring realistic noise profiles during training. In the feed-forward phase, the quantized MAC output Yt is corrupted by additive noise δ, yielding a non-ideal activation output Zt. This perturbed value propagates from first layer to last layer to emulate inference behavior in hardware. During backpropagation, however, gradient ( gt) is computed using the ideal output f (Wt ·Xt) rather than Zt. This decoupling ensures accurate gradient estimation by avoiding noise-induced bias in weight updates, while the feed-forward corruption forces the network to learn noise-invariant representations. The weight update rule consequently minimizes the divergence between ideal and noise-perturbed outputs across iterations, enhancing hardware robustness. 10 Error:                       
+
+> μ= 0.04 LSB
+> σ= 0.70 LSB
+> Error:
+> μ= -0.12 LSB
+> σ= 1.06 LSB
+> Error:
+> μ= -0.05 LSB
+> σ= 0.87 LSB
+> Error:
+> μ= -0.83 LSB
+> σ= 0.81 LSB
+> Error:
+> μ= -0.09 LSB
+> σ= 1.03 LSB
+> 0°C@TT 70°C@TT 27 °C@TT 27 °C@FF 27 °C@SS 0°C@TT 70°C@TT 27 °C@TT 27 °C@FF 27 °C@SS
+> Theoretical output of ADC
+
+Fig. 11. Post layout simulation versus theoretical 4-bit IMADC output across temperature variations (0°C, 70°C, 27°C) and different process corners (TT, FF, SS) (The step size of IMADC is 16, which is determined based on the range of the MAC). 92.9 92.7                               
+
+> 90.5
+> 93.4 92.8 92.6
+> 90.1
+> Baseline 5-bit 4-bit 3-bit
+> 85
+> 90
+> 95
+> Quantized VGG-8
+> Accuracy (%)
+> Quant.+ADC noise
+> Float-point model
+> 100 97.3 97.2
+> 96.7
+> 97.8
+> 97.3 97.1
+> 96.6
+> Baseline 4-bit 3-bit 2-bit
+> 94
+> 96
+> 98
+> 100 Quantized MLP
+> Accuracy (%)
+> Quant.+ADC noise
+> Float-point model (a)
+> (c) 91.4 90.9 90.4
+> 92.3 91.3 90.6 90
+> Baseline 6-bit 5-bit 4-bit
+> 80
+> 85
+> 90
+> 95
+> 100 Quantized ViT
+> Accuracy (%)
+> Quant.+ADC noise
+> Float-point model (d)77.5 77.1 75.9
+> 78.2 77.3 76.8 75.5
+> Baseline 6-bit 5-bit 4-bit
+> 60
+> 70
+> 80
+> 90 Quantized Inception-V3
+> Accuracy (%)
+> Quant.+ADC noise
+> Float-point model
+> (b)
+
+Fig. 12. The inference accuracy results with hardware-simulated ADC noise and quantization model are compared with the software baselines using the floating-point model, as well as quantization model under different bit weight and ADC. (a) MLP with 2-bit weight, (b) VGG-8 with 2-bit weight, (c) ViT with 3-bit weight, and (d) Inception-V3 with 4-bit weight. 
+
+V. S IMULATION RESULT 
+
+A. Software results 
+
+We choose three networks to evaluate the proposed method: one MLP network (784-128-128-10) on MNIST dataset, VGG-8 on CIFAR-10 dataset, and Vision Transformer (ViT) [47] on CIFAR-100 dataset and Inception-V3 on Tiny ImageNet. By employing QAT, the four models achieve accuracies of 97.3%, 92.9%, 91.4%, and 77.5% at their highest resolutions, 4/2/4b for MLP, 5/2/5b for VGG-8, 6/3/6b for ViT, and 6/4/6b for Inception-V3 as shown in Fig. 12. Fig. 13 illustrates the weight sparsity after 2-bit quantization in the VGG-8 model. Across the eight layers of the quantized model, at least 40% of the weights in the macro are zeros in every layer. Since the proposed dual 8T bitcell supports ZOSKP for weights, these zero-valued weights do not form discharge paths within the bitcell. This mechanism reduces the computational energy consumption in RBL by at least 40%. To conduct NRT, the proposed architecture is evaluated by using SPICE post layout simulation with parasitic parameters from layout in 65 nm CMOS technology. In Fig. 11, the sim-ulated 4-bit IMADC outputs are compared against theoretical IMADC outputs across varying temperatures ( 0◦C, 27 ◦C, and 
+
+70 ◦C) and process corners (TT, FF, SS). Under worst-case temperature conditions (70°C), the standard deviation of the IMADC error increases to 1.31× that at room temperature (27°C), and under the SS process corner, it reaches 1.13× the value under the TT corner. These results demonstrate the robustness of the IMADC against both temperature and process variations because of the replica biasing. Then the nominal error distribution N(-0.05 LSB, 0.87 LSB) (27°C@TT in Fig. 11) is used to inject noise into the four networks. 1) the MLP has less than 0.1% accuracy decrease for 2-4 bit ADC compared to the quantized models due to the usage of NRT and shallow architecture of the model, which prevents deep accumulation of noise. 2) VGG-8 is a challenging model with deeper architecture. However, NRT can still restore precision to a comparable level of accuracy, with a decrease of less than 0.4% compared to 3-5 bit quantized model. When this maximum error distribution N(-0.12 LSB, 1.06 LSB) (70°C@TT in Fig. 11) is added to the VGG-8 network, the inference accuracy drops is less than 0.55% compared to 3-5 bit quantized model after re-training with NRT. This performance degradation remains minimal when compared to the 0.4% accuracy drop observed at 27°C, highlighting the effectiveness of our approach in maintaining computational stability across thermal conditions. 3) ViT is a classical transformer architecture used in the image domain. Due to the higher computational complexity compared with MLP and VGG-8, it requires a higher no for good perfor-mance. NRT demonstrates an accuracy degradation of less than 0.4% when using 4–6 bit ADCs, compared to the quantized model. 4) Inception-V3 is a very deep neural network that similarly requires a larger no. When using 4–6-bit ADCs, the accuracy degradation remains below 0.5% compared with the quantized model. The highest ADC bit resolution no used for these four models results in 0.5% , 0.6% , 1.0% and 0.9% 
+
+drop in accuracy from their floating point baselines (97.8%, 93.4%, 92.3% and 78.2%), making them comparable to prior CIM deployments under practical non-idealities [21], [48] and benchmarks [49], [50]. 11 Conv-1   
+
+> Conv-2
+> Conv-3
+> Conv-4
+> Conv-5
+> Conv-6
+> FC-1
+> FC-2 0
+> 20
+> 40
+> 60
+> 80
+> Weight sparisty ( %)
+> Fig. 13. Weight sparsity result across each layer for VGG-8 on CIFAR-10 dataset after quantization of 2-bit weight.
+> Fig. 14. Throughput under different input, output, and weight resolutions.
+
+B. Hardware results 
+
+Latency and throughput: We assessed the latency of the system across three modes: proposed, PWM, and conventional BS, with respective latencies of n+2 n, 2n+1 , and n2 n, assuming the utilization of ramp ADC output and ni = no = n.Fig. 1(b) illustrates that our work yields 1.9× and 6.6× improvement of throughput over PWM mode and BS mode under 7-bit input/output resolution. The curves of throughput versus input and output resolutions for 2-bit, 3-bit, and 4-bit weights are illustrated in Fig. 14. The throughput changes from 14 GOPS(7/4/7) to 6502 GOPS(1/2/1). We compared the throughput under high-precision configurations (4/4/4) with reference [5] (4/8/4). Our design achieves a throughput of 98 GOPS, which outperforms the 91 GOPS reported in the reference work. 
+
+Enhanced linearity of MAC: During on-chip inference, the MAC ( M ACP − M ACN ) in every column is computed separately as MACP ( MACP = PNk=1 wkxk (wk ≥ 0) )and MACN ( MACN = PNk=1 wkxk (wk < 0) ), and sub-sequently input to SA as a differential signal. To determine the maximum voltage drop across RBL in on-chip inference, the distribution of MACP and MACN across all mini-batches in the test set for MNIST is used for the proposed and PWM method for ni = 3 ). In Fig. 15 (a) and (b), the distribution of MACP in the worst-case scenario is depicted, while Fig. 15 (c) and (d) illustrates the corresponding RBL simulated voltage values, the theoretical values, and the error between them. Notably, the MACP/N distribution range in the PWM method is 7× greater than that in the our method reducing signal margin [40]. Furthermore, our method demonstrates a RBL voltage linearity that is ≈ 23× greater than that achieved by the PWM mode, as quantified by the Root Mean Squared Error (RMSE). 
+
+Energy and Area efficiency (Macro level): Fig. 16(a) shows post simulated energy breakdown of our work when 
+
+ni = 4 and weight is 2-bit. Pre-charging operations consume a considerable amount of energy (43.2%). Notably, for a 4-bit input, the pre-charge procedure needs to be performed four times, significantly contributing to the total energy overhead. SAs consume 30.3% of the energy and the energy consumed by the added voltage buffer is negligible, accounting for less than 2%. The layout of core area is depicted in Fig. 16(b). The core size is 0.24 mm 2 (Bitcell layout occupies 3.6 μm × 1.8 μm ) and 127 IMADCs only occupy only 3% of the size of MAC array (1.5× improvement compared to 4.7% in the best work [29]). Table I summarizes a performance comparison with the state-of-the-art ACIM. Under a 1/2/1b configuration, the macro achieves 1023.2 TOPS/W and 27 TOPS/mm 2 while the macro maintains a performance of 8.4 TOPS/W and 0.1 TOPS/mm 2
+
+under the highest precision configuration of 7/4/7b. For a fair comparison, all energy efficiencies are normalized to 65 nm, 1/1/1 bit, according to the method in [54], although different resolutions may carry different information content. Compared to the best prior art [32], [28], the macro offers 1.4× higher normalized energy efficiency and 2.6× greater normalized area efficiency, respectively. It is noteworthy that the proposed macro offers the highest level of reconfigurability in terms of precision for input (1-7b), weight (2-4b), and output (1-7b). It is worth noting that the energy efficiency metrics of this work are derived from post-layout simulations, whereas other works in Table I report results based on silicon measurements. Although our post-layout simulations incorporate detailed par-asitic extraction, a performance gap typically persists relative to real silicon measurements. This discrepancy primarily arises from manufacturing variations, packaging parasitic effects, and dynamic IR drop. To ensure a fair comparison, we have explicitly labeled the data type for each work in Table I. 
+
+Energy and Area efficiency (System level): We conduct a comprehensive evaluation of the system-level overhead associ-ated with running the VGG-8 model on the CIFAR-10 dataset. In this analysis, each component of the architecture is carefully modeled to ensure accuracy and fairness in comparison with prior work. The SRAM arrays as well as the ADCs are characterized directly from detailed SPICE simulations, which were previously presented to capture circuit-level delay/energy. For the remaining architectural modules—including the ac-cumulation units, the on-chip interconnect fabric, input /out-put /global buffers, and the off-chip DRAM—we rely on cycle-accurate simulations using the NeuroSim framework [55], which is widely adopted for benchmarking emerging in-memory computing systems. The system operates at afrequency of 200 MHz and a temperature of 300 K, using a 65 nm technology node with a wire width of 100 nm. The array size is 256 ×128, and an H-tree interconnect is employed with a folding ratio of 4 in the layout. SRAM is used for the global, tile, and PE buffers. The ADC resolution is 4 bits. All other settings are kept unchanged. Note that the crossbar 12 0 50 100 150 200 0.00 
+
+0.01 
+
+> Probability
+
+MACP/N value 
+
+PWM μ=65 
+
+σ=36 
+
+> Error (mV)
+> VRBLR  (mV)
+
+0 5 10 15 20 25 30 
+
+0.0 
+
+0
+
+0.0 
+
+5
+
+0.10 
+
+> Probability
+
+Our method μ=8 
+
+σ=5 
+
+MACP/N value 
+
+> VRBLR  (mV)
+> Error (mV)
+
+Our: 
+
+RMSE=0.7 mV PWM: 
+
+RMSE=16 mV 
+
+(a) (b) 
+
+Worst case ,
+
+3b BS input 
+
+Worst case ,
+
+3b PWM input 
+
+(c) (d) 
+
+> MACP/N value MACP/N value
+
+Fig. 15. The partial MACP/N distribution of (a) Proposed method and (b) PWM mode based on 3-bit input for MNIST. Their corresponding voltages on RBL of (c) Proposed method and (d) PWM mode. TABLE I COMPARISON WITH STATE -OF -THE -ARTS (ACIM, MACRO LEVEL )VLSI’25 [53] (Measurement) ISSCC’24 [29] (Measurement) JSSC’23 [5] (Measurement) TCASI’24 [28] (Measurement) JSSC’23 [32] (Measurement) 
+
+This work (Post-layout simulation) 
+
+Technology (nm) 130 14 28 65 65 65 
+
+Supply (V) 0.9-1.2 0.8 1.2 0.45/0.8 0.7-1.2 0.5/0.8/1.0 
+
+Frequency (MHz) 2.5 200 100 200 50-210 200 
+
+Bitcell/Norm. area ( μm 2)* 8T/– 5T-LF/8.4 P-8T/4.3 Dual 7T/5.76 1T ROM/– Dual 8T/6.5 
+
+Computing method Charge Charge Charge Current Charge Current+Charge 
+
+Array size 256×256 64×32 256×64 528×128 64×64 256×128 
+
+Input/Output bit # 1/1 (1/2/8)/1-8 4/4 1/1-6 1-8/5 1-7/1-7 
+
+Weight bit # 4 5/8 8 1.6/2.8/3.9 2/4/6/8 2-4 
+
+ADC type – SAR Flash Ramp (IMADC) SAR Ramp (IMADC) 
+
+ADC overhead** – 4.7% 84% 27% 13% 3% 
+
+Neuro # per ADC – 1 1 1 1 1
+
+Throughput (GOPS) – 153.6 91 300-3900 13-54.6 14(7/4/7) -6502(1/2/1) Area efficiency (TOP/mm 2) – 9.6 2.86 0.9-10.4 0.001-0.005 0.1(7/4/7) -27(1/2/1) Normalized area efficiency (TOP/mm 2)*** – 0.45 1.06 0.9-10.4 0.001-0.005 0.1(7/4/7)-27(1/2/1) 
+
+Energy efficiency (TOP/W) 143 22.64(1/8/8) 12.2 23.9-259 1.24-4.33 8.4(7/4/7) -1023.2(1/2/1) Normalized energy efficiency (TOP/W)**** 1144 1448.9 1561.6 93.2-414.4 396.8-1385.6 1646.4-2046.4 
+
+*Norm. area=area × (65 nm/technology) 2
+
+** ADC overhead=ADC area/MAC area ***Normalized area efficiency=area efficiency × (technology/65 nm) 2
+
+****Normalized energy efficiency=energy efficiency × input resolution × weight resolution × output resolution × (technology/65 nm) [54] (a) (b)    
+
+> RWL Driver
+> Cell Array (256x128)
+> +PCH
+> SA+Ripple counter
+> 485 μm
+> 502  μm
+> 3.6  μm
+> 1.8 μm
+> One bitcell
+> PCH
+> SA
+> RWL Driver
+> Others
+
+Fig. 16. (a) Energy breakdown (4-bit input/output and 2-bit weight) based on post layout simulation. (b) Layouts of the macro and bitcell. 
+
+array–level performance originally evaluated using NeuroSim is replaced by SPICE-based macro-level results. Fig. 17 presents a detailed breakdown of latency and energy consumption across different architectural components. The results clearly indicate that system performance is largely dominated by the overhead of buffers and interconnects. This observation highlights a fundamental bottleneck in many in-memory computing systems. Similar trends have been re-ported in other in-memory computing architectures, such as acc  Acc w/ noise 
+
+baseline  92.3 
+
+6b  91.43  91.31 
+
+5b  90.9 
+
+4b  90.42 Conv-1   
+
+> Conv-2
+> Conv-3
+> Conv-4
+> Conv-5
+> Conv-6
+> FC-1
+> FC-2
+> 0
+> 20
+> 40
+> 60
+> 80
+> Weight sparisty (%) 1.2 %5.2 %
+> 44 %
+> 13.8 %
+> 18.8 %
+> 17 %
+> ADC
+> Accumulation
+> Synaptic Array w/o ADC MAC array
+> Interconnect
+> Buffer
+> DRAM 60.6 %16.2 %
+> 2%
+> 14 %
+> 7.3 %
+> ADC
+> Accumulation
+> Synaptic Array w/o ADC MAC array
+> Interconnect
+> Buffer
+> DRAM
+> (a) (b)
+
+Fig. 17. System performance for VGG-8 on CIFAR-10 dataset: (a) latency breakdown and (b) energy breakdown. 
+
+ISAAC [56], PUMA [57], and FPSA [58]. Overall, the evaluated design delivers a throughput of 6.79 TOPS and a normalized energy efficiency of 3558.4 TOPS/W (defined as input bit × weight bit × output bit × energy efficiency) under a 4/2/4b configuration. As shown in Fig. 18, compared with the baselines reported by Peng et al. [51] 13 5.56 
+
+13.4 
+
+6.79 
+
+583.68 
+
+103.2 
+
+3558.4 
+
+Our 
+
+0
+
+5
+
+10 
+
+15 
+
+0
+
+1000 
+
+2000 
+
+3000 
+
+4000 
+
+5000 
+
+> Normalized Energy Efficiency (TOPS/W)
+> Throughput (TOPS)
+
+IE DM'20 TCASI'22 In/ Wgt ./Out: 4/1/4b 1/2/4b 4/2/4b 
+
+Fig. 18. System throughput and energy efficiency comparison with previous works: IEDM’20 [51] and TCASI’22 [52]. Both of them are estimated by NeuroSim. 
+
+(5.56 TOPS, normalized energy efficiency of 583.68 TOPS/W under a 4/1/4b configuration) and Jiang et al. [52] (13.4 TOPS, normalized energy efficiency of 103.2 TOPS/W under a 1/2/4b configuration), our system achieves 6× improvement in normalized energy efficiency compared with the SOTA. VI. D ISCUSSION 
+
+We would also point out that while Flash ADCs have a faster conversion speed, one ADC has to be reused by many columns of the array (i.e. shared by many neurons) due to the tight area requirements of matching with the memory array. In fact, for the case of Flash ADC using the SA as comparator, one ADC has to be reused exactly 2n times, making the overall throughput same as the case of the ramp ADC such as in [59]. Moreover, our approach can tradeoff conversion time with ADC resolution flexibly. For Flash ADCs with separate physically instantiated comparators [5], while the conversion time is fast, the area overhead is permanent and cannot be reconfigured flexibly. Lastly, we can also use coarse-fine approaches as done in [5] to check the sign of the input in 1 clock cycle and then start the ramp, we can reduce the clock cycles for n-bit ADC to 2n−1 + 1 .VII. C ONCLUSION 
+
+This article addresses important issues of CIM: multi-bit input, high linearity of MAC and large overhead of ADC. We enable multi-bit (1-7) input using BS with Charge-based accumulation of partial sums and multi-bit (1-7) output using a reconfigurable IMADC that reduces area overhead by shared references. The 256 ×128 in-memory computing array can achieve high efficiency (1023.2 TOPS/W, 27 TOPS/mm 2 at 1/2/1b for in/weight/out). Using NRT, its accuracy reductions are limited to only 0.1%, 0.4% and 0.4% due to circuit non-idealities for the MLP model (2/2/2b) on MNIST, VGG-8 model (3/2/3b) on CIFAR-10 and ViT network (4/3/4b) on CIFAR-100 respectively. It increases throughput (1.9×) and linearity (23×) compared to PWM mode by BSCHA. Compared to conventional BS with digital accumulation af-ter ADC, this method has 2.6×/1.4×/6.6× better normal-ized area-efficiency/normalized energy-efficiency/throughput respectively. The system-level performance of VGG-8 on CIFAR-10 is evaluated using SPICE and NeuroSim, demon-strating a 6× enhancement in normalized energy efficiency. REFERENCES [1] G. Li, J. Ji, M. Qin, W. Niu, B. Ren, F. Afghah, L. Guo, and X. Ma, “Towards high-quality and efficient video super-resolution via spatial-temporal data overfitting,” in 2023 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) . IEEE, 2023, pp. 10 259– 10 269. [2] G. Hinton, L. Deng, D. Yu, G. E. Dahl, A.-r. Mohamed, N. Jaitly, A. Senior, V. Vanhoucke, P. Nguyen, T. N. Sainath et al. , “Deep neural networks for acoustic modeling in speech recognition: The shared views of four research groups,” IEEE Signal processing magazine , vol. 29, no. 6, pp. 82–97, 2012. [3] Q. Zhang, X. Cheng, Y. Chen, and Z. Rao, “Quantifying the knowledge in a DNN to explain knowledge distillation for classification,” IEEE Transactions on Pattern Analysis and Machine Intelligence , vol. 45, no. 4, pp. 5099–5113, 2022. [4] A. Guo, C. Xi, F. Dong, X. Pu, D. Li, J. Zhang, X. Dong, H. Gao, Y. Zhang, B. Wang et al. , “A 28-nm 64-kb 31.6-TFLOPS/W digital-domain floating-point-computing-unit and double-bit 6T-SRAM computing-in-memory macro for floating-point CNNs,” IEEE Journal of Solid-State Circuits , vol. 59, no. 9, pp. 3032–3044, 2024. [5] K. Lee, J. Kim, and J. Park, “A 28-nm 50.1-TOPS/W P-8T SRAM compute-in-memory macro design with BL charge-sharing-based in-SRAM DAC/ADC operations,” IEEE Journal of Solid-State Circuits ,vol. 59, no. 6, pp. 1926–1937, 2023. [6] Y.-H. Chen, T.-J. Yang, J. Emer, and V. Sze, “Eyeriss v2: A flexible accelerator for emerging deep neural networks on mobile devices,” IEEE Journal on Emerging and Selected Topics in Circuits and Systems , vol. 9, no. 2, pp. 292–308, 2019. [7] J. Yang, R. Mao, M. Jiang, Y. Cheng, P.-S. V. Sun, S. Dong, G. Pedretti, X. Sheng, J. Ignowski, H. Li et al. , “Efficient nonlinear function ap-proximation in analog resistive crossbars for recurrent neural networks,” 
+
+Nature Communications , vol. 16, no. 1, p. 1136, 2025. [8] S. Cheon, K. Lee, and J. Park, “A 2941-TOPS/W charge-domain 10T SRAM compute-in-memory for ternary neural network,” IEEE Transactions on Circuits and Systems I: Regular Papers , vol. 70, no. 5, pp. 2085–2097, 2023. [9] A. Guo, X. Chen, F. Dong, J. Chen, Z. Yuan, X. Hu, Y. Zhang, J. Zhang, Y. Tang, Z. Zhang et al. , “34.3 a 22nm 64kb lightning-like hybrid computing-in-memory macro with a compressed adder tree and analog-storage quantizers for transformer and cnns,” in 2024 IEEE International Solid-State Circuits Conference (ISSCC) , vol. 67. IEEE, 2024, pp. 570– 572. [10] C.-J. Jhang, W.-S. Khwa, P.-C. Wu, A. S. Lele, P.-S. Wu, C.-E. Ke, T.-C. Chiu, Y.-C. Hung, W.-T. Hsu, J.-M. Hsu et al. , “A 22 nm 10.03-237.99 TOPS/W time-digital-hybrid SRAM compute-in-memory AI accelerator for GNN edge device applications,” IEEE Transactions on Circuits and Systems for Artificial Intelligence , vol. 1, no. 1, pp. 15–25, 2024. [11] X. Si, J.-J. Chen, Y.-N. Tu, W.-H. Huang, J.-H. Wang, Y.-C. Chiu, W.-C. Wei, S.-Y. Wu, X. Sun, R. Liu et al. , “A twin-8T SRAM computation-in-memory unit-macro for multibit CNN-based AI edge processors,” IEEE Journal of Solid-State Circuits , vol. 55, no. 1, pp. 189–202, 2019. [12] J. Yang, X. Luo, Y. Ke, Z. Wang, H. Shang, S. Dong, Z. Fu, X. Yang, H. Liu, and A. Basu, “A 33.6–136.2-TOPS/W Nonlinear Analog Computing-in-Memory Macro for Multi-Bit LSTM Accelerator in 65-nm CMOS,” IEEE Journal of Solid-State Circuits , 2025. [13] K. Roy, I. Chakraborty, M. Ali, A. Ankit, and A. Agrawal, “In-memory computing in emerging memory technologies for machine learning: An overview,” in 2020 57th ACM/IEEE Design Automation Conference (DAC) . IEEE, 2020, pp. 1–6. [14] S. Kim and H.-J. Yoo, “An overview of computing-in-memory circuits with DRAM and NVM,” IEEE Transactions on Circuits and Systems II: Express Briefs , vol. 71, no. 3, pp. 1626–1631, 2023. [15] J. Zhang, Z. Wang, and N. Verma, “In-memory computation of a machine-learning classifier in a standard 6T SRAM array,” IEEE Journal of Solid-State Circuits , vol. 52, no. 4, pp. 915–924, 2017. 14 
+
+[16] B. Zhang, J. Saikia, J. Meng, D. Wang, S. Kwon, S. Myung, H. Kim, S. J. Kim, J.-S. Seo, and M. Seok, “Macc-sram: A multistep accumu-lation capacitor-coupling in-memory computing sram macro for deep convolutional neural networks,” IEEE Journal of Solid-State Circuits ,vol. 59, no. 6, pp. 1938–1949, 2023. [17] Z. Chen, X. Chen, and J. Gu, “a 65nm 3T dynamic analog RAM-based computing-in-memory macro and CNN accelerator with retention enhancement, adaptive analog sparsity and 44TOPS/W system energy efficiency,” in 2021 IEEE International Solid-State Circuits Conference (ISSCC) , vol. 64. IEEE, 2021, pp. 240–242. [18] D. Kim, C. Yu, S. Xie, Y. Chen, J.-Y. Kim, B. Kim, J. P. Kulkarni, and T. T.-H. Kim, “An overview of processing-in-memory circuits for artificial intelligence and machine learning,” IEEE Journal on Emerging and Selected Topics in Circuits and Systems , vol. 12, no. 2, pp. 338–353, 2022. [19] J. Mu, H. Kim, and B. Kim, “SRAM-based in-memory computing macro featuring voltage-mode accumulator and row-by-row ADC for processing neural networks,” IEEE Transactions on Circuits and Systems I: Regular Papers , vol. 69, no. 6, pp. 2412–2422, 2022. [20] H. Valavi, P. J. Ramadge, E. Nestler, and N. Verma, “A 64-tile 2.4-Mb in-memory-computing CNN accelerator employing charge-domain compute,” IEEE Journal of Solid-State Circuits , vol. 54, no. 6, pp. 1789– 1799, 2019. [21] C. Yu, T. Yoo, K. T. C. Chai, T. T.-H. Kim, and B. Kim, “A 65-nm 8T SRAM compute-in-memory macro with column ADCs for processing neural networks,” IEEE Journal of Solid-State Circuits , vol. 57, no. 11, pp. 3466–3476, 2022. [22] S. Kim, S. Kim, S. Um, S. Kim, K. Kim, and H.-J. Yoo, “Neuro-CIM: ADC-less neuromorphic computing-in-memory processor with operation gating/stopping and digital–analog networks,” IEEE Journal of Solid-State Circuits , vol. 58, no. 10, pp. 2931–2945, 2023. [23] J. Yang, S. Dong, Z. Fu, H. Shang, and A. Basu, “High Energy-efficiency and Low latency In-Memory Computing using Analog Accumulator and In-Memory ADC with shared References,” in 2025 62nd ACM/IEEE Design Automation Conference (DAC) . IEEE, 2025, pp. 1–7. [24] H. Kim, J. Mu, C. Yu, T. T.-H. Kim, and B. Kim, “A 1-16b reconfig-urable 80Kb 7T SRAM-based digital near-memory computing macro for processing neural networks,” IEEE Transactions on Circuits and Systems I: Regular Papers , vol. 70, no. 4, pp. 1580–1590, 2023. [25] V. K. Rajanna, S. Taneja, and M. Alioto, “SRAM with In-Memory Inference and 90% Bitline Activity Reduction for Always-On Sensing with 109 TOPS/mm 2 and 749-1,459 TOPS/W in 28nm,” in ESSCIRC 2021-IEEE 47th European Solid State Circuits Conference (ESSCIRC) .IEEE, 2021, pp. 127–130. [26] P. K. Saragada and B. P. Das, “Process-Variation-Aware In-Memory Computation With Improved Linearity Using On-Chip Configurable Current-Steering Thermometric DAC,” IEEE Transactions on Circuits and Systems I: Regular Papers , 2024. [27] J. B. Shaik, X. Guo, and S. Singhal, “Impact of aging and process variability on SRAM-based in-memory computing architectures,” IEEE Transactions on Circuits and Systems I: Regular Papers , 2024. [28] C. Yu, H. Jiang, J. Mu, K. T. C. Chai, T. T.-H. Kim, and B. Kim, “A Dual 7T SRAM-Based Zero-Skipping Compute-In-Memory Macro With 1-6b Binary Searching ADCs for Processing Quantized Neural Networks,” 
+
+IEEE Transactions on Circuits and Systems I: Regular Papers , 2024. [29] L. Wang, W. Li, Z. Zhou, H. Gao, Z. Li, W. Ye, H. Hu, J. Liu, J. Yue, J. Yang et al. , “34.9 a flash-SRAM-ADC-fused plastic computing-in-memory macro for learning in neural networks in a standard 14nm FinFET process,” in 2024 IEEE International Solid-State Circuits Con-ference (ISSCC) , vol. 67. IEEE, 2024, pp. 582–584. [30] S. Dong, J. Yang, X. Peng, H. Shang, Y. Ke, X. Yang, H. Liu, and A. Basu, “Topkima-Former: Low-Energy, Low-Latency Inference for Transformers Using Top-k In-Memory ADC,” IEEE Transactions on Circuits and Systems I: Regular Papers , 2025. [31] G. Yin, Y. Chen, M. Lee, X. Du, Y. Ke, W. Tang, Z. Chen, M. Zhou, J. Yue, H. Yang et al. , “Hybrid SRAM/ROM Compute-in-Memory Architecture for High Task-Level Energy Efficiency in Transformer Models With 8928-kb/ mm 2 Density in 28nm CMOS,” IEEE Journal of Solid-State Circuits , 2025. [32] G. Yin, Y. Chen, M. Zhou, W. Tang, M. Lee, Z. Yang, T. Liao, X. Du, V. Narayanan, H. Yang et al. , “Cramming More Weight Data Onto Compute-in-Memory Macros for High Task-Level Energy Efficiency Using Custom ROM With 3984-kb/mm 2 Density in 65-nm CMOS,” 
+
+IEEE Journal of Solid-State Circuits , vol. 59, no. 6, pp. 1912–1925, 2023. [33] H. Wang, R. Liu, R. Dorrance, D. Dasalukunte, D. Lake, and B. Carlton, “A charge domain SRAM compute-in-memory macro with C-2C ladder-based 8-bit MAC unit in 22-nm FinFET process for edge inference,” 
+
+IEEE Journal of Solid-State Circuits , vol. 58, no. 4, pp. 1037–1050, 2023. [34] K. Roy, I. Chakraborty, M. Ali, A. Ankit, and A. Agrawal, “In-memory computing in emerging memory technologies for machine learning: An overview,” in 2020 57th ACM/IEEE Design Automation Conference (DAC) . IEEE, 2020, pp. 1–6. [35] K. Lee, S. Cheon, J. Jo, W. Choi, and J. Park, “A charge-sharing based 8T SRAM In-Memory Computing for edge DNN acceleration,” in 2021 58th ACM/IEEE Design Automation Conference (DAC) . IEEE, 2021, pp. 739–744. [36] Z. Jiang, S. Yin, J.-S. Seo, and M. Seok, “C3SRAM: An in-memory-computing SRAM macro based on robust capacitive coupling computing mechanism,” IEEE Journal of Solid-State Circuits , vol. 55, no. 7, pp. 1888–1897, 2020. [37] S. Dong, J. Yang, Y. Ke, H. Shang, and A. Basu, “Cadc: Crossbar-aware dendritic convolution for efficient in-memory computing,” in 2026 31st Asia and South Pacific Design Automation Conference (ASP-DAC) .IEEE, 2026, pp. 667–673. [38] Q. Dong, M. E. Sinangil, B. Erbagci, D. Sun, W.-S. Khwa, H.-J. Liao, Y. Wang, and J. Chang, “A 351 TOPS/W and 372.4 GOPS compute-in-memory SRAM macro in 7nm FinFET CMOS for machine-learning applications,” in 2020 IEEE International Solid-State Circuits Conference-(ISSCC) . IEEE, 2020, pp. 242–244. [39] S. K. Gonugondla, M. Kang, and N. Shanbhag, “A 42 pJ/decision 3.12 TOPS/W robust in-memory machine learning classifier with on-chip training,” in 2018 IEEE International Solid-State Circuits Conference-(ISSCC) . IEEE, 2018, pp. 490–492. [40] C.-J. Jhang, C.-X. Xue, J.-M. Hung, F.-C. Chang, and M.-F. Chang, “Challenges and trends of SRAM-based computing-in-memory for AI edge devices,” IEEE Transactions on Circuits and Systems I: Regular Papers , vol. 68, no. 5, pp. 1773–1786, 2021. [41] F. Li, B. Liu, X. Wang, B. Zhang, and J. Yan, “Ternary weight networks,” 
+
+arXiv preprint arXiv:1605.04711 , 2016. [42] L. Han, P. Huang, Y. Wang, Z. Zhou, H. Yang, Y. Chen, X. Liu, and J. Kang, “Mitigating methodology of hardware non-ideal characteristics for non-volatile memory based neural networks,” Science China Infor-mation Sciences , vol. 68, no. 2, p. 122403, 2025. [43] S. Yin, Z. Jiang, J.-S. Seo, and M. Seok, “XNOR-SRAM: In-memory computing SRAM macro for binary/ternary deep neural networks,” IEEE Journal of Solid-State Circuits , vol. 55, no. 6, pp. 1733–1743, 2020. [44] S. Dong, Y. Chen, Z. Fan, K. Chen, M. Qin, M. Zeng, X. Lu, G. Zhou, X. Gao, and J.-M. Liu, “A backpropagation with gradient accumulation algorithm capable of tolerating memristor non-idealities for training memristive neural networks,” Neurocomputing , vol. 494, pp. 89–103, 2022. [45] Allen, P. E and Holberg, D., CMOS Analog Circuit Design . Oxford University Press, 2011. [46] T. Marisa, T. Niederhauser, A. Haeberlin, R. A. Wildhaber, R. Vogel, J. Goette, and M. Jacomet, “Pseudo asynchronous level crossing ADC for ECG signal acquisition,” IEEE transactions on biomedical circuits and systems , vol. 11, no. 2, pp. 267–278, 2017. [47] P. Velickovic, G. Cucurull, A. Casanova, A. Romero, P. Lio, Y. Bengio 
+
+et al. , “Graph attention networks,” stat , vol. 1050, no. 20, pp. 10–48 550, 2017. [48] H. Jiang, W. Li, S. Huang, and S. Yu, “A 40nm analog-input ADC-free compute-in-memory RRAM macro with pulse-width modulation between sub-arrays,” in 2022 IEEE Symposium on VLSI Technology and Circuits (VLSI Technology and Circuits) . IEEE, 2022, pp. 266–267. [49] A. Dosovitskiy, L. Beyer, A. Kolesnikov, D. Weissenborn, X. Zhai, T. Unterthiner, M. Dehghani, M. Minderer, G. Heigold, S. Gelly et al. ,“An image is worth 16x16 words: Transformers for image recognition at scale,” arXiv preprint arXiv:2010.11929 , 2020. [50] C. Szegedy, V. Vanhoucke, S. Ioffe, J. Shlens, and Z. Wojna, “Rethinking the inception architecture for computer vision,” in Proceedings of the IEEE conference on computer vision and pattern recognition , 2016, pp. 2818–2826. [51] X. Peng, W. Chakraborty, A. Kaul, W. Shim, M. S. Bakir, S. Datta, and S. Yu, “Benchmarking monolithic 3D integration for compute-in-memory accelerators: overcoming ADC bottlenecks and maintaining scalability to 7nm or beyond,” in 2020 IEEE International Electron Devices Meeting (IEDM) . IEEE, 2020, pp. 30–4. [52] H. Jiang, S. Huang, W. Li, and S. Yu, “ENNA: An efficient neural network accelerator design based on ADC-free compute-in-memory subarrays,” IEEE Transactions on Circuits and Systems I: Regular Papers , vol. 70, no. 1, pp. 353–363, 2022. 15 
+
+[53] H. Fu, H. Zheng, Y. Zhou, X. Wen, Y. Chen, H. Ren, X. Lin, Z. Zong, L. Wu, and B. Cheng, “NeuC-CIM: A 1.3 pJ/SOP Neuromorphic Charge-Domain Compute-in-Memory Macro for Spiking Neural Net-work,” in 2025 Symposium on VLSI Technology and Circuits (VLSI Technology and Circuits) . IEEE, 2025, pp. 1–3. [54] R. Guo, Y. Liu, S. Zheng, S.-Y. Wu, P. Ouyang, W.-S. Khwa, X. Chen, J.-J. Chen, X. Li, L. Liu et al. , “A 5.1 pJ/neuron 127.3 us/inference RNN-based speech recognition processor using 16 computing-in-memory SRAM macros in 65nm CMOS,” in 2019 Symposium on VLSI Circuits .IEEE, 2019, pp. C120–C121. [55] X. Peng, S. Huang, H. Jiang, A. Lu, and S. Yu, “DNN+ NeuroSim V2. 0: An end-to-end benchmarking framework for compute-in-memory accelerators for on-chip training,” IEEE Transactions on Computer-Aided Design of Integrated Circuits and Systems , vol. 40, no. 11, pp. 2306–2319, 2020. [56] A. Shafiee, A. Nag, N. Muralimanohar, R. Balasubramonian, J. P. Stra-chan, M. Hu, R. S. Williams, and V. Srikumar, “ISAAC: A convolutional neural network accelerator with in-situ analog arithmetic in crossbars,” 
+
+ACM SIGARCH Computer Architecture News , vol. 44, no. 3, pp. 14–26, 2016. [57] A. Ankit, I. E. Hajj, S. R. Chalamalasetti, G. Ndu, M. Foltin, R. S. Williams, P. Faraboschi, W.-m. W. Hwu, J. P. Strachan, K. Roy et al. ,“PUMA: A programmable ultra-efficient memristor-based accelerator for machine learning inference,” in Proceedings of the twenty-fourth international conference on architectural support for programming languages and operating systems , 2019, pp. 715–731. [58] Y. Ji, Y. Zhang, X. Xie, S. Li, P. Wang, X. Hu, Y. Zhang, and Y. Xie, “FPSA: A full system stack solution for reconfigurable ReRAM-based NN accelerator architecture,” in Proceedings of the Twenty-Fourth International Conference on Architectural Support for Programming Languages and Operating Systems , 2019, pp. 733–747. [59] W. Li, X. Sun, S. Huang, H. Jiang, and S. Yu, “A 40-nm MLC-RRAM compute-in-memory macro with sparsity control, on-chip write-verify, and temperature-independent ADC references,” IEEE Journal of Solid-State Circuits , vol. 57, no. 9, pp. 2868–2877, 2022.

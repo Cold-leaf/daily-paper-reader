@@ -1,0 +1,821 @@
+{
+  "mode": "skims",
+  "generated_at": "2026-06-02T10:36:43.333280+00:00",
+  "stats": {
+    "mode": "skims",
+    "forced_all_quick": true,
+    "min_score": 8.0,
+    "deep_divecandidates": 20,
+    "deep_cap": null,
+    "deep_selected": 0,
+    "quick_candidates": 20,
+    "quick_skim_target": null,
+    "quick_selected": 20
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2604.25699v1",
+      "source": "arxiv",
+      "title": "NVLLM: A 3D NAND-Centric Architecture Enabling Edge on-Device LLM Inference",
+      "abstract": "The rapid growth of LLMs demands high-throughput, memory-capacity-intensive inference on resource-constrained edge devices, where single-batch decoding remains fundamentally memory-bound. Existing out-of-core GPU-based and SSD-like accelerators are limited by DRAM-bound weight movement and inefficient storage access granularity. We present NVLLM, a 3D NAND-centric inference architecture that offloads feed-forward network (FFN) computation into the Flash while executing attention on lightweight CMOS logic with external DRAM. Through wafer-to-wafer stacking, NVLLM tightly integrates multi-plane 3D NAND with compute pipelines, error correction code (ECC) units, and buffers, enabling page-level FFN weight access without DRAM traversal. All GEMM/GEMV operations are decomposed into dot-product primitives executed by out-of-order PE lanes, operating directly on raw NAND reads with integrated ECC. Attention weights remain in DRAM, and a KV-cache-aware scheduler sustains throughput as the context length grows. Evaluated on OPT and LLaMA models with up to 30B parameters, NVLLM achieves a 16.7$\\times$--37.9$\\times$ speedup over A800-based out-of-core inference and up to 4.7$\\times$ speedup over SSD-like designs, with only 2.7\\% CMOS area overhead.",
+      "authors": [
+        "Mingbo Hao",
+        "Changwei Yan",
+        "Haoyu Cui",
+        "Zhihao Yan",
+        "Yizhi Ding",
+        "Zhangrui Qian",
+        "Weiwei Shan"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-04-28T14:26:22+00:00",
+      "link": "https://arxiv.org/pdf/2604.25699v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "3D NAND-centric near-memory computing with wafer-to-wafer stacking",
+      "llm_evidence_cn": "基于晶圆到晶圆堆叠的3D NAND近存计算架构",
+      "llm_evidence": "基于晶圆到晶圆堆叠的3D NAND近存计算架构",
+      "canonical_evidence": "基于晶圆到晶圆堆叠的3D NAND近存计算架构",
+      "llm_tldr_en": "NVLLM offloads FFN computation into 3D NAND via wafer stacking, enabling page-level weight access without DRAM traversal, addressing memory-bound LLM inference on edge devices.",
+      "llm_tldr_cn": "针对边缘设备上LLM推理受限于内存带宽的问题，提出NVLLM架构，通过晶圆到晶圆堆叠将3D NAND与计算流水线紧密集成，将前馈网络计算卸载至闪存中执行，同时注意力机制在轻量CMOS逻辑上运行。该设计避免了DRAM中间搬运，实现页级权重访问，显著提升能效和吞吐量。实验表明NVLLM有效缓解了内存瓶颈，为边缘端大模型部署提供了可行方案。",
+      "llm_tldr": "针对边缘设备上LLM推理受限于内存带宽的问题，提出NVLLM架构，通过晶圆到晶圆堆叠将3D NAND与计算流水线紧密集成，将前馈网络计算卸载至闪存中执行，同时注意力机制在轻量CMOS逻辑上运行。该设计避免了DRAM中间搬运，实现页级权重访问，显著提升能效和吞吐量。实验表明NVLLM有效缓解了内存瓶颈，为边缘端大模型部署提供了可行方案。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "3D stacking memory technology",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.26821v1",
+      "source": "arxiv",
+      "title": "Exploring the Efficiency of 3D-Stacked AI Chip Architecture for LLM Inference with Voxel",
+      "abstract": "To overcome the well-known memory bottleneck of AI chips, 3D stacked architectures that employ advanced packaging technology with high-density through-silicon vias (TSVs) pins have proven to be a promising solution. The 3D-stacked AI chip enables ultra-high memory bandwidth between compute and memory by stacking numerous DRAM banks atop many AI cores in a distributed manner. However, it is not easy to explore the efficiency of the 3D-stacked AI chip, due to its unique distributed nature. And we need to carefully consider multiple intertwined factors that range from upper-level computing paradigm to machine learning (ML) compiler optimizations, and to the underlying hardware architecture.   In this paper, we develop Voxel, a fast and compiler-aware end-to-end simulation framework to facilitate exploring the efficiency of 3D-stacked AI chips for large language model (LLM) inference. Voxel enables the software/hardware co-exploration by employing a programming interface that allows ML compilers to customize the model execution plans. After validating the results of Voxel with an emulator on real silicon, we thoroughly examine the impact and correlation of different aspects of 3D-stacked AI chips, including state-of-the-art compute paradigms, tile-to-core mapping, tensor-to-bank mapping, NoC topologies and link bandwidth, DRAM bank bandwidth, per-core SRAM capacity, and energy/thermal constraints. Our findings disclose that the end-to-end efficiency of a 3D stacked AI chip not only is determined by the cooperative function of these factors, but also significantly depends on the mappings from tiles to AI core and DRAM banks. We report our findings throughout the paper, with the expectation that they will shed light on the development of the 3D-stacked AI chip ecosystem. We will open source Voxel and our study results for public research.",
+      "authors": [
+        "Yiqi Liu",
+        "Noelle Crawford",
+        "Michael Wang",
+        "Jilong Xue",
+        "Jian Huang"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR",
+        "cs.DC"
+      ],
+      "published": "2026-04-29T15:48:46+00:00",
+      "link": "https://arxiv.org/pdf/2604.26821v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "3D-stacked AI chip with TSV for LLM inference",
+      "llm_evidence_cn": "基于TSV的三维堆叠AI芯片用于LLM推理",
+      "llm_evidence": "基于TSV的三维堆叠AI芯片用于LLM推理",
+      "canonical_evidence": "基于TSV的三维堆叠AI芯片用于LLM推理",
+      "llm_tldr_en": "Voxel explores the efficiency of 3D-stacked AI chip architectures for LLM inference, using TSV-based stacking to provide ultra-high memory bandwidth and distributed DRAM banks atop AI cores.",
+      "llm_tldr_cn": "为了克服AI芯片的内存瓶颈，3D堆叠架构采用高密度TSV实现计算与存储之间的超高带宽。然而其分布式特性导致性能评估复杂。本文开发了Voxel，一个快速且准确的模拟器，能够协同考虑计算范式、编译器优化和底层硬件，对3D堆叠AI芯片进行效率探索。实验表明，合理的3D堆叠设计能显著降低LLM推理中的内存访问延迟，为下一代AI芯片提供了设计参考。",
+      "llm_tldr": "为了克服AI芯片的内存瓶颈，3D堆叠架构采用高密度TSV实现计算与存储之间的超高带宽。然而其分布式特性导致性能评估复杂。本文开发了Voxel，一个快速且准确的模拟器，能够协同考虑计算范式、编译器优化和底层硬件，对3D堆叠AI芯片进行效率探索。实验表明，合理的3D堆叠设计能显著降低LLM推理中的内存访问延迟，为下一代AI芯片提供了设计参考。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "3D integrated circuit design",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.23294v1",
+      "source": "arxiv",
+      "title": "NASiC: 3D NAND-based CAM-Selected Multibit CIM Architecture for Efficient On-Device Mixture-of-Experts LLM Inference",
+      "abstract": "The Mixture-of-Experts (MoE) models have emerged as the state-of-the-art paradigm for scaling up large language models (LLMs) without proportionally increased computational cost. However, its on-device deployment faces a critical challenge due to the large memory requirement for storing all expert parameters. 3D NAND-based computing-in-memory (CIM) architectures uniquely offer high storage capacity and reduced data movement, while they are ill-suited for MoE models with dynamically sparse expert activation, leading to a degradation of effective computational parallelism, along with underutilization of multibit storage capability of Flash cells. In this work, we proposed a 3D NAND-based content addressable-selected CIM architecture, dubbed as NASiC, which is tailored to MoE models. By leveraging the intrinsic string structure of 3D NAND technology, NASiC fuses the dynamical expert selection through CAM-based masking mechanism and activated expert computation through CIM into a single computation cycle, eradicating redundant computation and enhancing computational parallelism. Moreover, circuit-level optimizations and multibit CIM cell are co-designed with proposed NASiC architecture, featuring block-wise parallel computation with in-situ signed multibit input and weight expansion, substantially improving the throughput and energy-efficiency of NAND CIM array, as well as the utilization of high-density 3D NAND technology for MoE models. With extensive experimental results, we demonstrate NASiC achieves 4-114.8x improved performance and 3.9-70x improved energy efficiency over state-of-the-art designs, along with high accuracy, showing its great potential for efficient on-device MoE LLM inference.",
+      "authors": [
+        "Weikai Xu",
+        "Meng Li",
+        "Shuzhang Zhong",
+        "Tianyang Luo",
+        "Dongxue Zhao",
+        "Ling Liang",
+        "Zongwei Wang",
+        "Qianqian Huang",
+        "Yimao Cai",
+        "Ru Huang"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-05-22T07:10:57+00:00",
+      "link": "https://arxiv.org/pdf/2605.23294v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "proposes a 3D NAND-based compute-in-memory (CIM) architecture",
+      "llm_evidence_cn": "提出基于3D NAND的存算一体架构",
+      "llm_evidence": "提出基于3D NAND的存算一体架构",
+      "canonical_evidence": "提出基于3D NAND的存算一体架构",
+      "llm_tldr_en": "NASiC presents a 3D NAND-based CAM-selected multibit CIM architecture for MoE LLM inference, achieving high capacity and reduced data movement.",
+      "llm_tldr_cn": "针对混合专家大模型在端侧部署面临的大内存需求问题，本文提出NASiC架构，利用3D NAND闪存构建内容可寻址存储选择的存算一体（CIM）方案。该架构在提供高存储容量的同时减少数据搬运，并通过多比特存储与动态稀疏激活适配提升计算并行度。实验表明，该方法能有效支持大模型高效推理，推动CIM在边缘智能中的应用。",
+      "llm_tldr": "针对混合专家大模型在端侧部署面临的大内存需求问题，本文提出NASiC架构，利用3D NAND闪存构建内容可寻址存储选择的存算一体（CIM）方案。该架构在提供高存储容量的同时减少数据搬运，并通过多比特存储与动态稀疏激活适配提升计算并行度。实验表明，该方法能有效支持大模型高效推理，推动CIM在边缘智能中的应用。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "compute-in-memory architecture",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.17692v1",
+      "source": "arxiv",
+      "title": "AccelCIM: Systematic Dataflow Exploration for SRAM Compute-in-Memory Accelerator",
+      "abstract": "SRAM-based compute-in-memory (CIM) offers high computational density and energy efficiency for deep neural network (DNN) accelerators, but its limited capacity causes on/off-chip data movement overhead for large DNN models. Existing CIM accelerator studies typically assume that DNN models fit entirely on-chip, leaving efficient dataflow design largely untapped. This paper introduces AccelCIM, a systematic dataflow exploration framework for SRAM CIM accelerator, which addresses two key limitations of prior work. (1) It formulates a systematic dataflow design space spanning CIM macro configurations and macro-array organizations. (2) It introduces rigorous design evaluation using cycle-accurate architectural simulation and post-layout PPA analysis. We conduct an extensive design space exploration and apply AccelCIM to representative LLM applications, providing practical insights for the principled design of CIM accelerators.",
+      "authors": [
+        "Chenhao Xue",
+        "Yukun Wang",
+        "An Guo",
+        "Yuhui Shi",
+        "Jinwei Zhou",
+        "Xiping Dong",
+        "Yihan Yin",
+        "Yuanpeng Zhang",
+        "Tianyu Jia",
+        "Wei Gao",
+        "Qiang Wu",
+        "Xin Si",
+        "Jun Yang",
+        "Guangyu Sun"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-04-20T01:14:43+00:00",
+      "link": "https://arxiv.org/pdf/2604.17692v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "systematic dataflow exploration for SRAM compute-in-memory accelerator",
+      "llm_evidence_cn": "SRAM存内计算加速器的系统数据流探索",
+      "llm_evidence": "SRAM存内计算加速器的系统数据流探索",
+      "canonical_evidence": "SRAM存内计算加速器的系统数据流探索",
+      "llm_tldr_en": "AccelCIM systematically explores dataflow design space for SRAM CIM accelerators, covering macro configurations and array organizations, with cycle-accurate simulation and post-layout analysis.",
+      "llm_tldr_cn": "现有的SRAM存内计算加速器研究通常假设模型完全片上，忽略了数据流设计对大型模型的影响。本文提出AccelCIM，一个系统的数据流探索框架，涵盖CIM宏配置和宏阵列组织，并引入周期精确架构模拟和后版图PPA分析进行设计评估。该框架揭示了数据流与CIM宏配置之间的关键权衡，为设计高效CIM加速器提供了指导。",
+      "llm_tldr": "现有的SRAM存内计算加速器研究通常假设模型完全片上，忽略了数据流设计对大型模型的影响。本文提出AccelCIM，一个系统的数据流探索框架，涵盖CIM宏配置和宏阵列组织，并引入周期精确架构模拟和后版图PPA分析进行设计评估。该框架揭示了数据流与CIM宏配置之间的关键权衡，为设计高效CIM加速器提供了指导。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "compute-in-memory architecture",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.25317v1",
+      "source": "arxiv",
+      "title": "FusionCIM: Accelerating LLM Inference with Fusion-Driven Computing-in-Memory Architecture",
+      "abstract": "In this paper, we propose FusionCIM, an operator-fusion-driven compute-in-memory (CIM) accelerator architecture for efficient and scalable LLM inference, with three key innovations: (1) a hybrid CIM pipeline architecture that maps QKT computation on inner-product-based CIM (IP-CIM) and PV aggregation on outer-product-based CIM (OP-CIM) for efficient matrix multiplications fusion; (2) a QO-stationary dataflow that eliminates repeated KV loading in CIM and K-matrix access in buffer under transpose fusion, significantly improving data reuse on chip; and (3) a pattern-aware online-softmax mechanism that exploits distribution regularities of attention scores to reduce exponential rescaling overhead for non-linear fusion. Experimental results on LLaMA-3 model show that FusionCIM achieves up to 3.86x energy saving, and 1.98x speedup compared with prior SOTA CIM-based designs with 29.4 TOPS/W energy efficiency at the system level.",
+      "authors": [
+        "Zihao Xuan",
+        "Jia Chen",
+        "Yewen Li",
+        "Wei Xuan",
+        "Hegan Chen",
+        "Xiao Huo",
+        "Fengbin Tu"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-04-28T07:27:58+00:00",
+      "link": "https://arxiv.org/pdf/2604.25317v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Compute-in-memory architecture for LLM inference",
+      "llm_evidence_cn": "面向LLM推理的存内计算架构",
+      "llm_evidence": "面向LLM推理的存内计算架构",
+      "canonical_evidence": "面向LLM推理的存内计算架构",
+      "llm_tldr_en": "FusionCIM proposes a fusion-driven compute-in-memory accelerator for efficient LLM inference, using hybrid CIM pipeline and QO-stationary dataflow to improve data reuse and reduce energy.",
+      "llm_tldr_cn": "FusionCIM提出了一种融合驱动的存内计算加速器架构，用于高效的大语言模型推理。其核心创新包括混合存内计算流水线、QO静态数据流和模式感知在线softmax机制，显著提升了数据复用并降低了非融合开销。实验结果表明，该架构在保持精度的同时大幅提高了能效，为存内计算在大模型场景下的应用提供了新思路。",
+      "llm_tldr": "FusionCIM提出了一种融合驱动的存内计算加速器架构，用于高效的大语言模型推理。其核心创新包括混合存内计算流水线、QO静态数据流和模式感知在线softmax机制，显著提升了数据复用并降低了非融合开销。实验结果表明，该架构在保持精度的同时大幅提高了能效，为存内计算在大模型场景下的应用提供了新思路。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "compute-in-memory architecture",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.26103v1",
+      "source": "arxiv",
+      "title": "AMMA: A Multi-Chiplet Memory-Centric Architecture for Low-Latency 1M Context Attention Serving",
+      "abstract": "All current LLM serving systems place the GPU at the center, from production-level attention-FFN disaggregation to NVIDIA's Rubin GPU-LPU heterogeneous platform. Even academic PIM/PNM proposals still treat the GPU as the central hub for cross-device communication. Yet the GPU's compute-rich architecture is fundamentally mismatched with the memory-bound nature of decode-phase attention, inflating serving latency while wasting power and die area on idle compute units. The problem is compounded as reasoning and agentic workloads push context lengths toward one million tokens, making attention latency the primary user-facing bottleneck.   To address these inefficiencies, we present AMMA, a multi-chiplet, memory-centric architecture for low-latency long-context attention. AMMA replaces GPU compute dies with HBM-PNM cubes, roughly doubling the available memory bandwidth to better serve memory-bound attention workloads. To translate this bandwidth into proportional performance gains, we introduce (i) a logic-die microarchitecture that fully exploits per-cube internal bandwidth for decode attention under a minimal power and area budget, (ii) a two-level hybrid parallelism scheme, and (iii) a reordered collective flow that reduces intra-chip die-to-die communication overhead. We further conduct a design-space exploration over per-cube compute power and intra-chip D2D link bandwidth, providing actionable guidance for hardware designers. Evaluations show that AMMA achieves 15.5X lower attention latency and 6.9X lower energy consumption compared with the NVIDIA H100.",
+      "authors": [
+        "Zhongkai Yu",
+        "Haotian Ye",
+        "Chenyang Zhou",
+        "Ohm Rishabh Venkatachalam",
+        "Zaifeng Pan",
+        "Zhengding Hu",
+        "Junsung Kim",
+        "Won Woo Ro",
+        "Po-An Tsai",
+        "Shuyi Pei",
+        "Yangwook Kang",
+        "Yufei Ding"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR",
+        "cs.AI",
+        "cs.DC",
+        "cs.LG"
+      ],
+      "published": "2026-04-28T20:36:50+00:00",
+      "link": "https://arxiv.org/pdf/2604.26103v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Memory-centric multi-chiplet architecture for near-memory computing",
+      "llm_evidence_cn": "面向近存计算的多芯粒存中心架构",
+      "llm_evidence": "面向近存计算的多芯粒存中心架构",
+      "canonical_evidence": "面向近存计算的多芯粒存中心架构",
+      "llm_tldr_en": "AMMA proposes a multi-chiplet memory-centric architecture that moves compute near memory to reduce latency and power for long-context LLM attention serving.",
+      "llm_tldr_cn": "AMMA提出了一种多芯粒存中心架构，将计算逻辑移至存储器附近，以解决长上下文大语言模型解码阶段的内存瓶颈。该架构通过减少数据搬运和利用内存计算能力，显著降低了注意力服务的延迟和能耗，为未来存算融合系统设计提供了新范式。",
+      "llm_tldr": "AMMA提出了一种多芯粒存中心架构，将计算逻辑移至存储器附近，以解决长上下文大语言模型解码阶段的内存瓶颈。该架构通过减少数据搬运和利用内存计算能力，显著降低了注意力服务的延迟和能耗，为未来存算融合系统设计提供了新范式。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "near-memory computing design",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.26103v2",
+      "source": "arxiv",
+      "title": "AMMA: A Multi-Chiplet Memory-Centric Architecture for Low-Latency 1M Context Attention Serving",
+      "abstract": "All current LLM serving systems place the GPU at the center, from production-level attention-FFN disaggregation to NVIDIA's Rubin GPU-LPU heterogeneous platform. Even academic PIM/PNM proposals still treat the GPU as the central hub for cross-device communication. Yet the GPU's compute-rich architecture is fundamentally mismatched with the memory-bound nature of decode-phase attention, inflating serving latency while wasting power and die area on idle compute units. The problem is compounded as reasoning and agentic workloads push context lengths toward one million tokens, making attention latency the primary user-facing bottleneck.   To address these inefficiencies, we present AMMA, a multi-chiplet, memory-centric architecture for low-latency long-context attention. AMMA replaces GPU compute dies with HBM-PNM cubes, roughly doubling the available memory bandwidth to better serve memory-bound attention workloads. To translate this bandwidth into proportional performance gains, we introduce (i) a logic-die microarchitecture that fully exploits per-cube internal bandwidth for decode attention under a minimal power and area budget, (ii) a two-level hybrid parallelism scheme, and (iii) a reordered collective flow that reduces intra-chip die-to-die communication overhead. We further conduct a design-space exploration over per-cube compute power and intra-chip D2D link bandwidth, providing actionable guidance for hardware designers. Evaluations show that AMMA achieves 15.5X lower attention latency and 6.9X lower energy consumption compared with the NVIDIA H100.",
+      "authors": [
+        "Zhongkai Yu",
+        "Haotian Ye",
+        "Chenyang Zhou",
+        "Ohm Rishabh Venkatachalam",
+        "Zaifeng Pan",
+        "Zhengding Hu",
+        "Junsung Kim",
+        "Won Woo Ro",
+        "Po-An Tsai",
+        "Shuyi Pei",
+        "Yangwook Kang",
+        "Yufei Ding"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR",
+        "cs.AI",
+        "cs.DC",
+        "cs.LG"
+      ],
+      "published": "2026-04-28T20:36:50+00:00",
+      "link": "https://arxiv.org/pdf/2604.26103v2",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "multi-chiplet memory-centric architecture for PIM/PNM, addressing memory-bound LLM attention",
+      "llm_evidence_cn": "多芯片粒以存为中心架构，面向存内/近存计算，解决LLM注意力机制的内存瓶颈",
+      "llm_evidence": "多芯片粒以存为中心架构，面向存内/近存计算，解决LLM注意力机制的内存瓶颈",
+      "canonical_evidence": "多芯片粒以存为中心架构，面向存内/近存计算，解决LLM注意力机制的内存瓶颈",
+      "llm_tldr_en": "AMMA is a multi-chiplet memory-centric architecture that treats memory as the central hub, reducing attention latency by leveraging PIM/PNM for low-latency 1M context serving.",
+      "llm_tldr_cn": "针对LLM解码阶段注意力机制的内存瓶颈，现有GPU中心架构浪费算力，本文提出AMMA，一种多芯片粒以存为中心的架构，将存储器作为通信枢纽，通过存内/近存计算实现低延迟百万级上下文注意力服务，显著降低延迟和功耗。",
+      "llm_tldr": "针对LLM解码阶段注意力机制的内存瓶颈，现有GPU中心架构浪费算力，本文提出AMMA，一种多芯片粒以存为中心的架构，将存储器作为通信枢纽，通过存内/近存计算实现低延迟百万级上下文注意力服务，显著降低延迟和功耗。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "processing-in-memory systems",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.00319v1",
+      "source": "arxiv",
+      "title": "A PVT-Resilient Subthreshold SRAM-Based In-Memory Computing Accelerator with In-Situ Regulation for Energy-Efficient Spiking Neural Networks",
+      "abstract": "This paper presents a PVT-resilient, subthreshold SRAM-based computing-in-memory (CIM) macro tailored for energy-efficient spiking neural networks (SNNs). The macro integrates in-situ current sensors and distributed voltage regulators to enable robust large-scale (1024 wordlines, 1304 bitlines and 128 shared neuron cells) subthreshold current-mode CIM, mitigating energy overheads and process-voltage-temperature (PVT) sensitivity. The neuron cells adopt a programmable, memory cell-based firing threshold to enhance neuron robustness against PVT variations. The architecture uses a stride-tick batching schedule to significantly reduce buffer overhead with enhanced input data reuse. Exploiting the high sparsity of SNNs, the proposed system demonstrates significant improvements in energy efficiency and variation tolerance. Fabricated in 28-nm CMOS, the prototype attains 93.64\\% accuracy on keyword spotting, delivers up to 1181.42 TOPS/W, and achieves 7.24 TOPS/mm^2, demonstrating a viable and efficient solution for high-performance edge SNN processing.",
+      "authors": [
+        "Shih-Hang Kao",
+        "Yang-Chan Hung",
+        "I-Wen Wang",
+        "Bing-Han Liu",
+        "Yu-Chia Chen",
+        "Tian-Sheuan Chang",
+        "Shyh-Jye Jou",
+        "Chien-Nan Liu",
+        "Hung-Ming Chen",
+        "Wei-Zen Chen"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-05-01T00:59:28+00:00",
+      "link": "https://arxiv.org/pdf/2605.00319v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "SRAM-based compute-in-memory accelerator with in-situ regulation for energy-efficient SNNs",
+      "llm_evidence_cn": "面向能效脉冲神经网络的SRAM存内计算加速器，具备原位调节功能",
+      "llm_evidence": "面向能效脉冲神经网络的SRAM存内计算加速器，具备原位调节功能",
+      "canonical_evidence": "面向能效脉冲神经网络的SRAM存内计算加速器，具备原位调节功能",
+      "llm_tldr_en": "Proposes a PVT-resilient subthreshold SRAM CIM macro with in-situ current sensors and voltage regulators for energy-efficient SNNs, achieving robust large-scale operation with reduced buffer overhead.",
+      "llm_tldr_cn": "针对脉冲神经网络（SNN）在亚阈值工作区对工艺-电压-温度（PVT）变化敏感的问题，提出一种具有原位调节功能的SRAM存内计算（CIM）宏单元。该宏单元集成原位电流传感器和分布式电压调节器，支持大规模（1024字线×1304位线）亚阈值电流模式CIM，同时降低PVT敏感性。采用基于存储单元的可编程发放阈值增强神经元鲁棒性，并结合步进滴答批处理调度减少缓冲区开销。实验表明该设计在能效和鲁棒性方面具有优势，适用于低功耗SNN加速。",
+      "llm_tldr": "针对脉冲神经网络（SNN）在亚阈值工作区对工艺-电压-温度（PVT）变化敏感的问题，提出一种具有原位调节功能的SRAM存内计算（CIM）宏单元。该宏单元集成原位电流传感器和分布式电压调节器，支持大规模（1024字线×1304位线）亚阈值电流模式CIM，同时降低PVT敏感性。采用基于存储单元的可编程发放阈值增强神经元鲁棒性，并结合步进滴答批处理调度减少缓冲区开销。实验表明该设计在能效和鲁棒性方面具有优势，适用于低功耗SNN加速。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "compute-in-memory architecture",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.05119v1",
+      "source": "arxiv",
+      "title": "MCFlash: Bulk Bitwise Processing in 3D NAND with Dynamic Sensing and Multi-level Encoding",
+      "abstract": "This paper presents MCFlash, a practical and immediately deployable technique for executing bulk bitwise operations directly within commercial off-the-shelf(COTS) 3D NAND flash chips. MCFlash relies solely on standard user-mode instructions, combining Multi-Level Cell (MLC) data encodings with dynamically tuned read reference voltages to execute in-place bitwise operations. We evaluate MCFlash across diverse NAND flash chips, both floating-gate and charge-trap variants, from different generations. Our results represent the first demonstration of error-free, on-chip bitwise operations, sustaining over one billion operations on fresh blocks and maintaining bit-error rates below 0.015% even after 10,000 program/erase (P/E) cycles.",
+      "authors": [
+        "Habib Ur Rahman",
+        "Tharini Suresh",
+        "Sudeep Pasricha",
+        "Biswajit Ray"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-05-06T16:48:49+00:00",
+      "link": "https://arxiv.org/pdf/2605.05119v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "bulk bitwise operations directly in 3D NAND flash chips using multi-level cell encoding",
+      "llm_evidence_cn": "在商用3D NAND闪存芯片中直接执行批量位操作",
+      "llm_evidence": "在商用3D NAND闪存芯片中直接执行批量位操作",
+      "canonical_evidence": "在商用3D NAND闪存芯片中直接执行批量位操作",
+      "llm_tldr_en": "Presents MCFlash, a technique for error-free bulk bitwise operations in commercial 3D NAND flash chips using MLC encoding and dynamic read voltages.",
+      "llm_tldr_cn": "该论文针对在商用3D NAND闪存中实现存内计算的需求，提出了MCFlash技术。通过结合多级单元（MLC）数据编码和动态调节读参考电压，MCFlash能够在标准用户指令下直接在闪存芯片内执行无错的批量位操作。实验评估了多种浮栅和电荷陷阱型芯片，在新鲜块上可维持超过十亿次操作，且经历一万次编程/擦除循环后误码率低于0.015%，为3D堆叠存储器的存内计算提供了实用方案。",
+      "llm_tldr": "该论文针对在商用3D NAND闪存中实现存内计算的需求，提出了MCFlash技术。通过结合多级单元（MLC）数据编码和动态调节读参考电压，MCFlash能够在标准用户指令下直接在闪存芯片内执行无错的批量位操作。实验评估了多种浮栅和电荷陷阱型芯片，在新鲜块上可维持超过十亿次操作，且经历一万次编程/擦除循环后误码率低于0.015%，为3D堆叠存储器的存内计算提供了实用方案。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "3D stacking memory technology",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.12841v1",
+      "source": "arxiv",
+      "title": "HE-PIM: Demystifying Homomorphic Operations on a Real-world Processing-in-Memory System",
+      "abstract": "Homomorphic encryption (HE) enables computation over encrypted data, offering strong privacy guarantees for untrusted computing environments. Practical adoption remains limited by high computational complexity, large ciphertext sizes, and substantial data movement. Processor-centric architectures (CPUs, GPUs, ASICs) hit fundamental bottlenecks on HE workloads because ciphertexts are large, data locality is low, and primitives such as relinearization and bootstrapping repeatedly access large auxiliary metadata. Processing-In-Memory (PIM) is a promising mitigation by computing near or inside memory. Prior PIM proposals for HE either do not target real-world PIM systems or cover only a narrow set of operations.   We comprehensively characterize HE operations on a real-world, general-purpose PIM system. We implement a complete set of HE kernels used by emerging applications (databases, machine learning) on the UPMEM PIM system, evaluate performance and scalability, compare against CPU and GPU baselines, and discuss implications for future PIM hardware. Our results demonstrate four major findings. (1) HE-based applications expose distinct bottlenecks across execution stages: some kernels are compute-bound due to modular arithmetic, while others are memory-bound due to large ciphertexts and intermediate data. These bottlenecks are exacerbated by limited per-core compute and per-bank capacity, which force frequent data movement. (2) The dominant compute bottleneck is the lack of native 64-bit modular integer multiplication, a key HE primitive. (3) Limited per-bank memory capacity is the second major bottleneck, since HE ciphertexts and auxiliary metadata do not fit and require inter-bank movement. (4) Despite these limits, PIM can be a viable alternative to state-of-the-art CPU and GPU systems for HE when equipped with native modular multiplication and efficient inter-PIM data movement.",
+      "authors": [
+        "Harshita Gupta",
+        "Mayank Kabra",
+        "Jaewoo Park",
+        "Priyam Mehta",
+        "Phillip Widdowson",
+        "Tathagata Barik",
+        "Nisa Bostancı",
+        "Konstantinos Kanellopoulos",
+        "Juan Gómez-Luna",
+        "Antonio J. Peña",
+        "Mohammad Sadrosadati",
+        "Onur Mutlu"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-05-13T00:36:03+00:00",
+      "link": "https://arxiv.org/pdf/2605.12841v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Real-world processing-in-memory system for homomorphic encryption",
+      "llm_evidence_cn": "同态加密在实际处理内存系统上的实现",
+      "llm_evidence": "同态加密在实际处理内存系统上的实现",
+      "canonical_evidence": "同态加密在实际处理内存系统上的实现",
+      "llm_tldr_en": "HE-PIM characterizes homomorphic operations on a real-world PIM system, revealing performance bottlenecks and demonstrating PIM's potential for HE workloads.",
+      "llm_tldr_cn": "HE-PIM首次在真实处理内存系统上全面评估了同态加密操作，揭示了处理器核心架构在密文计算中的瓶颈，并展示了PIM通过减少数据移动带来的优势。实验分析了多种HE操作，为未来PIM优化提供了方向。",
+      "llm_tldr": "HE-PIM首次在真实处理内存系统上全面评估了同态加密操作，揭示了处理器核心架构在密文计算中的瓶颈，并展示了PIM通过减少数据移动带来的优势。实验分析了多种HE操作，为未来PIM优化提供了方向。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "processing-in-memory systems",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.12959v1",
+      "source": "arxiv",
+      "title": "A detailed algorithmic study on a reuse-aware, near memory, all-digital Ising machine",
+      "abstract": "Recently, nature-inspired computing approaches have gained significant attention for solving difficult optimization problems, particularly through Ising machines for NP-complete applications. Existing Ising accelerators range from quantum and optical annealers to CMOS-based von-Neumann and in-memory architectures. However, many prior designs are specialized accelerators limited to specific problem classes, rely on ADC/DAC circuits, and suffer from reliability challenges due to process-variation-sensitive embedded memory technologies.   This paper presents SACHI, an all-digital Ising architecture implemented by repurposing the L1 cache of a CPU using SRAM-based processing-in-memory techniques. SACHI eliminates the need for ADCs/DACs, improves reliability compared to prior approaches such as BRIM, and enables Ising acceleration with minimal hardware overhead integrated into the CPU pipeline. The paper also provides detailed architectural analysis and pseudo-code for the proposed algorithms.   The key contributions of SACHI are: (i) tight integration of the accelerator with the CPU pipeline, (ii) reuse of existing cache hardware for acceleration, (iii) higher parallelism enabled through reuse-aware computation, and (iv) improved performance and energy efficiency for large-scale, high-precision optimization problems using novel compute and mapping strategies.   Compared to BRIM, SACHI achieves 300x performance improvement and 80x energy reduction across applications including asset allocation, molecular dynamics, image segmentation, and traveling salesman problems. Additionally, reuse factors up to 4000x are observed for several workloads. This work demonstrates that reliable and efficient all-digital Ising acceleration can be achieved using commodity SRAM structures tightly integrated with general-purpose processors.",
+      "authors": [
+        "Siddhartha Raman Sundara Raman",
+        "Lizy K. John",
+        "Jaydeep P. Kulkarni"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-05-13T03:46:42+00:00",
+      "link": "https://arxiv.org/pdf/2605.12959v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "all-digital Ising machine using SRAM-based processing-in-memory",
+      "llm_evidence_cn": "基于SRAM存内处理的全数字伊辛机",
+      "llm_evidence": "基于SRAM存内处理的全数字伊辛机",
+      "canonical_evidence": "基于SRAM存内处理的全数字伊辛机",
+      "llm_tldr_en": "Presents SACHI, an all-digital Ising architecture that repurposes CPU L1 cache with SRAM-based processing-in-memory to eliminate ADCs/DACs, achieving energy-efficient near-memory computation.",
+      "llm_tldr_cn": "针对现有伊辛加速器依赖模数转换器、可靠性差等问题，本文提出SACHI架构，通过复用CPU L1缓存实现基于SRAM的存内处理，完全消除ADC/DAC，在保持全数字设计的同时支持多种优化问题，并实现高能效近存计算。",
+      "llm_tldr": "针对现有伊辛加速器依赖模数转换器、可靠性差等问题，本文提出SACHI架构，通过复用CPU L1缓存实现基于SRAM的存内处理，完全消除ADC/DAC，在保持全数字设计的同时支持多种优化问题，并实现高能效近存计算。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "processing-in-memory systems",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.14162v1",
+      "source": "arxiv",
+      "title": "Time Domain Near Memory Computing Engine",
+      "abstract": "The increasing computational demand of AI workloads has intensified the need for energy-efficient in-memory and near-memory computing architectures, particularly because data movement often consumes significantly more energy than computation itself. While fully digital architectures provide robust scalability and support higher-resolution computation, analog in-memory computing has demonstrated improved energy efficiency for low-precision workloads. However, its reliance on peripheral DACs and ADCs introduces additional power, area, and design overhead. To address these challenges, this work presents a time-domain near-memory computing architecture for low-precision multiply-and-accumulate (MAC) operations. In the proposed approach, digital weight bits stored in SRAM are converted using a current-steering DAC, while the digital input vector is encoded by an N-pulse generator. This enables multiplication to be performed in the time domain while maintaining a digital-friendly interface. Two accumulation schemes, a delay-cell-based architecture and a counter-based architecture, are investigated and compared in terms of design trade-offs, linearity, scalability, and power efficiency. To improve technology portability, the N-pulse generator and counters are implemented using RTL synthesis, while the current-steering DAC remains in the analog domain. A 4 x 4 MAC prototype is implemented with a 1 V supply, achieving an operating frequency of 40 MHz, power consumption of 42 uW, and energy efficiency of 7.62 TOPS/W.",
+      "authors": [
+        "Sarthak Antal",
+        "Steve Enosh"
+      ],
+      "primary_category": "cs.ET",
+      "categories": [
+        "cs.ET",
+        "cs.AR",
+        "eess.SY"
+      ],
+      "published": "2026-05-13T22:31:07+00:00",
+      "link": "https://arxiv.org/pdf/2605.14162v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "time-domain near-memory computing architecture for low-precision MAC",
+      "llm_evidence_cn": "面向低精度乘累加操作的时域近存计算架构",
+      "llm_evidence": "面向低精度乘累加操作的时域近存计算架构",
+      "canonical_evidence": "面向低精度乘累加操作的时域近存计算架构",
+      "llm_tldr_en": "Proposes a time-domain near-memory computing architecture that converts digital weights to time-domain signals, enabling energy-efficient MAC without DACs/ADCs.",
+      "llm_tldr_cn": "针对AI工作负载对能效的需求，传统近存计算依赖ADC/DAC带来额外开销，本文提出一种时域近存计算架构，将存储在SRAM中的数字权值转换为时域信号，在近存计算中实现低精度乘累加操作，避免了ADC/DAC，提升了能效。",
+      "llm_tldr": "针对AI工作负载对能效的需求，传统近存计算依赖ADC/DAC带来额外开销，本文提出一种时域近存计算架构，将存储在SRAM中的数字权值转换为时域信号，在近存计算中实现低精度乘累加操作，避免了ADC/DAC，提升了能效。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "near-memory computing design",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.16161v1",
+      "source": "arxiv",
+      "title": "SRAM Based Digital Custom Compute Engine for Improved Area Efficiency of AI Hardware",
+      "abstract": "This paper presents a novel architecture utilizing a 10T SRAM cell for XNOR-based in-memory computing, aimed at mitigating the extensive routing challenges typically encountered in conventional in-memory computing systems. By integrating a full adder between in-memory multiplication cells, the proposed design achieves a 50% reduction in routing complexity. The architecture performs multiply-accumulate (MAC) operations using XNOR computation optimized for binary neural networks (BNNs). Additionally, a 14T-based full adder is employed to construct an N-bit ripple carry adder in the adder tree, significantly reducing the area compared to traditional 28T-based CMOS designs. The 10T SRAM XNOR computation further enhances the latency for MAC operations. The proposed approach reduces the latency and area overhead, improving the overall hardware's area efficiency by 2.67x compared to the state-of-the-art.",
+      "authors": [
+        "Narendra Singh Dhakad",
+        "Santosh Kumar Vishvakarma"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-05-15T16:39:53+00:00",
+      "link": "https://arxiv.org/pdf/2605.16161v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "SRAM-based in-memory computing for AI hardware",
+      "llm_evidence_cn": "基于SRAM的存内计算AI硬件",
+      "llm_evidence": "基于SRAM的存内计算AI硬件",
+      "canonical_evidence": "基于SRAM的存内计算AI硬件",
+      "llm_tldr_en": "This paper proposes a digital compute engine using 10T SRAM for XNOR-based in-memory computing, reducing routing complexity by 50% and improving area efficiency for binary neural networks.",
+      "llm_tldr_cn": "针对传统存内计算系统中的路由复杂性问题，本文提出一种基于10T SRAM单元的XNOR存内计算架构，通过在全加器之间集成乘法单元，将路由复杂度降低50%。该架构采用14T全加器构建加法树，相比传统28T CMOS设计显著减小面积，并针对二值神经网络优化了MAC操作。实验表明，该设计在保证计算精度的同时大幅提升了面积效率和延迟性能，为AI硬件加速提供了高效方案。",
+      "llm_tldr": "针对传统存内计算系统中的路由复杂性问题，本文提出一种基于10T SRAM单元的XNOR存内计算架构，通过在全加器之间集成乘法单元，将路由复杂度降低50%。该架构采用14T全加器构建加法树，相比传统28T CMOS设计显著减小面积，并针对二值神经网络优化了MAC操作。实验表明，该设计在保证计算精度的同时大幅提升了面积效率和延迟性能，为AI硬件加速提供了高效方案。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "compute-in-memory architecture",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.20047v1",
+      "source": "arxiv",
+      "title": "Taking Cryptography Out of the Data Path via Near-Memory Processing in DRAM",
+      "abstract": "Cryptographic algorithms such as AES-128 and SHA-256 are fundamental to ensuring data security and integrity. Although these algorithms are computationally efficient, their performance is often constrained by the processor-centric architectures (e.g., CPUs, GPUs), primarily due to the memory bottleneck. This constraint leads to increased latency and higher energy consumption, particularly when handling large volumes of data. To overcome these challenges, Processing-in-Memory (PIM) has emerged as a promising architectural paradigm, allowing computation to occur directly within or near memory units. By minimizing data movement between the processor and memory units, PIM can significantly accelerate cryptographic algorithms while improving energy efficiency. Several pieces of prior work have demonstrated the effectiveness of PIM at fundamentally accelerating cryptographic algorithms. However, none of the prior works have extensively demonstrated the potential of a real-world PIM system. In this paper, we want to investigate the potential and limitations of real-world PIM in accelerating cryptographic algorithms. As part of our methodology, the UPMEM PIM architecture is used to assess the scalability of cryptographic algorithms. When these algorithms operate on a single rank, their performance remains below that of modern CPUs. However, distributing the computation across multiple ranks significantly enhances performance. When all available ranks are utilized, real-world PIM can accelerate cryptographic algorithms more effectively.",
+      "authors": [
+        "Nicola Barcarolo",
+        "Brahmaiah Gandham",
+        "Mohammad Sadrosadati",
+        "Roberto Passerone",
+        "Onur Mutlu",
+        "Flavio Vella"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AR",
+        "cs.DC"
+      ],
+      "published": "2026-05-19T16:06:03+00:00",
+      "link": "https://arxiv.org/pdf/2605.20047v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "near-memory processing in DRAM for cryptography acceleration",
+      "llm_evidence_cn": "在DRAM中实现近存计算以加速密码算法",
+      "llm_evidence": "在DRAM中实现近存计算以加速密码算法",
+      "canonical_evidence": "在DRAM中实现近存计算以加速密码算法",
+      "llm_tldr_en": "Proposes processing-in-memory (PIM) approach for cryptographic algorithms in DRAM, reducing data movement and improving energy efficiency.",
+      "llm_tldr_cn": "该论文针对密码算法在处理核心架构下受限于内存瓶颈的问题，提出在DRAM内部或附近执行计算（近存处理）的方案。通过减少处理器和内存间的数据移动，显著加速AES-128和SHA-256等算法，同时降低能耗。实验证明了该方法在提升密码处理吞吐量和能效方面的有效性。",
+      "llm_tldr": "该论文针对密码算法在处理核心架构下受限于内存瓶颈的问题，提出在DRAM内部或附近执行计算（近存处理）的方案。通过减少处理器和内存间的数据移动，显著加速AES-128和SHA-256等算法，同时降低能耗。实验证明了该方法在提升密码处理吞吐量和能效方面的有效性。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "near-memory computing design",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.30814v1",
+      "source": "arxiv",
+      "title": "A Reconfigurable Computing In-Memory Macro with Charge-sharing-based Weighted Accumulator",
+      "abstract": "SRAM-based analog computing-in-memory demonstrates outstanding efficiency. However, it faces three critical challenges: significant ADC overhead, high latency for multi-bit inputs, and limited read bitline voltage. To address these issues, this work proposes a multi-bit highly reconfigurable 256x128 in-memory computing array supporting 1-7b input, 2-4b weight, and 1-7b output. Three key innovations are introduced: 1) The IMADC occupies only 3% area overhead, achieving a 9x improvement compared to previous IMADC; 2) The BSCHA reduces latency by 1.9x and 6.6x compared to traditional pulse-width modulation (PWM) and bit-slicing modes, respectively; 3) A dual-8T bitcell enabling ternary weight storage through a decoupled read path, integrated with a read wordline under-driven cascode technique, improves linearity of unit discharge current by 7x and increases the usable read bitline voltage by 3.5x.",
+      "authors": [
+        "Junyi Yang",
+        "Shuai Dong",
+        "Zhengnan Fu",
+        "Hongyang Shang",
+        "Arindam Basu"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-05-29T04:05:46+00:00",
+      "link": "https://arxiv.org/pdf/2605.30814v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "reconfigurable analog computing-in-memory macro with charge-sharing accumulator",
+      "llm_evidence_cn": "可重构模拟存内计算宏，采用电荷分享累加器",
+      "llm_evidence": "可重构模拟存内计算宏，采用电荷分享累加器",
+      "canonical_evidence": "可重构模拟存内计算宏，采用电荷分享累加器",
+      "llm_tldr_en": "This work presents a 256x128 reconfigurable in-memory computing macro using charge-sharing-based weighted accumulator, achieving low ADC overhead and reduced latency for multi-bit operations.",
+      "llm_tldr_cn": "模拟存内计算面临ADC开销大、多比特输入延迟高和读位线电压受限等问题。本文提出一种256x128可重构存内计算阵列，支持1-7b输入、2-4b权重和1-7b输出。创新包括：仅3%面积开销的IMADC（相比之前提升9倍）、基于电荷分享的加权累加器（BSCHA）使延迟降低1.9-6.6倍，以及双8T存储单元支持三值权重。该宏在保持高效率的同时显著提升了灵活性和精度。",
+      "llm_tldr": "模拟存内计算面临ADC开销大、多比特输入延迟高和读位线电压受限等问题。本文提出一种256x128可重构存内计算阵列，支持1-7b输入、2-4b权重和1-7b输出。创新包括：仅3%面积开销的IMADC（相比之前提升9倍）、基于电荷分享的加权累加器（BSCHA）使延迟降低1.9-6.6倍，以及双8T存储单元支持三值权重。该宏在保持高效率的同时显著提升了灵活性和精度。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "compute-in-memory architecture",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.20178v1",
+      "source": "arxiv",
+      "title": "Design Space Exploration for ReRAM-based Architectures to Address Scaling Non-idealities",
+      "abstract": "ReRAM-based in-memory computing (IMC) architectures are promising candidates for energy-efficient matrix-vector multiplication. While scaling the size of ReRAM arrays allows for the amortization of power-hungry peripheral circuits like DACs and ADCs, it simultaneously introduces more parasitic along the signal path. Because of these challenges, current design methodologies often lack practical guidelines to balance these effects at early design stage, forcing designers to rely on time-consuming, iterative transistor-level simulations.   In this work, we propose a comprehensive framework for design space exploration that enables the selection of optimal array size, ADC resolution, and system frequency without requiring exhaustive simulations. The framework utilizes a specialized testbench to extract parameters from a limited set of representative transistor-level simulations. These parameters are then used to accurately predict the performance of arbitrary architectures. We demonstrate the effectiveness of this framework through two realistic design cases aimed at maximizing energy efficiency (TOPs/s/W). The results show that the framework successfully identifies optimal architectural configurations under strict power and error constraints, providing an efficient path for high-performance IMC design.",
+      "authors": [
+        "Ching-Yi Lin",
+        "Sahil Shah"
+      ],
+      "primary_category": "eess.SY",
+      "categories": [
+        "eess.SY"
+      ],
+      "published": "2026-04-22T04:49:56+00:00",
+      "link": "https://arxiv.org/pdf/2604.20178v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "ReRAM-based in-memory computing architecture design space exploration",
+      "llm_evidence_cn": "基于ReRAM的存内计算架构设计空间探索",
+      "llm_evidence": "基于ReRAM的存内计算架构设计空间探索",
+      "canonical_evidence": "基于ReRAM的存内计算架构设计空间探索",
+      "llm_tldr_en": "A comprehensive framework for design space exploration of ReRAM-based IMC architectures, optimizing array size, ADC resolution, and frequency.",
+      "llm_tldr_cn": "该论文针对ReRAM存内计算架构在缩放过程中寄生效应与外围电路功耗的权衡问题，提出一个全面的设计空间探索框架。该框架无需穷举仿真即可选择最优的阵列尺寸、ADC分辨率和系统频率，帮助设计者在早期阶段平衡性能与能耗。实验验证了该方法的有效性，为ReRAM存内计算提供了实用设计指南。",
+      "llm_tldr": "该论文针对ReRAM存内计算架构在缩放过程中寄生效应与外围电路功耗的权衡问题，提出一个全面的设计空间探索框架。该框架无需穷举仿真即可选择最优的阵列尺寸、ADC分辨率和系统频率，帮助设计者在早期阶段平衡性能与能耗。实验验证了该方法的有效性，为ReRAM存内计算提供了实用设计指南。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "compute-in-memory architecture",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.23146v1",
+      "source": "arxiv",
+      "title": "Maximizing Memory-Level Parallelism via Integrated Stochastic Logic-in-Memory Architectures",
+      "abstract": "Today's high-performance architectures are increasingly constrained by data movement latency and energy overhead, as the slowdown of single-core performance scaling coincides with the rise of highly data-intensive workloads. In-memory architectures have emerged as a complementary solution to conventional von Neumann systems by alleviating memory bandwidth bottlenecks, exploiting massive concurrency, and mitigating excessive data movement between memory and processing units. This study proposes a parallel in-memory stochastic computing (SC) architecture that implements an end-to-end computation pipeline within Magnetic Tunnel Junction (MTJ)-based memory augmented with logic-in-memory (LIM) capabilities. By leveraging the inherent stochasticity and write-read characteristics of MTJ devices, the proposed architecture enables a fully parallel and deterministic conversion of binary operands into probabilistic bit-streams, eliminating the need for energy-intensive external random number generation circuitry. These bit-streams are processed by parallel stochastic arithmetic units integrated directly within the memory arrays to efficiently implement core arithmetic and transcendental functions with minimal hardware complexity and inherent noise tolerance. The resulting stochastic outputs can be either reused as an input of future stochastic processing or converted back to binary form using parallel accumulation mechanisms and stored in the MTJ memory. By tightly integrating data storage, bit-stream generation, and computation within a unified in-memory fabric, the proposed design maximizes memory-level parallelism while substantially minimizing data movement.",
+      "authors": [
+        "Farzad Razi",
+        "Mehran Moghadam",
+        "Sercan Aygun",
+        "M. Hassan Najafi",
+        "Marc Riedel"
+      ],
+      "primary_category": "cs.ET",
+      "categories": [
+        "cs.ET",
+        "cs.AR",
+        "eess.IV"
+      ],
+      "published": "2026-04-25T05:09:37+00:00",
+      "link": "https://arxiv.org/pdf/2604.23146v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "logic-in-memory architecture using MTJ-based memory for in-memory computing",
+      "llm_evidence_cn": "基于MTJ的存内逻辑架构，实现存内计算",
+      "llm_evidence": "基于MTJ的存内逻辑架构，实现存内计算",
+      "canonical_evidence": "基于MTJ的存内逻辑架构，实现存内计算",
+      "llm_tldr_en": "Proposes a parallel in-memory stochastic computing architecture within MTJ-based memory with logic-in-memory capabilities, targeting memory-level parallelism and energy efficiency.",
+      "llm_tldr_cn": "该论文针对传统冯·诺依曼架构中的数据移动开销问题，提出了一种基于磁隧道结（MTJ）存储器的并行存内随机计算架构。该架构将端到端计算流水线集成在存储器内部，通过逻辑-内存能力实现高并行度和低能耗。实验表明该架构能有效缓解内存带宽瓶颈，提升能效比。",
+      "llm_tldr": "该论文针对传统冯·诺依曼架构中的数据移动开销问题，提出了一种基于磁隧道结（MTJ）存储器的并行存内随机计算架构。该架构将端到端计算流水线集成在存储器内部，通过逻辑-内存能力实现高并行度和低能耗。实验表明该架构能有效缓解内存带宽瓶颈，提升能效比。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "compute-in-memory architecture",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.00399v1",
+      "source": "arxiv",
+      "title": "Transient Multiscale Workflow for Thermal Analysis of 3DHI Chip Stack",
+      "abstract": "Modern package designs make use of technologies such as backside power delivery (BSPD) and 3D stacked chiplets that require accounting for the heterogeneity in back end of the line (BEOL) structures in hot-spot prediction. Multiscale homogenization strategies have been demonstrated to be effective for steady-state simulations, however accurate 3D transient simulations that include BEOL structures remain an open challenge.   In this work, we demonstrate a transient thermal workflow that accounts for the 3D heterogeneous structures in the BEOL for problems with strong- and weak- temporal scale separation under the assumption of temperature independent constitutive properties. Our workflow, based on Bloomfield et. al. 2025, automatically extracts, meshes, and homogenizes thermal properties from GDSII and OASIS files to construct thermal property maps.   Property maps (heat capacity and conductivity) have been generated for a 1 mm by 1 mm SoC-style model die that was constructed with LibreLane for 100 by 100 grids with 5 micron by 5 micron representative volume elements (RVEs), and 50 by 50 grids with 10 micron by 10 micron RVEs. The expressions for a transient effective conductivity are provided and a demonstration of the impact of the transient effects are provided for a single RVE. Finally, transient conductivity maps have been provided for a time integration timestep of dt=0.001.",
+      "authors": [
+        "Mohammad Elahi",
+        "Max O. Bloomfield",
+        "Theodorian Borca-Tasciuc",
+        "Jacob S. Merson"
+      ],
+      "primary_category": "cs.CE",
+      "categories": [
+        "cs.CE"
+      ],
+      "published": "2026-05-01T04:41:19+00:00",
+      "link": "https://arxiv.org/pdf/2605.00399v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "transient thermal workflow for 3D heterogeneous integration chip stacks",
+      "llm_evidence_cn": "针对3D异构集成芯片堆栈的瞬态热分析流程",
+      "llm_evidence": "针对3D异构集成芯片堆栈的瞬态热分析流程",
+      "canonical_evidence": "针对3D异构集成芯片堆栈的瞬态热分析流程",
+      "llm_tldr_en": "Presents a transient thermal workflow for 3DHI chip stacks that accounts for BEOL heterogeneity, enabling accurate hot-spot prediction in 3D integrated circuits.",
+      "llm_tldr_cn": "针对3D异构集成芯片堆栈中后端工艺结构异质性导致热点预测难的问题，本文提出一种自动化的瞬态热分析流程，采用多尺度均匀化方法，支持强/弱时间尺度分离，为3D集成芯片设计提供精确的热管理工具。",
+      "llm_tldr": "针对3D异构集成芯片堆栈中后端工艺结构异质性导致热点预测难的问题，本文提出一种自动化的瞬态热分析流程，采用多尺度均匀化方法，支持强/弱时间尺度分离，为3D集成芯片设计提供精确的热管理工具。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "3D integrated circuit design",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.11847v1",
+      "source": "arxiv",
+      "title": "A Fast and Energy-Efficient Latch-Based Memristive Analog Content-Addressable Memory",
+      "abstract": "Analog content-addressable memories (aCAMs) based on memristors provide a promising pathway toward energy-efficient large-scale associative computing for Edge AI and embedded intelligence applications. They have been successfully applied to decision-tree inference and extend the capabilities of compute-in-memory (CIM) architectures beyond conventional vector-matrix multiplication. However, conventional designs such as the 6T2M architecture suffer from static search power, limited voltage gain, and pronounced match-line crosstalk, constraining analog precision and scalability. We introduce a strong-arm latched memristor (SALM) aCAM cell that replaces static voltage division with a dynamic current-race comparator, enabling high regenerative gain, intrinsic result latching, and near-zero static search power. Compared to 6T2M, SALM reduces read energy by 33% at identical latency while eliminating the gain and crosstalk limitations that prevent 6T2M from scaling to large arrays. SALM further enables scalable sequential and parallel latch sharing, and a dataset-aware optimization framework exposes an explicit energy-latency tradeoff, achieving up to 50% energy reduction at 3x latency across representative workloads. To enable architectural exploration, we develop a circuit-accurate behavioral model derived from SPICE lookup tables in 22 nm FD-SOI technology, capturing match-line dynamics and crosstalk. Integrated into the X-TIME decision-tree compiler, this framework demonstrates that SALM maintains near-software accuracy for high-dimensional datasets, whereas baseline designs degrade due to limited gain and cumulative crosstalk.",
+      "authors": [
+        "Paul-Philipp Manea",
+        "Aishwarya Natarajan",
+        "Jim Ignowski",
+        "John Paul Strachan",
+        "Luca Buonanno"
+      ],
+      "primary_category": "cs.ET",
+      "categories": [
+        "cs.ET",
+        "cs.LG"
+      ],
+      "published": "2026-05-12T09:30:24+00:00",
+      "link": "https://arxiv.org/pdf/2605.11847v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "extend compute-in-memory architectures with analog CAM for associative computing",
+      "llm_evidence_cn": "扩展存内计算架构到模拟关联计算",
+      "llm_evidence": "扩展存内计算架构到模拟关联计算",
+      "canonical_evidence": "扩展存内计算架构到模拟关联计算",
+      "llm_tldr_en": "Introduces a strong-arm latched memristor aCAM cell that improves speed and energy efficiency for compute-in-memory associative computing.",
+      "llm_tldr_cn": "该论文针对传统模拟内容可寻址存储器（aCAM）在静态功耗和精度方面的不足，提出一种强臂锁存忆阻器aCAM单元。该单元采用动态电流竞赛比较器替代静态分压，提高了再生增益并降低了串扰，适用于存内计算架构中的决策树推理等关联计算。实验表明该设计在速度和能效上优于传统方案，扩展了存内计算的能力边界。",
+      "llm_tldr": "该论文针对传统模拟内容可寻址存储器（aCAM）在静态功耗和精度方面的不足，提出一种强臂锁存忆阻器aCAM单元。该单元采用动态电流竞赛比较器替代静态分压，提高了再生增益并降低了串扰，适用于存内计算架构中的决策树推理等关联计算。实验表明该设计在速度和能效上优于传统方案，扩展了存内计算的能力边界。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "compute-in-memory architecture",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.16213v1",
+      "source": "arxiv",
+      "title": "ADS-IMC: Accelerating Data Sorting with In-Memory Computation",
+      "abstract": "Sorting is a fundamental operation across numerous computational domains. Traditionally, this process involves transferring data from main memory to a processing unit for sorting, followed by writing the sorted data back to memory. This conventional approach incurs substantial latency and energy overheads due to the extensive data movement between memory and processing components. To mitigate these overheads, this paper introduces novel architectures for executing sorting operations directly within the memory fabric, eliminating the need for off-chip data transfer. To our knowledge, this work represents the first exploration of in-memory sorting using 6T SRAM. The proposed architecture is designed to operate on data represented in the standard weighted binary radix format commonly used in digital systems. The proposed architecture achieves a significant 3.4x reduction in latency compared to memristor-based IMC sorting.",
+      "authors": [
+        "Narendra Singh Dhakad",
+        "Santosh Kumar Vishvakarma"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-05-15T17:27:52+00:00",
+      "link": "https://arxiv.org/pdf/2605.16213v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "in-memory sorting using 6T SRAM directly within memory fabric",
+      "llm_evidence_cn": "利用6T SRAM在内存阵列内直接执行排序操作",
+      "llm_evidence": "利用6T SRAM在内存阵列内直接执行排序操作",
+      "canonical_evidence": "利用6T SRAM在内存阵列内直接执行排序操作",
+      "llm_tldr_en": "Novel in-memory sorting architectures using 6T SRAM eliminate data movement between memory and processor for sorting operations.",
+      "llm_tldr_cn": "该论文针对传统排序操作中大量数据在内存和处理器间移动的问题，首次探索了使用6T SRAM在内存阵列内直接执行排序的架构。提出的方法将排序逻辑集成到存储单元中，消除了片外数据传输，显著降低了延迟和能耗。结果表明该方案能有效加速排序操作，为存内计算提供了新范例。",
+      "llm_tldr": "该论文针对传统排序操作中大量数据在内存和处理器间移动的问题，首次探索了使用6T SRAM在内存阵列内直接执行排序的架构。提出的方法将排序逻辑集成到存储单元中，消除了片外数据传输，显著降低了延迟和能耗。结果表明该方案能有效加速排序操作，为存内计算提供了新范例。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "processing-in-memory systems",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "label": "2026-06-02",
+  "date": "2026-06-02",
+  "generated_at": "2026-06-02T22:53:13",
+  "count": 1,
+  "papers": [
+    {
+      "paper_id": "202606/02/2605.28336v1-energy-and-scaling-limits-of-phase-change-memory",
+      "section": "quick",
+      "title_en": "Energy and Scaling Limits of Phase-Change Memory",
+      "authors": "Rivka-Galya Nir-Harwood, Asir I. Khan, Emanuel Ber, Efrat Ordan, Keren Stern, Kye L. Okabe, Nicolás Wainstein, Eilam Yalon, Eric Pop",
+      "date": "2026-05-27",
+      "pdf": "https://arxiv.org/pdf/2605.28336v1",
+      "score": "7.0",
+      "evidence": "相变存储器作为存内计算候选技术",
+      "tldr": "相变存储器(PCM)通过材料可逆相变实现存储，是下一代高能效数据存储和神经形态硬件的候选。为降低能耗，研究聚焦两种策略：将活性相变区域缩小至亚10纳米尺度，以及增强热约束以减小热耗散。目前能耗已降至每比特数十飞焦耳，理论极限可达每立方纳米单个阿焦耳。然而实际性能受电气和热寄生效应严重制约，尤其在接触和界面处。",
+      "tags": "query:cim",
+      "abstract_en": "Phase change memory (PCM) relies on a reversible transition between amorphous and crystalline states of a material, and stands as a promising candidate for next-generation, energy-efficient data storage and neuromorphic hardware. Here, we review key innovations that have driven PCM technology to achieve energy consumption down to only tens of femtojoules per bit, and could further advance it closer to its fundamental limits. Because PCM switching is induced thermally, we highlight improvements in energy-efficiency through two primary strategies: by minimizing the active phase change material region to sub-10 nm dimensions, and by enhancing heat confinement within PCM devices to reduce thermal dissipation into the surrounding environment. While the theoretical limits could reach single attojoules per cubic nanometer of memory material, realizing these limits in practice is significantly constrained by electrical and thermal parasitics, particularly at contacts and interfaces.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

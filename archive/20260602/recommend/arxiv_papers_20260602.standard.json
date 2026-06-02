@@ -1,0 +1,60 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-02T22:51:22.838943+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2605.28336v1",
+      "source": "arxiv",
+      "title": "Energy and Scaling Limits of Phase-Change Memory",
+      "abstract": "Phase change memory (PCM) relies on a reversible transition between amorphous and crystalline states of a material, and stands as a promising candidate for next-generation, energy-efficient data storage and neuromorphic hardware. Here, we review key innovations that have driven PCM technology to achieve energy consumption down to only tens of femtojoules per bit, and could further advance it closer to its fundamental limits. Because PCM switching is induced thermally, we highlight improvements in energy-efficiency through two primary strategies: by minimizing the active phase change material region to sub-10 nm dimensions, and by enhancing heat confinement within PCM devices to reduce thermal dissipation into the surrounding environment. While the theoretical limits could reach single attojoules per cubic nanometer of memory material, realizing these limits in practice is significantly constrained by electrical and thermal parasitics, particularly at contacts and interfaces.",
+      "authors": [
+        "Rivka-Galya Nir-Harwood",
+        "Asir I. Khan",
+        "Emanuel Ber",
+        "Efrat Ordan",
+        "Keren Stern",
+        "Kye L. Okabe",
+        "Nicolás Wainstein",
+        "Eilam Yalon",
+        "Eric Pop"
+      ],
+      "primary_category": "cond-mat.mtrl-sci",
+      "categories": [
+        "cond-mat.mtrl-sci"
+      ],
+      "published": "2026-05-27T11:40:08+00:00",
+      "link": "https://arxiv.org/pdf/2605.28336v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Phase-change memory as a candidate for compute-in-memory",
+      "llm_evidence_cn": "相变存储器作为存内计算候选技术",
+      "llm_evidence": "相变存储器作为存内计算候选技术",
+      "canonical_evidence": "相变存储器作为存内计算候选技术",
+      "llm_tldr_en": "Reviews energy efficiency and scaling limits of PCM, a key memory technology for compute-in-memory architectures.",
+      "llm_tldr_cn": "本文综述了相变存储器（PCM）在能量效率与缩放极限方面的进展。PCM通过缩小有源区和增强热约束实现低至数十飞焦每比特的能耗，是存内计算架构的关键候选技术。文章分析了PCM的理论极限，为下一代高效数据存储和神经形态硬件提供了指导。",
+      "llm_tldr": "本文综述了相变存储器（PCM）在能量效率与缩放极限方面的进展。PCM通过缩小有源区和增强热约束实现低至数十飞焦每比特的能耗，是存内计算架构的关键候选技术。文章分析了PCM的理论极限，为下一代高效数据存储和神经形态硬件提供了指导。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "compute-in-memory architecture",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

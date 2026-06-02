@@ -1,6 +1,9 @@
 * <a class="dpr-sidebar-root-link" href="#/">首页</a>
 * <a class="dpr-sidebar-root-link dpr-sidebar-noactive-link" href="javascript:void(0)" data-dpr-hash="#/tutorial/README">使用教程</a>
 * Daily Papers
+  * 2026-06-02 <!--dpr-date:20260602-->
+    * 速读区
+      * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202606/02/2605.28336v1-energy-and-scaling-limits-of-phase-change-memory" data-sidebar-item="{&quot;title&quot;: &quot;Energy and Scaling Limits of Phase-Change Memory&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2605.28336v1-energy-and-scaling-limits-of-phase-change-memory&quot;, &quot;score&quot;: &quot;7.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;cim&quot;}], &quot;evidence&quot;: &quot;相变存储器作为存内计算候选技术&quot;}">Energy and Scaling Limits of Phase-Change Memory</a>
   * 2025-12-05 ~ 2026-06-02 <!--dpr-date:20251205-20260602-->
     * 精读区
       * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/20251205-20260602/2604.25317v1-fusioncim-accelerating-llm-inference-with-fusion-driven-computing-in-memory-architecture" data-sidebar-item="{&quot;title&quot;: &quot;FusionCIM: Accelerating LLM Inference with Fusion-Driven Computing-in-Memory Architecture&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2604.25317v1-fusioncim-accelerating-llm-inference-with-fusion-driven-computing-in-memory-architecture&quot;, &quot;score&quot;: &quot;10.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;cim&quot;}], &quot;evidence&quot;: &quot;提出FusionCIM，一种融合驱动的计算存储一体架构&quot;}">FusionCIM: Accelerating LLM Inference with Fusion-Driven Computing-in-Memory Architecture</a>

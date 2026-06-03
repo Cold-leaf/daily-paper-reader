@@ -1,6 +1,9 @@
 * <a class="dpr-sidebar-root-link" href="#/">首页</a>
 * <a class="dpr-sidebar-root-link dpr-sidebar-noactive-link" href="javascript:void(0)" data-dpr-hash="#/tutorial/README">使用教程</a>
 * Daily Papers
+  * 2026-06-03 <!--dpr-date:20260603-->
+    * 速读区
+      * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202606/03/2606.02358v1-chimera-a-flexible-and-scalable-31-topsw-ai-mcu-with-transformer-accelerator-and-563-gbs-shared-l2-memory-subsystem-with-qos-guarantees" data-sidebar-item="{&quot;title&quot;: &quot;CHIMERA: A Flexible and Scalable 3.1 TOPS/W AI-MCU with Transformer Accelerator and 563 Gb/s Shared-L2 Memory Subsystem with QoS Guarantees&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2606.02358v1-chimera-a-flexible-and-scalable-31-topsw-ai-mcu-with-transformer-accelerator-and-563-gbs-shared-l2-memory-subsystem-with-qos-guarantees&quot;, &quot;score&quot;: &quot;7.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;cim&quot;}], &quot;evidence&quot;: &quot;共享L2内存子系统在AI微控制器中实现近存计算&quot;}">CHIMERA: A Flexible and Scalable 3.1 TOPS/W AI-MCU with Transformer Accelerator and 563 Gb/s Shared-L2 Memory Subsystem with QoS Guarantees</a>
   * 2026-06-02 <!--dpr-date:20260602-->
     * 速读区
       * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202606/02/2605.28336v1-energy-and-scaling-limits-of-phase-change-memory" data-sidebar-item="{&quot;title&quot;: &quot;Energy and Scaling Limits of Phase-Change Memory&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2605.28336v1-energy-and-scaling-limits-of-phase-change-memory&quot;, &quot;score&quot;: &quot;7.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;cim&quot;}], &quot;evidence&quot;: &quot;相变存储器作为存内计算候选技术&quot;}">Energy and Scaling Limits of Phase-Change Memory</a>

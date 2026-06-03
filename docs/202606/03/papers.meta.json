@@ -1,0 +1,24 @@
+{
+  "label": "2026-06-03",
+  "date": "2026-06-03",
+  "generated_at": "2026-06-03T22:08:39",
+  "count": 1,
+  "papers": [
+    {
+      "paper_id": "202606/03/2606.02358v1-chimera-a-flexible-and-scalable-31-topsw-ai-mcu-with-transformer-accelerator-and-563-gbs-shared-l2-memory-subsystem-with-qos-guarantees",
+      "section": "quick",
+      "title_en": "CHIMERA: A Flexible and Scalable 3.1 TOPS/W AI-MCU with Transformer Accelerator and 563 Gb/s Shared-L2 Memory Subsystem with QoS Guarantees",
+      "authors": "Lorenzo Leone, Philip Wiese, Gamze İslamoğlu, Michael Rogenmoser, Davide Rossi, Francesco Conti, Luca Benini",
+      "date": "2026-06-01",
+      "pdf": "https://arxiv.org/pdf/2606.02358v1",
+      "score": "7.0",
+      "evidence": "共享L2内存子系统在AI微控制器中实现近存计算",
+      "tldr": "针对超低功耗边缘设备上快速演进的Transformer模型实时推理需求，提出Chimera AI-MCU。芯片集成Transformer加速器与九核RISC-V集群，并通过新颖L2内存岛子系统实现多集群共享，提供563 Gb/s带宽及服务质量保证。实测能效达3.1 TOPS/W，面积效率281 GOPS/mm²，比最先进SoC分别提升1.37倍和100倍。Chimera在灵活性和可扩展性上实现突破，为边缘AI推理树立新标杆。",
+      "tags": "query:cim",
+      "abstract_en": "We present Chimera, a flexible and scalable Microcontroller Unit (MCU) designed to accelerate real-time inference of rapidly evolving transformer-based models at the ultra-low-power edge (hundred of mW). The chip, implemented in 22 nm FDX technology, integrates a transformer accelerator tightly coupled within a compute cluster featuring nine general-purpose RV32IMA cores. Scalability extends to the memory hierarchy through a novel L2 memory island subsystem, which enables data sharing across multiple clusters while delivering 563 Gb/s aggregate bandwidth. The L2 subsystem enforces quality-of-service guarantees for latency-critical traffic, achieving up to 16x latency reduction. Chimera achieves peak energy and area efficiencies of 3.1 TOPS/W and 281 GOPS/mm2, demonstrating 1.37x higher energy efficiency and up to 100x higher area efficiency compared to State of the Art (SoA) SoCs. Compared to SoA standalone accelerators, Chimera achieves comparable energy efficiency and up to 1.8x higher area efficiency.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

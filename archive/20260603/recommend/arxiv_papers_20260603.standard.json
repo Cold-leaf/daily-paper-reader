@@ -1,0 +1,58 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-03T22:07:48.662563+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2606.02358v1",
+      "source": "arxiv",
+      "title": "CHIMERA: A Flexible and Scalable 3.1 TOPS/W AI-MCU with Transformer Accelerator and 563 Gb/s Shared-L2 Memory Subsystem with QoS Guarantees",
+      "abstract": "We present Chimera, a flexible and scalable Microcontroller Unit (MCU) designed to accelerate real-time inference of rapidly evolving transformer-based models at the ultra-low-power edge (hundred of mW). The chip, implemented in 22 nm FDX technology, integrates a transformer accelerator tightly coupled within a compute cluster featuring nine general-purpose RV32IMA cores. Scalability extends to the memory hierarchy through a novel L2 memory island subsystem, which enables data sharing across multiple clusters while delivering 563 Gb/s aggregate bandwidth. The L2 subsystem enforces quality-of-service guarantees for latency-critical traffic, achieving up to 16x latency reduction. Chimera achieves peak energy and area efficiencies of 3.1 TOPS/W and 281 GOPS/mm2, demonstrating 1.37x higher energy efficiency and up to 100x higher area efficiency compared to State of the Art (SoA) SoCs. Compared to SoA standalone accelerators, Chimera achieves comparable energy efficiency and up to 1.8x higher area efficiency.",
+      "authors": [
+        "Lorenzo Leone",
+        "Philip Wiese",
+        "Gamze İslamoğlu",
+        "Michael Rogenmoser",
+        "Davide Rossi",
+        "Francesco Conti",
+        "Luca Benini"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-06-01T15:06:09+00:00",
+      "link": "https://arxiv.org/pdf/2606.02358v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Shared-L2 memory subsystem enables near-memory computing in AI-MCU",
+      "llm_evidence_cn": "共享L2内存子系统在AI微控制器中实现近存计算",
+      "llm_evidence": "共享L2内存子系统在AI微控制器中实现近存计算",
+      "canonical_evidence": "共享L2内存子系统在AI微控制器中实现近存计算",
+      "llm_tldr_en": "CHIMERA presents an AI-MCU with a shared-L2 memory subsystem providing 563 Gb/s bandwidth and QoS guarantees, reducing latency by 16x for near-memory acceleration.",
+      "llm_tldr_cn": "CHIMERA提出一种灵活可扩展的AI微控制器，集成了Transformer加速器和九个通用RISC-V核心。其创新的L2内存岛子系统支持多簇数据共享，提供563 Gb/s聚合带宽和QoS保证，将延迟降低16倍。该设计针对超低功耗边缘推理，通过近存计算架构有效缓解了内存瓶颈。",
+      "llm_tldr": "CHIMERA提出一种灵活可扩展的AI微控制器，集成了Transformer加速器和九个通用RISC-V核心。其创新的L2内存岛子系统支持多簇数据共享，提供563 Gb/s聚合带宽和QoS保证，将延迟降低16倍。该设计针对超低功耗边缘推理，通过近存计算架构有效缓解了内存瓶颈。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "near-memory computing design",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

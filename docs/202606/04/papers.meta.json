@@ -1,0 +1,54 @@
+{
+  "label": "2026-06-04",
+  "date": "2026-06-04",
+  "generated_at": "2026-06-04T20:38:23",
+  "count": 3,
+  "papers": [
+    {
+      "paper_id": "202606/04/2606.02672v1-heterogeneous-mapping-for-analog-in-memory-computing-accelerators-a-unified-workflow",
+      "section": "deep",
+      "title_en": "Heterogeneous Mapping for Analog In-Memory Computing Accelerators: A Unified Workflow",
+      "authors": "Corey Lammie",
+      "date": "2026-06-01",
+      "pdf": "https://arxiv.org/pdf/2606.02672v1",
+      "score": "9.0",
+      "evidence": "模拟存内计算（AIMC）加速器，用于DNN推理",
+      "tldr": "模拟内存计算加速器通过异构架构结合模拟计算单元和数字处理器，以应对有限有效精度问题。现有方法按映射粒度、优化策略和模型支持分类，提炼为统一四阶段工作流。将该工作流的前两个阶段应用于GPT-2，首次生成解码器专用transformer的精度敏感度谱，发现敏感度集中在49个投影中的4个，第一个解码器块的注意力输出主导。结果表明投影级映射和选择性数字执行对可靠部署至关重要。",
+      "tags": "query:cim",
+      "abstract_en": "Analog In-Memory Computing (AIMC) accelerators execute matrix-vector multiplications directly within memory arrays, reducing data movement and improving DNN inference efficiency. Their limited effective precision motivates heterogeneous architectures that combine analog compute tiles with digital processing units. This letter classifies existing methods for partitioning DNN workloads across these resources by mapping granularity, optimization strategy, and model support, and distills them into a unified four-stage workflow. To demonstrate the workflow on a model class not yet addressed by existing methods, we apply its first two stages to GPT-2, producing the first AIMC-specific precision sensitivity profile for a decoder-only transformer. Sensitivity is dominated by 4 of 49 projections, with the first decoder block's attention output dominating by an order of magnitude. This suggests that projection-level mapping and selective digital execution of early-block and output-facing projections are important for reliable decoder-transformer deployment on AIMC hardware.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202606/04/2606.02781v1-cram-er-error-resilient-spintronic-computational-random-access-memory-for-scalable-in-memory-computation",
+      "section": "deep",
+      "title_en": "CRAM-ER: Error-Resilient Spintronic Computational Random Access Memory for Scalable In-Memory Computation",
+      "authors": "Sohan Salahuddin Mugdho, Md. Shahedul Hasan, Brahmdutta Dixit, Yang Lv, Jian-Ping Wang, Cheng Wang",
+      "date": "2026-06-01",
+      "pdf": "https://arxiv.org/pdf/2606.02781v1",
+      "score": "9.0",
+      "evidence": "直接面向存内计算架构，提出容错CRAM设计",
+      "tldr": "深度神经网络虽性能卓越，但传统冯·诺依曼架构面临内存瓶颈。基于MRAM的CRAM存内计算虽能消除外围开销，却受概率性开关误差限制，且大量串行写入导致吞吐低下。为此，提出CRAM-ER架构，通过混合自旋-CRAM与CMOS加法器树，并结合错误感知模型微调与细粒度纠错，实现可扩展的高可靠矩阵向量乘法。在DNN任务上，CRAM-ER将延迟降低两个数量级，精度近无损，能效与能量延迟积均优于CPU/GPU+高带宽DRAM，为大规模存内计算提供了高效可靠方案。",
+      "tags": "query:cim",
+      "abstract_en": "Deep neural networks (DNNs) have achieved state-of-the-art performance across diverse domains. However, typical Von Neumann compute paradigms face severe memory bottlenecks. Emerging near-memory and compute-in-memory approaches alleviate this but incur significant peripheral overhead. Computational Random Access Memory (CRAM) based on MRAM enables in-situ logic without peripheral overhead, offering a dense, energy-efficient solution. However, probabilistic MRAM switching induces gate-level errors that limit the scalability and reliability of CRAM for accelerating DNN. Moreover, the large number of sequential MRAM writes severely constrains CRAM throughput. To address these challenges, we propose an error-resilient CRAM (CRAM-ER) architecture for scalable in-memory matrix-vector multiplications (MVMs). Our error-aware hardware-software co-design framework leverages a hybrid spintronic-CRAM + CMOS adder-tree architecture to mitigate the impact of device-level errors, demonstrating MVM functionality with high area and energy efficiency. We further develop an error-aware model fine-tuning and fine-grained error correction for enhanced error resilience. Evaluations of the CMOS+spintronic hybrid architecture on DNN benchmarks show near-lossless accuracy while reducing CRAM latency by up to 2 orders of magnitude, outperforming CPU/GPU+high-bandwidth DRAM in both energy efficiency and energy-delay product.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202606/04/2606.04625v1-low-distortion-fusion-bonding-using-pneumatically-warped-wafers",
+      "section": "deep",
+      "title_en": "Low Distortion Fusion Bonding using Pneumatically Warped Wafers",
+      "authors": "Utkarsh Jain, Koen D'have, Philipp Schmidt, Damien Leech, Serena Iacovo, Philippe Muller, Dennis Bumuller, Thomas Schmidt, Koen Kennes, Steven Brems, Eric Beyne",
+      "date": "2026-06-03",
+      "pdf": "https://arxiv.org/pdf/2606.04625v1",
+      "score": "9.0",
+      "evidence": "利用气动翘曲晶圆实现低失真熔融键合，用于三维集成",
+      "tldr": "背面供电网络方案要求晶圆键合后不产生高阶形变和局部应力，但传统键合会引入网格畸变。本文提出一种气动弯曲键合方法，在SUSS XBA工具中通过受控气体压力预弯晶圆并保持对称柔顺，无需局部外力触发键合。结合晶圆形状测量与梯度IPD建模预测畸变，经图案化晶圆验证，发现低阶校正模型即可将残余网格畸变降至亚10nm，先进CPE模型可达≤3nm。该方法有效实现了低畸变键合，且简单工艺调谐可分离边缘效应与主要畸变源。",
+      "tags": "query:cim",
+      "abstract_en": "Backside power-delivery-network (BSPDN) schemes require wafer-to-wafer bonding steps that do not leave high order shape changes or localized stresses in the bonded stack to ensure that these don't get transferred to the thinned wafer for further lithographic exposure. However, bonding mechanics involve strong adhesive forces which can inherently create localized distortions that lithography tools must eventually compensate. Some contributors to grid distortion of the target wafer are, method of bond initiation, bond front velocity variations, and lack of symmetry between the wafers. In this work, we evaluate a low-distortion bonding approach in the SUSS XBA tool, where some of these contributors are tackled at the source, namely by initiating the bond without a localized external force, and keeping the wafers compliant & symmetric during bonding. Wafers are bonded with a slight pre-stress due to controlled gas pressure applied over the whole backside of the wafers throughout bonding. Wafer-shape measurements of the bonded stacks are used to perform gradient-based in-plane-displacements (IPD) modelling to estimate bonding-induced grid distortion. Dense scanner metrology is used on patterned-bonded wafers to confirm the location and severity of distortion predictions from patterned wafer geometry (PWG) measurements. On the PWG distortion maps and scanner grid readouts, we perform alignment and CPE modelling with different field layouts. Sub-10 nm levels of residual grid distortion are achievable with relatively low-order correction models, and less than or equal to 3 nm by using advanced CPE models. These results demonstrate that pneumatically warped bonding yields low-distortion bonded stacks, and that simple process tuning can decouple the dominant distortion source from edge-related variability.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

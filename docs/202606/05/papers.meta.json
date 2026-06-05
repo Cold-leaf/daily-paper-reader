@@ -1,0 +1,39 @@
+{
+  "label": "2026-06-05",
+  "date": "2026-06-05",
+  "generated_at": "2026-06-05T21:49:38",
+  "count": 2,
+  "papers": [
+    {
+      "paper_id": "202606/05/2606.05511v1-rh-row-hit-optimized-scheduling-for-pim-based-llm-inference",
+      "section": "deep",
+      "title_en": "RH+: Row-Hit-Optimized Scheduling for PIM-based LLM Inference",
+      "authors": "Yongchan Jung, Shafayat Mowla Anik, Byeong Kil Lee, Jeeho Ryoo",
+      "date": "2026-06-03",
+      "pdf": "https://arxiv.org/pdf/2606.05511v1",
+      "score": "9.0",
+      "evidence": "针对基于PIM的大语言模型推理优化调度，直接涉及处理中内存系统",
+      "tldr": "针对PIM架构上LLM推理中GEMV操作受DRAM行周期nRC严重限制的问题，分析发现先前关注nCCDAB的优化因nRC远大于nCCDAB而失效。提出RH+调度，通过改变地址交错步长将连续32次MAC操作映射到同一DRAM行，从而消除行切换开销。仿真显示在多个LLM负载上实现8-12倍加速、超过74%能耗降低和最高52倍EDP改善，显著提升PIM推理性能。",
+      "tags": "query:cim",
+      "abstract_en": "Large language model inference on processing-in-memory (PIM) architectures promises to break the memory wall by performing multiply-accumulate (MAC) operations directly within HBM3 DRAM banks. Prior work identifies the power constraint timing parameter nCCDAB as the primary performance bottleneck and optimizes scheduling accordingly. We demonstrate that for GEMV operations that dominate autoregressive decoding, the DRAM row cycle time (nRC) is 10 to 11 times larger than nCCDAB. Consequently, nCCDAB is entirely masked, rendering prior nCCDAB-focused optimizations ineffective for these workloads. The root cause is inherited host-centric address interleaving, which forces every all-bank MAC command into a different DRAM row. We propose RH+ scheduling, a simple stride change that keeps 32 consecutive MAC operations within the same row. Cycle-accurate simulation across four LLM workloads shows that RH+ delivers 8-12x speedup, over 74% energy reduction, and up to 52x EDP improvement.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202606/05/2606.06421v1-modeling-optimizing-and-exploring-multi-die-fpga-routing-architectures",
+      "section": "deep",
+      "title_en": "Modeling, Optimizing and Exploring Multi-Die FPGA Routing Architectures",
+      "authors": "Amirhossein Poolad, Soheil Gholami Shahrouz, Andrew Boutros, Vaughn Betz",
+      "date": "2026-06-04",
+      "pdf": "https://arxiv.org/pdf/2606.06421v1",
+      "score": "8.0",
+      "evidence": "面向3D集成电路的多裸片FPGA路由架构建模与优化",
+      "tldr": "多die FPGA（2.5D/3D）的互连路由架构设计因缺乏准确建模工具而难以优化。本文增强开源VTR工具，灵活建模多种多die路由架构，并改进VPR布局布线引擎，结合HSPICE对7nm工艺和45nm中介层进行电路建模。实验表明，3D FPGA相比2D可减少14%线长、改善6%关键路径延迟，2.5D FPGA在32%互连密度下仅增加2%线长和4%延迟。所有扩展已开源并集成至VTR主线，为多die FPGA路由架构设计提供了高效探索平台。",
+      "tags": "query:cim",
+      "abstract_en": "Die stacking has enabled 2.5D FPGAs by integrating multiple active dice on a passive silicon interposer for improved yield and capacity, and paved the way for 3D architectures that stack active dice directly atop one another. In these multi-die devices, the unique electrical and physical characteristics of the underlying die-stacking technology impose limitations on inter-die connection density and latency, necessitating a bespoke inter-die routing architecture. However, the absence of accurate and versatile modeling tools has left most questions about how to best design the inter-die routing architecture unanswered.   To address this gap, we enhance the open-source FPGA CAD tool VTR to flexibly model a wide range of multi-die routing architectures, and augment VPR's placement and routing engines to improve optimization for both 2.5D and 3D FPGAs. We perform HSPICE-based circuit modeling of inter-die connections for active dice using a 7 nm process node and a 45 nm silicon interposer across several die-crossing technologies. Using this enhanced framework, we conduct a detailed design space exploration of inter-die routing architecture in 2.5D and 3D FPGAs, characterizing the impact of die-crossing technology, inter-die connection count, fan-in/fan-out, and interposer wire length on critical path delay (CPD), wirelength, area, and routability.   Our results show that with suitable inter-die routing architectures, 2.5D and 3D FPGAs can increase capacity without significant routability or delay penalties. Specifically, 3D FPGAs achieve up to 14% wirelength reduction and 6% CPD improvement over 2D devices, and remain routable even with existing $10\\,μ$m pitch technologies, while 2.5D FPGAs incur only a 2% wirelength and 4% CPD overhead at 32% inter-die connectivity. All extensions are open source and integrated with the VTR master branch.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

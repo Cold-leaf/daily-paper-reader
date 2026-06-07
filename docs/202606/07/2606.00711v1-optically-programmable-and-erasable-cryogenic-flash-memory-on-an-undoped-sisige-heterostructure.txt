@@ -1,0 +1,207 @@
+Title: Optically programmable and erasable cryogenic flash memory on an undoped Si/SiGe heterostructure
+
+URL Source: https://arxiv.org/pdf/2606.00711v1
+
+Published Time: Tue, 02 Jun 2026 00:48:46 GMT
+
+Number of Pages: 5
+
+Markdown Content:
+# Optically programmable and erasable cryogenic flash memory on an undoped Si/SiGe heterostructure 
+
+S Rastogi †,1 S Samanta †,2 V Jangir, 2 L Patra, 2 K Modi, 2 A Jain, 2 G Scappucci, 3 U Mukhopadhyay, 2 and S Mahapatra* 2, 4 
+
+> 1)
+
+Center for Research in Nanotechnology and Science, Indian Institute of Technology Bombay, Mumbai 400076, INDIA 
+
+> 2)
+
+Department of Physics, Indian Institute of Technology Bombay, Mumbai 400076, INDIA 
+
+> 3)
+
+QuTech and Kavli Institute of Nanoscience, Delft University of Technology, Lorentzweg 1, 2628 CJ Delft, The Netherlands 
+
+> 4)
+
+Centre of Excellence in Quantum Information, Computing, Science & Technology, IIT Bombay, Mumbai 400076, INDIA 
+
+(*Electronic mail: suddho@phy.iitb.ac.in) (Dated: 2 June 2026) 
+
+Scalable cryogenic memory is a critical yet unresolved requirement for large-scale quantum computing architectures, particularly for computing-in-memory schemes. We exploit the interplay between optical excitation and gate bias in an undoped Si/SiGe heterojunction field-effect transistor (HFET) to realize non-volatile memory functionality. The device exploits a high interface trap density ( Dit > 1.6 × 10 12 eV −1cm −2), which, in conjunction with the oxide thickness and dielectric constant, enables effective "locking" of the threshold voltage to the applied gate bias over a wide voltage range. Two of these states can be selected for binary operation, while the availability of multiple stable states within the same device enables multibit data storage. Robust cycling endurance ( > 10 3 cycles) and long-term state retention (> 10 4 s) of the memory states at 1.5 K confirm the suitability of this approach for integration into Si/SiGe-based quantum computing architectures.  
+
+> †
+
+These authors contributed equally to this work. Recent global interest in information processing technolo-gies operational at deep cryogenic temperatures is driven by the growing importance of emerging scientific and technolog-ical frontiers, such as quantum computing, biomedical instru-mentation, space technologies, climate modelling, and funda-mental physics 1,2 . However, the lack of reliable cryogenic memory for both transient and long-term data storage re-mains a critical bottleneck 3,4 . Existing architectures predomi-nantly depend on shuttling information from cryogenic stages to conventional memory operating at higher temperatures 4,5 .This approach imposes substantial thermal gradients, under-mines system isolation, and fundamentally constrains the co-integration of memory and logic within a fully cryogenic platform 4.Overcoming these limitations requires the development of memory devices that operate reliably at cryogenic temper-atures. A viable cryogenic memory would eliminate the need for extensive interconnects between room-temperature memory and cryogenic control electronics, thereby substan-tially reducing heat influx, noise coupling, and interconnect complexity 4,6 . These advantages are especially critical for scalable quantum computing architectures, in which wiring density and thermal management constitute fundamental bot-tlenecks to scalability 4,5 .Multiple device platforms have been investigated for cryo-genic memory, including MOSFET-based designs, Joseph-son junctions, and memristive structures 3. Among these, MOSFET-based approaches 7–9 (especially DRAMs) currently represent the most technologically mature option. How-ever, conventional silicon-based MOSFETs can suffer from carrier freeze-out, threshold voltage shifts, and increased variability 10 at deep cryogenic temperatures, posing chal-lenges for reliable memory operation. Josephson junction-based approaches, while promising in terms of speed and energy efficiency, face unresolved challenges related to the lack of high-density on-chip memory and limited compatibil-ity with conventional CMOS fabrication processes 11 . Mem-ristive devices, meanwhile, typically achieve a limited num-ber of stable conductive states and have demonstrated limited suitability for cryogenic temperature operation 9. These limi-tations highlight the need for new memory concepts that can combine operational stability at low temperatures with scala-bility and integration potential for large-scale cryogenic com-puting systems 3.Here, we demonstrate a cryogenic memory concept based on dopant-free Si/SiGe heterojunction field-effect transistors (HFETs) in which the threshold voltage is programmably tuned using the combined action of optical excitation and an applied gate bias ( VB)12 . At 1.5 K, this mechanism yields stable, reproducible, and non-volatile threshold-voltage states under well-defined programming and erasure protocols. Bi-nary memory operation is realized by selecting two such states, while access to multiple stable states enables a tun-able memory window within a single device architecture and allows for multibit memory operation. The memory exhibits an endurance exceeding 10 3 switching cycles and a retention time well beyond 10 4 s, thus establishing its viability as a scal-able cryogenic memory element that is inherently compatible with emerging solid-state quantum technologies. The undoped Si/SiGe heterostructure is epitaxially grown on a Si (100) substrate, beginning with a 3 μm graded Si xGe 1−x virtual substrate ( x = 0 → 0.7), followed by a 
+
+> arXiv:2606.00711v1 [cond-mat.mes-hall] 30 May 2026
+
+2𝑉 𝐺  𝑉 𝑆𝐷  
+
+> (a)
+> (c)
+> (b)
+> (d)
+> FIG. 1. (a) Schematic of an undoped Si/SiGe heterostructure under in-situ LED illumination. (b) Image of a typical LCC24 chip carrier and in-situ LED diode, and an optical image of the HFET used in the experiment (c) Transfer characteristics measured after successive gate-biased illuminations (the very first turn-on curve before appli-cation of any optical illumination has been shown with red dotted curve) (d) Extracted threshold voltage as a function of programming bias VB.
+
+300 nm constant-composition Si 0.7Ge 0.3 barrier layer, as illus-trated in Fig. 1(a). A 10 nm strained Si quantum well (SQW) is subsequently deposited, followed by a 30 nm Si 0.7Ge 0.3 bar-rier, and finally a 1 nm Si cap to prevent oxidation of the upper SiGe barrier. Details on the epitaxial growth and characteri-zation of the heterostructure has been reported previously 13 .To demonstrate the memory element, the HFET device was fabricated using standard microfabrication techniques on top of this heterostructure. Ohmic contacts were defined through photolithography, phosphorus ion implantation, post-implantation annealing, and subsequent Ti/Au metallization by electron-beam evaporation. An 80-nm CVD-grown SiO 2
+
+layer electrically isolates the ohmic contacts from the surface gate, which controls carrier accumulation in the QW. The gate pattern was defined by photolithography followed by Ti/Au deposition and lift-off (Fig. 1(b)). The I–V characteristics of the Si/SiGe HFET at 1.5 K ex-hibit conventional transistor behavior, with the drain current increasing as the gate voltage is raised and the quantum well begins to populate. The threshold voltage ( VT h ) is defined as the gate voltage VG at which the source–drain current ISD 
+
+reaches 1 nA. A turn-on curve recorded immediately after device cooldown yields VT h = 2.58 V [Fig. 1(c), red dotted curve]. To elucidate the operating principle of the memory device, we first demonstrate that illumination using a 780-nm light-emitting diode (LED), under suitable bias ( VB), allows the VT h to be "locked" to values very close to VB, in accor-dance with Ref. 12. As shown in fig. 1(c), applying LED il-lumination at 15 mA bias current for an optimized duration at different VB enables continuous and deterministic tuning of 
+
+VT h over a wide range (-4 V to 4 V). Fig. 1(d) depicts a linear State 1  State 0  
+
+> (a)
+> (c)
+> (b)
+> (d)
+> FIG. 2. (a) Transfer characteristics showing the two memory states. (b) Retention of the extracted threshold voltage over time. (c) Ex-trapolation of the measured retention of the states. (d) Endurance of the two states over repeated switching cycles.
+
+dependence of VT h on VB with a fitted slope of 0.97, confirm-ing that LED illumination effectively locks it to the applied bias. The observed VT h resetting is attributed to the filling and emptying of trap states at the Si–SiO2 interface, mediated by the drift of photo-generated electrons and holes under the applied gate bias 12 . An estimate following Ref. 12 indicates that the average interface trap density ( Dit ) in the device exceeds 1.6 × 10 12 eV −1cm −2, consistent with reported values 14 . The chosen device parameters, particularly the oxide thickness and dielectric constant, together with the relatively high Dit , enable effective locking of VT h to VB over a wide voltage range. This behavior forms the basis of a hybrid memory device with a large memory window, in which states are optically programmed and erased while readout is performed electrically. Furthermore, the availability of multiple stable and well-separated states enables multibit memory operation 15 . 
+
+> I. OPERATION OF THE MEMORY DEVICE
+
+We outline the protocol used to establish two distinct charge states of the HFET device, designated as state 0 and state 1.To improve reproducibility, a reset step is employed at various stages of operation, during which a 500 ms LED pulse is ap-plied while maintaining a bias voltage of VB = 0 V. Program-ming the memory device begins with this reset step, followed by a 100 ms LED pulse while applying a gate bias of −3 V (−2 V) to program state 1 (state 0). In the idle state, the de-vice is kept at VB = −3 V without any LED illumination. The programmed states can be measured by recording the trans-fer curve of the device starting from the idle state, yielding 3threshold voltages of -1.11 V and -2.12 V for states 0 and 1, respectively (Fig. 2(a)). In the absence of the reset pulse, the threshold voltage ex-hibits substantial drift, compromising the consistency of state programming. The inclusion of the reset step is therefore es-sential for reliable operation. The pulse widths and amplitudes (i.e., duration and injection current) of the LED illumination are optimized to maximize the speed of operation, while ob-taining a stable performance. Alternatively, prolonged LED illumination (> 5 s) at specific gate biases can also restore re-producibility; however, this approach substantially increases the switching time between states.  
+
+> II. DEVICE STATE RETENTION AND ENDURANCE
+
+To evaluate the retention characteristics, the device is first programmed into either state 0 or state 1. The state of the device is then measured every 15 minutes to track the evolution of the programmed state, whereas the device is kept in the idle state between two consecutive measurements. The extracted Vth values are plotted in Fig. 2(b), demonstrating stable state retention for up to 10 4 s at 1.5 K. Extrapolation of the measured retention trend, fitted by the equation 
+
+y = α − β ln (t + γ)16 , shows 32.43% loss of memory window in 1 year and 39.22% loss in 10 years (Fig. 2(c)). The endurance of the memory device is assessed by repeat-edly cycling between the programmed state (state 1) and the erased state (state 0), demonstrating more than 10 3 reliable programming/erasing (P/E) cycles (Fig. 2(d)).To further quan-tify the reliability of state discrimination, we define a readout window of 250 mV centered around the mean value of Vth for each state and evaluate the fraction of readout events that fall outside this window. The percentage of such out-of-window events is found to be ∼0.43% for State 0 and ∼0.17% for State 1. These deviations are commonly attributed to slow charge trapping and detrapping processes involving an ensemble of defect states, particularly within the bulk oxide and at semi-conductor–oxide interfaces 17–19 . Similar behavior has been widely reported in MOSFETs and Si/SiGe heterostructures operated at low temperatures, where oxide and interface traps dominate charge noise and device instability 19,20 . Improving oxide quality and interface cleanliness is therefore expected to suppress these fluctuations 17,21,22 , although a detailed mi-croscopic identification of the dominant trapping mechanisms in the present devices remains to be investigated in further de-tail. Alternatively, longer LED pulses to program the memory states can potentially reduce the fluctuations, albeit at the cost of slower operating speeds.  
+
+> III. MULTI-BIT MEMORY OPERATION
+
+The same device can be operated as a multibit memory owing to the availability of several well-defined and well-separated threshold-voltage states, obtained by illuminating (a) 
+
+> (c)
+> (b)
+> (d)
+> FIG. 3. (a) Retention of the four programmed states over time (b) Ex-trapolated retention behavior for multi-bit operation (c) Endurance of the programmed states over repeated cycles (d) Programming se-quence of different states used in the endurance measurement, shown for the cycles within the rectangle in (c).
+
+the device at different gate biases [Fig. 1(c)]. We demon-strate multibit memory operation by selecting four distinct states (states M1–M4) programmed at VB = −2.0, −2.5, −3.0, and −3.5 V, respectively. Each state is programmed using a reset step (as defined earlier), followed by a 100 ms LED pulse applied at the corresponding VB. Programming a given state effectively erases the previously programmed state. The stored state can be read at any time by extracting the thresh-old voltage from the transfer characteristic. The correspond-ing threshold voltages are −1.26 V, −1.65 V, −2.12 V, and 
+
+−2.56 V. During idle periods, the device is held at VB =
+
+−3.5 V without illumination. The retention of each programmed state is evaluated using the same protocol as for the two-state memory device. Re-tention measurements performed at 1.5 K demonstrate sta-ble state retention for up to 8 hours ( ∼ 10 4 s) (Fig. 3(a)). By extrapolating the measured retention behavior, the loss of memory window, assessed between adjacent states (M1-M2, M2-M3, and M3-M4), is estimated to be approximately 25.51%, 52.90%, and 60.22%, respectively, over a 10-year pe-riod (Fig. 3(b)). The endurance of the multi-bit memory is demonstrated by programming different states randomly using a random num-ber generator for 6400 cycles [Fig. 3(c)]. Fig. 3(d) demon-strates the exact sequence of the programmed states for a part of the endurance run. Once again, we observe some Vth fluctu-ations (values outside a 250 mV window, centered around the mean), similar to the endurance of the two-state memory op-eration described earlier. For states M1-M4, the percentage of such out-of-window events is found to be ∼ 0.97%, ∼ 1.04%, 
+
+∼ 1.56% and ∼ 0.74%, respectively. To further analyze the endurance behavior, the endurance data for each state shown in Fig. 3(c) are segregated accord-ing to the previously programmed memory state. Histograms 4−1.32 −1.22 −1.12  
+
+> VTh (V)
+> 0
+> 20
+> 40
+> 60
+> Count
+
+(a)    
+
+> State M2 → M1
+> State M3 → M1
+> State M4 → M1
+> −1.75 −1.65 −1.55
+> VTh (V)
+> 0
+> 20
+> 40
+> 60
+> Count
+
+(b)    
+
+> State M1 → M2
+> State M3 → M2
+> State M4 → M2
+> −2.2 −2.1 −2.0
+> VTh (V)
+> 0
+> 20
+> 40
+> 60
+> Count
+
+(c)    
+
+> State M1 → M3
+> State M2 → M3
+> State M4 → M3
+> −2.68 −2.57 −2.46
+> VTh (V)
+> 0
+> 20
+> 40
+> 60
+> Count
+
+(d) 
+
+> State M1 → M4
+> State M2 → M4
+> State M3 → M4
+
+FIG. 4. Histograms of threshold voltage ( Vth ) obtained from en-durance measurements for (a) State M1, (b) State M2 (c) State M3, and (d) State M4. 
+
+of VTh for each state, conditioned on the previously pro-grammed state, are presented in Fig. 4(a–d). For VB = −2.0 V (State M1), Fig. 4(a) exhibits a comparatively broader VTh 
+
+distribution; however, the observed variation remains suffi-ciently small and does not compromise the available mem-ory window. Moreover, as the programming bias is shifted to more negative values, the threshold-voltage distribution be-comes progressively more stable, with a reduced spread over repeated programming/erasing cycles [Figs. 4(b)–4(d)]. 
+
+IV. CONCLUSION 
+
+In conclusion, we demonstrate a cryogenic flash memory based on an undoped Si/SiGe heterostructure, which is simi-lar to that used for fabricating electron spin qubits, hosted by gate-defined quantum dots. The memory device supports both binary and multi-bit operation within a single device archi-tecture. Programming and erasing are realized through con-trolled modulation of the threshold voltage via a combina-tion of an optical pulse and gate bias, with the memory states originating from passivation of trap charges at the semicon-ductor–oxide interface. A key advantage of this approach is that both binary and multi-bit functionality are achieved using a simple heterojunction field-effect transistor (HFET) device, in contrast to conventional flash memory technologies, which typically require multiple oxide stacks or structural modifi-cations to enable multi-level storage. This inherent multi-level capability enhances memory density through threshold-voltage tuning rather than geometric scaling, providing a sim-ple and robust pathway toward high-capacity cryogenic mem-ory. 
+
+DATA AVAILABILITY STATEMENT 
+
+The data that support the findings of this study are available from the corresponding authors upon reasonable request. 
+
+ACKNOWLEDGMENTS 
+
+We thank the Defence Research and Development Orga-nization (DRDO) and the Department of Science and Tech-nology (DST) of the Ministry of Education (MoE), Govern-ment of India (GoI), for funding support, and the IIT Bombay Nanofabrication Facility (IITBNF) management and staff for support with device fabrication. 1. IEEE International Roadmap for Devices and Systems (IRDS) Working Group. Ceqip: Cryogenic electronics, quantum information, and proces-sors. Technical report, IEEE, 2020. URL https://irds.ieee.org/ images/files/pdf/2020/2020IRDS_CEQIP.pdf .
+
+2. Baptiste A. Cordier, Nicolas P. D. Sawaya, Gian Giacomo Guerreschi, and Shannon K. McWeeney. Biology and medicine in the landscape of quantum advantages. Journal of the Royal Society Interface , 19(196): 20220541, 2022. doi:10.1098/rsif.2022.0541. 
+
+3. Shamiul Alam, Md Shafayat Hossain, Srivatsa Rangachar Srinivasa, and Ahmedullah Aziz. Cryogenic memory technologies. Nature Electronics ,6:185–198, 2023. doi:10.1038/s41928-023-00930-2. 
+
+4. Swamit S. Tannu, Douglas M. Carmean, and Moinuddin K. Qureshi. Cryogenic-dram based memory system for scalable quantum comput-ers: a feasibility study. In Proceedings of the International Sympo-sium on Memory Systems (MEMSYS ’17) , pages 189–195. Association for Computing Machinery, 2017. doi:10.1145/3132402.3132436. URL 
+
+https://doi.org/10.1145/3132402.3132436 .
+
+5. Michael J. Manfra et al. A cryogenic cmos chip for generating control signals for multiple qubits. Nature Electronics , 4:554–564, 2021. doi: https://doi.org/10.1038/s41928-020-00528-y. 
+
+6. Chandan Nayak, Joseph C. Wolfe, Alan Bradicich, Xuefeng Wu, Lars Büthe, Nino Samkharadze, Giordano Scappucci, and Floris A. Zwanenburg. Characterizing quantum devices at scale with cus-tom cryo-cmos. Physical Review Applied , 13:054072, 2020. doi: 10.1103/PhysRevApplied.13.054072. URL https://link.aps.org/ doi/10.1103/PhysRevApplied.13.054072 .
+
+7. Jong-Ho Bae, Jong-Won Back, Min-Woo Kwon, Jae Hwa Seo, Keon Yoo, Sung Yun Woo, Kyungchul Park, Byung-Gook Park, and Jong-Ho Lee. Characterization of a capacitorless dram cell for cryogenic memory ap-plications. IEEE Electron Device Letters , 40(10):1614–1617, 2019. doi: 10.1109/LED.2019.2933504. 
+
+8. A. Zaslavsky, C. A. Richter, P. R. Shrestha, B. D. Hoskins, S. T. Le, A. Madhavan, and J. J. McClelland. Impact ionization-induced bistabil-ity in cmos transistors at cryogenic temperatures for capacitorless mem-ory applications. Applied Physics Letters , 119(4):043501, 07 2021. ISSN 0003-6951. doi:10.1063/5.0060343. URL https://doi.org/ 10.1063/5.0060343 .
+
+9. Yi Han, Jingxuan Sun, Benjamin Richstein, Andreas Grenmyr, Jin-Hee Bae, Frederic Allibert, Ionut Radu, Detlev Grützmacher, Joachim Knoch, and Qing-Tai Zhao. An energy efficient memory cell for quantum and neuromorphic computing at low temperatures. Nano Letters , 25(16):6374–6381, Apr 2025. ISSN 1530-6984. doi: 10.1021/acs.nanolett.4c05855. URL https://doi.org/10.1021/ acs.nanolett.4c05855 .
+
+10. A. Grill, E. Bury, J. Michl, S. Tyaginov, D. Linten, T. Grasser, B. Par-vais, B. Kaczer, M. Waltl, and I. Radu. Reliability and variability of advanced cmos devices at cryogenic temperatures. In 2020 IEEE Inter-national Reliability Physics Symposium (IRPS) , pages 1–6, 2020. doi: 10.1109/IRPS45951.2020.9128316. 
+
+11. Valery V. Ryazanov, Vitaly V. Bol’ginov, Danila S. Sobanin, Igor V. Vernik, Sergey K. Tolpygo, Alan M. Kadin, and Oleg A. 5
+
+Mukhanov. Magnetic josephson junction technology for digi-tal and memory applications. Physics Procedia , 36:35–41, 2012. ISSN 1875-3892. doi:https://doi.org/10.1016/j.phpro.2012.06.126. URL https://www.sciencedirect.com/science/article/pii/ S1875389212020639 . SUPERCONDUCTIVITY CENTENNIAL Con-ference 2011. 
+
+12. M. A. Wolfe, Brighton X. Coe, Justin S. Edwards, Tyler J. Kovach, Thomas McJunkin, Benjamin Harpt, D. E. Savage, M. G. Lagally, R. McDermott, Mark Friesen, Shimon Kolkowitz, and M. A. Eriks-son. Control of threshold voltages in Si/Si 0.7Ge 0.3 quantum devices via optical illumination. Physical Review Applied , 22:034044, 2024. doi:10.1103/PhysRevApplied.22.034044. URL https://doi.org/10. 1103/PhysRevApplied.22.034044 .
+
+13. Davide Degli Esposti, Brian Paquelet Wuetz, Viviana Fezzi, Mario Lo-dari, Amir Sammak, and Giordano Scappucci. Wafer-scale low-disorder 2deg in 28 Si/sige without an epitaxial si cap. Applied Physics Letters , 120 (18):184003, 2022. doi:10.1063/5.0088576. URL https://doi.org/ 10.1063/5.0088576 .
+
+14. Yunhui Jang, Yeojin Jeong, Seokjin Jang, Taehyun Cho, Zhong Pan, Jun-zhe Zhang, Yumeng Guo, Kyesoo Kim, Yong-Sang Kim, Sangheon Park, and Junsin Yi. No plasma treatment effects on the structural and electri-cal properties of pecvd-grown sio2 films. ACS Applied Materials & In-terfaces , 17(19):28918–28926, 2025. doi:10.1021/acsami.5c05151. URL 
+
+https://doi.org/10.1021/acsami.5c05151 . PMID: 40309894. 
+
+15. S. Stathopoulos et al. Multibit memory operation of metal-oxide bi-layer memristors. Scientific Reports , 7:17785, 2017. doi:10.1038/s41598-017-17785-1. URL https://doi.org/10.1038/s41598-017-17785-1 .
+
+16. Jae Hur, Dongsuk Kang, Dong Il Moon, Ji Man Yu, Yang Kyu Choi, and Shimeng Yu. Cryogenic storage memory with high-speed, low-power, and long-retention performance. Advanced Electronic Materi-als , 9(6):2201299, 2023. doi:10.1002/aelm.202201299. URL https: //doi.org/10.1002/aelm.202201299 .
+
+17. Simon M. Sze and Kwok K. Ng. Physics of Semiconductor De-vices . Wiley, 3 edition, 2007. URL https://onlinelibrary.wiley. com/doi/10.1002/9780470068328.ch6 . See Chapters 6–8 for ox-ide/interface traps, threshold voltage instability, and trap-induced noise. 
+
+18. Leonardo Massai, Bence Hetényi, Matthias Mergenthaler, Felix J. Schupp, Lisa Sommer, Stephan Paredes, Stephen W. Bedell, Patrick Harvey-Collard, Gian Salis, Andreas Fuhrer, Nico W. Hendrickx, et al. Impact of interface traps on charge noise and low-density transport prop-erties in ge/sige heterostructures. Communications Materials , 5:151, 2024. doi:10.1038/s43246-024-00563-8. URL https://doi.org/10. 1038/s43246-024-00563-8 .
+
+19. J. Yoneda, K. Takeda, T. Otsuka, T. Nakajima, M. R. Delbecq, G. Alli-son, T. Honda, T. Kodera, S. Oda, Y. Hoshi, N. Usami, K. M. Itoh, and S. Tarucha. A quantum-dot spin qubit with coherence limited by charge noise and fidelity higher than 99.9%. Nature Nanotechnology , 13:102– 106, 2018. doi:10.1038/s41565-017-0014-x. 
+
+20. F. Stampfl, C. Godfrin, S. Kubicek, S. Baudot, B. Raes, K. De Greve, A. Grill, and M. Waltl. C–v characterization of Si/SiGe heterostruc-tures at cryo temperatures. In Proceedings of the IEEE Interna-tional Reliability Physics Symposium (IRPS) , March 2025. doi: 10.1109/IRPS48204.2025.10982705. 
+
+21. Ke Wang, Hai-Ou Li, Gang Luo, Xin Zhang, Fang-Ming Jing, Rui-Zi Hu, Yuan Zhou, He Liu, Gui-Lei Wang, Gang Cao, Hong-Wen Jiang, and Guo-Ping Guo. Improving mobility of silicon metal-oxide-semiconductor devices for quantum dots by high vacuum activation annealing. EPL (Eu-rophysics Letters) , 130:27001, 2020. doi:10.1209/0295-5075/130/27001. URL https://doi.org/10.1209/0295-5075/130/27001 .
+
+22. Nai-Wen Hsu, Wei-Chih Hou, Yen-Yang Chen, Yu-Jui Wu, Hsiang-Shun Kao, Charles Thomas Harris, Tzu-Ming Lu, and Jiun-Yun Li. Temper-ature dependence of charge distributions and carrier mobility in an un-doped si/sige heterostructure. IEEE Transactions on Electron Devices ,69(2), 01 2022. ISSN ISSN 0018-9383. doi:10.1109/ted.2021.3138363. URL https://www.osti.gov/biblio/1842836 .

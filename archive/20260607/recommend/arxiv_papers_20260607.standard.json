@@ -1,0 +1,108 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-07T20:50:50.142492+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2606.00711v1",
+      "source": "arxiv",
+      "title": "Optically programmable and erasable cryogenic flash memory on an undoped Si/SiGe heterostructure",
+      "abstract": "Scalable cryogenic memory is a critical yet unresolved requirement for large-scale quantum computing architectures, particularly for computing-in-memory schemes. We exploit the interplay between optical excitation and gate bias in an undoped Si/SiGe heterojunction field-effect transistor (HFET) to realize non-volatile memory functionality. The device exploits a high interface trap density ($D_{it} > 1.6 \\times 10^{12}$~eV$^{-1}$cm$^{-2}$), which, in conjunction with the oxide thickness and dielectric constant, enables effective \"locking\" of the threshold voltage to the applied gate bias over a wide voltage range. Two of these states can be selected for binary operation, while the availability of multiple stable states within the same device enables multibit data storage. Robust cycling endurance ($>~10^3$ cycles) and long-term state retention ($>~10^4$~s) of the memory states at 1.5 K confirm the suitability of this approach for integration into Si/SiGe-based quantum computing architectures.",
+      "authors": [
+        "S Rastogi",
+        "S Samanta",
+        "V Jangir",
+        "L Patra",
+        "K Modi",
+        "A Jain",
+        "G Scappucci",
+        "U Mukhopadhyay",
+        "S Mahapatra"
+      ],
+      "primary_category": "cond-mat.mes-hall",
+      "categories": [
+        "cond-mat.mes-hall"
+      ],
+      "published": "2026-05-30T12:39:06+00:00",
+      "link": "https://arxiv.org/pdf/2606.00711v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "cryogenic flash memory for computing-in-memory schemes",
+      "llm_evidence_cn": "面向存内计算方案的低温闪存",
+      "llm_evidence": "面向存内计算方案的低温闪存",
+      "canonical_evidence": "面向存内计算方案的低温闪存",
+      "llm_tldr_en": "Demonstrates an optically programmable/erasable cryogenic flash memory on undoped Si/SiGe heterostructure for scalable memory in quantum computing-in-memory architectures.",
+      "llm_tldr_cn": "大规模量子计算需要可扩展低温存储器，尤其适用于存内计算方案。该文利用未掺杂Si/SiGe异质结场效应晶体管中的光激发与栅偏压相互作用，实现了非易失存储功能。器件利用高界面陷阱密度和氧化物厚度，通过阈值电压锁定实现二进制及多态操作，为量子计算存内架构提供了新型存储器件。",
+      "llm_tldr": "大规模量子计算需要可扩展低温存储器，尤其适用于存内计算方案。该文利用未掺杂Si/SiGe异质结场效应晶体管中的光激发与栅偏压相互作用，实现了非易失存储功能。器件利用高界面陷阱密度和氧化物厚度，通过阈值电压锁定实现二进制及多态操作，为量子计算存内架构提供了新型存储器件。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "compute-in-memory architecture",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.05768v1",
+      "source": "arxiv",
+      "title": "Electrolyte Bonding Engineering for Highly Uniform GeTe-based CBRAM and Parallel Hebbian Learning in Selector-free Hopfield Networks",
+      "abstract": "Hopfield networks offer a hardware-friendly framework for energy-efficient associative memory, yet their practical realization in memristor crossbar arrays is critically hindered by device-to-device (D2D) variability, which prevents reliable parallel programming. Here, we address this bottleneck through systematic composition engineering of the Ge-Te solid electrolyte in conductive bridge random access memory (CBRAM) devices. By varying the Ge:Te ratio, we identify Ge3.5Te1 as an optimal electrolyte composition that suppresses stochastic resistance variation by approximately three orders of magnitude compared to GeSe-based devices. Raman spectroscopy reveals that this dramatic improvement originates from a bonding network dominated by asymmetric-stretching GeTe4 tetrahedral units, which form interconnected free-volume channels that confine and stabilize Cu+ ion migration pathways. Leveraging this enhanced uniformity, we fabricate a selector-less 16x16 Cu/Ge3.5Te1 CBRAM crossbar array and demonstrate a 4x4 Hopfield associative network capable of learning and recalling binary pattern pairs via fully parallel programming using a half-selection scheme. Successful pattern recall is achieved for up to two stored associations despite the absence of selector elements, establishing a proof-of-concept for selector-free hardware implementations of associative memory. These results highlight the critical role of electrolyte bonding structure in determining memristor uniformity and provide a materials-driven pathway toward scalable, parallel neuromorphic computing systems.",
+      "authors": [
+        "Jiin Bang",
+        "Jingyeong Hwang",
+        "Unhyeon Kang",
+        "Seungmin Oh",
+        "Kyungmin Lee",
+        "Jaehyun Park",
+        "Younghyun Lee",
+        "Hyun Jae Jang",
+        "Seongsik Park",
+        "YeonJoo Jeong",
+        "Inho Kim",
+        "Jong Keuk Park",
+        "Suyoun Lee"
+      ],
+      "primary_category": "physics.app-ph",
+      "categories": [
+        "physics.app-ph",
+        "cond-mat.dis-nn"
+      ],
+      "published": "2026-06-04T06:50:43+00:00",
+      "link": "https://arxiv.org/pdf/2606.05768v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Memristor-based compute-in-memory for Hebbian learning in Hopfield networks",
+      "llm_evidence_cn": "基于忆阻器的存算一体实现Hopfield网络Hebbian学习",
+      "llm_evidence": "基于忆阻器的存算一体实现Hopfield网络Hebbian学习",
+      "canonical_evidence": "基于忆阻器的存算一体实现Hopfield网络Hebbian学习",
+      "llm_tldr_en": "Achieves highly uniform GeTe-based CBRAM through electrolyte bonding engineering, enabling reliable parallel Hebbian learning in selector-free Hopfield networks for compute-in-memory.",
+      "llm_tldr_cn": "本文针对忆阻器交叉阵列实现Hopfield网络时器件变异性阻碍并行编程的难题，通过系统调控Ge-Te固体电解质成分，发现Ge3.5Te1最优组分可抑制电阻随机变化约三个数量级。基于此构建的无选择器CBRAM单元实现了可靠的并行Hebbian学习，为存算一体架构中的联想记忆硬件提供了新方案。",
+      "llm_tldr": "本文针对忆阻器交叉阵列实现Hopfield网络时器件变异性阻碍并行编程的难题，通过系统调控Ge-Te固体电解质成分，发现Ge3.5Te1最优组分可抑制电阻随机变化约三个数量级。基于此构建的无选择器CBRAM单元实现了可靠的并行Hebbian学习，为存算一体架构中的联想记忆硬件提供了新方案。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "compute-in-memory architecture",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

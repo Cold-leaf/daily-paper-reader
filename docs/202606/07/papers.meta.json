@@ -1,0 +1,39 @@
+{
+  "label": "2026-06-07",
+  "date": "2026-06-07",
+  "generated_at": "2026-06-07T20:52:01",
+  "count": 2,
+  "papers": [
+    {
+      "paper_id": "202606/07/2606.00711v1-optically-programmable-and-erasable-cryogenic-flash-memory-on-an-undoped-sisige-heterostructure",
+      "section": "quick",
+      "title_en": "Optically programmable and erasable cryogenic flash memory on an undoped Si/SiGe heterostructure",
+      "authors": "S Rastogi, S Samanta, V Jangir, L Patra, K Modi, A Jain, G Scappucci, U Mukhopadhyay, S Mahapatra",
+      "date": "2026-05-30",
+      "pdf": "https://arxiv.org/pdf/2606.00711v1",
+      "score": "7.0",
+      "evidence": "面向存内计算方案的低温闪存",
+      "tldr": "量子计算架构亟需可扩展的低温存储器。本研究在未掺杂Si/SiGe异质结场效应管中，利用光学激发与栅极偏置协同作用，结合高界面陷阱密度（>1.6×10^12 eV⁻¹cm⁻²）锁定阈值电压，实现非易失存储。器件在1.5K下展现出>10^3次循环耐久性和>10^4秒保持时间，支持二元及多比特操作。该方案为Si/SiGe基量子计算存内集成提供了可行途径。",
+      "tags": "query:cim",
+      "abstract_en": "Scalable cryogenic memory is a critical yet unresolved requirement for large-scale quantum computing architectures, particularly for computing-in-memory schemes. We exploit the interplay between optical excitation and gate bias in an undoped Si/SiGe heterojunction field-effect transistor (HFET) to realize non-volatile memory functionality. The device exploits a high interface trap density ($D_{it} > 1.6 \\times 10^{12}$~eV$^{-1}$cm$^{-2}$), which, in conjunction with the oxide thickness and dielectric constant, enables effective \"locking\" of the threshold voltage to the applied gate bias over a wide voltage range. Two of these states can be selected for binary operation, while the availability of multiple stable states within the same device enables multibit data storage. Robust cycling endurance ($>~10^3$ cycles) and long-term state retention ($>~10^4$~s) of the memory states at 1.5 K confirm the suitability of this approach for integration into Si/SiGe-based quantum computing architectures.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202606/07/2606.05768v1-electrolyte-bonding-engineering-for-highly-uniform-gete-based-cbram-and-parallel-hebbian-learning-in-selector-free-hopfield-networks",
+      "section": "quick",
+      "title_en": "Electrolyte Bonding Engineering for Highly Uniform GeTe-based CBRAM and Parallel Hebbian Learning in Selector-free Hopfield Networks",
+      "authors": "Jiin Bang, Jingyeong Hwang, Unhyeon Kang, Seungmin Oh, Kyungmin Lee, Jaehyun Park, Younghyun Lee, Hyun Jae Jang, Seongsik Park, YeonJoo Jeong, Inho Kim, Jong Keuk Park, Suyoun Lee",
+      "date": "2026-06-04",
+      "pdf": "https://arxiv.org/pdf/2606.05768v1",
+      "score": "7.0",
+      "evidence": "基于忆阻器的存算一体实现Hopfield网络Hebbian学习",
+      "tldr": "Hopfield网络在交叉阵列中因器件间电阻变异而无法可靠并行编程。本文通过调控Ge-Te固体电解质的组成，发现Ge3.5Te1能抑制电阻随机变异约三个数量级，归因于不对称拉伸GeTe4四面体单元形成稳定Cu+迁移通道。基于该电解质制造无选择器16x16阵列，实现4x4 Hopfield网络的并行学习与模式回忆。该工作揭示了键合结构对均匀性的关键作用，为可扩展神经形态计算提供了材料设计路径。",
+      "tags": "query:cim",
+      "abstract_en": "Hopfield networks offer a hardware-friendly framework for energy-efficient associative memory, yet their practical realization in memristor crossbar arrays is critically hindered by device-to-device (D2D) variability, which prevents reliable parallel programming. Here, we address this bottleneck through systematic composition engineering of the Ge-Te solid electrolyte in conductive bridge random access memory (CBRAM) devices. By varying the Ge:Te ratio, we identify Ge3.5Te1 as an optimal electrolyte composition that suppresses stochastic resistance variation by approximately three orders of magnitude compared to GeSe-based devices. Raman spectroscopy reveals that this dramatic improvement originates from a bonding network dominated by asymmetric-stretching GeTe4 tetrahedral units, which form interconnected free-volume channels that confine and stabilize Cu+ ion migration pathways. Leveraging this enhanced uniformity, we fabricate a selector-less 16x16 Cu/Ge3.5Te1 CBRAM crossbar array and demonstrate a 4x4 Hopfield associative network capable of learning and recalling binary pattern pairs via fully parallel programming using a half-selection scheme. Successful pattern recall is achieved for up to two stored associations despite the absence of selector elements, establishing a proof-of-concept for selector-free hardware implementations of associative memory. These results highlight the critical role of electrolyte bonding structure in determining memristor uniformity and provide a materials-driven pathway toward scalable, parallel neuromorphic computing systems.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

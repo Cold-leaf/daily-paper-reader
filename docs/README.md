@@ -6,29 +6,26 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-06-07
-- 运行时间：2026-06-07 20:51:54 UTC
+- 最新运行日期：2026-06-08
+- 运行时间：2026-06-08 21:56:29 UTC
 - 运行状态：成功
-- 本次总论文数：2
-- 精读区：0
-- 速读区：2
+- 本次总论文数：1
+- 精读区：1
+- 速读区：0
 
 ### 今日简报（AI）
-1) 今日速读2篇论文，聚焦低温可编程闪存与GeTe基忆阻器。  
-2) 值得关注：Si/SiGe异质结构实现低温非易失存储，以及GeTe基CBRAM用于无选择器Hopfield网络并行Hebbian学习。  
-3) 建议普通读者重点了解低温存储技术进展，以及忆阻器在类脑计算中的潜力。
-- 详情：[/202606/07/README](/202606/07/README)
+1) 今日聚焦一篇9.0分论文：65 nm低功耗贝叶斯推理芯片用于家庭皮肤病变风险筛查。  
+2) 核心亮点为16.3 fJ/样本的无校准高斯随机数生成，实现高效、安全的原位推理。  
+3) 建议关注边缘健康监测芯片的极低功耗与无校准架构设计，降低部署门槛。
+- 详情：[/202606/08/README](/202606/08/README)
 
 ### 精读区论文标签
-- 本次无精读推荐。
+1. [A 65 nm Multi-Modal Bayesian Inference Engine with 16.3 fJ/Sample Calibration-Free GRNG for Risk-Aware At-Home Skin Lesion Screening](/202606/08/2606.07439v1-a-65-nm-multi-modal-bayesian-inference-engine-with-163-fjsample-calibration-free-grng-for-risk-aware-at-home-skin-lesion-screening)  
+   标签：评分：9.0/10、query:cim
+   evidence：直接采用存内计算架构
 
 ### 速读区论文标签
-1. [Optically programmable and erasable cryogenic flash memory on an undoped Si/SiGe heterostructure](/202606/07/2606.00711v1-optically-programmable-and-erasable-cryogenic-flash-memory-on-an-undoped-sisige-heterostructure)  
-   标签：评分：7.0/10、query:cim
-   evidence：面向存内计算方案的低温闪存
-2. [Electrolyte Bonding Engineering for Highly Uniform GeTe-based CBRAM and Parallel Hebbian Learning in Selector-free Hopfield Networks](/202606/07/2606.05768v1-electrolyte-bonding-engineering-for-highly-uniform-gete-based-cbram-and-parallel-hebbian-learning-in-selector-free-hopfield-networks)  
-   标签：评分：7.0/10、query:cim
-   evidence：基于忆阻器的存算一体实现Hopfield网络Hebbian学习
+- 本次无速读推荐。
 
 
 <div class="dpr-home-promo-card">

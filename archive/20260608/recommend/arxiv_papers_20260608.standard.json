@@ -1,0 +1,58 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-08T21:55:03.090613+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 0,
+    "quick_skim_target": 11,
+    "quick_selected": 0
+  },
+  "deep_dive": [
+    {
+      "id": "2606.07439v1",
+      "source": "arxiv",
+      "title": "A 65 nm Multi-Modal Bayesian Inference Engine with 16.3 fJ/Sample Calibration-Free GRNG for Risk-Aware At-Home Skin Lesion Screening",
+      "abstract": "We present a 65-nm risk-aware multimodal Bayesian inference engine for privacy-preserving, fully on-device skin lesion screening under uncontrolled at-home conditions. The proposed compute-in-memory architecture performs in-word Mixture-of-Gaussian sampling, improving uncertainty modeling beyond conventional unimodal Bayesian neural networks. This added probabilistic expressiveness increases equal-risk operating coverage by 1.4x, improves robustness to user-data perturbations by >1.5x, enhances process-variation resilience by 5.5x, and improves balanced accuracy by 1.8% over state-of-the-art unimodal Bayesian neural networks. Hardware robustness is further supported by calibration-free Gaussian random-number generation using complementary process variation, achieving 16.3 fJ/sample and 168.6 GSa/s/mm^2 efficiency. These results demonstrate a practical, energy-efficient, and risk-aware edge-AI solution for privacy-conscious medical screening.",
+      "authors": [
+        "Steven Davis",
+        "Likai Pei",
+        "Jianbo Liu",
+        "Zephan M. Enciso",
+        "Boyang Cheng",
+        "Xueji Zhao",
+        "Danny Z. Chen",
+        "Ningyuan Cao"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-06-05T16:38:02+00:00",
+      "link": "https://arxiv.org/pdf/2606.07439v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "compute-in-memory architecture directly employed",
+      "llm_evidence_cn": "直接采用存内计算架构",
+      "llm_evidence": "直接采用存内计算架构",
+      "canonical_evidence": "直接采用存内计算架构",
+      "llm_tldr_en": "A 65nm compute-in-memory Bayesian inference chip for skin lesion screening uses in-word Mixture-of-Gaussian sampling to improve uncertainty modeling, achieving 1.4x coverage, 5.5x resilience, and 1.8% accuracy gain over unimodal BNNs.",
+      "llm_tldr_cn": "本文提出一款65纳米存内计算贝叶斯推理芯片，用于隐私保护的家庭皮肤病变筛查。该芯片采用词内混合高斯采样，相比传统单峰贝叶斯神经网络，将等风险操作覆盖率提升1.4倍，对用户数据扰动的鲁棒性提升1.5倍以上，工艺变化抗性提高5.5倍，平衡精度提升1.8%。硬件鲁棒性进一步由免校准高斯随机数生成器支持。这项工作展示了存内计算架构在不确定性建模和能效方面的优势。",
+      "llm_tldr": "本文提出一款65纳米存内计算贝叶斯推理芯片，用于隐私保护的家庭皮肤病变筛查。该芯片采用词内混合高斯采样，相比传统单峰贝叶斯神经网络，将等风险操作覆盖率提升1.4倍，对用户数据扰动的鲁棒性提升1.5倍以上，工艺变化抗性提高5.5倍，平衡精度提升1.8%。硬件鲁棒性进一步由免校准高斯随机数生成器支持。这项工作展示了存内计算架构在不确定性建模和能效方面的优势。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "compute-in-memory architecture",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": []
+}

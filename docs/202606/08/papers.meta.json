@@ -1,0 +1,24 @@
+{
+  "label": "2026-06-08",
+  "date": "2026-06-08",
+  "generated_at": "2026-06-08T21:56:38",
+  "count": 1,
+  "papers": [
+    {
+      "paper_id": "202606/08/2606.07439v1-a-65-nm-multi-modal-bayesian-inference-engine-with-163-fjsample-calibration-free-grng-for-risk-aware-at-home-skin-lesion-screening",
+      "section": "deep",
+      "title_en": "A 65 nm Multi-Modal Bayesian Inference Engine with 16.3 fJ/Sample Calibration-Free GRNG for Risk-Aware At-Home Skin Lesion Screening",
+      "authors": "Steven Davis, Likai Pei, Jianbo Liu, Zephan M. Enciso, Boyang Cheng, Xueji Zhao, Danny Z. Chen, Ningyuan Cao",
+      "date": "2026-06-05",
+      "pdf": "https://arxiv.org/pdf/2606.07439v1",
+      "score": "9.0",
+      "evidence": "直接采用存内计算架构",
+      "tldr": "针对家庭皮肤病变筛查的隐私与不确定性挑战，提出65nm全片上多模态贝叶斯推理引擎，采用计算存储架构执行词内混合高斯采样以增强概率表达。相比单峰贝叶斯网络，等风险操作覆盖提升1.4倍，对用户数据扰动鲁棒性提升超1.5倍，工艺变化弹性提升5.5倍，平衡精度提高1.8%。利用互补工艺变差实现无校准高斯随机数生成，能效达16.3fJ/样本，面积效率168.6GSa/s/mm²。该工作为隐私保护的边缘医疗AI提供节能、鲁棒的风险感知方案。",
+      "tags": "query:cim",
+      "abstract_en": "We present a 65-nm risk-aware multimodal Bayesian inference engine for privacy-preserving, fully on-device skin lesion screening under uncontrolled at-home conditions. The proposed compute-in-memory architecture performs in-word Mixture-of-Gaussian sampling, improving uncertainty modeling beyond conventional unimodal Bayesian neural networks. This added probabilistic expressiveness increases equal-risk operating coverage by 1.4x, improves robustness to user-data perturbations by >1.5x, enhances process-variation resilience by 5.5x, and improves balanced accuracy by 1.8% over state-of-the-art unimodal Bayesian neural networks. Hardware robustness is further supported by calibration-free Gaussian random-number generation using complementary process variation, achieving 16.3 fJ/sample and 168.6 GSa/s/mm^2 efficiency. These results demonstrate a practical, energy-efficient, and risk-aware edge-AI solution for privacy-conscious medical screening.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

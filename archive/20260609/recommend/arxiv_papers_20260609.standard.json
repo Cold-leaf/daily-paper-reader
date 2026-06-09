@@ -1,0 +1,139 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-09T21:56:34.285546+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 3,
+    "deep_cap": 6,
+    "deep_selected": 3,
+    "quick_candidates": 0,
+    "quick_skim_target": 11,
+    "quick_selected": 0
+  },
+  "deep_dive": [
+    {
+      "id": "2606.08430v1",
+      "source": "arxiv",
+      "title": "Accuracy-Configurable Floating-Point Multiplier Design for SRAM-Based Compute-in-Memory",
+      "abstract": "Digital Compute-in-Memory (DCiM) reduces data movement and has become a promising solution for energy-efficient edge AI. However, most existing DCiM frameworks still primarily target integer or fixed-point arithmetic, and provide limited support for compiler-integrated and accuracy-configurable floating-point computation. Directly integrating conventional IEEE 754 floating-point units into dense SRAM-based DCiM arrays, however, incurs high area and power overhead. To address this challenge, this work presents an accuracy-configurable floating-point multiplier integrated into the OpenACM framework for SRAM-based DCiM. An exact IEEE~754-compliant multiplier is first implemented as a baseline, and a mantissa-segmentation-based approximate multiplier is then proposed to reduce hardware cost while preserving numerical fidelity. Post-layout results show up to 69% logic area reduction and 72% power savings over exact floating-point designs without delay overhead. Evaluations on image processing tasks and ResNet-18 inference further demonstrate negligible accuracy degradation. These results indicate that compiler-integrated approximate floating-point multiplication is a practical approach for enabling efficient and configurable floating-point support in SRAM-based DCiM systems. The Floating-Point Multiplier is available on https://github.com/ShenShan123/OpenACM",
+      "authors": [
+        "Yiqi Zhou",
+        "Junhao Lu",
+        "Jiale Yu",
+        "Zhuo Xu",
+        "Yang He",
+        "Yue Yuan",
+        "Shan Shen",
+        "Daying Sun"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-06-07T03:12:13+00:00",
+      "link": "https://arxiv.org/pdf/2606.08430v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "SRAM-based compute-in-memory design with configurable floating-point multiplier",
+      "llm_evidence_cn": "基于SRAM的计算存储一体化设计，含可配置浮点乘法器",
+      "llm_evidence": "基于SRAM的计算存储一体化设计，含可配置浮点乘法器",
+      "canonical_evidence": "基于SRAM的计算存储一体化设计，含可配置浮点乘法器",
+      "llm_tldr_en": "Proposes an accuracy-configurable floating-point multiplier for SRAM-based digital compute-in-memory, enabling efficient floating-point support for edge AI with low overhead.",
+      "llm_tldr_cn": "当前大多数数字计算存储一体化（DCiM）框架仅支持整数或定点运算，对浮点运算支持有限。本文提出一种面向SRAM基DCiM的精度可配置浮点乘法器，通过尾数分段近似技术降低面积和功耗，并集成到OpenACM框架中。实验表明该设计在保持较高精度的同时显著提升能效。该工作为DCiM系统支持高精度浮点计算提供了有效方案。",
+      "llm_tldr": "当前大多数数字计算存储一体化（DCiM）框架仅支持整数或定点运算，对浮点运算支持有限。本文提出一种面向SRAM基DCiM的精度可配置浮点乘法器，通过尾数分段近似技术降低面积和功耗，并集成到OpenACM框架中。实验表明该设计在保持较高精度的同时显著提升能效。该工作为DCiM系统支持高精度浮点计算提供了有效方案。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "compute-in-memory architecture",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.08891v1",
+      "source": "arxiv",
+      "title": "PALUTE: Processing-In-Memory Acceleration via Lookup Table for Edge LLM Inference",
+      "abstract": "Large language models are increasingly deployed on edge devices with tight power and area budgets. While mixed-precision GEMM reduces arithmetic complexity, quantized inference is often dominated by dequantization and nonlinear operators. Lookup Table (LUT)-based method mitigates these costs by precomputing outputs and replacing repeated arithmetic with table lookups, but existing designs incur significant capacity and lookup-latency overheads. This paper presents PALUTE, a LUT-based Processing-In-Memory accelerator built on Monolithic 3D DRAM for efficient edge LLM inference. PALUTE enables in-DRAM LUT queries that exploit the vertical organization of M3D DRAM memory array tiles to achieve high parallelism with low area overhead. A near-memory LUT generator supports low-latency LUT generation for both GEMM and element-wise unary nonlinear operators, while a system-level tiering and scheduling strategy minimizes data movement across memory tiers. Evaluation using cycle-accurate simulation and RTL synthesis shows that PALUTE achieves 1,264 TPS end-to-end throughput at 0.16 W, improving energy efficiency by 12.8$\\times$ over CHIME and 1.6$\\times$ over FIGLUT, improving area efficiency by 2.0$\\times$ over PIMPAL under W4A4 across Qwen3-4B models.",
+      "authors": [
+        "Runyang Tian",
+        "Yanru Chen",
+        "Weihong Xu",
+        "Tajana Šimunić Rosing"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR",
+        "cs.ET"
+      ],
+      "published": "2026-06-08T00:33:44+00:00",
+      "link": "https://arxiv.org/pdf/2606.08891v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "processing-in-memory acceleration using M3D DRAM",
+      "llm_evidence_cn": "基于单片3D DRAM的存内处理加速器",
+      "llm_evidence": "基于单片3D DRAM的存内处理加速器",
+      "canonical_evidence": "基于单片3D DRAM的存内处理加速器",
+      "llm_tldr_en": "Proposes PALUTE, a LUT-based processing-in-memory accelerator on Monolithic 3D DRAM for edge LLM inference, achieving high parallelism and low area overhead.",
+      "llm_tldr_cn": "针对边缘LLM推理中量化带来的反量化与非线性算子开销，该工作提出PALUTE，一种基于查找表的存内处理加速器。利用单片3D DRAM的垂直组织，在DRAM阵列内实现高并行度的查找表查询，同时保持低面积开销。近存计算架构有效减少了数据移动，为边缘设备上的LLM推理提供了高能效方案。",
+      "llm_tldr": "针对边缘LLM推理中量化带来的反量化与非线性算子开销，该工作提出PALUTE，一种基于查找表的存内处理加速器。利用单片3D DRAM的垂直组织，在DRAM阵列内实现高并行度的查找表查询，同时保持低面积开销。近存计算架构有效减少了数据移动，为边缘设备上的LLM推理提供了高能效方案。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "processing-in-memory systems",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.08947v1",
+      "source": "arxiv",
+      "title": "NeuDW-CIM: a 65-nm 0.8-pJ/Sop Reconfigurable Neuromorphic Compute-in-Memory Macro with Nonlinear Dendrites and K-Winners",
+      "abstract": "This work presents NeuDW-CIM, a highly efficient neuromorphic Compute-in-Memory (CIM) macro for Spiking Neural Networks (SNNs) implemented in 65 nm CMOS. The design introduces a custom twin 9T bit-cell for ternary in-puts/weights and a reconfigurable non-linear In-Memory ADC (IMA). The macro supports two specialized modes: 1) Nonlinear Dendrite (NLD) mode, which utilizes reconfigurable IMA to emulate biological dendritic functions, achieving measured accuracies of 97.2% on N-MNIST and 95.5% on DVS Gesture; and 2) Top-K Winner (KWN) mode, featuring an early-stopping mechanism that reduces IMA conversion latency by 30% and digital LIF latency by 10x. Benefiting from the sparse update in KWN mode, NeuDW-CIM achieves a measured energy efficiency (EE) of 0.8 pJ/SOP (1.6x improvement).",
+      "authors": [
+        "Junyi Yang",
+        "Yahan Yang",
+        "Shuai Dong",
+        "Biyan Zhou",
+        "Ye Ke",
+        "Zhengnan Fu",
+        "Xin Si",
+        "An Guo",
+        "Peng Zhou",
+        "Arindam Basu"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-06-08T02:50:04+00:00",
+      "link": "https://arxiv.org/pdf/2606.08947v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "reconfigurable compute-in-memory macro with energy efficiency",
+      "llm_evidence_cn": "可重构存内计算宏单元，具有高能效特性",
+      "llm_evidence": "可重构存内计算宏单元，具有高能效特性",
+      "canonical_evidence": "可重构存内计算宏单元，具有高能效特性",
+      "llm_tldr_en": "Presents a 65nm neuromorphic CIM macro (NeuDW-CIM) with twin 9T bit-cell and reconfigurable IMA, achieving 0.8 pJ/Sop and high accuracy on spike-based tasks.",
+      "llm_tldr_cn": "针对脉冲神经网络的高效推理需求，该工作提出NeuDW-CIM，一种在65nm CMOS中实现的存内计算宏单元。设计了自定义双9T比特单元和非线性存内ADC，支持非线性树突和Top-K获胜者两种模式，分别实现97.2%和95.5%的准确率。在KWN模式下，通过早停机制将ADC延迟降低30%，LIF延迟降低10倍。该宏单元以0.8 pJ/Sop的超低功耗展示了存内计算在神经形态应用中的巨大潜力。",
+      "llm_tldr": "针对脉冲神经网络的高效推理需求，该工作提出NeuDW-CIM，一种在65nm CMOS中实现的存内计算宏单元。设计了自定义双9T比特单元和非线性存内ADC，支持非线性树突和Top-K获胜者两种模式，分别实现97.2%和95.5%的准确率。在KWN模式下，通过早停机制将ADC延迟降低30%，LIF延迟降低10倍。该宏单元以0.8 pJ/Sop的超低功耗展示了存内计算在神经形态应用中的巨大潜力。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "compute-in-memory architecture",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": []
+}

@@ -1,0 +1,54 @@
+{
+  "label": "2026-06-09",
+  "date": "2026-06-09",
+  "generated_at": "2026-06-09T21:58:06",
+  "count": 3,
+  "papers": [
+    {
+      "paper_id": "202606/09/2606.08430v1-accuracy-configurable-floating-point-multiplier-design-for-sram-based-compute-in-memory",
+      "section": "deep",
+      "title_en": "Accuracy-Configurable Floating-Point Multiplier Design for SRAM-Based Compute-in-Memory",
+      "authors": "Yiqi Zhou, Junhao Lu, Jiale Yu, Zhuo Xu, Yang He, Yue Yuan, Shan Shen, Daying Sun",
+      "date": "2026-06-07",
+      "pdf": "https://arxiv.org/pdf/2606.08430v1",
+      "score": "9.0",
+      "evidence": "基于SRAM的计算存储一体化设计，含可配置浮点乘法器",
+      "tldr": "现有SRAM存内计算大多仅支持整数或定点运算，缺乏高效的浮点支持。本文在OpenACM框架中设计了一种精度可配置浮点乘法器，通过尾数分割实现近似计算，大幅降低硬件开销。后布局显示逻辑面积减少69%、功耗降低72%，且无延迟惩罚。在图像处理和ResNet-18推理中几乎不损失精度，为边缘AI提供实用浮点方案。",
+      "tags": "query:cim",
+      "abstract_en": "Digital Compute-in-Memory (DCiM) reduces data movement and has become a promising solution for energy-efficient edge AI. However, most existing DCiM frameworks still primarily target integer or fixed-point arithmetic, and provide limited support for compiler-integrated and accuracy-configurable floating-point computation. Directly integrating conventional IEEE 754 floating-point units into dense SRAM-based DCiM arrays, however, incurs high area and power overhead. To address this challenge, this work presents an accuracy-configurable floating-point multiplier integrated into the OpenACM framework for SRAM-based DCiM. An exact IEEE~754-compliant multiplier is first implemented as a baseline, and a mantissa-segmentation-based approximate multiplier is then proposed to reduce hardware cost while preserving numerical fidelity. Post-layout results show up to 69% logic area reduction and 72% power savings over exact floating-point designs without delay overhead. Evaluations on image processing tasks and ResNet-18 inference further demonstrate negligible accuracy degradation. These results indicate that compiler-integrated approximate floating-point multiplication is a practical approach for enabling efficient and configurable floating-point support in SRAM-based DCiM systems. The Floating-Point Multiplier is available on https://github.com/ShenShan123/OpenACM",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202606/09/2606.08891v1-palute-processing-in-memory-acceleration-via-lookup-table-for-edge-llm-inference",
+      "section": "deep",
+      "title_en": "PALUTE: Processing-In-Memory Acceleration via Lookup Table for Edge LLM Inference",
+      "authors": "Runyang Tian, Yanru Chen, Weihong Xu, Tajana Šimunić Rosing",
+      "date": "2026-06-08",
+      "pdf": "https://arxiv.org/pdf/2606.08891v1",
+      "score": "9.0",
+      "evidence": "基于单片3D DRAM的存内处理加速器",
+      "tldr": "边缘大语言模型推理中，反量化和非线性算子导致计算瓶颈，现有查找表方法容量与延迟开销高。本文提出PALUTE，基于M3D DRAM的内存内查找表加速器，利用垂直组织实现高并行性，近内存生成器支持低延迟LUT生成，系统级调度减少数据移动。在W4A4 Qwen3-4B模型上，功耗0.16W，端到端吞吐1264 TPS，能效较CHIME提升12.8倍，面积效率较PIMPAL提升2.0倍。PALUTE为边缘LLM推理提供了高效能解决方案。",
+      "tags": "query:cim",
+      "abstract_en": "Large language models are increasingly deployed on edge devices with tight power and area budgets. While mixed-precision GEMM reduces arithmetic complexity, quantized inference is often dominated by dequantization and nonlinear operators. Lookup Table (LUT)-based method mitigates these costs by precomputing outputs and replacing repeated arithmetic with table lookups, but existing designs incur significant capacity and lookup-latency overheads. This paper presents PALUTE, a LUT-based Processing-In-Memory accelerator built on Monolithic 3D DRAM for efficient edge LLM inference. PALUTE enables in-DRAM LUT queries that exploit the vertical organization of M3D DRAM memory array tiles to achieve high parallelism with low area overhead. A near-memory LUT generator supports low-latency LUT generation for both GEMM and element-wise unary nonlinear operators, while a system-level tiering and scheduling strategy minimizes data movement across memory tiers. Evaluation using cycle-accurate simulation and RTL synthesis shows that PALUTE achieves 1,264 TPS end-to-end throughput at 0.16 W, improving energy efficiency by 12.8$\\times$ over CHIME and 1.6$\\times$ over FIGLUT, improving area efficiency by 2.0$\\times$ over PIMPAL under W4A4 across Qwen3-4B models.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202606/09/2606.08947v1-neudw-cim-a-65-nm-08-pjsop-reconfigurable-neuromorphic-compute-in-memory-macro-with-nonlinear-dendrites-and-k-winners",
+      "section": "deep",
+      "title_en": "NeuDW-CIM: a 65-nm 0.8-pJ/Sop Reconfigurable Neuromorphic Compute-in-Memory Macro with Nonlinear Dendrites and K-Winners",
+      "authors": "Junyi Yang, Yahan Yang, Shuai Dong, Biyan Zhou, Ye Ke, Zhengnan Fu, Xin Si, An Guo, Peng Zhou, Arindam Basu",
+      "date": "2026-06-08",
+      "pdf": "https://arxiv.org/pdf/2606.08947v1",
+      "score": "9.0",
+      "evidence": "可重构存内计算宏单元，具有高能效特性",
+      "tldr": "针对脉冲神经网络中生物树突非线性计算与高效存内处理的需求，本文提出NeuDW-CIM宏单元。采用定制双9T位单元和可重构非线性存内ADC，实现两种模式：非线性树突模式模拟生物树突功能，在N-MNIST和DVS Gesture上分别达97.2%和95.5%准确率；K-获胜者模式通过早停机制降低IMA延迟30%与LIF延迟10倍，能效达0.8 pJ/SOP，相比同类提升1.6倍。该设计为神经形态计算提供了高能效可重构方案。",
+      "tags": "query:cim",
+      "abstract_en": "This work presents NeuDW-CIM, a highly efficient neuromorphic Compute-in-Memory (CIM) macro for Spiking Neural Networks (SNNs) implemented in 65 nm CMOS. The design introduces a custom twin 9T bit-cell for ternary in-puts/weights and a reconfigurable non-linear In-Memory ADC (IMA). The macro supports two specialized modes: 1) Nonlinear Dendrite (NLD) mode, which utilizes reconfigurable IMA to emulate biological dendritic functions, achieving measured accuracies of 97.2% on N-MNIST and 95.5% on DVS Gesture; and 2) Top-K Winner (KWN) mode, featuring an early-stopping mechanism that reduces IMA conversion latency by 30% and digital LIF latency by 10x. Benefiting from the sparse update in KWN mode, NeuDW-CIM achieves a measured energy efficiency (EE) of 0.8 pJ/SOP (1.6x improvement).",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

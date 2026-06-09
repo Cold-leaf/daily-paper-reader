@@ -6,23 +6,29 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-06-08
-- 运行时间：2026-06-08 21:56:29 UTC
+- 最新运行日期：2026-06-09
+- 运行时间：2026-06-09 21:57:59 UTC
 - 运行状态：成功
-- 本次总论文数：1
-- 精读区：1
+- 本次总论文数：3
+- 精读区：3
 - 速读区：0
 
 ### 今日简报（AI）
-1) 今日聚焦一篇9.0分论文：65 nm低功耗贝叶斯推理芯片用于家庭皮肤病变风险筛查。  
-2) 核心亮点为16.3 fJ/样本的无校准高斯随机数生成，实现高效、安全的原位推理。  
-3) 建议关注边缘健康监测芯片的极低功耗与无校准架构设计，降低部署门槛。
-- 详情：[/202606/08/README](/202606/08/README)
+今日聚焦两篇高价值论文：SRAM存内计算的可配置精度浮点乘法器设计，以及基于查找表加速边缘LLM推理的处理内存技术。  
+最值得关注的方向是存内计算中精度与效率的权衡，以及查找表方案如何突破边缘AI推理的瓶颈。  
+建议进一步探索低功耗存内计算架构在移动端或IoT设备上的实际部署可行性。
+- 详情：[/202606/09/README](/202606/09/README)
 
 ### 精读区论文标签
-1. [A 65 nm Multi-Modal Bayesian Inference Engine with 16.3 fJ/Sample Calibration-Free GRNG for Risk-Aware At-Home Skin Lesion Screening](/202606/08/2606.07439v1-a-65-nm-multi-modal-bayesian-inference-engine-with-163-fjsample-calibration-free-grng-for-risk-aware-at-home-skin-lesion-screening)  
+1. [Accuracy-Configurable Floating-Point Multiplier Design for SRAM-Based Compute-in-Memory](/202606/09/2606.08430v1-accuracy-configurable-floating-point-multiplier-design-for-sram-based-compute-in-memory)  
    标签：评分：9.0/10、query:cim
-   evidence：直接采用存内计算架构
+   evidence：基于SRAM的计算存储一体化设计，含可配置浮点乘法器
+2. [PALUTE: Processing-In-Memory Acceleration via Lookup Table for Edge LLM Inference](/202606/09/2606.08891v1-palute-processing-in-memory-acceleration-via-lookup-table-for-edge-llm-inference)  
+   标签：评分：9.0/10、query:cim
+   evidence：基于单片3D DRAM的存内处理加速器
+3. [NeuDW-CIM: a 65-nm 0.8-pJ/Sop Reconfigurable Neuromorphic Compute-in-Memory Macro with Nonlinear Dendrites and K-Winners](/202606/09/2606.08947v1-neudw-cim-a-65-nm-08-pjsop-reconfigurable-neuromorphic-compute-in-memory-macro-with-nonlinear-dendrites-and-k-winners)  
+   标签：评分：9.0/10、query:cim
+   evidence：可重构存内计算宏单元，具有高能效特性
 
 ### 速读区论文标签
 - 本次无速读推荐。

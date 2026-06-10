@@ -1,0 +1,24 @@
+{
+  "label": "2026-06-10",
+  "date": "2026-06-10",
+  "generated_at": "2026-06-10T22:34:48",
+  "count": 1,
+  "papers": [
+    {
+      "paper_id": "202606/10/2606.10822v1-a-185-topswmm2-bayesian-inference-engine-with-640-aj-write-free-fefet-grng-for-uncertainty-aware-aerial-search-and-rescue",
+      "section": "deep",
+      "title_en": "A 185 TOPS/W/mm2 Bayesian Inference Engine with 640 aJ Write-Free FeFET GRNG for Uncertainty-Aware Aerial Search and Rescue",
+      "authors": "Zephan M. Enciso, Xuezhong Niu, Xingtian Wang, Mohammad Mehdi Sharifi, Subhasish Mukherjee, Likai Pei, Halid Mulaosmanovic, Stefan Duenkel, Sven Beyer, Michael Niemier, Kai Ni, Ningyuan Cao",
+      "date": "2026-06-09",
+      "pdf": "https://arxiv.org/pdf/2606.10822v1",
+      "score": "9.0",
+      "evidence": "基于FeFET的存内计算宏实现贝叶斯推理",
+      "tldr": "无人机搜索救援需快速检测受害者，但确定性模型易产生过度自信误报，导致昂贵验证机动。本文提出基于FeFET的贝叶斯推理引擎，内置写免中心极限定理高斯随机数生成器（CLT-GRNG），通过随机选取最小尺寸、一次性编程的FeFET子集求电流和，消除推理中写操作。每样本640 aJ，能效较先前BNN加速器提升560倍，计算存内宏实现185 TOPS/W/mm2。贝叶斯模型改善不确定性校准与鲁棒性，过滤低置信度检测，降低风险。",
+      "tags": "query:cim",
+      "abstract_en": "Aerial search and rescue missions require fast and reliable victim detection under uncertain and rapidly changing environments. Deterministic deep learning models can produce overconfident false positives, forcing unmanned aircraft systems to perform costly verification maneuvers that reduce search coverage and increase rescue delay. Bayesian neural networks provide uncertainty-aware detection, but their sampling overhead is challenging for battery-constrained edge platforms. This work presents a FeFET-based Bayesian inference engine with a write-free central limit theorem Gaussian random number generator embedded in a compute-in-memory macro. By summing currents from a randomly selected subset of minimum-sized, programmed-once FeFETs, the proposed architecture eliminates energy- and endurance-intensive write operations during inference while maintaining scalable Gaussian sampling. The CLT-GRNG consumes 640 aJ per sample, providing a 560x energy-efficiency improvement over prior BNN accelerators, while the CIM tile achieves 185 TOPS/W/mm2. Evaluated on aerial search and rescue detection, the Bayesian model improves uncertainty calibration and robustness under environmental corruption, reducing risk and enabling low-confidence detections to be filtered before costly verification. These results demonstrate an energy-efficient and uncertainty-aware edge AI engine for autonomous search and rescue systems.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

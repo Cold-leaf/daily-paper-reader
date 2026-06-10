@@ -1,0 +1,62 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-10T22:33:10.142074+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 0,
+    "quick_skim_target": 11,
+    "quick_selected": 0
+  },
+  "deep_dive": [
+    {
+      "id": "2606.10822v1",
+      "source": "arxiv",
+      "title": "A 185 TOPS/W/mm2 Bayesian Inference Engine with 640 aJ Write-Free FeFET GRNG for Uncertainty-Aware Aerial Search and Rescue",
+      "abstract": "Aerial search and rescue missions require fast and reliable victim detection under uncertain and rapidly changing environments. Deterministic deep learning models can produce overconfident false positives, forcing unmanned aircraft systems to perform costly verification maneuvers that reduce search coverage and increase rescue delay. Bayesian neural networks provide uncertainty-aware detection, but their sampling overhead is challenging for battery-constrained edge platforms. This work presents a FeFET-based Bayesian inference engine with a write-free central limit theorem Gaussian random number generator embedded in a compute-in-memory macro. By summing currents from a randomly selected subset of minimum-sized, programmed-once FeFETs, the proposed architecture eliminates energy- and endurance-intensive write operations during inference while maintaining scalable Gaussian sampling. The CLT-GRNG consumes 640 aJ per sample, providing a 560x energy-efficiency improvement over prior BNN accelerators, while the CIM tile achieves 185 TOPS/W/mm2. Evaluated on aerial search and rescue detection, the Bayesian model improves uncertainty calibration and robustness under environmental corruption, reducing risk and enabling low-confidence detections to be filtered before costly verification. These results demonstrate an energy-efficient and uncertainty-aware edge AI engine for autonomous search and rescue systems.",
+      "authors": [
+        "Zephan M. Enciso",
+        "Xuezhong Niu",
+        "Xingtian Wang",
+        "Mohammad Mehdi Sharifi",
+        "Subhasish Mukherjee",
+        "Likai Pei",
+        "Halid Mulaosmanovic",
+        "Stefan Duenkel",
+        "Sven Beyer",
+        "Michael Niemier",
+        "Kai Ni",
+        "Ningyuan Cao"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-06-09T13:04:02+00:00",
+      "link": "https://arxiv.org/pdf/2606.10822v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "FeFET-based compute-in-memory macro for Bayesian inference",
+      "llm_evidence_cn": "基于FeFET的存内计算宏实现贝叶斯推理",
+      "llm_evidence": "基于FeFET的存内计算宏实现贝叶斯推理",
+      "canonical_evidence": "基于FeFET的存内计算宏实现贝叶斯推理",
+      "llm_tldr_en": "A FeFET-based compute-in-memory Bayesian inference engine achieves 185 TOPS/W/mm2 energy efficiency with a write-free Gaussian RNG, enabling uncertainty-aware edge AI for aerial search and rescue.",
+      "llm_tldr_cn": "针对边缘平台贝叶斯神经网络采样开销大的问题，本文提出了一种基于FeFET的存内计算贝叶斯推理引擎，采用无写入高斯随机数发生器嵌入存内计算宏中，通过随机选择微缩晶体管子集电流求和实现高效采样。该芯片在65nm工艺下实现了185 TOPS/W/mm2的能效和640 aJ/样本的极低能耗，显著优于传统方案，为无人机搜救等不确定环境下的实时感知提供了低功耗硬件基础。",
+      "llm_tldr": "针对边缘平台贝叶斯神经网络采样开销大的问题，本文提出了一种基于FeFET的存内计算贝叶斯推理引擎，采用无写入高斯随机数发生器嵌入存内计算宏中，通过随机选择微缩晶体管子集电流求和实现高效采样。该芯片在65nm工艺下实现了185 TOPS/W/mm2的能效和640 aJ/样本的极低能耗，显著优于传统方案，为无人机搜救等不确定环境下的实时感知提供了低功耗硬件基础。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "compute-in-memory architecture",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": []
+}

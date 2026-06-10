@@ -6,29 +6,23 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-06-09
-- 运行时间：2026-06-09 21:57:59 UTC
+- 最新运行日期：2026-06-10
+- 运行时间：2026-06-10 22:34:41 UTC
 - 运行状态：成功
-- 本次总论文数：3
-- 精读区：3
+- 本次总论文数：1
+- 精读区：1
 - 速读区：0
 
 ### 今日简报（AI）
-今日聚焦两篇高价值论文：SRAM存内计算的可配置精度浮点乘法器设计，以及基于查找表加速边缘LLM推理的处理内存技术。  
-最值得关注的方向是存内计算中精度与效率的权衡，以及查找表方案如何突破边缘AI推理的瓶颈。  
-建议进一步探索低功耗存内计算架构在移动端或IoT设备上的实际部署可行性。
-- 详情：[/202606/09/README](/202606/09/README)
+今日精读一篇满分9.0论文，聚焦超高效贝叶斯推理引擎在无人机搜救中的不确定性感知应用。  
+该引擎实现185 TOPS/W/mm²能效、640 aJ/次推理，采用无写入干扰FeFET随机数生成器，显著降低功耗与面积。  
+建议关注低功耗硬件加速与不确定性量化融合设计，适合边缘AI实时决策场景的进一步探索。
+- 详情：[/202606/10/README](/202606/10/README)
 
 ### 精读区论文标签
-1. [Accuracy-Configurable Floating-Point Multiplier Design for SRAM-Based Compute-in-Memory](/202606/09/2606.08430v1-accuracy-configurable-floating-point-multiplier-design-for-sram-based-compute-in-memory)  
+1. [A 185 TOPS/W/mm2 Bayesian Inference Engine with 640 aJ Write-Free FeFET GRNG for Uncertainty-Aware Aerial Search and Rescue](/202606/10/2606.10822v1-a-185-topswmm2-bayesian-inference-engine-with-640-aj-write-free-fefet-grng-for-uncertainty-aware-aerial-search-and-rescue)  
    标签：评分：9.0/10、query:cim
-   evidence：基于SRAM的计算存储一体化设计，含可配置浮点乘法器
-2. [PALUTE: Processing-In-Memory Acceleration via Lookup Table for Edge LLM Inference](/202606/09/2606.08891v1-palute-processing-in-memory-acceleration-via-lookup-table-for-edge-llm-inference)  
-   标签：评分：9.0/10、query:cim
-   evidence：基于单片3D DRAM的存内处理加速器
-3. [NeuDW-CIM: a 65-nm 0.8-pJ/Sop Reconfigurable Neuromorphic Compute-in-Memory Macro with Nonlinear Dendrites and K-Winners](/202606/09/2606.08947v1-neudw-cim-a-65-nm-08-pjsop-reconfigurable-neuromorphic-compute-in-memory-macro-with-nonlinear-dendrites-and-k-winners)  
-   标签：评分：9.0/10、query:cim
-   evidence：可重构存内计算宏单元，具有高能效特性
+   evidence：基于FeFET的存内计算宏实现贝叶斯推理
 
 ### 速读区论文标签
 - 本次无速读推荐。

@@ -1,6 +1,9 @@
 * <a class="dpr-sidebar-root-link" href="#/">首页</a>
 * <a class="dpr-sidebar-root-link dpr-sidebar-noactive-link" href="javascript:void(0)" data-dpr-hash="#/tutorial/README">使用教程</a>
 * Daily Papers
+  * 2026-06-10 <!--dpr-date:20260610-->
+    * 精读区
+      * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202606/10/2606.10822v1-a-185-topswmm2-bayesian-inference-engine-with-640-aj-write-free-fefet-grng-for-uncertainty-aware-aerial-search-and-rescue" data-sidebar-item="{&quot;title&quot;: &quot;A 185 TOPS/W/mm2 Bayesian Inference Engine with 640 aJ Write-Free FeFET GRNG for Uncertainty-Aware Aerial Search and Rescue&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2606.10822v1-a-185-topswmm2-bayesian-inference-engine-with-640-aj-write-free-fefet-grng-for-uncertainty-aware-aerial-search-and-rescue&quot;, &quot;score&quot;: &quot;9.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;cim&quot;}], &quot;evidence&quot;: &quot;基于FeFET的存内计算宏实现贝叶斯推理&quot;}">A 185 TOPS/W/mm2 Bayesian Inference Engine with 640 aJ Write-Free FeFET GRNG for Uncertainty-Aware Aerial Search and Rescue</a>
   * 2026-06-09 <!--dpr-date:20260609-->
     * 精读区
       * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202606/09/2606.08430v1-accuracy-configurable-floating-point-multiplier-design-for-sram-based-compute-in-memory" data-sidebar-item="{&quot;title&quot;: &quot;Accuracy-Configurable Floating-Point Multiplier Design for SRAM-Based Compute-in-Memory&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2606.08430v1-accuracy-configurable-floating-point-multiplier-design-for-sram-based-compute-in-memory&quot;, &quot;score&quot;: &quot;9.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;cim&quot;}], &quot;evidence&quot;: &quot;基于SRAM的计算存储一体化设计，含可配置浮点乘法器&quot;}">Accuracy-Configurable Floating-Point Multiplier Design for SRAM-Based Compute-in-Memory</a>

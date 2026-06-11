@@ -6,26 +6,24 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-06-10
-- 运行时间：2026-06-10 22:34:41 UTC
+- 最新运行日期：2026-06-11
+- 运行时间：2026-06-11 21:33:58 UTC
 - 运行状态：成功
 - 本次总论文数：1
-- 精读区：1
-- 速读区：0
+- 精读区：0
+- 速读区：1
 
 ### 今日简报（AI）
-今日精读一篇满分9.0论文，聚焦超高效贝叶斯推理引擎在无人机搜救中的不确定性感知应用。  
-该引擎实现185 TOPS/W/mm²能效、640 aJ/次推理，采用无写入干扰FeFET随机数生成器，显著降低功耗与面积。  
-建议关注低功耗硬件加速与不确定性量化融合设计，适合边缘AI实时决策场景的进一步探索。
-- 详情：[/202606/10/README](/202606/10/README)
+今日聚焦1篇关于Chiplet GPU上页粒度放置与局部感知GEMM兼容性的研究文章。核心探讨了在片间GPU架构中协调数据布局与矩阵运算局部性的关键挑战。建议关注chiplet环境下数据局部性优化方法，后续可精读更高分文献深入理解。
+- 详情：[/202606/11/README](/202606/11/README)
 
 ### 精读区论文标签
-1. [A 185 TOPS/W/mm2 Bayesian Inference Engine with 640 aJ Write-Free FeFET GRNG for Uncertainty-Aware Aerial Search and Rescue](/202606/10/2606.10822v1-a-185-topswmm2-bayesian-inference-engine-with-640-aj-write-free-fefet-grng-for-uncertainty-aware-aerial-search-and-rescue)  
-   标签：评分：9.0/10、query:cim
-   evidence：基于FeFET的存内计算宏实现贝叶斯推理
+- 本次无精读推荐。
 
 ### 速读区论文标签
-- 本次无速读推荐。
+1. [Making Locality-aware GEMM Compatible with Page-Granularity Placement on Chiplet GPUs](/202606/11/2606.11718v1-making-locality-aware-gemm-compatible-with-page-granularity-placement-on-chiplet-gpus)  
+   标签：评分：6.0/10、query:cim
+   evidence：芯片GPU上近存计算的数据局部性感知放置
 
 
 <div class="dpr-home-promo-card">

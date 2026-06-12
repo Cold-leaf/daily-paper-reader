@@ -6,24 +6,28 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-06-11
-- 运行时间：2026-06-11 21:33:58 UTC
+- 最新运行日期：2026-06-12
+- 运行时间：2026-06-12 20:59:58 UTC
 - 运行状态：成功
 - 本次总论文数：1
 - 精读区：0
 - 速读区：1
 
 ### 今日简报（AI）
-今日聚焦1篇关于Chiplet GPU上页粒度放置与局部感知GEMM兼容性的研究文章。核心探讨了在片间GPU架构中协调数据布局与矩阵运算局部性的关键挑战。建议关注chiplet环境下数据局部性优化方法，后续可精读更高分文献深入理解。
-- 详情：[/202606/11/README](/202606/11/README)
+今日聚焦多芯片GPU的GEMM设计空间探索，提出一种快速局部性模拟器以加速评估。
+
+最值得关注的是该模拟器通过优化数据复用模式，显著提升设计空间搜索效率，对异构计算架构优化有启发。
+
+建议普通读者关注多芯片系统中的数据局部性优化思路，可结合开源工具进一步验证其实际性能收益。
+- 详情：[/202606/12/README](/202606/12/README)
 
 ### 精读区论文标签
 - 本次无精读推荐。
 
 ### 速读区论文标签
-1. [Making Locality-aware GEMM Compatible with Page-Granularity Placement on Chiplet GPUs](/202606/11/2606.11718v1-making-locality-aware-gemm-compatible-with-page-granularity-placement-on-chiplet-gpus)  
+1. [A Fast Locality Simulator for GEMM Design-Space Exploration on Multi-Chiplet GPUs](/202606/12/2606.11716v1-a-fast-locality-simulator-for-gemm-design-space-exploration-on-multi-chiplet-gpus)  
    标签：评分：6.0/10、query:cim
-   evidence：芯片GPU上近存计算的数据局部性感知放置
+   evidence：开发了面向多芯片GPU的局部性模拟器，用于探索减少远程HBM流量的设计
 
 
 <div class="dpr-home-promo-card">

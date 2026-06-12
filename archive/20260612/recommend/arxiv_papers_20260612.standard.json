@@ -1,0 +1,53 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-12T20:59:34.978107+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2606.11716v1",
+      "source": "arxiv",
+      "title": "A Fast Locality Simulator for GEMM Design-Space Exploration on Multi-Chiplet GPUs",
+      "abstract": "Multi-chiplet GPUs split memory into local and remote HBM regions across a silicon interposer, and reducing the remote HBM traffic is crucial for the performance and energy efficiency of multi-chiplet GPUs. For general matrix multiplication (GEMM), the dominant operator in large language models (LLMs), the resulting inter-chiplet traffic depends strongly on kernel choices such as operand layout, CTA traversal order, and data placement, and the optimal strategy to minimize remote accesses is nontrivial. We present a fast, functional, tile-level locality simulator that models CTA scheduling, per-chiplet L2 caches, and local/remote HBM accesses to evaluate a full-size LLM GEMM configuration. Across representative LLM GEMMs, the simulator shows that remote traffic varies by up to 90x across the design space for the same GEMM dimensions. Moreover, using the simulator as feedback, an agentic AI discovers that a 2D block-swizzle CTA traversal reduces remote traffic over the best 1D traversal by up to 5.1x under round-robin placement, identifying CTA traversal order as a first-order, GEMM-dependent design knob for inter-chiplet traffic.",
+      "authors": [
+        "Euijun Chung",
+        "Hyesoon Kim"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-06-10T06:43:39+00:00",
+      "link": "https://arxiv.org/pdf/2606.11716v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Develops a locality simulator for multi-chiplet GPUs, enabling design exploration to reduce remote HBM traffic",
+      "llm_evidence_cn": "开发了面向多芯片GPU的局部性模拟器，用于探索减少远程HBM流量的设计",
+      "llm_evidence": "开发了面向多芯片GPU的局部性模拟器，用于探索减少远程HBM流量的设计",
+      "canonical_evidence": "开发了面向多芯片GPU的局部性模拟器，用于探索减少远程HBM流量的设计",
+      "llm_tldr_en": "Presents a fast tile-level locality simulator for multi-chiplet GPUs that models CTA scheduling, L2 caches, and local/remote HBM accesses, enabling efficient GEMM design-space exploration to minimize remote traffic.",
+      "llm_tldr_cn": "多芯片GPU将内存分为本地和远程HBM区域，远程流量是性能瓶颈。本文提出了一种快速的瓦片级局部性模拟器，对多芯片GPU的CTA调度、每芯片L2缓存和本地/远程HBM访问进行建模，用于评估全尺寸LLM GEMM配置。该模拟器能高效搜索最优内核选择，显著减少远程HBM流量，提升能效。",
+      "llm_tldr": "多芯片GPU将内存分为本地和远程HBM区域，远程流量是性能瓶颈。本文提出了一种快速的瓦片级局部性模拟器，对多芯片GPU的CTA调度、每芯片L2缓存和本地/远程HBM访问进行建模，用于评估全尺寸LLM GEMM配置。该模拟器能高效搜索最优内核选择，显著减少远程HBM流量，提升能效。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "3D integrated circuit design",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

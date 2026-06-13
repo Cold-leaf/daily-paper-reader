@@ -1,0 +1,101 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-13T21:06:09.628877+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2606.09129v1",
+      "source": "arxiv",
+      "title": "OpenOpt: An Open-Source SRAM Optimizer Based on Equivalent Circuit Model",
+      "abstract": "This paper proposes a co-optimization framework that jointly optimizes SRAM architecture and transistor sizing using equivalent circuit models. The framework simplifies inactive SRAM cells into equivalent RC loads and static power models, achieving up to 61.4$\\times$ simulation speedup while maintaining high fidelity (read/write delay error $<$0.22%, power error $<$1.68%). A joint search space encompassing architecture parameters and device sizing integrates seven algorithms including SA, PSO, Bayesian Optimization variants, and multi-objective evolutionary algorithms. Based on FreePDK45, ablation experiments confirm complementary gains from architecture selection and transistor sizing. Among all algorithms, MOEA/D achieves the best Figure of Merit (8.2721), yielding 6.2% improvement in SNM, 73.6% reduction in area, and 42.3% reduction in peak power. The framework is publicly available at https://github.com/W1Y1K1/OpenOpt.",
+      "authors": [
+        "Yikai Wang",
+        "Yiheng Wu",
+        "Can Wang",
+        "Bohao Liu",
+        "Junhao Ma",
+        "Zhuohua Liu",
+        "Qinxin Mei",
+        "Shan Shen"
+      ],
+      "primary_category": "cs.NE",
+      "categories": [
+        "cs.NE",
+        "cs.AR"
+      ],
+      "published": "2026-06-08T07:26:06+00:00",
+      "link": "https://arxiv.org/pdf/2606.09129v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "SRAM architecture optimization using equivalent circuit models, enabling efficient memory design for compute-in-memory",
+      "llm_evidence_cn": "基于等效电路模型的SRAM架构优化，为计算存储一体设计高效存储器",
+      "llm_evidence": "基于等效电路模型的SRAM架构优化，为计算存储一体设计高效存储器",
+      "canonical_evidence": "基于等效电路模型的SRAM架构优化，为计算存储一体设计高效存储器",
+      "llm_tldr_en": "OpenOpt co-optimizes SRAM architecture and transistor sizing using equivalent circuit models, achieving up to 61.4x simulation speedup with high fidelity, supporting compute-in-memory SRAM design.",
+      "llm_tldr_cn": "本文提出OpenOpt开源框架，联合优化SRAM架构和晶体管尺寸，利用等效电路模型简化非活跃单元，实现61.4倍仿真加速且精度高（读写延迟误差<0.22%，功耗误差<1.68%）。该工具可辅助设计用于计算存储一体（CIM）的高效SRAM存储阵列，对CIM架构的存储器优化有重要支撑作用。",
+      "llm_tldr": "本文提出OpenOpt开源框架，联合优化SRAM架构和晶体管尺寸，利用等效电路模型简化非活跃单元，实现61.4倍仿真加速且精度高（读写延迟误差<0.22%，功耗误差<1.68%）。该工具可辅助设计用于计算存储一体（CIM）的高效SRAM存储阵列，对CIM架构的存储器优化有重要支撑作用。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "compute-in-memory architecture",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.11158v1",
+      "source": "arxiv",
+      "title": "Defeat the Heap: Zero-Copy Data Movement in AXI4MLIR",
+      "abstract": "As custom hardware accelerators become increasingly central to machine learning workloads, efficient data transfer is critical for maximizing accelerator performance on linear algebra kernels. AXI4MLIR, an extension of the Multi-Level Intermediate Representation (MLIR) compiler framework for automated generation of host-accelerator driver code, incurs significant runtime overhead due to non-zero-copy CPU-accelerator data movement. During transfers from the host to the accelerator, data is copied from heap-allocated memory buffers into contiguous Direct Memory Access (DMA)-mapped buffers. This work identifies this copy as a redundant staging operation and eliminates it through zero-copy data movement. The optimization extends accel, an MLIR dialect introduced by AXI4MLIR, and implements lowering support that allocates buffers directly within DMA-mapped memory, thereby omitting the staging copy. We evaluate the proposed scheme using a configurable matrix-matrix multiplication accelerator and show that the zero-copy optimization reduces main memory data movement by up to 2x, increasing overall accelerator utilization.",
+      "authors": [
+        "Elam Cohavi",
+        "Nicolas Bohm Agostini",
+        "Jude Haris",
+        "Antonino Tumeo",
+        "David Kaeli",
+        "José Cano"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR",
+        "cs.PL"
+      ],
+      "published": "2026-06-09T17:40:13+00:00",
+      "link": "https://arxiv.org/pdf/2606.11158v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "zero-copy data movement for accelerator-host interaction, reducing memory copy overhead relevant to near-memory computing",
+      "llm_evidence_cn": "零拷贝数据移动优化加速器-主机交互，减少内存拷贝开销，适用于近存计算",
+      "llm_evidence": "零拷贝数据移动优化加速器-主机交互，减少内存拷贝开销，适用于近存计算",
+      "canonical_evidence": "零拷贝数据移动优化加速器-主机交互，减少内存拷贝开销，适用于近存计算",
+      "llm_tldr_en": "Eliminates redundant data copy between heap and DMA buffers in AXI4MLIR, enabling zero-copy host-accelerator transfers for improved efficiency in near-memory computing contexts.",
+      "llm_tldr_cn": "本文识别并消除了AXI4MLIR中主机与加速器之间堆内存到DMA缓冲区的冗余数据拷贝，实现零拷贝数据移动。该方法通过扩展accel方言，直接映射内存，显著减少了运行时开销。这对于近存计算系统中高效的数据传输具有重要价值，可提升加速器性能。",
+      "llm_tldr": "本文识别并消除了AXI4MLIR中主机与加速器之间堆内存到DMA缓冲区的冗余数据拷贝，实现零拷贝数据移动。该方法通过扩展accel方言，直接映射内存，显著减少了运行时开销。这对于近存计算系统中高效的数据传输具有重要价值，可提升加速器性能。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "near-memory computing design",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

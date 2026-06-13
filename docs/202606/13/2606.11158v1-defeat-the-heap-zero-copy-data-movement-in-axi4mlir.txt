@@ -1,0 +1,296 @@
+Title: Defeat the Heap: Zero-Copy Data Movement in AXI4MLIR
+
+URL Source: https://arxiv.org/pdf/2606.11158v1
+
+Published Time: Wed, 10 Jun 2026 01:24:09 GMT
+
+Number of Pages: 5
+
+Markdown Content:
+# Defeat the Heap: Zero-Copy Data Movement in AXI4MLIR 
+
+Elam Cohavi ∗, Nicolas Bohm Agostini ‡, Jude Haris ∗,Antonino Tumeo ‡, David Kaeli †, José Cano ∗∗University of Glasgow , Glasgow, Scotland, UK †Northeastern University , Boston, MA, USA 
+
+> ‡
+
+Pacific Northwest National Laboratory , Richland, WA, USA 
+
+Abstract —As custom hardware accelerators become increas-ingly central to machine learning workloads, efficient data transfer is critical for maximizing accelerator performance on linear algebra kernels. AXI4MLIR, an extension of the Multi-Level Intermediate Representation (MLIR) compiler framework for automated generation of host-accelerator driver code, in-curs significant runtime overhead due to non-zero-copy CPU-accelerator data movement. During transfers from the host to the accelerator, data is copied from heap-allocated memory buffers into contiguous Direct Memory Access (DMA)-mapped buffers. This work identifies this copy as a redundant staging operation and eliminates it through zero-copy data movement. The optimization extends accel , an MLIR dialect introduced by AXI4MLIR, and implements lowering support that allocates buffers directly within DMA-mapped memory, thereby omitting the staging copy. We evaluate the proposed scheme using a configurable matrix-matrix multiplication accelerator and show that the zero-copy optimization reduces main memory data movement by up to 2 ×, increasing overall accelerator utilization. 
+
+I. I NTRODUCTION 
+
+As machine learning (ML) workloads continue to scale, hardware accelerators have become essential for delivering the throughput required by the linear algebra-intensive kernels prevalent in ML workloads [1], [2], [3], [4]. For heterogeneous systems, accelerator performance is hindered by the cost of memory-based data movement arising from transfers between the host and accelerator. 
+
+AXI4MLIR [5], an extension of the Multi-Level Intermedi-ate Representation (MLIR) [6] framework for describing target accelerator capabilities with arbitrary instructions, generates host-side driver code that offloads linear algebra operations to custom accelerators based on the Advanced eXtensible Inter-face (AXI)-Stream protocol. AXI4MLIR operates by taking a high-level application description in MLIR’s linalg abstrac-tion [7] and introducing custom MLIR attributes to specify target accelerator capabilities. These attributes are lowered into Direct Memory Access (DMA) library calls that handle data transfers and accelerator invocation. This design improves accelerator development effort and reduces the likelihood of errors associated with manual implementation. However, the current lowering strategy introduces a non-trivial runtime overhead due to an additional step in the host-driver stack, with data-movement costs growing with both tensor size and tile granularity [8]. In particular, prior to accelerator invocation, tensors stored in standard heap-allocated memory, as memref 
+
+buffers, are copied into a staging buffer. This additional data-movement overhead leads to suboptimal utilization of accelerator compute resources. This work demonstrates that eliminating the staging copy between host heap memory and DMA-visible memory im-proves end-to-end runtime performance. We introduce azero-copy data-movement optimization that enables MLIR-allocated buffers to reside directly within DMA-mapped mem-ory. Our approach extends the accel.send operation with a custom memref -based allocation mechanism and a set of MLIR pipeline transformations that ensure accelerator-bound buffers are allocated directly in device-compatible regions. Eliminating this intermediary copy reduces transfer latency and host-side memory pressure. We evaluate the optimization on a matrix-matrix multipli-cation (MatMul) accelerator integrated into AXI4MLIR. By materializing data in place in DMA-mapped memory, the proposed approach improves accelerator load/store efficiency (up to 2×) and increases overall compute utilization. These results highlight the compiler’s role in managing memory placement for heterogeneous systems and demonstrate a prac-tical path toward reducing data-movement overhead in MLIR-based accelerator toolchains. Hence, the contributions of this work are as follows:  
+
+> •
+
+Identifying redundant data-staging overhead in host-accelerator transfer operations;  
+
+> •
+
+Introducing a zero-copy mechanism that eliminates the intermediate staging step by allocating buffers directly within DMA-mapped memory regions;  
+
+> •
+
+Providing a generalizable framework for integrating zero-copy semantics into MLIR-based accelerator toolchains, along with an extension plan for the MLIR accel dialect to support custom memory allocation semantics. II. B ACKGROUND & M OTIVATION 
+
+A. AXI4MLIR dialect lowering 
+
+AXI4MLIR adopts a multi-step lowering and transforma-tion pipeline that begins with high-level operations on the linalg-on-tensors representation. At this stage, transformations are applied to linalg named operations, such as linalg .matmul and linalg.conv_2d . These operations are subsequently converted into linalg.generic operations based on their traits, including indexing maps and iterator types. Tensors are bufferized and represented by memref 
+
+operations. The converted operations are annotated with 
+
+> arXiv:2606.11158v1 [cs.AR] 9 Jun 2026
+
+custom attributes for accelerator targeting. The annotated operations are lowered to the accel dialect and other MLIR dialects, where tiling transformations are performed through a combination of memref operations and manipulations of scf 
+
+(Structured Control Flow) dialect operations. Finaly, accel 
+
+operations representing host-accelerator data transfers are further lowered into runtime library calls that control the AXI DMA engine. 
+
+B. AXI4MLIR host-accelerator movement 
+
+The lowering pipeline of the baseline AXI4MLIR implementation requires explicit management that copies 
+
+memrefs to the DMA-visible region by producing calls to the AXI4MLIR’s runtime library, such as 
+
+@copy_to_dma_region . Additionally, accelerator-to-host transfers follow a similar strategy, but in reverse, copying data from the accelerator to a DMA-visible host buffer and then to the destination memref , which incurs a staging copy on the receive path. Benchmarking the baseline AXI4MLIR flow for tiled matrix-matrix multiplication operations across varying prob-lem sizes and accelerator tile dimensions reveals inefficiencies in data movement, as shown in Figure 4. Each configuration uses a C-stationary algorithm [9] (the output consistist of partial results are accumulated inside the accelerator) in which 
+
+A ∈ RM ×K , B ∈ RK×N , and C ∈ RM ×N are partitioned into tiles of size Tm × Tk, Tk × Tn, and Tm × Tn. The C tile remains on-chip for the duration of the inner k-loop, while 
+
+A and B tiles are streamed through the accelerator. Problem configurations follow the format M_N_K_tile-dim-size 
+
+and span a range of accelerator sizes (e.g., 16_16_16_4 
+
+through 128_128_128_16 ), as selected in AXI4MLIR [5] micro-benchmarks. For each micro-benchmark, we measure the fraction of total runtime spent in communication and accelerator compute, and report the baseline cases under the “naive” label in Figure 4. The stacked bar chart shows that data movement dominates runtime under the current two-stage buffering mechanism, especially when accelerator tile sizes are small, where, for some problem configurations, the transfer cost exceeds the accelerator’s compute time by over 18 ×. This behavior holds across problem sizes and tile configurations, demonstrating that the baseline AXI4MLIR flow is more constrained by host-accelerator communication than by on-chip computation. The remainder of this work proposes an optimization to mitigate this communication cost. III. DMA O PTIMIZATIONS 
+
+The following data movement optimizations extend the AXI4MLIR transformation and lowering pipeline to mitigate time spent on host-accelerator data move operations. 
+
+A. DMA-based data allocation 
+
+To remove the staging copies present in the baseline AXI4MLIR flow, we introduce a new attribute and lower-ing path that allocate accelerator-visible buffers directly in Kernel    
+
+> DMA Region
+> %C
+> %A
+> Host Memory Space
+> TB1 TB2 ... TBn
+> Heap
+> %B
+> Accelerator
+> Scratchpad
+> ...
+> TAn
+> TCn
+> TBn
+> 1
+> 2
+> 3
+> Stack
+
+Fig. 1: Zero-copy DMA-aware optimization: System view. the DMA memory-mapped region. Thus, DMA-to-accelerator execution consists of three steps (Figure 1): (1) runtime-computed tiles are moved into the accelerator scratchpad for both %A , %B memref buffers; (2) tiles (blocks) are used to compute a Matmul within the accelerator; (3) the accumulated result, tile TCn , is moved into its corresponding %C buffer in DMA-visible region. Buffers %A and %B are subsequently freed. 
+
+B. Reworking accel 
+
+This optimization updates the underlying functionality of several accel operations. First, accel.alloc now models allocations based on an explicitly defined memory-space-type attribute, and an accompanying layout operand. For any accel.alloc , the compiler emits a call to 
+
+aximlir_dma_alloc() , a custom allocator call which returns memref descriptors allocated in DMA-visible region, capturing the physical base address, buffer size, and layout information. In MLIR, a memref descriptor (Figure 2) is composed of the necessary metadata to interpret the raw memory buffer.             
+
+> 1template<typename T, size_t N> struct MemRefDescriptor {
+> 2T *allocated;
+> 3T *aligned;
+> 4intptr_t offset;
+> 5intptr_t sizes[N];
+> 6intptr_t strides[N];
+> 7};
+
+Fig. 2: MLIR memref descriptor structure. A memref.subview produces a new descriptor that reuses the same allocated and aligned pointers from the original buffer, but updates the remaining fields to express the view: the offset is adjusted to the new starting ele-ment, sizes describes the dimensions of the subview, and 
+
+strides defines the distance (in number of elements) to step through the underlying buffer along a specific dimension. All information necessary to compute transfer ranges is therefore already present in the descriptor. Thus, the lowering approach for accel.alloc denotes a direct conversion to a memref.alloc with non-zero mem-ory space. When lowering an accel.send with this flow, no intermediate copy or explicit size computation is required. In the worst-case scenario, one DMA call is required per line of a given tile and executes a multiple DMA operations per tile. In the best-case scenario, we can use single scatter-gather operations to move entire tiles (or subviews). The memref 
+
+or memref.subview operand provides the complete set of bounds, offsets, strides, and element sizes that the runtime uses to determine the correct DMA region. The lowering emits a single call to dma_send_descriptor() , passing the descriptor for the tile to be transferred. The runtime extracts the required metadata and computes the physical address and transfer length internally. A completion call is inserted when needed to preserve the blocking behavior of the original operation. The zero-copy lowering eliminates the staging copies be-tween heap buffers and the DMA-visible region, but it does not yet address another source of overhead that arises during transfers of higher-rank memref.subview values. When a subview does not represent a single contiguous slice in memory, the runtime must emit one DMA transaction per contiguous region. For rank-2 (or higher) tiles, this often results in multiple transfers per accel.send , especially when using the default column-major data layout. Since the DMA cost per call overhead is non-negligible and could become prohibitive if done line-by-line, our lowering flow prioritizes scatter-gather operations .
+
+C. Data movement with scatter-gather 
+
+Scatter-gather DMA operations allow a device to process a list of non-contiguous memory segments as a single logical transfer. In a gather operation, the accelerator gathers multiple disjoint source regions into a contiguous on-device stream. Conversely, a scatter operation writes back disjoint regions into separate host addresses in a single transaction. The subview 
+
+memref descriptor already contains the necessary offset, size, and stride information to describe these segments. Our opti-mization constructs a gather (to send data to the accelerator) or scatter (to receive data from the accelerator) list directly from this metadata and issues a single DMA request per tile or subview, regardless of its internal contiguity. This eliminates the overhead of issuing multiple transfers, reduces per-transfer latency, and aligns the host-accelerator communication cost with the logical tile granularity defined at the MLIR level. IV. E VALUATION 
+
+We evaluate the impact of the proposed zero-copy DMA path using a parametric data-movement model of a tiled Non-stationary, A-stationary, and C-stationary MatMul CM ×N =
+
+AM ×K × BK×N . In A or C stationary flows, a given tile from A or C matrices, is read only once; but tiles associated with other matrices will be read multiple times. The model captures all host-device, device-host data transfers, including compute time of the tile within the accelerator. This captures two operation classes present in our runtime:             
+
+> 1// %c4 represents 4 bytes of initial offset,
+> 2// returned offset may be used in a later transfer
+> 3%offset = accel.send(%sA, %c4): (memref<?xi32>) -> i32
+
+(a) Explicit tile (%sA) copy of the original memref into the DMA region, aligned 4 bytes from its start.          
+
+> 1%sA=memref.subview %A[%i, %j][%tile_size_I, %tile_size_J ][%c1,%c1]
+> 2call @copy_to_dma_region(%sA, offset=%c4) // explicit copy
+> 3call @dma_start_send(size=%tile_size_I*%tile_size_J*4 bytes, offset=%c4)
+> 4call @dma_wait_send_completion()
+
+(b) Lowered IR using calls to the DMA runtime. Baseline lowering flow has to explicitly manage copies to the DMA region.                                
+
+> 1func @send_tile() {
+> 2// Allocate tile buffer directly in the DMA-visible memory space.
+> 3%dma = accel.alloc { accel.memspace = "dma" }
+> 4:memref<1024xf32, #layout, 2>
+> 5%tile = memref.subview %dma[%c0] [512] [1]
+> 6: memref<1024xf32, 2> to memref<512xf32, 2>
+> 7call @fill_tile(%tile) : (memref<512xf32, 2>) -> ()
+> 89// Send directly --no heap-to-DMA copy required.
+> 10 accel.send %tile :memref<512xf32, 2>
+> 11 12 return
+> 13 }
+
+(c) Accelerator-visible buffers are allocated directly in the DMA memory-mapped region, eliminating the need for intermediate heap-allocated memref staging buffers.                                                                        
+
+> 1// Lowered function with direct DMA allocation.
+> 2func @matmul_tile_lowered() {
+> 3// 1. Allocate tile buffer directly in DMA-visible region.
+> 4%dma_desc = call @aximlir_dma_alloc(%c1024_i64)
+> 5:(i64) -> !accel.memrefdescriptor
+> 67// 2. Materialize the memref from the descriptor.
+> 8%dma = accel.unpack_memref %dma_desc
+> 9: !accel.memrefdescriptor -> memref<1024xf32, 2>
+> 10 11 // 3. Create asubview representing the tile to transmit.
+> 12 %tile =memref.subview %dma[%c0] [512] [1]
+> 13 :memref<1024xf32, 2> to memref<512xf32, 2>
+> 14 15 // 4. Populate tile using regular CPU-side code.
+> 16 call @fill_tile(%tile) : (memref<512xf32, 2>) -> ()
+> 17 18 // 5. Send the tile directly. No staging copy, no explicit size.
+> 19 // The runtime computes base + offset + length from the descriptor.
+> 20 call @dma_send_descriptor(%tile)
+> 21 : (memref<512xf32, 2>) -> ()
+> 22 23 // 6. Wait for completion if the calling context requires it.
+> 24 call @dma_wait_send_completion() :() -> ()
+> 25 26 return
+> 27 }
+
+(d) Lowering of accel.send operates directly on the memref or 
+
+memref.subview descriptor, avoiding heap-to-DMA copies and issuing DMA transfers based entirely on the descriptor’s offset, size, and stride metadata. 
+
+Fig. 3: IR comparison of explicit copy operations with optimization-based descriptor calls Naive S-G                                  
+
+> 0.0
+> 0.5
+> 1.0
+> Non-Stationary
+> 2.00x
+> M,N,K=128
+> (Tile=16)
+> Naive S-G
+> 1.97x
+> M,N,K=128
+> (Tile=32)
+> Naive S-G
+> 1.98x
+> M,N,K=256
+> (Tile=32)
+> Naive S-G
+> 1.86x
+> M,N,K=256
+> (Tile=64)
+> Naive S-G
+> 1.86x
+> M,N,K=512
+> (Tile=64)
+> Naive S-G
+> 1.58x
+> M,N,K=512
+> (Tile=128)
+> Naive S-G
+> 1.59x
+> M,N,K=1024
+> (Tile=128)
+> Naive S-G
+> 1.33x
+> M,N,K=1024
+> (Tile=256)
+> Naive S-G
+> 0.0
+> 0.5
+> 1.0
+> A-Stationary
+> 3.09x
+> 6.15x
+> Naive S-G
+> 2.45x
+> 4.75x
+> Naive S-G
+> 3.02x
+> 5.82x
+> Naive S-G
+> 2.24x
+> 3.82x
+> Naive S-G
+> 2.68x
+> 4.47x
+> Naive S-G
+> 1.79x
+> 2.43x
+> Naive S-G
+> 2.01x 2.65x
+> Naive S-G
+> 1.43x 1.66x
+> Naive S-G
+> 0.0
+> 0.5
+> 1.0
+> C-Stationary
+> 1.82x
+> 3.63x
+> Naive S-G
+> 1.65x
+> 3.23x
+> Naive S-G
+> 1.80x
+> 3.53x
+> Naive S-G
+> 1.59x
+> 2.83x
+> Naive S-G
+> 1.72x
+> 3.05x
+> Naive S-G
+> 1.42x
+> 2.06x
+> Naive S-G
+> 1.50x
+> 2.17x
+> Naive S-G
+> 1.25x
+> 1.54x
+> Heap DMA DMA Accel Compute Accel DMA DMA Heap
+
+Fig. 4: Normalized execution time breakdown across stationary data flows for various dimensions, tile sizes. 1) CPU ⇄DMA-region move tiles between heap to the DMA visible region; 2) DMA ⇄Accelerator transfers move data between the DMA-region and accelerator. For the Naive (non-zero-copy) configuration, every tile load and tile store operation induces an additional staging copy between the heap buffer and the DMA-visible region. Our zero-copy design removes this staging overhead. 
+
+A. Experimental Setup 
+
+To evaluate the proposed optimization, we simulate a Ver-sal VP1902 SoC characterised by a peak-aggregate memory bandwidth of 273 GB/s over a Network-on-Chip (NoC) in-terconnect. For a VP1902, the NoC is AXI4-based with a hardened (silicon-level) implementation of the AXI protocol. The architecture leverages a low-latency NoC-based AXI traversal with a DMA latency overhead of 150ns per call, and an accelerator engine array capable of 4 TFLOPS of throughput. Simulating such parallel DSP58-based execution provides a robust environment for the following: the im-plementation manages MatMul across varying problem sizes (M = N = K ∈ { 128 , . . . , 1024 }) using a tiled approach where TM = TN = TK ∈ {16 , 32 , 64 , 128 , 1024 }. This ensures that a complete working set, comprised of operand tiles from A and B and the corresponding partial sum tile in 
+
+C, fits within the local scratchpad memory. The modeled loop nest iterates over the (M, N, K ) index space in steps of (TM , T N , T K ), under the stationary data flow model. For C-stationary, the system pins the C tile within local memory to maximize reuse: it is loaded exactly once, accumulated across all k0 reduction steps, and moved to the host upon completion. In contrast, tiles of A and B
+
+are dynamically streamed to the accelerator as many times as needed to complete the operation. Due to the permutation order of the C-stationary flow, A tiles are reloaded at a higher frequency than B tiles to maintain compute utilization. Data movement is managed via optimized DMA transfers where each k0 transaction is sized according to Tdim × Tdim ,maximizing effective bandwidth. 
+
+B. Results 
+
+Figure 4 shows the normalized execution time break-down across four stationary data flows: Non-Stationary, A-Stationary, and C-Stationary as a function of problem scale and tile size T . Each bar is normalized to the Naive Non-Stationary 
+
+baseline to highlight the relative efficiency gains. The stacked components represent the relative time spent in: heap-to-DMA, DMA-to-accelerator, Compute, accelerator-to-DMA, DMA-to-heap. We note that evaluations for accelerators supporting a tile size of TK ∈ { 4, 8} are omitted because the data movement time is significantly higher than the compute time in the given setup. As tile size T increases relative to the problem dimensions, the aggregate data movement frequency (and total latency) decreases, leading to a higher proportion of time spent in the Compute phase. However, in the Naive (baseline) implementations, the system incurs a significant (up to 2×)staging-copy overhead that scales with tile dimensions. The results demonstrate that Scatter-Gather ( S-G ) implementations eliminate the Heap ⇄ DM A bottleneck by removing the need for intermediate buffer copies. In configurations with bigger tile sizes (e.g., M, N, K = 1024 , T = 128 ), Scatter-Gather achieves a significant reduction in normalized runtime by coalescing strided memory accesses into a single DMA move operation per tile. Additionally, A and C-Stationary flows reuse stationary tiles, further reducing off-chip traffic. Therefore, our model confirms the notion: as tile size in-creases and where staging costs would otherwise dominate, the zero-copy Scatter-Gather approach lowers memory bandwidth pressure and significantly improves ( 1.7× on average) end-to-end performance across all evaluated accelerator sizes and data flows. V. R ELATED WORK 
+
+Hardware-software co-design enables efficient mapping of applications into custom hardware [10], and the use of MLIR to model and optimize data transfers between CPUs and accelerators is an emerging research area. Specif-ically, the MLIR-AIE toolchain [11], designed for AMD’s Versal AI Engine (AIE) architectures, employs custom di-alects to manage data flow and low-level hardware config-uration. This framework abstracts DMA-based data trans-fers across memory tiles and shim interfaces using ex-plicit operations (e.g., aiex.dma_start_bd_chain and 
+
+aiex.dma_await_task ). These operations enable the compiler to statically allocate resources and orchestrate the necessary communication channels for efficient data move-ment across the tiled architecture, which is inherently depen-dent on specialized DMA engines for performance. While useful, this framework is for the AI Engines only and does not support custom accelerators, AXI4MLIR fills in this gap. For more general event-driven heterogeneous systems, the 
+
+EQueue dialect has been introduced to provide a foundation for compiler-driven simulation and optimization [12]. This MLIR dialect models the asynchronous nature of hardware operations, including data movement between distinct memo-ries and compute units. By representing control flow as events and task queues, this dialect allows the compiler to explicitly model and reason about the necessary synchronization and dependencies for efficient execution. While not exclusively a DMA abstraction, EQueue provides the essential control-flow mechanisms required to accurately model the initiation, completion, and stalls associated with asynchronous DMA transfers in a complex, heterogeneous environment. VI. C ONCLUSION 
+
+This work identified and addressed inefficiency in the AXI4MLIR host-accelerator data movement pipeline: redun-dant staging copy between heap-allocated memrefs and DMA-mapped buffers. Using a zero-copy approach implemented through custom memref allocation semantics within the MLIR accel dialect, this enables tensors to be allocated and mapped directly into DMA-accessible regions, eliminat-ing intermediate staging during data movement operations that accounted for a significant portion of the end-to-end latency. Evaluated on a tiled MatMul accelerator, the proposed optimization demonstrates substantial reductions (1.7× on average) in both load and store operation latency and further improves accelerator utilization. The framework provides a template for integrating zero-copy data-movement strategies into other MLIR-based accelerator flows, and underscores the value of co-designing compiler and runtime abstractions to enhance performance in heterogeneous systems. We plan to further refine our proposed optimization by enabling custom data layouts and allocation depending on accelerator design. ACKNOWLEDGMENT 
+
+This work was partially supported by the EU Project dAIEDGE (GA Nr 101120726) and the Innovate UK Horizon Europe Guarantee (GA Nr 10090788). This work was partially supported by the U.S. Department of Energy (DOE) Office of Science, Office of Advanced Scientific Computing Research (ASCR), under the End-to-end co-design for performance, energy efficiency, and security in AI-enabled computational science (ENCODE) project and the Democratization of Co-design for Energy-Efficient Heterogeneous Computing (De-CoDe) project. REFERENCES [1] H. Shabani, A. Singh, B. Youhana, and X. Guo, “Hirac: A hier-archical accelerator with sorting-based packing for spgemms in dnn applications,” in IEEE International Symposium on High-Performance Computer Architecture , ser. HPCA’23, 2023, pp. 247–258. [2] B. Kim, S. Li, and H. Li, “Inca: Input-stationary dataflow at outside-the-box thinking about deep learning accelerators,” in IEEE International Symposium on High-Performance Computer Architecture , ser. HPCA’23, 2023, pp. 29–41. [3] S. Hsia, U. Gupta, B. Acun, N. Ardalani, P. Zhong, G.-Y. Wei, D. Brooks, and C.-J. Wu, “Mp-rec: Hardware-software co-design to enable multi-path recommendation,” in Proceedings of the 28th ACM International Conference on Architectural Support for Programming Languages and Operating Systems, Volume 3 , ser. ASPLOS 2023, 2023, p. 449–465. [4] F. Muñoz Martínez, R. Garg, M. Pellauer, J. L. Abellán, M. E. Aca-cio, and T. Krishna, “Flexagon: A multi-dataflow sparse-sparse matrix multiplication accelerator for efficient dnn processing,” in Proceedings of the 28th ACM International Conference on Architectural Support for Programming Languages and Operating Systems , ser. ASPLOS’23, 2023, p. 252–265. [5] N. B. Agostini, J. Haris, P. Gibson, M. Jayaweera, N. Rubin, A. Tumeo, J. L. Abellán, J. Cano, and D. Kaeli, “AXI4MLIR: User-Driven Auto-matic Host Code Generation for Custom AXI-Based Accelerators,” in

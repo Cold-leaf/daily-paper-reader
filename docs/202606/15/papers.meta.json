@@ -1,0 +1,39 @@
+{
+  "label": "2026-06-15",
+  "date": "2026-06-15",
+  "generated_at": "2026-06-15T22:15:02",
+  "count": 2,
+  "papers": [
+    {
+      "paper_id": "202606/15/2606.11718v2-making-locality-aware-gemm-compatible-with-page-granularity-placement-on-chiplet-gpus",
+      "section": "quick",
+      "title_en": "Making Locality-aware GEMM Compatible with Page-Granularity Placement on Chiplet GPUs",
+      "authors": "Euijun Chung, Jae Hyung Ju, Hyesoon Kim",
+      "date": "2026-06-10",
+      "pdf": "https://arxiv.org/pdf/2606.11718v2",
+      "score": "7.0",
+      "evidence": "多芯片GPU上面向近内存计算的局部感知数据放置",
+      "tldr": "多芯片GPU中，GEMM的局部感知数据放置与固定页粒度交织不兼容，因为最优映射粒度因工作负载而异。本文提出Chiplet-Contiguous Layout，将芯片本地数据连续存储，使得局部感知放置兼容页粒度，无需修改OS或硬件。在Qwen 3 30B和Llama 3.1 70B的LLM推理与训练GEMM上，该方法分别减少远程HBM流量13.0倍和20.7倍，显著提升性能与能效。",
+      "tags": "query:cim",
+      "abstract_en": "Multi-chiplet GPUs scale compute throughput and high-bandwidth memory (HBM) capacity, but their non-uniform memory system makes locality between chiplets and their data critical to the GPU's performance and energy efficiency. Locality-aware scheduling and data placement identify which data should reside near each chiplet. However, in general matrix multiplication (GEMM), locality-aware data placement often becomes incompatible with a fixed page-granularity data interleaving, since the optimal granularity for mapping data across chiplets varies widely across workloads. We propose Chiplet-Contiguous Layout, a global memory layout that stores chiplet-local data contiguously. Chiplet-Contiguous Layout enables locality-aware placement compatible with page-granularity placement across diverse large language model (LLM) GEMM shapes, without changes to the operating system or hardware. On representative LLM inference and training GEMMs from Qwen 3 30B and Llama 3.1 70B, Chiplet-Contiguous Layout on average reduces remote HBM traffic by 13.0x on Qwen and 20.7x on Llama over 4\\,KB interleaving, and by 3.3x and 3.7x over coarse locality-aware placement.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202606/15/2606.14103v1-interface-engineered-oxidation-resistant-wafer-level-tantalum-tantalum-thermocompression-bonding-for-3d-integration-of-superconducting-interconnects",
+      "section": "quick",
+      "title_en": "Interface-engineered oxidation-resistant wafer-level Tantalum-Tantalum thermocompression bonding for 3D integration of superconducting interconnects",
+      "authors": "Harsh Mishra, Ullas Pandey, Sathish Bonam, Adirae Dinesh, Sai Rama Krishna Malladi, Shiv Govind Singh",
+      "date": "2026-06-12",
+      "pdf": "https://arxiv.org/pdf/2606.14103v1",
+      "score": "6.0",
+      "evidence": "晶圆级钽-钽热压键合用于三维集成",
+      "tldr": "钽表面易形成原生氧化物，阻碍低温低压直接键合，限制超导互连的3D集成。本研究采用超薄金钝化层抑制键合界面氧化，在300°C、4.93 bar条件下实现全晶圆Ta-Ta热压键合，键合强度达169 MPa，同时抑制α-Ta生成。该低热预算工艺为可扩展超导互连三维集成提供了有效策略。",
+      "tags": "query:cim",
+      "abstract_en": "Wafer-level 3D integration of superconducting interconnects requires low-thermal budget bonding processes compatible with superconducting materials. Rapid native oxide formation on tantalum (Ta) surfaces limits low-temperature, low-pressure direct Ta-Ta thermocompression bonding. In this study, we develop an oxidation-resistant bonding process using an ultrathin Au passivation layer to suppress oxide formation during bonding. The engineered interface enables blanket Ta-Ta wafer bonding at 300 $^\\circ$C under 4.93 bar, significantly reducing the bonding thermal budget and generation of $α$-Ta across the interface, which potentially improves coherence time as reported in literature. Structural and interfacial analyses confirm oxide suppression and continuous metallic bonding, having a bond strength of 169 MPa. This work demonstrates a low-temperature, low-pressure Ta-Ta thermocompression bonding strategy for scalable 3D superconducting interconnect integration.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

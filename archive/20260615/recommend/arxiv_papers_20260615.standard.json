@@ -1,0 +1,94 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-15T22:14:16.917041+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2606.11718v2",
+      "source": "arxiv",
+      "title": "Making Locality-aware GEMM Compatible with Page-Granularity Placement on Chiplet GPUs",
+      "abstract": "Multi-chiplet GPUs scale compute throughput and high-bandwidth memory (HBM) capacity, but their non-uniform memory system makes locality between chiplets and their data critical to the GPU's performance and energy efficiency. Locality-aware scheduling and data placement identify which data should reside near each chiplet. However, in general matrix multiplication (GEMM), locality-aware data placement often becomes incompatible with a fixed page-granularity data interleaving, since the optimal granularity for mapping data across chiplets varies widely across workloads. We propose Chiplet-Contiguous Layout, a global memory layout that stores chiplet-local data contiguously. Chiplet-Contiguous Layout enables locality-aware placement compatible with page-granularity placement across diverse large language model (LLM) GEMM shapes, without changes to the operating system or hardware. On representative LLM inference and training GEMMs from Qwen 3 30B and Llama 3.1 70B, Chiplet-Contiguous Layout on average reduces remote HBM traffic by 13.0x on Qwen and 20.7x on Llama over 4\\,KB interleaving, and by 3.3x and 3.7x over coarse locality-aware placement.",
+      "authors": [
+        "Euijun Chung",
+        "Jae Hyung Ju",
+        "Hyesoon Kim"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-06-10T06:47:27+00:00",
+      "link": "https://arxiv.org/pdf/2606.11718v2",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "locality-aware data placement for near-memory computing on chiplet GPUs",
+      "llm_evidence_cn": "多芯片GPU上面向近内存计算的局部感知数据放置",
+      "llm_evidence": "多芯片GPU上面向近内存计算的局部感知数据放置",
+      "canonical_evidence": "多芯片GPU上面向近内存计算的局部感知数据放置",
+      "llm_tldr_en": "Proposes Chiplet-Contiguous Layout to enable locality-aware data placement compatible with page granularity for multi-chiplet GPUs, improving performance and energy efficiency in near-memory computing contexts.",
+      "llm_tldr_cn": "多芯片GPU因非一致内存架构导致数据局部性成为性能与能效的关键，但固定页粒度数据交织与局部感知放置策略不兼容。本文提出芯片连续布局(Chiplet-Contiguous Layout)这一全局内存布局，将每个芯片的本地数据连续存储，使得局部感知放置与页粒度兼容，在GEMM基准测试中显著提升性能并降低能耗，为多芯片系统的近内存计算提供了有效的数据管理方案。",
+      "llm_tldr": "多芯片GPU因非一致内存架构导致数据局部性成为性能与能效的关键，但固定页粒度数据交织与局部感知放置策略不兼容。本文提出芯片连续布局(Chiplet-Contiguous Layout)这一全局内存布局，将每个芯片的本地数据连续存储，使得局部感知放置与页粒度兼容，在GEMM基准测试中显著提升性能并降低能耗，为多芯片系统的近内存计算提供了有效的数据管理方案。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "near-memory computing design",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.14103v1",
+      "source": "arxiv",
+      "title": "Interface-engineered oxidation-resistant wafer-level Tantalum-Tantalum thermocompression bonding for 3D integration of superconducting interconnects",
+      "abstract": "Wafer-level 3D integration of superconducting interconnects requires low-thermal budget bonding processes compatible with superconducting materials. Rapid native oxide formation on tantalum (Ta) surfaces limits low-temperature, low-pressure direct Ta-Ta thermocompression bonding. In this study, we develop an oxidation-resistant bonding process using an ultrathin Au passivation layer to suppress oxide formation during bonding. The engineered interface enables blanket Ta-Ta wafer bonding at 300 $^\\circ$C under 4.93 bar, significantly reducing the bonding thermal budget and generation of $α$-Ta across the interface, which potentially improves coherence time as reported in literature. Structural and interfacial analyses confirm oxide suppression and continuous metallic bonding, having a bond strength of 169 MPa. This work demonstrates a low-temperature, low-pressure Ta-Ta thermocompression bonding strategy for scalable 3D superconducting interconnect integration.",
+      "authors": [
+        "Harsh Mishra",
+        "Ullas Pandey",
+        "Sathish Bonam",
+        "Adirae Dinesh",
+        "Sai Rama Krishna Malladi",
+        "Shiv Govind Singh"
+      ],
+      "primary_category": "cond-mat.supr-con",
+      "categories": [
+        "cond-mat.supr-con"
+      ],
+      "published": "2026-06-12T04:29:09+00:00",
+      "link": "https://arxiv.org/pdf/2606.14103v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "wafer-level Ta-Ta thermocompression bonding for 3D integration",
+      "llm_evidence_cn": "晶圆级钽-钽热压键合用于三维集成",
+      "llm_evidence": "晶圆级钽-钽热压键合用于三维集成",
+      "canonical_evidence": "晶圆级钽-钽热压键合用于三维集成",
+      "llm_tldr_en": "This paper develops an oxidation-resistant wafer-level Ta-Ta thermocompression bonding process using an ultrathin Au passivation layer, enabling 3D integration of superconducting interconnects at 300C and 4.93 bar.",
+      "llm_tldr_cn": "针对超导互连三维集成中低温键合的需求，本文提出一种界面工程方法，利用超薄金钝化层抑制钽表面氧化，实现晶圆级钽-钽热压键合。在300°C和4.93 bar条件下成功实现键合，降低了热预算并减少了α-Ta生成。该技术为三维集成电路中超导互连的集成提供了可行的键合方案，对近存计算系统的3D堆叠具有潜在价值。",
+      "llm_tldr": "针对超导互连三维集成中低温键合的需求，本文提出一种界面工程方法，利用超薄金钝化层抑制钽表面氧化，实现晶圆级钽-钽热压键合。在300°C和4.93 bar条件下成功实现键合，降低了热预算并减少了α-Ta生成。该技术为三维集成电路中超导互连的集成提供了可行的键合方案，对近存计算系统的3D堆叠具有潜在价值。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "3D integrated circuit design",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

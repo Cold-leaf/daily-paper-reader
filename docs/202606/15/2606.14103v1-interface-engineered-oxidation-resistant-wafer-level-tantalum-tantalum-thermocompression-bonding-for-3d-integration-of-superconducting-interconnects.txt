@@ -1,0 +1,1128 @@
+Title: 2606.14103v1.pdf
+
+URL Source: https://arxiv.org/pdf/2606.14103v1
+
+Published Time: Mon, 15 Jun 2026 00:28:33 GMT
+
+Number of Pages: 6
+
+Markdown Content:
+1
+
+> REPLACE THIS LINE WITH YOUR MANUSCRIPT ID NUMBER (DOUBLE -CLICK HERE TO EDIT) < 
+
+# Interface -engineered oxidation -resistant wafer -level Tantalum –Tantalum 
+
+# thermocompression bonding for 3D integration of s uperconducting 
+
+# interconnects 
+
+Harsh Mishra , Ullas Pandey , Sat hish Bonam, Adirae Dinesh, Sai Rama Krishna Malladi , and Shiv Govind Singh *1 
+
+Abstract — Wafer -level 3D integration of superconducting 
+
+interconnects requires low -thermal budget bonding processes 
+
+compatible with superconducting materials. Rapid native oxide 
+
+formation on tantalum (Ta) surfaces limits low -temperature , low -
+
+pressure direct Ta –Ta thermocompression bonding . In this study ,
+
+we develop an oxidation -resistant bonding process using an 
+
+ultrathin Au passivation layer to suppress oxide formation during 
+
+bonding. The engineered interface enables blanket Ta –Ta wafer 
+
+bonding at 300 °C under 4.93 bar, significantly reducing the 
+
+bonding thermal budget and generation of α-Ta across the 
+
+interface, which potentially improves coherence time as reported 
+
+in literature . Structural and interfacial analyses confirm oxide 
+
+suppression and continuous metallic bonding , having a bond 
+
+strength of 169 MPa. This work demonstrates a low -temperature, 
+
+low -pressure Ta –Ta thermocompression bonding strategy for 
+
+scalable 3D superconducting interconnect integration. 
+
+Index Terms —Oxidation resistive, Thermo -compression 
+
+Bonding, Tantalum (Ta), 3D integration , Quantum Computing. 
+
+I. INTRODUCTION 
+
+Superconducting quantum computing has progressed from 
+
+few -qubit demonstrations to complex 3D integrated multi -die 
+
+processors [1 –3]. Such structures use superconducting through 
+
+silicon vias (TSVs ), which minimize resistive losses and 
+
+thermal dissipation at cryogenic temperatures compared to 
+
+conventional copper interconnects. Quantum processors 
+
+function at temperatures below the superconducting critical 
+
+temperature ( Tc), where electrical resistance becomes zero .
+
+While copper integration has been extensively explored , the 
+
+large -scale integration of superconducting materials remains a
+
+significant challenge [4–8]. Superconducting materials such as 
+
+Al, Nb, Ta, and TiN have been widely studied [9 –17], with 
+
+tantalum gaining recent attention for its exceptional stability 
+
+and maintaining high qubit coherence times. In 2022, Ta -based 
+
+qubits fabricated using dry etching achieved coherence times of 
+
+0.5 milliseconds, outperforming Nb and Al -based devices. This 
+
+enhancement is due to the stability of tantalum’s single -phase 
+
+oxide (Ta 2O5), in contrast to the presence of multiple niobium 
+
+oxides and the instability of aluminum oxide, both of which 
+
+lead to increased two -level system (TLS) losses [18 -19]. 
+
+Similarly , in our earlier study, we examined the distribution of 
+
+Cooper pairs in superconducting interconnects made of Nb, Ta, 
+
+and annealed Ta under magnetic fields. Ta -based interconnects 
+
+exhibited a uniform Cooper -pair density compared with Nb -                     
+
+> Harsh Mishra, Ullas Pandey, and Shiv Govind Singh are with the
+> Department of Electrical Engineering at the Indian Institute of Technology
+> Hyderabad, Sangareddy 502284, India (e -mail: sgsingh@ee.iith.ac.in).
+> Sat hish Bonam is with Tyndall National Institute, Lee Maltings Complex
+> Dyke Parade, Cork, Ireland.
+> Adirae Dinesh and Sai Rama Krishna Malladi are with the Department of
+> Materials Science and Metallurgical Engineering, Indian Institute of
+> Technology Hyderabad, Sangareddy 502284, India.
+
+based interconnects [20 -21]. 
+
+Similarly, in multichip 3D integration of superconducting 
+
+circuits where two chips are joined via thermocompression 
+
+bonding in vacuum , based on this , we demonstrated the 
+
+successful wafer -level integration of superconducting 
+
+interconnects using tantalum (Ta) as a superconducting material 
+
+[22] . However, Ta -Ta thermocompression bonding requires 
+
+high temperature due to surface oxidation. To overcome this, 
+
+we propose Au passivation of Ta films. Gold (Au) has a smaller 
+
+atomic volume (10 .21 cm³/mol) compared to Ta (10.85 
+
+cm³/mol) [23], which supports interdiffusion during bonding, 
+
+creating a void -free interface. Selection of a thin Au -capping 
+
+layer is based on the theoretical study discussed in section II ,
+
+which prevents Ta oxidation, reduces surface roughness, and 
+
+significantly lowers bonding temperature (from 500 °C to 300 
+
+°C) while improving joint reliability . Prior studies have also 
+
+demonstrated Nb interconnects fabricated using Au –Au 
+
+thin -film thermocompression bonding, in which a multilayer 
+
+stack consisting of 100 nm Nb, a 5 nm Ir interlayer for oxide 
+
+suppressio n, and a 200 nm Au top layer was employed. 
+
+Following thin -film optimization, thermocompression 
+
+bonding was performed at a temperature of 140 °C, with a 
+
+bonding time of 1.5 s econds under a pressure of 35 MPa. The 
+
+relatively large Au thickness enables low -temperature    
+
+> Figure 1.Schematic illustration of Au passivation on Ta, depicting the
+> mechanism of suppression of Tantalum oxide.
+
+2
+
+> REPLACE THIS LINE WITH YOUR MANUSCRIPT ID NUMBER (DOUBLE -CLICK HERE TO EDIT) < 
+
+bonding, and thus the process is classified as Au –Au 
+
+thermocompression bonding rather than direct Nb –Nb 
+
+bonding. Electrical characterization showed that Nb 
+
+interconnects incorporating Au joints retained a
+
+superconducting transition temperature of approxima tely 9 
+
+K, comparable to that of the underlying Ir/Nb stack, 
+
+indicating that the sandwiched Au layer does not degrade the 
+
+superconducting critical temperature after bonding [ 24 ]. 
+
+Consistent with these results, recent studies have shown that 
+
+Au used as a pas sivation layer on Ta remains 
+
+superconducting due to proximity coupling with the 
+
+underlying Ta . Microwave loss measurements showed 
+
+performance matching that of state -of -the -art Ta circuits at 
+
+millikelvin temperatures [ 25 ]. Furthermore, Au capping of 
+
+Nb films has been reported to systematically improve 
+
+average qubit relaxation times, highlighting that noble metal 
+
+encapsulation can preserve and, in some cases, enhance 
+
+quantum device performance [ 26 ]. 
+
+Optimizing Au thickness is critical because a too -thick layer 
+
+hinders diffusion, while a too -thin layer fails to passivate 
+
+effectively. This strategy provides a chemically inert, low -
+
+temperature, and robust bonding pathway for next -generation 
+
+superconducting quantum processors. A detailed explanation of 
+
+the selection of passivation material and the proposed bonding 
+
+mechanism , along with its associated characterizations , can be 
+
+found in sections II, III, and IV . Figure 1 provides a schematic 
+
+illustration of the passivation , depicting the oxide suppression .
+
+II. SELECTION OF CAPPING LAYER 
+
+The criterion for selecting suitable capping materials is the 
+
+existence of intrinsic bulk affinity for oxygen in 
+
+superconducting metals , which should be minimized to prevent 
+
+oxidation. This property can be studied through the interstitial 
+
+formation energy [ 27], expressed as 
+
+𝐸 𝐼𝑛𝑡𝑒𝑟  
+
+> 𝑋
+
+= 𝐸 𝑏𝑢𝑙𝑘 +𝑋 @𝑖𝑛𝑡 − 𝐸 𝑏𝑢𝑙𝑘 − 1
+
+2 𝐸 𝑥 2 , 𝑋 = 𝑂 , 𝑁 , 𝐻 
+
+A positive value of  𝐸 𝐼𝑛𝑡𝑒𝑟  
+
+> 𝑋
+
+shows that the impurity is 
+
+thermodynamically unfavorable and will tend to decline from 
+
+the material. Based on this, a subset of noble metals , such as 
+
+Ag, Au, Pd, Rh, Ru, Ir, and W , showed positive  𝐸 𝐼𝑛𝑡𝑒𝑟  
+
+> 𝑋
+
+values 
+
+of 0.05, 0.64, 0.28, 1.57, 0.77, 1.77, and 0.38 eV, respectively 
+
+[27], indicating their resistance to oxygen incorporation. In 
+
+addition to oxidation resistance, the effect of the capping layer 
+
+on the superconducting properties must be considered, 
+
+specifically the proximity effect in superconductor –normal 
+
+metal (S –N) bilayers, where S represents Ta or Nb and N 
+
+denotes the passivating layer. Within the framework based on 
+
+the strong -coupling Eliashberg formalism, and considering the 
+
+assumption that both layers are thinner than the 
+
+superconducting coherence length, the superc onducting order 
+
+parameter can be regarded as spatially uniform within each 
+
+layer. The coupling between the two layers occurs exclusively 
+
+through the interface, and the effective coupling constants 
+
+characterize the interfacial proximity strength  𝛤 𝑆  and  𝛤 𝑁  . The 
+
+ratio between these coupling parameters is approximately given 
+
+by 
+
+> 𝛤 𝑆
+> 𝛤 𝑁
+
+≈ 𝑑 𝑁 𝑁 𝑁 (0) 
+
+> 𝑑 𝑠 𝑁 𝑠 (0)
+
+,
+
+where  𝑁 𝑁 ,𝑆 (0) Respective Fermi level densities represent the 
+
+electronic densities of states at the Fermi level for the respective 
+
+materials. Thus, the thickness ratio  𝑑 𝑁 
+
+> 𝑑 𝑆
+
+directly governs the 
+
+proximity strength and consequently affects the 
+
+superconducting transition temperature ( Tc). An increase in  𝑑 𝑁 
+
+> 𝑑 𝑆
+
+leads to a pronounced suppression of Tc. Considering material 
+
+with low  𝑑 𝑁 
+
+> 𝑑 𝑆
+
+Noble metals such as Au, Pd, and Pt demonstrate 
+
+comparable performance as effective passivation layers [ 27]. 
+
+## III. OVERVIEW OF BONDING MECHANISM 
+
+The experiment employed 2 -inch, P-type silicon prime 
+
+wafers with <100> orientation. These wafers were first cleaned 
+
+using the standard RCA and Piranha procedure and subjected 
+
+to a dehydration bake and nitrogen drying. Thin films were 
+
+deposited sequentially on the prepared silicon wafers, starting 
+
+with a 175 nm tantalum layer, followed by a thin gold layer 
+
+(serving as a passivation layer for tantalum) with thicknesses 
+
+ranging from 1 nm to 7 nm to identify the optimal passivation 
+
+thickness. All depositions were carried out at room temperature 
+
+using a DC sputtering system (AJA International Inc., USA) 
+
+with a base pressure of below 2×10 -9 Torr , Ar pressure of 3 
+
+milliTorr, and power (125W and 75W) for Ta and Au, 
+
+respectively. The two metal -coated wafers were placed in the 
+
+bonding chamber with their coate d surfaces facing each other. 
+
+Thermocompression bonding of the metal -coated wafers was 
+
+performed using an AML bonder (Applied Microengineering 
+
+Limited, AML -AWB -04), which provides alignment 
+
+capabilities for wafers up to 4 inches in diameter . The bonding 
+
+process was conducted at 300°C under a pressure of 4.93 bar 
+
+for 120 minutes , as shown in Fig. 2 .    
+
+> Figure 2.Gold (Au) passivated Tantalum -Tantalum thermocompression
+> bonding process.
+
+3
+
+> REPLACE THIS LINE WITH YOUR MANUSCRIPT ID NUMBER (DOUBLE -CLICK HERE TO EDIT) < 
+
+IV. RESULTS AND DISCUSSION 
+
+A.  Surface analysis after Au passivation before wafer 
+
+bonding 
+
+The optimal thickness of the passivation layer depends on 
+
+the resulting surface roughness, as a smoother surface requires 
+
+lower bonding pressure for effective bonding between two 
+
+wafers. To assess the surface roughness, we conducted an in -
+
+depth analysis of the surface roughness of Au -passivated 
+
+samples as a function of varying passivation layer thickness (1 
+
+nm to 7 nm) using atomic force microscopy (Bruker Icon 
+
+ScanAsyst system). Imaging was carried out in tapping mode 
+
+over a 64 μm² scan area in each analysis. This method helps us 
+
+to capture the detailed surface profile and understand how 
+
+varying thicknesses of Au passivation affect surface roughness 
+
+at the nanoscale. To establish a baseline for comparison, we 
+
+evaluated the surface roughness of a control Ta film without 
+
+any Au passivation. This unpassivated Ta surface exhibited a 
+
+RMS (Rq) roughness of 0.183 nm , as shown in Fig. 3(a) , giving 
+
+a reference point against which the effects of Au passivation 
+
+could be measured. The data indicate that applying the Au 
+
+passivation layer initially leads to a decrease in RMS roughness 
+
+of 0.177 nm, as shown in Fig. 3(b), thereby smoothing the Ta 
+
+surface and improving bonding quality at lower pressure. A
+
+unique trend observed at higher passivation thicknesses , as the 
+
+Au layer achieves 5 nm in thickness , complementary RMS 
+
+roughness begins to increase to 0.202 nm and 0.257 nm for 7
+
+nm , respectively , as shown in Fig. 3(c) and Fig. 3(d) , which is 
+
+likely due to changes in the layer’s structural characteristics that 
+
+may affect uniformity. Among the thickness variations analysis ,
+
+the 3 -nm Au passivation layer shows an RMS roughness of 
+
+0.177 nm , suggesting it is a promising thickness for achieving 
+
+minimal roughness. 
+
+Chemical analysis using X-ray photoelectron spectroscopy 
+
+(AXIS Ultra) was performed for elemental analysis of the Au -
+
+passivated samples, focusing on those with Au passivation layer 
+
+thicknesses of 0, 1, 3, 5, and 7 nm. Figure 4(a) displays the Ta 
+
+4f and O 1s photoelectron spectra at the surface of a typical 
+
+Ta 2O5 film, with the solid line indicating the recorded data. Two 
+
+notable peaks at 28.9 ± 0.05 eV and 26.9 ± 0.05 eV correspond 
+
+to the Ta 2O5 markers for Ta 4f 5/2 and Ta 4f 7/2 , respectively [28].
+
+For a passivation layer of 1 nm, there is a reduction in peak 
+
+intensity between 28.9 ± 0.05 eV and 26.9 ± 0.05 eV . Still, the 
+
+surface isn’t fully passivated (as shown in Fig. 4(a)), suggesting 
+
+that a 1 nm thickness may not provide desirable protection 
+
+against oxidation. However , we observe a Tantalum metal peak 
+
+at 3 nm, but no oxide peaks, as shown in the zoomed image in 
+
+Fig. 4(a), suggesting more effective surface passivation at th is 
+
+thickness . Thus, a minimum of 3 nm of Au passivation appears 
+
+necessary to minimize oxidation of the Ta surface . For both 3 
+
+nm and thicker Au layers, a reduction in the intensity of the 
+
+underlying Ta peaks shows the increased surface coverage by 
+
+the Au layer. As shown in Figure 4(b), the intensity of the Au 
+
+4f 7/2 (~84 eV) and Au 4f 5/2 (~87.8 eV) peaks rises as the Au 
+
+thickness increases from 1 to 7 nm [29]. The absence of                
+
+> Figure 4. XPS analysis of Au -passivated samples showing elemental scans
+> for (A) tantalum (Ta) and (B) gold (Au). (C) A comparison of contact angle
+> measurements on passivated and bare Ta surfaces, including time -resolved
+> camera images captured during the measurement for both bare and
+> passivated tantalum films.
+> Figure 3. (A) 3D imaging of pure Ta extracted from AFM with RMS roughness
+> of 0.183 nm, (B) 3 nm Au -passivated Ta with RMS roughness of 0.177 nm,
+> (C) 5 nm Au -passivated Ta with RMS roughness of 0.202 nm, (D) 7 nm Au -
+> passivated Ta with RMS roughness of 0.257 nm.
+> Figure 5. Cross -sectional analysis of the bonded interface: (A) FE -SEM
+> image, (B) TEM lamella showing the full bonding interface, (C) zoomed view
+> of Au -passivated Ta -Ta interface, (D) XRD of Ta thin film with 3 nm Au
+> passivation, (E) HRTEM showing significant grai n growth with fringe widths
+> of 0.286 nm and 0.703 nm, (F) SAED pattern displaying Debye –Scherrer
+> rings from Au (111, 220) and Ta (310, 321, 411, 420, 600). a
+> a
+> a
+> a
+> a
+> onding Interface
+
+4
+
+> REPLACE THIS LINE WITH YOUR MANUSCRIPT ID NUMBER (DOUBLE -CLICK HERE TO EDIT) < 
+
+chemical shifts or additional features confirms that the Au layer 
+
+remains chemically stable without interfacial reactions with Ta. 
+
+A thicker Au passivation layer generally offers better 
+
+protection, as confirmed by elemental analysis. However, 
+
+increasing the thickness too much can limit the diffusion of Au 
+
+atoms across the bonding interface , which can be detrimental to 
+
+the bonding quality. A key requirement for any passivation 
+
+technique is its ability to prevent surface oxidation over long 
+
+periods. Long -term surface stability is essential, especially in 
+
+semiconductor manufacturing, where wafers are handled across 
+
+various locations and technologies. Reliable passivation allows 
+
+wafers to be prepared independently without concern for 
+
+surface degradation, enabling smooth wafer -on -wafer (WoW )
+
+bonding for 3D integration. This stability becomes even more 
+
+important in heterogeneous integration, where layers from 
+
+different technological platforms must align perfectly to build 
+
+advanced, multi -layered semiconductor architectures. To verify 
+
+the effe ctiveness of our Au passivation layer, we performed 
+
+contact angle measurements using the VCA Optima system 
+
+(AST Products, Inc.). This method acc urately tracks surface 
+
+oxidation by monitoring changes in surface wettability over 
+
+time. Contact angle analysis is particularly useful because 
+
+surface oxidation typically alters the surface chemistry in a way 
+
+that affects bonding reliability. For example, pure Ta surfaces 
+
+are naturally hydrophobic, but they become hydrophilic upon 
+
+oxidation . As shown in Fig. 4(c), the unpassivated (control) Ta 
+
+sample exhibited a clear drop in contact angle from 84.2° to 
+
+65.2° , signaling a transition from hydrophobic to hydr ophilic, 
+
+consistent with earlier studies [ 30 –31 ]. In contrast, the Au -
+
+passivated Ta surface maintained a stable contact angle 
+
+throughout the measurement period. This stability confirms that 
+
+the ultrathin Au passivation layer effectively suppresses 
+
+oxidation and preserves the surface condition over time . This 
+
+stable contact angle on the Au -passivated sample provides 
+
+compelling evidence of the passivation layer's reliability in 
+
+preserving the Ta surface's original properties and enhancing 
+
+long -term stability under operational conditions. 
+
+B.  Interface and Reliability Analysis After Wafer 
+
+Bonding (Wafer -Level Ta -Ta Bonding): 
+
+Post -bonding process, interface analysis was carried out 
+
+using bond strength measurements, cross -sectional imaging by 
+
+FESEM and TEM, and an evaluation of bond strength 
+
+reliability test after seven days (pause between deposition and 
+
+bonding) . The primary assessment of bonding interface quality 
+
+was performed using a simple razor test, in which reliable 
+
+bonding was confirmed by the inability to insert a razor blade 
+
+into the bonded interface. One of the samples was also 
+
+examined under high -resolution scanning electron micr oscopy 
+
+(X -FESEM). The X-FESEM image analysis in Fig. 5(A) 
+
+revealed seamless integration between the two Au -passivated 
+
+Ta -coated layers, with no visible interface or voids, suggesting 
+
+a continuous Ta layer across the Ta -Ta bonded interface. This 
+
+sample does not show a clear boundary between the bonded Ta 
+
+thin films, suggesting possible recrystallization at the bonded 
+
+surface interface. To study the grain growth across the bonded 
+
+interface, the sample was meticulously examined using a state -
+
+of -the -art Transm ission Electron Microscope (TEM) JEOL 
+
+JEM -F200, while samples were prepared using FIB on JEOL 
+
+JIB -4700F from the bonded sample . Cross -sectional TEM (X -
+
+TEM) images of the bonded wafers are presented in Fig. 5(B). 
+
+A high -resolution image of the interface region, shown in Fig. 
+
+5(C), reveals that the interface layer within the tantalum bulk 
+
+region is free of voids. Initially, to confirm the orientation of 
+
+the Au -passivated tantalum thin film, we carried out XRD 
+
+analysis, which revealed the presence of Ta (002) and Au (111) 
+
+planes, as shown in Fig. 5(D) [32 ]. The HRTEM image in Fig. 
+
+5(E) shows significant grain growth with no distinguishable 
+
+interface , which confirms a seamless, void -free bond essential 
+
+for achieving high -quality bonding. The observed d -spacings of 
+
+0.286 nm and 0.703 nm indicate the presence of multiple 
+
+crystallographic orientations which is confirmed by rings 
+
+observed in the selected area electron diffraction (SAED) 
+
+pattern as shown in the inset in Fig. 5(F), identify the Au (111) 
+
+and Au (220) planes along with α-Ta planes (310), (321), (411), 
+
+(420), and (600) and are consistent with prior studies involving 
+
+high -temperature Ta thin film deposition [3 3-34]. To further 
+
+study the presence of gold at the bonding interface after the 
+
+bonding process, TEM -EDS analysis was conducted on the 
+
+selected region of the TEM micrograph, as shown in Fig. 6(A). 
+
+The corresponding elemental maps for Ta, Au, and Si in the Ta -
+
+Ta bonded sample are shown in Fig. 6(B) , which confirm the 
+
+presence of Au across the examined area. The line -scan EDS 
+
+profile in Fig. 6(C) and post -bonding EDX spectra of the 
+
+bonded structure, shown in Fig. 6(D) , indicate a consistent 
+
+presence of Au throughout the sample, wit h noticeable 
+
+diffusion into the Ta layers and the highest intensity observed 
+
+at the bonding interface. This suggests that the ultrathin gold 
+
+film spread and integrated throughout the bonded Ta -Ta 
+
+structure during the bonding process. The applied thermal and 
+
+pressure conditions likely facilitated this diffusion and 
+
+redistribution, contributing to the formation of a robust bonding 
+
+interface. 
+
+Bond strength is an important measure of bonding quality 
+
+between wafers. To assess the bond strength of the 2 -inch 
+
+bonded wafer, the sample was diced into small ( 1 cm × 1 cm) 
+
+pieces with a diamond cutter. The bonded wafer maintained its 
+
+integrity after dicing, as shown in Fig. 7(B), indicating strong 
+
+bonding quality. Shear tests were then performed on these diced 
+
+pieces using the Instron Micro tester system (model no. 5948 R 
+
+504). Each diced specimen was fixed in the specimen holder 
+
+with specialized screws, and a maximum load of 1000 N was 
+
+applied to assess the bonded sample's strength, as depicted in 
+
+Fig. 7(A). The bond strength data for one diced piece is 
+
+presented in Fig. 7(C), showing a bond strength of 474 N ( ~ 169 
+
+MPa), consistent with previous studies and demonstrating 
+
+reliable bonding across multiple samples [4 -6] . A comparison  
+
+> Figure 6. Cross -sectional TEM -EDS analysis of Au -passivated Ta -Ta bonded
+> sample: (A) TEM image showing the analyzed area, (B) EDS elemental maps
+> of Ta, Au, and Si at the interface, (C) line scan showing Au distribution, (D)
+> post -bonding EDX spectra confirming Au p resence.
+
+5
+
+> REPLACE THIS LINE WITH YOUR MANUSCRIPT ID NUMBER (DOUBLE -CLICK HERE TO EDIT) < 
+
+of bond strength after a seven -day pause is shown in Fig. 7(D). 
+
+The results indicate that the bond strength of 451 N (~161 MPa) 
+
+for the Au -passivated Ta wafer aligns with the strength of the 
+
+Au -passivated bonded wafer with no pause, as seen in Fig. 7(C). 
+
+Further analysis was conducted on a seven -day pause case 
+
+without passivation Ta sample , which showed a significant 
+
+reduction in bond strength to 55.47 N (~19.88 MPa), as shown 
+
+in Fig. 7(E) , compared to the paused, Au -passivated Ta -bonded 
+
+wafers. This reduction is likely due to the oxide formation, 
+
+which impacts bond strength. 
+
+V. CONCLUSION 
+
+This study presents successful Ta –Ta thermocompression 
+
+bonding with a 3 nm Au passivation layer at a reduced thermal 
+
+budget of 300 °C , significantly lower than the previously 
+
+reported 500 °C. The ultrathin Au passivation layer effectively 
+
+prevents Ta oxidation and reduces surface roughness to 0.177 
+
+nm , as confirmed by XPS , contact angle, and AFM 
+
+measurements . FESEM and TEM analyses confirm a uniform, 
+
+defect -free interface. Shear tests show a strong bond strength of 
+
+169 MPa , which retains 161 MPa even after 7 days, surpassing 
+
+that of unpassivated samples , confirming high -quality bonding .
+
+This approach demonstrates low -temperature, low -pressure 
+
+blanket Ta -Ta thermocompression bonding, which widens the 
+
+way for scalable quantum computing applications at low 
+
+processing temperatures. 
+
+VI. ACKNOWLEDGEMENT 
+
+The author, Mr. Harsh Mishra, acknowledges the financial 
+
+support provided by the TCS Research Fellowship, as well as 
+
+the technical assistance from the Nano -X Fabrication Lab and 
+
+the Characterization Facility at the Indian Institute of 
+
+Technology Hyderabad. 
+
+REFERENCES 
+
+[1]  Das, R.N., Bolkhovsky, V., Wynn, A. et al. Extremely large area 
+
+(88 mm × 88 mm) superconducting integrated circuit (ELASIC). Sci 
+
+Rep 13 , 11796 (2023).  https://doi.org/10.1038/s41598 -023 -39032 -6.
+
+[2]  Das, R.N., Bolkhovsky, V., Wynn, A. et al. Extremely large area 
+
+(88 mm × 88 mm) superconducting integrated circuit (ELASIC). Sci 
+
+Rep 13 , 11796 (2023).  https://doi.org/10.1038/s41598 -023 -39032 -6
+
+[3]  R.N. Das, J. L. Yoder, D. Rosenberg, D. K. Kim, D. Yost, J. Mallek, D. 
+
+Hover, V. olkhovsky, A. J. Kerman, and W. D. Oliver, “Cryogenic qubit 
+
+integration for quantum computing,” in Proc. IEEE 68th Electron. 
+
+Compon. Technol. Conf. (ECTC), San Diego, CA, USA , May/Jun. 2018, 
+
+pp. 504 –514, doi: 10.1109/ECTC.2018.00080. 
+
+[4] Asisa Kumar Panigrahi, Satish Bonam, Tamal Ghosh, Siva Rama 
+
+Krishna Vanjari, Shiv Govind Singh,  Low temperature, low -pressure 
+
+CMOS compatible Cu -Cu thermo -compression bonding with Ti 
+
+passivation for 3D IC integration , 2015 IEEE 65th Electronic 
+
+Components and Technology Conference (ECTC) , May 2015. DOI: 
+
+10.1109/ECTC.2015.7159909 
+
+[5]  A. K. Panigrahi, T. Ghosh, S. R. K. Vanjari and S. G. Singh, "Oxidation 
+
+Resistive, CMOS Compatible Copper -Based Alloy Ultrathin Films as a 
+
+Superior Passivation Mechanism for Achieving 150 °C Cu –Cu Wafer on 
+
+Wafer Thermocompression Bonding," in IEEE Transact ions on Electron 
+
+Devices, vol. 64, no. 3, pp. 1239 -1245, March 2017, doi: 
+
+10.1109/TED.2017.2653188. 
+
+[6]  S. Bonam, A. K. Panigrahi, C. H. Kumar, S. R. K. Vanjari and S. G. Singh, 
+
+"Interface and Reliability Analysis of Au -Passivated Cu –Cu Fine -Pitch 
+
+Thermocompression Bonding for 3-D IC Applications," in IEEE 
+
+Transactions on Components, Packaging and Manufacturing 
+
+Technology , vol. 9, no. 7, pp. 1227 -1234, July 2019, doi: 
+
+10.1109/TCPMT.2019.2912891. 
+
+[7]  Panigrahi, A.K., Ghosh, T., Vanjari, S.R.K. and Singh, S.G., 2017. 
+
+Demonstration of sub 150° C Cu -Cu thermocompression bonding for 3D 
+
+IC applications, utilizing an ultra -thin layer of Manganin alloy as an 
+
+effective surface passivation layer. Materials Letters , 194 , pp.86 -89. 
+
+doi.org/10.1016/j.matlet.2017.02.041. 
+
+[8]  Panigrahi, A.K., Bonam, S., Ghosh, T., Singh, S.G. and Vanjari, S.R.K., 
+
+2016. Ultra -thin Ti passivation mediated breakthrough in high quality Cu -
+
+Cu bonding at low temperature and pressure. Materials Letters , 169 ,
+
+pp.269 -272. doi.org/10.1016/j.matlet.2016.01.126. 
+
+[9]  Lee, D., DuBois, J.L. and Lordi, V., 2014. Identification of the local 
+
+sources of paramagnetic noise in superconducting qubit devices 
+
+fabricated on α -Al 2 O 3 substrates using density -functional calculations. 
+
+Physical Review Letters, 112(1), 
+
+p.017001. https://doi.org/10.1103/PhysRevLett.112.017001 .
+
+[10]  Un, S., de Graaf, S., Bertet, P., Kubatkin, S. and Danilov, A., 2022. On 
+
+the nature of decoherence in quantum circuits: Revealing the structural 
+
+motif of the surface radicals in α-al2o3. Science Advances , 8(14), 
+
+p.eabm6169  DOI: 10.1126/sciadv.abm6169 .
+
+[11]  Richardson, C.J., Siwak, N.P., Hackley, J., Keane, Z.K., Robinson, J.E., 
+
+Arey, B., Arslan, I. and Palmer, B.S., 2016. Fabrication artifacts and 
+
+parallel loss channels in metamorphic epitaxial aluminum 
+
+superconducting resonators. Superconductor Science and Technology, 
+
+29(6), p.064003.  DOI 10.1088/0953 -2048/29/6/064003. 
+
+[12]  Premkumar, A., Weiland, C., Hwang, S., Jäck, B., Place, A.P., Waluyo, 
+
+I., Hunt, A., Bisogni, V., Pelliciari, J., Barbour, A. and Miller, M.S., 2021. 
+
+Microscopic relaxation channels in materials for superconducting qubits. 
+
+Communications Materials, 2(1), p. 72. 
+
+doi.org/10.48550/arXiv.2004.02908 .
+
+[13]  Sendelbach, S., Hover, D., Kittel, A., Mück, M., Martinis, J.M. and 
+
+McDermott, R., 2008. Magnetism in SQUIDs at millikelvin temperatures. 
+
+Physical Review Letters , 100(22), p.227006. 
+
+doi.org/10.1103/PhysRevLett.100.227006 .
+
+[14]  Kumar, P., Sendelbach, S., Beck, M.A., Freeland, J.W., Wang, Z., Wang, 
+
+H., Yu, C.C., Wu, R.Q., Pappas, D.P. and McDermott, R., 2016. Origin 
+
+and reduction of 1/f magnetic flux noise in superconducting devices. 
+
+Physical Review Applied, 6(4), p.041001. 
+
+doi.org/10.1103/PhysRevApplied.6.041001. 
+
+[15]  A. A. Murthy, J. Lee, C. Kopas, M. J. Reagor, A. P. McFadden, D. P. 
+
+Pappas, M. Checchin, A. Grassellino, A. Romanenko; TOF -SIMS 
+
+analysis of decoherence sources in superconducting qubits. Appl. Phys. 
+
+Lett. 24 January 2022; 120 (4): 044002. 
+
+https://doi.org/10.1063/5.0079321 .
+
+[16]  Vissers, M.R., Gao, J., Wisbey, D.S., Hite, D.A., Tsuei, C.C., Corcoles, 
+
+A.D., Steffen, M. and Pappas, D.P., 2010. Low -loss superconducting 
+
+titanium nitride coplanar waveguide resonators. Applied Physics Letters, 
+
+97(23).  doi.org/10.1063/1.3517252. 
+
+[17]  Ohya, S., Chiaro, B., Megrant, A., Neill, C., Barends, R., Chen, Y., Kelly, 
+
+J., Low, D., Mutus, J., O’Malley, P.J.J. and Roushan, P., 2013. Room 
+
+temperature deposition of sputtered TiN films for superconducting 
+
+Figure 7. Bond strength measurement ( A) Setup for a tensile shear test . (B)
+
+Diced bonded samples after the shear test analysis . (C) Tensile shear test of an 
+
+Au Passivated Ta -Ta bonded sample. ( D) Bond strengths were obtained with 
+
+pause durations of 7 days for the Au passivated Ta -Ta Bonded sample and (E)
+
+Bond strength after a 7 -day pause without the passivated Ta -Ta Bonded 
+
+sample. 6
+
+> REPLACE THIS LINE WITH YOUR MANUSCRIPT ID NUMBER (DOUBLE -CLICK HERE TO EDIT) < 
+
+coplanar waveguide resonators. Superconductor Science and Technology, 
+
+27(1), p.015009.  doi.org/10.48550/arXiv.1306.2966 .
+
+[18] Bu, K., Huai, S., Zhang, Z., Li, D., Li, Y., Hu, J., Yang, X., Dai, M., Cai, 
+
+T. and Zheng, Y.C., 2024. Tantalum airbridges for scalable 
+
+superconducting quantum processors (No. arXiv: 2401.03537). 
+
+doi.org/10.48550/arXiv.2401.03537 .
+
+[19] Wang, C., Li, X., Xu, H., Li, Z., Wang, J., Yang, Z., Mi, Z., Liang, X., 
+
+Su, T., Yang, C. and Wang, G., 2022. Towards practical quantum 
+
+computers: Transmon qubit with a lifetime approaching 0.5 
+
+milliseconds. npj Quantum Information , 8(1), p.3. doi:10.1038/s41534 -
+
+021 -00510 -2. 
+
+[20] H. Mishra, S. Bonam, U. Pandey and S. G. Singh, "Thermally Annealed 
+
+Tantalum -filled Vertical Superconducting Interconnects for Scalable 
+
+Quantum Computing Systems," 2023 IEEE 25th Electronics Packaging 
+
+Technology Conference (EPTC), Singapore, 2023, pp. 498 -503, doi: 
+
+10.1109/EPTC59621.2023.10457669. 
+
+[21] Mishra, H., Bonam, S., Pandey, U. and Singh, S.G., 2024. Impact of 
+
+magnetic field variation on thermally annealed tantalum -filled vertical 
+
+superconducting interconnects for scalable quantum computing systems. 
+
+APL Quantum, 1(4). DOI:  https://doi.org/10.1063/5.0196880 .
+
+[22] H. Mishra, S. Bonam, V. Kumar, and S. G. Singh, "Novel Wafer -level Ta -
+
+Ta direct thermocompression bonding for 3D integration of 
+
+Superconducting Interconnects for Scalable Quantum Computing 
+
+System," in IEEE Electron Device Letters , doi: 
+
+10.1109/LED.2024.3453174. 
+
+[23]  Singman, C.N., 1984. Atomic volume and allotropy of the 
+
+elements. Journal of Chemical Education , 61 (2), p.137. 
+
+[24] Y. -T. Yang, C. Hu, P. Zhang, N. Shakoorzadeh, N. Ni, K. L. Wang, and 
+
+S. S. Iyer, “Nb -based superconducting silicon interconnect fabric for 
+
+cryogenic electronics,” Quantum Sci. Technol., vol. 6, no. 2, p. 025014, 
+
+Feb. 2021.  https://doi.org/10.1088/2058 -9565/abe279 .
+
+[25] R. D. Chang, N. Shumiya, R. A. McLellan, Y. Zhang, M. P. Bland, F. 
+
+Bahrami, J. Mun, C. Zhou, K. Kisslinger, G. Cheng, B. M. Smitham, A. 
+
+C. Pakpour -Tabrizi, N. Yao, Y. Zhu, M. Liu, R. J. Cava, S. 
+
+Gopalakrishnan, A. A. Houck, and N. P. de Leon, “Eliminating Surface 
+
+Oxides of Superconducting Circuits with Noble Metal Encapsulation,” 
+
+Phys. Rev. Lett., vol. 134, no. 9, Mar. 2025. 
+
+https://doi.org/10.1103/PhysRevLett.134.097001 .
+
+[26] M. Bal, A. A. Murthy, S. Zhu, F. Crisa, X. You, Z. Huang, T. Roy, J. Lee, 
+
+D. van Zanten, R. Pilipenko, I. Nekrashevich, A. Lunin, D. Bafia, Y. 
+
+Krasnikova, C. J. Kopas, E. O. Lachman, D. Miller, J. Y. Mutus, M. J. 
+
+Reagor, H. Cansizoglu, J. Marshall, D. P. P appas, K. Vu, K. Yadavalli, 
+
+J. -S. Oh, L. Zhou, M. J. Kramer, F. Lecocq, D. P. Goronzy, C. G. Torres -
+
+Castanedo, P. G. Pritchard, V. P. Dravid, J. M. Rondinelli, M. J. Bedzyk, 
+
+M. C. Hersam, J. Zasadzinski, J. Koch, J. A. Sauls, A. Romanenko, and 
+
+A. Grasselli no, “Systematic improvements in transmon qubit coherence 
+
+enabled by niobium surface encapsulation,” npj Quantum Inf, vol. 10, no. 
+
+1, Apr. 2024.  https://doi.org/10.1038/s41534 -024 -00840 -x.
+
+[27]  Méndez, C., Sitaraman, N., Liepe, M. and Arias, T., 2025. Ab Initio 
+
+Theory of Eliminating Surface Oxides of Superconductors with Noble 
+
+Metal Encapsulation. arXiv preprint arXiv:2509.02914 .
+
+[28]  Simpson, R.; White, R. G.; Watts, J. F.; Baker, M. A. XPS Investigation 
+
+of Monatomic and Cluster Argon Ion Sputtering of Tantalum Pentoxide. 
+
+Appl Surf Sci 2017 , 405 , 79 –87. 
+
+https://doi.org/10.1016/j.apsusc.2017.02.006 .
+
+[29]  Nazemi, M.; Soule, L.; Liu, M.; El -Sayed, M. A. Ambient Ammonia 
+
+Electrosynthesis from Nitrogen and Water by Incorporating Palladium in 
+
+Bimetallic Gold –Silver Nanocages. J Electrochem Soc 2020 , 167 (5), 
+
+054511.  https://doi.org/10.1149/1945 -7111/ab6ee9 .
+
+[30]  Petrovskaya, A. S.; Lapitskaya, V. A.; Melnikova, G. B.; Kuznetsova, T. 
+
+A.; Chizhik, S. A.; Zykova, A. V.; Safonov, V. I. Hydrophilic Properties 
+
+of Surface of Nanostructured Tantalum Films and Its Oxynitride 
+
+Compounds. In Journal of Physics: Conference Series ; Institute of 
+
+Physics Publishing, 2019; Vol. 1281.  https://doi.org/10.1088/1742 -
+
+6596/1281/1/012061 .
+
+[31]  Rico, V.; Borrás, A.; Yubero, F.; Espinós, J. P.; Frutos, F.; González -
+
+Elipe, A. R. Wetting Angles on Illuminated Ta2o5 Thin Films with 
+
+Controlled Nanostructure. Journal of Physical Chemistry C 2009 , 113 (9), 
+
+3775 –3784.  https://doi.org/10.1021/jp805708w .
+
+[32]  Jiang, A.; Tyson, T. A.; Axe, L.; Gladczuk, L.; Sosnowski, M.; Cote, P. 
+
+The Structure and Stability of β -Ta Thin Films. Thin Solid Films 2005 ,
+
+479 (1 –2), 166 –173.  https://doi.org/10.1016/j.tsf.2004.12.006 .
+
+[33]  Marcaud, G.; Perello, D.; Chen, C.; Umbarkar, E.; Weiland, C.; Gao, J.; 
+
+Diez, S.; Ly, V.; Mahuli, N.; Souza, N. D’; He, Y.; Aghaeimeibodi, S.; 
+
+Resnick, R.; Jaye, C.; Rumaiz, A. K.; Fischer, D. A.; Hunt, M.; Painter, 
+
+O.; Jarrige, I. Low -Loss Superconducting Resonators Fabricated from 
+
+Tantalum Films Grown at Room Temperature .
+
+https://doi.org/10.1038/s43246 -025 -00897 -x. 
+
+[34]  Klinger, M.; Jäger, A. Crystallographic Tool Box (CrysTBox): 
+
+Automated Tools for Transmission Electron Microscopists and 
+
+Crystallographers. J Appl Crystallogr 2015 , 48 , 2012 –2018. 
+
+https://doi.org/10.1107/S1600576715017252.

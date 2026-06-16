@@ -1,0 +1,244 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-16T21:40:52.358383+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 2,
+    "deep_cap": 6,
+    "deep_selected": 2,
+    "quick_candidates": 4,
+    "quick_skim_target": 11,
+    "quick_selected": 4
+  },
+  "deep_dive": [
+    {
+      "id": "2606.16896v1",
+      "source": "arxiv",
+      "title": "Neural dynamical systems on ferroelectric compute-in-memory for real-time forecasting",
+      "abstract": "Neural dynamical systems are expressive temporal predictors that capture continuous-time dynamics through fine-grained state updates. However, this sequential structure maps poorly onto digital hardware optimized for dense matrix operations, a mismatch that analog neuromorphic computing, with its native continuous-time dynamics, can resolve. We introduce FerroNDS, a neuromorphic system built from two analog primitives: an integrator for temporal accumulation and an oscillator for frequency-selective filtering. We map this system onto compute-in-memory hardware based on multi-bit ferrodiodes. A 128-neuron instance of FerroNDS computes short-time Fourier transform and forecasts a 500-ms horizon for periodic, quasi-periodic, and chaotic signals. The system achieves sub-watt real-time operation with per-neuron per-inference energy of 1.64 $μ$J (200 Hz) and 0.29 $μ$J (10 kHz), 25-40$\\times$ area reduction over SRAM-based digital systems, and per-layer latency of 3.18 ms (200 Hz) and 63.87 $μ$s (10 kHz). To our knowledge, this is the first end-to-end integration of a ferrodiode into a neuromorphic computational framework, establishing ferroelectric compute-in-memory as a practical substrate for analog neural dynamical systems.",
+      "authors": [
+        "Keshava Katti",
+        "Adithya Selvakumar",
+        "Pratik Chaudhari",
+        "Deep Jariwala"
+      ],
+      "primary_category": "cs.ET",
+      "categories": [
+        "cs.ET",
+        "cs.AR",
+        "cs.NE"
+      ],
+      "published": "2026-06-15T16:07:05+00:00",
+      "link": "https://arxiv.org/pdf/2606.16896v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "proposes ferroelectric compute-in-memory hardware for neural dynamical systems",
+      "llm_evidence_cn": "提出基于铁电计算存储的神经动态系统硬件",
+      "llm_evidence": "提出基于铁电计算存储的神经动态系统硬件",
+      "canonical_evidence": "提出基于铁电计算存储的神经动态系统硬件",
+      "llm_tldr_en": "Introduces FerroNDS, a neuromorphic system using ferroelectric compute-in-memory for real-time forecasting, demonstrating efficient temporal processing.",
+      "llm_tldr_cn": "针对数字硬件在连续时间动态预测上的低效问题，本文提出FerroNDS，一种基于铁电计算存储的神经形态系统。该系统利用多比特铁电二极管实现模拟积分器和振荡器，在128神经元实例上成功计算短时傅里叶变换并预测多种信号，展示了存算一体架构在实时时序预测中的巨大潜力。",
+      "llm_tldr": "针对数字硬件在连续时间动态预测上的低效问题，本文提出FerroNDS，一种基于铁电计算存储的神经形态系统。该系统利用多比特铁电二极管实现模拟积分器和振荡器，在128神经元实例上成功计算短时傅里叶变换并预测多种信号，展示了存算一体架构在实时时序预测中的巨大潜力。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "compute-in-memory architecture",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.15045v1",
+      "source": "arxiv",
+      "title": "NEURON-Fabric: CXL-Side Low-Bit Gradient Aggregation for Distributed Training",
+      "abstract": "In large-model distributed training, especially large language model workloads, gradient All-Reduce increasingly stresses the memory and communication path. This paper asks whether a Compute Express Link (CXL) memory controller can aggregate low-bit gradient signals as gradient cache lines pass through it, while preserving a 32-bit floating-point (FP32) path for workloads, layers, or phases that should not use low-bit approximation. We present NEURON-Fabric, a CXL-side controller architecture that performs packed gradient-binary (G-Binary) sign-count aggregation and gradient-ternary (G-Ternary) gated aggregation near CXL memory, with a control interface for selecting low-bit or FP32 paths. Cycle-level timing experiments show that the measured five-cycle low-bit aggregation datapath adds at most 1.67 percent exposed runtime overhead in the full last-level-cache miss regime; under bandwidth pressure, the same compute stage is hidden by CXL service time. Functional tests confirm byte-exact identity read-back, G-Binary sign-count aggregation, and G-Ternary gating. Training checks quantify the communication and accuracy tradeoff: low-bit aggregation remains close to FP32 on CIFAR-10/ResNet-18 and SST-2/DistilBERT, while full-path low-bit aggregation fails on CIFAR-100/ResNet-18. Layer-aware admission identifies the classifier head as sensitive; keeping the head on FP32 while applying low-bit aggregation to the backbone recovers most accuracy and reduces gradient traffic to 3.6-5.4 percent of the FP32 baseline. Hardware synthesis and FPGA place-and-route estimates suggest that the 512-bit aggregation datapath is small enough to be treated as a near-memory datapath extension rather than a separate accelerator-scale block.",
+      "authors": [
+        "Ziqiang Wang",
+        "Changcheng Huang",
+        "Chung-Horng Lung"
+      ],
+      "primary_category": "cs.DC",
+      "categories": [
+        "cs.DC"
+      ],
+      "published": "2026-06-13T01:17:58+00:00",
+      "link": "https://arxiv.org/pdf/2606.15045v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "performs gradient aggregation near CXL memory, embodying near-memory computing design",
+      "llm_evidence_cn": "在CXL内存旁进行梯度聚合，体现了近存计算设计",
+      "llm_evidence": "在CXL内存旁进行梯度聚合，体现了近存计算设计",
+      "canonical_evidence": "在CXL内存旁进行梯度聚合，体现了近存计算设计",
+      "llm_tldr_en": "NEURON-Fabric is a CXL-side controller architecture that aggregates low-bit gradients near CXL memory, enabling energy-efficient distributed training while preserving FP32 path for critical layers.",
+      "llm_tldr_cn": "论文提出NEURON-Fabric架构，在CXL内存控制器侧进行低比特梯度聚合（G-Binary和G-Ternary），同时保留FP32路径。硬件细化设计实现近存计算，循环级时序实验表明该方法在保证训练精度的前提下显著降低通信开销和能耗，为大规模分布式训练提供了高效的近存计算方案。",
+      "llm_tldr": "论文提出NEURON-Fabric架构，在CXL内存控制器侧进行低比特梯度聚合（G-Binary和G-Ternary），同时保留FP32路径。硬件细化设计实现近存计算，循环级时序实验表明该方法在保证训练精度的前提下显著降低通信开销和能耗，为大规模分布式训练提供了高效的近存计算方案。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "near-memory computing design",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.11716v2",
+      "source": "arxiv",
+      "title": "A Fast Locality Simulator for GEMM Design-Space Exploration on Multi-Chiplet GPUs",
+      "abstract": "Multi-chiplet GPUs split memory into local and remote HBM regions across a silicon interposer, and reducing the remote HBM traffic is crucial for the performance and energy efficiency of multi-chiplet GPUs. For general matrix multiplication (GEMM), the dominant operator in large language models (LLMs), the resulting inter-chiplet traffic depends strongly on kernel choices such as operand layout, CTA traversal order, and data placement, and the optimal strategy to minimize remote accesses is nontrivial. We present a fast, functional, tile-level locality simulator that models CTA scheduling, per-chiplet L2 caches, and local/remote HBM accesses to evaluate a full-size LLM GEMM configuration. Across representative LLM GEMMs, the simulator shows that remote traffic varies by up to 58x across the design space for the same GEMM dimensions. Moreover, using the simulator as feedback, an agentic AI discovers that a 2D block-swizzle CTA traversal reduces remote traffic over the best 1D traversal by up to 5.1x under round-robin placement, identifying CTA traversal order as a first-order, GEMM-dependent design knob for inter-chiplet traffic.",
+      "authors": [
+        "Euijun Chung",
+        "Hyesoon Kim"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-06-10T06:43:39+00:00",
+      "link": "https://arxiv.org/pdf/2606.11716v2",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "fast locality simulator for GEMM on multi-chiplet GPUs, modeling near-memory computing aspects",
+      "llm_evidence_cn": "用于多芯片GPU上GEMM的快速局部性模拟器，建模近存计算特性",
+      "llm_evidence": "用于多芯片GPU上GEMM的快速局部性模拟器，建模近存计算特性",
+      "canonical_evidence": "用于多芯片GPU上GEMM的快速局部性模拟器，建模近存计算特性",
+      "llm_tldr_en": "Presents a fast tile-level locality simulator for GEMM on multi-chiplet GPUs, enabling design-space exploration to minimize remote HBM traffic.",
+      "llm_tldr_cn": "针对多芯片GPU中GEMM操作的远程HBM访问优化难题，本文提出一种快速的瓦片级局部性模拟器。该模拟器建模CTA调度和每芯片L2缓存，能评估全尺寸LLM GEMM配置并快速找到最佳内核选择，显著减少远程流量，为近存计算系统设计提供了关键工具。",
+      "llm_tldr": "针对多芯片GPU中GEMM操作的远程HBM访问优化难题，本文提出一种快速的瓦片级局部性模拟器。该模拟器建模CTA调度和每芯片L2缓存，能评估全尺寸LLM GEMM配置并快速找到最佳内核选择，显著减少远程流量，为近存计算系统设计提供了关键工具。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "near-memory computing design",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.13328v1",
+      "source": "arxiv",
+      "title": "Non-Parametric Dual-Manifold Mapping via 8-Bit Bounded Transformation Matrices: Challenging FP-centric Hardware Paradigms in Low-Energy AI",
+      "abstract": "Modern deep learning hardware paradigms rely heavily on computationally expensive floating-point arithmetic (FP32, FP16, and FP8), requiring massive thermal and energetic overheads to maintain gradient-based optimization. This paper introduces a non-parametric, training-free computational framework for dual-manifold mapping that operates strictly within an 8-bit signed integer boundary and leverages simple bitwise and accumulation logic. By mapping a Spatial Manifold (N_spatial = 8192 neurons) and a Gabor-pooled Structural Manifold (N_structural = 4096 neurons) through an integer-based transformation matrix (Z-matrix), we eliminate the need for floating-point multipliers. Inference is achieved via cache-friendly pointer offsets and bitwise masks, accumulating directional sign-charges using fixed thresholds (theta_reject = 8.0, theta_cut = 2.0). Learning is executed through a localized, bounded update mechanism restricted strictly within [-127, 127], modulated by stochastic noise injection. Both architectures demonstrate extreme holographic resilience, preserving near-perfect reconstruction via a global scaling factor under 90% truncation sparsity and 20% random node destruction. By reducing core AI inference to 8-bit boundaries and boolean-like execution, this framework outlines a paradigm shift toward neuromorphic edge-computing, directly questioning the long-term necessity of dense, floating-point-centric GPU accelerators.",
+      "authors": [
+        "Lars Kopp"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-06-11T13:20:06+00:00",
+      "link": "https://arxiv.org/pdf/2606.13328v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "uses 8-bit integer arithmetic to eliminate floating-point multipliers for low-energy AI inference",
+      "llm_evidence_cn": "使用8位整数运算消除浮点乘法器以实现低能耗AI推理",
+      "llm_evidence": "使用8位整数运算消除浮点乘法器以实现低能耗AI推理",
+      "canonical_evidence": "使用8位整数运算消除浮点乘法器以实现低能耗AI推理",
+      "llm_tldr_en": "Proposes a training-free computational framework using 8-bit integer transformation matrices for dual-manifold mapping, eliminating floating-point multipliers, achieving low-energy AI inference.",
+      "llm_tldr_cn": "论文针对深度学习中浮点运算带来的高能耗问题，提出一种非参数、免训练的计算框架，仅利用8位有界整数变换矩阵进行双流形映射。通过简单的位运算和累加逻辑替代浮点乘法，在保持推理能力的同时显著降低能耗。该工作挑战了传统FP中心硬件范式，为低能耗AI计算提供了新思路。",
+      "llm_tldr": "论文针对深度学习中浮点运算带来的高能耗问题，提出一种非参数、免训练的计算框架，仅利用8位有界整数变换矩阵进行双流形映射。通过简单的位运算和累加逻辑替代浮点乘法，在保持推理能力的同时显著降低能耗。该工作挑战了传统FP中心硬件范式，为低能耗AI计算提供了新思路。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "How does compute in memory architecture improve energy efficiency?",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.15322v1",
+      "source": "arxiv",
+      "title": "SimAMC: A Fast and Accurate Simulator for Resistive Memory-Based Analog Matrix Computing with Non-Idealities",
+      "abstract": "Analog matrix computing (AMC) circuits leverage resistive memory arrays to perform matrix operations in a massively parallel manner, providing an efficient approach for accelerating data-intensive tasks. However, hardware non-idealities severely impact computational accuracy, making early-stage simulation vital for reliable performance estimation and design optimization. While open-loop circuits for matrix-vector multiplication are well-studied, closed-loop AMC circuits, which solve matrix equations, are computationally more complex and substantially more sensitive to non-idealities, complicating their simulation. In this work, we present SimAMC, a simulator for resistive memory-based closed-loop AMC circuits. SimAMC is capable of modeling matrix inversion and eigenvector solving in the presence of key non-idealities, including device programming error, data conversion error, thermal noise, operational amplifier input offset, and interconnect resistance. For real-valued matrix computing circuits, an alternating iterative algorithm is designed. SimAMC's effectiveness is validated through comparison with SPICE, showing excellent agreement while also demonstrating a speedup of several orders of magnitude.",
+      "authors": [
+        "Junbin Long",
+        "Mu Zhou",
+        "Saitao Zhang",
+        "Yongxiang Li",
+        "Zhong Sun"
+      ],
+      "primary_category": "cs.ET",
+      "categories": [
+        "cs.ET"
+      ],
+      "published": "2026-06-13T14:31:34+00:00",
+      "link": "https://arxiv.org/pdf/2606.15322v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "simulator for resistive memory-based analog matrix computing relevant to compute-in-memory architecture",
+      "llm_evidence_cn": "基于电阻式存储的模拟矩阵计算模拟器，与计算-存储一体化架构相关",
+      "llm_evidence": "基于电阻式存储的模拟矩阵计算模拟器，与计算-存储一体化架构相关",
+      "canonical_evidence": "基于电阻式存储的模拟矩阵计算模拟器，与计算-存储一体化架构相关",
+      "llm_tldr_en": "SimAMC provides a fast and accurate simulator for closed-loop analog matrix computing circuits using resistive memory arrays, accounting for hardware non-idealities to enable early-stage design optimization.",
+      "llm_tldr_cn": "模拟矩阵计算（AMC）电路利用电阻式存储阵列实现大规模并行矩阵运算，但硬件非理想性严重影响精度。本文提出SimAMC，一种面向闭环AMC电路的模拟器，能够高效模拟矩阵方程求解电路并考虑非理想因素。该工具为计算-存储一体化架构的早期性能评估和设计优化提供了重要支持。",
+      "llm_tldr": "模拟矩阵计算（AMC）电路利用电阻式存储阵列实现大规模并行矩阵运算，但硬件非理想性严重影响精度。本文提出SimAMC，一种面向闭环AMC电路的模拟器，能够高效模拟矩阵方程求解电路并考虑非理想因素。该工具为计算-存储一体化架构的早期性能评估和设计优化提供了重要支持。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "compute-in-memory architecture",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.13844v1",
+      "source": "arxiv",
+      "title": "Ramulator 2.1: A Composable Memory System Simulator for Modern DRAM Systems",
+      "abstract": "Ramulator 2.1 is a major overhaul of Ramulator 2.0 that substantially improves the simulator in three directions: 1) support of modern and emerging DRAM and memory-controller features, 2) better usability and extensibility of the simulator, and 3) more comprehensive tests and validation workflows. Ramulator 2.1 adds support for advanced features in recent and emerging DRAM standards and memory controllers, including HBM3/4, LPDDR5/6, and GDDR7. To improve usability and extensibility, Ramulator 2.1 introduces a Python-based modeling and configuration interface backed by a two-way code-generation framework that 1) hides low-level C++ code behind high-level DRAM specifications written in Python, and 2) automatically creates Python proxies for all components of the simulator. Doing so enables users to rapidly create variants of DRAM standards and automate design-space-exploration workflows. To improve trustworthiness in simulation results, Ramulator 2.1 provides a comprehensive testing and validation infrastructure that covers both 1) fine-grained validation of specific DRAM timing constraints and memory-controller scheduling behavior, and 2) system-level performance evaluation using latency-throughput curves. To aid performance analysis and debugging, Ramulator 2.1 also includes an easy-to-use and high-performance DRAM command trace visualizer. Ramulator 2.1 is open-source on GitHub and under active development.",
+      "authors": [
+        "Haocong Luo",
+        "F. Nisa Bostancı",
+        "Ataberk Olgun",
+        "Maria Makeenkova",
+        "Ziad Malik",
+        "Ipek Akdeniz",
+        "Onur Mutlu"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-06-11T19:22:42+00:00",
+      "link": "https://arxiv.org/pdf/2606.13844v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "memory system simulator supporting modern DRAM including HBM3/4 for near-memory computing design",
+      "llm_evidence_cn": "支持HBM3/4等现代DRAM的内存系统模拟器，用于近存计算设计",
+      "llm_evidence": "支持HBM3/4等现代DRAM的内存系统模拟器，用于近存计算设计",
+      "canonical_evidence": "支持HBM3/4等现代DRAM的内存系统模拟器，用于近存计算设计",
+      "llm_tldr_en": "Ramulator 2.1 upgrades to support modern DRAM standards including HBM3/4, LPDDR5/6, and GDDR7, with Python-based configuration and code generation for extensible memory system simulation.",
+      "llm_tldr_cn": "Ramulator 2.1是对Ramulator 2.0的重大升级，在三个方面进行了改进：支持现代和新兴DRAM及内存控制器特性（包括HBM3/4、LPDDR5/6和GDDR7）；通过基于Python的建模和配置接口提升可用性和可扩展性；提供更全面的测试和验证工作流。该工作为近存计算系统设计提供了关键的模拟基础设施。",
+      "llm_tldr": "Ramulator 2.1是对Ramulator 2.0的重大升级，在三个方面进行了改进：支持现代和新兴DRAM及内存控制器特性（包括HBM3/4、LPDDR5/6和GDDR7）；通过基于Python的建模和配置接口提升可用性和可扩展性；提供更全面的测试和验证工作流。该工作为近存计算系统设计提供了关键的模拟基础设施。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "near-memory computing design",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

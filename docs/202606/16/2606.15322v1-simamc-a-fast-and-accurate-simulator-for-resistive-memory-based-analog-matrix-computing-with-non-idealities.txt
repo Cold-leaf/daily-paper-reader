@@ -1,0 +1,861 @@
+Title: 2606.15322v1.pdf
+
+URL Source: https://arxiv.org/pdf/2606.15322v1
+
+Published Time: Tue, 16 Jun 2026 00:41:57 GMT
+
+Number of Pages: 16
+
+Markdown Content:
+SimAMC: A Fast and Accurate Simulator for Resistive Memory -Based Analog 
+
+# Matrix Computing with Non -Idealities 
+
+## Junbin Long 
+
+Institute for Artificial Intelligence, and School of Integrated Circuits, Peking University, Beijing, China 
+
+## Mu Zhou 
+
+Institute for Artificial Intelligence, and School of Integrated Circuits,  Peking University, Beijing, China 
+
+## Saitao Zhang 
+
+Institute for Artificial Intelligence, and School of Integrated Circuits, Peking University, Beijing, China 
+
+## Yongxiang Li 
+
+Institute for Artificial Intelligence, and School of Integrated Circuits, Peking University, Beijing, China 
+
+## Zhong Sun 
+
+Institute for Artificial Intelligence, and School of Integrated Circuits, Peking University, Beijing, China 
+
+Analog matrix computing (AMC) circuits leverage resistive memory arrays to perform matrix operations in a massively 
+
+parallel manner, providing an efficient approach for accelerating data -intensive tasks. However, hardware non -idealities 
+
+severely impact com putational accuracy, making early -stage simulation vital for reliable performance estimation and 
+
+design optimization. While open -loop circuits for matrix -vector multiplication are well -studied, closed -loop AMC cir-
+
+cuits —which solve matrix equations —are comp utationally more complex and substantially more sensitive to non -ideal-
+
+ities, complicating their simulation. In this work, we present SimAMC, a simulator for resistive memory -based closed -
+
+loop AMC circuits. SimAMC  is  capable  of  modeling  matrix inversion and eigenvector solving in the presence of key 
+
+non -idealities, including device programming error, data conversion error, thermal noise,  operational amplifier input 
+
+offset,  and interconnect resistance. For real -valued matrix computing circuits, an alternating  iterative algorithm is de-
+
+signed. SimAMC’s effectiveness is validated through comparison with SPICE, showing excellent agreement while also 
+
+demonstrating a speedup of several orders of magnitude .
+
+CCS CONCEPTS : • Hardware  → Electronic design automation .
+
+Additional Keywords and Phrases:  analog computing, simulator, RRAM, resistive memory, non -ideality 2
+
+1 INTRODUCTION 
+
+Matrix computing forms the foundation of modern scientific computing and data -intensive applications. Matrix -vector 
+
+multiplication (MVM) dominates deep -learning workloads, while matrix inversion (INV) supports structured linear -sys-
+
+tem solvers in applications such as robotic inverse kinematics, and eigenvector computation (EGV) enables principal 
+
+component analysis , spectral analysis, and large -scale ranking methods such as PageRank. However, traditional digital 
+
+computing is becoming increasingly inadequate f or modern matrix workloads due to the high computational complexity 
+
+of digital matrix operations, the physical limits of CMOS scaling  [1] , and the memory -wall bottleneck inherent to von 
+
+Neumann architectures  [2] .
+
+In recent years, resistive memory -based analog matrix computing (AMC) has emerged as a promising solution for 
+
+modern matrix workloads, leveraging massive parallelism and in -memory processing to reduce computational complex-
+
+ity and mitigate the memory -wall b ottleneck  [3, 4]. By employing resistive memory cross -point arrays and operational 
+
+amplifiers (OPAs) to configure local or global feedback loops, AMC circuits perform a variety of matrix computations. 
+
+Open -loop AMC circuits without global feedback implement MVM  [5, 6], whereas closed -loop AMC circuits with global 
+
+feedback enable the solution of matrix equations, such as INV and EGV  [7] . Both open -loop and closed -loop AMC circuits 
+
+can perform matrix computations in a single step, achieving significantly low time complexity  [8, 9].
+
+In AMC circuits, non -idealities such as device programming errors, noise , OPA input offset,  and interconnect re-
+
+sistance can severely degrade computational accuracy.  Therefore, accurate early -stage simulations are essential for per-
+
+formance estimation and circuit optimization. Numerous studies have proposed simulators and architectures for MVM 
+
+circuits operating under non -ideal conditions, some of which are becoming wid ely adopted standards  [10 -21 ]. For open -
+
+loop MVM circuits, the circuit topology is feedforward , and  the input -output relationship  is linear and explicit.  Conse-
+
+quently, prior works have typically modeled the effects of noise and interconnect resistance by superimposing row -wise 
+
+and column -wise contributions or by independently perturbing conductance and voltage values [10 , 11].  Even when 
+
+more accurate modeling approaches are employed, the absence of global feedback allows the node equations to be rear-
+
+ranged into an iterative form that can be efficiently solved using standard fixed -point iterative met hods  [17] .
+
+In contrast,  closed -loop AMC circuits are inherently more complex because the presence of global feedback funda-
+
+mentally alters both the circuit behavior and the associated simulation challenges  [8, 9]. The output voltages are directly 
+
+fed back into the array through OPAs, creating a strong bidirectional coupling between the array node voltages and the 
+
+circuit outputs. When non -idealities such as noise and interconnect resistance are taken into account, t his coupling 
+
+prevents the use of simple superposition or fixed -point formulations. Instead, accurate modeling requires explicitly lev-
+
+eraging OPA properties  (e.g. , virtual short conditions) and deriving a globally coupled system of node equations. This 
+
+leads to a large, sparse , yet  tightly coupled linear system whose solution must be obtained through careful mathematical 
+
+formulation and efficient numerical solving, rather than  through straightforward iterative approaches .
+
+Simulation of closed -loop AMC circuits can be performed using SPICE (Simulation Program with Integrated Circuit 
+
+Emphasis), which typically relies on modified nodal analysis (MNA) to solve large sparse linear systems  [22] . However, 
+
+this process is computationally expensive, and the complexity grows further when accounting for non -idealities such as 
+
+thermal noise and interconnect resistance, making SPICE unsuitable for large -scale simulations. Directly incorporating 
+
+these e ffects into the SPICE netlist leads to a sharp increase in simulation time with matrix size, and in some cases 
+
+renders simulation infeasible. Although a few studies have recently proposed simulators for closed -loop AMC circuits 
+
+[23 , 24 ], they do not account for the impact of non -idealities on circuit behavior. Therefore, there is a pressing need for 
+
+a simulator that can efficiently and accurately evaluate how non -idealities affect the accuracy of closed -loop AMC cir-
+
+cuits. 3
+
+In this work, we introduce SimAMC, a  simulator for  resistive memory -based closed -loop AMC circuits. To capture 
+
+the effects of non -idealities, we develop non -idealities model for both INV and EGV circuits. Device programming errors, 
+
+data conversion errors, thermal noise , OPA input offset  are represented using random variables and incorporated into 
+
+the mathematical framework, while explicit formulas are derived to account for interconnect resistances. As a result, the 
+
+outputs of SimAMC inherently reflect the  combined impact of these non -idealities. Building on models of positive -valued 
+
+matrix computing circuits, we further propose a dual -array differential scheme and an alternating iterative algorithm to 
+
+handle real -valued matrix computing circuits. To validat e SimAMC, we evaluate the effect of each non -ideality individ-
+
+ually as well as collectively, and compare the results against SPICE under identical conditions. The results show that 
+
+SimAMC is in close agreement with SPICE, while offering a substantial runtim e advantage. 
+
+2 OVERVIEW AND MAPPING METHODS 
+
+2.1  Overview of SimAMC 
+
+The overview and workflow of SimAMC are shown in Figure 1. It supports Monte Carlo simulations, enabling users to 
+
+perform statistical analysis of the effects of device programming errors and noise. The parameter module provides a 
+
+unified configuration of c ircuit types, input parameters, non -idealities and circuit -related settings. The data  generator 
+
+produces batches of input text files, each containing different input matrix. The mapping module converts input matrices 
+
+into conductance matrices in the cross -point arrays and maps input vectors to voltages. During this process, the device 
+
+model adjusts conductance values to reflect programming errors. Once mapping is complete, SimAMC executes the 
+
+selected circuit using a mathematical model, which incorporates d ata conversion errors, thermal noise, and interconnect 
+
+resistance. Simulation results are saved in multiple output files. Finally, the result analysis module computes the relative 
+
+error between simulated and ideal outputs and generates plots of batch resul ts and errors .   
+
+> Fig ure 1: Overview and workflow of SimAMC.
+
+4
+
+2.2  Mapping Methods of SimAMC 
+
+Figure 2(a) shows the INV circuit  [7]  without non -idealities, which  is used to  solve systems of linear equations: 
+
+𝑨𝒙  = 𝒃  (1)
+
+The  N×N  matrix  𝑨  is mappe d onto the conductance  𝑮  of a cross -point  array, and the vector  −𝒃  is applied as the input 
+
+voltage  𝒗 𝑖𝑛  . The  circuit output voltage  𝒗 𝑜𝑢𝑡  corresponds to the solution of Eq . (1),  i.e. , 𝒙  = 𝑨 −1𝒃 . The EGV circuit  [7] ,
+
+shown in  Figure  2( b), is used to  solve  eigenvectors of matrix  𝑨 , e.g. , the solution of equation 
+
+𝑨𝒙  = 𝜆 𝒙  (2)
+
+where  λ is a  known  eigenvalue of  𝑨  and  is mapped to the conductance  of feedback resistors in the  transimpedance 
+
+amplifier s.  To  ensure the stability  of the AMC circuits, the input matrices are chosen to be positive definite  [9, 25 ]. The 
+
+AMC circuits are always stable for positive definite matrices, and especially for well -conditioned ones, they can 
+
+effectively tolerate programming errors and noise. 
+
+In matrix computing, elements can take arbitrary values, whereas physical quantities in circuits are restricted to 
+
+specific ranges. To address these limitations, we apply the mapping procedures shown in  Algorithm 1 and Algorithm 2 
+
+for the  positive  matrix INV and EGV  circuits, respectively.  The  known quantities  in  the original matrix equation s 𝑨 ′𝒙 ′ =
+
+𝒚  and  𝑨 ′𝒙  = 𝜆 ′𝒙  can be specified  over  arbitrary ranges.  In the INV circuit,  a scaling factor  α is used to limit the input 
+
+voltage to a maximum  of  α V. The mapping from the scaled value to conductance is based on the unit conductance  𝐺 0.
+
+In addition, the output voltage of the EGV circuit  is  normalized using the Euclidean  norm  || ·|| 2 to obtain a  unit  eigenvector .
+
+Since  conductance values can only be positive, we adopt a method that map s the real -valued matrix onto two distinct 
+
+cross -point  arrays  using analog inverters. As shown in  Figure  3, using the INV circuit as an example, the real -valued 
+
+matrix  𝑨  is split into  a positive matrix  𝑨 + and  a negative matrix  𝑨 −, such that  𝑨  = 𝑨 + − 𝑨 −. This scheme is also  applied 
+
+to the real -valued EGV circuit. To ensure proper splitting,  a small  bias  𝛿  is introduce d.  The splitting method is as follows:         
+
+> Fi gure 2: Schematic of (a) the INV circuit and (b) the EGV circuit with out non -idealities .
+
+5
+
+𝐴 𝑖𝑗  
+
+> +
+
+= {𝐴 𝑖𝑗  + 𝛿 , 𝐴 𝑖𝑗  ≥ 0
+
+𝛿 , 𝐴 𝑖𝑗  < 0
+
+𝐴 𝑖𝑗  
+
+> −
+
+= { 𝛿 , 𝐴 𝑖𝑗  ≥ 0
+
+−𝐴 𝑖𝑗  + 𝛿 , 𝐴 𝑖𝑗  < 0
+
+(3)
+
+where  𝐴 𝑖𝑗  denotes the element in the  i-th row and  j-th  column of matrix  𝑨 , while  𝐴 𝑖𝑗  
+
+> +
+
+and  𝐴 𝑖𝑗  
+
+> −
+
+are defined analogously. 
+
+In  SimA MC , 𝛿  is typically set to satisfy the following equation: 
+
+Fig ure  3:  Schematic of the  INV  circuit  with both positive and negative  matrix elements .6
+
+𝐴 𝑚𝑎𝑥  + 𝛿 
+
+𝛿  = 𝐺 𝑚𝑎𝑥 
+
+𝐺 𝑚𝑖𝑛 
+
+(4)
+
+where  𝐺 𝑚𝑎𝑥  and  𝐺 𝑚𝑖𝑛  denote the maximum and minimum conductance values of devices, respectively .
+
+3 NON -IDEALITIES MODEL 
+
+To assess the impact of non -idealities in practical circuits on the accuracy of analog matrix computation, we develop a 
+
+unified model that incorporates device programming error, data conversion error, thermal noise,  OPA input offset , and 
+
+interconnect resistance. The schematic of this model is shown in Figure  4. Directly modeling non -idealities with the 
+
+conventional EGV circuit topology in Figure 2(b) makes it difficult to achieve convergence to a stable solution. To address 
+
+this, we adopt an optimized EGV c ircuit in which one global feedback path is disconnected and a constant voltage  𝑉 0 is 
+
+applied  [26] , as shown in Figure 4(b).  To further extend the model for real -valued matrix computing, we employ an 
+
+alternating iterative algorithm with positive and negative cross -point arrays.  It should be noted that,  unlike SPICE sim-
+
+ulators that support dynamic circuit analysis and can provide detailed performance metrics such as transient behavior 
+
+and power consumption, the proposed SimAMC framework is specifically  designed  for static simulation. The primary 
+
+objective of this work is to investigate the impact of circuit non -idealities on the steady -state computational accuracy of 
+
+AMC circuits. For this purpose, static simulation is sufficient to accurately capture and evaluat e the accuracy degradation 
+
+caused  by various non -ideal factors, while maintaining a lightweight and  computationally  efficient simulation frame-
+
+work .
+
+3.1  Overview of SimAMC 
+
+3.1 .1  Device Programming Error . We model the devices based on measured re sistive  random -access  memor y (RRAM) data, 
+
+but it is applicable to all resistive memories, which can be regarded as a two -terminal resistive device, including RRAM, 
+
+phase change memory  (PCM), magnetoresistive random -access memory  (MRAM) and ferroelectric tunnel junction (FTJ) 
+
+[27 , 28 ]. During the RRAM programming process, deviations often arise between the target and actual conductance 
+
+values. These errors stem from intrinsic device non -idealities, particularly the stochastic formation and rupture of con-
+
+ductive filaments  [29] , leading to device -to -device variations. Across  a large number of devices, these variations typically 
+
+follow a statistical distribution. Here, we model them using a Gaussian distribution, as illustrated in  Figure  4. 
+
+During the mapping process,  the  target conductance values  𝐺 𝑡𝑎𝑟𝑔𝑒𝑡 ,𝑖𝑗  are replaced by actual  conductance  values sam-
+
+pled from th e distribution:  𝐺 𝑖𝑗  ∼ 𝑁 (𝐺 𝑡𝑎𝑟𝑔𝑒𝑡 ,𝑖𝑗  , 𝜎 2), where  𝐺 𝑡𝑎𝑟𝑔𝑒𝑡 ,𝑖𝑗 =𝐺 0𝐴 𝑖𝑗 . The standard deviation  𝜎  represents  the  pro-
+
+gramming error and is  assumed to be  proportional to  𝐺 𝑡𝑎𝑟𝑔𝑒𝑡 ,𝑖𝑗 . To determine a reasonable range for the programming 
+
+error, we experimentally characterize the statistical distribution of conductance values when RRAM devices are pro-
+
+grammed to the same target conductance.  The transmission electron microscopy (TEM) image and schematic of the 
+
+RRAM device used in our measurements are shown in  Figure  5(a)  and  Figure  5( b), respectively . In practical matrix -
+
+computing applications, a write -verify scheme is typically employed to reduce the programming error  [30 , 31 ]. As shown 
+
+in  Figure  5( c), for 5 -bit RRAM programmed using the write -verify scheme, each state achieves a  variation  within 1% −5%. 
+
+Therefore, in  SimA MC,  𝜎  is set to 3% of the target conductance to  represent the typical programming -error distribution 
+
+after applying the write -verify scheme.  These sampled conductance values are then used for circuit simulation, thereby 
+
+incorporating the effect of programming errors. 7
+
+3.1.2 Data Conversion Error . SimA MC also models  quantization errors in  digital -to -analog  converter s (DAC s) and  analog -
+
+to -digital  converter s (ADC s) by introducing random voltage sources. The voltages, applied to the input of the  i-th row 
+
+and the output of the  j-th column of the array, follow uniform  distributions  𝑛 𝐷𝐴𝐶 ,𝑖  ∼ 𝑈  (− Δ𝐷𝐴𝐶  
+
+> 2
+
+, Δ𝐷𝐴𝐶  
+
+> 2
+
+)and 𝑛 𝐴𝐷𝐶 ,𝑗  ∼
+
+𝑈  (− Δ𝐴𝐷𝐶  
+
+> 2
+
+, Δ𝐴𝐷𝐶  
+
+> 2
+
+), respectively  [32] . Here,  Δ𝐷𝐴𝐶  (Δ𝐴𝐷𝐶 ) denotes the quantization step of DAC  (ADC), defined as  Δ𝐷𝐴𝐶  =
+
+𝑉 𝐷𝐴𝐶  ⋅ 2−(𝐵 𝐷𝐴𝐶 −1) (Δ𝐴𝐷𝐶  = 𝑉 𝐴𝐷𝐶  ⋅ 2−(𝐵 𝐴𝐷𝐶 −1)), where  𝑉 𝐷𝐴𝐶  (𝑉 𝐴𝐷𝐶 ) is the  full -scale output range  and  𝐵 𝐷𝐴𝐶  (𝐵 𝐴𝐷𝐶 ) is the 
+
+resolution. Since  the EGV circuit does not involve analog voltage input, DAC quantization error is not taken  into account. 
+
+As shown in  Figure  4(a),  DAC  quantization error  is  added  to  the initial input voltage  𝑉 𝑖𝑛 ,𝑖 , so that  the actual input voltage 
+
+of the  i-th row  in simulation is 
+
+𝑉 𝑎𝑐𝑡𝑢𝑎𝑙 _𝑖𝑛 ,𝑖  = 𝑉 𝑖𝑛 ,𝑖  + 𝑛 𝐷𝐴𝐶 ,𝑖  (5)
+
+Similarly,  the actual  out put voltage of the  j-th column is 
+
+𝑉 𝑗  = 𝑉 𝐴𝐷𝐶 _𝑖𝑛 ,𝑗  + 𝑛 𝐴𝐷𝐶 ,𝑗  (6)
+
+where  𝑉 𝐴𝐷𝐶 _𝑖𝑛 ,𝑗  is the ADC input.  In this way,  SimA MC’ s output s reflect the impact of ADC  quantization error .
+
+3.1.3 Thermal Noise . Thermal noise arises from the thermal agitation of charge carriers  and is related to device resistance. 
+
+As the size of an  array increases, the cumulative thermal noise also grows, exerting a stronger influence on AMC circuits. 
+
+Fig ure  5: (a) The TEM image and  (b)  schematic of the RRAM used in our measurements. ( c) RRAM  conductance  cumulative dis-
+
+tribution function (CDF) when the  device is clos ed-loop programmed using a write -verify scheme. 
+
+Fig ure  4: Schematic of the non -idealities model  for (a) the INV circuit and (b) the EGV circuit. The figure depicts the device program-
+
+ming error, quantization error of DAC and ADC, device thermal noise,  OPA input offset,  and interconnect resistance .(a) (b) 8
+
+Thermal noise is modeled as a random voltage source following a zero -mean Gaussian distribution  [33] . This source is 
+
+connected in series with the device and included in subsequent  circuit simulations, as illustrated in  Figure  4. If the device 
+
+conductance  𝐺 𝑖𝑗  is known, the voltage across the cell, including the series -connected thermal noise source  𝑛 𝑖𝑗 , can  be 
+
+expressed as: 
+
+Δ𝑉 𝑖𝑗  ′ = Δ𝑉 𝑖𝑗  + 𝑛 𝑖𝑗  = Δ𝑉 𝑖𝑗  + √4𝐾𝐵𝑇  1
+
+𝐺 𝑖𝑗 
+
+(7)
+
+where  Δ𝑉 𝑖𝑗  denotes the original voltage across the device,  𝐾  is the Boltzmann constant,  𝐵  is the equivalent noise band-
+
+width (ENBW), and  𝑇  is the absolute temperature. Here, the circuit bandwidth is approximated by the actual 3 dB band-
+
+width of the OPA, with the ENBW  𝐵  being 1.57 times the circuit bandwidth  [34] .
+
+3.1.4 OPA Input Offset . The  OPA  input offset voltage  primarily  originates from device mismatches in the differential 
+
+input pair and current mirror circuits caused by process variations, such as threshold voltage mismatch, mobility fluc-
+
+tuation, and channel dimension deviation. These mismatches introduce a small differ ential error at the input stage, which 
+
+is  subsequently  amplified through  the  gain stages and  ultimately  appears as an equivalent DC voltage source at the input 
+
+terminals. In addition, thermal effects and bias instability may also contribute to offset fluct uations. Since the dominant 
+
+characteristic of the offset is its stochastic variation  arising from fabrication non -idealities , the offset voltage is modeled 
+
+as a Gaussian -distributed random variable:  𝑉 𝑜𝑠 ,𝑖 ~𝑁 (0, 𝜎 𝑜𝑠  
+
+> 2
+
+). where  𝜎 𝑜𝑠  denotes the standard deviation of the offset volt-
+
+age. Based on the schematic shown in Figure 4 and the virtual -short property of the OPA, the offset effect is incorporated 
+
+into the circuit equations by setting 
+
+𝑉 𝑖𝑁  = 𝑉 𝑜 𝑠 ,𝑖  (8)
+
+thereby  enabling  the influence of the OPA offset to propagate through the subsequent circuit analysis .
+
+3.1.5 Interconnect Resistance . The effect of interconnect resistance is incorporated by including it in the construction of 
+
+the circuit node equations.  We take the INV circuit as  an  example,  with its  circuit schematic  shown in  Figure  4(a) .
+
+According to Kirchhoff’s law, we derive the following equations for all  𝑉 𝑖𝑗  nodes :
+
+𝐺 𝑖𝑗 (𝑈 𝑖𝑗  − 𝑉 𝑖𝑗  − 𝑛 𝑖𝑗 ) = 𝑔 1(𝑉 𝑖𝑗  − 𝑉 𝑖 ,𝑗 +1) + 𝑔 1𝐺 0
+
+𝑔 1 + 𝐺 0
+
+(𝑉 𝑖𝑗  − 𝑉 𝑖𝑛 ,1 − 𝑛 𝐷𝐴𝐶 ,𝑖  − 𝑛 0𝑖 ), 𝑗  = 1
+
+𝐺 𝑖𝑗 (𝑈 𝑖𝑗  − 𝑉 𝑖𝑗  − 𝑛 𝑖𝑗 ) = 𝑔 1(𝑉 𝑖𝑗  − 𝑉 𝑖 ,𝑗 +1) + 𝑔 1(𝑉 𝑖𝑗  − 𝑉 𝑖 ,𝑗 −1), 𝑗  ≠ 1 𝑎𝑛𝑑  𝑗  ≠ 𝑁 
+
+𝐺 𝑖𝑗 (𝑈 𝑖𝑗  − 𝑉 𝑖𝑗  − 𝑛 𝑖𝑗  ) = 𝑔 1(𝑉 𝑖𝑗  − 𝑉 𝑖 ,𝑗 −1), 𝑗  = 𝑁 
+
+(9)
+
+where  𝑔 1 and  𝑔 2 represent the row and column conductance  values  of the interconnect resistances between adjacent 
+
+nodes, respectively.  𝑛 0𝑗  represents the thermal noise of the unit conductance  𝐺 0. Similarly,  for all  𝑈 𝑖𝑗  nodes, we can 
+
+derive 
+
+𝐺 𝑖𝑗  (𝑉 𝑖𝑗  + 𝑛 𝑖𝑗  − 𝑈 𝑖𝑗 ) = 𝑔 2(𝑈 𝑖𝑗  − 𝑈 𝑖 +1,𝑗 ), 𝑖  = 1
+
+𝐺 𝑖𝑗 (𝑉 𝑖𝑗  + 𝑛 𝑖𝑗  − 𝑈 𝑖𝑗  ) = 𝑔 2(𝑈 𝑖𝑗  − 𝑈 𝑖 +1,𝑗  ) + 𝑔 2(𝑈 𝑖𝑗  − 𝑈 𝑖 −1,𝑗 ), 𝑖  ≠ 1 𝑎𝑛𝑑  𝑖  ≠ 𝑁 
+
+𝐺 𝑖𝑗  (𝑉 𝑖𝑗  + 𝑛 𝑖𝑗  − 𝑈 𝑖𝑗 ) = 𝑔 2(𝑈 𝑖𝑗  − 𝑉 𝑗  − 𝑛 𝐴𝐷𝐶 ,𝑗  ) + 𝑔 2(𝑈 𝑖𝑗  − 𝑈 𝑖 −1,𝑗 ), 𝑖  = 𝑁 
+
+(10 )
+
+where  𝑉 𝑗  corresponds  to  𝒗 𝑜𝑢𝑡  = (𝑉 1, 𝑉 2, … , 𝑉 𝑁 )T in  Algorithm 1 . Eq . (9) involve s 𝑁 2 unknowns, namely  𝑉 𝑖𝑗 , while  Eq .
+
+(10 ) contain  𝑁 (𝑁  + 1) unknowns, consisting of  𝑈 𝑖𝑗  and  𝑉 𝑗  . By combining Eq . (9) with  Eq . (10 ), all  𝑈 𝑖𝑗  can be eliminated, 
+
+leading to the following matrix equation: 
+
+𝑭 𝐼𝑁𝑉 (𝑽 , 𝑽 𝑥 ) = 𝟎  (11 )
+
+where  𝑭 𝐼𝑁𝑉  is  a function of the node voltage variables  𝑉 𝑖𝑗  and  𝑉 𝑗  , 𝑽  is  an  𝑁  × 𝑁  matrix  composed of  𝑉 𝑖𝑗  , and  𝑽 𝑥  =
+
+(0,0, … , 𝒗 𝑜𝑢𝑡 )T. According to the virtual short principle of the OPA, the input node voltage of OPA ideally satisfies 
+
+𝑉 𝑖𝑁  = 0. Thus,  𝑁  unknowns can be eliminated, allowing  𝑽  and  𝑽 𝑥  to be combined into a single matrix variable  𝑭 𝐼𝑁𝑉 (𝜽 ),9
+
+with  𝑁 2 variables corresponding to the node equations in Eq. ( 11 ).  𝑭 𝐼𝑁𝑉 (𝜽 ) consists of linear terms proportional to the 
+
+variable matrix  𝜽  (the unknown matrix  𝜽  multiplied by known matrices), along with  constant term s [35] . Since  𝑭 𝐼𝑁𝑉 (𝜽 )
+
+is linear, without any higher -order (quadratic or above) terms in  𝜽 , its Jacobian matrix  𝑱 𝐼𝑁𝑉 (𝜽 ) is  constant,  and t he 
+
+Taylor expansion of  𝑭 𝐼𝑁𝑉  about the initial variable  𝜽 0 contains only  the constant  and first -order terms.  Substituting the 
+
+Taylor expansion into Eq . (10 ) yields: 
+
+𝑭 𝐼𝑁𝑉 (𝜽 0) + 𝑱 𝐼𝑁𝑉 (𝜽 0) ⋅ (𝜽  − 𝜽 0) = 𝟎  (12 )
+
+where  𝜽 0 is initialized  as a zero matrix.  Because the Jacobian is independent of  𝜽 , it  can  be computed  directly  from the 
+
+matrices constructed with the known quantities in  Eq.  (9) and  Eq.  (10 ). The solution  𝜽  is obtained by  solving Eq. ( 12 ),
+
+from which  𝒗 𝑜𝑢𝑡  can be extracted. This output inherently reflects the effects of device programming error,  data conversion 
+
+error, thermal  noise,  OPA input offset , and interconnect resistance. The overall procedure is summarized in Algorithm  3.
+
+A similar algorithm  is  applied to the EGV circuit  shown  in  Figure  4(b),  yielding a solution  with  non -idealities . The sparsity 
+
+of the Jacobian matrix greatly accelerates the sol ving  process of  Eq.  (12 ),  enabling  rapid simulation for  closed -loop AMC 
+
+circuits with interconnect resistance. 
+
+3.2  Real -Valued Matrix Computing Circuits 
+
+For real -valued matrix computing circuits, we introduce an alternating iterative algorithm to model circuit non -idealities, 
+
+as in the positive matrix computing case, as shown in Algorithm  4. Taking the INV circuit in  Figure  3 as an example, 
+
+non -idealities are incorporated in a similar way, except that two arrays are considered. This requires two sets of inter-
+
+connect resistances and two sets of thermal noise sources. After solving Eq. ( 12 ) for the positive array, the node voltages 
+
+in its first column and the  outputs  𝑉 𝑗  are used as inputs to the negative array. As with the positive array, we derive and 
+
+simplify the node equations to obtain a matrix equation involving unknowns for the negative array, namely  𝑭 𝐼𝑁𝑉  
+
+> −
+
+(𝑽 −) =
+
+𝟎 , where  𝑽 −is an  𝑁  × 𝑁  matrix composed of  nodes  𝑉 𝑖 1 
+
+> −
+
+of  negative  array  corresponding  to  𝑉 𝑖𝑗  in  Figure  3. The  solution 
+
+is then  obtained by solving 
+
+𝑭 𝐼𝑁𝑉  
+
+> −
+
+(𝑽 0
+
+> −
+
+) + 𝑱 𝐼𝑁𝑉  
+
+> −
+
+(𝑽 0
+
+> −
+
+) ⋅ (𝑽 − − 𝑽 0
+
+> −
+
+) = 𝟎  (13 )
+
+where  𝑱 𝐼𝑁𝑉  
+
+> −
+
+is the  Jacobian matrix  of  𝑭 𝐼𝑁𝑉  
+
+> −
+
+. The sol ving  processes of  Eq.  (12 ) and  Eq.  (13 ) correspond to the  solve_pos 
+
+and  solve_neg  functions in Algorithm  4, respectively.  The current  𝐼 𝑖  flowing from the negative array into the  i-th row 
+
+of the positive array is calculated as  𝐼 𝑖  = 𝑔 1(𝑉 𝑖 1 
+
+> −
+
+− 𝑉 𝑖 1). These currents are then applied to the positive array, updating 
+
+the equation for  𝑗  = 1 in  Eq. ( 9) to 10 
+
+𝐺 𝑖𝑗  (𝑈 𝑖𝑗  − 𝑉 𝑖𝑗  − 𝑛 𝑖𝑗 ) = 𝑔 1(𝑉 𝑖𝑗  − 𝑉 𝑖 ,𝑗 +1) + 𝑔 1𝐺 0
+
+𝑔 1 + 𝐺 0
+
+(𝑉 𝑖𝑗  − 𝑉 𝑖𝑛 ,1 − 𝑛 𝐷𝐴𝐶 ,𝑖  − 𝑛 0𝑖 ) − 𝐼 𝑖  (14 )
+
+Eq.  (12 ) is then solved again to update  𝑉 𝑗  in the positive array.  This  process continues, with the positive and negative 
+
+arrays alternately solving  Eq.  (12 ) and  Eq.  (13 ) while  updating  𝑉 𝑗  and  𝐼 𝑖  until convergence is achieved according to the 
+
+threshold  ε defined in the parameter module, yielding the  final output  𝒗 𝑜𝑢𝑡 . Consequently, the matrix computing solu-
+
+tion contains both positive and negative elements.  A similar alternating iterative algorithm can be applied to the EGV 
+
+circuit, where the positive and negative arrays are also computed separately. The voltages at the nodes connecting the 
+
+two arrays are iteratively updated in an alternating manner until con vergence, yielding the voltages corresponding to 
+
+the eigenvector.  Owing to the rapid solution of each array, the alternating iteration remains efficient, even for real -
+
+valued matrix computing circuits. 
+
+4 VALIDATION AND EVALUATION 
+
+To verify that  SimA MC  can accurately capture various non -idealities,  we validate the simulator by considering each 
+
+non -ideality individually as well as all non -idealities collectively in both the INV and EGV circuits. In addition, we eval-
+
+uate the computational efficiency of the simulator. 
+
+4.1  Validation of SimAMC 
+
+4.1 .1  Device Programming Error . To evaluate the impact of device programming errors, we compare the simulation results 
+
+of SPICE and  SimA MC  using 30 different 64×64 input matrices. In SPICE, a Monte Carlo simulation is performed in 
+
+which device resistances in the cross -point array are perturbed directly according to the specified statistical variation 
+
+model, whereas in  SimAMC , Gaussian -distributed random numbers are generated for the mapped conductance values. 11 
+
+The  conductances range from  5 μS to 2 00 μS, with the standard deviation  𝜎  set to  3%  of the target conductance . Relative 
+
+errors between the simulated and ideal results are calculated and averaged across the dataset , as shown in  Figure  6. The 
+
+errors from  SimA MC  closely match those from SPICE, with nearly identical trends across varying inputs, confirming 
+
+that  SimA MC  effectively models  device programming errors .
+
+4.1 .2 Data Conversion Error , Thermal N oise , and OPA Input Offset . In SPICE, DAC and ADC behavior is simulated using 
+
+digital -to -analog and analog -to -digital conversion functions,  while  thermal noise  and OPA input offset are  modeled with 
+
+random voltage sources . In  SimA MC , random numbers are generated according to the specified distributions of data 
+
+conversion error , thermal noise , and OPA input offset . For consistency, the standard deviation of the random voltage 
+
+sources in SPICE is matched to that of the random numbers in  SimA MC . The DAC and ADC are configured with a 
+
+resol ution of 12 bits.  In the noise analysis, the ambient temperature is assumed to be 300K, while the equivalent noise                                
+
+> Fig ure 7:Relative error between simulation results and ideal matrix computing results for different matrices, taking data conver-
+> sion error into account, obtained using DA/AD model and SPICE. (a) INV circuit. (b) EGV circuit .
+> Fig ure 6:Relative error between simulation results and ideal matrix computing results for different matrices, taking device pro-
+> gramming errors into account, obtained using device model and SPICE. The solid line represents the mean relative error from the
+> batch simulations, while the dashed lines indicate the corresponding upper and lower bounds. (a) INV circuit. (b) EGV circuit.
+
+12 
+
+bandwidth is approximated using the 3 -dB bandwidth of the OPA. The OPA parameter configuration is based on the 
+
+specifications of the AD823  [36] . Validation is performed via Monte Carlo simulations on 30 different 16×16 matrices, 
+
+with each non -ideality tested individually  (Fig ure  7, Fig ure  8 and  Fig ure  9). The errors produced by our models are in 
+
+close agreement with those from SPICE, exhibiting similar trends across varying inputs, which confirms that our models 
+
+accurately reproduce the effects of  data conversion error , thermal noise , and OPA input offset .
+
+4.1.3 Interconnect Resistance . SPICE simulates AMC circuits with interconnect resistance, while  SimA MC  calculates the 
+
+output voltages using Eq. (11) with device programming error and noise disabled.  Figure  10  compares the results under 
+
+varying matrix sizes with an  interconnect resistance of  5 Ω. The outputs of  SimA MC  and SPICE show negligible differ-
+
+ences, demonstrating that  SimA MC  accurately captures the effect of interconnect resistance.                                  
+
+> Fig ure 8:Relative error between simulation results and ideal matrix computing results for different matrices, taking thermal
+> noise into account, obtained using noise model and SPICE. (a) INV circuit. (b) EGV circuit.
+> Fig ure 9:Relative error between simulation results and ideal matrix computing results for different matrices, taking OPA input
+> offset into account, obtained using OPA input offset model and SPICE. (a) INV circuit. (b) EGV circuit .
+
+13 
+
+4.1.4 All Non -Idealities . Finally, we validate  SimA MC  when all non -idealities are included simultaneously. SPICE performs 
+
+Monte Carlo simulations on the netlist derived from the schematic in  Figure  4, while  SimA MC  computes the outputs using 
+
+Algorithm  3. As shown in  Figure  11, the relative errors between the two are minimal, demonstrating excellent agreement. 
+
+4.2  Evaluation of SimAMC 
+
+To evaluate the runtime performance of SimAMC, we compare it with the LTSpice XVII simulator running on an Intel(R) 
+
+Core(TM) i7 -11800H CPU @ 2.30 GHz with 16 GB RAM. Under identical conditions, multiple simulations with different                                
+
+> Fig ure 10 :Comparison of simulation results using the inter -connect resistance model and SPICE. (a) INV circuit. (b) EGV circuit.
+> The four subplots correspond to matrix sizes N=8, 16, 32 ,64. Each subplot contains ten sets of simulation results, marked with
+> scatter points in different colors. The inset shows the average relative error (RE) for the ten sets of data in each subplot .
+> Figure 1 1.Relative error between simulation results and ideal matrix computing results for different matrices, taking all non -
+> idealities into account, obtained using SimA MC and SPICE. (a) INV circuit. (b) EGV circuit.
+
+14 
+
+matrix sizes are performed, and the average runtime is calculated for both SimAMC and SPICE. For a fair comparison, 
+
+ideal OPAs are employed in SPICE. Simulating non -idealities in SPICE is extremely time -consuming, primarily due to 
+
+the large number of rando m noise sources in noise -inclusive simulations and the extensive resistors required in inter-
+
+connect -resistance simulations. As a result, the maximum matrix size tested with SPICE is limited to 64×64. The simu-
+
+lation runtimes as a function of matrix size ar e shown in  Figure  12, demonstrating that SimAMC achieves fast perfor-
+
+mance for AMC circuits with non -idealities, providing several orders of magnitude of acceleration over SPICE for both 
+
+the INV and EGV circuits. Notably, although SimAMC requires iterative computation when sim ulating real -valued ma-
+
+trix computing circuits, it has also been demonstrated to provide a speedup over SPICE. 
+
+5 CONCLUSION 
+
+To conclude, we presented S imA MC , a resistive memory -based AMC circuit s simulator , which can accurately simulate 
+
+INV and EGV circuits with non -ideal itie s, including  device programming error, data conversion error, thermal noise ,
+
+OPA input offset , and interconnect resistance.  With  the  alternating iterative algorithm  we designed,  SimA MC  can also 
+
+be applied to real -valued matrix computing circuits.  Under identical conditions,  it  achieves a simulation speedup of 
+
+several orders of magnitude compared to  SPICE.  SimA MC  provides circuit designers with an effective early -stage tool 
+
+for evaluating and optimizing AMC circuits. Furthermore, this work represents a preliminary step toward the systematic 
+
+development of AMC toolchains and simulators, offering valuable insights f or comprehensive simulator design and 
+
+practical AMC circuit applications. 
+
+REFERENCES                  
+
+> [1] M. Mitchell Waldrop. 2016. The chips are down for Moore’s law. Nature 530, 7589 (2016), 144 –147 .
+> [2] Yuan Xie. 2013. Future memory and interconnect technologies. In Proceedings of the 2013 Design, Automation & Test in Europe Conference & Exhibition
+> (DATE) .964 –969 .
+> [3] Zhong Sun and Daniele Ielmini. 2022. Invited tutorial: analog matrix computing with crosspoint resistive memory arrays. IEEE Transactions on
+> Circuits and Systems II: Express Briefs 69, 7 (2022), 3024 –3029 .
+> [4] Zhong Sun. 2022. Analog Matrix Computing with Resistive Memory: Circuits and Theory. In Proceedings of the 2022 International Symposium on
+> VLSI Technology, Systems and Applications (VLSI -TSA) .1–2.
+> [5] Miao Hu, et al . 2016. Dot -product engine for neuromorphic computing: Programming 1T1M crossbar to accelerate matrix -vector multiplication. In
+> Proceedings of the Design Automation Conference (DAC) .1–6.
+
+Figure 1 2. Runtime comparison between  SimA MC  and SPICE for (a) the INV circuit and (b) the EGV circuit, both including all 
+
+non -idealities .15 
+
+[6]  Lixue Xia,  et al . 2016. Technological exploration of RRAM crossbar array for matrix -vector multiplication.  Journal of Computer Science and Technol-
+
+ogy  31, 1 (2016), 3 –19 .
+
+[7]  Zhong Sun, Giacomo Pedretti, Elia Ambrosi, Alessandr o Bricalli, Wei Wang, and Daniele Ielmini. 2019. Solving matrix equations in one step with 
+
+cross -point resistive arrays.  Proceedings of the National Academy of Sciences (PNAS)  116, 10 (2019), 4123 –4128 .
+
+[8]  Zhong Sun and Ru Huang. 2021. Time complexity of in -memory matrix -vector multiplication.  IEEE Transactions on Circuits and Systems II: Express 
+
+Briefs  68, 8 (2021), 2785 –2789 .
+
+[9]  Zhong Sun, Giacomo Pedretti, Piergiulio  Mannocci,  Elia  Ambrosi,  Alessandro  Bricalli, and Daniele Ielmini. 2020. Time complexity of in -memory 
+
+solution of linear systems.  IEEE Transactions on Electron Devices  67, 7 (2020), 2945 –2951 .
+
+[10]  Lixue Xia,  et al . 2018. MNSIM: Simulation platform for memristor -based neuromorphic computing system.  IEEE Transactions on Computer -Aided 
+
+Design of Integrated Circuits and Systems  37, 5 (2018), 1009 –1022 .
+
+[11]  Pai -Yu Chen, Xiaochen  Peng, and Shimeng Yu. 2018. NeuroSim: A circuit -level macro model for benchmarking neuro -inspired architectures in online 
+
+learning.  IEEE Transactions on Computer -Aided Design of Integrated Circuits and Systems  37, 12 (2018), 3067 –3080 .
+
+[12]  Yandong Luo, Xiaochen Peng, and Shimeng Yu. 2019. MLP+NeuroSimV3.0: Improving  on-chip  learning  performance with  device to  algorithm  opti-
+
+mizations. In  Proceedings of the International Conference on Neuromorphic Systems (ICONS  ’19) . 1 –7.
+
+[13]  Xiao chen  Peng, Shanshi  Huang, Yandong Luo, Xiaoyu Sun, and Shimeng Yu.  2019. DNN+NeuroSim: An end -to -end benchmarking framework for 
+
+compute -in -memory accelerators with versatile device technologies. In  Proceedings of the IEEE International Electron Devices Meeting (IEDM) . 32.5. 1–
+
+32.5.4 .
+
+[14]  Xiao chen  Peng,  Shanshi  Huang,  Hongwu  Jiang,  Anni  Lu, and Shimeng  Yu. 2021. DNN+NeuroSim V2.0: An end -to -end benchmarking framework 
+
+for compute -in -memory accelerators for on -chip training.  IEEE Transactions on Computer -Aided Design of Integrated Circuits and Systems  40, 11 
+
+(2021), 2306 –2319 .
+
+[15]  Manuel Le Gallo, et al. 2023. Using the IBM analog in -memory hardware acceleration kit for neural network training and inference.  APL Machine 
+
+Learning  1, 4 (2023), Article 041102 .
+
+[16]  Bing  Wu, et al. 2025. FADESIM: Enable fast and accurate design exploration for memristive accelerators considering nonidealities.  IEEE Transactions 
+
+on Computer -Aided Design of Integrated Circuits and Systems  44, 4 (2025), 1529 –1543 .
+
+[17]  Yubiao  Luo, S hiqing  Wang, P ushen  Zuo, Zhong Sun, and Ru Huang. 2022. Modeling and mitigating the interconnect resistance issue in analog 
+
+RRAM matrix computing circuits.  IEEE Transactions on Circuits and Systems I: Regular Papers  69, 11 (2022), 4367 –4380 .
+
+[18]  An Chen. 2013. A comprehensive crossbar array model with solutions for line resistance and nonlinear device characteristics.  IEEE Transactions on 
+
+Electron Devices  60, 4 (2013), 1318 –1326 .
+
+[19]  Shubham Jain, Abhronil Sengupta, Kaushik Roy, and Anand Raghunathan. 2021. RxNN : A framework for evaluating deep neural networks on resis-
+
+tive crossbars.  IEEE Transactions on Computer -Aided Design of Integrated Circuits and Systems  40, 2 (2021), 326 –338 .
+
+[20]  Sourjya  Roy,  Shrihari  Sridharan,  Shubham  Jain, and  Anand  Raghunathan. 2021. TxSim: Modeling training of deep neural networks on resistive 
+
+crossbar systems.  IEEE Transactions on Very Large Scale Integration (VLSI) Systems  29, 4 (2021), 730 –738 .
+
+[21]  Kaining  Zhou,  Jian  Huang,  Nam Sung  Kim, and  Naresh  Shanbhag. 2025. A full -system, programmable, and extensible in -memory computing simu-
+
+lation framework for deep learning. In  Proceedings of the 62nd ACM/IEEE Design Automation Conference (DAC) . 1 –7.
+
+[22]  Chung -Wen Ho, A. Ruehli, and P. Brennan. 1975. The modified nodal approach to network analysis.  IEEE Transactions on Circuits and Systems  22, 6 
+
+(Jun. 1975), 504 –509 .
+
+[23]  Piergiulio Mannocci and Daniele Ielmini. 2025. Analog circuit design for in -memory linear algebra accelerators. In  Special Topics in Information 
+
+Technology , Stefano Garatti (Ed.). Springer, Cham, Switzerland, 45 –54 .
+
+[24]  Lunshuai  Pan, Sh iqing  Wang, P ushen  Zuo, and Zhong Sun. 2025. GRAMC: General -purpose and reconfigurable analog matrix computing architec-
+
+ture. In  Proceedings of the  2025 Design, Automation & Test in Europe Conference (DATE) . 1 –2.
+
+[25]  Zhanhong Sun, Giacomo Pedretti, Elia Ambrosi, Alessandr o Bricalli, and Daniele Ielmini. 2020. In -memory eigenvector computation in time O(1). 
+
+Advanced Intelligent Systems  2, 8 (2020), Article 2000042 .
+
+[26]  Congcong  Hong, Yubiao Luo, P ushen  Zuo, Sh iqing  Wang, and Zhong Sun. 2025. Solving all eigenpairs with resistive memory -based analog matrix 
+
+computing circuits.  IEEE Transactions on Circuits and Systems I: Regular Papers  73 , 4 (202 6),  2522 –2532 .
+
+[27]  Zhongrui Wang, Huaqiang Wu, Geoffrey W. Burr, et al. 2020. Resistive switching materials for information processing.  Nature Reviews Materials  5
+
+(2020), 173 –195 .
+
+[28]  Zhong Sun, Shahar Kvatinsky, Xi n Si, Adnan Mehonic, Y imao  Cai, and Ru Huang. 2023. A full spectrum of computing in memory technologies. 
+
+Nature Electronics  6 (2023), 823 –835 .
+
+[29]  A. Fantini , et al. 2013. Intrinsic switching variability in HfO2 RRAM. In  2013 5th IEEE International Memory Workshop (IMW) . 30 –33 .
+
+[30]  Peng Yao, Huaqiang  Wu, Bin Gao, et al. 2020. Fully hardware -implemented memristor convolutional neural network.  Nature  577 (2020), 641 –646 .
+
+[31]  Zheyu Yan, Xiaobo Sharon Hu, and Yiyu Shi. 2022. SWIM: selective write -verify for computing -in -memory neural accelerators. In  Proceedings of the 
+
+59th ACM/IEEE Design Automation Conference (DAC) . 277 –282 .
+
+[32]  Sujan K. Gonugondla, Charbel Sakr, Hassan Dbouk, and Naresh R. Shanbhag. 2020. Fundamental limits on the precision of in -memory architectures. 
+
+In  Proceedings of the 39th International Conference on Computer -Aided Design (ICCAD) . 1–9.
+
+[33]  Zhezhi He, Jie Lin, Rickard Ewetz, Jiann -Shiun  Yuan, and Deliang Fan. 2019. Noise Injection Adaption: End -to -End ReRAM Crossbar Non -ideal Effect 
+
+Adaption for Neural Network Mapping. In  Proceedings of the 56th Annual Design Automation Conference 2019 (DAC) . 1 –6.16 
+
+[34]  Analog Devices. Step -by -step noise analysis guide for your signal chain. Accessed May 22, 2026 . https://www.analog.com/en/resources/analog -
+
+dialogue/articles/step -by -step -noise -analysis -guide -for -your -signal -chain.html .
+
+[35]  Mu Zhou, Junbin Long, Yubiao Luo, and Zhong Sun. 2026. Modeling closed -loop analog matrix computing circuits with interconnect resistance.  IEEE 
+
+Transactions on Circuits and Systems I: Regular Papers  (early access, 2026) , DOI : https://doi.org/10.1109/TCSI.2026.3655157 .
+
+[36]  Analog Devices . AD823 16 MHz, rail -to -rail FET input dual amplifier. Accessed May 22, 2026.  https://www.analog.com/ en/products/ad823.html .

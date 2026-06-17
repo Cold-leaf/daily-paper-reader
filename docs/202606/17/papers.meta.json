@@ -1,0 +1,24 @@
+{
+  "label": "2026-06-17",
+  "date": "2026-06-17",
+  "generated_at": "2026-06-17T21:53:09",
+  "count": 1,
+  "papers": [
+    {
+      "paper_id": "202606/17/2606.17850v1-cuth-solver-gpu-accelerated-sparse-matrix-solver-for-high-resolution-thermal-simulation-of-3d-ics",
+      "section": "deep",
+      "title_en": "CUTh-Solver: GPU-Accelerated Sparse Matrix Solver for High-Resolution Thermal Simulation of 3D ICs",
+      "authors": "Chenghan Wang, Zhen Zhuang, Shui Jiang, Siyuan Liang, Xiaoman Yang, Kai Zhu, Darong Huang, Luis Costero, Rongmei Chen, Tsung-Wei Huang, David Atienza, Tsung-Yi Ho",
+      "date": "2026-06-16",
+      "pdf": "https://arxiv.org/pdf/2606.17850v1",
+      "score": "8.0",
+      "evidence": "3D集成电路热仿真求解器",
+      "tldr": "高分辨率3D IC热仿真需要细粒度网格，导致计算量大，但系数矩阵具有规则稀疏模式。现有GPU通用求解器未利用此特性，存在存储、访存和并行效率瓶颈。提出CUTh-Solver，采用压缩DIA存储、对角SpMV合并访存、高并行预条件策略和自适应混合精度技术。实验表明，相比COMSOL加速25.8倍，比NVIDIA AmgX等库快超3倍。该工作为领域特定稀疏求解器设计提供了有效方案。",
+      "tags": "query:cim",
+      "abstract_en": "Coarse-grained thermal simulation tends to underestimate localized thermal issues, potentially missing critical hotspots. Accurate analysis, therefore, demands fine-grained information, which dramatically increases grid resolution and thus computational workload. Fortunately, the coefficient matrices are often sparse with regular sparsity patterns, offering optimization opportunities. However, existing general-purpose matrix solvers on GPUs rarely exploit these domain-specific properties, thereby encountering bottlenecks in data storage, memory access, parallelism, computational efficiency, and hardware utilization. Therefore, we propose CUTh-Solver, a co-designed GPU-accelerated Preconditioned Conjugate Gradient (PCG)-based sparse solver framework for Symmetric Positive Definite (SPD) systems arising from high-resolution steady-state and transient 3D IC thermal simulation. For data storage, CUTh-Solver condenses the Diagonal (DIA) storage format to remove redundancy. To optimize the memory access, CUTh-Solver employs diagonal-wise SpMV to achieve coalesced memory access. We further observe a critical conflict between parallelism and preconditioning quality and thus adopt a high-parallelism preconditioning strategy. To improve computational efficiency and hardware utilization, we employ an adaptive fine-grained mixed-precision strategy that leverages diverse floating-point units to avoid resource contention, enhancing throughput without compromising numerical stability. Experimental results show that CUTh-Solver achieves up to 25.8x speedup over GPU-accelerated COMSOL Multiphysics 6.4 and over 3x speedup over NVIDIA's native general-purpose libraries (AmgX, cuSPARSE, cuDSS). Ablation studies validate the individual contribution of each optimization. The code is available at: https://github.com/Chenghan-Wang/CUTh-Solver",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

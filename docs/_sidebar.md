@@ -1,6 +1,9 @@
 * <a class="dpr-sidebar-root-link" href="#/">首页</a>
 * <a class="dpr-sidebar-root-link dpr-sidebar-noactive-link" href="javascript:void(0)" data-dpr-hash="#/tutorial/README">使用教程</a>
 * Daily Papers
+  * 2026-06-17 <!--dpr-date:20260617-->
+    * 精读区
+      * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202606/17/2606.17850v1-cuth-solver-gpu-accelerated-sparse-matrix-solver-for-high-resolution-thermal-simulation-of-3d-ics" data-sidebar-item="{&quot;title&quot;: &quot;CUTh-Solver: GPU-Accelerated Sparse Matrix Solver for High-Resolution Thermal Simulation of 3D ICs&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2606.17850v1-cuth-solver-gpu-accelerated-sparse-matrix-solver-for-high-resolution-thermal-simulation-of-3d-ics&quot;, &quot;score&quot;: &quot;8.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;cim&quot;}], &quot;evidence&quot;: &quot;3D集成电路热仿真求解器&quot;}">CUTh-Solver: GPU-Accelerated Sparse Matrix Solver for High-Resolution Thermal Simulation of 3D ICs</a>
   * 2026-06-16 <!--dpr-date:20260616-->
     * 精读区
       * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202606/16/2606.16896v1-neural-dynamical-systems-on-ferroelectric-compute-in-memory-for-real-time-forecasting" data-sidebar-item="{&quot;title&quot;: &quot;Neural dynamical systems on ferroelectric compute-in-memory for real-time forecasting&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2606.16896v1-neural-dynamical-systems-on-ferroelectric-compute-in-memory-for-real-time-forecasting&quot;, &quot;score&quot;: &quot;9.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;cim&quot;}], &quot;evidence&quot;: &quot;提出基于铁电计算存储的神经动态系统硬件&quot;}">Neural dynamical systems on ferroelectric compute-in-memory for real-time forecasting</a>

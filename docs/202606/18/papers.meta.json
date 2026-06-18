@@ -1,0 +1,39 @@
+{
+  "label": "2026-06-18",
+  "date": "2026-06-18",
+  "generated_at": "2026-06-18T22:13:12",
+  "count": 2,
+  "papers": [
+    {
+      "paper_id": "202606/18/2606.19119v1-pudghost-experimental-analysis-of-computation-result-corruption-in-processing-using-dram-operations-on-real-dram-chips-and-implications-for-future-systems",
+      "section": "deep",
+      "title_en": "PuDGhost: Experimental Analysis of Computation Result Corruption in Processing-using-DRAM Operations on Real DRAM Chips and Implications for Future Systems",
+      "authors": "Daichi Tokuda, İsmail Emir Yüksel, Tatsuya Kubo, Ataberk Olgun, Haocong Luo, Nisa Bostanci, Jikun Wang, A. Giray Yağlıkçı, Shinya Takamaeda-Yamazaki, Onur Mutlu",
+      "date": "2026-06-17",
+      "pdf": "https://arxiv.org/pdf/2606.19119v1",
+      "score": "8.0",
+      "evidence": "DRAM内处理运算",
+      "tldr": "Processing-using-DRAM (PuD) 通过同时多行激活实现列内计算，但DRAM密度增加导致干扰。本文在96个真实DDR4芯片上实验分析PuDGhost现象，发现非激活行数据可导致输出错误高达10%，同时计算列数据可导致错误高达48%。据此提出鲁棒列筛选与专用行布局等对策，显著提升PuD计算准确性，为未来鲁棒系统奠定基础。",
+      "tags": "query:cim",
+      "abstract_en": "Processing-using-DRAM (PuD) is a promising computation paradigm that alleviates frequent data movement between main memory and processing units by using each DRAM column as a computation engine via simultaneous multiple-row activation (SiMRA). Unfortunately, DRAM density scaling may hinder PuD's benefits: denser cell arrays bring rows and columns closer, making regular DRAM operations susceptible to noise and interference from neighboring cells. Yet no prior work investigates whether interference from rows or columns not intended to participate in computation can compromise PuD robustness.   In this work, we reveal PuDGhost, an interference phenomenon where a PuD operation in a given column produces erroneous results due to interference from 1) data in non-activated DRAM rows and 2) data in other columns that compute concurrently under the same SiMRA operation. PuDGhost violates the ideal picture that each column's computation depends solely on its own operand data, threatening future PuD systems. We present the first extensive characterization of PuDGhost using 96 real DDR4 DRAM chips from 12 modules, quantifying these two interference sources under various conditions. Among our 15 new empirical observations, we highlight two major results: 1) data in adjacent non-activated rows affects SiMRA outputs by up to 10% for random inputs, and 2) data in concurrently computing columns affects SiMRA outputs by up to 48% for random inputs. Guided by these findings, we propose countermeasures across multiple layers of the PuD computing stack. Specifically, we evaluate on real DDR4 DRAM chips: 1) robust column screening that reduces the risk of using unreliable columns in the presence of PuDGhost, and 2) a compute row layout that mitigates PuDGhost via dedicated rows between compute rows. Our solutions greatly improve PuD computation accuracy and provide a foundation for robust future PuD systems.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202606/18/2606.18978v1-nanoscale-memristive-devices-threats-and-solutions",
+      "section": "quick",
+      "title_en": "Nanoscale memristive devices: Threats and solutions",
+      "authors": "Amir M. Hajisadeghi, Javad Talafy, Hamid R. Zarandi",
+      "date": "2026-06-17",
+      "pdf": "https://arxiv.org/pdf/2606.18978v1",
+      "score": "6.0",
+      "evidence": "忆阻器件作为存内计算使能技术",
+      "tldr": "CMOS存储器在深亚微米面临挑战，忆阻器因非易失、低漏电、高密度成为替代方案，但存在可靠性威胁。本文聚焦ReRAM和STT-RAM，将威胁分为读写错误和软错误两类，综述现有解决方案，包括错误检测与纠正、冗余设计等。关键结果展示了这些方案能有效缓解威胁，同时忆阻器交叉阵列可实现逻辑与算术计算，减少数据搬移。全面分析威胁与对策，推动忆阻器在实际应用中的广泛使用。",
+      "tags": "query:cim",
+      "abstract_en": "Due to their incentivizing features, memristors are a promising candidate for replacing CMOS-based memories, which are faced with various functional challenges in deep submicron process technologies. Memristors are nonvolatile, have low leakage, and are dense in comparison to CMOS-based memories like SRAM. In this regard, resistive RAM (ReRAM) and spin-transfer-torque RAM (STT-RAM) memristors are distinguished among other memristor-based memory technologies, due to their superiority in process maturity and metrics such as memory operation energy, memory latency, and area. Hence, this chapter focuses on these two memristor-based memory technologies. Despite the good features of these types of memory, they suffer from some reliability threats. Reliability parameters affect each other, and examining their positive and negative effects has a significant impact on the effectiveness of the proposed solutions. In one view, the threats can be categorized into two classes: (1) read/write error and (2) soft error. In this chapter, we comprehensively describe these threats and present the state-of-the-art solutions that enable the widespread use of memristors, particularly ReRAM and STT-RAM, in different applications. Finally, we introduce the emerging ability of memristors as a computing unit aiming to minimize data restoration in computing, and we show how to perform logic and arithmetic computation in a crossbar array.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

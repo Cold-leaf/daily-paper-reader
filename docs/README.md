@@ -6,26 +6,26 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-06-17
-- 运行时间：2026-06-17 21:53:03 UTC
+- 最新运行日期：2026-06-18
+- 运行时间：2026-06-18 22:13:06 UTC
 - 运行状态：成功
-- 本次总论文数：1
+- 本次总论文数：2
 - 精读区：1
-- 速读区：0
+- 速读区：1
 
 ### 今日简报（AI）
-1) 今日精读一篇利用GPU加速3D IC高分辨率热仿真稀疏矩阵求解的论文，评分8.0/10。
-2) 值得关注的方向：GPU加速稀疏矩阵求解器在3D IC热仿真中的应用，可显著提升计算效率。
-3) 建议读者关注GPU加速在电子设计自动化（EDA）热管理领域的实用价值，后续可验证该方法的实际加速比。
-- 详情：[/202606/17/README](/202606/17/README)
+今日精读一篇DRAM计算安全研究，速读一篇纳米器件威胁分析。精读表明真实DRAM芯片的处理中计算极易被破坏，需警惕内存内计算的安全隐患。建议硬件从业者关注DRAM操作错误防护，普通读者可留意未来硬件攻击趋势。
+- 详情：[/202606/18/README](/202606/18/README)
 
 ### 精读区论文标签
-1. [CUTh-Solver: GPU-Accelerated Sparse Matrix Solver for High-Resolution Thermal Simulation of 3D ICs](/202606/17/2606.17850v1-cuth-solver-gpu-accelerated-sparse-matrix-solver-for-high-resolution-thermal-simulation-of-3d-ics)  
+1. [PuDGhost: Experimental Analysis of Computation Result Corruption in Processing-using-DRAM Operations on Real DRAM Chips and Implications for Future Systems](/202606/18/2606.19119v1-pudghost-experimental-analysis-of-computation-result-corruption-in-processing-using-dram-operations-on-real-dram-chips-and-implications-for-future-systems)  
    标签：评分：8.0/10、query:cim
-   evidence：3D集成电路热仿真求解器
+   evidence：DRAM内处理运算
 
 ### 速读区论文标签
-- 本次无速读推荐。
+1. [Nanoscale memristive devices: Threats and solutions](/202606/18/2606.18978v1-nanoscale-memristive-devices-threats-and-solutions)  
+   标签：评分：6.0/10、query:cim
+   evidence：忆阻器件作为存内计算使能技术
 
 
 <div class="dpr-home-promo-card">

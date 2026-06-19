@@ -6,26 +6,31 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-06-18
-- 运行时间：2026-06-18 22:13:06 UTC
+- 最新运行日期：2026-06-19
+- 运行时间：2026-06-19 21:31:42 UTC
 - 运行状态：成功
-- 本次总论文数：2
+- 本次总论文数：3
 - 精读区：1
-- 速读区：1
+- 速读区：2
 
 ### 今日简报（AI）
-今日精读一篇DRAM计算安全研究，速读一篇纳米器件威胁分析。精读表明真实DRAM芯片的处理中计算极易被破坏，需警惕内存内计算的安全隐患。建议硬件从业者关注DRAM操作错误防护，普通读者可留意未来硬件攻击趋势。
-- 详情：[/202606/18/README](/202606/18/README)
+1) 今日精选3篇芯片架构论文，聚焦无地址处理器、高能效NPU与远程内存优化。  
+2) 精读《MADAR》获最高分8.0，无地址设计有望打破数据搬运瓶颈；速读《SparseCol》实现1320 BTOPS/W能效，利用训练无关结构化位稀疏性。  
+3) 建议关注无地址计算与稀疏加速方向，前者简化硬件，后者提升能效，适合探索下一代低功耗AI芯片。
+- 详情：[/202606/19/README](/202606/19/README)
 
 ### 精读区论文标签
-1. [PuDGhost: Experimental Analysis of Computation Result Corruption in Processing-using-DRAM Operations on Real DRAM Chips and Implications for Future Systems](/202606/18/2606.19119v1-pudghost-experimental-analysis-of-computation-result-corruption-in-processing-using-dram-operations-on-real-dram-chips-and-implications-for-future-systems)  
+1. [MADAR: An Address-Free Processor](/202606/19/2606.15535v1-madar-an-address-free-processor)  
    标签：评分：8.0/10、query:cim
-   evidence：DRAM内处理运算
+   evidence：无地址处理器减少数据移动，类似于近存计算
 
 ### 速读区论文标签
-1. [Nanoscale memristive devices: Threats and solutions](/202606/18/2606.18978v1-nanoscale-memristive-devices-threats-and-solutions)  
+1. [SparseCol: A 1320 BTOPS/W Precision-scalable NPU Exploiting Training-free Structured Bit-level Sparsity and Dynamic Dataflow](/202606/19/2606.16016v1-sparsecol-a-1320-btopsw-precision-scalable-npu-exploiting-training-free-structured-bit-level-sparsity-and-dynamic-dataflow)  
+   标签：评分：7.0/10、query:cim
+   evidence：利用位级稀疏性的高能效NPU，类似存内计算效率
+2. [REMOP: REmote-Memory-aware OPerator Optimization](/202606/19/2606.19576v1-remop-remote-memory-aware-operator-optimization)  
    标签：评分：6.0/10、query:cim
-   evidence：忆阻器件作为存内计算使能技术
+   evidence：面向近数据处理的远程内存感知优化
 
 
 <div class="dpr-home-promo-card">

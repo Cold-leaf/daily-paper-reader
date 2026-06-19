@@ -1,0 +1,54 @@
+{
+  "label": "2026-06-19",
+  "date": "2026-06-19",
+  "generated_at": "2026-06-19T21:31:50",
+  "count": 3,
+  "papers": [
+    {
+      "paper_id": "202606/19/2606.15535v1-madar-an-address-free-processor",
+      "section": "deep",
+      "title_en": "MADAR: An Address-Free Processor",
+      "authors": "Mohamed Amine Bergach",
+      "date": "2026-06-14",
+      "pdf": "https://arxiv.org/pdf/2606.15535v1",
+      "score": "8.0",
+      "evidence": "无地址处理器减少数据移动，类似于近存计算",
+      "tldr": "MADAR是一种无地址处理器，通过废除地址概念，将状态循环在提前推进的槽环中，指令和数据同槽，值由轨道坐标而非地址命名。固定计算站在编译调度的时刻执行指令，环周期层次取代缓存层次。在AI加速中，矩阵乘法的乘累加操作以流式形式执行，能量随规模扩大保持稳定，操作重用由环层次实现。该设计适用于数据移动可预知的程序。",
+      "tags": "query:cim",
+      "abstract_en": "In a modern processor, computing is the cheap part. Most of its area and energy go to \\emph{addressing} -- moving operands to and from a register file and cache, and running the tags, ports, miss queues, and bypass networks that find a value where it was left. MADAR deletes that machinery by abolishing the address. All state circulates in rings of slots that advance one position per clock; instructions and data ride in the same slots; a value is named by its place in an orbit -- a \\rp{} coordinate -- not by an address; a fixed station computes when a circulating instruction sweeps past its operands, on a schedule set at compile time; and a hierarchy of rings of increasing period replaces the cache hierarchy, movement between them scheduled rather than triggered by a miss. No prior circulating-store, dataflow, or statically scheduled machine combines all four of these. We define the execution model, validate it in a cycle-accurate register-transfer-level implementation, show it \\emph{compilable} -- a constructive scheduler emits programs cross-checked against the implementation -- and price it with a first-order energy model. The payoff is clearest for AI acceleration: the multiply-accumulate at the heart of every matmul and convolution compiles to a streaming form whose energy per operation stays flat as the reduction grows, and the operand reuse that makes matrix multiplication efficient is carried by the ring-period hierarchy -- the memory hierarchy doing by rotation what a cache does by tags. MADAR is a new design point for any computation whose data movement is known before the program runs.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202606/19/2606.16016v1-sparsecol-a-1320-btopsw-precision-scalable-npu-exploiting-training-free-structured-bit-level-sparsity-and-dynamic-dataflow",
+      "section": "quick",
+      "title_en": "SparseCol: A 1320 BTOPS/W Precision-scalable NPU Exploiting Training-free Structured Bit-level Sparsity and Dynamic Dataflow",
+      "authors": "Man Shi, Vikram Jain, Weijie Jiang, Chao Fang, Antony Joseph, Wim Dehaene, Marian Verhelst",
+      "date": "2026-06-14",
+      "pdf": "https://arxiv.org/pdf/2606.16016v1",
+      "score": "7.0",
+      "evidence": "利用位级稀疏性的高能效NPU，类似存内计算效率",
+      "tldr": "位串行计算通过跳过零比特实现高能效，但非零比特的不规则模式导致访存和计算效率低，或需复杂调度硬件。SparseCol提出利用无需训练的位列结构化稀疏，并结合动态数据流架构，在不牺牲精度下提升硬件利用率。在16nm工艺下实现1320 BTOPS/W峰值能效，相比现有稀疏处理器提升6.8倍，在CNN和Transformer上分别达到745和850.5 BTOPS/W系统能效。",
+      "tags": "query:cim",
+      "abstract_en": "Bit-serial computation enables sequential processing of data at the bit level, providing several advantages, such as scalable computational precision. This approach has gained significant attention, especially for exploiting bit-level sparsity in AI workloads. While current bit-serial processors leverage bit-level sparsity to eliminate the computation associated with zero bits, they face a fundamental trade-off: either they suffer from low memory-access and computation efficiency caused by irregular patterns of non-zero bits, or they incur substantial area overhead from complex online scheduling mechanisms required to reorganize bit-level data and preserve memory access and computation regularity. Therefore, we present the SparseCol processor, designed to harness extensive bit sparsity while maintaining high hardware utilization across various AI applications, including CNNs, RNNs, and transformers. In contrast to traditional methods, SparseCol exploits structured bit-level sparsity, denoted by bit-column sparsity, without requiring any re-training. Furthermore, SparseCol implements a dynamic dataflow architecture that tackles hardware under-utilization issues commonly found in existing bit-serial solutions. Fabricated in 16nm CMOS node, SparseCol delivers 1320 BTOPS/W (BTOPS represents Binary Tera-Operations Per Second, calculated as #W bits x #A bits TOPS) peak efficiency while maintaining accuracy, outperforming SotA sparse processors in terms of efficiency by 6.8x. Comprehensive evaluations on CNN classification tasks and transformer architectures demonstrate system-level efficiencies of 745.02 BTOPS/W and 850.5 BTOPS/W, respectively.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202606/19/2606.19576v1-remop-remote-memory-aware-operator-optimization",
+      "section": "quick",
+      "title_en": "REMOP: REmote-Memory-aware OPerator Optimization",
+      "authors": "Shiquan Zhang, Yunhao Mao, Yuqiu Zhang, Gengrui Zhang, Jeyhun Karimov, Hans-Arno Jacobsen",
+      "date": "2026-06-17",
+      "pdf": "https://arxiv.org/pdf/2606.19576v1",
+      "score": "6.0",
+      "evidence": "面向近数据处理的远程内存感知优化",
+      "tldr": "远程和分离内存扩展了分析数据库的有效内存容量，但改变了溢出成本结构，传统磁盘溢出优化策略可能引发过多传输回合。REMOP框架将传输回合数纳入延迟成本模型，为阻塞嵌套循环连接、外排序和哈希连接设计算子特定的缓存分区策略。在DuckDB中实现后，传输回合减少97%，算子运行时间降低48%，端到端TPC-H和TPC-DS查询时间平均降低22.7%和26.4%。该工作为远程内存场景提供了有效的算子优化方法，提升了内存紧张时的查询性能。",
+      "tags": "query:cim",
+      "abstract_en": "Remote and disaggregated memory tiers expand the effective memory capacity of analytical database engines, but they also reshape the cost structure of out-of-memory query processing. When an operator spills beyond local DRAM, moving pages to remote memory incurs both data-transfer time and a fixed round-trip latency per transfer. Classical operator analyses and buffer-allocation heuristics primarily target disk spilling by minimizing total I/O volume. Under remote memory, these strategies can be suboptimal because they may trigger excessive transfer rounds. We present REMOP, a remote-memory-aware operator optimization framework that uses transfer-round-aware intra-operator memory policies to improve out-of-memory execution under tight memory budgets. REMOP introduces the number of transfer rounds into the latency cost model and derives operator-specific buffer-partitioning strategies, instantiating the approach for blocked nested-loop join, external merge sort, and external hash join in DuckDB. Our evaluation on a two-node compute-memory testbed shows that REMOP reduces transfer rounds by up to 97% and operator runtime by up to 48% on spill-heavy microbenchmarks, and lowers the average runtime of spilling TPC-H and TPC-DS queries by 22.7% and 26.4% end-to-end.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

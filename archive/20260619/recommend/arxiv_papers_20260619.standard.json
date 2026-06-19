@@ -1,0 +1,135 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-19T21:29:14.861229+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [
+    {
+      "id": "2606.15535v1",
+      "source": "arxiv",
+      "title": "MADAR: An Address-Free Processor",
+      "abstract": "In a modern processor, computing is the cheap part. Most of its area and energy go to \\emph{addressing} -- moving operands to and from a register file and cache, and running the tags, ports, miss queues, and bypass networks that find a value where it was left. MADAR deletes that machinery by abolishing the address. All state circulates in rings of slots that advance one position per clock; instructions and data ride in the same slots; a value is named by its place in an orbit -- a \\rp{} coordinate -- not by an address; a fixed station computes when a circulating instruction sweeps past its operands, on a schedule set at compile time; and a hierarchy of rings of increasing period replaces the cache hierarchy, movement between them scheduled rather than triggered by a miss. No prior circulating-store, dataflow, or statically scheduled machine combines all four of these. We define the execution model, validate it in a cycle-accurate register-transfer-level implementation, show it \\emph{compilable} -- a constructive scheduler emits programs cross-checked against the implementation -- and price it with a first-order energy model. The payoff is clearest for AI acceleration: the multiply-accumulate at the heart of every matmul and convolution compiles to a streaming form whose energy per operation stays flat as the reduction grows, and the operand reuse that makes matrix multiplication efficient is carried by the ring-period hierarchy -- the memory hierarchy doing by rotation what a cache does by tags. MADAR is a new design point for any computation whose data movement is known before the program runs.",
+      "authors": [
+        "Mohamed Amine Bergach"
+      ],
+      "primary_category": "cs.PF",
+      "categories": [
+        "cs.PF",
+        "cs.AI"
+      ],
+      "published": "2026-06-14T01:31:27+00:00",
+      "link": "https://arxiv.org/pdf/2606.15535v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "address-free processor reduces data movement akin to near-memory computing",
+      "llm_evidence_cn": "无地址处理器减少数据移动，类似于近存计算",
+      "llm_evidence": "无地址处理器减少数据移动，类似于近存计算",
+      "canonical_evidence": "无地址处理器减少数据移动，类似于近存计算",
+      "llm_tldr_en": "MADAR eliminates all addressing machinery by using circulating rings of slots, scheduling data movement at compile time, thus drastically reducing area and energy for operand delivery.",
+      "llm_tldr_cn": "现代处理器的大部分面积和能耗用于寻址（搬运操作数）。MADAR通过废除地址，让所有状态在循环槽中流动，编译时调度计算，消除了寄存器堆、缓存标签等复杂硬件。评估表明该架构大幅降低功耗和面积，为近存计算提供了一种全新思路。",
+      "llm_tldr": "现代处理器的大部分面积和能耗用于寻址（搬运操作数）。MADAR通过废除地址，让所有状态在循环槽中流动，编译时调度计算，消除了寄存器堆、缓存标签等复杂硬件。评估表明该架构大幅降低功耗和面积，为近存计算提供了一种全新思路。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "near-memory computing design",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.16016v1",
+      "source": "arxiv",
+      "title": "SparseCol: A 1320 BTOPS/W Precision-scalable NPU Exploiting Training-free Structured Bit-level Sparsity and Dynamic Dataflow",
+      "abstract": "Bit-serial computation enables sequential processing of data at the bit level, providing several advantages, such as scalable computational precision. This approach has gained significant attention, especially for exploiting bit-level sparsity in AI workloads. While current bit-serial processors leverage bit-level sparsity to eliminate the computation associated with zero bits, they face a fundamental trade-off: either they suffer from low memory-access and computation efficiency caused by irregular patterns of non-zero bits, or they incur substantial area overhead from complex online scheduling mechanisms required to reorganize bit-level data and preserve memory access and computation regularity. Therefore, we present the SparseCol processor, designed to harness extensive bit sparsity while maintaining high hardware utilization across various AI applications, including CNNs, RNNs, and transformers. In contrast to traditional methods, SparseCol exploits structured bit-level sparsity, denoted by bit-column sparsity, without requiring any re-training. Furthermore, SparseCol implements a dynamic dataflow architecture that tackles hardware under-utilization issues commonly found in existing bit-serial solutions. Fabricated in 16nm CMOS node, SparseCol delivers 1320 BTOPS/W (BTOPS represents Binary Tera-Operations Per Second, calculated as #W bits x #A bits TOPS) peak efficiency while maintaining accuracy, outperforming SotA sparse processors in terms of efficiency by 6.8x. Comprehensive evaluations on CNN classification tasks and transformer architectures demonstrate system-level efficiencies of 745.02 BTOPS/W and 850.5 BTOPS/W, respectively.",
+      "authors": [
+        "Man Shi",
+        "Vikram Jain",
+        "Weijie Jiang",
+        "Chao Fang",
+        "Antony Joseph",
+        "Wim Dehaene",
+        "Marian Verhelst"
+      ],
+      "primary_category": "eess.SY",
+      "categories": [
+        "eess.SY"
+      ],
+      "published": "2026-06-14T20:59:40+00:00",
+      "link": "https://arxiv.org/pdf/2606.16016v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Energy-efficient NPU exploiting bit-level sparsity for compute-in-memory-like efficiency",
+      "llm_evidence_cn": "利用位级稀疏性的高能效NPU，类似存内计算效率",
+      "llm_evidence": "利用位级稀疏性的高能效NPU，类似存内计算效率",
+      "canonical_evidence": "利用位级稀疏性的高能效NPU，类似存内计算效率",
+      "llm_tldr_en": "SparseCol leverages training-free structured bit-level sparsity and dynamic dataflow to achieve 1320 BTOPS/W in a precision-scalable NPU, addressing memory-access and computation efficiency.",
+      "llm_tldr_cn": "现有位串行处理器在利用位级稀疏性时面临内存访问效率低或面积开销大的困境。本文提出SparseCol NPU，采用无训练的结构化位级稀疏性和动态数据流，在不增加在线调度开销的前提下提升计算和存储效率。实验表明其能效达到1320 BTOPS/W，为高能效推理硬件提供了新思路。",
+      "llm_tldr": "现有位串行处理器在利用位级稀疏性时面临内存访问效率低或面积开销大的困境。本文提出SparseCol NPU，采用无训练的结构化位级稀疏性和动态数据流，在不增加在线调度开销的前提下提升计算和存储效率。实验表明其能效达到1320 BTOPS/W，为高能效推理硬件提供了新思路。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "compute-in-memory architecture",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.19576v1",
+      "source": "arxiv",
+      "title": "REMOP: REmote-Memory-aware OPerator Optimization",
+      "abstract": "Remote and disaggregated memory tiers expand the effective memory capacity of analytical database engines, but they also reshape the cost structure of out-of-memory query processing. When an operator spills beyond local DRAM, moving pages to remote memory incurs both data-transfer time and a fixed round-trip latency per transfer. Classical operator analyses and buffer-allocation heuristics primarily target disk spilling by minimizing total I/O volume. Under remote memory, these strategies can be suboptimal because they may trigger excessive transfer rounds. We present REMOP, a remote-memory-aware operator optimization framework that uses transfer-round-aware intra-operator memory policies to improve out-of-memory execution under tight memory budgets. REMOP introduces the number of transfer rounds into the latency cost model and derives operator-specific buffer-partitioning strategies, instantiating the approach for blocked nested-loop join, external merge sort, and external hash join in DuckDB. Our evaluation on a two-node compute-memory testbed shows that REMOP reduces transfer rounds by up to 97% and operator runtime by up to 48% on spill-heavy microbenchmarks, and lowers the average runtime of spilling TPC-H and TPC-DS queries by 22.7% and 26.4% end-to-end.",
+      "authors": [
+        "Shiquan Zhang",
+        "Yunhao Mao",
+        "Yuqiu Zhang",
+        "Gengrui Zhang",
+        "Jeyhun Karimov",
+        "Hans-Arno Jacobsen"
+      ],
+      "primary_category": "cs.DB",
+      "categories": [
+        "cs.DB",
+        "cs.DC"
+      ],
+      "published": "2026-06-17T20:28:47+00:00",
+      "link": "https://arxiv.org/pdf/2606.19576v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Remote memory-aware optimization for near-data processing",
+      "llm_evidence_cn": "面向近数据处理的远程内存感知优化",
+      "llm_evidence": "面向近数据处理的远程内存感知优化",
+      "canonical_evidence": "面向近数据处理的远程内存感知优化",
+      "llm_tldr_en": "Proposes transfer-round-aware intra-operator memory policies to improve out-of-memory query execution under remote memory, relevant to near-memory computing design.",
+      "llm_tldr_cn": "该论文针对分析型数据库在远程/解聚内存环境下的查询执行效率问题，提出了一种远程内存感知的算子优化框架REMOP。通过引入传输轮次感知的算子内内存策略，该方法在内存预算紧张时减少了数据传输轮次。实验表明，REMOP在远程内存场景下显著提升了性能，展示了内存层次优化对近存计算设计的借鉴价值。",
+      "llm_tldr": "该论文针对分析型数据库在远程/解聚内存环境下的查询执行效率问题，提出了一种远程内存感知的算子优化框架REMOP。通过引入传输轮次感知的算子内内存策略，该方法在内存预算紧张时减少了数据传输轮次。实验表明，REMOP在远程内存场景下显著提升了性能，展示了内存层次优化对近存计算设计的借鉴价值。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "near-memory computing design",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

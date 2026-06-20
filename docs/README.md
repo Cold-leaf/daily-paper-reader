@@ -6,31 +6,26 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-06-19
-- 运行时间：2026-06-19 21:31:42 UTC
+- 最新运行日期：2026-06-20
+- 运行时间：2026-06-20 20:44:44 UTC
 - 运行状态：成功
-- 本次总论文数：3
+- 本次总论文数：2
 - 精读区：1
-- 速读区：2
+- 速读区：1
 
 ### 今日简报（AI）
-1) 今日精选3篇芯片架构论文，聚焦无地址处理器、高能效NPU与远程内存优化。  
-2) 精读《MADAR》获最高分8.0，无地址设计有望打破数据搬运瓶颈；速读《SparseCol》实现1320 BTOPS/W能效，利用训练无关结构化位稀疏性。  
-3) 建议关注无地址计算与稀疏加速方向，前者简化硬件，后者提升能效，适合探索下一代低功耗AI芯片。
-- 详情：[/202606/19/README](/202606/19/README)
+今日精读了一篇满分论文《Dense Holographic Associative Memories》，速读了一篇中等分的低权重编码论文。最值得关注的是全息关联记忆在高密度存储与联想记忆方面的突破性方法。建议普通读者进一步了解全息记忆模型的实际应用场景。
+- 详情：[/202606/20/README](/202606/20/README)
 
 ### 精读区论文标签
-1. [MADAR: An Address-Free Processor](/202606/19/2606.15535v1-madar-an-address-free-processor)  
-   标签：评分：8.0/10、query:cim
-   evidence：无地址处理器减少数据移动，类似于近存计算
+1. [Dense Holographic Associative Memories](/202606/20/2606.18492v1-dense-holographic-associative-memories)  
+   标签：评分：10.0/10、query:cim
+   evidence：全息联想存储器在存储内执行计算
 
 ### 速读区论文标签
-1. [SparseCol: A 1320 BTOPS/W Precision-scalable NPU Exploiting Training-free Structured Bit-level Sparsity and Dynamic Dataflow](/202606/19/2606.16016v1-sparsecol-a-1320-btopsw-precision-scalable-npu-exploiting-training-free-structured-bit-level-sparsity-and-dynamic-dataflow)  
-   标签：评分：7.0/10、query:cim
-   evidence：利用位级稀疏性的高能效NPU，类似存内计算效率
-2. [REMOP: REmote-Memory-aware OPerator Optimization](/202606/19/2606.19576v1-remop-remote-memory-aware-operator-optimization)  
+1. [Practical Low-Weight Codes for Energy-Efficient Bus Encoding](/202606/20/2606.14203v1-practical-low-weight-codes-for-energy-efficient-bus-encoding)  
    标签：评分：6.0/10、query:cim
-   evidence：面向近数据处理的远程内存感知优化
+   evidence：总线编码减少数据总线翻转次数，降低能耗，与存算一体架构能效相关
 
 
 <div class="dpr-home-promo-card">

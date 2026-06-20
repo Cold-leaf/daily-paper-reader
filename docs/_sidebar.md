@@ -1,6 +1,11 @@
 * <a class="dpr-sidebar-root-link" href="#/">首页</a>
 * <a class="dpr-sidebar-root-link dpr-sidebar-noactive-link" href="javascript:void(0)" data-dpr-hash="#/tutorial/README">使用教程</a>
 * Daily Papers
+  * 2026-06-20 <!--dpr-date:20260620-->
+    * 精读区
+      * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202606/20/2606.18492v1-dense-holographic-associative-memories" data-sidebar-item="{&quot;title&quot;: &quot;Dense Holographic Associative Memories&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2606.18492v1-dense-holographic-associative-memories&quot;, &quot;score&quot;: &quot;10.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;cim&quot;}], &quot;evidence&quot;: &quot;全息联想存储器在存储内执行计算&quot;}">Dense Holographic Associative Memories</a>
+    * 速读区
+      * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202606/20/2606.14203v1-practical-low-weight-codes-for-energy-efficient-bus-encoding" data-sidebar-item="{&quot;title&quot;: &quot;Practical Low-Weight Codes for Energy-Efficient Bus Encoding&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2606.14203v1-practical-low-weight-codes-for-energy-efficient-bus-encoding&quot;, &quot;score&quot;: &quot;6.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;cim&quot;}], &quot;evidence&quot;: &quot;总线编码减少数据总线翻转次数，降低能耗，与存算一体架构能效相关&quot;}">Practical Low-Weight Codes for Energy-Efficient Bus Encoding</a>
   * 2026-06-19 <!--dpr-date:20260619-->
     * 精读区
       * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202606/19/2606.15535v1-madar-an-address-free-processor" data-sidebar-item="{&quot;title&quot;: &quot;MADAR: An Address-Free Processor&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2606.15535v1-madar-an-address-free-processor&quot;, &quot;score&quot;: &quot;8.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;cim&quot;}], &quot;evidence&quot;: &quot;无地址处理器减少数据移动，类似于近存计算&quot;}">MADAR: An Address-Free Processor</a>

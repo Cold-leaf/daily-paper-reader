@@ -1,0 +1,39 @@
+{
+  "label": "2026-06-20",
+  "date": "2026-06-20",
+  "generated_at": "2026-06-20T20:44:51",
+  "count": 2,
+  "papers": [
+    {
+      "paper_id": "202606/20/2606.18492v1-dense-holographic-associative-memories",
+      "section": "deep",
+      "title_en": "Dense Holographic Associative Memories",
+      "authors": "David J. Brady, Gregory Neory",
+      "date": "2026-06-16",
+      "pdf": "https://arxiv.org/pdf/2606.18492v1",
+      "score": "10.0",
+      "evidence": "全息联想存储器在存储内执行计算",
+      "tldr": "高维视觉前端依赖高效的关联记忆操作，体积全息图虽能原生执行该运算，但直接2D-to-2D全息存在Bragg简并和效率衰减问题。本研究提出级联两个体积全息图并插入一维编码层的架构，通过光寻址空间光调制实现逆温度控制，物理模拟现代Hopfield网络的密集关联记忆检索。该设计平衡了波矢量维度计数，消除简并；并采用非局部梯度响应存储介质，恢复线性M^-1效率缩放。离散对置二极管单元验证了接收、组合与存储功能，并为OASLM堆栈和分子/纳米晶体实现提供了路线。",
+      "tags": "query:cim",
+      "abstract_en": "Associative recall -- mapping an incident pattern to the stored one it most resembles -- is the natural computational primitive of a high-dimensional vision front end, and it is precisely the operation a volume hologram performs natively. We show that a cascade of two volume holograms separated by a one-dimensional coded layer physically evaluates the modern Hopfield (dense associative memory) retrieval map, $η= V \\text{softmax}(λK^T x)$, exactly as a parallel optical computation, with the inverse temperature realized via optically addressed spatial light modulation in the coded-layer. Routing the input and output through a 1D code rather than directly between 2D planes supplies the separating nonlinearity the original Hopfield model lacked and, by balancing the grating-wavevector dimension count ($2+1=3$), removes the Bragg degeneracy that otherwise forces fractal sampling on a direct 2D-to-2D hologram. Faithful dense storage further demands a recording medium that captures inter-neuron connections while rejecting the field self-energy responsible for the $M^{-2}$ efficiency falloff of homogeneous photorefractives. We propose a nonlocal, gradient-responsive medium whose illumination-independent decay recovers the linear $M^{-1}$ scaling in situ, and demonstrate its reception, combination, and storage functions in a discrete opposing-diode cell. Routes to OASLM-stack and volume molecular/nanocrystal realizations are outlined.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202606/20/2606.14203v1-practical-low-weight-codes-for-energy-efficient-bus-encoding",
+      "section": "quick",
+      "title_en": "Practical Low-Weight Codes for Energy-Efficient Bus Encoding",
+      "authors": "Lorenzo Valentini, Marco Chiani",
+      "date": "2026-06-12",
+      "pdf": "https://arxiv.org/pdf/2606.14203v1",
+      "score": "6.0",
+      "evidence": "总线编码减少数据总线翻转次数，降低能耗，与存算一体架构能效相关",
+      "tldr": "针对数据总线传输中最小化连续消息间比特翻转以降低能耗和延长存储器寿命的问题，现有最优方案复杂度过高。本文通过推导闭式表达式评估次优编码方案的性能，并提出两种基于预定义随机码表的新方案。实验表明，对64位数据添加8个额外比特，次优方案可减少约24.7%的比特翻转，与最优方案的26.4%非常接近。该低复杂度方案为能效敏感应用提供了实用选择。",
+      "tags": "query:cim",
+      "abstract_en": "We consider the transmission of data encoded into binary messages, with the goal of minimizing the Hamming distance, i.e., the number of bit-flips, between consecutive messages. This problem is relevant for enhancing the longevity of Non-Volatile Memories and reducing transition-induced energy consumption in data buses. Known as Write-Efficient Memory coding in the literature, this challenge has traditionally been addressed using optimal but complex schemes. In low-power computer systems the same topic is known as bus encoding. In this paper, we derive closed-form expressions to evaluate the average number of bit-flips for practical, sub-optimal encoding schemes, and propose two new schemes assisted by predefined random codebooks. We demonstrate that low-complexity solutions achieve performance very close to the optimal schemes, making them attractive for implementation in energy-sensitive and memory-critical applications. For instance, by adding 8 extra bits to 64-bits data, sub-optimal schemes can achieve a bit-flip reduction (related to energy saving) of approximately 24.7%, compared to the 26.4% reduction offered by the significantly more complex optimal scheme.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

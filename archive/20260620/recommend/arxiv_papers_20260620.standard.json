@@ -1,0 +1,90 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-20T20:42:46.049385+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [
+    {
+      "id": "2606.18492v1",
+      "source": "arxiv",
+      "title": "Dense Holographic Associative Memories",
+      "abstract": "Associative recall -- mapping an incident pattern to the stored one it most resembles -- is the natural computational primitive of a high-dimensional vision front end, and it is precisely the operation a volume hologram performs natively. We show that a cascade of two volume holograms separated by a one-dimensional coded layer physically evaluates the modern Hopfield (dense associative memory) retrieval map, $η= V \\text{softmax}(λK^T x)$, exactly as a parallel optical computation, with the inverse temperature realized via optically addressed spatial light modulation in the coded-layer. Routing the input and output through a 1D code rather than directly between 2D planes supplies the separating nonlinearity the original Hopfield model lacked and, by balancing the grating-wavevector dimension count ($2+1=3$), removes the Bragg degeneracy that otherwise forces fractal sampling on a direct 2D-to-2D hologram. Faithful dense storage further demands a recording medium that captures inter-neuron connections while rejecting the field self-energy responsible for the $M^{-2}$ efficiency falloff of homogeneous photorefractives. We propose a nonlocal, gradient-responsive medium whose illumination-independent decay recovers the linear $M^{-1}$ scaling in situ, and demonstrate its reception, combination, and storage functions in a discrete opposing-diode cell. Routes to OASLM-stack and volume molecular/nanocrystal realizations are outlined.",
+      "authors": [
+        "David J. Brady",
+        "Gregory Neory"
+      ],
+      "primary_category": "eess.IV",
+      "categories": [
+        "eess.IV"
+      ],
+      "published": "2026-06-16T21:06:38+00:00",
+      "link": "https://arxiv.org/pdf/2606.18492v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "holographic associative memory performs in-memory computation",
+      "llm_evidence_cn": "全息联想存储器在存储内执行计算",
+      "llm_evidence": "全息联想存储器在存储内执行计算",
+      "canonical_evidence": "全息联想存储器在存储内执行计算",
+      "llm_tldr_en": "Proposes a dense holographic associative memory that physically implements the modern Hopfield retrieval map using a cascade of volume holograms, enabling parallel optical computation for associative recall.",
+      "llm_tldr_cn": "本文提出了一种基于级联体全息图的光学联想存储器，物理实现了现代Hopfield网络的检索映射。通过在两个全息图之间插入一维编码层，提供了所需的非线性，使得联想回忆可以并行光学计算。该方法利用光的并行性，有望实现高速度、低功耗的联想存储与检索，对存算一体架构具有启示意义。",
+      "llm_tldr": "本文提出了一种基于级联体全息图的光学联想存储器，物理实现了现代Hopfield网络的检索映射。通过在两个全息图之间插入一维编码层，提供了所需的非线性，使得联想回忆可以并行光学计算。该方法利用光的并行性，有望实现高速度、低功耗的联想存储与检索，对存算一体架构具有启示意义。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "compute-in-memory architecture",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.14203v1",
+      "source": "arxiv",
+      "title": "Practical Low-Weight Codes for Energy-Efficient Bus Encoding",
+      "abstract": "We consider the transmission of data encoded into binary messages, with the goal of minimizing the Hamming distance, i.e., the number of bit-flips, between consecutive messages. This problem is relevant for enhancing the longevity of Non-Volatile Memories and reducing transition-induced energy consumption in data buses. Known as Write-Efficient Memory coding in the literature, this challenge has traditionally been addressed using optimal but complex schemes. In low-power computer systems the same topic is known as bus encoding. In this paper, we derive closed-form expressions to evaluate the average number of bit-flips for practical, sub-optimal encoding schemes, and propose two new schemes assisted by predefined random codebooks. We demonstrate that low-complexity solutions achieve performance very close to the optimal schemes, making them attractive for implementation in energy-sensitive and memory-critical applications. For instance, by adding 8 extra bits to 64-bits data, sub-optimal schemes can achieve a bit-flip reduction (related to energy saving) of approximately 24.7%, compared to the 26.4% reduction offered by the significantly more complex optimal scheme.",
+      "authors": [
+        "Lorenzo Valentini",
+        "Marco Chiani"
+      ],
+      "primary_category": "cs.IT",
+      "categories": [
+        "cs.IT",
+        "physics.ins-det"
+      ],
+      "published": "2026-06-12T07:36:49+00:00",
+      "link": "https://arxiv.org/pdf/2606.14203v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Bus encoding reduces bit-flips and energy consumption in memory data buses, relevant to compute-in-memory energy efficiency",
+      "llm_evidence_cn": "总线编码减少数据总线翻转次数，降低能耗，与存算一体架构能效相关",
+      "llm_evidence": "总线编码减少数据总线翻转次数，降低能耗，与存算一体架构能效相关",
+      "canonical_evidence": "总线编码减少数据总线翻转次数，降低能耗，与存算一体架构能效相关",
+      "llm_tldr_en": "Proposes practical low-weight codes for bus encoding to minimize bit-flips and reduce energy consumption in data buses, with closed-form performance expressions.",
+      "llm_tldr_cn": "数据总线上的比特翻转消耗大量能量。本文提出实用低权重码进行总线编码，以最小化连续消息间的汉明距离。通过预定义随机码本辅助，设计了两种低复杂度编码方案，并推导出平均翻转次数的闭合公式。仿真表明，所提方案在翻转减少率上接近理论最优，且实现简单。该工作为存算一体系统中的总线能效优化提供了实用编码方法。",
+      "llm_tldr": "数据总线上的比特翻转消耗大量能量。本文提出实用低权重码进行总线编码，以最小化连续消息间的汉明距离。通过预定义随机码本辅助，设计了两种低复杂度编码方案，并推导出平均翻转次数的闭合公式。仿真表明，所提方案在翻转减少率上接近理论最优，且实现简单。该工作为存算一体系统中的总线能效优化提供了实用编码方法。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "How does compute in memory architecture improve energy efficiency?",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

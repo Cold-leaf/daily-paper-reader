@@ -1,0 +1,555 @@
+Title: Practical Low-Weight Codes for Energy-Efficient Bus Encoding
+
+URL Source: https://arxiv.org/pdf/2606.14203v1
+
+Published Time: Mon, 15 Jun 2026 00:36:41 GMT
+
+Number of Pages: 6
+
+Markdown Content:
+# Practical Low-Weight Codes for Energy-Efficient Bus Encoding 
+
+Lorenzo Valentini, Member, IEEE, Marco Chiani, Fellow, IEEE 
+
+CNIT/WiLab, DEI, University of Bologna, Italy Email: {lorenzo.valentini13, marco.chiani }@unibo.it 
+
+Abstract —We consider the transmission of data encoded into binary messages, with the goal of minimizing the Hamming distance, i.e., the number of bit-flips, between consecutive mes-sages. This problem is relevant for enhancing the longevity of Non-Volatile Memories and reducing transition-induced energy consumption in data buses. Known as Write-Efficient Memory coding in the literature, this challenge has traditionally been addressed using optimal but complex schemes. In low-power com-puter systems the same topic is known as bus encoding. In this paper, we derive closed-form expressions to evaluate the average number of bit-flips for practical, sub-optimal encoding schemes, and propose two new schemes assisted by predefined random codebooks. We demonstrate that low-complexity solutions achieve performance very close to the optimal schemes, making them attractive for implementation in energy-sensitive and memory-critical applications. For instance, by adding 8 extra bits to 64 -bits data, sub-optimal schemes can achieve a bit-flip reduction (related to energy saving) of approximately 24.7%, compared to the 26.4% reduction offered by the significantly more complex optimal scheme. 
+
+Index Terms —Write-Efficient Memory, bus encoding, Non-Volatile Memories, low-power computing, HPC, energy efficiency. 
+
+I. I NTRODUCTION 
+
+For data communication systems, minimizing the Hamming distance between consecutive messages is often critical, as it directly impacts energy consumption, system longevity, and reliability. In coding theory, this scenario is referred to as binary Hamming Write-Efficient Memory (WEM) [1]. This problem is also connected to steganography, where the goal is to embed information with minimal distortion [2], [3]. Several practical applications highlight the relevance of this problem. For instance, in non-volatile memories (NVM), the number of permissible write operations directly affects memory lifespan [4]. Similarly, in low-power computer systems, transitions on data buses contribute significantly to dynamic power consump-tion [5]–[7]. In addition to their conventional application in memory interfaces [8], with the increasing number of artificial intelligence applications, the efficient use of buses is also becoming an important challenge in the implementation of convolutional neural networks (CNNs), where systolic array architectures are used to perform matrix multiplications [9]. To address this, a variety of bus encoding techniques have been proposed and adopted, including in high-performance GPU memory systems [8], [10]. While the underlying tech-nical frameworks are essential, understanding their real-world implications can make the subject more tangible. For example, in large-scale data centers, even minor improvements in energy efficiency per data bus operation can scale to substantial energy savings, highlighting the economic and environmental stakes. Similarly, the impact of these techniques could provide saving in Network-on-Chip applications where it is estimated that the dynamic power dissipated by interconnections is over 
+
+50% of the total dynamic power [5], [6], [11], [12]. In this work, we will use the term “bus encoding” as a gen-eral label for all techniques aimed at reducing the Hamming distance between consecutive messages. One of the earliest and simplest examples of such techniques is the Data Bus Inversion (DBI) scheme, patented for bus encoding and widely known in hardware design [13]–[15]. In DBI, k data bits are encoded into an n = k + 1 bit message by either transmitting the original data or its bitwise complement, whichever yields a smaller Hamming distance from the previous message. An extra bit signals whether inversion has been applied. This concept has been rediscovered in different contexts, such as in phase-change random access memory (PRAM) under the name Flip-N-Write, and is recognized in WEM theory as a coset code based on repetition coding [16], [17]. Theoretical bounds for WEM have been established in [1], [17]. Specifically, if D is the average number of bit-flips and 
+
+r = k/n is the rate, then for n → ∞ , the fundamental limit is 
+
+r = h(D/n ), where h(·) denotes the binary entropy function [1, Th. 4]. In practice, finite values of k, such as k = 64 in bus encoding, require the design of finite-length codes. Assuming uniformly distributed independent and identically distributed (i.i.d.) k-bit data, and defining the redundancy as b = n − k,it is known that DBI is optimal for the minimum redundancy case b = 1 . For b > 1, minimizing bit-flips requires mapping the data into n-bit codewords of lowest possible Hamming weight, then transmitting the XOR between the selected code-word and the previous message. This approach has emerged independently across different domains, including in [18], where both lookup-table and algorithmic implementations are suggested. More efficient implementations are those based on the combinatorial number system [19]–[23]. From a coding-theoretic perspective, the same principle is equivalent to a coset coding scheme, where the lowest-weight representative of a coset is chosen [1], [17], [24], [25]. However, while optimal, such schemes can be impractical for large k and b, due to their computational and memory com-plexity. This has motivated the development of sub-optimal schemes that offer near-optimal performance with significantly    
+
+> arXiv:2606.14203v1 [cs.IT] 12 Jun 2026 kbit uj
+> xj
+> Encoder Bus/Memory
+> xj−1
+> Decoder uj
+> xj−1
+> xj
+
+## T     
+
+> n=k+bbit
+
+## T   
+
+> xj
+> Fig. 1. General Framework. The block with the label Tindicates a delay line.
+
+reduced complexity. The main contributions of this paper are:  
+
+> •
+
+Derivation of closed-form expressions for the average bit-flips of several practical sub-optimal bus encoding schemes.  
+
+> •
+
+Proposal of two new sub-optimal bus encoding schemes.  
+
+> •
+
+Demonstration that some sub-optimal schemes, while simpler to implement, closely approach the performance of optimal schemes. Throughout the paper, we adopt the following notation: boldface letters x denote binary vectors; E{·} is the expec-tation operator; P{·} indicates probability; dH(a, b) denotes the Hamming distance; and w(a) is the Hamming weight. Concatenation is written as a || b, complement as a, and bitwise XOR as a ⊕ b.II. P ROBLEM FORMULATION 
+
+In this section, we formally define the problem and review relevant foundational results. 
+
+A. Reducing Bit-Flips 
+
+Consider a discrete memoryless source (DMS) that emits binary k-tuples u1, u2, . . . , where uj denotes the data at time 
+
+j. Such data sequences can represent, for example, words transmitted over a system bus, where minimizing the number of line transitions is desirable, or data to be written on a non-volatile memory, where the goal is to reduce the number of bit-flips relative to the current content. For example, in bus encoding literature, we can reduce the dynamic power con-sumption reducing the number of bit-flips [5]–[7]. The source 
+
+uj is assumed to produce independent, uniformly distributed elements in the alphabet {0, 1}k. As shown in Fig. 1, each data word uj is encoded into a codeword xj ∈ { 0, 1}n, where 
+
+n = k + b and b denotes the number of added redundancy bits (e.g., additional bus lines). The objective is to minimize the average Hamming distance between consecutive messages, given by 
+
+D(k, b ) = E{dH(xj , xj−1)} = E{w(xj ⊕ xj−1)} , (1) where the expectation is taken over all possible data sequences. In the uncoded case ( b = 0 ), we have xj = uj , and the average distance becomes Dunc (k) = D(k, 0) = k/ 2. We will evaluate D(k, b ) for various encoding schemes and compare their efficiency using the normalized bit-flip savings 
+
+η = 1 − D(k, b )
+
+Dunc (k) . (2) This metric captures the relative improvement over the un-coded baseline. 
+
+B. Optimal (k, b ) Scheme and Its Performance 
+
+Assume 2k equiprobable data k-tuples are to be mapped to 
+
+n-bit codewords. The optimal encoder chooses a codebook D
+
+containing the 2k lowest-weight n-tuples. This set includes all 
+
+n-bit words of weight 0, then weight 1, and so on, up to the minimum required to reach cardinality 2k. Each input uj is mapped to a codeword dj ∈ D , and the transmitted message is formed via differential encoding 
+
+xj = dj ⊕ xj−1 (3) as discussed in [1], [14], [18]. The probability that the message xj differs from xj−1 in exactly d bits is given by 
+
+popt (d) = 
+
+nd
+
+
+
+2−k, if 0 ⩽ d < d max ,
+
+1 −
+
+> dmax −1
+
+X
+
+> i=0
+
+ni
+
+
+
+2−k, if d = dmax ,
+
+(4) where dmax is the smallest integer such that Pdmax 
+
+> i=0
+
+ ni
+
+ ⩾ 2k.Accordingly, the average Hamming distance for the optimal scheme is 
+
+Dopt (k, b ) = dmax −
+
+> dmax −1
+
+X
+
+> i=0
+
+dmax − i
+
+2k
+
+ni
+
+
+
+. (5) This expression, derived in [1, Th. 4], serves as the benchmark for all sub-optimal schemes discussed in this work. Note that the maximum useful redundancy is b = 2 k − 1 − k, which permits encoding all data using only weight-one codewords (e.g., via pulse-position modulation (PPM) with inclusion of the all-zero vector). 
+
+1) Case b = 1 : Data Bus Inversion (DBI): When just one redundancy bit is available ( b = 1 ), the optimal strategy is known as Data Bus Inversion (DBI) [13], [14], [18], and is widely used due to its simplicity. In DBI, either the original data word uj is transmitted with a trailing 0, or its bitwise complement uj is transmitted with a trailing 1, depending on which choice yields fewer bit-flips compared to the previous message 
+
+xj =
+
+(
+
+uj || 0, if dH(uj || 0, xj−1) ⩽ (k + 1) /2,
+
+uj || 1, otherwise .The decoder simply checks the final bit to determine whether to apply inversion. It is simple to check that this is the optimal scheme when just one bit is added. The average distance 
+
+DDBI (k) ≜ Dopt (k, 1) is given by (5) with dmax = ⌈k/ 2⌉.The resulting formula for DDBI (k) is equivalent to the expres-sions in [14], [18]. 
+
+2) Implementation of the Optimal Scheme: Implementing the optimal encoder requires a mapping from {0, 1}k to the set D of 2k lowest-weight codewords. For b = 1 , this mapping is simple, as DBI is optimal. For b > 1, practical implemen-tations may involve: i) lookup tables [18]; ii ) combinatorial number system indexing [21]; iii ) syndrome decoding using coset codes [1], [17], [24], [25]. However, the increased complexity associated with these approaches may limit their use in practical systems. In the following sections, we explore sub-optimal schemes that offer simpler implementation while retaining much of the performance advantage of the optimal strategy. III. P ERFORMANCE ANALYSIS OF SUB -O PTIMAL 
+
+SCHEMES 
+
+This section presents the main novel contributions of the paper. Specifically, we analyze the most relevant practical schemes and introduce two new strategies, Random & In-version and Shift & Inversion, along with their analytical performance evaluation. All expressions in this section are original. To the best of our knowledge, the only prior analytical results available in the literature is equation (5) for the optimal scheme described in the previous section. 
+
+A. Partitioned Inversion Scheme 
+
+We begin by analyzing the average bit-flip distance achieved by the Partitioned Inversion (PI) scheme proposed in [14]. The idea is to partition the k-bit input sequence into b blocks and apply the DBI technique independently to each block. Each additional redundancy bit is then used to indicate whether inversion was applied to the corresponding block. When k is not evenly divisible by b, we partition the input as uniformly as possible. For instance, with k = 16 and b = 3 , the block lengths would be 6, 5, and 5. The average bit-flip distance for the PI scheme can then be expressed as 
+
+DPI (k, b ) = b − (k mod b) · DDBI 
+
+ kb
+
+ 
+
++ ( k mod b) · DDBI 
+
+ kb
+
+
+
++ 1 
+
+
+
+, (6) where DDBI (·) = Dopt (·, 1) .
+
+B. Random Scheme 
+
+Next, we consider the Pure Random (PR) scheme, which uses a codebook of randomly pre-generated sequences. Since the codebook must be known to both the encoder and the decoder, it can be generated and shared once and subsequently kept fixed. This approach is similar to the method proposed in [26] for bus encoding and has also been explored in the context of NVM in [27]. Specifically, the encoder and decoder share a common codebook {r(i)}L−1 
+
+> i=0
+
+consisting of L = 2 b randomly generated binary sequences of length k. A more accurate codebook design can be pursued from the codewords of a classical error correcting code, like a Reed-Muller. For each data word 
+
+uj , the encoder computes L candidate messages and selects the one with the smallest Hamming distance to the previous transmitted message xj−1. The i-th candidate is formed by 
+
+u(i) 
+
+> j
+
+= uj ⊕ r(i), x(i) 
+
+> j
+
+= u(i) 
+
+> j
+
+|| a(i), (7) where a(i) is the b-bit binary representation of i. The trans-mitted message is then 
+
+xj = arg min 
+
+> x(i)
+> j
+
+dH(x(i) 
+
+> j
+
+, xj−1) . (8) The decoder extracts a(i) and uses it to identify r(i), then recovers uj = u(i) 
+
+> j
+
+⊕ r(i).To analyze the performance, define the random variable 
+
+Y(wi) = dH(x(i) 
+
+> j
+
+, xj−1) = D(i) + wi,
+
+where D(i) is the Hamming distance between u(i) 
+
+> j
+
+and the last 
+
+k bits of xj−1, and wi is the distance contribution from the index bits a(i). Since u(i) 
+
+> j
+
+and xj−1 are uniformly random and independent, the distribution of D(i) is 
+
+P
+
+n
+
+D(i) = d
+
+o
+
+=
+
+kd
+
+
+
+· 2−k. (9) For each w = 0 , . . . , b , there are   bw
+
+ candidates with index contribution wi = w. Recalling that for a non-negative random variable X taking values in N we have E{X} =P 
+
+> m≥0
+
+P{X > m } [28], the expected minimum Hamming distance is 
+
+DPR (k, b ) = E
+
+n
+
+min  
+
+> i
+
+Y(wi)o
+
+=
+
+> k−1
+
+X
+
+> m=0
+> b
+
+Y
+
+> w=0
+
+" kX
+
+> ℓ=m−w+1
+
+kℓ
+
+
+
+· 2−k
+
+#(bw)
+
+. (10) An approximation can be made by modeling all n = k + b
+
+bits in x(i) 
+
+> j
+
+as independent and uniformly random 
+
+DPR (k, b ) ≈
+
+> n−1
+
+X
+
+> m=0
+
+" nX
+
+> ℓ=m+1
+
+nℓ
+
+
+
+· 2−n
+
+#L
+
+. (11) 
+
+C. Random & Inversion Scheme 
+
+We now introduce a second novel scheme, called Random Inversion (RI), which extends the PR scheme by incorporating bus inversion. In this scheme, one of the b bits is reserved for bus inversion, following the principles of DBI. The remaining 
+
+b − 1 bits index L/ 2 = 2 b−1 randomly generated sequences 
+
+{r(i)}L/ 2−1 
+
+> i=0
+
+, while the other half of the codebook is their com-plement: r(i+L/ 2) = r(i). The encoder computes L candidate messages 
+
+x(i) 
+
+> j
+
+= uj ⊕ r(i) || a(i), x(i+L/ 2)  
+
+> j
+
+= uj ⊕ r(i) || a(i+L/ 2) ,and selects the one closest to xj−1, as in (8). The effective Hamming distance is 
+
+Y(wi) = min 
+
+
+
+D(i) + wi, k + 1 − D(i) + wi
+
+
+
+, (12) where wi is the weight of the index part a(i). Using this, the distribution becomes 
+
+P
+
+n
+
+Y(wi) = ℓ
+
+o
+
+=
+
+( 12k
+
+  k+1 
+
+> ℓ−wi
+
+, ℓ < w i + k+1 2 ,
+
+> 12k
+
+  kℓ−wi
+
+, ℓ = wi + k+1 2 . (13) Finally, the average minimum distance is 
+
+DRI (k, b ) = 
+
+> k−1
+
+X
+
+> m=0
+> b−1
+
+Y
+
+> w=0
+
+
+
+> ⌊w+( k+1) /2⌋
+
+X
+
+> ℓ=m+1
+
+P
+
+n
+
+Y(w) = ℓ
+
+o
+
+(b−1 
+
+> w
+
+)
+
+.
+
+(14) 
+
+D. Shift & Inversion Scheme 
+
+We now introduce and analyze a novel scheme, called Shift & Inversion (Shift Inversion (SI)), which is a low-complexity variant of RI where the pre-shared codebook is replaced with circular shifts of the data itself, and combined with bus inversion. Comparing circular shifts of the data with the previous data bus, instead of using a shared codebook, is an effective idea that has been proposed, e.g., in [29], but not combined with bus inversion. In the SI scheme, given a data word uj , the encoder generates 2b−1 shifted versions 
+
+u(i) 
+
+> j
+
+= shift (uj , i ),
+
+for i = 0 , . . . , L/ 2 − 1, and uses their complements for the second half. These are combined with index vectors to form candidate messages, as in the RI scheme. The best candidate is selected as in (8). Unlike PR and RI, this scheme does not require a shared codebook between encoder and decoder. The decoder simply extracts the shift and inversion flags from the index field and reverses them. Since circular shifts approximate independent variation for moderate-to-large k, the SI scheme performs similarly to RI as long as 2b−1 ⩽ k (i.e., shifts are non-redundant). Thus, the performance is approximated by 
+
+DSI (k, b ) ≈
+
+(DRI (k, b ), if 2b−1 ⩽ k, DRI (k, 1 + ⌈log 2(k)⌉), otherwise . (15) This approximation has been verified through simulations, as discussed in the next section. 
+
+E. Accounting for Encoding Complexity 
+
+In the following section, we delve into a complexity anal-ysis examining the fundamental operations required by each encoding scheme. Since the decoding complexity is negligible compared to the encoding complexity, we will focus on the latter one. Let us define the complexity cost of the common operations within the analyzed schemes. In general, these costs are a function of the bit sequence length n and the particular technology adopted. We define Cw(n) as the cost to perform an exor between two sequences of length n and                           
+
+> TABLE I COMPLEXITY ANALYSIS SUMMARY IN TERMS OF ELEMENTARY OPERATIONS .
+> Scheme Cenc
+> DBI 2×[Cw(n) + Cc(⌈log 2n⌉)]
+> PI 2b×[Cw(k/b ) + Cc(⌈log 2k/b ⌉)]
+> PR/RI 2b×[Cw(n) + Cc(⌈log 2n⌉)]
+> SI min {k, 2b} × [Cw(n) + Cc(⌈log 2n⌉)]
+> Gen. Opt. [( n+ 2) Dopt (k, b ) + dmax + 1] × C c(n)
+
+then compute the weight of the resulting sequence (i.e., an integer representing the number of “1”s in the sequence). Note that, to encode weights of n long sequences, ⌈log 2 n⌉
+
+bits are enough. Furthermore, we define Cc(n) as the cost to perform a comparison between two n bit sequences rep-resenting an integer value such as a “ <” or a “ ≤”. Lastly, let us define the cost of an addition or subtraction of two 
+
+n long sequences representing integer values as Ca(n). Since comparisons can be implemented using subtractions we will assume that Ca(n) = Cc(n).For the DBI optimal scheme it is required to perform the comparison with the previous bus sequence and two new sequences, the original sequence to transmits and its bitwise not. Thus, the encoding complexity is given by CDBI =2 [ Cw(n) + Cc(⌈log 2 n⌉)] . For the PI scheme, let us assume for the sake of simplicity that k/b is an integer number. As a consequence, we have that the encoding complexity is given by CPI = 2b [Cw(k/b ) + Cc(⌈log 2 k/b ⌉)] . For the PR and RI schemes we have to compare the previous bus sequence and 2b test sequences. As a consequence, CPR =2b [Cw(n) + Cc(⌈log 2 n⌉)] . Regarding the SI scheme, the same complexity of the PR holds, if we substitute the 2b factor with min {k, 2b}. The implementation of the general optimal scheme described in Section II-B is discussed in [23], where it is shown that it requires an average encoding complexity of 
+
+(n+2) Dopt (k, b ) Cc(n)+( dmax +1) Cc(n). The comparison of encoding complexity for the different schemes is summarized in Tab. I. IV. N UMERICAL RESULTS 
+
+In this section, we present performance evaluations based on the average Hamming distance D(k, b ), computed using the analytical expressions provided in (5), (10), (11), (14), and (15). Among these, only the approximation in (15) requires validation via simulation; the results for all other schemes are derived exactly. We adopt as our metric the bit-flip savings defined in (2). In the context of bus encoding, this metric can be directly interpreted as energy savings when the bus capac-itance is sufficiently large, such that the encoding overhead is negligible. Otherwise, the bit-flip saving is an upper bound on the achievable energy saving. First, we show the bit-flips saving obtainable with the opti-mal scheme, when varying the number of added bus lines b.To this aim, in Fig. 2 we report the saving given by Dopt (k, b )
+
+derived in Sec. II-B, for k = 11 information bits. By increasing 1 10 100 1000 10 4                            
+
+> 0
+> 10
+> 20
+> 30
+> 40
+> 50
+> 60
+> 70
+> 80
+> 90
+> 100
+> Forbidden Region
+> b, added lines
+> Bit-Flips Saving [ %]
+> k= 11
+> Optimal
+> PPM Bound
+> Bus Inversion
+> Syndrome-based Golay
+> PPM 0
+> Fig. 2. Bit-Flip saving 1−D(k, b )/D unc (k)for the optimal scheme, information size k= 11 .
+> 0246810 12 14 16
+> 0
+> 5
+> 10
+> 15
+> 20
+> 25
+> 30
+> 35
+> 40
+> Forbidden Region
+> b, added lines
+> Bit-Flips Saving [ %]
+> k= 64
+> Optimal
+> Partitioned Inversion
+> Shift &Inversion (sim.)
+> Pure Random
+> Random &Inversion
+> Fig. 3. Bit-flip saving 1−D(k, b )/D unc (k)for various encoding schemes, with information size k= 64 .
+
+b, the largest saving is obtained with the maximum redundancy scheme, which is the PPM where only weight-0 and weight-1 codewords are used, requiring b = 2 k − 1 − k = 2036 . It is interesting to note that for some values of b the implementation of the optimal scheme is easy to understand: i) for b = 1 the scheme is the DBI of Sec. II-B1; ii) for b = 2036 we have the maximum redundancy scheme, i.e., PPM plus the all-zero vector; iii) for b = 12 we can interpret the 11 information bits as the syndrome of the (23 , 12) Golay code, and use a Golay decoder [30] to map all configurations of the 11 bits patterns to all patterns of length 23 with maximum weight 3.Fig. 3 illustrates the bit-flip savings achieved by different encoding strategies for k = 64 bits. Notably, the simulation results for the Shift Inversion scheme closely match those of the Random Inversion scheme, as predicted by (15). Up to 
+
+b = 7 added lines, Shift Inversion performs nearly identically to Random Inversion. Furthermore, for b > 3, the Pure Random scheme also converges in performance with the                     
+
+> 0246810 12 14 16
+> 0
+> 5
+> 10
+> 15
+> 20
+> 25
+> 30
+> 35
+> 40
+> Forbidden Region
+> b, added lines
+> Bit-Flips Saving [ %]
+> k= 128
+> Optimal
+> Partitioned Inversion
+> Shift &Inversion (sim.)
+> Pure Random
+> Random &Inversion
+> Fig. 4. Bit-flip saving 1−D(k, b )/D unc (k)for various encoding schemes, with information size k= 128 .
+
+Random Inversion approach. All of these schemes approach the performance of the optimal code with minimal degradation. For example, with b = 16 (corresponding to 25% redundancy), the optimal scheme achieves a bit-flip saving of approximately 35%, while both the Pure Random and Random Inversion schemes attain around 34%. In contrast, the Partitioned Inver-sion scheme yields a noticeably lower saving of about 22%. Fig. 4 reports similar results for k = 128 bits. For instance, with b = 8 added bits (a 6.25% increase in bus width), the optimal scheme yields a saving of 20.7%, while the Pure Random and Random & Inversion schemes reach 19.4%. The Partitioned Inversion scheme achieves a lower saving of approximately 14.6%. To enable a direct numerical comparison, Table II summa-rizes selected results, where η denotes the bit-flip saving. The table compares four coding schemes based on their config-uration of information bits k, redundancy bits b, code rate 
+
+k/n , and energy savings η. For each scheme, different values of k and b are considered to evaluate how the redundancy affects the system’s energy efficiency. In general, increasing the redundancy b lowers the code rate k/n but leads to higher energy savings. DBI uses minimal redundancy and achieves high code rates, but results in relatively lower energy savings. Both PI and RI introduce additional redundancy and achieve improved energy savings, with RI consistently outperforming PI and providing greater gains as the parameter b increases. While this study offers valuable insights into the potential energy savings of various bus encoding techniques, future work is necessary to assess their impact on overall system energy efficiency within specific application contexts. In par-ticular, subsequent research should integrate implementation-level factors such as the energy consumption of additional encoder and decoder circuitry, physical chip area, and latency constraints. A comprehensive analysis that accounts for these practical considerations will be crucial to determine whether the theoretical energy savings translate into net benefits in real-world deployments. TABLE II EXAMPLES FOR SOME CHOICES OF THE SYSTEM PARAMETERS 
+
+Scheme k Dunc (k) b k/n D(k, b ) η [%]DBI 8 4 1 0.889 3.27 18 .364 32 1 0.985 29 .27 8.5
+
+PI 
+
+8 4 2 0.800 3.12 21 .964 32 4 0.941 27 .32 14 .68 0.889 26 .16 18 .3
+
+RI 
+
+8 4 2 0.800 3.14 21 .464 32 4 0.941 26 .64 16 .78 0.889 24 .10 24 .7
+
+Opt. 
+
+8 4 2 0.800 3.04 23 .864 32 4 0.941 25 .92 19 .08 0.889 23 .54 26 .4
+
+V. C ONCLUSIONS 
+
+We have developed a novel analysis to assess the bit-flips saving across various encoding schemes, facilitating the comparison among different approaches without the need for simulations. We also proposed two novel practical schemes, Random Inversion and Shift Inversion, which together with existing previous proposals allow to obtain a substantial re-duction of bit-flips for non-volatile memories and bus encod-ing. Our findings indicate that suitably designed sub-optimal techniques yield performance closely approximating that of the optimal, but high-complexity, solution, while contributing to more energy-efficient designs. Such improvements are par-ticularly relevant for large-scale deployments in data centers, where reducing energy consumption and extending memory endurance are critical. ACKNOWLEDGMENT 
+
+Work supported in part by the European Union through the Italian National Recovery and Resilience Plan of NextGener-ationEU, partnership on “Telecommunications of the Future” under Grant PE00000001-RESTART. The authors would like to thank Prof. Luca Benini and Prof. Enrico Paolini for their comments and suggestions. REFERENCES [1] R. Ahlswede and Z. Zhang, “Coding for write-efficient memory,” 
+
+Information and Computation , vol. 83, no. 1, pp. 80–97, 1989. [2] L. A. Bassalygo and M. S. Pinsker, “Centered error-correcting codes,” 
+
+Problemy Peredachi Informatsii , vol. 35, no. 1, pp. 30–37, 1999. [3] F. Galand and G. A. Kabatiansky, “Coverings, centered codes, and combinatorial steganography,” Problems of Information Transmission ,vol. 45, no. 3, pp. 289–294, 2009. [4] B. C. Lee, P. Zhou, J. Yang, Y. Zhang, B. Zhao, E. Ipek, O. Mutlu, and D. Burger, “Phase-change technology and the future of main memory,” 
+
+IEEE Micro , vol. 30, no. 1, pp. 143–143, 2010. [5] N. Jafarzadeh, M. Palesi, A. Khademzadeh, and A. Afzali-Kusha, “Data encoding techniques for reducing energy consumption in network-on-chip,” IEEE Trans. VLSI Syst. , vol. 22, no. 3, pp. 675–685, March 2014. [6] S. Velayudham, S. Rajagopal, and S.-B. Ko, “An improved low-power coding for serial network-on-chip links,” Circuits, Systems, and Signal Processing , vol. 39, no. 4, pp. 1896–1919, 2020. [7] Y. M. Chee, T. Etzion, K. A. Schouhamer Immink, T. T. Nguyen, V. K. Vu, J. H. Weber, and E. Yaakobi, “Thermal-aware channel with multiple wires,” in 2024 IEEE Int. Symposium on Information Theory (ISIT) ,2024, pp. 1035–1040. [8] M. O’Connor, D. Lee, N. Chatterjee, M. B. Sullivan, and S. W. Keckler, “Saving PAM4 bus energy with SMOREs: Sparse multi-level opportunistic restricted encodings,” in 2022 IEEE Int. Symposium on High-Performance Computer Architecture (HPCA) , 2022. [9] C. Peltekis, D. Filippas, G. Dimitrakopoulos, and C. Nicopoulos, “Low-power data streaming in systolic arrays with bus-invert coding and zero-value clock gating,” in 2023 12th Int. Conference on Modern Circuits and Systems Technologies (MOCAST) , 2023. [10] L. Benini, A. Macii, M. Poncino, and R. Scarsi, “Architectures and synthesis algorithms for power-efficient bus interfaces,” IEEE Trans. Comput.-Aided Design Integr. Circuits Syst. , vol. 19, no. 9, pp. 969– 980, 2000. [11] N. Magen, A. Kolodny, U. Weiser, and N. Shamir, “Interconnect-power dissipation in a microprocessor,” in Proc. 2004 Int. Workshop on System Level Interconnect Prediction , 2004, pp. 7–13. [12] W. Wolf, A. A. Jerraya, and G. Martin, “Multiprocessor system-on-chip (MPSoC) technology,” IEEE Trans. Comput.-Aided Design Integr. Circuits Syst. , vol. 27, no. 10, pp. 1701–1713, 2008. [13] R. J. Fletcher, “Integrated circuit having outputs configured for reduced state changes,” 1987, US Patent 4,667,337. [14] M. R. Stan and W. P. Burleson, “Bus-invert coding for low-power I/O,” 
+
+IEEE Trans. VLSI Syst. , vol. 3, no. 1, pp. 49–58, 1995. [15] J.-H. Chae, “High-bandwidth and energy-efficient memory interfaces for the data-centric era: Recent advances, design challenges, and future prospects,” IEEE Open J. Solid-State Circuits Soc. , vol. 4, pp. 252–264, 2024. [16] S. Cho and H. Lee, “Flip-N-Write: a simple deterministic technique to improve PRAM write performance, energy and endurance,” in Proc. 42nd IEEE/ACM Int. Symp. on Microarch. , New York, 2009, p. 347–357. [17] F.-W. Fu and R. Yeung, “On the capacity and error-correcting codes of write-efficient memories,” IEEE Trans. Inf. Theory , vol. 46, no. 7, pp. 2299–2314, 2000. [18] J. Tabor, “Noise reduction using low weight and constant weight coding techniques,” Master’s thesis, EECS Dept., MIT, Tech. Rep., 1990. [19] L. Davisson, “Comments on ”sequence time coding for data compres-sion”,” Proceedings of the IEEE , vol. 54, no. 12, pp. 2010–2010, 1966. [20] T. Cover, “Enumerative source encoding,” IEEE Trans. Inf. Theory ,vol. 19, no. 1, pp. 73–77, 1973. [21] S. Ramprasad, N. R. Shanbhag, and I. N. Hajj, “A coding framework for low-power address and data busses,” IEEE Trans. VLSI Syst. , vol. 7, no. 2, p. 212–221, jun 1999. [22] Y. Wu and A. Jiang, “Position modulation code for rewriting write-once memories,” IEEE Trans. Inf. Theory , vol. 57, no. 6, pp. 3692–3697, Jun. 2011. [23] L. Valentini and M. Chiani, “An implementation of the optimal scheme for energy efficient bus encoding,” arXiv:2303.06409 , 2024. [24] G. D. Cohen, “Applications of coding theory to communication combi-natorial problems,” Discrete Mathematics , vol. 83, no. 2, pp. 237–248, 1990. [25] A. N. Jacobvitz, R. Calderbank, and D. J. Sorin, “Coset coding to extend the lifetime of memory,” in 2013 IEEE 19th Int. Symposium on High Performance Computer Architecture (HPCA) , 2013, pp. 222–233. [26] S. Komatsu, M. Ikeda, and K. Asada, “Low power chip interface based on bus data encoding with adaptive code-book method,” in Proceedings Ninth Great Lakes Symposium on VLSI . IEEE, 1999, pp. 368–371. [27] S. M. Seyedzadeh, R. Maddah, D. Kline, A. K. Jones, and R. Melhem, “Improving bit flip reduction for biased and random data,” IEEE Trans. Comput. , vol. 65, no. 11, pp. 3345–3356, 2016. [28] G. Casella and R. L. Berger, Statistical inference . Cengage Learning, 2021. [29] M. Alamgir, I. I. Basith, T. Supon, and R. Rashidzadeh, “Improved bus-shift coding for low-power I/O,” in 2015 IEEE Int. Symp. on Circuits and Systems (ISCAS) , May 2015, pp. 2940–2943. [30] M. Elia, “Algebraic decoding of the (23,12,7) Golay code,” IEEE Trans. Inf. Theory , vol. 33, no. 1, pp. 150–151, 1987.

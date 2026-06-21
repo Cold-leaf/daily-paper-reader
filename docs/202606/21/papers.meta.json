@@ -1,0 +1,24 @@
+{
+  "label": "2026-06-21",
+  "date": "2026-06-21",
+  "generated_at": "2026-06-21T20:21:43",
+  "count": 1,
+  "papers": [
+    {
+      "paper_id": "202606/21/2606.17471v1-reram-aware-model-finetuning-addressing-i-v-non-linearity-and-retention-errors",
+      "section": "deep",
+      "title_en": "ReRAM-aware Model Finetuning addressing I-V Non-linearity and Retention Errors",
+      "authors": "Ching-Yi Lin, Shamik Kundu, Arnab Raha, Sahil Shah",
+      "date": "2026-06-16",
+      "pdf": "https://arxiv.org/pdf/2606.17471v1",
+      "score": "9.0",
+      "evidence": "基于ReRAM的内存计算用于高效DNN部署",
+      "tldr": "传统计算架构受限于冯·诺依曼瓶颈，ReRAM存内计算虽高效但存在非理想性。现有硬件感知训练需从头训练，计算成本高。本文提出基于微调的硬件感知训练算法，通过范围收缩的sinh变换缓解I-V非线性，将保留误差纳入正则化损失。在图像分类和问答任务上，方法几乎不损失精度，仅MobileNetV3在ImageNet上降幅<2%，SQuAD v2的F1仅降1点。显著降低了部署开销。",
+      "tags": "query:cim",
+      "abstract_en": "Traditional CPU, GPU, and NPU architectures are increasingly limited by the von Neumann bottleneck. While In-Memory Computing (IMC) using ReRAM crossbar arrays offers a high-density, energy-efficient alternative, its practical deployment is constrained through their non-idealities. Existing hardware-aware training frameworks often require training from scratch, which is computationally prohibitive for modern large-scale models. In this work, we propose a finetuning-based hardware-aware training algorithm that enables robust DNN deployment on ReRAM with minimal training overhead. Our approach mitigates I-V non-linearity by applying a range-shrunk sinh transformation and incorporates retention errors directly into a regularization loss during the finetuning process. We evaluate our framework across models and tasks such as image classification and question-answering (QA). Experimental results demonstrate that our method achieves similar accuracy on large-scale models like ResNet18 and DeiT-Tiny as the base model. In-case of ImageNet for MobileNetV3 families the technique has only less than 2% accuracy degradation. Further, applying the technique on the SQuAD v2 dataset results in only 1 point degradation of F-1 score.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

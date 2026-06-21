@@ -1,0 +1,55 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-21T20:20:15.821617+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 0,
+    "quick_skim_target": 11,
+    "quick_selected": 0
+  },
+  "deep_dive": [
+    {
+      "id": "2606.17471v1",
+      "source": "arxiv",
+      "title": "ReRAM-aware Model Finetuning addressing I-V Non-linearity and Retention Errors",
+      "abstract": "Traditional CPU, GPU, and NPU architectures are increasingly limited by the von Neumann bottleneck. While In-Memory Computing (IMC) using ReRAM crossbar arrays offers a high-density, energy-efficient alternative, its practical deployment is constrained through their non-idealities. Existing hardware-aware training frameworks often require training from scratch, which is computationally prohibitive for modern large-scale models. In this work, we propose a finetuning-based hardware-aware training algorithm that enables robust DNN deployment on ReRAM with minimal training overhead. Our approach mitigates I-V non-linearity by applying a range-shrunk sinh transformation and incorporates retention errors directly into a regularization loss during the finetuning process. We evaluate our framework across models and tasks such as image classification and question-answering (QA). Experimental results demonstrate that our method achieves similar accuracy on large-scale models like ResNet18 and DeiT-Tiny as the base model. In-case of ImageNet for MobileNetV3 families the technique has only less than 2% accuracy degradation. Further, applying the technique on the SQuAD v2 dataset results in only 1 point degradation of F-1 score.",
+      "authors": [
+        "Ching-Yi Lin",
+        "Shamik Kundu",
+        "Arnab Raha",
+        "Sahil Shah"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "eess.SY"
+      ],
+      "published": "2026-06-16T03:29:51+00:00",
+      "link": "https://arxiv.org/pdf/2606.17471v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "ReRAM-based In-Memory Computing for energy-efficient DNN deployment",
+      "llm_evidence_cn": "基于ReRAM的内存计算用于高效DNN部署",
+      "llm_evidence": "基于ReRAM的内存计算用于高效DNN部署",
+      "canonical_evidence": "基于ReRAM的内存计算用于高效DNN部署",
+      "llm_tldr_en": "Proposes finetuning-based hardware-aware training to overcome I-V non-linearity and retention errors in ReRAM crossbar arrays, enabling robust compute-in-memory for DNNs with minimal overhead.",
+      "llm_tldr_cn": "该论文指出传统CPU/GPU/NPU受限于冯诺依曼瓶颈，而基于ReRAM交叉阵列的内存计算（IMC）是高密度、高能效的替代方案，但存在非理想性。现有方法需从头训练，计算开销大。本文提出基于微调的硬件感知训练算法，通过范围收缩的双曲正弦变换缓解I-V非线性，并将保持误差直接纳入正则化损失，从而在微调过程中使模型适应ReRAM非理想性。实验表明该方法能显著提升部署鲁棒性，且仅需微调而非重训练。该工作为大规模模型在ReRAM上的部署提供了实用解决方案，推动了计算-内存融合架构的实际应用。",
+      "llm_tldr": "该论文指出传统CPU/GPU/NPU受限于冯诺依曼瓶颈，而基于ReRAM交叉阵列的内存计算（IMC）是高密度、高能效的替代方案，但存在非理想性。现有方法需从头训练，计算开销大。本文提出基于微调的硬件感知训练算法，通过范围收缩的双曲正弦变换缓解I-V非线性，并将保持误差直接纳入正则化损失，从而在微调过程中使模型适应ReRAM非理想性。实验表明该方法能显著提升部署鲁棒性，且仅需微调而非重训练。该工作为大规模模型在ReRAM上的部署提供了实用解决方案，推动了计算-内存融合架构的实际应用。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "compute-in-memory architecture",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": []
+}

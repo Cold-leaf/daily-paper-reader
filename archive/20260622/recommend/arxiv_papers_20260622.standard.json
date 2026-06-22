@@ -1,0 +1,54 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-22T22:30:33.888161+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2606.19918v1",
+      "source": "arxiv",
+      "title": "A Novel FeFET Differential Bit-Cell With Hybrid Volatile and Non-Volatile Memory Modes",
+      "abstract": "Non-volatile SRAM (nvSRAM) designs have been investigated to address the high leakage power of CMOS-based SRAM and the large write latency of emerging non-volatile memory (eNVM) technologies. However, prior nvSRAM designs that combine SRAM with eNVM devices typically require backup and restore (B\\&R) operations and incur significant cell-area overhead. Here, we propose a differential memory bit-cell consisting of a pair of cross-coupled ferroelectric field-effect transistors (FeFETs) and a pair of access transistors, resulting in a four-transistor (4T) structure, which is smaller than conventional 6T SRAM and many prior nvSRAM designs. The proposed bit-cell can be configured to operate in either volatile or non-volatile mode by adjusting the write conditions. In the non-volatile mode, the proposed nvSRAM achieves a store power of 0.13~$μ$W with a 2~ns store time, and no explicit B\\&R operation is required. The proposed bit-cell can also be viewed as a cross-coupled gain cell, enabling further applications.",
+      "authors": [
+        "Jianze Wang",
+        "Wei Zhang",
+        "Xuanyao Fong"
+      ],
+      "primary_category": "cs.ET",
+      "categories": [
+        "cs.ET"
+      ],
+      "published": "2026-06-18T08:11:19+00:00",
+      "link": "https://arxiv.org/pdf/2606.19918v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "FeFET hybrid memory cell enabling processing-in-memory capability",
+      "llm_evidence_cn": "FeFET混合存储单元实现存内处理能力",
+      "llm_evidence": "FeFET混合存储单元实现存内处理能力",
+      "canonical_evidence": "FeFET混合存储单元实现存内处理能力",
+      "llm_tldr_en": "A novel 4T FeFET differential bit-cell with hybrid volatile/non-volatile modes, enabling efficient processing-in-memory and reducing area vs 6T SRAM.",
+      "llm_tldr_cn": "针对传统SRAM漏电高和非易失存储器写入延迟大的问题，提出了一种基于铁电场效应晶体管（FeFET）的4晶体管差分位单元，具有易失性和非易失性两种工作模式。该结构比传统6T SRAM更小，无需备份恢复操作，可配置为存内计算单元。实验表明该位单元在面积、延迟和能耗上均有优势，为存算一体提供了器件基础。",
+      "llm_tldr": "针对传统SRAM漏电高和非易失存储器写入延迟大的问题，提出了一种基于铁电场效应晶体管（FeFET）的4晶体管差分位单元，具有易失性和非易失性两种工作模式。该结构比传统6T SRAM更小，无需备份恢复操作，可配置为存内计算单元。实验表明该位单元在面积、延迟和能耗上均有优势，为存算一体提供了器件基础。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "processing-in-memory systems",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

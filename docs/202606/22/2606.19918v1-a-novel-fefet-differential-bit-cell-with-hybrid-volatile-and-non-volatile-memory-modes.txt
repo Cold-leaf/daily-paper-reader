@@ -1,0 +1,123 @@
+Title: A Novel FeFET Differential Bit-Cell With Hybrid Volatile and Non-Volatile Memory Modes
+
+URL Source: https://arxiv.org/pdf/2606.19918v1
+
+Published Time: Fri, 19 Jun 2026 00:40:32 GMT
+
+Number of Pages: 5
+
+Markdown Content:
+> 1
+
+# A Novel FeFET Differential Bit-Cell With Hybrid Volatile and Non-Volatile Memory Modes 
+
+Jianze Wang, Wei Zhang and Xuanyao Fong Department of ECE, National University of Singapore, 117583 Singapore Email: jianze.wang@u.nus.edu, zhwei98@nus.edu.sg, kelvin.xy.fong@nus.edu.sg 
+
+Abstract —Non-volatile SRAM (nvSRAM) designs have been investigated to address the high leakage power of CMOS-based SRAM and the large write latency of emerging non-volatile memory (eNVM) technologies. However, prior nvSRAM designs that combine SRAM with eNVM devices typically require backup and restore (B&R) operations and incur significant cell-area over-head. Here, we propose a differential memory bit-cell consisting of a pair of cross-coupled ferroelectric field-effect transistors (FeFETs) and a pair of access transistors, resulting in a four-transistor (4T) structure, which is smaller than conventional 6T SRAM and many prior nvSRAM designs. The proposed bit-cell can be configured to operate in either volatile or non-volatile mode by adjusting the write conditions. In the non-volatile mode, the proposed nvSRAM achieves a store power of 0.13 μW with a 2 ns store time, and no explicit B&R operation is required. The proposed bit-cell can also be viewed as a cross-coupled gain cell, enabling further applications. 
+
+Index Terms —FeFET bit-cell, non-volatile SRAM, non-volatile ferroelectric memory 
+
+I. I NTRODUCTION 
+
+# SEVERAL emerging non-volatile memory (eNVM) techonologies, such as RRAM, PCM, and STT-MRAM have been proposed to replace the SRAM as the embedded memory for the applications mentioned above due to their normally-off feature [1]. Although the leakage power can be reduced compared with CMOS-based SRAM, eNVMs still face challenges such as high write energy consumption, large write latency, and limited endurance. To overcome these challenges, non-volatile SRAM (nvSRAM), which is a hybrid memory bit-cell design that combines conventional CMOS SRAM and eNVMs to gain advantages from both SRAM and eNVMs, has been studied. A common design approach for nvSRAM is to connect the eNVMs to the storage nodes of the latch in the SRAM bit-cell [2]. However, these designs require explicit Backup and Restore (B&R) operations to store and restore the state of the latch into and from the eNVM devices when the system is entering and exiting the sleep state, respectively. Thus, an nvSRAM that has significantly reduced energy consumption and delay for B&R operations ( EB&R and tB&R , respectively) is desirable for internet of things (IoT) applications. The ferroelectric field-effect transistor (FeFET) is a promis-ing eNVM that has gained much research attention recently due to its low power consumption, high speed, and high endurance [3], [4]. Although FeFET-based nvSRAM has been proposed to improve EB&R and further reduce the energy con-sumption, the existing design has large area overhead [5]. A 4T-reconfigurable FeFET-based differential nvSRAM bit-cell design was proposed, which shows comparable performance to other nvSRAM [6]. However, the reconfigurable FeFET has a complicated fabrication process because it requires two separate ferroelectric gate stacks over the channel. In this work, we propose a 4T differential bit-cell based on conventional FeFET without any additional requirements of the fabrication process and achieves comparable performance with CMOS SRAM and other nvSRAM. Moreover, explicit B&R operations are not required. The rest of this paper is structured as follows. First, Sec-tion II presents the basics of the FeFET. Then, we present the 4T differential bit-cell design and operations in Section III. Section IV discusses the evaluation and analysis of our pro-posed bit-cell before conclusions are drawn. II. P RELIMINARIES 
+
+The cross-section of a FeFET bit-cell with a planar silicon-on-insulator (SOI) structure is shown in Fig. 1. The ferroelec-tric (FE) HZO layer is sandwiched between the gate metal and the insulator layer. The back bias is connected to the substrate of the FeFET, which can be used to adjust the threshold voltage, Vth , of the FeFET. In the FE layer, its polarization is represented by an arrow that indicates the general orientation of the FE dipoles. As shown in Fig. 1, there are positive charges near the FE-insulator layer (IL) interface when the polarization of the FE layer is pointing down (negative polarization, as the red part in the figure), which lowers the Vth to Vth,L . On the other hand, the 
+
+Vth of the FeFET is increased to Vth,H when the polarization of the FE layer points up (positive polarization, as the blue part in Fig. 1). In the conventional FeFET bit-cell [7], its memory window (MW) is the difference between Vth,H and Vth,L . Logic 
+
+Fig. 1. An FDSOI FeFET for non-volatile memory and the same structure is used for simulation in the following section, the I-V of FeFET is calibrated with experimental data from [7]. 
+
+> arXiv:2606.19918v1 [cs.ET] 18 Jun 2026 2
+
+“1” and “0” are represented by setting the state of the FeFET to Vth,L and Vth,H , respectively. The I-V transfer curves for a FeFET are shown in Fig. 1. In this work, the FE layer is modeled as a FE capacitor (FeCap) using the nucleation-limited switching (NLS) model [8], [9]. The model for the FeFET is obtained by combining the FeCap model and a BSIM-IMG model [10]. Fig. 1 shows that our FeFET model is well-calibrated to the data reported in [7]. III. P ROPOSED 4T D IFFERENTIAL BIT -CELL 
+
+A. Bit-Cell Design 
+
+The 1T-1FeFET (2T) gain cell from [11] is shown in Fig. 2(a). Our proposed 4T differential memory bit-cell con-sists of a pair of the 2T gain cells connected in a cross-coupled topology as shown in Fig. 2(b). As Fig. 2(b) shows, our cross-coupled FeFET gain cell consists of two access transistors (N1 and N2) and two cross-coupled FeFETs (NF1 and NF2). The gates of N1 and N2 are connected to the wordline (WL) for bit-cell selection and passing the charge on Q and QB to the differential bitlines, BL and BLB. The cross-coupled FeFETs are used to store the state of the bit-cell. The sources of the FeFETs are connected to the differential source lines, SL and SLB, to stabilize write operation of the FeFETs and reduce the write energy. The write operations for our proposed bit-cell are shown in Fig. 2(c) and (d). To write logic “1” into the bit-cell, the polarization of FE in NF1 and NF2 need to be −PFE and +PFE ,respectively. The voltages of BL and SL, VBL = VSL = + Vw/2
+
+and the voltages of both BLB and SLB, VBLB = VSLB =
+
+−Vw/2 to create a −Vw voltage drop at Vgs on NF1 and a +Vw
+
+voltage drop at Vgs on NF2, as shown in Fig. 2(c). To write logic “0” to the bit-cell, the polarization of FE in the cross-coupled FeFETs needs to be reversed from Fig. 2(c)( i.e. +PFE 
+
+in NF1 and −PFE in NF2), and VBL , VBLB , VSL , and VSLB are as shown in Fig. 2(d). Note that VBL = VSL , and VBLB = VSLB 
+
+during write operation. Thus, current flowing through the bit-cell during write operation is minimized, which reduces the  
+
+> Fig. 2. (a) Conventional 1T-1FeFET gain cell from [11]. (b) Proposed 4T differential bit-cell design, the bit-cell consists two access transistors, N1 and N2, and two cross-coupled FeFETs, NF1 and NF2, forming a cross-coupled gain cell. (c) The voltages applied to the bit-cell to write logic “1”. (d) The voltages applied to the bit-cell to write logic “0”. (e) Hold operation of the bit-cell. (f) Read operation of the bit-cell.
+
+write energy. In the Hold operation shown in Fig. 2(e), no voltages are applied to BL, BLB, SL, and SLB, which is also the condition during normally-off operation. The memory state is stored as the non-volatile polarization of the FE layers inside the cross-coupled FeFETs. Therefore, when used as nvSRAM, no explicit B&R operation is required to backup the state or to restore the state of the bit-cell in contrast to previous nvSRAM. The read operation, illustrated in Fig. 2(f), begins with both BL and BLB precharged to Vpre . When WL is activated, BL and BLB are discharged through NF1 and NF2, respectively. Due to the Vth difference between NF1 and NF2, the discharge rates differ, enabling the sense amplifier to differentially detect the stored data. The proposed bit-cell employs HZO for its CMOS com-patibility, but its circuit functionality is independent of the specific ferroelectric material as long as the access transistors are carefully designed to be compatible with the required write voltage level. Using other ferroelectrics (e.g., PZT) would mainly alter the required write voltage while preserving the same operational behavior. It should be noted that the proposed bit-cell requires negative write voltages to reach the desired states, which may increase the complexity of the peripheral circuitry. 
+
+B. Memory Array and Layout 
+
+Fig. 3(a) shows the proposed 4T differential memory array with the peripheral circuits. The bit-cells in the same row are connected through WL and the bit-cells in the same column share the same BL, SL, BLB and SLB. At the top of the array is the pre-charge circuit for read operation. Pch is the enable signal of the pre-charge block. A latch-bashed sense amplifier [12] like that commonly used in SRAM is placed at the bottom of each column for differential sensing of the bit-cell. The SE signal is used to enable the sense amplifier (SA) whereas Vo and VoB are the outputs of the SA. WE (write enable) the enable signal of the write drivers and DBL, DSL, DBLB, and DSLB are the input signals to the write drivers. Except for the use of negative write voltages and differential SL/SLB control, the proposed bit-cell 
+
+> Fig. 3. (a) Proposed non-volatile 4T differential memory array with peripheral circuits. (b) Layout of the proposed 4T differential memory bit-cell. 3
+
+shares the same peripheral scheme as conventional SRAM. The peripheral design details are considered beyond the scope of this paper. The layout of the proposed 4T differential FeFET bit-cell is implemented using GLOBALFOUNDRIES 22 nm PDK with 
+
+λ-rule, shown in Fig. 3 (b). The width and height of the proposed bit-cell are 24 λ and 65 λ, respectively, resulting in a total bit-cell area of 1560 λ2. For the simulations in the later sections, parasitic extraction was performed on the FeFET bit-cell to model circuit parasitics in the bit-cell. IV. E VAULATION AND ANALYSIS 
+
+A. Transient Demonstration 
+
+Transient simulation is performed to analyze our 4T differ-ential memory bit-cell. The waveforms of the various signals are shown in Fig. 4. In this simulation, the write pulse width and magnitude are tp = 10 ns and Vw = 2 V, respectively, to ensure the bit-cell is successfully written into. In Fig. 4, the bit-cell goes through two write-read cycles. The bit-cell is first written with “1” before a read operation is applied to check the state of the bit-cell. The bit-cell is then overwritten with “0” before a read operation is performed to check the state of the bit-cell again. As Fig. 4 shows, during the write “1” operation (left most grey-shaded region), VBL = 0 .6 V and VBLB = −1 V, resulting in switching of PFER and PFEL . The read operation consist of a pre-charge step and a sensing step. During pre-charge step (left most yellow-shaded region in Fig. 4), Pch is grounded, WL is disabled, and VBL = VBLB = 1 V. After the pre-charge step is completed, WL is activated and the SA is enabled to sense the state of the selected bit-cell (left most green-shaded region in Fig. 4). Q remains at a high-level voltage compared with QB since PFEL = −PFE and PFER = + PFE ,resulting in different discharging time between Q and QB .The waveforms for Vo and VoB suggest that the state stored in the bit-cell is indeed “1”. Next, “0” is wrtten into the bit-cell (right most gray-shared region in Fig. 4) followed by the read operation. The waveforms for PFEL and PFER indicate the write operation is successful. The final readout is also correct. Thus, the functionality of our proposed 4T differential FeFET bit-cell is validated. 
+
+B. Design Space Exploration 
+
+The write conditions can affect the performance and func-tionality of the proposed 4T differential FeFET bit-cell. To further evaluate the performance of the proposed 4T differ-ential FeFET bit-cell, we vary the control signals that are applied to the bit-cell. We focus on different write conditions in this section. The read condition is fixed: the pre-charge voltage, Vread , and the sensing time are kept at 1 V and 
+
+10 ns, respectively. Fig. 5 shows the bit-cell performance with 
+
+tp = 10 ns. Vp = Vw/2 is varied from 0.2 V to 1 V in 0.2 Vsteps to study the bit-cell behavior. Fig. 5 (a) and (b) show VQ and VQB during read “1” and read “0”, respectively, after different write conditions. It can be clearly observed that VQ and VQB decreases when 
+
+Vp ≤ 0.6 V and increases when Vp ≥ 0.6 V during read “1”  
+
+> Fig. 4. Waveform of signals applied to the memory circuit in Fig. 3. The bit-cell will first be written to “1” followed by read operation and then written to “0” followed by another read operation.
+
+and during read “0”, respectively. To explain this trend under different write conditions, the polarizations of the FeFETs, 
+
+PFEL and PFER , are extracted as shown in Fig. 5 (c) and (d). For Vp = 0 .2 V and Vp = 0 .4 V, the difference between 
+
+PFEL and PFER (∆P = PFEL − PFER ) is around 0 μC/cm 2,because PFEL = PFER = −PFE under both read “0” and read “1” conditions as shown in Fig. 5 (c) and (d), which indicates a write operation failure. However, Q and QB can still hold the difference during the read operation because when both FeFETs are at −PFE , they can be considered as a high Vth NMOS and the data is stored as charge on the parasitic capacitances at Q and QB . When the read operation is applied, the Vgs of NF1 is smaller than that of NF2, leading to different discharge speed of BL and BLB—NF1 discharges Q slower NF2 discharges QB and therefore, the difference between BL and BLB can be obtained. Therefore, when Vp ≤ 0.4 V, the proposed 4T differential FeFET bit-cell is operating as volatile memory. When Vp ≥ 0.6 V, |∆P | is larger than 0 μC/cm 2 and the FE layers in the bit-cell were successfully programmed. Thus, the bit-cell operates as non-volatile memory. Hence, the bit-cell can operate as either volatile or non-volatile memory by adjusting the write condition of the bit-cell. Fig. 5 (e) 4
+
+shows the write and read energy with different Vp. The write energy increases as Vp increases whereas the read energy is not strongly affected by the write conditions. Fig. 5 (f) shows the sensing delay under different write conditions. The sensing delay reaches to 137 ps at Vp = 0 .2 V whereas the sensing delay is around 47 ps under other conditions. As shown in Fig. 5, the proposed differential bit-cell can be successfully programmed as long as the write voltage is larger than 0.4 V, indicating the bit-cell does not require precise control for the write operation. To further explore the design space of the differential FeFET bit-cell, we include the tp variation at the different Vp. Fig. 6 shows the MWs under different write conditions. We define the extrinsic MW and intrinsic MW as the difference between 
+
+VQ and VQB (i.e. , ∆Q = VQ − VQB ) and ∆P = PFEL −
+
+PFER , respectively. Fig. 6(a) shows ∆Q under different write conditions during read “1”. The trend is the same as Fig. 5 (a)-(b), where ∆Q decreases when Vp ≤ 0.6 V and increase when 
+
+Vp ≥ 0.6 V. When Vp = 0 .4 V and tp ≤ 4 ns, ∆Q is higher than when Vp = 0 .2 V due to the charge pumping effect when parasitic capacitance is small (the bit-cell parasitic capacitance is 58 aF). When Vp ≥ 0.6 V, ∆Q increases with both Vp and 
+
+tp. The same trend can be seen in Fig. 6(b) as in Fig. 5(d), that the absolute value of ∆P increases with both Vp and tp. When 
+
+Fig. 5. Proposed 4T differential bit-cell under different write conditions with 
+
+tp = 10 ns and Vp = Vw/2 varying from 0.2 V to 1 V in 0.2 V steps. (a) and (b) are the voltages of Q and QB during read “1” and read “0”, respectively. (c) and (d) are the polarization of the FE layer of the FeFETs ( PFEL and 
+
+PFER ) and the difference of PFEL and PFER during read “1” and read “0”, respectively. (e) The write and read energy under different write conditions. (f) Sensing delays under different write conditions. 
+
+Fig. 6. Memory window at different write conditions. (a) difference between 
+
+Q and QB (∆Q = VQ − VQB ) during read “1” at different write conditions with different Vp and tp. (b) difference between PFEL and PFER (∆P =
+
+PFEL − PFER ) during read “1” at different write conditions. 
+
+Vp = 0 .4 V, ∆Q increases as tp increases. This is because 
+
+∆P is smaller at tp = 2 ns as compared to other conditions according to Fig. 6(b). ∆Q for different tp under Vp = 0 .2 Vare the same, due to same ∆P . Therefore, Vp = 0 .6 V is the critical voltage to configure the cell between volatile and non-volatile memory. The results shown in Fig. 5 and Fig. 6 indicate that the proposed bit-cell maintains stable operation across a wide range of write voltages and pulse widths. 
+
+TABLE I COMPARISON OF OUR PROPOSED 4T DIFFERENTIAL FEFET BIT -CELL WITH PREVIOUS DESIGNS AND GAIN CELL DEISGN                                                           
+
+> Design 6T-SRAM [13] 4T-R [6] 7T2R [14] 8T2R [15] 1T1FeFET [11] This work # Transistors 647824Type Simulation Simulation Experiment Simulation Experiment Simulation NVM device N.A. R-FeFET ReRAM MTJ FeFET FeFET Store voltage 0.74 V 1.1 V 1.8 V 1.2 V 0.9 V 2 V Store power 37.12 μW4.45 mW 0.311 mW 0.604 μW0.134 μW0.13 μW
+> Store time 1.92 ns N.A. 10 ns 2 ns 20 ns 2 ns Sense Scheme Differential Differential Differential Differential Current-Based Differential B&E N.A. Not required Required Required N.A. Not required
+
+Our proposed 4T differential memory bit-cell is compared with previous designs in Table I. Compared to conventional SRAM and other nvSRAM designs, our design requires only four transistors. The FeFET structure is CMOS-compatible, which eliminates the need for specialized fabrication processes as described in [6]. Additionally, the store power is 0.13 μW,which is exceptionally low compared to [15]. The lower store power is mainly attributed to the write scheme of the bit-cell. During writing, BL and SL are driven to the same voltage, and BLB and SLB are driven to the same voltage, thereby reducing the potential difference across these nodes and minimizing the leakage current. Since the proposed differential bit-cell is also a cross-coupled gain cell, we compared it with a state-of-the-art 1T–1FeFET gain cell [11]. The proposed design achieves comparable store power, while adopting a differential read scheme that can be directly integrated with standard SRAM sensing circuits. Owing to the differential topology, the proposed bit-cell achieves a 2 ns store time, comparable to 6T SRAM, since correct sensing only requires a suffi-cient polarization-state difference between the two FeFETs. For reliability and endurance concerns, previous studies have demonstrated excellent FeFET reliability and endurance (e.g., retention over 10 4 s at 85 ◦C and endurance up to 10 12 cycles reported in [11]). The proposed bit-cell can directly benefit from such device-level improvements without requiring any modification to its circuit structure. 5
+
+V. C ONCLUSION 
+
+In this work, we propose a FeFET-based differential non-volatile memory bit-cell. The proposed bit-cell comprises a pair of 2T gain cells connected in a cross-coupled topology, and uses only four transistors in total, thereby reducing the cell area compared with conventional CMOS-based SRAM and prior nvSRAM designs. By adjusting the write conditions, the bit-cell can be configured to operate in either volatile or non-volatile mode. In the non-volatile mode, the store power is 0.13 μW with a 2 ns store time, which is reduced compared with previous designs. Moreover, the proposed design does not require explicit backup-and-restore (B&R) operations. REFERENCES [1] L.-Y. Huang, M.-F. Chang, C.-H. Chuang, C.-C. Kuo, C.-F. Chen, G.-H. Yang, H.-J. Tsai, T.-F. Chen, S.-S. Sheu, K.-L. Su, F. T. Chen, T.-K. Ku, M.-J. Tsai, and M.-J. Kao, “Reram-based 4t2r nonvolatile tcam with 7x nvm-stress reduction, and 4x improvement in speed-wordlength-capacity for normally-off instant-on filter-based search engines used in big-data processing,” in 2014 Symposium on VLSI Circuits Digest of Technical Papers , 2014, pp. 1–2. [2] W.-X. You, P. Su, and C. Hu, “A new 8t hybrid nonvolatile sram with ferroelectric fet,” IEEE Journal of the Electron Devices Society , vol. 8, pp. 171–175, 2020. [3] G. Yin, Y. Cai, J. Wu, Z. Duan, Z. Zhu, Y. Liu, Y. Wang, H. Yang, and X. Li, “Enabling lower-power charge-domain nonvolatile in-memory computing with ferroelectric fets,” IEEE Transactions on Circuits and Systems II: Express Briefs , vol. 68, no. 7, pp. 2262–2266, 2021. [4] J. Wang, W. Zhang, Z. Wu, Y. Wang, L. Jiao, X. Wang, X. Gong, and X. Fong, “Transposable memory based on the ferroelectric field-effect transistor,” in 2024 IEEE International Symposium on Circuits and Systems (ISCAS) , 2024, pp. 1–5. [5] X. Li, K. Ma, S. George, W.-S. Khwa, J. Sampson, S. Gupta, Y. Liu, M.-F. Chang, S. Datta, and V. Narayanan, “Design of nonvolatile sram with ferroelectric fets for energy-efficient backup and restore,” IEEE Transactions on Electron Devices , vol. 64, no. 7, pp. 3037–3040, 2017. [6] S. K. Thirumala, S. Jain, A. Raghunathan, and S. K. Gupta, “Non-volatile memory utilizing reconfigurable ferroelectric transistors to en-able differential read and energy-efficient in-memory computation,” in 
+
+2019 IEEE/ACM International Symposium on Low Power Electronics and Design (ISLPED) , 2019, pp. 1–6. [7] S. D¨ unkel, M. Trentzsch, R. Richter, P. Moll, C. Fuchs, O. Gehring, M. Majer, S. Wittek, B. M¨ uller, T. Melde, H. Mulaosmanovic, S. Sle-sazeck, S. M¨ uller, J. Ocker, M. Noack, D.-A. L¨ ohr, P. Polakowski, J. M¨ uller, T. Mikolajick, J. H¨ ontschel, B. Rice, J. Pellerin, and S. Beyer, “A fefet based super-low-power ultra-fast embedded nvm technology for 22nm fdsoi and beyond,” in 2017 IEEE International Electron Devices Meeting (IEDM) , 2017, pp. 19.7.1–19.7.4. [8] C.-T. Tung, G. Pahwa, S. Salahuddin, and C. Hu, “A compact model of ferroelectric field-effect transistor,” IEEE Electron Device Letters ,vol. 43, no. 8, pp. 1363–1366, 2022. [9] W. Zhang, J. Wang, C. Sun, Z. Wu, X. Gong, and X. Fong, “Modeling of ferroelectric thin film transistors with amorphous oxide semiconductor channel,” in 2024 8th IEEE Electron Devices Technology & Manufac-turing Conference (EDTM) , 2024, pp. 1–3. [10] S. Khandelwal, Y. S. Chauhan, D. D. Lu, S. Venugopalan, M. Ahosan Ul Karim, A. B. Sachid, B.-Y. Nguyen, O. Rozeau, O. Faynot, A. M. Niknejad, and C. C. Hu, “Bsim-img: A compact model for ultrathin-body soi mosfets with back-gate control,” IEEE Transactions on Electron Devices , vol. 59, no. 8, pp. 2019–2026, 2012. [11] S. G. Kirtania, O. Phadke, E. Sarker, K. A. Aabrar, D. Chakraborty, F. Waqar, S. Jaewon, T. Pantha, S. Dutta, A. Khan, S. Yu, and S. Datta, “Amorphous indium oxide channel fefets with write voltage of 0.9 v and endurance > 10 12 for refresh-free 1t-1fefet embedded memory,” in 
+
+2024 IEEE International Electron Devices Meeting (IEDM) , 2024, pp. 1–4. [12] B. Razavi, “The strongarm latch [a circuit for all seasons],” IEEE Solid-State Circuits Magazine , vol. 7, no. 2, pp. 12–17, 2015. [13] E. Abbasian, “A highly stable low-energy 10t sram for near-threshold operation,” IEEE Transactions on Circuits and Systems I: Regular Papers , vol. 69, no. 12, pp. 5195–5205, 2022. [14] S.-S. Sheu, C.-C. Kuo, M.-F. Chang, P.-L. Tseng, L. Chih-Sheng, M.-C. Wang, C.-H. Lin, W.-P. Lin, T.-K. Chien, S.-H. Lee, S.-C. Liu, H.-Y. Lee, P.-S. Chen, Y.-S. Chen, C.-C. Hsu, F. T. Chen, K.-L. Su, T.-K. Ku, M.-J. Tsai, and M.-J. Kao, “A reram integrated 7t2r non-volatile sram for normally-off computing application,” in 2013 IEEE Asian Solid-State Circuits Conference (A-SSCC) , 2013, pp. 245–248. [15] S. Tripathi, S. Choudhary, and P. K. Misra, “An 8t pa attack resilient nvsram for in-memory-computing applications,” IEEE Transactions on Circuits and Systems I: Regular Papers , vol. 70, no. 9, pp. 3567–3574, 2023.

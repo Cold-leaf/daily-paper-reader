@@ -1,6 +1,9 @@
 * <a class="dpr-sidebar-root-link" href="#/">首页</a>
 * <a class="dpr-sidebar-root-link dpr-sidebar-noactive-link" href="javascript:void(0)" data-dpr-hash="#/tutorial/README">使用教程</a>
 * Daily Papers
+  * 2026-06-22 <!--dpr-date:20260622-->
+    * 速读区
+      * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202606/22/2606.19918v1-a-novel-fefet-differential-bit-cell-with-hybrid-volatile-and-non-volatile-memory-modes" data-sidebar-item="{&quot;title&quot;: &quot;A Novel FeFET Differential Bit-Cell With Hybrid Volatile and Non-Volatile Memory Modes&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2606.19918v1-a-novel-fefet-differential-bit-cell-with-hybrid-volatile-and-non-volatile-memory-modes&quot;, &quot;score&quot;: &quot;6.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;cim&quot;}], &quot;evidence&quot;: &quot;FeFET混合存储单元实现存内处理能力&quot;}">A Novel FeFET Differential Bit-Cell With Hybrid Volatile and Non-Volatile Memory Modes</a>
   * 2026-06-21 <!--dpr-date:20260621-->
     * 精读区
       * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202606/21/2606.17471v1-reram-aware-model-finetuning-addressing-i-v-non-linearity-and-retention-errors" data-sidebar-item="{&quot;title&quot;: &quot;ReRAM-aware Model Finetuning addressing I-V Non-linearity and Retention Errors&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2606.17471v1-reram-aware-model-finetuning-addressing-i-v-non-linearity-and-retention-errors&quot;, &quot;score&quot;: &quot;9.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;cim&quot;}], &quot;evidence&quot;: &quot;基于ReRAM的内存计算用于高效DNN部署&quot;}">ReRAM-aware Model Finetuning addressing I-V Non-linearity and Retention Errors</a>

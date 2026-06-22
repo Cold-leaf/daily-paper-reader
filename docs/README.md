@@ -6,24 +6,24 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-06-21
-- 运行时间：2026-06-21 20:21:38 UTC
+- 最新运行日期：2026-06-22
+- 运行时间：2026-06-22 22:31:07 UTC
 - 运行状态：成功
 - 本次总论文数：1
-- 精读区：1
-- 速读区：0
+- 精读区：0
+- 速读区：1
 
 ### 今日简报（AI）
-今日精读一篇高分论文，聚焦ReRAM-aware模型微调以解决I-V非线性和保留误差问题。重点结论：在非理想ReRAM硬件上，针对性微调可有效补偿非线性与保留错误，提升模型精度。建议读者关注硬件-算法协同优化方向，这对边缘AI部署至关重要。
-- 详情：[/202606/21/README](/202606/21/README)
+今日速读一篇关于新型FeFET差分位单元的论文，探索混合易失与非易失存储模式。该研究提出一种同时支持两种存储模式的位单元设计，对优化存储器性能与能耗有参考价值。建议关注FeFET在存算一体和低功耗领域的后续进展。
+- 详情：[/202606/22/README](/202606/22/README)
 
 ### 精读区论文标签
-1. [ReRAM-aware Model Finetuning addressing I-V Non-linearity and Retention Errors](/202606/21/2606.17471v1-reram-aware-model-finetuning-addressing-i-v-non-linearity-and-retention-errors)  
-   标签：评分：9.0/10、query:cim
-   evidence：基于ReRAM的内存计算用于高效DNN部署
+- 本次无精读推荐。
 
 ### 速读区论文标签
-- 本次无速读推荐。
+1. [A Novel FeFET Differential Bit-Cell With Hybrid Volatile and Non-Volatile Memory Modes](/202606/22/2606.19918v1-a-novel-fefet-differential-bit-cell-with-hybrid-volatile-and-non-volatile-memory-modes)  
+   标签：评分：6.0/10、query:cim
+   evidence：FeFET混合存储单元实现存内处理能力
 
 
 <div class="dpr-home-promo-card">

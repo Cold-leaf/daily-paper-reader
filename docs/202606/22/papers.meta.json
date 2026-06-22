@@ -1,0 +1,24 @@
+{
+  "label": "2026-06-22",
+  "date": "2026-06-22",
+  "generated_at": "2026-06-22T22:31:13",
+  "count": 1,
+  "papers": [
+    {
+      "paper_id": "202606/22/2606.19918v1-a-novel-fefet-differential-bit-cell-with-hybrid-volatile-and-non-volatile-memory-modes",
+      "section": "quick",
+      "title_en": "A Novel FeFET Differential Bit-Cell With Hybrid Volatile and Non-Volatile Memory Modes",
+      "authors": "Jianze Wang, Wei Zhang, Xuanyao Fong",
+      "date": "2026-06-18",
+      "pdf": "https://arxiv.org/pdf/2606.19918v1",
+      "score": "6.0",
+      "evidence": "FeFET混合存储单元实现存内处理能力",
+      "tldr": "传统CMOS SRAM泄漏功耗高，新兴非易失存储器写入延迟大，现有nvSRAM设计面积大且需备份恢复。本文提出一种基于铁电场效应晶体管(FeFET)的差分位单元，采用两个交叉耦合FeFET和两个存取管的4T结构，通过调整写条件可在易失或非易失模式间切换。非易失模式下存储功耗仅0.13μW，存储时间2ns，无需显式备份恢复，单元面积小于传统6T SRAM。该设计实现了面积高效、低功耗的混合模式存储，可视为交叉耦合增益单元，拓展了应用前景。",
+      "tags": "query:cim",
+      "abstract_en": "Non-volatile SRAM (nvSRAM) designs have been investigated to address the high leakage power of CMOS-based SRAM and the large write latency of emerging non-volatile memory (eNVM) technologies. However, prior nvSRAM designs that combine SRAM with eNVM devices typically require backup and restore (B\\&R) operations and incur significant cell-area overhead. Here, we propose a differential memory bit-cell consisting of a pair of cross-coupled ferroelectric field-effect transistors (FeFETs) and a pair of access transistors, resulting in a four-transistor (4T) structure, which is smaller than conventional 6T SRAM and many prior nvSRAM designs. The proposed bit-cell can be configured to operate in either volatile or non-volatile mode by adjusting the write conditions. In the non-volatile mode, the proposed nvSRAM achieves a store power of 0.13~$μ$W with a 2~ns store time, and no explicit B\\&R operation is required. The proposed bit-cell can also be viewed as a cross-coupled gain cell, enabling further applications.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

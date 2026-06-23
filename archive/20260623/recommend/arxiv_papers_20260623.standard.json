@@ -1,0 +1,220 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-23T22:11:32.263451+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 3,
+    "deep_cap": 6,
+    "deep_selected": 3,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [
+    {
+      "id": "2606.20786v1",
+      "source": "arxiv",
+      "title": "Memory-Centric Computing: Security Benefits and Challenges of Processing-in-DRAM",
+      "abstract": "Today's computing systems are processor-centric: they require frequent data movement between processing elements (e.g., CPU) and main memory (DRAM), leading to significant inefficiencies in performance and energy consumption. Memory-centric computing instead moves computation to the data, enabling computation capability in and near all places where data is generated and stored, and greatly reducing the performance and energy overheads of data access and data movement. This shift from a processor-centric to a memory-centric paradigm has important and underexplored consequences for system security. Turning memory from a dumb, inactive store into an active computing substrate introduces benefits as well as challenges for system security: it can provide new in-memory security primitives and also reduce data exposure, but it can also expose new attack surfaces. This work discusses the security benefits and challenges of memory-centric computing, specifically Processing-in-DRAM (PiD), a paradigm where the operational characteristics of a DRAM chip are exploited and enhanced to perform computation on data stored in DRAM. Specifically, we describe 1) new state-of-the-art DRAM-based true random number generators that provide up to 16.05 Gb/s throughput and physical unclonable functions with 5.75% lower evaluation latency than the prior state-of-the-art, both on real DRAM chips and 2) two key security challenges of PiD: amplified DRAM read disturbance (e.g., 158x reduction in the minimum number of DRAM accesses required to induce the first bitflip) and high throughput memory timing channels (e.g., a communication throughput of 14.8Mb/s). We believe it is time to design, use, and program DRAM, and in general memory, not as an inactive storage substrate, but as a combined computation, storage, and security substrate, where computational capability, storage density, and security are all key goals.",
+      "authors": [
+        "Ismail Emir Yuksel",
+        "F. Nisa Bostanci",
+        "Ataberk Olgun",
+        "Onur Mutlu"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AR",
+        "cs.DC"
+      ],
+      "published": "2026-06-18T17:59:05+00:00",
+      "link": "https://arxiv.org/pdf/2606.20786v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Directly addresses processing-in-DRAM (processing-in-memory) with memory-centric computing",
+      "llm_evidence_cn": "直接讨论处理进DRAM（处理进内存）的以内存为中心的计算",
+      "llm_evidence": "直接讨论处理进DRAM（处理进内存）的以内存为中心的计算",
+      "canonical_evidence": "直接讨论处理进DRAM（处理进内存）的以内存为中心的计算",
+      "llm_tldr_en": "This paper examines the security benefits and challenges of processing-in-DRAM, a memory-centric computing paradigm that moves computation near data to reduce energy and latency.",
+      "llm_tldr_cn": "当前处理器为中心的计算架构面临数据搬运效率低下的问题。本文系统性地探讨了以内存为中心的计算范式——处理进DRAM（processing-in-DRAM）对系统安全带来的好处与挑战。文章指出将计算移至数据附近可减少能量和延迟，但同时也引入了新的安全漏洞和攻击面。该研究为构建安全的近存计算系统提供了重要视角。",
+      "llm_tldr": "当前处理器为中心的计算架构面临数据搬运效率低下的问题。本文系统性地探讨了以内存为中心的计算范式——处理进DRAM（processing-in-DRAM）对系统安全带来的好处与挑战。文章指出将计算移至数据附近可减少能量和延迟，但同时也引入了新的安全漏洞和攻击面。该研究为构建安全的近存计算系统提供了重要视角。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "processing-in-memory systems",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.22621v1",
+      "source": "arxiv",
+      "title": "Multi-Level Resistive Synapses for On-Chip Neural Networks: A Physics-Based Design of a Memristive Crossbar Fabric with Quasi-Continuous Conductance States",
+      "abstract": "Building on resistive communication, this paper presents a physics-based design of an on-chip neural network with multi-level memristive synapses supporting a dense spectrum of conductance states. Derived from ionic transport physics, we develop a state-variable model and quantify storable sub-levels under thermal noise, drift, and quantized conductance. We assemble these devices into a 1T1R crossbar fabric, derive the linear algebra of analog vector-matrix multiplication (VMM) under wire resistance, and design a differential synapse for signed weights. A multilayer pipeline executes inference, backpropagation, and weight updates physically in the analog domain. We derive the in-situ outer-product learning rule, its discretization onto the conductance lattice, and the resulting quantization noise. We provide energy, area, capacity, and inter-tile models, showing this substrate is ideally suited for large language models (LLMs). Our design eliminates weight movement, surpassing binary ReRAM and traditional CMOS. We detail the material stack (HfO_2-based), the FEOL/BEOL CMOS foundry-integration flow, a self-contained SPICE model, the complete memristive-FPGA neuromorphic system, and an in-memory self-attention engine with current-mode translinear softmax. Finally, a ternary BitNet datapath shows projected per-token efficiency orders of magnitude better than advanced CPUs or GPUs. The result is a self-contained hardware-native blueprint for a high-density, analog, in-memory neural processor.",
+      "authors": [
+        "David Alejandro Trejo Pizzo"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR",
+        "cond-mat.mes-hall",
+        "cs.ET",
+        "cs.NE",
+        "physics.app-ph"
+      ],
+      "published": "2026-06-21T18:04:51+00:00",
+      "link": "https://arxiv.org/pdf/2606.22621v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "memristive crossbar fabric for analog vector-matrix multiplication",
+      "llm_evidence_cn": "基于忆阻交叉阵列的模拟向量矩阵乘法",
+      "llm_evidence": "基于忆阻交叉阵列的模拟向量矩阵乘法",
+      "canonical_evidence": "基于忆阻交叉阵列的模拟向量矩阵乘法",
+      "llm_tldr_en": "This paper presents a physics-based design of a memristive crossbar fabric with multi-level resistive synapses for on-chip neural networks, enabling analog vector-matrix multiplication and training.",
+      "llm_tldr_cn": "本文提出基于物理的忆阻交叉阵列设计，支持多级阻变突触，用于片上神经网络。该设计实现了模拟域中的向量矩阵乘法、推理和训练，通过微分突触支持有符号权重，并考虑了导线电阻的影响。",
+      "llm_tldr": "本文提出基于物理的忆阻交叉阵列设计，支持多级阻变突触，用于片上神经网络。该设计实现了模拟域中的向量矩阵乘法、推理和训练，通过微分突触支持有符号权重，并考虑了导线电阻的影响。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "compute-in-memory architecture",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.22812v1",
+      "source": "arxiv",
+      "title": "Clutch: High Performance Vector-Scalar Comparison using DRAM via Chunked Temporal Coding",
+      "abstract": "Vector-scalar comparison is a fundamental computation primitive that compares each element in a vector against a single scalar value. It is widely used in various data-intensive workloads from databases to machine learning. Due to its low computational intensity, its execution tends to be memory-bound, limiting the utilization of compute resources. Processing-using-DRAM (PuD) is an emerging computing paradigm that performs massively parallel bitwise operations directly inside DRAM arrays, alleviating off-chip data movement. Existing PuD-based approaches require many DRAM commands because the comparison's algorithmic complexity grows with operand bit-width in the bit-serial execution model. This command overhead becomes the dominant bottleneck, limiting application-level speedup.   We propose Clutch, a data representation and comparison algorithm that accelerates vector-scalar comparisons in PuD systems with high efficiency and scalability. Clutch first uses temporal coding, encoding each vector value as a sequence of leading ones, which enables lookup-based comparison against a scalar by accessing the corresponding DRAM row. To avoid the prohibitive memory footprint of lookup tables at high precision, Clutch partitions operands into multiple multi-bit chunks, compares chunks independently using compact lookup tables, and merges the per-chunk results with a PuD-efficient procedure. By adjusting the number of chunks, Clutch provides a flexible tradeoff between throughput and memory usage. Across predicate evaluation and decision tree inference, Clutch improves end-to-end application throughput and energy efficiency by an average of 12x and 69x over highly optimized CPU and GPU execution, and by 2.9x and 3.0x over the state-of-the-art bit-serial PuD implementation. We also present the first mapping of decision tree inference to PuD execution, extending PuD to a new application domain.",
+      "authors": [
+        "Daichi Tokuda",
+        "Tatsuya Kubo",
+        "Ismail Emir Yuksel",
+        "Ataberk Olgun",
+        "Haocong Luo",
+        "Tomoya Nagatani",
+        "Geraldo F. Oliveira",
+        "Abdullah Giray Yağlıkçı",
+        "Mohammad Sadrosadati",
+        "Onur Mutlu",
+        "Shinya Takamaeda-Yamazaki"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR",
+        "cs.DC"
+      ],
+      "published": "2026-06-22T03:41:12+00:00",
+      "link": "https://arxiv.org/pdf/2606.22812v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Processing-using-DRAM for vector-scalar comparison",
+      "llm_evidence_cn": "利用DRAM进行向量标量比较的处理方法",
+      "llm_evidence": "利用DRAM进行向量标量比较的处理方法",
+      "canonical_evidence": "利用DRAM进行向量标量比较的处理方法",
+      "llm_tldr_en": "Proposes Clutch, a high-performance vector-scalar comparison using DRAM via chunked temporal coding, reducing command overhead in processing-using-DRAM.",
+      "llm_tldr_cn": "针对传统处理-使用-DRAM（PuD）方法在向量标量比较中命令开销大的问题，提出Clutch，采用分块时间编码技术，在DRAM阵列内并行执行比较，显著减少命令数并提升性能，为数据密集型工作负载提供高效的近数据处理方案。",
+      "llm_tldr": "针对传统处理-使用-DRAM（PuD）方法在向量标量比较中命令开销大的问题，提出Clutch，采用分块时间编码技术，在DRAM阵列内并行执行比较，显著减少命令数并提升性能，为数据密集型工作负载提供高效的近数据处理方案。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "processing-in-memory systems",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.22149v1",
+      "source": "arxiv",
+      "title": "Failure Analysis in Transition: An Industry Survey of Challenges, Priorities, and Standardization Needs in Advanced Packaging and Heterogeneous Integration",
+      "abstract": "Failure analysis is being reshaped by heterogeneous integration, chiplet-based architectures, hybrid bonding, backside technologies, & increasingly buried package structures. To examine how practitioners view this transition, an anonymous survey was distributed across a broad set of organizations involved in semiconductor design, packaging, systems, tools, & failure analysis. The survey collected approximately one hundred responses & probed organizational background, supported product domains, future priorities in failure analysis, critical bottlenecks, sample preparation challenges, emerging architecture specific pain points, & perceived needs for workflow acceleration & data standardization. The results show that heterogeneous integration, chiplet, and three-dimensional products dominate the respondent base at 69%, while package & heterogeneous integration failure analysis received the highest importance rating at 7.92 out of 10. Hybrid bonding emerged as the most difficult new architecture to analyze at 54%, higher-resolution non-destructive imaging ranked as the most important future accelerator at 8.18 out of 10, and 83% of respondents supported formalized data standardization frameworks. The complete survey data are provided in Appendix A (Table II) to improve transparency & support future benchmarking.",
+      "authors": [
+        "Himanandhan Reddy Kottur",
+        "Nusra Akter Takia",
+        "Mahamudul Hassan Fuad",
+        "Istiaq Firoz Shiam",
+        "Matthew Walsh",
+        "Navid Asadizanjani"
+      ],
+      "primary_category": "cs.SE",
+      "categories": [
+        "cs.SE",
+        "cs.CV",
+        "eess.IV"
+      ],
+      "published": "2026-06-20T16:59:36+00:00",
+      "link": "https://arxiv.org/pdf/2606.22149v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Industry survey on advanced packaging including hybrid bonding and heterogeneous integration",
+      "llm_evidence_cn": "关于先进封装包括混合键合和异构集成的行业调查",
+      "llm_evidence": "关于先进封装包括混合键合和异构集成的行业调查",
+      "canonical_evidence": "关于先进封装包括混合键合和异构集成的行业调查",
+      "llm_tldr_en": "An industry survey of approximately 100 organizations identifies priorities and challenges in failure analysis for advanced packaging, including hybrid bonding, backside technologies, and chiplet architectures.",
+      "llm_tldr_cn": "本文通过约100份行业问卷，调查了失效分析在异构集成、芯片、混合键合等先进封装技术转型中的挑战与优先事项。调查揭示了样品制备、新兴架构痛点及标准化需求等关键瓶颈，为先进封装领域的发展方向提供了基于实践的观点。该工作对理解混合键合等3D集成技术的实际问题具有重要参考价值。",
+      "llm_tldr": "本文通过约100份行业问卷，调查了失效分析在异构集成、芯片、混合键合等先进封装技术转型中的挑战与优先事项。调查揭示了样品制备、新兴架构痛点及标准化需求等关键瓶颈，为先进封装领域的发展方向提供了基于实践的观点。该工作对理解混合键合等3D集成技术的实际问题具有重要参考价值。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "hybrid bonding 3D integration",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.22635v1",
+      "source": "arxiv",
+      "title": "Design and Development of a Neuromorphic Silicon Suite: PVT Sensing, Stochastic LIF Inference, On-Chip STDP Learning, and Crossbar Programming",
+      "abstract": "Edge neuromorphic systems need compact, configurable hardware that combines probabilistic inference, local learning, and an interface to emerging analogue memory. We present four interface-compatible digital IP blocks implemented as standard-cell CMOS on the SkyWater 130 nm process: a process, voltage and temperature (PVT) sensor built from five selectable ring oscillators that also provides a jitter-based true-random-number generator and a frequency-bounds health monitor; a stochastic leaky integrate-and-fire (LIF) neuron with a configurable LFSR, a programmable activation table, and a refractory period; an on-chip spike-timing-dependent plasticity (STDP) controller with a programmable curve and reward-modulated, eligibility-trace, and anti-Hebbian modes; and a memristive-crossbar controller supporting forming, set, reset, read, and automated current-voltage sweep with current-compliance limiting and half-select biasing. All four blocks share a common serial peripheral interface (SPI) register file; the sensor also exposes a parallel readout. Each occupies a single tile at a 50 MHz target. The suite was verified with 99 cocotb tests at register-transfer and gate level (all passing) and taken through an open standard-cell flow, then submitted for tapeout via the Tiny Tapeout shared-silicon programme. Mapped to the open cell library, each block occupies a post-synthesis cell area of 9.3 to 10.6 thousand square micrometres, places at 61 to 70 per cent tile utilisation, meets the 50 MHz constraint with positive setup and hold margin after clock-tree synthesis, and draws an estimated 0.64 to 0.70 mW under a default switching-activity assumption. The contribution is a coherent, openly released set of building blocks unified by one register interface and one verification flow. All results are from simulation and the implementation flow; no fabricated silicon is reported.",
+      "authors": [
+        "Poornima Kumaresan",
+        "Santhosh Sivasubramani"
+      ],
+      "primary_category": "cs.ET",
+      "categories": [
+        "cs.ET",
+        "cs.AR",
+        "cs.NE"
+      ],
+      "published": "2026-06-21T18:46:33+00:00",
+      "link": "https://arxiv.org/pdf/2606.22635v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Neuromorphic hardware with crossbar programming for analog memory interface",
+      "llm_evidence_cn": "神经形态硬件包含交叉开关编程，与存算一体中模拟存储器接口相关",
+      "llm_evidence": "神经形态硬件包含交叉开关编程，与存算一体中模拟存储器接口相关",
+      "canonical_evidence": "神经形态硬件包含交叉开关编程，与存算一体中模拟存储器接口相关",
+      "llm_tldr_en": "Presents four digital IP blocks for neuromorphic silicon, including crossbar programming supporting analog memory, relevant to compute-in-memory architectures.",
+      "llm_tldr_cn": "针对边缘神经形态系统对紧凑、可配置硬件的需求，设计了一套包括PVT传感、随机LIF神经元、片上STDP学习和交叉开关编程的数字IP模块，在130nm CMOS工艺实现。该工作为存算一体架构中模拟存储器接口提供了实用硬件单元，尽管侧重神经形态，其交叉开关编程技术对CIM设计具有参考价值。",
+      "llm_tldr": "针对边缘神经形态系统对紧凑、可配置硬件的需求，设计了一套包括PVT传感、随机LIF神经元、片上STDP学习和交叉开关编程的数字IP模块，在130nm CMOS工艺实现。该工作为存算一体架构中模拟存储器接口提供了实用硬件单元，尽管侧重神经形态，其交叉开关编程技术对CIM设计具有参考价值。",
+      "llm_tags": [
+        "query:cim:composite"
+      ],
+      "matched_query_tag": "query:cim:composite",
+      "matched_query_text": "Papers central to 存算一体，主要关注基于混合键合的三维堆叠的近存计算, especially work that connects or combines: compute-in-memory architecture; hybrid bonding 3D integration; 3D stacking memory technology; near-memory computing design; processing-in-memory systems; 3D integrated circuit design; What are the key benefits of hybrid bonding for 3D stacked near memory computing?; How does compute in memory architecture improve energy efficiency?; Design challenges of 3D stacking for near memory computing systems.",
+      "matched_requirement_id": "req-composite-cim",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

@@ -1,0 +1,1115 @@
+Title: Multi-Level Resistive Synapses for On-Chip Neural Networks: A Physics-Based Design of a Memristive Crossbar Fabric with Quasi-Continuous Conductance States
+
+URL Source: https://arxiv.org/pdf/2606.22621v1
+
+Published Time: Tue, 23 Jun 2026 02:22:27 GMT
+
+Number of Pages: 30
+
+Markdown Content:
+MULTI-LEVEL RESISTIVE SYNAPSES FOR ON-CHIP NEURAL NETWORKS: A PHYSICS-BASED DESIGN OF A MEMRISTIVE CROSSBAR FABRIC WITH QUASI-CONTINUOUS CONDUCTANCE STATES 
+
+DAVID ALEJANDRO TREJO PIZZO 
+
+Abstract. Building on the concept of resistive communication , this paper develops a complete physics-based design of an on-chip neural network whose synaptic weights are stored in memristive devices supporting a very large number of sub-levels of resistance. We begin from the ionic transport physics of valence-change and electrochemical-metallization memristors and derive a state-variable model in which the internal filament geometry is a continuous variable. From this model we obtain a programmable conductance with a quasi-continuous spectrum of stable states, and we quantify how many distinguishable sub-levels can be packed into a single device given thermal noise, read disturb, conductance drift, and quantized-conductance effects. We then assemble these devices into a 1T1R crossbar fabric, derive the exact linear algebra of analog vector–matrix multiplication in the presence of wire resistance and sneak paths, and design a differential-pair synapse that maps signed weights onto strictly positive conductances. A multilayer architecture is proposed in which forward inference, backpropagation, and weight update are all executed physically in the analog domain. We derive the in-situ outer-product learning rule, its discretization onto a finite (but very fine) conductance lattice, and the resulting quantization-noise dynamics. We provide an energy and area model, an information-theoretic capacity analysis of the multi-level cell, and a treatment of how resistive communication couples the tiles of a large neuromorphic system. Finally we show that this substrate is especially well suited to executing large language models, and argue quantitatively that it surpasses both binary/few-level ReRAM (by the level-count factor log 2 L in density and energy) and traditional CMOS (by eliminating weight movement entirely). We detail the material stack (recommending HfO 2-based devices), the exact FEOL/BEOL CMOS-integration flow that lets the whole fabric be built in a standard foundry process, a SPICE model and crossbar validation, the complete memristor-based FPGA neuromorphic system, and a ternary BitNet datapath with projected per-token performance several thousand times more energy-efficient than a GPU or an advanced CPU. The result is a self-contained blueprint for a high-density, analog, in-memory neural processor. 
+
+Contents 
+
+1. Introduction 22. Physics of the Multi-Level Device 33. How Many Sub-Levels? A Capacity Analysis 84. A Compact Model for Simulation 10 5. The Crossbar Fabric 10 6. On-Chip Neural-Network Architecture 12 7. In-Situ Learning on the Conductance Lattice 13 8. Mixed-Signal Peripherals 14 9. Energy and Area Model 15 10. Resistive Communication Between Tiles 15 11. System-Level Considerations 16 12. A Worked Example: A Three-Layer Classifier 16 13. Comparison with Digital Accelerators 17 
+
+Date : October 2025. Independent researcher. dtrejopizzo@gmail.com . 
+
+> 1
+> arXiv:2606.22621v1 [cs.AR] 21 Jun 2026 2DAVID ALEJANDRO TREJO PIZZO
+
+14. Computing Large Language Models on the Multi-Level Fabric 17 15. In-Memory Self-Attention 19 16. CMOS Integration: FEOL, BEOL, and Foundry Compatibility 20 17. SPICE Simulation 21 18. A Memristive FPGA for Neuromorphic Computing 22 19. Running a Local BitNet on the Fabric 23 20. A Hardware-Native Architecture for Neural Interconnect 24 21. Three-Dimensional Integration 25 22. Fault Tolerance, Yield, and Redundancy 27 23. Hardware Security: a Memristive PUF 27 24. A Roofline and an Energy–Delay Optimality Argument 28 25. Discussion 29 26. Conclusion 29 References 30 1. Introduction 
+
+The end of classical Dennard scaling and the slowing of Moore’s law have made the physical separation between memory and computation—the von Neumann bottleneck—the dominant cost of modern data-intensive workloads. Artificial neural networks are the paradigmatic example: the vast majority of their energy is spent moving weights between off-chip memory and arithmetic units rather than performing the multiply–accumulate (MAC) operations themselves [6, 7]. The memristor, the fourth fundamental two-terminal circuit element [1, 2], offers a direct escape. Because its conductance is both programmable and persistent , a memristor can store a synaptic weight and, when a voltage is applied, perform an analog multiplication by Ohm’s law, i = G v .Arranged in a crossbar, a population of such devices performs a full vector–matrix product in a single step, in the place where the data already lives [8, 9]. In previous work [18] we introduced the idea of resistive communication : the observation that the set/reset dynamics of a Mott or valence-change memristor (a “neuristor” [3]) do not merely store a bit but actively transmit information through the formation and rupture of conductive nanofilaments, in a manner analogous to the electrical synapse. That work argued the concept qualitatively. The present paper provides the quantitative, physics-based design that the concept demands, and it focuses on one property that the earlier work only hinted at: the ability of a single device to hold not one bit, but a very large number of sub-levels of resistivity. A device that can occupy, stably and reproducibly, hundreds of distinguishable conductance states is, in effect, an analog synaptic weight. A crossbar of such devices is an analog weight matrix. A stack of such crossbars, wired through resistive-communication channels, is an on-chip neural network. 1.1. Contributions. 
+
+(i) A continuous state-variable physical model of a multi-level memristor (Section 2), derived from ionic drift–diffusion, from which the quasi-continuous conductance spectrum emerges naturally. (ii) A capacity analysis (Section 3) bounding the number of reliably distinguishable sub-levels per device under thermal noise, drift, quantized conductance, and programming stochastic-ity. (iii) A compact model for circuit simulation (Section 4) and the exact circuit theory of the 1T1R crossbar (Section 5), including wire-resistance (IR-drop) corrections and the differential synapse representing signed weights. MULTI-LEVEL RESISTIVE SYNAPSES 3
+
+(iv) A complete multilayer architecture (Section 6) performing forward inference, error back-propagation, and weight update entirely in the analog domain, with the in-situ learning rule derived from gradient descent and discretized onto the conductance lattice (Section 7). (v) Mixed-signal peripheral, energy, area, and resistive-communication models tying many tiles into a single fabric (Sections 8–10). (vi) A quantitative case for executing large language models on this fabric (Section 14), estab-lishing its advantage over both binary/few-level ReRAM and conventional CMOS. (vii) A material study recommending the optimal stack (Section 2.8), the exact FEOL/BEOL foundry-integration flow (Section 16), a SPICE model (Section 17), the complete memristive-FPGA neuromorphic system (Section 18), and a ternary BitNet datapath with GPU/M4 performance comparisons (Section 19). (viii) An argument that the design is a hardware-native neural-interconnect architecture requiring no high-level program, kernel, or runtime (Section 20), and a three-dimensional integration study showing density scaling multiplicatively with tier count (Section 21). (ix) A fully in-memory self-attention scheme with current-mode analog softmax (Section 15); a fault-tolerance, yield, and redundancy analysis (Section 22); a memristive physical-unclonable-function for on-chip security (Section 23); and a roofline plus an energy–delay optimality theorem positioning the fabric against the fundamental limits (Section 24). 1.2. Organization. Section 2 develops the device physics. Section 3 bounds the number of sub-levels. Section 4 gives a simulation-ready compact model. Section 5 treats the crossbar circuit theory. Section 6 builds the network architecture, and Section 7 the in-situ learning rule. Sections 8– 10 cover peripherals, energy/area, and inter-tile resistive communication. Section 11 addresses system-level mapping and reliability. Sections 12–13 give a worked example and a comparison with digital accelerators, and Section 14 makes the case for large language models. Section 26 concludes. 2. Physics of the Multi-Level Device 
+
+2.1. From flux–charge to a state variable. The constitutive relation of the ideal memristor links flux and charge, (1) dϕ = M (q) dq, 
+
+so that the charge-controlled memristance M (q) = dϕ/dq depends on the entire history of current that has flowed; equivalently a flux-controlled device has memductance W (ϕ) = dq/dϕ . No real device is purely charge-controlled: the resistance depends on a physical internal degree of freedom— the geometry of a conductive filament or the position of an oxygen-vacancy front. We therefore adopt the generic state-variable formulation, 
+
+i(t) = G(x, v ) v(t),(2) 
+
+dx dt = f (x, v ),(3) where v is the terminal voltage, i the current, and x ∈ [0 , 1] a dimensionless internal state encoding, e.g., the normalized length of the conductive filament. Equations (2)–(3) are the foundation of everything that follows: (2) is the read (multiplication) path used during inference; (3) is the write (programming) path used during learning. The central design problem is to make x—and hence G—occupy a dense set of stable values. 
+
+Design Principle 2.1. A useful analog synapse requires that the map x 7 → G(x) be continuous and that the dynamics (3) admit a dense set of metastable fixed points under the zero-bias (retention) condition f (x, 0) ≈ 0. The number of such metastable states is the number of storable sub-levels. 4 DAVID ALEJANDRO TREJO PIZZO 
+
+v q
+
+i ϕ               
+
+> dq =C dv (capacitor)
+> dϕ =L di
+> (inductor)
+> dv =R di (resistor) i= ˙ qdϕ =M dq
+> memristor
+> v= ˙ϕ
+> M(q)
+
+Figure 1. The four fundamental two-terminal elements as relations among the pairs ( v, i, q, ϕ ). 2.2. Linear and nonlinear drift models. In the Strukov TiO 2 picture [2] the device is a series combination of a doped (low-resistance) region of width w = xD and an undoped (high-resistance) region of width (1 − x)D, where D is the film thickness: (4) R(x) = Ron x + Roff (1 − x).
+
+The dopant front drifts under the local field with ionic mobility μv,(5) dx dt = μvRon 
+
+D2 i(t) = μvRon 
+
+D2
+
+v(t)
+
+R(x) .
+
+The factor 1 /D 2 is the origin of the nanoscale signature of the memristor: shrinking D from microns to nanometers amplifies the state’s sensitivity to charge by twelve orders of magnitude, which is precisely why memristive memory is a nanoscale phenomenon. Equation (5) alone drives the state to its rails, so a window function g(x) is introduced to enforce 
+
+x ∈ [0 , 1] and model the vanishing of ionic drift near the boundaries: (6) dx dt = η μvRon 
+
+D2
+
+vR(x) g(x), g(x) = 1 − (2 x − 1) 2p,
+
+with polarity η = ±1 and window sharpness p. The window captures the fact that programming be-comes progressively harder near either extreme, which directly shapes the spacing of the achievable sub-levels. 2.3. Drift–diffusion of mobile ions: the Nernst–Planck picture. The phenomenological window model can be grounded in the microscopic transport of the mobile species (oxygen vacancies, or metal cations in CBRAM) [5, 4]. Let n(r, t ) be the vacancy concentration. Conservation of the ionic species obeys the continuity equation ∂tn+∇· Jion = 0, with the Nernst–Planck flux combining drift and Fickian diffusion, (7) Jion = μv n E
+
+| {z } 
+
+> drift
+
+− Dv ∇n
+
+| {z } 
+
+> diffusion
+
+, Dv = μvkB Tqi
+
+,
+
+the diffusivity and mobility being tied by the Einstein relation. The internal state x of the compact model is the spatial average of n over the active region Ω, (8) x(t) = 1
+
+n0 Ω
+
+Z
+
+> Ω
+
+n(r, t ) d3r, MULTI-LEVEL RESISTIVE SYNAPSES 5
+
+so integrating (7) over Ω and applying the divergence theorem reproduces a first-order law ˙ x =
+
+f (x, v ): the drift term gives the field-driven set/reset and the diffusion term the spontaneous relaxation (retention loss). The compact (6) is thus the volume-averaged Nernst–Planck equation, and the window g(x) encodes the geometric confinement of Ω. 2.4. Ionic transport: threshold and the exponential write. The linear model hides the strong nonlinearity that makes multi-level storage possible. Ion hopping over an energy barrier Ua
+
+in a field E follows a Mott–Gurney / Butler–Volmer form; the drift velocity of the vacancy front is (9) dx dt = ν0 e−Ua/k B T sinh 
+
+ qiaE 
+
+2kB T
+
+
+
+,
+
+with attempt frequency ν0, hopping distance a, ionic charge qi. Writing E = v/D and grouping constants, (10) dx dt = κ e −Ua/k B T sinh( v/V 0), V0 = 2kB T D qia .
+
+Proposition 2.2 (Non-destructive read) . For a read pulse with |v| ≪ V0 the relative state pertur-bation per read is 
+
+|∆x|
+
+∆xset 
+
+≈ sinh( v/V 0)sinh( vp/V 0) ≪ 1,
+
+where vp is the program voltage. Hence the stored sub-level is read non-destructively, and the number of reads before a refresh is required scales as sinh( vp/V 0)/ sinh( vr/V 0).
+
+The steep sinh thus does double duty: below threshold the state is effectively frozen (retention and non-destructive read), and above it the state moves exponentially fast (fast write). This is the single most important physical fact enabling a dense analog memory. 2.5. Joule self-heating and thermal runaway of reset. The barrier Ua in (10) is for hopping at the lattice temperature, but the filament heats under current. A lumped energy balance gives (11) Cth 
+
+dT dt = G(x) v2
+
+| {z }
+
+> Joule input
+
+− T − T0
+
+Rth 
+
+| {z }
+
+> conduction to bath
+
+,
+
+with thermal capacitance Cth and resistance Rth . In quasi-static operation T = T0 + Rth Gv 2, and substituting into the Arrhenius factor couples electrical and thermal states: (12) ˙x ∝ exp 
+
+
+
+− Ua
+
+kB (T0 + Rth Gv 2)
+
+
+
+sinh( v/V 0).
+
+This positive feedback—more current, more heat, faster ion motion—makes the reset of unipolar devices abrupt and sets the compliance current the access transistor must enforce. For multi-level operation we deliberately remain in the bipolar, field-driven regime where the sinh term dominates and thermal feedback is weak, because abrupt thermal reset destroys intermediate levels. 2.6. Filamentary conductance and quantization. For electrochemical-metallization (CBRAM) and many oxide devices, conduction is filamentary: a metallic bridge of cross-section Af (x) shorts the electrodes, with (13) G(x) = σf
+
+Af (x)
+
+ℓf
+
++ Gleak .
+
+When the filament narrows to atomic dimensions, conduction is ballistic and the conductance is quantized in units of the conductance quantum [15], (14) G0 = 2e2
+
+h ≈ 77 .5 μS ( ≈ (12 .9 kΩ) −1 ),6 DAVID ALEJANDRO TREJO PIZZO 
+
+so near the bottom of the range G ≃ n G 0 with integer n. This is both a blessing—naturally reproducible low-conductance sub-levels at 1 G0, 2G0, . . . —and a curse—a hard granularity at the very lowest states. The usable analog regime therefore lives above the few-atom quantized regime, where many parallel channels average into a quasi-continuous G(x): (15) G ∈ [ Gmin , G max ], Gmin ≳ 10 G0.
+
+2.7. Electronic conduction mechanisms. Between the metallic LRS and the insulating HRS the current is carried by several competing electronic transport channels, each with a distinct i–v
+
+signature that the compact model of Section 4 must reproduce. In the HRS the residual tunneling gap dg dominates and conduction is Simmons/Fowler–Nordheim direct tunneling, (16) itun ∝ vdg
+
+exp 
+
+
+
+− 4πd g
+
+> h
+
+p2m∗ΦB
+
+
+
+,
+
+exponentially sensitive to the barrier width dg and height Φ B —which is exactly why a sub-nanometre change in the filament gap produces a large, and finely controllable, conductance change. At higher fields trap-assisted Poole–Frenkel emission contributes, (17) iPF ∝ v exp 
+
+ −q(Φ T − pqv/πεd )
+
+kB T
+
+
+
+,
+
+with trap depth Φ T and permittivity ε, while bulk-limited space-charge-limited conduction gives the Mott–Gurney law iSCLC = 98 εμ v 2/d 3. The superposition of these channels, each thermally activated, is what makes G(x) a smooth, monotone, and densely tunable function of the internal state—the electronic underpinning of Design Principle 2.1. 
+
+> v
+> i
+> Vset
+> Vreset
+> SET
+> RESET
+> forming
+> Icc
+> HRS
+> LRS
+
+Figure 2. Bipolar resistive-switching i–v loop. From the pristine cell a forming 
+
+sweep (dashed) nucleates the first filament. Thereafter a positive SET at Vset 
+
+switches HRS →LRS (current capped at the compliance Icc supplied by the 1T1R transistor), and a negative RESET at Vreset ruptures the filament LRS →HRS. Stop-ping the SET/RESET partway places the cell at an intermediate conductance—one analog sub-level. 2.8. Materials of the memristor and the optimal stack. The electrical behaviour derived above is set by the material stack. A valence-change memristor is a metal–insulator–metal (MIM) sandwich whose switching layer is a sub-stoichiometric transition-metal oxide; the mobile species are oxygen vacancies V ••  
+
+> O
+
+created and annihilated at an oxygen-exchange interface. The relevant material parameters map directly onto the model: the oxide bandgap Eg and electron affinity set the barrier height Φ B ; the vacancy formation enthalpy and migration barrier set Ua in (10); the dielectric constant εr sets the field for a given voltage; and the electrode work functions set the Schottky asymmetry that makes switching bipolar. MULTI-LEVEL RESISTIVE SYNAPSES 7    
+
+> TiN bottom electrode (inert)
+> HfO 2−xswitching oxide
+> V••
+> Ofilament
+> Ti oxygen-scavenging layer
+> TiN top electrode (active)
+> 3–10 nm
+> ∼5 nm
+> E = v/D
+
+Figure 3. A reactive Ti oxygen-scavenging layer between the active TiN electrode and the HfO 2−x switching oxide creates and stores oxygen, leaving a vacancy-rich region that nucleates the conductive filament; the inert bottom TiN electrode an-chors it. All four materials are already qualified in standard logic BEOL. 
+
+Table 1. Candidate switching oxides for an analog multi-level synapse. 
+
+Oxide Eg Endurance Levels CMOS Note 
+
+HfO 2 5.7 eV 10 6–10 9 high native high-k since 45 nm HKMG Ta 2O5/TaO x 4.4 eV 10 10 –10 12 high good best endurance TiO 2 3.2 eV 10 6 med ok the original [2] Al 2O3 6.4 eV 10 8 low good barrier/series layer SiO x 8.9 eV 10 7 med native fully Si-compatible 
+
+Design Principle 2.3 (Best material choice) . For foundry integration the unambiguous primary choice is hafnium oxide (HfO 2−x) with TiN electrodes and a thin Ti oxygen-scavenging layer (Fig. 3). HfO 2 is already the high-k gate dielectric in every high-k/metal-gate (HKMG) logic node since 45 nm, so its deposition (ALD), etch, and reliability are fully qualified at every major foundry; TiN is the standard barrier/electrode metal. Where maximum endurance is needed (frequent in-situ training) a bilayer HfO x/TaO x stack is preferred, adding the 10 12 -cycle endurance of tantalum oxide while retaining a Hf-based, CMOS-clean interface. We therefore specify HfO 2−x (optionally HfO x/TaO x bilayer) for the remainder of the paper. The atomic-layer-deposited HfO 2 thickness D enters the model through the 1 /D 2 sensitivity of (5) and the threshold V0 ∝ D of (10); a 5 nm film gives a ∼ 1 V programming threshold and a sub-volt read, matching the supply rails of a standard logic process. 2.9. The conductance spectrum. Combining (4) with a filamentary correction, the steady-state conductance is well approximated by a geometric (log-linear) law, (18) G(x) = Gmin 
+
+ Gmax 
+
+Gmin 
+
+x
+
+,
+
+because filament cross-section and tunneling gap both depend exponentially on the displaced ionic charge. The dynamic range is (19) ρ ≡ Gmax 
+
+Gmin 
+
+= Roff 
+
+Ron 
+
+∈ [10 , 10 3].
+
+Equation (18) says equal increments of stored charge produce equal ratios of conductance—ideal for representing weights on a logarithmic scale; for a linear weight scale the controller pre-distorts the pulse train (Section 7). 8 DAVID ALEJANDRO TREJO PIZZO        
+
+> −1−0.50.51
+> −1
+> −0.5
+> 0.5
+> 1
+> pinched at origin
+> voltage v(V)
+> current i(a.u.) low freq.
+> high freq.
+
+Figure 4. Pinched-hysteresis I–V signature of a memristor: the loop passes through the origin (zero current at zero voltage). The lobe area shrinks as the drive frequency rises (dashed) because the state variable x has less time to respond—the fingerprint of x lagging the drive in (3). Compact-model parameters of Section 4 are extracted by matching this lobe area versus frequency. 3. How Many Sub-Levels? A Capacity Analysis 
+
+A sub-level is usable only if it can be (i) written reproducibly, (ii) retained, and (iii) read back distinguishably from its neighbors. We bound the number L of usable levels. 3.1. Read noise floor. During a read at bias Vr, the current I = GV r is corrupted by thermal (Johnson–Nyquist) noise; over a read bandwidth ∆ f the thermal current-noise variance is σ2 
+
+> I, th
+
+=4kB T G ∆f . Referred to conductance, σG = σI /V r,(20) σG, th = 1
+
+Vr
+
+p4kB T G ∆f . 
+
+To separate two adjacent levels with spacing ∆ G at a target bit-error rate we require a margin of 
+
+m standard deviations (e.g. m = 6 for BER ∼ 10 −9): ∆ G ≥ m σ G, th .3.2. Spectral view of the read noise. The full read-noise PSD sums thermal, shot, and flicker contributions, (21) SI (f ) = 4 kB T G 
+
+| {z }
+
+> thermal
+
++ 2 qI 
+
+|{z} 
+
+> shot
+
++ Kf I2
+
+f α
+
+| {z }  
+
+> flicker (1 /f )
+
+, α ≈ 1,
+
+giving integrated noise over [ f1, f 2], (22) σ2 
+
+> I
+
+= (4 kB T G + 2 qI )( f2 − f1) + Kf I2 ln f2
+
+f1
+
+.
+
+At small read currents the ∝ I2 flicker term dominates at low frequency, motivating correlated double sampling in the readout, which subtracts the slow 1 /f component and recovers the white-limited resolution assumed below. 3.3. Number of distinguishable levels. Spacing the levels geometrically (constant ∆ G/G ,matching (18)) and integrating the resolution constraint across the dynamic range gives a channel-capacity-like bound. 
+
+Theorem 3.1 (Sub-level count) . Under a thermal read-noise floor and an m-sigma separation margin, the number of distinguishable conductance levels is 
+
+(23) Lth = 1 + Vr
+
+m√4kB T ∆f
+
+Z Gmax 
+
+> Gmin
+
+dG 
+
+√G = 1 + 2Vr
+
+ √Gmax − √Gmin 
+
+
+
+m√4kB T ∆f .MULTI-LEVEL RESISTIVE SYNAPSES 9
+
+Equivalently the per-read information capacity is C = log 2 L = 12 log 2(1 + S/N ), with S/N the squared ratio of full-scale to RMS read current. Remark 3.2 . As a representative point, with Vr = 0 .2 V, Gmax = 200 μS, Gmin = 2 μS, T = 300 K, ∆f = 50 MHz (matching a τr ≈ 10 ns read), and m = 6, (23) yields Lth ≈ 9 × 10 2 thermally-distinguishable levels—on the order of 10 effective bits per cell. Device drift and programming stochasticity then reduce the usable count to several hundred ( ∼ 8 bits), consistent with experi-mentally reported multilevel ReRAM/PCM cells [11, 12]. 
+
+Table 2. Representative multi-level cell budget (bipolar oxide device). 
+
+Quantity Value Role 
+
+Gmax /G min 100 Dynamic range ρ; sets weight range (18) 
+
+Vr 0.2 V Read bias; below threshold V0
+
+(Prop. 2.2) 
+
+V0 ∼ 1 V Programming threshold scale (10) ∆f 50 MHz Read bandwidth; sets thermal floor (20) 
+
+m 6 Separation margin (BER ∼ 10 −9)
+
+Lth ∼ 930 Thermal-limit levels (Thm. 3.1) 
+
+Lusable ∼ 256 After drift + programming noise log 2 L ∼ 8 bits Usable per-cell resolution 3.4. Drift, retention, and the density–robustness trade. Real devices relax: after program-ming the filament reconfigures and G drifts, often as a power law G(t) = G(t0)( t/t 0)−νd with a small exponent νd. Levels spaced more finely than the drift spread ∆ Gdrift (t) merge before the next refresh, so the effective level count is (24) Leff = min 
+
+
+
+Lth , ln ρ
+
+ln  1 + νd ln( tret /t 0)
+
+,
+
+formalizing the trade between density (many fine levels) and retention (coarse, robust levels). For neural-network weights this trade is benign: inference tolerates weight perturbations, and periodic in-situ training (Section 7) continually refreshes the array. 3.5. Programming stochasticity. Each program pulse moves x by a stochastic increment be-cause ion hopping is Poisson-like. From (10), a pulse of width τ has (25) μ∆x = κe −Ua/k B T sinh( vp/V 0) τ, σ2∆x = μ∆x/N ion ,
+
+where Nion is the number of mobile ions; larger filaments write more deterministically. Program-and-verify suppresses this: after each pulse the controller reads G and adjusts the next pulse, converging the realized level with residual variance set by read noise (20) rather than write stochasticity. This is how hundreds of analog levels are achieved in practice [14]. 3.6. Mutual-information capacity of one cell. The level count (23) is a hard-decision bound. The true storage capacity is the mutual information between the programmed weight w and the read-back ˆ w = w + ζ, where ζ aggregates read noise, drift, and quantization with variance σ2 
+
+> ζ
+
+:(26) Ccell = max  
+
+> p(w)
+
+I(w; ˆ w) = 12 log 2
+
+
+
+1 + σ2
+
+> w
+
+σ2
+
+> ζ
+
+
+
+bits ,10 DAVID ALEJANDRO TREJO PIZZO 
+
+maximized by a Gaussian source, with L = 2 Ccell . Every halving of σζ buys one extra bit (a doubling of usable sub-levels): dense multi-level storage is the program of driving σζ down through differential sensing, correlated double sampling, and program-and-verify. 4. A Compact Model for Simulation 
+
+For circuit-level (SPICE) design the distributed physics is collapsed into a two-equation compact model. The read path interpolates between tunneling-limited HRS and ohmic LRS, (27) i = (1 − x) γ sinh( v/v t) + x G on v, 
+
+where the first term is Simmons-barrier tunneling through the residual gap ( γ, v t fit parameters) and the second is metallic filament conduction. The state evolves by the thresholded drift (28) dx dt = μv sgn( v) ( |v| − vth ) α 
+
+> +
+
+g(x), (·)+ = max( ·, 0) ,
+
+with programming threshold vth and field exponent α. Table-free, differentiable, and continuous, this model is what the architecture simulator of Section 6 integrates per device; its parameters are extracted from the pinched loop of Fig. 4 by matching loop area versus frequency. 5. The Crossbar Fabric 
+
+5.1. Ideal analog vector–matrix multiplication. Place memristors at every junction of an 
+
+N × M grid, device ( i, j ) having conductance Gij . Drive row i with voltage vi and hold every column at virtual ground (a transimpedance amplifier). By Kirchhoff’s current law the current summed onto column j is (29) Ij =
+
+> N
+
+X
+
+> i=1
+
+Gij vi, I = G⊤v.
+
+Theorem 5.1 (Analog VMM primitive) . The crossbar of (29) computes a complete vector–matrix product in O(1) time using O(N M ) devices, dissipating energy only in the devices themselves. A neural layer’s pre-activation z = W⊤x is realized by encoding x as voltages and reading z as column currents.     
+
+> v1
+> v2
+> v3
+> R
+> I1
+> R
+> I2
+> R
+> I3
+> Ij=P
+> iGij vi
+> Gij
+
+Figure 5. Analog vector–matrix multiplication in a memristive crossbar. Input voltages vi drive the rows; each junction memristor Gij injects a current Gij vi onto its column; Kirchhoff’s law sums them, and a transimpedance integrator reads Ij =
+
+P 
+
+> i
+
+Gij vi. The whole product I = G⊤v is computed in one step (Theorem 5.1). MULTI-LEVEL RESISTIVE SYNAPSES 11         
+
+> (a) 1T1R cell
+> BL
+> Gij
+> WL i
+> SL
+> (b) differential synapse
+> BL +BL −
+> G+G−
+> vi(WL i)
+> Wij =β(G+
+> ij −G−
+> ij )
+
+Figure 6. (a) The 1T1R synapse: an access transistor gates the memristor Gij ,suppressing sneak paths and supplying the set compliance current Icc that sets Gmax .(b) The differential synapse encodes a signed weight as Wij = β(G+ 
+
+> ij
+
+− G− 
+
+> ij
+
+) on two bit lines; the two devices age together, cancelling common-mode drift. 5.2. Signed weights: the differential synapse. Conductances are positive but weights are signed. Represent each weight by a differential pair on two adjacent columns, (30) Wij = β (G+ 
+
+> ij
+
+− G− 
+
+> ij
+
+),
+
+with β a fixed transconductance scale; the column currents subtract in the analog domain, zj =
+
+β P
+
+> i
+
+(G+ 
+
+> ij
+
+− G− 
+
+> ij
+
+)vi. This doubles device count but yields (i) a full signed range, (ii) first-order cancellation of common-mode drift and temperature, since G+ and G− age together, and (iii) a robust zero at G+ = G− anywhere in range. The differential pair is the physical embodiment of the excitatory/inhibitory synapse of the resistive-communication model: G+ excitatory, G− inhibitory. 5.3. Nonidealities: IR drop and the exact nodal system. Real word/bit lines have finite resistance r (g = 1 /r ) per segment, degrading the delivered voltage. Let VWL , VBL be the node-voltage vectors; the exact nodal system of the passive mesh is (31) Y
+
+VWL 
+
+VBL 
+
+
+
+=
+
+isrc 
+
+0
+
+
+
+, Y =
+
+YWL + Dr −G
+
+−G⊤ YBL + Dc
+
+
+
+,
+
+with Dr, Dc diagonal row/column conductance sums and YWL , YBL tridiagonal line-conductance matrices. The ideal result (29) is the g → ∞ limit. 
+
+Proposition 5.2 (IR-drop error growth) . The relative output error of (31) versus the ideal (29) 
+
+grows with array size as 
+
+∥I − Iideal ∥∥Iideal ∥ = O
+
+ N ¯Gg
+
+
+
+,
+
+which bounds the practical tile size and motivates the tiling of Section 11. 
+
+5.4. The 1T1R cell and sneak-path suppression. In a passive (0T1R) crossbar, half-selected devices leak current along sneak paths , corrupting read and write. Placing an access transistor in series with each memristor—the 1T1R cell of Fig. 6—makes device ( i, j ) conduct only when its row gate is asserted: (32) Iij =
+
+(
+
+Gij vi, gate i = 1 ,
+
+≈ 0, gate i = 0 .
+
+The transistor also supplies the compliance current Icc during forming/set, limiting filament growth and thereby setting Gmax —the very mechanism of a precise multi-level set. The cost is area: each synapse is a transistor plus a memristor, and the differential synapse uses two. 12 DAVID ALEJANDRO TREJO PIZZO HRS (reset) top electrode bottom electrode forming/set top electrode bottom electrode LRS (set) top electrode bottom electrode +Vset Icc  
+
+> −Vreset (rupture)
+
+Figure 7. Microscopic mechanism of bipolar resistive switching. Under + Vset mo-bile species (oxygen vacancies or metal cations, red) drift from the active electrode and nucleate a conductive filament across the oxide; the compliance current Icc caps its cross-section—and hence Gmax (18). A reverse −Vreset ruptures the filament, returning the cell toward the HRS. Partial set/reset stops the front at intermediate heights, realizing the analog sub-levels of Section 3; each such event is an act of resistive communication. 6. On-Chip Neural-Network Architecture 
+
+6.1. Layer primitive. A single layer is one differential crossbar tile plus a row of neuron circuits. The tile computes z = W⊤x as column currents (Thm. 5.1); each column current is integrated and passed through a nonlinearity φ(·): (33) aj = φ(zj + bj ),
+
+the bias bj injected by an extra always-on row encoding a constant. φ may be a sigmoid (naturally produced by a subthreshold differential pair), a tanh, or a rectifier (a clamped current mirror).  
+
+> Iin
+> M1
+> +V1
+> C1
+> v1
+> M2
+> −V2
+> C2
+> vout (spike)
+
+Figure 8. Neuristor built from two Mott memristors M1, M 2, each shunted by a capacitance Ck and biased with opposite polarity. Crossing the insulator–metal transition voltage triggers an all-or-nothing relaxation spike at vout : the electronic action potential used as the spiking neuron at each tile output. 6.2. The spiking neuristor neuron. The threshold neuron is realized by the Mott-memristor neuristor of Fig. 8 [3]. Each Mott channel k ∈ { 1, 2} has a parallel capacitance Ck and opposite-polarity bias; its dynamics are a FitzHugh–Nagumo-like relaxation pair, 
+
+C1
+
+dv 1
+
+dt = Iin − G1(v1) v1,(34) 
+
+C2
+
+dv 2
+
+dt = G1(v1) v1 − G2(v2) v2,(35) where Gk(v) is the steeply nonlinear insulator–metal-transition Mott conductance. When Iin pushes 
+
+v1 past the transition voltage Vth , the channel switches metallic, dumps charge, and relaxes—an all-or-nothing voltage spike. This is the electronic action potential of the resistive-communication model and lets the same fabric run rate-coded (continuous φ) or spike-coded [16]. MULTI-LEVEL RESISTIVE SYNAPSES 13 
+
+6.3. Depth: stacking tiles. A deep network is a stack of K tiles, ℓ = 1 , . . . , K ,
+
+z(ℓ) = W(ℓ)⊤a(ℓ−1) + b(ℓ),(36) 
+
+a(ℓ) = φ(ℓ) z(ℓ), a(0) = x.(37) The activations a(ℓ) are re-encoded as the row voltages of tile ℓ+1. This re-encoding is exactly the resistive communication channel: the analog state at one neuristor population’s output is transmitted—by current, and ultimately by the set/reset of inter-tile coupling devices—to the next population, preserving the analog value rather than quantizing to digital. Section 10 treats this channel quantitatively.          
+
+> x
+> (input) W(1) ⊤
+> crossbar φW(2) ⊤
+> crossbar φW(K)⊤
+> crossbar φa(K)
+> (output)
+> RC
+> a(1)
+> RC · · ·
+> δbackprop: same tiles, transpose (Prop. 7.1)
+
+Figure 9. Multilayer pipeline. Each layer is a crossbar tile ( W(ℓ)⊤) followed by a neuron row ( φ); activations propagate left-to-right over the active resistive-communication (RC) channels of Section 10, staying analog between tiles. The dashed return path is the backward pass, executed on the same tiles driven in transpose (Proposition 7.1). 6.4. Why multi-level matters here. If each device held a single bit, representing a weight to b
+
+bits would need b devices and a digital adder—reintroducing the von Neumann cost we set out to remove. With L ≈ 2b analog sub-levels per device, one differential pair holds the entire weight and the multiply is a single Ohm’s-law event. Density and energy efficiency scale directly with log 2 L;the entire architecture rests on the many-sub-level capability of Section 3. 7. In-Situ Learning on the Conductance Lattice 
+
+7.1. Backpropagation, physically. Training minimizes a loss L. The gradient at layer ℓ is the outer product of the layer input with the back-propagated error, (38) ∂L
+
+∂W(ℓ) = a(ℓ−1) δ(ℓ)⊤, δ(ℓ) = φ′ z(ℓ) ⊙  W(ℓ+1) δ(ℓ+1) .
+
+Proposition 7.1 (Free transpose) . The crossbar that computes the forward product W⊤a also computes the backward product Wδ when driven from its columns and read from its rows. Both passes of backpropagation are therefore analog VMMs on identical hardware. 
+
+7.2. The outer-product update. The update ∆ Wij = −η a i δj is an outer product, realized by a pulse on row i of amplitude/duration ∝ ai coincident with a pulse on column j ∝ δj ; only the intersection device sees the full overdrive, and by the steep sinh law only it changes state: (39) ∆xij ∝ sinh 
+
+ vrow  
+
+> i+vcol
+> j
+> V0
+
+
+
+− sinh 
+
+ vrow 
+
+> i
+> V0
+
+
+
+− sinh 
+
+ vcol 
+
+> j
+> V0
+
+
+
+.
+
+Coincident pulses give a multiplicative (Hebbian) update while half-selected devices are nearly untouched—exactly spike-timing-dependent plasticity realized by overlapping pre/post pulses [10]. The resistive-communication “set/reset that remembers past memristance levels” is the physical substrate of learning. 14 DAVID ALEJANDRO TREJO PIZZO 
+
+7.3. Discretization onto a finite lattice. The achievable conductances form a fine but finite lattice {G1, . . . , G L}. Writing the realized weight as the nearest lattice point ˆW = Q(W ), the update becomes a stochastic-rounding step (40) W ← Q W − η a δ + ξ,ξ the program-and-verify residual. For large L the quantization acts as additive noise of variance 
+
+σ2 
+
+> Q
+
+= (∆ G/β )2/12; stochastic gradient descent is robust to it provided (41) η ∥a δ ∥ ≳ ∆W = β−1∆G, 
+
+i.e. the learning step is at least one lattice spacing. Many sub-levels (small ∆ G) lower the smallest trainable update and hence the accuracy floor—another reason density matters. 7.4. Asymmetric nonlinearity and its correction. Set (potentiation) and reset (depression) are asymmetric and nonlinear in pulse number n:(42) G↑(n) = Gmin + ( Gmax − Gmin ) 1 − e−n/τ p
+
+1 − e−nmax /τ p ,
+
+with a different time constant for G↓. Uncorrected, this biases learning. We linearize by inverting the curve: to move from Ga to Gb,(43) ∆n = τp ln Gmax − Ga
+
+Gmax − Gb
+
+,
+
+so equal weight steps map to equal conductance steps. With program-and-verify this restores a near-ideal, symmetric update suitable for gradient descent [11]. 8. Mixed-Signal Peripherals 
+
+The analog core is bounded by data converters whose precision must match the cell. Inputs are applied by a DAC, preferably as pulse-width encoding, which keeps every device at a single read voltage Vr (avoiding the nonlinearity of (18)) and encodes operand xi in the time τi = xiτmax :(44) qj =
+
+Z τmax 
+
+> 0
+
+Ij (t) dt = Vr
+
+X
+
+> i
+
+Gij τi = Vrτmax 
+
+X
+
+> i
+
+Gij xi.
+
+The accumulated charge qj is then digitized. To not waste the cell’s log 2 L bits, the column ADC must resolve at least (45) bADC ≥ log 2
+
+
+
+N Gmax 
+
+> σG
+
+
+
+≈ log 2 N + log 2 L, 
+
+since up to N devices sum onto a column. The log 2 N fan-in term is the main reason large layers are partitioned: smaller N relaxes the ADC and keeps SAR-converter energy ( ∼ 2bADC ) under control. Converter energy, not device energy, dominates the system budget, so peripheral precision is co-designed with tile size and cell level count. 8.1. Convolutional mapping. A convolution with kernel K ∈ RCin ×k×k producing Cout channels is lowered by the im2col/Toeplitz transform: the kernel becomes a weight matrix W ∈ R(Cin k2)×Cout 
+
+programmed once, while image patches pt stream as row inputs, yt = W⊤pt. Weight reuse across all H′W ′ spatial positions is free—the kernel is written once and amortized over every patch, precisely where in-memory computing beats a digital accelerator that re-fetches weights [9]. MULTI-LEVEL RESISTIVE SYNAPSES 15 
+
+9. Energy and Area Model 
+
+9.1. Energy per MAC. A multiply at junction ( i, j ) over a read pulse τr at bias Vr dissipates 
+
+EMAC = Gij V 2 
+
+> r
+
+τr. For an N × M tile doing N M MACs per read, the average conductance ¯G sets 
+
+Etile /N M = ¯GV 2 
+
+> r
+
+τr. With ¯G ∼ 50 μS, Vr = 0 .2 V, τr = 10 ns this is EMAC ≈ 2 × 10 −14 J, i.e. a few tens of femtojoules per MAC—orders of magnitude below digital MAC energy, because no data is moved. 
+
+Proposition 9.1 (Energy–resolution trade) . To resolve L levels at margin m, (23) forces a mini-mum read budget V 2 
+
+> r
+
+τr, giving 
+
+EMAC ≳ m2kB T (L − 1) 2
+
+SNR budget ,
+
+the analog analogue of a Landauer-style bound: more sub-levels cost more read energy, quadratically. 
+
+9.2. Area and density. The 1T1R differential synapse occupies roughly 2( AT + AM ), dominated by the access transistors; the memristor sits in the back-end-of-line above the transistor at little extra footprint. Storing b = log 2 L bits per device gives bit density (46) ρbit = log 2 L
+
+2( AT + AM ) ,
+
+which for L in the hundreds beats SRAM weight storage by one to two orders of magnitude—the quantitative payoff of the multi-level cell. 10. Resistive Communication Between Tiles 
+
+A network larger than one tile must move analog activations between tiles without collapsing them to digital. We model the inter-tile channel as a chain of neuristors whose set/reset events carry the activation forward—the resistive communication of [18], now quantitative. 10.1. The channel. Treat the link as a memristive transmission line: a ladder of series memris-tances Mk and shunt capacitances Ck. A small-signal activation a(t) launched at one end propagates as a damped wave, (47) ∂2v∂t 2 = 1
+
+M C ∂2v∂ξ 2 − 1
+
+τM
+
+∂v ∂t ,
+
+whose group velocity sets inter-tile latency and damping 1 /τ M sets attenuation. Biasing the neuris-tors just below their firing threshold makes the line active : each stage regenerates the pulse (the Mott relaxation oscillator supplies gain), giving soliton-like, attenuation-free propagation—the elec-tronic analogue of saltatory conduction along an axon. 10.2. A nanoscale protocol. To interoperate with other nanodevices the channel follows the IEEE 1906.1 framework [17] for nanoscale communication: the activation is the message , the neuristor chain the microscopic channel , and the column-current readout the specificity compo-nent. Where a molecular-communication channel obeys Fick’s diffusion law, (48) c(r, t ) = Q
+
+(4 πDt )3/2 e−r2/4Dt ,
+
+the resistive channel replaces diffusing molecules with drifting ions and propagating filament fronts, trading the slow √t diffusion spread for the fast, regenerative wave above—orders of magnitude faster while remaining a genuine nanoscale communication primitive. 16 DAVID ALEJANDRO TREJO PIZZO 
+
+11. System-Level Considerations 
+
+11.1. Mapping a network onto tiles. A layer with N inputs and M outputs needs an N ×
+
+2M differential tile. Layers larger than the maximum reliable tile (bounded by Prop. 5.2) are partitioned across tiles, their partial column currents summed in the analog domain before the neuron. Convolutional layers map by the Toeplitz unrolling of Section 8. 11.2. Calibration and chip-in-the-loop training. Device-to-device variability is handled by 
+
+chip-in-the-loop training: the forward pass runs on the physical array, the loss is evaluated, and the program-and-verify controller applies the analog outer-product update of Section 7. Because errors are measured on real hardware, the learned weights absorb fixed nonidealities (offset, gain, fixed sneak paths), a key advantage of in-situ analog learning over train-then-transfer [14, 13]. 11.3. Reliability. Endurance ( ∼ 10 6–10 9 cycles) limits how often weights may be updated; infer-ence, being read-only, is effectively unlimited. The differential pair, periodic refresh, and drift-aware level spacing of Section 3 keep the network within its accuracy budget over its operating life. 12. A Worked Example: A Three-Layer Classifier 
+
+To make the preceding analysis concrete we size a small but complete classifier, a 784 −256 −128 −10 fully-connected network (an MNIST-scale topology), entirely on the proposed fabric. 12.1. Tiling. With a maximum reliable tile of 256 ×256 (set by Prop. 5.2 with ¯G = 50 μS, g = 1 mS per segment, target error < 1%), the layers map as in Table 3. Each weight uses a differential pair, so a layer with M outputs needs 2 M columns. 
+
+Table 3. Mapping the 784 −256 −128 −10 network onto 256 × 256 tiles. 
+
+Layer In ×Out Diff. cols Row tiles Col tiles 
+
+FC1 784 × 256 512 ⌈784 /256 ⌉ = 4 ⌈512 /256 ⌉ = 2 FC2 256 × 128 256 1 1FC3 128 × 10 20 1 1FC1 needs 4 × 2 = 8 tiles whose partial column currents are summed in the analog domain (Section 11); FC2 and FC3 fit in one tile each. The total is 10 tiles, ≈ 2.7 × 10 5 differential synapses, i.e. ≈ 5.4 × 10 5 1T1R cells. 12.2. Precision budget. Each cell stores log 2 L ≈ 8 bits (Table 2). The fan-in of FC1 is N = 784, partitioned into four row-tiles of ≤ 256, so each column ADC resolves bADC ≥ log 2 256 + log 2 L ≈
+
+8 + 8 = 16 bits before partial-sum accumulation; after the four partial sums combine digitally the effective accumulation precision is maintained. FC2 ( N = 256) and FC3 ( N = 128) require 16 and 15 bits respectively. These are demanding but within reach of pipelined SAR/Σ∆ converters time-shared across columns. 12.3. Throughput and energy. One inference is three analog VMMs (Thm. 5.1), each com-pleting in one read window τr = 10 ns plus conversion. Pipelined across the three layers, the steady-state throughput is one classification per ∼ τADC . The dynamic energy is dominated by reads and conversions: (49) Einf ≈ Ncell ¯GV 2 
+
+> r
+
+τr
+
+| {z }
+
+> device
+
++ NADC EADC 
+
+| {z }
+
+> conversion
+
+.
+
+With Ncell ≈ 5.4 × 10 5, the device term is 5 .4 × 10 5 · 50 μS · (0 .2 V) 2 · 10 ns ≈ 11 nJ. Per Prop. 9.1 the converters dominate; even so the total stays in the tens-of-nJ-per-inference range, two to three MULTI-LEVEL RESISTIVE SYNAPSES 17 
+
+orders of magnitude below a digital baseline that must fetch ∼ 2.7 × 10 5 weights from SRAM per inference. 13. Comparison with Digital Accelerators 
+
+Table 4 summarizes the structural differences. The decisive factors are that (i) weights never move—they are the computation—eliminating the dominant data-movement energy, and (ii) the multi-level cell collapses b digital storage cells plus an adder tree into a single Ohm’s-law event, so density and energy improve by the factor log 2 L relative to a binary memristive design. 
+
+Table 4. Analog multi-level in-memory fabric vs. a digital MAC array. 
+
+Aspect Digital MAC array This work (analog IMC) 
+
+Weight storage SRAM/DRAM, off the datapath In the synapse itself (log 2 L bits/cell) MAC mechanism Clocked arithmetic units Ohm + Kirchhoff, (29) VMM time O(N M/P ), P lanes O(1) per tile (Thm. 5.1) Dominant energy Data movement ADC/DAC conversion (Prop. 9.1) Precision Exact (digital) Analog, noise-bounded (23) Training Off-chip In-situ, free transpose (Prop. 7.1) Main limiter Memory bandwidth Device variability, IR drop (Prop. 5.2) The analog approach is not universally superior: it trades exactness for efficiency and is best suited to inference-dominated, error-tolerant workloads—exactly the regime of neural-network de-ployment. The multi-level memristor is what makes the trade favorable, because without many sub-levels the density advantage collapses and the architecture reduces to an ordinary, area-hungry binary crossbar. 14. Computing Large Language Models on the Multi-Level Fabric 
+
+Large language models (LLMs) are the most demanding deployment target of contemporary computing, and they are also the workload for which an analog multi-level in-memory fabric is most advantageous, because their cost is overwhelmingly dominated by dense matrix multiplications against static weights—precisely the operation the crossbar performs for free. 14.1. Decomposition of the transformer workload. A decoder-only transformer of nlayer 
+
+blocks, model width d, feed-forward width dff = 4 d, and vocabulary V maps onto the fabric as a set of weight matrices, each programmed once into crossbar tiles and reused for every token. Per layer the weight-bearing operations are QKV proj.: WQ, WK , WV ∈ Rd×d,(50) output proj.: WO ∈ Rd×d,(51) FFN: W1 ∈ Rd×dff , W2 ∈ Rdff ×d.(52) The total static parameter count is (53) P ≈ nlayer (4 d2 + 2 d d ff ) = 12 nlayer d2,18 DAVID ALEJANDRO TREJO PIZZO 
+
+and the per-token inference cost (MACs) of the linear maps is 2 P . For a 7-billion-parameter model this is ∼ 1.4 × 10 10 MACs per generated token—every one of which, on the proposed fabric, is a single Ohm’s-law event drawn from a weight already resident in a memristor. 14.2. Mapping weights to multi-level tiles. Each weight element occupies one differential pair storing b = log 2 L bits (Section 3). The number of 1T1R cells required to hold the entire model is (54) Ncell = 2 P, 
+
+independent of the arithmetic precision of a digital datapath, because the precision lives in the analog level count , not in extra storage. The number of 256 × 256 tiles is Ntile = ⌈P/ 256 2⌉ (dif-ferential columns folded in), and the QKV/output/FFN matrices stream their token activations as row voltages exactly as in Theorem 5.1. The attention score S = QK ⊤/√dk and the context SV 
+
+are dynamic (data ×data) products; these are handled either by a small auxiliary digital unit or by transiently writing K, V into a scratch crossbar—the KV cache becomes a literal resistive memory, with each cached key/value an analog conductance. 14.3. Energy per token: an analog roofline. The dynamic energy to generate one token is the read energy of every weight plus the conversion overhead: (55) Etok ≈ 2P ¯GV 2 
+
+> r
+
+τr
+
+| {z }
+
+> analog MAC
+
++ N (tok) ADC EADC 
+
+| {z }
+
+> conversion
+
+.
+
+With ¯G = 50 μS, Vr = 0 .2 V, τr = 10 ns the analog term is ∼ 2 × 10 −14 J per MAC, i.e. 2P E MAC ≈ 0.3 mJ per token for a 7B model—before conversion. Crucially the weights are never fetched : in a digital accelerator the same token requires reading P weights ( ∼ 14 GB at INT16) from DRAM, whose energy at ∼ 10 pJ/byte dwarfs the arithmetic by two to three orders of magnitude. The transformer is memory-bandwidth bound on every platform that stores weights off the datapath; the multi-level fabric removes that bound by construction. 
+
+Design Principle 14.1 (Why LLMs in particular) . Autoregressive generation reuses the entire weight set once per token with batch size one, so arithmetic intensity is low and weight movement ,not weight multiplication , dominates. An in-memory fabric makes movement zero; a multi-level cell makes the resident footprint minimal. The two effects compound precisely in the regime where conventional hardware is worst. 14.4. Advantage over binary/few-level ReRAM. A ReRAM accelerator that stores only 1–2 bits per cell must represent a b-bit weight across ⌈b/b cell ⌉ devices and recombine them with shift-and-add peripherals. Relative to such a design the multi-level fabric improves the three figures of merit by the level-count factor: area binary 
+
+area ML 
+
+≈ bbcell 
+
+= log 2 L (for bcell = 1) ,(56) 
+
+Ebinary 
+
+EML 
+
+≈ log 2 L × 11 − ηSA 
+
+,(57) where ηSA is the shift-and-add overhead avoided when a single analog read already yields the full-precision product. For L ∼ 256 this is an 8 × density and energy advantage from the cell alone, on top of the shared in-memory benefit. The penalty—analog noise—is bounded by Theorem 3.1 and absorbed by chip-in-the-loop training (Section 11); LLM inference is known to tolerate aggressive weight quantization, so the ∼ 8 effective bits of a multi-level cell are comfortably sufficient. MULTI-LEVEL RESISTIVE SYNAPSES 19 
+
+14.5. Advantage over traditional CMOS. Against a digital CMOS accelerator the advantage is structural rather than incremental, and is summarized in Table 5. The CMOS datapath pays (i) DRAM/SRAM weight-fetch energy on every token, (ii) clocked MAC energy, and (iii) the area of a deep SRAM hierarchy; the analog fabric pays none of these, trading them for converter energy and bounded analog noise. The decisive scaling is in the weight-movement term, which vanishes. 
+
+Table 5. Per-token cost of an L-layer LLM on three substrates (scaling, weight-related terms). 
+
+Term CMOS digital Binary ReRAM This work 
+
+Weight movement O(P ) DRAM reads none (in-memory) none MAC energy clocked, O(P ) analog × log 2 L cells analog, O(P )Storage area SRAM, O(P b ) O(P log 2 L) cells O(P ) cells Bits per cell — 1–2 log 2 L (∼ 8) Dominant cost memory bandwidth shift-and-add +ADC ADC 14.6. System organization for a full model. A practical deployment pipelines the nlayer trans-former blocks across physical tile clusters, with the resistive-communication channel of Section 10 carrying each block’s activation vector to the next as a regenerated analog pulse train rather than a digitized bus transaction. Weights are written once at load time (amortizing the endurance cost of Section 11), residency is permanent and non-volatile, and the chip draws static power only through leakage—so an idle model consumes essentially nothing, unlike a DRAM-resident model that must be continuously refreshed. The combination of permanent multi-level weight residency, zero weight movement, and analog VMM is what makes a single-chip, low-power LLM plausible on this fabric. 15. In-Memory Self-Attention 
+
+The one part of a transformer that is not a static-weight product is self-attention, 
+
+A = softmax( QK ⊤/√dk) V, whose two matrix products are data ×data. Section 14 deferred these to a digital unit; here we show they too can be computed in the analog domain, which is what makes the fabric a complete transformer engine rather than a weight-product accelerator. 15.1. Dynamic crossbars and volatile scratch. The projections Q, K, V are produced by static-weight VMMs (Section 14). To form the score S = QK ⊤ we transiently program the dk
+
+key vectors as the columns of a scratch crossbar, GKij ∝ Kji , and drive the query as row voltages; the column currents are (58) Stj = X
+
+> i
+
+GKij Qti ∝ (QK ⊤)tj ,
+
+one analog VMM. The context AV is a second VMM with V written as conductances. The defining requirement—fast write, short retention—is met not by the non-volatile synapse but by a 
+
+volatile , diffusive memristor whose state relaxes on the millisecond scale of the KV-cache lifetime. The same materials family supplies both: an engineered low-barrier Ua (Section 2.8) gives a self-erasing scratch cell, so the KV cache is literally a decaying conductance pattern. This sidesteps the endurance cost of rewriting non-volatile cells every token (Section 11). 20 DAVID ALEJANDRO TREJO PIZZO 
+
+15.2. Analog softmax by the translinear principle. The normalization is performed in the current domain without leaving the analog core. Exponentiation is the native law of a subthreshold MOS (or bipolar) device, I = I0eκV /V T , so applying each score Stj as a gate voltage yields currents 
+
+Ij ∝ eStj . Kirchhoff’s law sums them on a shared node, P 
+
+> j
+
+Ij , and a translinear normalizer divides, giving exactly (59) Atj = eStj 
+
+P 
+
+> k
+
+eStk ,
+
+the softmax, as a ratio of currents. The temperature 1 /√dk is set by a single bias. Thus the entire attention operator—two matrix products and a softmax—executes as analog VMM, current-mode exponentiation, and KCL normalization, with no digital matrix arithmetic on the critical path. 
+
+Theorem 15.1 (Attention in constant tile-passes) . For a sequence of length ns and head dimension 
+
+dk, in-memory self-attention requires O(1) analog tile-passes per query (independent of ns within a tile of ns columns), O(nsdk) scratch devices, and energy Eattn = O(nsdk) EMAC , versus the O(nsdk)
+
+clocked MACs and the O(nsdk) memory traffic of a digital implementation.           
+
+> Qrows K⊤scratch (volatile)
+> S
+> (R)
+> analog softmax (translinear)
+> Vscratch (volatile) AV
+> VMM →current-mode softmax →VMM, all analog
+
+Figure 10. In-memory self-attention. Queries drive a volatile scratch crossbar holding K⊤ to produce scores S (one VMM); a current-mode translinear stage com-putes the softmax; a second VMM against a volatile V crossbar yields the context 
+
+AV . Diffusive (self-erasing) memristors serve as the KV scratch, avoiding non-volatile rewrite wear. 16. CMOS Integration: FEOL, BEOL, and Foundry Compatibility 
+
+The architecture is only useful if it can be built in the standard CMOS flow that every foundry already runs. It can: the memristor of Principle 2.3 is a back-end-of-line (BEOL) element built from materials (HfO 2, TiN, Ti) that are already qualified, while the access transistors, neurons, converters, and controller are ordinary front-end-of-line (FEOL) CMOS. This is the key practical claim of the paper, and it is what makes a memristor-based FPGA a near-term device rather than a new fabrication science. 16.1. FEOL: the transistors. The front end is unmodified. The 1T1R access transistors (Fig. 6a), the transimpedance/integrator neurons, the pulse-width DACs, the SAR/Σ∆ column ADCs, and the digital configuration logic are all standard logic and analog cells in a baseline node (e.g. 28 or 22 nm). The access transistor is sized to pass the set compliance current Icc (typically 10–100 μA), which is modest; its W/L is the only synapse-specific FEOL constraint. No exotic implants, no new well structures, no changes to the transistor module are required. 16.2. BEOL: inserting the memristor. The memristor is fabricated between two existing metal layers during the back end, after the transistors and the lower interconnect are complete. A typical insertion sits between metal-M4 and M5:(i) pattern and fill the M4 via; deposit and CMP the TiN bottom electrode; (ii) ALD the HfO 2−x switching layer (3–10 nm) at ≤ 400 ◦C—within the BEOL thermal budget; (iii) sputter the Ti oxygen-scavenging layer and the TiN top electrode; (iv) etch the MIM pillar, encapsulate, and continue with the M5 via and the remaining inter-connect/passivation. MULTI-LEVEL RESISTIVE SYNAPSES 21 
+
+Every step uses tools already in the line (ALD, PVD, CMP, reactive-ion etch); the only additions are two masks and the HfO 2/Ti/TiN depositions, all under the ∼ 400 ◦C ceiling that protects the FEOL silicide and the lower copper.    
+
+> p-Si substrate (FEOL)
+> gate gate
+> 1T1R access transistors (FEOL)
+> M1
+> M2
+> M3
+> M4
+> memristor MIM pillars (BEOL, M4/M5)M5
+> passivation / pad metal
+
+Figure 11. Schematic cross-section of the integrated chip. FEOL transistors and the lower copper interconnect ( M1–M4) are an unmodified logic process; the mem-ristive synapses are inserted as MIM pillars in the BEOL between M4 and M5, then buried under the upper metal and passivation. The crossbar word/bit lines are re-alized in M4/M5 directly above the access transistors, giving a compact 1T1R foot-print. 
+
+Design Principle 16.1 (Foundry readiness) . Because the memristor is a BEOL module of pre-qualified materials inserted between existing metals, the design is a more-than-Moore add-on to a baseline node, not a new technology. The same reasoning underlies commercial embedded-ReRAM offerings already in production at major foundries; the contribution here is the analog multi-level 
+
+operating point and the FPGA-like reconfigurable fabric built on top of it. 17. SPICE Simulation 
+
+We validate the device and the VMM primitive with a SPICE model implementing the compact equations of Section 4. Listing 1 gives a self-contained ngspice subcircuit: a behavioural state variable x is held on a unit capacitor at node x, integrated from the thresholded drift current of (28) with a Biolek-type window, and the terminal current is the HRS/LRS interpolation. A second deck wires four such devices into a 2 ×2 crossbar and reads the column currents to confirm I = G⊤v.
+
+Listing 1. ngspice memristor subcircuit and crossbar test.      
+
+> * ---- multilevel memristor (compact model, Sec. VI) ----.subckt memr p n PARAMS: x0=0.1 * state variable on node x (1F integrator), bounded [0,1] Cx x 0 1 .func win(xx,vv) {1 - pow((2*xx-1),2*2)} ; Biolek window (p=2) .func drift(vv) {sgn(vv)*pow(max(abs(vv)-0.6,0),2)} ; threshold vth=0.6, alpha=2 Bx x 0 I=-0.5*drift(V(p,n))*win(V(x),V(p,n)) .ic V(x)=x0 * read path: (1-x)*tunnel + x*ohmic Bout p n I=(1-V(x))*2e-6*sinh(V(p,n)/0.3) + V(x)*200e-6*V(p,n) .ends memr * ---- 2x2 crossbar VMM test ----X11 r1 c1 memr x0=0.9 ; G high X12 r1 c2 memr x0=0.1 ; G low X21 r2 c1 memr x0=0.2 X22 r2 c2 memr x0=0.8 22 DAVID ALEJANDRO TREJO PIZZO
+> V1 r1 0 DC 0.2 V2 r2 0 DC 0.1 Vc1 c1 0 DC 0 ; columns at virtual ground (ammeters) Vc2 c2 0 DC 0 .op .control run print i(Vc1) i(Vc2) ; = sum_i G_ij * v_i .endc .end
+
+Results. The transient sweep reproduces the pinched hysteresis of Fig. 4 and the bipolar SET/RE-SET of Fig. 2; partial pulses leave the device at stable intermediate x, confirming the analog sub-levels. The .op column currents match the analytic Ij = P 
+
+> i
+
+Gij vi of (29) to within the inte-grator tolerance, validating Theorem 5.1 at circuit level. Monte-Carlo over the threshold vth and 
+
+Gon reproduces the programming-stochasticity variance of Section 3 and confirms that program-and-verify collapses it to the read-noise floor. 18. A Memristive FPGA for Neuromorphic Computing 
+
+We now assemble the pieces into the complete system: a reconfigurable, field-programmable fabric of memristive tiles—a memristor-based FPGA —whose configuration is the set of synaptic weights, and whose routing is the resistive-communication network of Section 10. Where a con-ventional FPGA configures lookup tables and a switch matrix from SRAM, this fabric configures analog weight matrices and an analog interconnect from non-volatile multi-level memristors. 18.1. System organization. The chip is a 2-D array of neuromorphic tiles , each containing a differential 1T1R crossbar, its neuron row, and local converters; tiles are joined by a programmable resistive-communication mesh and overseen by a digital controller that performs forming, program-and-verify, and chip-in-the-loop training (Fig. 12). Because weights are non-volatile, the configu-ration persists with power off, and a model is “loaded” once. 
+
+> crossbar tile
+> crossbar tile
+> crossbar tile
+> crossbar tile
+> resistive-comm mesh
+> neurons + ADC/DAC
+> neurons + ADC/DAC
+> digital controller (form / verify / train)
+> non-volatile config = weights
+> host I/F (PCIe/SPI)
+
+Figure 12. The memristive-FPGA neuromorphic system. An array of crossbar tiles is joined by an active resistive-communication mesh (red); each tile column feeds a neuron/converter strip; a digital controller handles forming, program-and-verify, and chip-in-the-loop training. The configuration bitstream is the non-volatile multi-level weight set itself, so the “programmed” network persists with power re-moved. MULTI-LEVEL RESISTIVE SYNAPSES 23 
+
+18.2. Replicating the brain: a neuromorphic substrate. This fabric is a natural substrate for large-scale brain emulation. The cortex is ∼ 10 10 neurons and ∼ 10 14 synapses; the synapse-dominated count is exactly what an analog crossbar stores most efficiently, one multi-level cell per synaptic weight. The neuristor neurons (Fig. 8) supply biologically-plausible spiking dynamics, the differential pair supplies excitatory/inhibitory channels, and the coincident-pulse rule of Section 7 supplies STDP—the three ingredients of a spiking neuromorphic system—all in the same fabric, with resistive communication playing the role of the axonal projection between cortical areas. 18.3. An “SD-card for second brains”. The non-volatility and density of the fabric suggest a deployment metaphor: a removable, low-power module—an SD-card for second brains —that holds a complete trained model (or a personalized “second brain”) in its memristive weights and runs inference locally without ever loading the weights into volatile memory. Such a module slots alongside a host CPU/GPU/NPU exactly as a storage card does, but instead of storing data it 
+
+computes on it in place. Because an idle module draws only leakage (Section 10), many such cards can coexist—each a specialized model or a personal knowledge base—and be activated on demand, giving a practical path to always-available, private, local AI that runs in parallel with conventional accelerators rather than competing with them. 19. Running a Local BitNet on the Fabric 
+
+BitNet-style ternary LLMs, whose weights are constrained to w ∈ {− 1, 0, +1 }, are the ideal match for this hardware, because a ternary weight maps onto a single differential pair with no quantization loss at all. 19.1. Exact ternary mapping. Using the differential synapse (30), the three ternary states are realized exactly: (60) w = +1 : (G+, G −) = ( Gmax , G min ), w = −1 : (Gmin , G max ),
+
+(61) w = 0 : G+ = G− (any matched value) .
+
+The multi-level capability is not even needed for the weights themselves—two robust extreme states plus a matched-zero suffice, which is why endurance and yield are excellent in this mode; the analog level count is instead spent on the activations (pulse-width-encoded inputs) and the accumulation. The MAC is a single read, and the column current is the ternary dot product zj = β P
+
+> i
+
+(G+ 
+
+> ij
+
+−G− 
+
+> ij
+
+)vi
+
+directly.     
+
+> PWM DAC
+> xi→τi
+> ternary differential crossbar
+> {− 1,0,+1 }
+> vi
+> R
+> ADC
+> Ij
+> ReLU/ RMSNorm
+> next layer (resistive-comm)
+> one transformer linear map = one tile pass
+
+Figure 13. Datapath for a ternary BitNet layer. Activations are pulse-width en-coded by a DAC, applied to the ternary differential crossbar (one pair per weight), and the column dot products are integrated and digitized; normalization/activation is applied digitally and the result is forwarded to the next tile over the resistive-communication mesh. 24 DAVID ALEJANDRO TREJO PIZZO 
+
+19.2. Performance projection vs. GPU and Apple silicon. Consider a 3B-parameter BitNet model generating tokens at batch one. The fabric holds all P = 3 × 10 9 ternary weights in P
+
+differential pairs (since a ternary weight needs only one pair), reads each once per token, and never moves a weight. Table 6 projects per-token performance against two concrete NVIDIA boards—a consumer RTX 4090 and a datacenter H100 SXM —and an Apple M4 SoC running the same model at batch one. The GPU and M4 figures are representative of batch-one local decoding (memory-bandwidth bound, so throughput ≈ memory-bandwidth / model-bytes); the fabric figures follow from the energy model of Sections 9 and 14 and are projections , not measurements. 
+
+Table 6. Projected per-token inference of a 3B ternary (BitNet, ∼ 0.75 GB packed) model, batch 1. 
+
+Metric RTX 4090 H100 SXM Apple M4 This work 
+
+Process 5 nm 4 nm 3 nm 28 nm+BEOL Mem. BW 1.0 TB/s 3.35 TB/s 0.12 TB/s in-place TDP 450 W 700 W ∼ 25 W < 1 W Throughput (tok/s) 
+
+∼ 1.3×10 3 ∼ 4.5×10 3 ∼ 160 ∼ 5×10 3
+
+Energy/token ∼ 0.35 J ∼ 0.16 J ∼ 0.16 J ∼ 0.2 mJ Weights GDDR6X (vol.) HBM3 (vol.) uni. DRAM in-synapse, NV Idle (resident) tens of W ∼ 100 W several W leakage only Energy/tok vs. ours 
+
+∼ 1.8×10 3× ∼ 8×10 2× ∼ 8×10 2× —Even against an H100—whose 3 .35 TB/s of HBM3 makes it the fastest of the four in raw throughput—the fabric is within range on tokens/s while using > 700 × less power, and roughly three orders of magnitude less energy per token. The advantage comes from two compounding sources identified throughout this paper: the elimination of weight movement (shared with any in-memory design, Principle 14.1) and the single-pair ternary cell (no shift-and-add, no multi-device weights). All three digital parts, however fast, must stream ∼ 0.75 GB of ternary-packed weights from volatile memory every token (their throughput is essentially BW / 0 .75 GB); the memristive fabric reads them in place and, when idle, costs essentially nothing. This is the quantitative basis for the “SD-card for second brains”: a sub-watt module that runs a local LLM alongside, not instead of, the host’s conventional accelerators. 20. A Hardware-Native Architecture for Neural Interconnect 
+
+The fabric developed here is not an accelerator that a program runs on ; it is a physical structure whose wiring is the computation. This section makes that distinction precise, because it is the deepest architectural consequence of building neural interconnect directly in resistive hardware. 20.1. The structure is the program. In a von Neumann machine—and equally in a GPU or a digital neural accelerator—a network is a description (a graph of weights and operations) that an instruction stream interprets: weights are fetched, operands routed, multipliers sequenced, partial sums accumulated, all under the control of a program counter. The network exists only as data interpreted by a separate control plane. On the present fabric there is no such interpretation. A weight is a conductance; a connection is a wire; a synapse is a device sitting at the intersection of two wires it physically joins. The forward map (62) z = W⊤xMULTI-LEVEL RESISTIVE SYNAPSES 25 
+
+is not executed —it happens , in the settling time of Kirchhoff’s and Ohm’s laws (Theorem 5.1), the instant the input voltages are applied. There is no opcode for “multiply”, no fetch of W, no loop over i and j. The topology of the computation and the values it computes with are one and the same physical object. 
+
+Design Principle 20.1 (Hardware-native computation) . A neural network on this fabric is defined by configuration , not by instructions . The mapping from a trained model to hardware is a placement of conductances onto a fixed mesh of devices; once placed, inference requires no high-level program, no compiler-emitted kernel, and no runtime—only the application of inputs and the reading of outputs. 20.2. No instruction set, no kernel, no runtime. Concretely, deploying a model is reduced to three physical acts: (i) form and program the conductances (Section 7); (ii) configure the resistive-communication mesh (Section 10) so that the inter-tile links realize the network’s connectivity graph; and (iii) apply inputs and sense outputs. There is no compiled kernel, no instruction-scheduling, no operand bookkeeping. The digital controller of Fig. 12 exists only to program and verify the array and to orchestrate training; it is absent from the inference datapath entirely. This is the sense in which the architecture is hardware-native : the abstraction normally interposed between a model and silicon—the ISA, the kernel library, the runtime—has been removed, because the silicon already is the model. 20.3. Reconfigurability without recompilation. Because the connectivity lives in a programmable resistive mesh rather than in fixed metal, the same chip can be re-wired into a different network by re-programming conductances—an FPGA-like reconfiguration (Section 18), but at the level of 
+
+analog interconnect rather than digital lookup tables. Changing the network does not mean recom-piling a program; it means writing new conductances. Topology and weights are reprogrammed by the same mechanism (set/reset), so architecture search, pruning, and growth all reduce to con-ductance updates on a fixed physical substrate. This collapses the traditional separation between “programming the weights” and “designing the architecture” into a single physical operation, and it is the practical expression of resistive communication as a first-class interconnect primitive. 21. Three-Dimensional Integration 
+
+The density argument of Section 9 is planar. Because the memristor is a BEOL element (Sec-tion 16), it invites the same escape that took flash memory from 2D to 3D NAND: stack the crossbars vertically and pay for capacity in the cheap third dimension rather than in scarce silicon area. 21.1. Why the BEOL location enables stacking. Each crossbar plane occupies only two metal levels (its word and bit lines) plus the thin MIM pillar between them. Nothing in a plane requires single-crystal silicon: the access transistors are shared from the FEOL below, or—in the purely passive variant—omitted in favour of a two-terminal selector. Hence a plane can be replicated upward by repeating the BEOL deposition sequence, giving a multi-tier stack of T crossbar layers above one transistor base. 21.2. Density scaling. Let acell be the planar footprint of one differential synapse and P the number of weights in a model. A planar fabric needs silicon area A2D = 2 P a cell . Stacking T tiers divides the footprint: (63) A3D = 2P a cell 
+
+T , ρ3D bit = T log 2 L
+
+2( AT + AM ) .
+
+The bit density therefore scales multiplicatively in three independent factors: the analog level count log 2 L (the cell, Section 3), the lithographic pitch 1 /a cell (the node), and the tier count T (the stack). A model that occupies T planes fits in 1 /T of the die, or equivalently a T × larger model fits in the 26 DAVID ALEJANDRO TREJO PIZZO 
+
+same die—the path from a single-chip 7B model to a single-chip 10 11 -parameter model is vertical, not lateral. 
+
+> FEOL transistor base + peripherals
+> tier 1
+> tier 2
+> tier 3
+> tier 4
+> inter-tier vias
+> heat
+
+Figure 14. Monolithic three-dimensional integration. Multiple memristive cross-bar tiers are deposited in the BEOL above a single FEOL transistor/peripheral base and joined by vertical inter-tier vias that carry the resistive-communication links. Footprint and wire length fall as 1 /T (63); the principal cost is removing the Joule heat (red) from the upper tiers. 21.3. Monolithic 3D versus stacked dies, and vertical RRAM. Two routes realize the stack. 
+
+Monolithic 3D grows each tier sequentially in the BEOL, so inter-tier connection is by ordinary nanoscale vias—the densest option, limited by the ≤ 400 ◦C thermal budget that protects lower tiers (the same ceiling that, fortunately, the HfO 2/Ti/TiN process of Principle 2.3 already respects). Die stacking bonds separately-fabricated wafers with through-silicon vias (TSVs); it relaxes the thermal budget but coarsens the inter-tier pitch. A third, most aggressive option borrows the 3D-NAND idea directly: a vertical RRAM in which a single deposited oxide sidewall is shared by a stack of horizontal electrode planes, forming T devices per lithographic spot at essentially the cost of one. For the weight-dominated storage of an LLM (Section 14), vertical RRAM offers the steepest density curve. 21.4. Wire length, latency, and the thermal limit. Stacking shortens the longest interconnect: tiles that were millimetres apart in a planar floorplan become micrometres apart across tiers, so the resistive-communication latency and the IR-drop of Proposition 5.2 both improve as the stack replaces lateral routing with vertical vias. The binding constraint is thermal. The volumetric power density rises with T , and the heat of the upper tiers must conduct down through the stack to the substrate; with vertical thermal resistance Rvth per tier the top-tier temperature rise is (64) ∆Ttop ≈ ˙q a cell Rvth 
+
+T (T + 1) 2 ,
+
+quadratic in tier count. This is precisely why the low read energy of the analog core (femtojoules per MAC, Section 9) is not a luxury but an enabler: a fabric that dissipated like a digital MAC array could not be stacked, whereas the near-zero static power and tiny dynamic read energy of the memristive fabric keep ∆ Ttop bounded even for deep stacks. Low power and 3D density are thus mutually reinforcing—the same property that makes the “SD-card for second brains” cool enough to sit in a slot makes it dense enough to hold a model. MULTI-LEVEL RESISTIVE SYNAPSES 27 
+
+22. Fault Tolerance, Yield, and Redundancy 
+
+Analog memory is imperfect: a fraction of cells are stuck-on or stuck-off after forming, conduc-tances vary device-to-device, and endurance is finite. A definitive on-chip AI architecture must show that these do not compromise the computation. We argue they do not, because the fabric is statistically and structurally redundant. 22.1. Stuck-at faults and the differential shield. Let a cell be stuck with probability pf (stuck-on or stuck-off). In the differential synapse (30) a weight is W = β(G+ − G−), so a single stuck device shifts W by a bounded amount that the partner can partly compensate: if G+ is stuck, the controller reprograms G− to restore the intended difference over the achievable range. A weight is only lost when both legs fail, with probability p2 
+
+> f
+
+. Differential encoding thus squares the effective fault rate, (65) pweight ≈ p2 
+
+> f
+
+,
+
+turning, e.g., a 1% device-fault rate into a 10 −4 weight-fault rate before any further coding. 22.2. Calibration absorbs static faults. Because training is chip-in-the-loop (Section 11), static 
+
+faults are seen by the optimizer as fixed perturbations and routed around: the loss gradient naturally steers information away from dead weights, exactly as dropout- and fault-injection-trained networks tolerate missing connections. The residual accuracy loss for a fault rate pweight on a layer of N ×M
+
+weights scales as O(√pweight ) in the pre-activation noise and is absorbed for pweight ≲ 10 −3 with no architectural change. 22.3. Redundancy and yield. For the rare catastrophic tile, r spare differential columns per tile provide repair: a tile of M columns with r spares survives unless more than r columns are unrepairable, so the tile yield is (66) Ytile =
+
+> r
+
+X
+
+> k=0
+
+Mk
+
+
+
+pkc (1 − pc)M −k, pc ≈ 1 − (1 − pweight )N ,
+
+with pc the per-column failure probability. Modest r drives Ytile arbitrarily close to one; chip yield is then Y Ntile  
+
+> tile
+
+, restored to economic levels by the same column-redundancy bookkeeping that DRAM has used for decades. 22.4. Analog error correction. Finally, the read-out itself can be coded. Treating the column current as a noisy analog symbol (Section 3), a small number of checksum columns holding linear combinations P 
+
+> i
+
+ciGij of the weights let the periphery verify P 
+
+> j
+
+cj Ij against the expected value and correct single-column gross errors—an analog parity that costs O(1) columns per tile and catches faults that develop after calibration (drift, late retention failure). Together, differential shielding (p2 
+
+> f
+
+), fault-aware training, column redundancy, and analog checksums make the fabric tolerant of the very nonidealities that define real memristors. 23. Hardware Security: a Memristive PUF 
+
+The same stochastic forming that limits analog precision is, viewed differently, a free source of cryptographic entropy. This connects the present design back to the original motivation of securing nanoscale communication. 28 DAVID ALEJANDRO TREJO PIZZO 
+
+23.1. Variability as entropy. Forming nucleates a filament at an atomically random location, so the post-forming conductance Gij of nominally identical cells is a random variable with device-unique value. A challenge—a chosen pattern of read voltages v(c)—produces a response vector of column currents r(c) = G⊤v(c) whose fine structure is unique to the chip. Thresholding pairwise current comparisons yields a binary physical unclonable function (PUF) of N M cells with entropy (67) H ≈ N M  1 − h2(pstable )  bits ,
+
+where h2 is the binary entropy and pstable the bit-stability under re-reads. A single tile thus furnishes 
+
+∼ 10 4–10 5 bits of device-intrinsic key material. 23.2. Security properties. The key is never stored—it is recomputed from physics at each chal-lenge, so it cannot be read out by depowering and imaging the chip; invasive probing perturbs the very filaments that define it, making the PUF tamper-evident. Because the response space is ex-ponential in the challenge dimension, the construction supports challenge–response authentication and on-chip key generation for encrypting the model weights themselves—a memristive realization of the “securing communications” role first identified for these devices. 24. A Roofline and an Energy–Delay Optimality Argument 
+
+We close the technical development by positioning the fabric against the fundamental limits, and arguing that it is not merely better but close to optimal for weight-stationary inference—the claim that makes it definitive rather than incremental. 24.1. Breaking the memory wall. Define arithmetic intensity Ia = MACs per byte of off-chip traffic. A digital platform of memory bandwidth B and peak compute Π obeys the roofline throughput ≤ min(Π , B I a). Autoregressive decoding has Ia = O(1) (each weight is used once per token), so every digital platform sits on the bandwidth-bound branch B I a—the memory wall. The memristive fabric has no off-chip weight traffic: Ia → ∞ , and the roofline corner moves to the compute branch set by the analog read rate. This is why the BitNet comparison (Table 6) shows the fabric matching an H100’s throughput at < 1 W: the H100 is bandwidth-bound, the fabric is not.        
+
+> 10 −210 −110 010 110 210 3
+> 10 0
+> 10 1
+> 10 2
+> 10 3
+> 10 4
+> 10 5
+> LLM decode  Ia ≈ 1
+> arithmetic intensity Ia(MAC/byte, log)
+> throughput (log)
+> digital (GPU)
+> memristive (this work)
+
+Figure 15. Roofline. Digital platforms (blue) are bandwidth-bound on the B I a
+
+ramp; autoregressive decoding lives at Ia ≈ 1, far left, deep in the memory-bound region. With weights resident in the synapse the memristive fabric (red) has no off-chip weight traffic, so its ceiling is flat in Ia and is reached even at the decode operating point—the memory wall is removed, not climbed. MULTI-LEVEL RESISTIVE SYNAPSES 29 
+
+24.2. An energy–delay lower bound. Consider any substrate computing z = W⊤x for an 
+
+N × M weight matrix to a target SNR. Reading one analog weight to resolve L levels at margin m
+
+requires, by (20), a signal energy at least Eread ≳ m2kB T (L/ SNR); the product needs N M such reads. Hence the energy obeys (68) E ≥ N M · m2kB T L2
+
+SNR ≡ E⋆,
+
+a thermodynamic floor independent of architecture, and the delay obeys D ≥ τr (one settling time) for a fully parallel array. 
+
+Theorem 24.1 (Near-optimal energy–delay) . A weight-stationary memristive crossbar performs the N × M vector–matrix product in delay D = Θ( τr) and energy E = Θ( E⋆), attaining the physical lower bound E · D = Θ( E⋆ τr) up to a constant factor set by the read margin m and converter overhead. No weight-moving (von Neumann) architecture can reach this bound, because it pays an additive Emove = Θ( N M b ϵ byte ) of data-movement energy with ϵbyte ≫ kB T .Remark 24.2 . Theorem 24.1 is the formal statement of why in-memory analog computing is de-finitive for inference: it is not a faster point on the same curve but the architecture that removes the dominant, kB T -violating data-movement term entirely, leaving only the irreducible read energy 
+
+E⋆. Everything else in this paper—multi-level density, 1T1R accuracy, in-situ learning, resistive communication, 3D stacking—serves to approach this bound while keeping the computation pro-grammable. 25. Discussion 
+
+The design above turns the qualitative idea of resistive communication into a concrete, analyzable machine resting on three quantitative pillars, each addressed: (1) a single device must hold many stable sub-levels—bounded by Theorem 3.1 at several hundred under realistic noise; (2) the crossbar must compute accurately at scale—bounded by Proposition 5.2 and mitigated by 1T1R and tiling; and (3) learning must converge on a finite lattice—secured by the free transpose (Prop. 7.1), coincident-pulse outer-product updates, and nonlinearity pre-distortion. The same physics that makes the memristor a dense analog memory—the steep sinh ionic-transport law (10)—makes it simultaneously a fast write element and a non-destructive read element (Prop. 2.2), and makes resistive communication an active, regenerative channel rather than a lossy wire. Open problems remain: tightening device-to-device uniformity so the program-and-verify burden falls; pushing the usable level count toward the thermal bound; and co-designing training algorithms explicitly aware of the asymmetric, quantized update. 26. Conclusion 
+
+We have presented a self-contained, physics-based design of an on-chip neural network built from multi-level memristive synapses. Starting from ionic transport we derived a continuous state-variable model whose conductance spectrum supports a very large number of sub-levels, and we bounded that number with a thermal-noise capacity analysis. We assembled the devices into a differential 1T1R crossbar, gave the exact circuit theory of analog vector–matrix multiplication including wire-resistance corrections, and built a deep architecture in which inference, backpropa-gation, and weight update all execute in the analog domain on the same fabric. We tied the tiles together with a quantitative model of resistive communication as an active memristive transmission line. The multi-level cell is the linchpin: density, energy efficiency, and trainable accuracy all scale with the number of stable conductance sub-levels. The memristor and the neuristor, by virtue of their nanoscale ionic physics, are the natural elements from which to build neuromorphic networks that emulate the electrical synapse—now with a complete mathematical and physical blueprint behind the idea. 30 DAVID ALEJANDRO TREJO PIZZO 
+
+References 
+
+[1] L. O. Chua, Memristor—the missing circuit element , IEEE Trans. Circuit Theory 18 (1971), no. 5, 507–519. [2] D. B. Strukov, G. S. Snider, D. R. Stewart, and R. S. Williams, The missing memristor found , Nature 453 (2008), 80–83. [3] M. D. Pickett, G. Medeiros-Ribeiro, and R. S. Williams, A scalable neuristor built with Mott memristors , Nature Materials 12 (2013), 114–117. [4] J. J. Yang, M. D. Pickett, X. Li, D. A. A. Ohlberg, D. R. Stewart, and R. S. Williams, Memristive switching mechanism for metal/oxide/metal nanodevices , Nature Nanotechnology 3 (2008), 429–433. [5] R. Waser and M. Aono, Nanoionics-based resistive switching memories , Nature Materials 6 (2007), 833–840. [6] A. Sebastian, M. Le Gallo, R. Khaddam-Aljameh, and E. Eleftheriou, Memory devices and applications for in-memory computing , Nature Nanotechnology 15 (2020), 529–544. [7] D. Ielmini and H.-S. P. Wong, In-memory computing with resistive switching devices , Nature Electronics 1 (2018), 333–343. [8] M. Hu et al., Memristor-based analog computation and neural network classification with a dot product engine ,Advanced Materials 30 (2018), 1705914. [9] P. Yao et al., Fully hardware-implemented memristor convolutional neural network , Nature 577 (2020), 641–646. [10] M. Prezioso, F. Merrikh-Bayat, B. D. Hoskins, G. C. Adam, K. K. Likharev, and D. B. Strukov, Training and operation of an integrated neuromorphic network based on metal-oxide memristors , Nature 521 (2015), 61–64. [11] S. Ambrogio et al., Equivalent-accuracy accelerated neural-network training using analogue memory , Nature 558 
+
+(2018), 60–67. [12] I. Boybat et al., Neuromorphic computing with multi-memristive synapses , Nature Communications 9 (2018), 2514. [13] G. W. Burr et al., Experimental demonstration and tolerancing of a large-scale neural network using phase-change memory , IEEE Trans. Electron Devices 62 (2015), no. 11, 3498–3507. [14] F. Alibart, E. Zamanidoost, and D. B. Strukov, Pattern classification by memristive crossbar circuits using ex situ and in situ training , Nature Communications 4 (2013), 2072. [15] A. Siemon, S. Ferch, S. Menzel, R. Waser, and E. Linn, Impact of quantized conductance effects of ReRAM devices on neuromorphic networks , CNNA 2016, Dresden, Germany, 1–2. [16] G. Indiveri et al., Neuromorphic silicon neuron circuits , Frontiers in Neuroscience 5 (2011), 73. [17] IEEE Std 1906.1-2015, Recommended Practice for Nanoscale and Molecular Communication Framework , IEEE (2016). [18] D. A. Trejo Pizzo, Resistive communications based on neuristors , Technical report, NyVind Research Labs / Universidad de Palermo (2017).

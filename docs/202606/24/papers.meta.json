@@ -1,0 +1,24 @@
+{
+  "label": "2026-06-24",
+  "date": "2026-06-24",
+  "generated_at": "2026-06-24T21:02:39",
+  "count": 1,
+  "papers": [
+    {
+      "paper_id": "202606/24/2606.21772v1-solid-state-transcapacitor-a-new-gain-element-for-logic-memory-and-interconnects",
+      "section": "deep",
+      "title_en": "Solid-state transcapacitor, a new gain element for logic, memory and interconnects",
+      "authors": "Amrita Mathuriya, Roza Kotlyar, Neal Reynolds, Rafael Rios, Alan Kalitsov, Peter B. Meisenheimer, James Clarkson, Noriyuki Sato, Tanay Gosavi, Ramamoorthy Ramesh, Dmitri E. Nikonov, Sasikanth Manipatruni",
+      "date": "2026-06-19",
+      "pdf": "https://arxiv.org/pdf/2606.21772v1",
+      "score": "8.0",
+      "evidence": "新型增益元件降低存储访问能耗，直接提升计算能效",
+      "tldr": "晶体管在电压和电荷缩放上遇到瓶颈，导致逻辑和内存能耗高昂。本文提出一种新型三端逻辑元件——固态跨电容器（TCAP），利用压电效应通过栅极控制电容的机电耦合实现位移电流调制。TCAP消除了传输电流，突破玻尔兹曼极限，可同时降低电压、提高电流密度和调制比。基于TCAP的逻辑电路相比最终缩放的CMOS可实现100倍能耗降低，且延迟相当，为低能耗计算提供了新路径。",
+      "tags": "query:cim",
+      "abstract_en": "Today's transistors dictate the voltage and charge scales for both logic and memory. While AI systems are recognized to be limited by memory energy, the dominant share of the energy is expended in the intrachip interconnects whose voltage and charge scales are set by transistors. The energy scaling challenges of transistors can be attributed to simultaneously meeting high current density, high current/impedance modulation, and the inability to lower voltages. Hence, a new logic element that lowers the voltage and charge needs is a priority, not only for lowering logic power but also memory access power. Here, we propose a novel 3-terminal logic element for low energy computing, a solid-state transcapacitor (TCAP). A TCAP is a solid state displacement current modulator realized by a gate which controls the charge-voltage relationship of the channel. Unlike transistors, TCAPs eliminate the dissipative transport current, are not bound by the Boltzmann current modulation limit, and operate with displacement currents limited only by the polarization response and contact resistance. Hence, TCAP circuits may simultaneously overcome the voltage, current density, and current modulation limits of CMOS. We describe a solid state TCAP using a piezoelectric transcapacitor in which a gate-controlled stressor modulates the capacitance of a polar channel via electromechanical coupling. This device achieves inversion and gain, essential for logic, and is functionally equivalent to a 1T-1C memory cell, enabling dense memory. Using voltage scaling, capacitive energy recovery, and high polarization densities of polar materials, the logic based on TCAP offers a pathway to 100 fold lower energy consumption with a delay comparable to ultimately scaled CMOS devices. This approach provides a new potential pathway for low-energy computing beyond the limits of transistors using electro-mechanics and multiferroics.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

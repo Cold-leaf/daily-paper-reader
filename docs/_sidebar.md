@@ -1,6 +1,9 @@
 * <a class="dpr-sidebar-root-link" href="#/">首页</a>
 * <a class="dpr-sidebar-root-link dpr-sidebar-noactive-link" href="javascript:void(0)" data-dpr-hash="#/tutorial/README">使用教程</a>
 * Daily Papers
+  * 2026-06-24 <!--dpr-date:20260624-->
+    * 精读区
+      * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202606/24/2606.21772v1-solid-state-transcapacitor-a-new-gain-element-for-logic-memory-and-interconnects" data-sidebar-item="{&quot;title&quot;: &quot;Solid-state transcapacitor, a new gain element for logic, memory and interconnects&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2606.21772v1-solid-state-transcapacitor-a-new-gain-element-for-logic-memory-and-interconnects&quot;, &quot;score&quot;: &quot;8.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;cim&quot;}], &quot;evidence&quot;: &quot;新型增益元件降低存储访问能耗，直接提升计算能效&quot;}">Solid-state transcapacitor, a new gain element for logic, memory and interconnects</a>
   * 2026-06-23 <!--dpr-date:20260623-->
     * 精读区
       * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202606/23/2606.20786v1-memory-centric-computing-security-benefits-and-challenges-of-processing-in-dram" data-sidebar-item="{&quot;title&quot;: &quot;Memory-Centric Computing: Security Benefits and Challenges of Processing-in-DRAM&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2606.20786v1-memory-centric-computing-security-benefits-and-challenges-of-processing-in-dram&quot;, &quot;score&quot;: &quot;9.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;cim&quot;}], &quot;evidence&quot;: &quot;直接讨论处理进DRAM（处理进内存）的以内存为中心的计算&quot;}">Memory-Centric Computing: Security Benefits and Challenges of Processing-in-DRAM</a>

@@ -1,0 +1,66 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-24T20:59:43.162503+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 0,
+    "quick_skim_target": 11,
+    "quick_selected": 0
+  },
+  "deep_dive": [
+    {
+      "id": "2606.21772v1",
+      "source": "arxiv",
+      "title": "Solid-state transcapacitor, a new gain element for logic, memory and interconnects",
+      "abstract": "Today's transistors dictate the voltage and charge scales for both logic and memory. While AI systems are recognized to be limited by memory energy, the dominant share of the energy is expended in the intrachip interconnects whose voltage and charge scales are set by transistors. The energy scaling challenges of transistors can be attributed to simultaneously meeting high current density, high current/impedance modulation, and the inability to lower voltages. Hence, a new logic element that lowers the voltage and charge needs is a priority, not only for lowering logic power but also memory access power. Here, we propose a novel 3-terminal logic element for low energy computing, a solid-state transcapacitor (TCAP). A TCAP is a solid state displacement current modulator realized by a gate which controls the charge-voltage relationship of the channel. Unlike transistors, TCAPs eliminate the dissipative transport current, are not bound by the Boltzmann current modulation limit, and operate with displacement currents limited only by the polarization response and contact resistance. Hence, TCAP circuits may simultaneously overcome the voltage, current density, and current modulation limits of CMOS. We describe a solid state TCAP using a piezoelectric transcapacitor in which a gate-controlled stressor modulates the capacitance of a polar channel via electromechanical coupling. This device achieves inversion and gain, essential for logic, and is functionally equivalent to a 1T-1C memory cell, enabling dense memory. Using voltage scaling, capacitive energy recovery, and high polarization densities of polar materials, the logic based on TCAP offers a pathway to 100 fold lower energy consumption with a delay comparable to ultimately scaled CMOS devices. This approach provides a new potential pathway for low-energy computing beyond the limits of transistors using electro-mechanics and multiferroics.",
+      "authors": [
+        "Amrita Mathuriya",
+        "Roza Kotlyar",
+        "Neal Reynolds",
+        "Rafael Rios",
+        "Alan Kalitsov",
+        "Peter B. Meisenheimer",
+        "James Clarkson",
+        "Noriyuki Sato",
+        "Tanay Gosavi",
+        "Ramamoorthy Ramesh",
+        "Dmitri E. Nikonov",
+        "Sasikanth Manipatruni"
+      ],
+      "primary_category": "cond-mat.mes-hall",
+      "categories": [
+        "cond-mat.mes-hall",
+        "cond-mat.mtrl-sci",
+        "cs.AR",
+        "cs.ET",
+        "physics.app-ph"
+      ],
+      "published": "2026-06-19T21:43:55+00:00",
+      "link": "https://arxiv.org/pdf/2606.21772v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "novel gain element reduces memory access energy, directly addresses energy efficiency in computing",
+      "llm_evidence_cn": "新型增益元件降低存储访问能耗，直接提升计算能效",
+      "llm_evidence": "新型增益元件降低存储访问能耗，直接提升计算能效",
+      "canonical_evidence": "新型增益元件降低存储访问能耗，直接提升计算能效",
+      "llm_tldr_en": "Proposes a solid-state transcapacitor as a new 3-terminal logic element that lowers voltage and charge scales, reducing both logic and memory access energy, addressing key energy challenge in computing.",
+      "llm_tldr_cn": "现代人工智能系统受限于存储能耗，而芯片内互联能耗占主导。本文提出一种固态跨电容器（TCAP），作为一种新型三端逻辑元件，能够同时降低逻辑和存储访问的电压与电荷需求，从而显著降低计算能耗。TCAP通过电容耦合实现信号放大，有望替代传统晶体管成为低能耗计算的基础元件。该工作为计算存储一体化架构提供了一种潜在的底层器件支撑。",
+      "llm_tldr": "现代人工智能系统受限于存储能耗，而芯片内互联能耗占主导。本文提出一种固态跨电容器（TCAP），作为一种新型三端逻辑元件，能够同时降低逻辑和存储访问的电压与电荷需求，从而显著降低计算能耗。TCAP通过电容耦合实现信号放大，有望替代传统晶体管成为低能耗计算的基础元件。该工作为计算存储一体化架构提供了一种潜在的底层器件支撑。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "How does compute in memory architecture improve energy efficiency?",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": []
+}

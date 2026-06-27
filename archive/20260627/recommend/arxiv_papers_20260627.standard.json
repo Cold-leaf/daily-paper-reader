@@ -1,0 +1,55 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-27T20:54:20.893748+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2606.22635v1",
+      "source": "arxiv",
+      "title": "Design and Development of a Neuromorphic Silicon Suite: PVT Sensing, Stochastic LIF Inference, On-Chip STDP Learning, and Crossbar Programming",
+      "abstract": "Edge neuromorphic systems need compact, configurable hardware that combines probabilistic inference, local learning, and an interface to emerging analogue memory. We present four interface-compatible digital IP blocks implemented as standard-cell CMOS on the SkyWater 130 nm process: a process, voltage and temperature (PVT) sensor built from five selectable ring oscillators that also provides a jitter-based true-random-number generator and a frequency-bounds health monitor; a stochastic leaky integrate-and-fire (LIF) neuron with a configurable LFSR, a programmable activation table, and a refractory period; an on-chip spike-timing-dependent plasticity (STDP) controller with a programmable curve and reward-modulated, eligibility-trace, and anti-Hebbian modes; and a memristive-crossbar controller supporting forming, set, reset, read, and automated current-voltage sweep with current-compliance limiting and half-select biasing. All four blocks share a common serial peripheral interface (SPI) register file; the sensor also exposes a parallel readout. Each occupies a single tile at a 50 MHz target. The suite was verified with 99 cocotb tests at register-transfer and gate level (all passing) and taken through an open standard-cell flow, then submitted for tapeout via the Tiny Tapeout shared-silicon programme. Mapped to the open cell library, each block occupies a post-synthesis cell area of 9.3 to 10.6 thousand square micrometres, places at 61 to 70 per cent tile utilisation, meets the 50 MHz constraint with positive setup and hold margin after clock-tree synthesis, and draws an estimated 0.64 to 0.70 mW under a default switching-activity assumption. The contribution is a coherent, openly released set of building blocks unified by one register interface and one verification flow. All results are from simulation and the implementation flow; no fabricated silicon is reported.",
+      "authors": [
+        "Poornima Kumaresan",
+        "Santhosh Sivasubramani"
+      ],
+      "primary_category": "cs.ET",
+      "categories": [
+        "cs.ET",
+        "cs.AR",
+        "cs.NE"
+      ],
+      "published": "2026-06-21T18:46:33+00:00",
+      "link": "https://arxiv.org/pdf/2606.22635v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "crossbar programming with analog memory enables in-memory computation",
+      "llm_evidence_cn": "交叉阵列编程配合模拟存储器实现存内计算",
+      "llm_evidence": "交叉阵列编程配合模拟存储器实现存内计算",
+      "canonical_evidence": "交叉阵列编程配合模拟存储器实现存内计算",
+      "llm_tldr_en": "A neuromorphic silicon suite integrating PVT sensing, stochastic LIF neurons, on-chip STDP learning, and crossbar programming for analog memory, enabling compact edge inference with local learning and probabilistic computation.",
+      "llm_tldr_cn": "针对边缘神经形态系统对紧凑、可配置硬件需求，该论文提出了四个兼容的数字IP模块，包括PVT传感器、随机LIF神经元、片上STDP学习控制器及交叉阵列编程接口，均在SkyWater 130nm工艺上实现。这些模块支持概率推理、局部学习与模拟存储器的交互，为未来存算一体系统提供了关键构建模块。实验表明，该套件能在极低功耗下实现可配置的神经形态计算，有助于推动存算一体架构在边缘设备中的应用。",
+      "llm_tldr": "针对边缘神经形态系统对紧凑、可配置硬件需求，该论文提出了四个兼容的数字IP模块，包括PVT传感器、随机LIF神经元、片上STDP学习控制器及交叉阵列编程接口，均在SkyWater 130nm工艺上实现。这些模块支持概率推理、局部学习与模拟存储器的交互，为未来存算一体系统提供了关键构建模块。实验表明，该套件能在极低功耗下实现可配置的神经形态计算，有助于推动存算一体架构在边缘设备中的应用。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "compute-in-memory architecture",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

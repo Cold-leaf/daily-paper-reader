@@ -6,28 +6,29 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-06-29
-- 运行时间：2026-06-29 21:43:57 UTC
+- 最新运行日期：2026-06-30
+- 运行时间：2026-06-30 21:29:34 UTC
 - 运行状态：成功
-- 本次总论文数：2
-- 精读区：1
+- 本次总论文数：3
+- 精读区：2
 - 速读区：1
 
 ### 今日简报（AI）
-1) 今日精读一篇预硅固件协同优化缓解3.5D异构封装性能退化的论文，速读一篇CoWoS先进封装在线X射线检测设计指南。  
-2) 最值得关注：预硅固件协同优化可显著降低工艺引发的性能损失，而系统化的X射线检测准则有助于提升先进封装良率与可靠性。  
-3) 建议进一步关注异构集成中设计与制造协同优化方法，同时参考CoWoS案例中的无破坏检测策略。
-- 详情：[/202606/29/README](/202606/29/README)
+今日精读2篇、速读1篇，重点关注移动设备并发调度与高性能计算电源设计。最值得看的是9分的《COSM》提出移动设备上PIM与CPU协同调度框架，以及8分的高性能计算垂直供电架构。建议优先精读《COSM》，了解移动AI加速的调度优化。
+- 详情：[/202606/30/README](/202606/30/README)
 
 ### 精读区论文标签
-1. [Toward Mitigating Process-Induced Performance Degradation in 3.5D Heterogeneous Packages via Pre-Silicon Firmware Co-Optimization](/202606/29/2606.26176v2-toward-mitigating-process-induced-performance-degradation-in-35d-heterogeneous-packages-via-pre-silicon-firmware-co-optimization)  
+1. [COSM: A Cooperative Scheduling Framework for Concurrent PIM and CPU Execution on Mobile Devices](/202606/30/2606.30553v1-cosm-a-cooperative-scheduling-framework-for-concurrent-pim-and-cpu-execution-on-mobile-devices)  
+   标签：评分：9.0/10、query:cim
+   evidence：移动设备上PIM与CPU并行的协同调度框架
+2. [A Comprehensive Design Framework for Vertical Power Delivery in High-Performance Computing](/202606/30/2606.28837v1-a-comprehensive-design-framework-for-vertical-power-delivery-in-high-performance-computing)  
    标签：评分：8.0/10、query:cim
-   evidence：涉及Foveros Direct 3D混合键合和HBM5的3.5D异构封装
+   evidence：三维集成电路设计（异构芯粒的垂直供电）
 
 ### 速读区论文标签
-1. [Design Guidelines for In-line X-ray Inspection in Advanced Packaging Technology: A CoWoS Case Study](/202606/29/2606.26430v1-design-guidelines-for-in-line-x-ray-inspection-in-advanced-packaging-technology-a-cowos-case-study)  
-   标签：评分：7.0/10、query:cim
-   evidence：先进封装3D集成检测设计指南
+1. [SHIFT: Dynamic Compute Relocation Framework for Communication-Aware Chiplet-Based Systems](/202606/30/2606.28754v1-shift-dynamic-compute-relocation-framework-for-communication-aware-chiplet-based-systems)  
+   标签：评分：6.0/10、query:cim
+   evidence：基于芯片粒的架构与细间距集成平台的计算重定位
 
 
 <div class="dpr-home-promo-card">

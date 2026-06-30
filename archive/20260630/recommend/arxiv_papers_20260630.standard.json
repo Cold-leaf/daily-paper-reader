@@ -1,0 +1,139 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-30T21:26:40.885059+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 2,
+    "deep_cap": 6,
+    "deep_selected": 2,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [
+    {
+      "id": "2606.30553v1",
+      "source": "arxiv",
+      "title": "COSM: A Cooperative Scheduling Framework for Concurrent PIM and CPU Execution on Mobile Devices",
+      "abstract": "The development of on-device large language models (LLMs) is driven by the need for privacy and fast response times. Energy-intensive data transfer on mobile devices makes Processing-in-Memory (PIM) an effective solution. Due to stringent DRAM cost constraints, limited physical footprint on circuit boards, and the interaction between applications and LLMs, it is imperative for the CPU and PIM to operate concurrently within a shared memory space. However, challenges such as bank conflicts and bus congestion can arise, potentially diminishing the performance and energy benefits of PIM. To address this challenge, we introduce COSM, a cooperative scheduling framework designed to facilitate the concurrent operation of PIM and CPU tasks on mobile platforms. Our key innovations include: 1) a low-interference PIM control interface that generates the maximum number of PIM commands without disrupting CPU memory accesses; 2) an idleness-aware scheduling method that integrates PIM commands into available idle time windows within the CPU's access sequence. COSM not only hides PIM execution latency from the CPU, but also overlaps PIM execution with data transfer. Experiments on concurrent execution of LLMs and mobile workloads, including mobile applications and compute-intensive kernels, demonstrate that COSM improves PIM throughput by up to 2.8x compared to the baseline scheduling method with less than 2.0% CPU performance loss.",
+      "authors": [
+        "Yilong Zhao",
+        "Fangxin Liu",
+        "Onur Mutlu",
+        "Mingyu Gao",
+        "Jian Liu",
+        "Haibing Guan",
+        "Li Jiang"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR",
+        "cs.DC"
+      ],
+      "published": "2026-06-29T16:49:17+00:00",
+      "link": "https://arxiv.org/pdf/2606.30553v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "cooperative scheduling framework for concurrent PIM and CPU execution on mobile devices",
+      "llm_evidence_cn": "移动设备上PIM与CPU并行的协同调度框架",
+      "llm_evidence": "移动设备上PIM与CPU并行的协同调度框架",
+      "canonical_evidence": "移动设备上PIM与CPU并行的协同调度框架",
+      "llm_tldr_en": "COSM addresses bank conflicts and bus congestion in concurrent PIM and CPU execution on shared memory, enabling efficient PIM deployment on mobile devices.",
+      "llm_tldr_cn": "移动设备上处理-存内（PIM）与CPU的并发执行面临存储体冲突和总线拥塞等挑战，可能削弱PIM的能效优势。本文提出COSM协同调度框架，通过智能调度PIM与CPU请求，减少冲突和拥塞。实验表明，COSM在真实移动工作负载下显著提升了PIM的性能和能效，为存内计算在移动端的实际部署提供了可行方案。",
+      "llm_tldr": "移动设备上处理-存内（PIM）与CPU的并发执行面临存储体冲突和总线拥塞等挑战，可能削弱PIM的能效优势。本文提出COSM协同调度框架，通过智能调度PIM与CPU请求，减少冲突和拥塞。实验表明，COSM在真实移动工作负载下显著提升了PIM的性能和能效，为存内计算在移动端的实际部署提供了可行方案。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "processing-in-memory systems",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.28837v1",
+      "source": "arxiv",
+      "title": "A Comprehensive Design Framework for Vertical Power Delivery in High-Performance Computing",
+      "abstract": "Power delivery -- including high-to-low voltage conversion, complex power distribution across heterogeneously integrated chiplets, and efficient interconnect allocation -- remains a critical bottleneck in high-performance computing (HPC) systems. Existing vertical power delivery (VPD) solutions are estimated to achieve less than 70\\% system-wide end-to-end power delivery efficiency, defined from platform input power to delivered on-chip load power, with substantial energy lost as heat before reaching on-chip point-of-loads (POLs). In the absence of systematic design methodologies, evaluating power quality, exploring architectural alternatives, and optimizing performance rely on computationally prohibitive simulations, resulting in suboptimal designs. This paper introduces an end-to-end scalable power delivery framework for HPC systems, including distributed VPD (DVPD) architecture, DVPD design optimization methodology, and analytical models. The framework leverages substrate-embedded GaN power switches together with arrays of unit inductors and capacitors tailored for HPC applications. Multi-stage power conversion schemes (48V-to-1V, 48V-to-24V-to-1V, and 48V-to-12V-to-1V) are explored, with system-wide voltage drops and power losses evaluated under steady-state conditions. Design specifications for passive and active devices are formulated to meet next-generation efficiency targets. For the 48V-to-1V case, the proposed DVPD approach achieves 84\\% system-wide efficiency while occupying 54\\% of the area beneath the load system, with efficiency increasing to 87.6\\% at 75\\% area utilization across a 1--50~kW load range. Furthermore, steady-state voltage drops peak at 2.7\\% and transient drops at 9\\% (without decoupling capacitors), demonstrating the viability of DVPD for future wafer-scale HPC platforms.",
+      "authors": [
+        "Sriharini Krishnakumar",
+        "Yaroslav Popryho",
+        "Mingeun Choi",
+        "Ramin Rahimzadeh Khorasani",
+        "Madhavan Swaminathan",
+        "Satish Kumar",
+        "Inna Partin-Vaisband"
+      ],
+      "primary_category": "eess.SY",
+      "categories": [
+        "eess.SY",
+        "eess.SP"
+      ],
+      "published": "2026-06-27T09:49:31+00:00",
+      "link": "https://arxiv.org/pdf/2606.28837v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "3D integrated circuit design (vertical power delivery for heterogeneous chiplets)",
+      "llm_evidence_cn": "三维集成电路设计（异构芯粒的垂直供电）",
+      "llm_evidence": "三维集成电路设计（异构芯粒的垂直供电）",
+      "canonical_evidence": "三维集成电路设计（异构芯粒的垂直供电）",
+      "llm_tldr_en": "This paper presents a comprehensive design framework for vertical power delivery in HPC, addressing power conversion and distribution across heterogeneously integrated chiplets, achieving system-level efficiency optimization.",
+      "llm_tldr_cn": "该论文针对高性能计算中垂直供电（VPD）的关键瓶颈，提出了一种系统化设计框架。该框架涵盖了高-低电压转换、异构集成芯粒的功率分配以及互连优化，旨在提升端到端供电效率。通过仿真评估，该框架能够有效探索架构替代方案并优化性能，解决了传统方法计算负担重的问题。该工作为3D集成电路设计中的供电问题提供了重要方法论。",
+      "llm_tldr": "该论文针对高性能计算中垂直供电（VPD）的关键瓶颈，提出了一种系统化设计框架。该框架涵盖了高-低电压转换、异构集成芯粒的功率分配以及互连优化，旨在提升端到端供电效率。通过仿真评估，该框架能够有效探索架构替代方案并优化性能，解决了传统方法计算负担重的问题。该工作为3D集成电路设计中的供电问题提供了重要方法论。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "3D integrated circuit design",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.28754v1",
+      "source": "arxiv",
+      "title": "SHIFT: Dynamic Compute Relocation Framework for Communication-Aware Chiplet-Based Systems",
+      "abstract": "The increasing communication complexity of large-scale heterogeneous systems has motivated runtime methodologies for communication-aware workload placement and routing optimization. These communication limitations are addressed in this paper by proposing SHIFT, a novel topology-agnostic approach that transfers compute node context and data to a more suitably positioned node, rather than only shifting data as in conventional networks-on-chip. The proposed strategy is evaluated on a chiplet-based architecture utilizing a fine-pitch integration platform featuring multiple bandwidth-domains for heterogeneous workloads. The proposed architecture employs multi-layered routing between functional or memory chiplets and utility chiplets, which serve as intelligent nodes for routing and compute relocation. Adaptive scheduling and routing utilize a modified shortest-path algorithm for large-scale systems, complemented by a lightweight ML-assisted policy that infers traffic conditions to improve adaptivity. To establish a performance baseline, the initial assessment uses random instruction vectors and data patterns to evaluate the fundamental capabilities of SHIFT. Simulation results exhibit successful relocations over total trials ranging from 75.2% to 97.9% across configurations, with average latency improvements of 16.4%-62.5% and a maximum of 76.8%. In addition, throughput is improved by up to 12.5x, power dissipation per unit area is reduced by ~8%, energy-per-bit is reduced by up to 58.3%, and performance is improved by 18%. To evaluate efficiency under high logic and data density, the framework was tested on standard LLM workloads. Results exhibit average improvements of 4.9x, 5.9x, and 1.8x in runtime, throughput, and energy-efficiency, respectively, surpassing state-of-the-art wafer-scale LLM services and demonstrating compatibility with large-scale platforms and applications.",
+      "authors": [
+        "Arvin Delavari",
+        "Leonid Popryho",
+        "Inna Partin-Vaisband",
+        "Boris Vaisband"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR",
+        "cs.ET"
+      ],
+      "published": "2026-06-27T06:02:23+00:00",
+      "link": "https://arxiv.org/pdf/2606.28754v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "chiplet-based architecture with fine-pitch integration platform for compute relocation",
+      "llm_evidence_cn": "基于芯片粒的架构与细间距集成平台的计算重定位",
+      "llm_evidence": "基于芯片粒的架构与细间距集成平台的计算重定位",
+      "canonical_evidence": "基于芯片粒的架构与细间距集成平台的计算重定位",
+      "llm_tldr_en": "SHIFT proposes a dynamic compute relocation framework for chiplet-based systems using a fine-pitch integration platform, demonstrating improved communication efficiency.",
+      "llm_tldr_cn": "针对大规模异构系统中通信复杂度的增加，本文提出SHIFT框架，通过将计算节点上下文和数据迁移至更合适的位置，而非仅移动数据，优化芯片粒系统中的通信。基于细间距集成平台的多层路由架构在异构工作负载下展现出通信效率提升。该工作为3D集成芯片设计提供了运行时通信感知的调度方法。",
+      "llm_tldr": "针对大规模异构系统中通信复杂度的增加，本文提出SHIFT框架，通过将计算节点上下文和数据迁移至更合适的位置，而非仅移动数据，优化芯片粒系统中的通信。基于细间距集成平台的多层路由架构在异构工作负载下展现出通信效率提升。该工作为3D集成芯片设计提供了运行时通信感知的调度方法。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "3D integrated circuit design",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

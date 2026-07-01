@@ -6,29 +6,27 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-06-30
-- 运行时间：2026-06-30 21:29:34 UTC
+- 最新运行日期：2026-07-01
+- 运行时间：2026-07-01 22:07:02 UTC
 - 运行状态：成功
-- 本次总论文数：3
+- 本次总论文数：2
 - 精读区：2
-- 速读区：1
+- 速读区：0
 
 ### 今日简报（AI）
-今日精读2篇、速读1篇，重点关注移动设备并发调度与高性能计算电源设计。最值得看的是9分的《COSM》提出移动设备上PIM与CPU协同调度框架，以及8分的高性能计算垂直供电架构。建议优先精读《COSM》，了解移动AI加速的调度优化。
-- 详情：[/202606/30/README](/202606/30/README)
+今日精读2篇8分论文，聚焦移动设备PIM与CPU协同调度框架及忆阻器原位内存索引技术。最值得关注的是系统级软硬件协同优化方案，以及基于新型器件的存内计算索引设计。建议深入研读两篇论文的具体实现细节与实验对比。
+- 详情：[/202607/01/README](/202607/01/README)
 
 ### 精读区论文标签
-1. [COSM: A Cooperative Scheduling Framework for Concurrent PIM and CPU Execution on Mobile Devices](/202606/30/2606.30553v1-cosm-a-cooperative-scheduling-framework-for-concurrent-pim-and-cpu-execution-on-mobile-devices)  
-   标签：评分：9.0/10、query:cim
-   evidence：移动设备上PIM与CPU并行的协同调度框架
-2. [A Comprehensive Design Framework for Vertical Power Delivery in High-Performance Computing](/202606/30/2606.28837v1-a-comprehensive-design-framework-for-vertical-power-delivery-in-high-performance-computing)  
+1. [COSM: A Cooperative Scheduling Framework for Concurrent PIM and CPU Execution on Mobile Devices](/202607/01/2606.30553v2-cosm-a-cooperative-scheduling-framework-for-concurrent-pim-and-cpu-execution-on-mobile-devices)  
    标签：评分：8.0/10、query:cim
-   evidence：三维集成电路设计（异构芯粒的垂直供电）
+   evidence：面向移动设备上PIM和CPU并发执行的协同调度框架
+2. [In-situ Indexing via Memristive Content-Addressable Memory](/202607/01/2606.31554v1-in-situ-indexing-via-memristive-content-addressable-memory)  
+   标签：评分：8.0/10、query:cim
+   evidence：利用处理-存内和内容可寻址存储器的原位索引架构
 
 ### 速读区论文标签
-1. [SHIFT: Dynamic Compute Relocation Framework for Communication-Aware Chiplet-Based Systems](/202606/30/2606.28754v1-shift-dynamic-compute-relocation-framework-for-communication-aware-chiplet-based-systems)  
-   标签：评分：6.0/10、query:cim
-   evidence：基于芯片粒的架构与细间距集成平台的计算重定位
+- 本次无速读推荐。
 
 
 <div class="dpr-home-promo-card">

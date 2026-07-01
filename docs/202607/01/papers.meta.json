@@ -1,0 +1,39 @@
+{
+  "label": "2026-07-01",
+  "date": "2026-07-01",
+  "generated_at": "2026-07-01T22:07:10",
+  "count": 2,
+  "papers": [
+    {
+      "paper_id": "202607/01/2606.30553v2-cosm-a-cooperative-scheduling-framework-for-concurrent-pim-and-cpu-execution-on-mobile-devices",
+      "section": "deep",
+      "title_en": "COSM: A Cooperative Scheduling Framework for Concurrent PIM and CPU Execution on Mobile Devices",
+      "authors": "Yilong Zhao, Fangxin Liu, Onur Mutlu, Mingyu Gao, Jian Liu, Haibing Guan, Li Jiang",
+      "date": "2026-06-29",
+      "pdf": "https://arxiv.org/pdf/2606.30553v2",
+      "score": "8.0",
+      "evidence": "面向移动设备上PIM和CPU并发执行的协同调度框架",
+      "tldr": "移动端部署大语言模型需要隐私和低延迟，但CPU与PIM并发执行面临存储冲突和总线拥堵问题。本文提出COSM协同调度框架，通过低干扰PIM控制接口和空闲感知调度，将PIM命令插入CPU访问间隙。实验表明，与基线相比，PIM吞吐量提升2.8倍，CPU性能损失低于2%。",
+      "tags": "query:cim",
+      "abstract_en": "The development of on-device large language models (LLMs) is driven by the need for privacy and fast response times. Energy-intensive data transfer on mobile devices makes Processing-in-Memory (PIM) an effective solution. Due to stringent DRAM cost constraints, limited physical footprint on circuit boards, and the interaction between applications and LLMs, it is imperative for the CPU and PIM to operate concurrently within a shared memory space. However, challenges such as bank conflicts and bus congestion can arise, potentially diminishing the performance and energy benefits of PIM. To address this challenge, we introduce COSM, a cooperative scheduling framework designed to facilitate the concurrent operation of PIM and CPU tasks on mobile platforms. Our key innovations include: 1) a low-interference PIM control interface that generates the maximum number of PIM commands without disrupting CPU memory accesses; 2) an idleness-aware scheduling method that integrates PIM commands into available idle time windows within the CPU's access sequence. COSM not only hides PIM execution latency from the CPU, but also overlaps PIM execution with data transfer. Experiments on concurrent execution of LLMs and mobile workloads, including mobile applications and compute-intensive kernels, demonstrate that COSM improves PIM throughput by up to 2.8x compared to the baseline scheduling method with less than 2.0% CPU performance loss.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202607/01/2606.31554v1-in-situ-indexing-via-memristive-content-addressable-memory",
+      "section": "deep",
+      "title_en": "In-situ Indexing via Memristive Content-Addressable Memory",
+      "authors": "Bing Wu, Xueliang Wei, Shiyi Song, Yibo Liu, Jinpeng Liu, Wei Tong, Hao Tong, Yuchong Hu, Dan Feng",
+      "date": "2026-06-30",
+      "pdf": "https://arxiv.org/pdf/2606.31554v1",
+      "score": "8.0",
+      "evidence": "利用处理-存内和内容可寻址存储器的原位索引架构",
+      "tldr": "处理内存（PIM）虽能克服内存墙，但数据索引难以获益。本文提出PATH，通过将索引操作重构为内存阵列内的并行内容可寻址操作，实现原位索引。以哈希索引为例，采用超大型逻辑桶和内存移动，几乎消除冲突解决与重排开销。实验表明，PATH相比现有方案吞吐量提升4.7-7.8倍，尾延迟降低超14.5倍，内存访问减少超61.4%，为数据中心计算奠定可扩展基础。",
+      "tags": "query:cim",
+      "abstract_en": "Processing-in-Memory (PIM) is a proven paradigm for overcoming the ``memory wall\". However, while data indexing is severely bottlenecked by this same wall, it remains unclear how indexing can effectively benefit from PIM's unique capabilities. We present PATH, an in-situ indexing architecture that bridges this gap by leveraging the massive parallelism and inherent data-movement of PIMs. Specifically, we first reformulate the fundamental indexing operations, namely Insert, Search, Update, and Delete, into highly parallel in-situ content-addressable memory operations executed directly within memory arrays. Taking hash indexes as a typical case, we elaborate how PATH breaks the inherent trade-off among memory accesses, load factor, and process latency in conventional hashing schemes. By adopting ultra-large logical buckets and in-memory moving, PATH virtually eliminates the cost of hash collision resolution and significantly reduces resizing overhead. Compared with state-of-the-art schemes, PATH achieves $4.7-7.8\\times$ higher throughput, $>14.5\\times$ lower tail latency, and $>61.4\\%$ fewer memory accesses under insertions, laying a scalable foundation for next-generation data-centric computing.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,24 @@
+{
+  "label": "2026-07-03",
+  "date": "2026-07-03",
+  "generated_at": "2026-07-03T21:30:10",
+  "count": 1,
+  "papers": [
+    {
+      "paper_id": "202607/03/2607.01617v1-3dls-a-3d-logic-stacked-architecture-for-disaggregated-llm-serving",
+      "section": "deep",
+      "title_en": "3DLS: A 3D Logic-Stacked Architecture for Disaggregated LLM Serving",
+      "authors": "Jaehun Lee, In-Jun Jung, Joo-Young Kim",
+      "date": "2026-07-02",
+      "pdf": "https://arxiv.org/pdf/2607.01617v1",
+      "score": "9.0",
+      "evidence": "面向大模型服务的三维逻辑堆叠芯片架构，采用垂直互连",
+      "tldr": "针对LLM服务中PD分离与TP结合时，传统2D/2.5D芯片架构下KV-cache传输与TP集合共享横向互连导致混合流量竞争、增加解码延迟的问题，提出3DLS逻辑堆叠架构，通过垂直互连独立传输KV-cache，横向互连专用于TP集合，实现物理隔离。实验表明，相比共享平面基线，吞吐量提升1.49倍、E2E延迟降低60.2%；相比优先级管理基线，吞吐量提升1.17倍、延迟降低31.4%。论证了物理隔离是未来chiplet PD分离LLM服务的关键设计原则。",
+      "tags": "query:cim",
+      "abstract_en": "Large language model (LLM) serving increasingly combines prefill-decode (PD) disaggregation with tensor parallelism (TP) to support large models and long contexts. In conventional 2D/2.5D chiplet architectures, layer-wise prefill-to-decode KV-cache transfer decode-side TP collectives share the same lateral die-to-die (D2D) interconnect, creating mixed-traffic contention on the decode critical path. This contention increases communication latency, prolongs token generation intervals, and degrades end-to-end serving performance. We propose 3DLS, a logic-on-logic 3D-stacked chiplet architecture that separates traffic classes by routing KV-cache transfers through vertical interconnects while preserving decode-side TP collectives on the lateral D2D fabric. 3DLS achieves up to 1.49$\\times$ throughput and 60.2\\% lower end-to-end (E2E) latency over the shared-fabric planar baseline, and still achieves up to 1.17$\\times$ throughput and 31.4\\% lower E2E latency over a workload-aware priority-managed planar baseline. These results highlight that physical isolation is an important design principle for future chiplet-based PD-disaggregated LLM serving systems.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

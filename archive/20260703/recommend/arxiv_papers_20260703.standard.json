@@ -1,0 +1,53 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-07-03T21:29:16.115175+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 0,
+    "quick_skim_target": 11,
+    "quick_selected": 0
+  },
+  "deep_dive": [
+    {
+      "id": "2607.01617v1",
+      "source": "arxiv",
+      "title": "3DLS: A 3D Logic-Stacked Architecture for Disaggregated LLM Serving",
+      "abstract": "Large language model (LLM) serving increasingly combines prefill-decode (PD) disaggregation with tensor parallelism (TP) to support large models and long contexts. In conventional 2D/2.5D chiplet architectures, layer-wise prefill-to-decode KV-cache transfer decode-side TP collectives share the same lateral die-to-die (D2D) interconnect, creating mixed-traffic contention on the decode critical path. This contention increases communication latency, prolongs token generation intervals, and degrades end-to-end serving performance. We propose 3DLS, a logic-on-logic 3D-stacked chiplet architecture that separates traffic classes by routing KV-cache transfers through vertical interconnects while preserving decode-side TP collectives on the lateral D2D fabric. 3DLS achieves up to 1.49$\\times$ throughput and 60.2\\% lower end-to-end (E2E) latency over the shared-fabric planar baseline, and still achieves up to 1.17$\\times$ throughput and 31.4\\% lower E2E latency over a workload-aware priority-managed planar baseline. These results highlight that physical isolation is an important design principle for future chiplet-based PD-disaggregated LLM serving systems.",
+      "authors": [
+        "Jaehun Lee",
+        "In-Jun Jung",
+        "Joo-Young Kim"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-07-02T02:32:44+00:00",
+      "link": "https://arxiv.org/pdf/2607.01617v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "3D logic-stacked chiplet architecture with vertical interconnects for LLM serving",
+      "llm_evidence_cn": "面向大模型服务的三维逻辑堆叠芯片架构，采用垂直互连",
+      "llm_evidence": "面向大模型服务的三维逻辑堆叠芯片架构，采用垂直互连",
+      "canonical_evidence": "面向大模型服务的三维逻辑堆叠芯片架构，采用垂直互连",
+      "llm_tldr_en": "Proposes 3DLS, a logic-on-logic 3D-stacked chiplet architecture that separates KV-cache transfer (vertical) from decode TP collects (lateral) to reduce contention and improve LLM serving performance.",
+      "llm_tldr_cn": "本文提出3DLS，一种逻辑堆叠的三维芯片架构，通过将层间KV缓存传输路由至垂直互连，而解码侧张量并行通信保留在横向芯片间互连上，解决了传统2.5D架构中混合流量争用导致的延迟增加问题。实验表明，该架构有效降低解码延迟，提升大语言模型服务吞吐量。3DLS为存算一体和近存计算场景下的三维集成提供了新的设计思路。",
+      "llm_tldr": "本文提出3DLS，一种逻辑堆叠的三维芯片架构，通过将层间KV缓存传输路由至垂直互连，而解码侧张量并行通信保留在横向芯片间互连上，解决了传统2.5D架构中混合流量争用导致的延迟增加问题。实验表明，该架构有效降低解码延迟，提升大语言模型服务吞吐量。3DLS为存算一体和近存计算场景下的三维集成提供了新的设计思路。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "3D integrated circuit design",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": []
+}

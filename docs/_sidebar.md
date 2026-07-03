@@ -1,6 +1,9 @@
 * <a class="dpr-sidebar-root-link" href="#/">首页</a>
 * <a class="dpr-sidebar-root-link dpr-sidebar-noactive-link" href="javascript:void(0)" data-dpr-hash="#/tutorial/README">使用教程</a>
 * Daily Papers
+  * 2026-07-03 <!--dpr-date:20260703-->
+    * 精读区
+      * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202607/03/2607.01617v1-3dls-a-3d-logic-stacked-architecture-for-disaggregated-llm-serving" data-sidebar-item="{&quot;title&quot;: &quot;3DLS: A 3D Logic-Stacked Architecture for Disaggregated LLM Serving&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2607.01617v1-3dls-a-3d-logic-stacked-architecture-for-disaggregated-llm-serving&quot;, &quot;score&quot;: &quot;9.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;cim&quot;}], &quot;evidence&quot;: &quot;面向大模型服务的三维逻辑堆叠芯片架构，采用垂直互连&quot;}">3DLS: A 3D Logic-Stacked Architecture for Disaggregated LLM Serving</a>
   * 2026-07-01 <!--dpr-date:20260701-->
     * 精读区
       * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202607/01/2606.30553v2-cosm-a-cooperative-scheduling-framework-for-concurrent-pim-and-cpu-execution-on-mobile-devices" data-sidebar-item="{&quot;title&quot;: &quot;COSM: A Cooperative Scheduling Framework for Concurrent PIM and CPU Execution on Mobile Devices&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2606.30553v2-cosm-a-cooperative-scheduling-framework-for-concurrent-pim-and-cpu-execution-on-mobile-devices&quot;, &quot;score&quot;: &quot;8.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;cim&quot;}], &quot;evidence&quot;: &quot;面向移动设备上PIM和CPU并发执行的协同调度框架&quot;}">COSM: A Cooperative Scheduling Framework for Concurrent PIM and CPU Execution on Mobile Devices</a>

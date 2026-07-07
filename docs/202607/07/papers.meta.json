@@ -1,0 +1,54 @@
+{
+  "label": "2026-07-07",
+  "date": "2026-07-07",
+  "generated_at": "2026-07-07T21:46:41",
+  "count": 3,
+  "papers": [
+    {
+      "paper_id": "202607/07/2607.02842v1-continuous-time-nonlinear-closed-loop-in-memory-computing-for-high-accuracy-massive-mimo-detection",
+      "section": "deep",
+      "title_en": "Continuous-time nonlinear closed-loop in-memory computing for high-accuracy massive MIMO detection",
+      "authors": "Piergiulio Mannocci, Giacomo Pedretti, Fabian Böhm, Thomas Van Vaerenbergh",
+      "date": "2026-07-03",
+      "pdf": "https://arxiv.org/pdf/2607.02842v1",
+      "score": "9.0",
+      "evidence": "模拟内存计算用于非线性优化",
+      "tldr": "模拟存内计算多用于线性代数，难以处理非线性优化。本文提出连续时间非线性闭环存内计算架构，将大规模MIMO盒约束迫零解码问题嵌入非线性反馈网络，通过物理动力学连续优化求解。实验在16x16 MIMO芯片上验证动态特性，结合混合精度迭代细化实现256-QAM高精度检测。该工作将闭环存内计算从线性均衡态扩展到非线性连续时间优化，为高精度无线通信提供高效物理加速路径。",
+      "tags": "query:cim",
+      "abstract_en": "Analog in-memory computing (IMC) has emerged as a promising approach for accelerating matrix operations by exploiting the intrinsic physics of memory arrays. To date, however, most IMC architectures have focused on linear algebra workloads in which computation is encoded in the equilibrium state of a physical system. Extending these principles to nonlinear optimization remains challenging and typically relies on iterative algorithms composed of repeated linear operations. Here, we introduce a continuous-time nonlinear closed-loop IMC architecture for box-constrained zero-forcing (BCZF) decoding in massive multiple-input multiple-output (MIMO) systems. The proposed architecture embeds the decoding problem directly within the dynamics of a nonlinear feedback network of memory arrays and supply-limited operational amplifiers, allowing solutions to emerge through continuous-time physical optimization. We derive a compact analytical model of the circuit and show that its trajectories minimize an equivalent energy function. Experimental emulation using a fabricated IMC chip confirms the predicted dynamics under realistic hardware nonidealities for up to 16x16 MIMO systems. To overcome the finite precision of analog hardware, we extend mixed-precision iterative refinement from linear algebra to nonlinear continuous-time optimization, enabling reliable detection of high-order modulation formats including 256-QAM. Benchmark projections indicate operation from ultra-low-energy approximate decoding to high-accuracy massive MIMO detection. Together, these results extend closed-loop IMC from equilibrium-based linear algebra to continuous-time nonlinear optimization and establish a pathway toward efficient physical accelerators for high-accuracy wireless communications.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202607/07/2607.05240v1-optimizing-ml-workload-partitioning-between-cpus-and-cim-accelerators-for-heterogeneous-computing",
+      "section": "deep",
+      "title_en": "Optimizing ML Workload Partitioning between CPUs and CIM Accelerators for Heterogeneous Computing",
+      "authors": "Joel Klein, Rebecca Pelke, Roberto Laudani, Jan Moritz Joseph, Rainer Leupers",
+      "date": "2026-07-06",
+      "pdf": "https://arxiv.org/pdf/2607.05240v1",
+      "score": "9.0",
+      "evidence": "优化CPU与存算一体加速器间的负载划分",
+      "tldr": "现有CIM加速器的ML工作负载分区方法未充分考虑RRAM约束（有限内存、高写入延迟、有限耐久性），也忽略了并行性和CPU作为互补资源。本文提出基于整数线性规划（ILP）的异构CPU-CIM工作负载分区框架，通过结合经验分析与模型来最小化端到端推理延迟。实验表明，相比纯CPU执行，该方法在边缘CPU上实现最高30.9倍加速，在高性能CPU上实现7.3倍加速。此外，设计空间探索为未来CIM加速器提供了设计启示。",
+      "tags": "query:cim",
+      "abstract_en": "Computing-in-Memory (CIM) accelerators execute Matrix-Vector Multiplications (MVMs) in memory, making them a compelling solution for Machine Learning (ML) workloads. However, existing ML workload partitioning approaches for CIM accelerators do not fully account for Resistive Random Access Memory (RRAM) constraints such as limited memory, high write latency, and limited endurance. They also neglect parallelism, low-level architectural effects, or the Central Processing Unit (CPU) as a complementary compute resource. To address these limitations, we propose an Integer Linear Programming (ILP)-based workload partitioning framework for heterogeneous CPU-CIM systems. It minimizes end-to-end inference latency under RRAM constraints, captures parallelism, and combines empirical profiling with analytical models. Using our framework, heterogeneous CPU-CIM execution achieves speedups of up to 30.9x over CPU-only execution on an edge CPU and 7.3x over a high-performance CPU. A Design Space Exploration (DSE) yields further design insights for future CIM accelerators.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202607/07/2607.02610v1-faplace-joint-optimization-of-chiplet-placement-and-interposer-footprint-for-25d-systems",
+      "section": "quick",
+      "title_en": "FAPlace: Joint Optimization of Chiplet Placement and Interposer Footprint for 2.5D Systems",
+      "authors": "Yubo Hou, Sezin Kircali Ata, Gen Liang Lim, Richard Chang, Mihai Dragos Rotaru, Rahul Dutta, Ashish James",
+      "date": "2026-07-01",
+      "pdf": "https://arxiv.org/pdf/2607.02610v1",
+      "score": "7.0",
+      "evidence": "中介层上的芯片放置与2.5D/3D集成",
+      "tldr": "2.5D系统集成中，芯片放置与中介层尺寸存在循环依赖。现有方法假设预定义中介层尺寸，导致无法获得最优解。FAPlace框架通过在足够大的画布上进行掩码引导的序列放置，将面积紧凑性和长宽比惩罚融合为足迹掩码，联合优化线长、热性能和占地尺寸。实验表明，相比基线，线长减少，面积缩小，同时达到接近1的长宽比，且不牺牲热性能。",
+      "tags": "query:cim",
+      "abstract_en": "The placement of chiplets on a silicon interposer is a pivotal step in 2.5D system integration, yet existing placement approaches typically assume a pre-defined interposer footprint. This creates a circular dependency: the optimal footprint cannot be known without first solving the placement, while the placement itself is constrained by the given dimensions. An undersized interposer may exclude feasible placements, while an oversized one yields unnecessarily sparse solutions. Moreover, even when the footprint area is minimized, few existing approaches explicitly control the interposer's aspect ratio. To jointly address these challenges, we propose FAPlace, a footprint aware mask guided sequential placement framework. FAPlace operates on a sufficiently large canvas, eliminating the circular dependency by allowing the optimal interposer footprint to emerge as an output of the optimization rather than a pre-specified input. At its core is a novel footprint mask that fuses area compactness with an aspect ratio penalty into a unified spatial cost map. Integrated with wirelength and thermal guidance masks, FAPlace delivers holistic multi-physics optimization in a deterministic, single pass process. Experimental results demonstrate that FAPlace reduces wirelength and footprint area while achieving near-unity aspect ratios, without compromising on thermal performance.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

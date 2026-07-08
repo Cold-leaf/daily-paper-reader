@@ -1,0 +1,92 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-07-08T21:37:52.799263+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [
+    {
+      "id": "2607.05818v1",
+      "source": "arxiv",
+      "title": "GPU-Accelerated Effective Resistance Analysis for 3D IC Power Delivery Network",
+      "abstract": "Three-dimensional (3D) integration is a critical technique for enhancing transistor density, improving power efficiency, and reducing interconnect delays. However, as current demands and design complexity increase, power deliver networks (PDNs) are facing growing challenges.Careful planning of through-silicon vias (TSVs) is essential for ensuring reliable PDNs, where effective resistance serves as a vital metric for the reliability. Ill-planned TSVs often cause 3D IC with unevenly distributed effective resistance and consequently severer IR Drop.In this paper, we propose a GPU-accelerated framework on accurate effective resistance analysis for early stage 3D IC PDNs. The proposed framework achieves a speedup of 5 to 6 orders of magnitude compared to the conventional direct solver, while maintaining negligible deviations in both maximum and average relative errors.",
+      "authors": [
+        "Jingchao Hu",
+        "Cheng Zhuo",
+        "Zhou Jin"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-07-07T04:28:34+00:00",
+      "link": "https://arxiv.org/pdf/2607.05818v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "3D IC power delivery network analysis with GPU acceleration",
+      "llm_evidence_cn": "3D集成电路供电网络的有效电阻分析",
+      "llm_evidence": "3D集成电路供电网络的有效电阻分析",
+      "canonical_evidence": "3D集成电路供电网络的有效电阻分析",
+      "llm_tldr_en": "Proposes a GPU-accelerated framework for analyzing effective resistance in 3D IC power delivery networks, achieving speedups of 5-6 orders of magnitude for TSV planning.",
+      "llm_tldr_cn": "三维集成电路中电源分配网络（PDN）的设计面临挑战，通硅通孔（TSV）规划对可靠性至关重要。本文提出一种GPU加速的有效电阻分析框架，用于早期3D IC PDN设计。该框架通过并行计算实现了5到6个数量级的加速，显著提升了设计效率。该工作直接服务于3D IC设计优化，对近存计算等依赖3D集成的系统具有支撑作用。",
+      "llm_tldr": "三维集成电路中电源分配网络（PDN）的设计面临挑战，通硅通孔（TSV）规划对可靠性至关重要。本文提出一种GPU加速的有效电阻分析框架，用于早期3D IC PDN设计。该框架通过并行计算实现了5到6个数量级的加速，显著提升了设计效率。该工作直接服务于3D IC设计优化，对近存计算等依赖3D集成的系统具有支撑作用。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "3D integrated circuit design",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2607.05756v1",
+      "source": "arxiv",
+      "title": "Boosting FPGA Performance with Direct BRAM-DSP Paths",
+      "abstract": "Efficient data movement between memory and compute units is a key performance bottleneck in modern FPGA designs, particularly for deep learning (DL) workloads. In typical FPGA architectures, data transfers between block RAMs (BRAMs) and digital signal processing units (DSPs) must traverse the global routing network, leading to increased wirelength, routing congestion, and critical-path delays. Prior work has explored in- and near-BRAM compute architectures to mitigate these issues, but such solutions often require fundamental changes to FPGA architecture and CAD tools, limiting their commercial viability. This paper proposes a lightweight architectural enhancement that introduces a dedicated direct connection between BRAM and DSP blocks, enabling BRAM data to be consumed by DSPs without passing through the global interconnect. We also enhance the placement algorithm to recognize these BRAM-DSP macro blocks. The proposed architectural change incurs negligible area and delay overhead and does not affect non-DL benchmarks, while the proposed CAD remains compatible with the baseline architecture, where it yields negligible change in quality-of-results (QoR). On an Agilex-10-like FPGA, the proposed architecture and CAD updates deliver up to +25% Fmax and -49% wirelength on common DL layer designs.",
+      "authors": [
+        "Jiajun Hu",
+        "Ruthwik Reddy Sunketa",
+        "Andrew Boutros",
+        "Aman Arora"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-07-07T02:27:51+00:00",
+      "link": "https://arxiv.org/pdf/2607.05756v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "direct BRAM-DSP paths reduce data movement, analogous to near-memory computing",
+      "llm_evidence_cn": "直接BRAM-DSP路径减少数据移动，类似近存计算",
+      "llm_evidence": "直接BRAM-DSP路径减少数据移动，类似近存计算",
+      "canonical_evidence": "直接BRAM-DSP路径减少数据移动，类似近存计算",
+      "llm_tldr_en": "Proposes a lightweight FPGA architectural enhancement with direct BRAM-to-DSP connections to reduce routing congestion and critical-path delays for DL workloads, improving performance by up to 25%.",
+      "llm_tldr_cn": "针对FPGA中存储与计算单元间数据移动瓶颈，本文提出一种轻量级架构增强，在BRAM和DSP块之间引入专用直接连接，避免全局路由网络。实验表明该方法显著减少了关键路径延迟和布线拥塞，提升了深度学习工作负载的性能，为近存计算在FPGA上的实现提供了可行的思路。",
+      "llm_tldr": "针对FPGA中存储与计算单元间数据移动瓶颈，本文提出一种轻量级架构增强，在BRAM和DSP块之间引入专用直接连接，避免全局路由网络。实验表明该方法显著减少了关键路径延迟和布线拥塞，提升了深度学习工作负载的性能，为近存计算在FPGA上的实现提供了可行的思路。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "near-memory computing design",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

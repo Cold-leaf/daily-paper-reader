@@ -1,0 +1,39 @@
+{
+  "label": "2026-07-08",
+  "date": "2026-07-08",
+  "generated_at": "2026-07-08T21:39:25",
+  "count": 2,
+  "papers": [
+    {
+      "paper_id": "202607/08/2607.05818v1-gpu-accelerated-effective-resistance-analysis-for-3d-ic-power-delivery-network",
+      "section": "deep",
+      "title_en": "GPU-Accelerated Effective Resistance Analysis for 3D IC Power Delivery Network",
+      "authors": "Jingchao Hu, Cheng Zhuo, Zhou Jin",
+      "date": "2026-07-07",
+      "pdf": "https://arxiv.org/pdf/2607.05818v1",
+      "score": "8.0",
+      "evidence": "3D集成电路供电网络的有效电阻分析",
+      "tldr": "3D IC电源网络(PDN)可靠性依赖于有效电阻的均衡分布，TSV规划不当会导致严重IR Drop。传统直接求解器计算有效电阻极慢，难以支持大规模设计空间探索。本文提出GPU加速有效电阻分析框架，通过并行化实现5至6个数量级的加速，同时最大相对误差和平均相对误差均保持在极低水平。该框架为早期3D IC PDN设计提供了高效准确的分析手段，有助于优化TSV布局。",
+      "tags": "query:cim",
+      "abstract_en": "Three-dimensional (3D) integration is a critical technique for enhancing transistor density, improving power efficiency, and reducing interconnect delays. However, as current demands and design complexity increase, power deliver networks (PDNs) are facing growing challenges.Careful planning of through-silicon vias (TSVs) is essential for ensuring reliable PDNs, where effective resistance serves as a vital metric for the reliability. Ill-planned TSVs often cause 3D IC with unevenly distributed effective resistance and consequently severer IR Drop.In this paper, we propose a GPU-accelerated framework on accurate effective resistance analysis for early stage 3D IC PDNs. The proposed framework achieves a speedup of 5 to 6 orders of magnitude compared to the conventional direct solver, while maintaining negligible deviations in both maximum and average relative errors.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202607/08/2607.05756v1-boosting-fpga-performance-with-direct-bram-dsp-paths",
+      "section": "quick",
+      "title_en": "Boosting FPGA Performance with Direct BRAM-DSP Paths",
+      "authors": "Jiajun Hu, Ruthwik Reddy Sunketa, Andrew Boutros, Aman Arora",
+      "date": "2026-07-07",
+      "pdf": "https://arxiv.org/pdf/2607.05756v1",
+      "score": "7.0",
+      "evidence": "直接BRAM-DSP路径减少数据移动，类似近存计算",
+      "tldr": "FPGA中BRAM与DSP间的数据需经过全局路由，造成线长增加、拥塞和关键路径延迟。本文提出在BRAM和DSP间添加专用直连路径，并改进布局算法以识别此类宏块。在Agilex-10类FPGA上，对常见深度学习层设计实现最高+25% Fmax提升和-49%线长减少。该轻量级架构改动面积和延迟开销可忽略，且不影响非DL基准，保持与基线架构的CAD兼容性。",
+      "tags": "query:cim",
+      "abstract_en": "Efficient data movement between memory and compute units is a key performance bottleneck in modern FPGA designs, particularly for deep learning (DL) workloads. In typical FPGA architectures, data transfers between block RAMs (BRAMs) and digital signal processing units (DSPs) must traverse the global routing network, leading to increased wirelength, routing congestion, and critical-path delays. Prior work has explored in- and near-BRAM compute architectures to mitigate these issues, but such solutions often require fundamental changes to FPGA architecture and CAD tools, limiting their commercial viability. This paper proposes a lightweight architectural enhancement that introduces a dedicated direct connection between BRAM and DSP blocks, enabling BRAM data to be consumed by DSPs without passing through the global interconnect. We also enhance the placement algorithm to recognize these BRAM-DSP macro blocks. The proposed architectural change incurs negligible area and delay overhead and does not affect non-DL benchmarks, while the proposed CAD remains compatible with the baseline architecture, where it yields negligible change in quality-of-results (QoR). On an Agilex-10-like FPGA, the proposed architecture and CAD updates deliver up to +25% Fmax and -49% wirelength on common DL layer designs.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

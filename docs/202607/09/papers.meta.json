@@ -1,0 +1,24 @@
+{
+  "label": "2026-07-09",
+  "date": "2026-07-09",
+  "generated_at": "2026-07-09T21:02:00",
+  "count": 1,
+  "papers": [
+    {
+      "paper_id": "202607/09/2607.07577v1-monolithic-gan-systems-combining-non-volatile-memory-and-analog-computing-via-area-ratio-engineered-ferroelectric-alscn-gate-stacks",
+      "section": "deep",
+      "title_en": "Monolithic GaN Systems Combining Non-Volatile Memory and Analog Computing via Area-Ratio-Engineered Ferroelectric AlScN Gate Stacks",
+      "authors": "Hyeong Jun Joo, Jong Min Park, Kieran Barrett-Snyder, Brendan Hanrahan, Geonwook Yoo",
+      "date": "2026-07-08",
+      "pdf": "https://arxiv.org/pdf/2607.07577v1",
+      "score": "8.0",
+      "evidence": "单片GaN系统结合非易失性存储与模拟计算",
+      "tldr": "传统GaN晶体管无法同时实现非易失存储和模拟计算。本文通过面积比工程构建AlScN铁电梯度栅叠层，在单一平台上实现存储与模拟功能。高面积比器件实现27V存储窗口和4位多级单元，低面积比器件展示线性频率-电压转换（增益1.1mV/Hz）。该工作为GaN系统集成高功率射频与模拟信号处理开辟新路径。",
+      "tags": "query:cim",
+      "abstract_en": "Gallium nitride (GaN) transistors have become the platform of choice for power electronics and radio-frequency power amplifiers. To unlock capabilities beyond those of conventional GaN, integrating ferroelectric heterostructure has been considered toward memory, logic and reconfigurable systems. Here, we demonstrate ferroelectric GaN transistors employing an AlScN-based gate stack in which systematic engineering of the area-ratio (SMIS/SMFM) provides unified control over both memory and analog functionality. Precise modulation of the intermediate electrode length yields a record memory window of 27 V and a forward subthreshold swing of 27 mV/dec, driven by ferroelectric polarization reversal of a robust downward-polarization state pre-induced by two-dimensional electron gas. Low area-ratio devices (SMIS/SMFM = 1, 2) achieve 4-bit multi-level cell operation and excellent spatial uniformity across a fabricated 4 x 4 array, benchmarking favorably against established silicon and oxide ferroelectric architectures. High area-ratio devices (SMIS/SMFM = 4, 8) harness continuously tunable conductance states to demonstrate multi-state inverters and the first GaN-based ferroelectric frequency-to-voltage converter, delivering a linear frequency-voltage response across 0.5 - 500 Hz range with a conversion gain of 1.1 mV/Hz. This work establishes routes towards monolithically integrated GaN systems that combine non-volatile memory and analog signal processing on a platform inherently suited to high-power and radio-frequency applications.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

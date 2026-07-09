@@ -1,0 +1,55 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-07-09T21:00:36.086134+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 0,
+    "quick_skim_target": 11,
+    "quick_selected": 0
+  },
+  "deep_dive": [
+    {
+      "id": "2607.07577v1",
+      "source": "arxiv",
+      "title": "Monolithic GaN Systems Combining Non-Volatile Memory and Analog Computing via Area-Ratio-Engineered Ferroelectric AlScN Gate Stacks",
+      "abstract": "Gallium nitride (GaN) transistors have become the platform of choice for power electronics and radio-frequency power amplifiers. To unlock capabilities beyond those of conventional GaN, integrating ferroelectric heterostructure has been considered toward memory, logic and reconfigurable systems. Here, we demonstrate ferroelectric GaN transistors employing an AlScN-based gate stack in which systematic engineering of the area-ratio (SMIS/SMFM) provides unified control over both memory and analog functionality. Precise modulation of the intermediate electrode length yields a record memory window of 27 V and a forward subthreshold swing of 27 mV/dec, driven by ferroelectric polarization reversal of a robust downward-polarization state pre-induced by two-dimensional electron gas. Low area-ratio devices (SMIS/SMFM = 1, 2) achieve 4-bit multi-level cell operation and excellent spatial uniformity across a fabricated 4 x 4 array, benchmarking favorably against established silicon and oxide ferroelectric architectures. High area-ratio devices (SMIS/SMFM = 4, 8) harness continuously tunable conductance states to demonstrate multi-state inverters and the first GaN-based ferroelectric frequency-to-voltage converter, delivering a linear frequency-voltage response across 0.5 - 500 Hz range with a conversion gain of 1.1 mV/Hz. This work establishes routes towards monolithically integrated GaN systems that combine non-volatile memory and analog signal processing on a platform inherently suited to high-power and radio-frequency applications.",
+      "authors": [
+        "Hyeong Jun Joo",
+        "Jong Min Park",
+        "Kieran Barrett-Snyder",
+        "Brendan Hanrahan",
+        "Geonwook Yoo"
+      ],
+      "primary_category": "cond-mat.mtrl-sci",
+      "categories": [
+        "cond-mat.mtrl-sci"
+      ],
+      "published": "2026-07-08T16:03:02+00:00",
+      "link": "https://arxiv.org/pdf/2607.07577v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "monolithic GaN system with non-volatile memory and analog computing",
+      "llm_evidence_cn": "单片GaN系统结合非易失性存储与模拟计算",
+      "llm_evidence": "单片GaN系统结合非易失性存储与模拟计算",
+      "canonical_evidence": "单片GaN系统结合非易失性存储与模拟计算",
+      "llm_tldr_en": "This paper demonstrates ferroelectric GaN transistors that combine non-volatile memory and analog computing via area-ratio engineering, enabling compute-in-memory functionality.",
+      "llm_tldr_cn": "针对传统GaN功率器件无法实现存储与计算融合的问题，本文提出基于铁电AlScN栅叠层的GaN晶体管，通过面积比工程统一控制存储与模拟功能，实现了27V存储窗口和27mV/dec亚阈值摆幅，为在GaN平台上构建存算一体系统提供了新途径。",
+      "llm_tldr": "针对传统GaN功率器件无法实现存储与计算融合的问题，本文提出基于铁电AlScN栅叠层的GaN晶体管，通过面积比工程统一控制存储与模拟功能，实现了27V存储窗口和27mV/dec亚阈值摆幅，为在GaN平台上构建存算一体系统提供了新途径。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "compute-in-memory architecture",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": []
+}

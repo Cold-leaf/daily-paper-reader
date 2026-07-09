@@ -1,6 +1,9 @@
 * <a class="dpr-sidebar-root-link" href="#/">首页</a>
 * <a class="dpr-sidebar-root-link dpr-sidebar-noactive-link" href="javascript:void(0)" data-dpr-hash="#/tutorial/README">使用教程</a>
 * Daily Papers
+  * 2026-07-09 <!--dpr-date:20260709-->
+    * 精读区
+      * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202607/09/2607.07577v1-monolithic-gan-systems-combining-non-volatile-memory-and-analog-computing-via-area-ratio-engineered-ferroelectric-alscn-gate-stacks" data-sidebar-item="{&quot;title&quot;: &quot;Monolithic GaN Systems Combining Non-Volatile Memory and Analog Computing via Area-Ratio-Engineered Ferroelectric AlScN Gate Stacks&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2607.07577v1-monolithic-gan-systems-combining-non-volatile-memory-and-analog-computing-via-area-ratio-engineered-ferroelectric-alscn-gate-stacks&quot;, &quot;score&quot;: &quot;8.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;cim&quot;}], &quot;evidence&quot;: &quot;单片GaN系统结合非易失性存储与模拟计算&quot;}">Monolithic GaN Systems Combining Non-Volatile Memory and Analog Computing via Area-Ratio-Engineered Ferroelectric AlScN Gate Stacks</a>
   * 2026-07-08 <!--dpr-date:20260708-->
     * 精读区
       * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202607/08/2607.05818v1-gpu-accelerated-effective-resistance-analysis-for-3d-ic-power-delivery-network" data-sidebar-item="{&quot;title&quot;: &quot;GPU-Accelerated Effective Resistance Analysis for 3D IC Power Delivery Network&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2607.05818v1-gpu-accelerated-effective-resistance-analysis-for-3d-ic-power-delivery-network&quot;, &quot;score&quot;: &quot;8.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;cim&quot;}], &quot;evidence&quot;: &quot;3D集成电路供电网络的有效电阻分析&quot;}">GPU-Accelerated Effective Resistance Analysis for 3D IC Power Delivery Network</a>

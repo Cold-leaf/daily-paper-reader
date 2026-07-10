@@ -1,0 +1,58 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-07-10T20:31:29.810409+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 0,
+    "quick_skim_target": 11,
+    "quick_selected": 0
+  },
+  "deep_dive": [
+    {
+      "id": "2607.08015v1",
+      "source": "arxiv",
+      "title": "CRIMP: Compact & Reliable DNN Inference on In-Memory Processing via Crossbar-Aligned Compression and Non-ideality Adaptation",
+      "abstract": "Crossbar-based In-Memory Processing (IMP) accelerators achieve high-speed, low-power computing for deep neural networks (DNNs), but face three obstacles. First, floating-point (FP) arithmetic is incompatible with crossbars, and existing quantization schemes still require FP processors for scaling factors, incurring hardware overhead. Second, redundant DNN parameters occupy too many crossbars, and current IMP-aware pruning methods require data aligning across crossbars, introducing significant memory and computing overhead. Third, non-ideal crossbar behaviors such as write variations degrade the accuracy of deployed models, and existing compensation methods add substantial overhead. In this paper, we address all three problems within a single training process. We reuse bit-shift units in crossbars to approximately multiply scaling factors, avoiding FP processors. We apply kernel-group pruning and crossbar pruning to remove the hardware units needed for data aligning. We adopt runtime-aware non-ideality adaptation to relieve the impact of device non-ideality from the training stage by exploiting crossbar features. Integrating these three optimizations into one comprehensive learning framework reduces training overhead and improves accuracy. Experiments show that our quantization incurs a negligible accuracy drop, and our pruning achieves higher sparsity and accuracy than state-of-the-art methods. Our framework produces integer-only, pruned, and reliable VGG-16 and ResNet-56 models for CIFAR-10 on IMP accelerators, with accuracy drops of only 2.19% and 1.26%, respectively, without hardware overhead.",
+      "authors": [
+        "Shuo Huai",
+        "Hao Kong",
+        "Xiangzhong Luo",
+        "Shiqing Li",
+        "Ravi Subramaniam",
+        "Christian Makaya",
+        "Qian Lin",
+        "Weichen Liu"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-07-09T00:41:26+00:00",
+      "link": "https://arxiv.org/pdf/2607.08015v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "In-memory processing (IMP) using crossbars with compression and non-ideality adaptation",
+      "llm_evidence_cn": "基于交叉阵列的存内处理，通过压缩和非理想性适配实现紧凑可靠推理",
+      "llm_evidence": "基于交叉阵列的存内处理，通过压缩和非理想性适配实现紧凑可靠推理",
+      "canonical_evidence": "基于交叉阵列的存内处理，通过压缩和非理想性适配实现紧凑可靠推理",
+      "llm_tldr_en": "CRIMP addresses floating-point incompatibility, parameter redundancy, and crossbar non-idealities in IMP accelerators via crossbar-aligned compression and non-ideality adaptation, enabling compact and reliable DNN inference.",
+      "llm_tldr_cn": "针对交叉阵列存内处理加速器面临的浮点运算不兼容、参数冗余及非理想行为等问题，提出CRIMP框架。通过跨阵列对齐的压缩方法减少交叉阵列占用，并引入非理想性适配技术补偿写入变化等偏差。该工作在保持精度的同时显著降低了硬件开销，为存算一体架构的实用化提供了关键技术支撑。实验证明其有效提升了交叉阵列的利用率和推理可靠性，是计算存储一体化方向的重要进展。",
+      "llm_tldr": "针对交叉阵列存内处理加速器面临的浮点运算不兼容、参数冗余及非理想行为等问题，提出CRIMP框架。通过跨阵列对齐的压缩方法减少交叉阵列占用，并引入非理想性适配技术补偿写入变化等偏差。该工作在保持精度的同时显著降低了硬件开销，为存算一体架构的实用化提供了关键技术支撑。实验证明其有效提升了交叉阵列的利用率和推理可靠性，是计算存储一体化方向的重要进展。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "compute-in-memory architecture",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": []
+}

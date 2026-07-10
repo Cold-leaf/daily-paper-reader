@@ -6,23 +6,21 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-07-09
-- 运行时间：2026-07-09 21:01:53 UTC
+- 最新运行日期：2026-07-10
+- 运行时间：2026-07-10 20:33:08 UTC
 - 运行状态：成功
 - 本次总论文数：1
 - 精读区：1
 - 速读区：0
 
 ### 今日简报（AI）
-今日精读1篇高分论文，聚焦基于铁电AlScN栅叠层的单片GaN系统，实现非易失存储与模拟计算融合。  
-最值得关注的方向：通过面积比工程优化铁电栅堆叠，在GaN平台上同时实现存储与计算功能，突破传统分立架构的能效瓶颈。  
-建议读者重点关注该团队在铁电材料与GaN工艺的兼容性验证及实际推理任务中的能效数据，后续可追踪其向边缘AI部署的扩展潜力。
-- 详情：[/202607/09/README](/202607/09/README)
+今日精读1篇高分论文，聚焦存内计算DNN推理的可靠性与压缩。核心方向是Crossbar对齐压缩与非理想性适应，有效提升存内推理的紧凑性和鲁棒性。建议深入阅读硬件非理想性的补偿机制，以应对实际部署中的偏差问题。
+- 详情：[/202607/10/README](/202607/10/README)
 
 ### 精读区论文标签
-1. [Monolithic GaN Systems Combining Non-Volatile Memory and Analog Computing via Area-Ratio-Engineered Ferroelectric AlScN Gate Stacks](/202607/09/2607.07577v1-monolithic-gan-systems-combining-non-volatile-memory-and-analog-computing-via-area-ratio-engineered-ferroelectric-alscn-gate-stacks)  
-   标签：评分：8.0/10、query:cim
-   evidence：单片GaN系统结合非易失性存储与模拟计算
+1. [CRIMP: Compact & Reliable DNN Inference on In-Memory Processing via Crossbar-Aligned Compression and Non-ideality Adaptation](/202607/10/2607.08015v1-crimp-compact--reliable-dnn-inference-on-in-memory-processing-via-crossbar-aligned-compression-and-non-ideality-adaptation)  
+   标签：评分：9.0/10、query:cim
+   evidence：基于交叉阵列的存内处理，通过压缩和非理想性适配实现紧凑可靠推理
 
 ### 速读区论文标签
 - 本次无速读推荐。

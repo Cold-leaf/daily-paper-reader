@@ -1,0 +1,39 @@
+{
+  "label": "2026-07-11",
+  "date": "2026-07-11",
+  "generated_at": "2026-07-11T20:30:20",
+  "count": 2,
+  "papers": [
+    {
+      "paper_id": "202607/11/2607.06456v1-a-hardware-aware-open-source-framework-for-design-space-exploration-of-mixed-signal-spiking-neural-networks",
+      "section": "quick",
+      "title_en": "A Hardware-Aware Open-Source Framework for Design Space Exploration of Mixed-Signal Spiking Neural Networks",
+      "authors": "Sayma Nowshin Chowdhury, Vineeta Nair, Taseen Forhad, Aishwarya Natarajan, Corey Hart, Sahil Shah",
+      "date": "2026-07-07",
+      "pdf": "https://arxiv.org/pdf/2607.06456v1",
+      "score": "6.0",
+      "evidence": "基于ReRAM的模拟突触用于混合信号SNN硬件，与存算一体器件相关",
+      "tldr": "混合信号SNN硬件受非理想效应制约，现有仿真工具难以支持设计空间探索。本文提出开源硬件感知框架，集成LIF/HH/AH神经元与浮栅/ReRAM突触，将器件非线性融入PyTorch训练。在N-MNIST等基准上评估准确率与面积、功耗等指标。该框架可识别满足应用约束的最优配置，促进跨层协同设计。",
+      "tags": "query:cim",
+      "abstract_en": "Energy-efficient neuromorphic computing at the edge requires simulation tools that can capture the non-ideal behavior of mixed-signal spiking neural network (SNN) hardware while supporting system-level design exploration. This work presents an open-source hardware-aware simulation framework for mixed-signal SNNs that enables comparative analysis across neuron, synapse and architecture choices. The framework supports multiple neuron models, including Leaky Integrate-and-Fire (LIF), Hodgkin-Huxley (HH) and Axon-Hillock (AH), together with non-volatile analog synapses based on floating-gate transistors and ReRAM devices. By incorporating device-level nonlinearities directly into PyTorch-based training and inference, the tool enables optimization of physical synaptic parameters rather than idealized abstract weights. The framework is evaluated on standard neuromorphic benchmarks, including N-MNIST, DVS Gesture and Spiking Heidelberg Digits (SHD). For each model dataset configuration, it reports classification accuracy together with hardware-oriented metrics such as silicon area, power consumption and quantization sensitivity. These capabilities enable cross-layer design space exploration and help identify neuron-synapse configurations that best satisfy application-specific constraints on accuracy, energy efficiency, area and hardware fidelity.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202607/11/2607.07096v1-thermodse-a-thermal-aware-and-comprehensive-design-space-exploration-for-chiplet-based-dnn-accelerators",
+      "section": "quick",
+      "title_en": "ThermoDSE: A Thermal-Aware and Comprehensive Design Space Exploration for Chiplet-Based DNN Accelerators",
+      "authors": "Jian Peng, Hanwei Fan, Jingbo Jiang, Lin Jiang, Wei Zhang",
+      "date": "2026-07-08",
+      "pdf": "https://arxiv.org/pdf/2607.07096v1",
+      "score": "6.0",
+      "evidence": "基于小芯片的DNN加速器热感知设计空间探索与三维集成电路设计相关",
+      "tldr": "Chiplet基DNN加速器面临面积和热约束，设计空间需联合优化任务建模、粒度与物理约束。ThermoDSE框架集成细粒度建模与热感知，统一模拟架构、任务编排和片间通信。相比Simba等基线，EDY指标提升3.5倍；优化收敛速度比模拟退火和强化学习分别快3.7倍和29.4倍。这是首个综合考虑上述因素的设计空间探索框架。",
+      "tags": "query:cim",
+      "abstract_en": "Chiplet-based DNN accelerators provide a scalable path to balance performance and yield for modern AI workloads. However, such systems face critical challenges in area and thermal constraints. Design space optimization should jointly consider fine-grained task modeling, chiplet granularity, core granularity, and critical physical constraints. To the best of our knowledge, this is the first framework that involves all these factors.   In this work, we propose ThermoDSE, a thermal-aware and comprehensive design space exploration framework for chiplet-based DNN accelerators. ThermoDSE integrates existing fine-grained modeling techniques into a unified simulation and optimization framework that jointly considers architecture design, task orchestration, and inter-chiplet communication under strict thermal and area constraints. Experimental results show that ThermoDSE achieves up to 3.5x improvement in Energy-Delay-Inverse-Yield, defined as E times D times inverse Y, compared with state-of-the-art Simba and other baselines. Furthermore, relative to simulated annealing and reinforcement learning-based methods, ThermoDSE converges to better design points with 3.7x and 29.4x runtime speedups, respectively.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,97 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-07-11T20:28:24.392845+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2607.06456v1",
+      "source": "arxiv",
+      "title": "A Hardware-Aware Open-Source Framework for Design Space Exploration of Mixed-Signal Spiking Neural Networks",
+      "abstract": "Energy-efficient neuromorphic computing at the edge requires simulation tools that can capture the non-ideal behavior of mixed-signal spiking neural network (SNN) hardware while supporting system-level design exploration. This work presents an open-source hardware-aware simulation framework for mixed-signal SNNs that enables comparative analysis across neuron, synapse and architecture choices. The framework supports multiple neuron models, including Leaky Integrate-and-Fire (LIF), Hodgkin-Huxley (HH) and Axon-Hillock (AH), together with non-volatile analog synapses based on floating-gate transistors and ReRAM devices. By incorporating device-level nonlinearities directly into PyTorch-based training and inference, the tool enables optimization of physical synaptic parameters rather than idealized abstract weights. The framework is evaluated on standard neuromorphic benchmarks, including N-MNIST, DVS Gesture and Spiking Heidelberg Digits (SHD). For each model dataset configuration, it reports classification accuracy together with hardware-oriented metrics such as silicon area, power consumption and quantization sensitivity. These capabilities enable cross-layer design space exploration and help identify neuron-synapse configurations that best satisfy application-specific constraints on accuracy, energy efficiency, area and hardware fidelity.",
+      "authors": [
+        "Sayma Nowshin Chowdhury",
+        "Vineeta Nair",
+        "Taseen Forhad",
+        "Aishwarya Natarajan",
+        "Corey Hart",
+        "Sahil Shah"
+      ],
+      "primary_category": "eess.SP",
+      "categories": [
+        "eess.SP",
+        "cs.NE"
+      ],
+      "published": "2026-07-07T16:15:03+00:00",
+      "link": "https://arxiv.org/pdf/2607.06456v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "ReRAM analog synapses for mixed-signal SNN hardware, relevant to compute-in-memory devices",
+      "llm_evidence_cn": "基于ReRAM的模拟突触用于混合信号SNN硬件，与存算一体器件相关",
+      "llm_evidence": "基于ReRAM的模拟突触用于混合信号SNN硬件，与存算一体器件相关",
+      "canonical_evidence": "基于ReRAM的模拟突触用于混合信号SNN硬件，与存算一体器件相关",
+      "llm_tldr_en": "Presents an open-source framework for design space exploration of mixed-signal SNNs with ReRAM synapses, capturing device non-idealities for energy-efficient neuromorphic computing at the edge.",
+      "llm_tldr_cn": "现有神经形态硬件仿真工具缺乏对混合信号SNN非理想行为的系统级设计探索能力。本工作提出了一个开源硬件感知仿真框架，支持多种神经元模型和基于浮栅晶体管与ReRAM的非易失性模拟突触。通过将器件级非线性直接融入PyTorch的训练和推理流程，该框架实现了高保真度仿真。实验评估表明该框架能够有效比较不同神经元、突触和架构选择，为边缘能效神经形态计算提供设计空间探索支持。该工作对存算一体架构中模拟计算单元的设计具有方法论参考价值。",
+      "llm_tldr": "现有神经形态硬件仿真工具缺乏对混合信号SNN非理想行为的系统级设计探索能力。本工作提出了一个开源硬件感知仿真框架，支持多种神经元模型和基于浮栅晶体管与ReRAM的非易失性模拟突触。通过将器件级非线性直接融入PyTorch的训练和推理流程，该框架实现了高保真度仿真。实验评估表明该框架能够有效比较不同神经元、突触和架构选择，为边缘能效神经形态计算提供设计空间探索支持。该工作对存算一体架构中模拟计算单元的设计具有方法论参考价值。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "compute-in-memory architecture",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2607.07096v1",
+      "source": "arxiv",
+      "title": "ThermoDSE: A Thermal-Aware and Comprehensive Design Space Exploration for Chiplet-Based DNN Accelerators",
+      "abstract": "Chiplet-based DNN accelerators provide a scalable path to balance performance and yield for modern AI workloads. However, such systems face critical challenges in area and thermal constraints. Design space optimization should jointly consider fine-grained task modeling, chiplet granularity, core granularity, and critical physical constraints. To the best of our knowledge, this is the first framework that involves all these factors.   In this work, we propose ThermoDSE, a thermal-aware and comprehensive design space exploration framework for chiplet-based DNN accelerators. ThermoDSE integrates existing fine-grained modeling techniques into a unified simulation and optimization framework that jointly considers architecture design, task orchestration, and inter-chiplet communication under strict thermal and area constraints. Experimental results show that ThermoDSE achieves up to 3.5x improvement in Energy-Delay-Inverse-Yield, defined as E times D times inverse Y, compared with state-of-the-art Simba and other baselines. Furthermore, relative to simulated annealing and reinforcement learning-based methods, ThermoDSE converges to better design points with 3.7x and 29.4x runtime speedups, respectively.",
+      "authors": [
+        "Jian Peng",
+        "Hanwei Fan",
+        "Jingbo Jiang",
+        "Lin Jiang",
+        "Wei Zhang"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-07-08T07:30:13+00:00",
+      "link": "https://arxiv.org/pdf/2607.07096v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Chiplet-based DNN accelerator thermal-aware design space exploration relates to 3D integrated circuit design",
+      "llm_evidence_cn": "基于小芯片的DNN加速器热感知设计空间探索与三维集成电路设计相关",
+      "llm_evidence": "基于小芯片的DNN加速器热感知设计空间探索与三维集成电路设计相关",
+      "canonical_evidence": "基于小芯片的DNN加速器热感知设计空间探索与三维集成电路设计相关",
+      "llm_tldr_en": "ThermoDSE proposes a thermal-aware design space exploration framework for chiplet-based DNN accelerators, jointly considering task modeling, chiplet/core granularity, and thermal constraints.",
+      "llm_tldr_cn": "ThermoDSE提出了一个热感知的综合性设计空间探索框架，用于基于小芯片的DNN加速器。该框架首次联合考虑任务建模、小芯片粒度、核心粒度和物理热约束，建立了统一的仿真优化流程，可帮助设计者在热约束下找到性能、面积和功耗的最优权衡，对小芯片架构设计具有指导意义。",
+      "llm_tldr": "ThermoDSE提出了一个热感知的综合性设计空间探索框架，用于基于小芯片的DNN加速器。该框架首次联合考虑任务建模、小芯片粒度、核心粒度和物理热约束，建立了统一的仿真优化流程，可帮助设计者在热约束下找到性能、面积和功耗的最优权衡，对小芯片架构设计具有指导意义。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "3D integrated circuit design",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

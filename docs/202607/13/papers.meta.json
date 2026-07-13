@@ -1,0 +1,39 @@
+{
+  "label": "2026-07-13",
+  "date": "2026-07-13",
+  "generated_at": "2026-07-13T21:26:05",
+  "count": 2,
+  "papers": [
+    {
+      "paper_id": "202607/13/2607.08993v1-streamdq-near-memory-weight-dequantization-in-custom-hbm-for-scalable-ai-inference-acceleration",
+      "section": "deep",
+      "title_en": "StreamDQ: Near-Memory Weight DeQuantization in Custom HBM for Scalable AI Inference Acceleration",
+      "authors": "Minki Jeong, Daegun Yoon, Soohong Ahn, Seungyong Lee, Nameun Kang, Hyeonseok Ju, Ieryung Park, Joonseop Sim, Youngpyo Joo, Hoshik Kim",
+      "date": "2026-07-09",
+      "pdf": "https://arxiv.org/pdf/2607.08993v1",
+      "score": "9.0",
+      "evidence": "在定制HBM中实现近存权重解量化",
+      "tldr": "大语言模型规模增长使权重量化成为减小模型大小的常用方法，但GPU上CUDA核心反量化导致指令开销、片内流量和流水线停滞，成为吞吐瓶颈。StreamDQ在HBM基die集成轻量Dequantization Blocks，对标准内存读取执行在线反量化，通过侧带标签选择模式，消除GPU侧反量化。混合精度GEMM加速最高7.08倍，能耗降低90.23%，面积功耗极低；端到端LLM推理延迟降低54.68%，解码吞吐提升2.20倍。该方案为云规模LLM推理提供了高效的内存级反量化加速。",
+      "tags": "query:cim",
+      "abstract_en": "As large language models (LLMs) scale, their memory and computation demands have grown substantially, making weight-only quantization a widely adopted technique for reducing model size with minimal accuracy loss. However, on current GPUs, CUDA-core-based dequantization introduces substantial instruction overhead, on-chip traffic, and pipeline stalls, making it a major bottleneck for high-throughput, cloud-scale LLM serving. To address these limitations, we propose StreamDQ, a lightweight architectural enhancement that enables on-the-fly dequantization in the memory subsystem for high-throughput, large-batch LLM inference. StreamDQ integrates compact DeQuantization Blocks (DQBs) into the base die of high-bandwidth memory (HBM) and performs inline dequantization on standard memory loads. A lightweight sideband tag on each memory read request selects the dequantization mode while preserving conventional load semantics. By relocating dequantization to the memory side, StreamDQ eliminates GPU-side CUDA-core-based dequantization, thereby reducing on-chip traffic on the GPU and avoiding extra HBM write-back and reload of dequantized weights at large batch sizes. Our evaluation shows that StreamDQ achieves up to 7.08$\\times$ speedup and 90.23\\% lower energy for mixed-precision GEMM, with only 0.127\\,mm$^2$ area and 0.355\\,W power overhead per DQB in a 12\\,nm CMOS process. For end-to-end LLM inference, StreamDQ reduces latency by up to 54.68\\% and improves decode throughput by up to 2.20$\\times$.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202607/13/2607.04031v1-tilelens-efficiently-using-large-granularity-memory-systems-with-transparent-two-dimensional-memory-layout",
+      "section": "quick",
+      "title_en": "TileLens: Efficiently Using Large-Granularity Memory Systems with Transparent Two-Dimensional Memory Layout",
+      "authors": "Jae Hyung Ju, Euijun Chung, Hritvik Taneja, Anish Saxena, Shinnung Jeong, Hyesoon Kim, Moinuddin K. Qureshi",
+      "date": "2026-07-04",
+      "pdf": "https://arxiv.org/pdf/2607.04031v1",
+      "score": "6.0",
+      "evidence": "透明二维内存布局减少大粒度内存系统中的读放大",
+      "tldr": "LLM推理受HBM容量带宽限制，大粒度内存系统（LGMS）如HBF虽提升性能但最小访问粒度KB级，导致tiled矩阵乘法读放大。本文提出TileLens，采用tile-major二维布局对齐tile边界，并设计软件/硬件扩展支持DSL和TMA内核。在HBF增强GPU上结合自适应预取器，将几何平均性能损失从1.61-6.49倍降至1%以内。该方法消除了LGMS读放大，使大粒度内存系统实用化。",
+      "tags": "query:cim",
+      "abstract_en": "Large Language Model (LLM) inference is bottlenecked by the capacity and bandwidth of GPU High-Bandwidth Memory (HBM). Recent proposals, such as High-Bandwidth Flash (HBF) and RoMe, offer higher capacity or bandwidth than HBM, but require a minimum access granularity of kilobytes. We show that these Large-Granularity Memory Systems (LGMS) can degrade the performance of tiled matrix-multiplication, which is the dominant operation in LLM inference, by up to an order of magnitude. The root cause of the slowdown is read amplification, where memory requests fetch far more data than the tile actually needs. This waste stems from a fundamental mismatch between the two-dimensional nature of compute tiles and the one-dimensional memory layout, leading to each request spilling well beyond the tile boundaries.   To mitigate read amplification, we propose to use tile-major layout for LGMS. Rather than storing data as a one-dimensional strip, tile-major layout reshapes each contiguous memory block into a two-dimensional rectangle, aligning memory granularity with tile boundaries. To ease the adoption of tile-major layout on GPUs, we propose TileLens, lightweight software and hardware extensions that collectively cover major classes of GPU kernels. TileLens-SW extends GPU DSLs so that DSL-based kernels can adopt tile-major in global memory by changing only the layout descriptor. TileLens-HW extends the Tensor Memory Accelerator (TMA) for transparent tile-major support in TMA-based kernels without code changes. We evaluate TileLens on a cycle-level simulator using matrix-multiplication kernels from Qwen-3 30B and Llama-3.1 70B. Combining a tile-major layout with an adaptive hardware prefetcher, TileLens achieves near-HBM performance on HBF-augmented GPUs with a 5us HBF NAND read latency, reducing the geomean slowdown from 1.61-6.49x with conventional layouts to within 1% of an HBM-only baseline.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

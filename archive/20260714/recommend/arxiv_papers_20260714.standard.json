@@ -1,0 +1,90 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-07-14T21:22:11.285379+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [
+    {
+      "id": "2607.10938v1",
+      "source": "arxiv",
+      "title": "ARMOR-IMC: Adaptive Resource Mapping for Operational Robustness via Secure In-Memory Computing",
+      "abstract": "The massive data-movement overhead in traditional architectures has led to the adoption of In-Memory Computing (IMC) for energy-efficient Deep Neural Network (DNN) processing. By leveraging emerging devices like Spin-Orbit Torque Magnetic Tunnel Junctions (SOT-MTJs), IMC bypasses the \"memory wall\" and reduces leakage power inherent in traditional CMOS. However, this shift introduces dual hardware threats: manufacturing Process Variation (PV) degrades reliability and increases vulnerability to fault injection, while power Side-Channel Attacks (SCAs) compromise security. Existing defenses address these threats in isolation. This work presents a posttraining framework that simultaneously hardens analog IMC accelerators against both threats without retraining the model. Implemented in the IMAC-Sim simulator, our approach uses the proposed Variation Impact Score (VIS) to guide the mapping of Fault Observation Windows (FOWs) and introduces the Leakage Per Inference (LPI) metric to quantify input-dependent power variability under stochastic injection and the resulting reduction in effective signal-to-noise ratio. Experiments show that PV-induced faults can degrade accuracy by over 50%, while our method restores near-baseline accuracy and mitigates the threat of correlation-based power analysis attacks.",
+      "authors": [
+        "Muhtasim Alam Chowdhury",
+        "Ramtin Zand",
+        "Soheil Salehi"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.ET"
+      ],
+      "published": "2026-07-12T21:59:41+00:00",
+      "link": "https://arxiv.org/pdf/2607.10938v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "In-Memory Computing accelerator with security and reliability hardening",
+      "llm_evidence_cn": "针对存内计算加速器的安全与可靠性加固",
+      "llm_evidence": "针对存内计算加速器的安全与可靠性加固",
+      "canonical_evidence": "针对存内计算加速器的安全与可靠性加固",
+      "llm_tldr_en": "Proposes a post-training framework ARMOR-IMC that simultaneously hardens analog IMC accelerators against process variation and side-channel attacks.",
+      "llm_tldr_cn": "存内计算（IMC）虽能克服存储墙，但引入了工艺变化和安全侧信道攻击的双重威胁。本文提出ARMOR-IMC后训练框架，同时加固模拟IMC加速器以对抗工艺变化和功耗侧信道攻击，在不显著增加开销的情况下提升可靠性和安全性。",
+      "llm_tldr": "存内计算（IMC）虽能克服存储墙，但引入了工艺变化和安全侧信道攻击的双重威胁。本文提出ARMOR-IMC后训练框架，同时加固模拟IMC加速器以对抗工艺变化和功耗侧信道攻击，在不显著增加开销的情况下提升可靠性和安全性。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "compute-in-memory architecture",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2607.11586v1",
+      "source": "arxiv",
+      "title": "HCRMap: Pressure-Aware Hot-Expert Residency Mapping for 3.5D MoE Chiplet Inference",
+      "abstract": "Mixture-of-Experts (MoE) large language models (LLM) activate only a small number of experts during inference, but token routing introduces persistent expert hotness skew: a small set of hot experts continuously receives most tokens, while the remaining experts are lightly loaded. On 3.5D multi-chiplet systems, this skew not only causes compute imbalance but also amplifies pressure on communication, memory bandwidth, I/O, and execution queues. Therefore, the core problem is not simply to reduce token movement, but to dynamically place and reuse hot expert replicas across different memory tiers.   This paper proposes HCRMap, a hot expert residency mapping framework for pressure-aware expert replica management in 3.5D MoE inference. Based on expert hotness, weight loading cost, migration overhead, and runtime resource pressure, HCRMap dynamically determines which experts should be promoted, retained, demoted, or evicted. It then maps routed token groups to suitable resident replicas, thereby jointly mitigating communication, memory, and queue bottlenecks.   Experimental results show that HCRMap reduces end-to-end latency by 43.6% and 43.0% over Hydra in the prefill and decode stages, respectively; by 34.5% and 33.1% over MoEntwine; and by 46.7% and 46.0% over PIMoE.",
+      "authors": [
+        "Yongqin Zhang"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-07-13T14:05:55+00:00",
+      "link": "https://arxiv.org/pdf/2607.11586v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "3.5D multi-chiplet system pressure-aware hot-expert mapping",
+      "llm_evidence_cn": "3.5D多芯片系统的压力感知热点专家映射",
+      "llm_evidence": "3.5D多芯片系统的压力感知热点专家映射",
+      "canonical_evidence": "3.5D多芯片系统的压力感知热点专家映射",
+      "llm_tldr_en": "Proposes HCRMap for managing hot-expert replicas across memory tiers in 3.5D MoE chiplet systems, addressing compute imbalance and memory bandwidth pressure.",
+      "llm_tldr_cn": "针对3.5D多芯片系统上MoE大模型推理中专家热点导致的计算和内存压力，提出HCRMap框架，通过感知压力的热点专家副本放置与复用，优化内存层级间的资源分配，缓解带宽和计算不平衡。实验表明该方法有效提升系统吞吐并降低延迟。",
+      "llm_tldr": "针对3.5D多芯片系统上MoE大模型推理中专家热点导致的计算和内存压力，提出HCRMap框架，通过感知压力的热点专家副本放置与复用，优化内存层级间的资源分配，缓解带宽和计算不平衡。实验表明该方法有效提升系统吞吐并降低延迟。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "3D integrated circuit design",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

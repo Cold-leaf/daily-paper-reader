@@ -6,28 +6,26 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-07-13
-- 运行时间：2026-07-13 21:25:57 UTC
+- 最新运行日期：2026-07-14
+- 运行时间：2026-07-14 21:23:45 UTC
 - 运行状态：成功
 - 本次总论文数：2
 - 精读区：1
 - 速读区：1
 
 ### 今日简报（AI）
-今日聚焦AI推理加速的存内解量化技术，并探讨大粒度内存系统的二维布局优化。
-重点推荐精读论文《StreamDQ》中近内存权重解量化的定制HBM方案，可显著提升AI推理的可扩展性；速读的《TileLens》提供了透明二维内存布局的思路。
-建议深入理解StreamDQ的硬件-算法协同设计，对优化大规模AI推理系统有直接参考价值。
-- 详情：[/202607/13/README](/202607/13/README)
+今日精读《ARMOR-IMC》与速读《HCRMap》，分别聚焦安全内存计算和3.5D芯片推理映射。建议优先阅读《ARMOR-IMC》，其提出的自适应资源映射机制在安全性上表现突出。下一步可深入该类安全内存计算架构，了解其如何在不牺牲性能前提下提升鲁棒性。
+- 详情：[/202607/14/README](/202607/14/README)
 
 ### 精读区论文标签
-1. [StreamDQ: Near-Memory Weight DeQuantization in Custom HBM for Scalable AI Inference Acceleration](/202607/13/2607.08993v1-streamdq-near-memory-weight-dequantization-in-custom-hbm-for-scalable-ai-inference-acceleration)  
+1. [ARMOR-IMC: Adaptive Resource Mapping for Operational Robustness via Secure In-Memory Computing](/202607/14/2607.10938v1-armor-imc-adaptive-resource-mapping-for-operational-robustness-via-secure-in-memory-computing)  
    标签：评分：9.0/10、query:cim
-   evidence：在定制HBM中实现近存权重解量化
+   evidence：针对存内计算加速器的安全与可靠性加固
 
 ### 速读区论文标签
-1. [TileLens: Efficiently Using Large-Granularity Memory Systems with Transparent Two-Dimensional Memory Layout](/202607/13/2607.04031v1-tilelens-efficiently-using-large-granularity-memory-systems-with-transparent-two-dimensional-memory-layout)  
-   标签：评分：6.0/10、query:cim
-   evidence：透明二维内存布局减少大粒度内存系统中的读放大
+1. [HCRMap: Pressure-Aware Hot-Expert Residency Mapping for 3.5D MoE Chiplet Inference](/202607/14/2607.11586v1-hcrmap-pressure-aware-hot-expert-residency-mapping-for-35d-moe-chiplet-inference)  
+   标签：评分：7.0/10、query:cim
+   evidence：3.5D多芯片系统的压力感知热点专家映射
 
 
 <div class="dpr-home-promo-card">

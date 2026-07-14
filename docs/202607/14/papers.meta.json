@@ -1,0 +1,39 @@
+{
+  "label": "2026-07-14",
+  "date": "2026-07-14",
+  "generated_at": "2026-07-14T21:23:49",
+  "count": 2,
+  "papers": [
+    {
+      "paper_id": "202607/14/2607.10938v1-armor-imc-adaptive-resource-mapping-for-operational-robustness-via-secure-in-memory-computing",
+      "section": "deep",
+      "title_en": "ARMOR-IMC: Adaptive Resource Mapping for Operational Robustness via Secure In-Memory Computing",
+      "authors": "Muhtasim Alam Chowdhury, Ramtin Zand, Soheil Salehi",
+      "date": "2026-07-12",
+      "pdf": "https://arxiv.org/pdf/2607.10938v1",
+      "score": "9.0",
+      "evidence": "针对存内计算加速器的安全与可靠性加固",
+      "tldr": "传统架构中数据移动开销大，基于SOT-MTJ的模拟存内计算（IMC）虽能高效处理DNN，但面临工艺变化（PV）和侧信道攻击（SCA）的双重威胁。现有防御孤立处理两者，本文提出ARMOR-IMC后训练框架，利用变异影响得分（VIS）指导故障观察窗口映射，并引入单次推理泄漏（LPI）指标量化功耗变化。实验表明，PV导致的精度下降超50%被恢复至近基线，同时有效缓解基于相关性的功耗分析攻击，实现鲁棒性与安全性的协同增强。",
+      "tags": "query:cim",
+      "abstract_en": "The massive data-movement overhead in traditional architectures has led to the adoption of In-Memory Computing (IMC) for energy-efficient Deep Neural Network (DNN) processing. By leveraging emerging devices like Spin-Orbit Torque Magnetic Tunnel Junctions (SOT-MTJs), IMC bypasses the \"memory wall\" and reduces leakage power inherent in traditional CMOS. However, this shift introduces dual hardware threats: manufacturing Process Variation (PV) degrades reliability and increases vulnerability to fault injection, while power Side-Channel Attacks (SCAs) compromise security. Existing defenses address these threats in isolation. This work presents a posttraining framework that simultaneously hardens analog IMC accelerators against both threats without retraining the model. Implemented in the IMAC-Sim simulator, our approach uses the proposed Variation Impact Score (VIS) to guide the mapping of Fault Observation Windows (FOWs) and introduces the Leakage Per Inference (LPI) metric to quantify input-dependent power variability under stochastic injection and the resulting reduction in effective signal-to-noise ratio. Experiments show that PV-induced faults can degrade accuracy by over 50%, while our method restores near-baseline accuracy and mitigates the threat of correlation-based power analysis attacks.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202607/14/2607.11586v1-hcrmap-pressure-aware-hot-expert-residency-mapping-for-35d-moe-chiplet-inference",
+      "section": "quick",
+      "title_en": "HCRMap: Pressure-Aware Hot-Expert Residency Mapping for 3.5D MoE Chiplet Inference",
+      "authors": "Yongqin Zhang",
+      "date": "2026-07-13",
+      "pdf": "https://arxiv.org/pdf/2607.11586v1",
+      "score": "7.0",
+      "evidence": "3.5D多芯片系统的压力感知热点专家映射",
+      "tldr": "MoE大模型推理中专家热度倾斜导致通信、内存和队列压力。HCRMap提出压力感知的热专家驻留映射框架，基于热度和资源压力动态管理专家副本的升降级与重用。在3.5D芯片系统上，Prefill和Decode阶段延迟分别降低43.6%和43.0%，同时缓解计算、通信、内存带宽和队列瓶颈。",
+      "tags": "query:cim",
+      "abstract_en": "Mixture-of-Experts (MoE) large language models (LLM) activate only a small number of experts during inference, but token routing introduces persistent expert hotness skew: a small set of hot experts continuously receives most tokens, while the remaining experts are lightly loaded. On 3.5D multi-chiplet systems, this skew not only causes compute imbalance but also amplifies pressure on communication, memory bandwidth, I/O, and execution queues. Therefore, the core problem is not simply to reduce token movement, but to dynamically place and reuse hot expert replicas across different memory tiers.   This paper proposes HCRMap, a hot expert residency mapping framework for pressure-aware expert replica management in 3.5D MoE inference. Based on expert hotness, weight loading cost, migration overhead, and runtime resource pressure, HCRMap dynamically determines which experts should be promoted, retained, demoted, or evicted. It then maps routed token groups to suitable resident replicas, thereby jointly mitigating communication, memory, and queue bottlenecks.   Experimental results show that HCRMap reduces end-to-end latency by 43.6% and 43.0% over Hydra in the prefill and decode stages, respectively; by 34.5% and 33.1% over MoEntwine; and by 46.7% and 46.0% over PIMoE.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

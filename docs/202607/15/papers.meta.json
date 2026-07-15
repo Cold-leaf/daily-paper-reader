@@ -1,0 +1,54 @@
+{
+  "label": "2026-07-15",
+  "date": "2026-07-15",
+  "generated_at": "2026-07-15T20:06:20",
+  "count": 3,
+  "papers": [
+    {
+      "paper_id": "202607/15/2607.07577v2-monolithic-gan-systems-combining-non-volatile-memory-and-analog-computing-via-area-ratio-engineered-ferroelectric-alscn-gate-stacks",
+      "section": "deep",
+      "title_en": "Monolithic GaN Systems Combining Non-Volatile Memory and Analog Computing via Area-Ratio-Engineered Ferroelectric AlScN Gate Stacks",
+      "authors": "Hyeong Jun Joo, Jong Min Park, Kieran Barrett-Snyder, Brendan Hanrahan, Geonwook Yoo",
+      "date": "2026-07-08",
+      "pdf": "https://arxiv.org/pdf/2607.07577v2",
+      "score": "9.0",
+      "evidence": "铁电GaN晶体管融合非易失存储与模拟计算",
+      "tldr": "针对传统GaN器件缺乏可重构与存储功能的局限，本文通过面积比工程在AlScN铁电栅堆叠中统一调控非易失存储与模拟计算功能。低面积比器件实现27V存储窗口与4位多级存储，高面积比器件展示线性频率-电压转换（增益1.1mV/Hz）。该工作为高功率射频平台实现单片集成存储与模拟信号处理提供了新途径。",
+      "tags": "query:cim",
+      "abstract_en": "Gallium nitride (GaN) transistors have become the platform of choice for power electronics and radio-frequency power amplifiers. To unlock capabilities beyond those of conventional GaN, integrating ferroelectric heterostructure has been considered toward memory, logic and reconfigurable systems. Here, we demonstrate ferroelectric GaN transistors employing an AlScN-based gate stack in which systematic engineering of the area-ratio (SMIS/SMFM) provides unified control over both memory and analog functionality. Precise modulation of the intermediate electrode length yields a record memory window of 27 V and a forward subthreshold swing of 27 mV/dec, driven by ferroelectric polarization reversal of a robust downward-polarization state pre-induced by two-dimensional electron gas. Low area-ratio devices (SMIS/SMFM = 1, 2) achieve 4-bit multi-level cell operation and excellent spatial uniformity across a fabricated 4 x 4 array, benchmarking favorably against established silicon and oxide ferroelectric architectures. High area-ratio devices (SMIS/SMFM = 4, 8) harness continuously tunable conductance states to demonstrate multi-state inverters and the first GaN-based ferroelectric frequency-to-voltage converter, delivering a linear frequency-voltage response across 0.5 - 500 Hz range with a conversion gain of 1.1 mV/Hz. This work establishes routes towards monolithically integrated GaN systems that combine non-volatile memory and analog signal processing on a platform inherently suited to high-power and radio-frequency applications.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202607/15/2607.12788v1-clip-3d-closed-loop-evaluation-of-performance-and-physical-constraints-for-3d-ics",
+      "section": "quick",
+      "title_en": "CLIP-3D: Closed-Loop Evaluation of Performance and Physical Constraints for 3D ICs",
+      "authors": "Shuo Ren, Libo Shen, Yaohui Han, Leilei Jin, Chenghan Wang, Zhen Zhuang, Rongliang Fu, Bei Yu, Tsung-Yi Ho",
+      "date": "2026-07-14",
+      "pdf": "https://arxiv.org/pdf/2607.12788v1",
+      "score": "7.0",
+      "evidence": "三维集成电路评估，考虑热、布线和缓存效应",
+      "tldr": "3D IC的实际吞吐量严重依赖于布局（宏分配、热点位置、缓存几何），但早期架构模拟器无法反映这些物理约束，导致设计选择脱离实际。CLIP-3D提出一种左移流程，首先用McPAT、CACTI和HotSpot将架构配置转化为物理块表示，然后运行解析3D热感知布局规划器，协同优化跨层宏分配和平面放置，以实际BIPS为优化目标而非传统代理函数。该流程能在签核前揭示热、线长和缓存访问周期的影响，实现闭环评估。关键贡献在于将物理约束前移到架构探索阶段，避免后期性能降级。",
+      "tags": "query:cim",
+      "abstract_en": "3D integration packs more power into a smaller footprint, so a candidate design's actual throughput depends on its layout: which macro sits on which tier, where the hot spot lands, and how cache geometry maps to access cycles. Architectural simulators like gem5 report IPC under idealized timing. They do not produce the per-block power map, the cache cycle counts, or the 3D layout that decide the realized billion-instructions-per-second (BIPS), so early-stage 3D-IC exploration selects designs without accounting for the effects that decide whether they throttle on silicon. We present CLIP-3D, a shift-left flow that exposes 3D layout-driven thermal, wire, and cache effects to early-stage architectural exploration before any sign-off tool is invoked. The first stage lifts an architectural configuration into a physical block representation: McPAT for per-block dynamic and leakage power, CACTI for cache geometry and access cycles, and a HotSpot-compatible 3D stack discretization. The second stage runs an analytical 3D thermal-aware floorplanner over that representation. The floorplanner objective embeds a closed-form sustained-frequency expression derived from the linearity of HotSpot's steady-state operator and the standard CMOS power-frequency decomposition. Cross-tier macro assignment and in-plane placement are co-optimized for the realized BIPS rather than for a half-perimeter wirelength (HPWL)-plus-temperature surrogate with hand-tuned weights.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202607/15/2607.05789v1-self-heating-and-radiation-hardness-studies-of-3nm-gaa-fet-based-sram-with-different-substrate-isolation-techniques",
+      "section": "quick",
+      "title_en": "Self-Heating and Radiation Hardness Studies of 3nm GAA-FET-Based SRAM with Different Substrate Isolation Techniques",
+      "authors": "Albert Lu, Junipero Verbeke, Phil Oldiges, Reza Arghavani, Hiu Yung Wong",
+      "date": "2026-07-07",
+      "pdf": "https://arxiv.org/pdf/2607.05789v1",
+      "score": "6.0",
+      "evidence": "针对3D集成电路设计中自热和辐射硬度的SRAM三维仿真研究",
+      "tldr": "针对3nm GAA-FET SRAM的自热和辐射硬度问题，研究了不同衬底隔离技术。传统SD-BDI和PTS之外，提出新型C-BDI允许源漏与衬底连接。通过TCAD仿真发现：BDI对自热增加可忽略；C-BDI无需PTS时漏电流增量极小；SD-BDI带欠重叠使漏电流增加但静态噪声容限不变且抗单粒子翻转。所有结构抗α粒子，BDI显著增强辐射硬度且对厚度不敏感。",
+      "tags": "query:cim",
+      "abstract_en": "In this work, 3D full-domain 3 nm gate-all-around field-effect transistor (GAA-FET) static random access memories (SRAMs) with various substrate isolation techniques are simulated using Technology Computer-Aided Design (TCAD). In addition to the traditional bottom dielectric isolation (BDI), which isolates the source/drain (S/D) from the substrate (dubbed SDBDI), and the punch-through stopper (PTS), a novel channel-BDI (C-BDI) is proposed, allowing S/D-to-substrate connection. The self-heating effect and radiation hardness due to various isolation techniques are studied. It is found that, firstly, the increase in self-heating due to BDI is negligible. Secondly, in the novel CBDI, even without PTS, the increase in leakage current IOFF is minimal. Thirdly, for SD-BDI with underlap (to minimize stress relaxation), while IOFF increases, the static noise margin (SNM) remains unchanged and robust against single-event upset (SEU) even if the underlap is as much as 20 nm. Finally, all structures are immune to the alpha-particle SEU, and BDI enhances the radiation hardness substantially. Moreover, radiation hardness is insensitive to BDI thickness.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

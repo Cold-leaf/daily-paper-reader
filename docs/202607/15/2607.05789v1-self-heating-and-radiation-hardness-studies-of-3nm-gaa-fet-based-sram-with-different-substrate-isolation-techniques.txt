@@ -1,0 +1,102 @@
+Title: Self-Heating and Radiation Hardness Studies of 3nm GAA-FET-Based SRAM with Different Substrate Isolation Techniques
+
+URL Source: https://arxiv.org/pdf/2607.05789v1
+
+Published Time: Wed, 08 Jul 2026 00:25:50 GMT
+
+Number of Pages: 4
+
+Markdown Content:
+# Self-Heating and Radiation Hardness Studies of 3nm GAA-FET-Based SRAM with Different Substrate Isolation Techniques 
+
+Albert Lu 
+
+San Jose State University 
+
+San Jose, California, USA albert.lu@sjsu.edu 
+
+Junipero Verbeke 
+
+San Jose State University 
+
+San Jose, California, USA junipero.verbeke@sjsu.edu 
+
+Phil Oldiges 
+
+Sandia National Laboratories 
+
+New Mexico, USA pjoldig@sandia.gov 
+
+Reza Arghavani 
+
+Sandia National Laboratories 
+
+New Mexico, USA rarghav@sandia.gov 
+
+Hiu Yung Wong ∗
+
+San Jose State University 
+
+San Jose, California, USA hiuyung.wong@sjsu.edu 
+
+Abstract —In this work, 3D full-domain 3 nm gate-all-around field-effect transistor (GAA-FET) static random access memo-ries (SRAMs) with various substrate isolation techniques are simulated using Technology Computer-Aided Design (TCAD). In addition to the traditional bottom dielectric isolation (BDI), which isolates the source/drain (S/D) from the substrate (dubbed SD-BDI), and the punch-through stopper (PTS), a novel channel-BDI (C-BDI) is proposed, allowing S/D-to-substrate connection. The self-heating effect and radiation hardness due to various isolation techniques are studied. It is found that, firstly, the increase in self-heating due to BDI is negligible. Secondly, in the novel C-BDI, even without PTS, the increase in leakage current I OF F is minimal. Thirdly, for SD-BDI with underlap (to minimize stress relaxation), while I OF F increases, the static noise margin (SNM) remains unchanged and robust against single-event upset (SEU) even if the underlap is as much as 20 nm. Finally, all structures are immune to the alpha-particle SEU, and BDI enhances the radiation hardness substantially. Moreover, radiation hardness is insensitive to BDI thickness. 
+
+Index Terms —Bottom Dielectric Isolation (BDI), GAA-FET, Radiation Hardness, SRAM, Self-Heating, TCAD 
+
+I. I NTRODUCTION 
+
+As semiconductor scaling progresses into the sub-5 nm regime, GAA-FETs have emerged as the leading architectural candidate to replace FinFETs [1]. By fully surrounding the channel with the gate, GAA-FETs offer superior electrostatic control, reduced short-channel effects, and improved drive current. Despite these advantages, the substrate subchannel is highly prone to parasitic leakage. To mitigate this subchannel leakage, several substrate iso-lation techniques have been studied in the literature, such as PTS and BDI [2]. PTS uses a relatively heavily doped layer beneath the channel and source/drain (S/D) to prevent substrate leakage. It is doped with the opposite type as the S/D. In the literature, BDI usually refers to an oxide layer used to isolate the S/D from the substrate and has two forms that are often studied [3]–[5]. “Partial” BDI is often defined as 
+
+Fig. 1. Cross-sections of the GAA-FETs under study. Both structures may or may not have PTS. tunder , text , and h are BDI parameters adjusted in this study. (a) GAA-FET with SD-BDI. The BDI is under the S/D. A Structure with PTS and SD-BDI underlap is shown. The substrate leakage path is indicated. (b) GAA with C-BDI, where BDI is under the channel. 
+
+when the oxide layer is placed only under the S/D (Fig. 1a, where it also has a PTS). “Full” BDI is when the oxide layer is placed under the S/D and channel as well (where the subchannel is at). PTS has the disadvantages of being more prone to process variations and higher parasitic capacitances. However, PTS allows a direct connection from the S/D to enable stress formation in the S/D and has the potential to reduce self-heating. BDI reduces subthreshold leakage and parasitic capacitance due to the oxide layer. BDI does not use doping, so it also allows for less consideration to process variations due to doping. Furthermore, BDI is also found to be beneficial for radiation hardness [4]. However, BDI has the disadvantage of severing the con-nection between the S/D and the substrate. This is suspected to worsen self-heating [6] due to the heat generated from the transistor not being able to escape as easily through the substrate. Self-heating can cause worse reliability, such as from bias temperature instability (BTI), hot carrier injection (HCI), and time-dependent dielectric breakdown (TDDB). Severing the connection from the S/D to the substrate can also arXiv:2607.05789v1 [cs.ET] 7 Jul 2026 cause stress relaxation. With BDI, the S/D epitaxy can only be grown well from the sheets, which reduces the quality of the S/D due to increased threading dislocations. Therefore, A novel channel-BDI (C-BDI) is proposed and studied in this work to alleviate the issue (Fig. 1b). In this work, full-domain 3D TCAD simulations (which are necessary to capture layout effect [7]) are performed on 3 nm GAA-FET SRAMs with various substrate isolation techniques (PTS, SD-BDI, C-BDI) to study their effects on self-heating and radiation hardness. II. TCAD S IMULATIONS AND RESULTS 
+
+A. BDI Implementations and SRAM Design 
+
+In this work, TCAD Sentaurus is used [8] (SDevice and SProcess) to study the characteristics of 3nm GAA-FET SRAMs of different substrate isolations and their radiation hardness. Philips Unified Mobility model, ballistic mobility model, Lombardi for surface scattering, impact ionization, SRH recombination, Auger recombination, and density gra-dient are turned on. GAA-FETs at the 3nm node are created based on the structure and dimensions from [1] and IRDS 2024 [9]. The dimensions used are shown in Table I. Two different types of BDI are studied: SD-BDI and C-BDI (Fig. 1). SD-BDI places the BDI underneath the S/D, where an underlap value (tunder ) and its height ( h) can be adjusted. When tunder = 0 ,there is no electrical connection between the S/D and the substrate, and it is called a ”partial BDI”. A negative tunder 
+
+indicates that BDI extends under the channel, and if it fully covers the channel, it is a ”full BDI”. However, this physical discontinuity leads to S/D epitaxial stress relaxation and acts as a thermal barrier, leading to self-heating effects. In contrast, C-BDI places the BDI directly under the channel. It can be extended into the S/D regions (through text ). It should be noted that C-BDI can be created by combining and modifying the fabrication processes for full BDI and partial BDI.                                   
+
+> TABLE I 3NM NODE DIMENSIONS FOR GAA-FET.
+> Parameter Value
+> Channel Doping No Inner Spacer 6 nm Oxide Thickness (t ox )1 nm HfO 2Thickness (t hk )2 nm Oxide Dielectric Constant 3.5 HfO 2Dielectric Constant 20 Number of Sheets 3Silicon Sheet Thickness (t si )6 nm Sheet-to-Sheet Spacing (t sus )10 nm Total Height 48 nm Gate Length (Gate Metal) (L G)12 nm Gate Length (Gate Metal + 2t ox + 2t hk ) (L G1)18 nm Sheet/Fin Width (NMOS) 13 nm Sheet/Fin Width (PMOS) 17 nm N-Type Work function 4.25 eV P-Type Work function 4.85 eV S/D Doping Outside of Inner Spacer Yes
+> Fig. 2. Current leakage for a) C-BDI and b) SD-BDI with underlap. Current density is shown when VD= 0 .8Vand VG= 0 V. The substrate side contact is also shown (pink line on the right) and can be a leakage path.
+
+Leakage can be an issue if the S/D is connected to the substrate, as depicted by the current leakage paths (Fig. 2). To resolve this issue, both SD-BDI and C-BDI can be combined with PTS. However, as discussed previously, PTS has various disadvantages. Thus, it is beneficial to study devices without PTS. I D VG curves for SD-BDI and C-BDI (both without PTS) show that the novel C-BDI with text = 10 nm and h = 15 nm has a leakage current only ∼ 3 times for NMOS (Fig. 3a) and 
+
+∼ 5 times for PMOS (Fig. 3b) compared to the SD-BDI case, even in saturation mode (V D =0.7 V). Therefore, the novel C-BDI provides an excellent trade-off between substrate isolation and S/D stress retention. C-BDI also has better substrate isolation compared to SD-BDI with underlaps (Fig. 2). An SRAM is then created to study both self-heating and radiation hardness. Fig. 4 shows the circuit (top-left) and the full SRAM structure (top-right). ACC1 and ACC2 are the access transistors. N1 and N2 are the pull-down transistors. P1 and P2 are pull-up transistors. BL and BLB are the bit lines. WL is the word line. CH and CL are the storage nodes of the cell. 
+
+B. Self-Heating Studies 
+
+Previous studies showed that self-heating is substantially increased due to BDI [6]. However, those studies used an effective substrate thickness of about 1 μm (1 μm Si and thermal resistivity θ of 5 × 10 −4 K·cm 2/W). In this study, an SRAM with a full-BDI structure is compared to another                 
+
+> Fig. 3. ID−VGcurves for a) NMOS and b) PMOS GAA with SD-BDI and C-BDI. Legend units are in nm. SD-BDI without underlap (perfect isolation) and C-BDI with the lowest leakage are indicated with dotted curves. Fig. 4. SRAM circuit under the most vulnerable condition (a) and TCAD structure (b). (b) also shows the diagonal strike-through of the off-state transistors P1 and N2. c) shows channel strike through N2 and ACC2 (CS), substrate strike 1.5nm below the epi (SS 1.5), substrate strike 20nm below the epi (SS 20), and top strike 7nm from the drain edge (TS).
+> Fig. 5. Self-heating simulations for an SRAM. (a) No BDI (PTS is used to avoid leakage) and full-BDI. (b) Self-heating transient simulation showing maximum temperature during a write operation to be at ∼80 −90 ps . (c) Quasistationary simulation where one PMOS device has VS= 0.7 V, VD=0 V and its VGis swept with all other transistors off. Full-BDI has a similar self-heating effect as without BDI.
+
+SRAM structure without BDI (but with PTS) and with an effective ∼ 500 μm Si substrate (0.6 μm Si and θ = 10 −2
+
+K·cm 2/W) (Fig. 5a). The self-heating is studied using two methods. First, a bit-flip write operation on an SRAM cell is performed because it represents a typical use case. Fig. 5b shows the maximum temperature through time where only one bit flip is simulated. With and without BDI have similar self-heating. Next, repre-senting a worst-case scenario, a quasistationary simulation is performed where one of the PMOS is biased at VSD = 0 .7V
+
+and VG is swept. Fig. 5c shows that BDI is found to have a negligible effect on self-heating. Therefore, in contrast to the previous study, worsening in self-heating due to BDI is negligible even when it is full-BDI, if a realistic effective Si substrate thickness is used. 
+
+C. Radiation Hardness Studies 
+
+The radiation hardness of GAA-FET SRAMs based on SD-BDI and C-BDI is then studied. For a fair comparison, it is important to ensure the butterfly curves and SNM are similar. SD-BDI and C-BDI with different parameters were shown to have leakage when used without PTS due to the opening to the substrate (Fig. 3). However, leakage current has a small impact on SNM and Fig. 6 shows that the hold butterfly curves and the SNM of SD-BDI and C-BDI are similar. The SRAMs are then initialized into the most vulnerable hold condition shown in Fig. 4a. This is when the SRAM is in a hold state while another SRAM in the same column is being written. A single particle can strike multiple off-state transistors at the same time (two NMOS in channel strikes or one NMOS and one PMOS in diagonal strikes). Fig. 4 shows the 4 key striking locations studied in this work. These are some of the most vulnerable locations as discussed in [4] [10]. Alpha particles with different LETs are then varied to determine when the SRAM bit cell will flip for each case. The strikes are modeled as HeavyIon with a Gaussian distribution (peaks at t = 50 ps and has a standard deviation of 2 ps). The threshold LET (LET when the SRAM bit cell flips) of each radiation strike location for SD-BDI with/without PTS shows that structures with and without PTS have similar results despite structures without PTS having a large leakage current when tunder is positive (Fig. 7). The channel strike and diagonal strike are relatively unaffected by SD-BDI underlap due to their distance away from the BDI layer. In contrast, the substrate strikes and top strike are affected significantly  
+
+> Fig. 6. Hold butterfly curves for a) SD-BDI with PTS, b) SD-BDI without PTS and c) C-BDI without PTS at a BDI height of h=7nm. Off-state leakage difference does not affect the SNM.
+
+Fig. 7. Flipping threshold LET of each radiation strike location for GAA with SD-BDI for h=15nm (top: with PTS; bottom: without PTS). The top strike is the most vulnerable. In some cases, the cell does not flip even with LET > 0.5 pC/um (the trend is indicated as dashed lines). This happens for substrate strike when there is no underlap. 
+
+with a positive BDI underlap. When there is full BDI (nega-tive underlap), channel strike is the most vulnerable. As the underlap increases, the radiation hardness for substrate and top strikes decreases nonlinearly, and the top strike becomes the most vulnerable. Fig. 8 shows that the threshold LET of C-BDI of the top strike increases for positive extension and thicker BDI. This is likely because increasing the positive extension and making the BDI thicker increases the oxide area, which would decrease the volume where charge is generated and collected. Less charge allows for a larger threshold LET. Fig. 9 shows that for all radiation strikes tested, SD-BDI with an underlap of 0 nm and C-BDI with extension of 10 nm, with or without PTS, are all resistant to LET = 0.0144 pC/um, which is the maximum LET value predicted for a single alpha particle strike [4]. This shows that even with BDI not fully covering the S/D (in the C-BDI case), the radiation hardness is still sufficient. Moreover, Fig. 9 shows that BDI thickness has little effect on radiation hardness. III. C ONCLUSION 
+
+In this work, full-domain 3D TCAD simulations was used to evaluate the performance of GAA-FET SRAMs under various 
+
+Fig. 8. Threshold LET of top strikes for GAA with C-BDI with different h
+
+and text .
+
+Fig. 9. Threshold LET for GAA with varying BDI heights for SD-BDI (tunder = 0 ) and C-BDI ( text = 10 nm ). Substrate strikes for SD-BDI are not shown since the SRAM did not flip even at LET greater than 0.5pC/um. Regardless of BDI height, the threshold LET is still greater than 0.0144pC/um (max LET due to an alpha particle). C-BDI has a larger dependence on height. 
+
+BDI and PTS configurations. We demonstrated that when evaluated with a realistic effective substrate thickness, self-heating from BDI is negligible. We also proposed a novel C-BDI architecture that effectively preserves the connection from S/D and substrate, which mitigates stress relaxation. This design maintains minimal off-state leakage while eliminating the need for a PTS or a BDI that fully isolates the S/D from the substrate. Both SD-BDI and C-BDI are found to improve the overall radiation hardness. Even without fully covering the S/D, they are still predicted to be immune to single alpha particle strikes. IV. A CKNOWLEDGMENT 
+
+Sandia National Laboratories is a multimission laboratory managed and operated by National Technology Engineering Solutions of Sandia, LLC, a wholly owned subsidiary of Hon-eywell International Inc., for the U.S. Department of Energy’s National Nuclear Security Administration under contract DE-NA0003525. REFERENCES [1] N. Loubet et al., ”Stacked nanosheet gate-all-around transistor to enable scaling beyond FinFET,” 2017 VLSI, Kyoto, 2017, pp. T230-T231. [2] J. Zhang et al., ”Full Bottom Dielectric Isolation to Enable Stacked Nanosheet Transistor for Low Power and High Performance Applica-tions,” 2019 IEDM, pp. 11.6.1-11.6.4. [3] X. -T. Zheng et al., ”Improved Radiation Hardness for Nanosheet FETs with Partial Bottom Dielectric Isolation,” 2023 Silicon Nanoelectronics Workshop (SNW), Kyoto, Japan, 2023, pp. 75-76. [4] A. Lu et al., ”Prediction of Alpha-Particle-Immune Gate-All-Around Field-Effect Transistors (GAA-FET) Based SRAM Design,” 2025 SIS-PAD, Grenoble, France, 2025, pp. 1-4. [5] G. Choi et al., “Radiation effects on multi-channel ForksheetFET and Nanosheet-FET considering the bottom dielectric isolation scheme,” Nuclear Eng. and Tech., vol. 56, no. 11, pp. 4679–4687, 2024. [6] M. Saleh et al., ”Impact of Bottom Dielectric Isolation of Si-Stacked Nanosheet Transistor on Stress and Self-Heating at 3-nm Node and Beyond,” in IEEE TED, vol. 70, no. 11, pp. 5535-5542, Nov. 2023. [7] Khoa Huynh et al., ”Study of Layout Dependent Radiation Hardness of FinFET SRAM using Full Domain 3D TCAD Simulation,” S3S, San Jose, 2019, pp. 1-3. [8] Sentaurus™ Device User Guide Version W-2024.09, September 2024. [9] IRDS, “More Moore.” https://irds.ieee.org/editions/2024, 2024. Interna-tional Roadmap for Devices and Systems (IRDS™) 2024 Edition. [10] A. Elwailly et al., ”Radiation Hardness Study of LG = 20 nm FinFET and Nanowire SRAM Through TCAD Simulation,” in IEEE TED, vol. 68, no. 5, 2021.

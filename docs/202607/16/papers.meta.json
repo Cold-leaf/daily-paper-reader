@@ -1,0 +1,54 @@
+{
+  "label": "2026-07-16",
+  "date": "2026-07-16",
+  "generated_at": "2026-07-16T21:16:21",
+  "count": 3,
+  "papers": [
+    {
+      "paper_id": "202607/16/2607.13649v1-cimera-compute-in-interconnect-and-memory-with-reconfigurable-precision-for-llm-inference",
+      "section": "deep",
+      "title_en": "CIMERA: Compute-in-Interconnect and Memory with Reconfigurable Precision for LLM Inference",
+      "authors": "Yue Jiet Chong, Yimin Wang, Wei Zhang, Xuanyao Fong",
+      "date": "2026-07-15",
+      "pdf": "https://arxiv.org/pdf/2607.13649v1",
+      "score": "9.0",
+      "evidence": "提出面向LLM推理的存算互连一体加速器CIMERA",
+      "tldr": "LLM推理面临严重的计算和内存瓶颈，权重精度需要平衡精度与能效。CIMERA提出一种计算互连与内存集成的可重构精度加速器，通过片上互连中的计算缓解内存墙，并支持自适应精度执行。在1B和13B模型上，相比Nvidia H100能效分别提升25倍和10倍。该工作为从数据中心到边缘设备的高能效LLM推理提供了新范式。",
+      "tags": "query:cim",
+      "abstract_en": "LLM impose significant computational and memory demands, creating challenges for energy-efficient inference across platforms ranging from data centers to power-constrained edge devices. Weight precision plays a critical role in balancing inference accuracy, throughput, and energy consumption, while modern LLM workloads exhibit pronounced heterogeneity and tolerance that favors adaptive precision execution. This paper presents CIMERA, a reconfigurable-precision LLM inference accelerator that integrates compute-in-interconnect and memory to mitigate the memory wall and enable precision-aware execution. Compared to Nvidia H100, CIMERA delivers up to $25\\times$ and $10\\times$ higher energy efficiency for 1B and 13B models, respectively.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202607/16/2607.12839v1-heteromosaic-exposing-and-exploiting-heterogeneous-execution-opportunities-for-energy-efficient-edge-llm-inference",
+      "section": "quick",
+      "title_en": "HeteroMosaic: Exposing and Exploiting Heterogeneous Execution Opportunities for Energy-Efficient Edge LLM Inference",
+      "authors": "Gregory Hyegang Jun, Wesley Pang, Eddie Richter, Mehdi Saeedi, Aporva Amarnath, Pallavi Ferrao, Deming Chen",
+      "date": "2026-07-14",
+      "pdf": "https://arxiv.org/pdf/2607.12839v1",
+      "score": "6.0",
+      "evidence": "利用统一内存平台进行边缘LLM推理，通过异构加速器调度提升能效，与近存计算相关",
+      "tldr": "针对边缘SoC中CPU、iGPU和NPU异构资源利用率低的问题，提出HeteroMosaic调度框架。通过异构roofline模型识别有利的加速器组合，将推理分解为保留依赖的微批次以暴露跨加速器重叠，并采用踪迹引导的调度与设备分配协同优化。在AMD Ryzen AI平台上，加速比达1.73-2.05倍，能耗降低45.3%，优于现有异构方案。",
+      "tags": "query:cim",
+      "abstract_en": "Modern edge system-on-chips (SoCs) combine CPUs, integrated GPUs (iGPUs), and neural processing units (NPUs), yet existing LLM runtimes typically make coarse device-level decisions or optimize operators in isolation. As a result, they underutilize heterogeneous resources, particularly on unified-memory platforms where performance depends on both device placement and task-graph coordination.   We present HeteroMosaic, a heterogeneity-first scheduling framework for edge LLM inference. HeteroMosaic first uses a heterogeneous roofline model to identify when combining iGPU and NPU execution is beneficial. It then decomposes inference into dependency-preserving micro-batches that expose cross-accelerator overlap and applies trace-guided co-optimization of scheduling and device allocation under practical effects such as memory contention, DVFS, device variation, and NPU runtime overheads.   We implement HeteroMosaic in PyTorch C++ and evaluate it on three AMD Ryzen AI platforms spanning NPU-heavy, balanced, and iGPU-heavy designs. On the balanced platform, HeteroMosaic achieves up to 1.73X speedup over an iGPU baseline, 1.78X over an NPU baseline, and 2.05X over frameworks such as \\texttt{llama.cpp}, while reducing energy by up to 45.3%. It also improves performance over prior heterogeneous edge AI solutions by up to 2.35X.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202607/16/2607.12839v2-heteromosaic-exposing-and-exploiting-heterogeneous-execution-opportunities-for-energy-efficient-edge-llm-inference",
+      "section": "quick",
+      "title_en": "HeteroMosaic: Exposing and Exploiting Heterogeneous Execution Opportunities for Energy-Efficient Edge LLM Inference",
+      "authors": "Gregory Hyegang Jun, Wesley Pang, Eddie Richter, Mehdi Saeedi, Aporva Amarnath, Pallavi Ferrao, Deming Chen",
+      "date": "2026-07-14",
+      "pdf": "https://arxiv.org/pdf/2607.12839v2",
+      "score": "6.0",
+      "evidence": "利用统一内存平台进行边缘LLM推理，通过异构加速器调度提升能效，与近存计算相关",
+      "tldr": "现代边缘SoC集成了CPU、iGPU和NPU，但现有LLM运行时因粗粒度设备决策和孤立算子优化导致异构资源利用不足。HeteroMosaic提出异构优先调度框架，通过异构roofline模型识别最佳执行组合，将推理分解为依赖保留的微批次以暴露跨加速器重叠，并采用迹引导的调度与设备分配联合优化。在AMD Ryzen AI平衡平台上，相比iGPU基线获得1.73倍加速，相比NPU基线1.78倍，相比llama.cpp达2.05倍，同时能耗降低45.3%。该工作首次系统性地在统一内存边缘平台实现异构资源的细粒度协同调度，显著提升能效。",
+      "tags": "query:cim",
+      "abstract_en": "Modern edge system-on-chips (SoCs) combine CPUs, integrated GPUs (iGPUs), and neural processing units (NPUs), yet existing LLM runtimes typically make coarse device-level decisions or optimize operators in isolation. As a result, they underutilize heterogeneous resources, particularly on unified-memory platforms where performance depends on both device placement and task-graph coordination. We present HeteroMosaic, a heterogeneity-first scheduling framework for edge LLM inference. HeteroMosaic first uses a heterogeneous roofline model to identify when combining iGPU and NPU execution is beneficial. It then decomposes inference into dependency-preserving micro-batches that expose cross-accelerator overlap and applies trace-guided co-optimization of scheduling and device allocation under practical effects such as memory contention, DVFS, device variation, and NPU runtime overheads. We implement HeteroMosaic in PyTorch C++ and evaluate it on three AMD Ryzen AI platforms spanning NPU-heavy, balanced, and iGPU-heavy designs. On the balanced platform, HeteroMosaic achieves up to 1.73X speedup over an iGPU baseline, 1.78X over an NPU baseline, and 2.05X over frameworks such as llama.cpp, while reducing energy by up to 45.3%. It also improves performance over prior heterogeneous edge AI solutions by up to 2.35X.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

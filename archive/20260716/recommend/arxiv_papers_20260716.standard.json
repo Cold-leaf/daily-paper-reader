@@ -1,0 +1,139 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-07-16T21:14:00.934314+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [
+    {
+      "id": "2607.13649v1",
+      "source": "arxiv",
+      "title": "CIMERA: Compute-in-Interconnect and Memory with Reconfigurable Precision for LLM Inference",
+      "abstract": "LLM impose significant computational and memory demands, creating challenges for energy-efficient inference across platforms ranging from data centers to power-constrained edge devices. Weight precision plays a critical role in balancing inference accuracy, throughput, and energy consumption, while modern LLM workloads exhibit pronounced heterogeneity and tolerance that favors adaptive precision execution. This paper presents CIMERA, a reconfigurable-precision LLM inference accelerator that integrates compute-in-interconnect and memory to mitigate the memory wall and enable precision-aware execution. Compared to Nvidia H100, CIMERA delivers up to $25\\times$ and $10\\times$ higher energy efficiency for 1B and 13B models, respectively.",
+      "authors": [
+        "Yue Jiet Chong",
+        "Yimin Wang",
+        "Wei Zhang",
+        "Xuanyao Fong"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-07-15T09:49:48+00:00",
+      "link": "https://arxiv.org/pdf/2607.13649v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "proposes compute-in-interconnect and memory (CIMERA) accelerator for LLM inference",
+      "llm_evidence_cn": "提出面向LLM推理的存算互连一体加速器CIMERA",
+      "llm_evidence": "提出面向LLM推理的存算互连一体加速器CIMERA",
+      "canonical_evidence": "提出面向LLM推理的存算互连一体加速器CIMERA",
+      "llm_tldr_en": "CIMERA integrates compute-in-interconnect and memory to mitigate the memory wall and enable reconfigurable-precision execution, achieving up to 25x energy efficiency over Nvidia H100 for 1B models.",
+      "llm_tldr_cn": "针对LLM推理中的存算墙问题，本文提出CIMERA加速器，将计算融入互连与内存，支持可重构精度执行。实验表明，相比Nvidia H100，CIMERA在1B和13B模型上分别实现高达25倍和10倍的能效提升，为存算一体架构在LLM推理中的应用提供了有效方案。",
+      "llm_tldr": "针对LLM推理中的存算墙问题，本文提出CIMERA加速器，将计算融入互连与内存，支持可重构精度执行。实验表明，相比Nvidia H100，CIMERA在1B和13B模型上分别实现高达25倍和10倍的能效提升，为存算一体架构在LLM推理中的应用提供了有效方案。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "compute-in-memory architecture",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2607.12839v1",
+      "source": "arxiv",
+      "title": "HeteroMosaic: Exposing and Exploiting Heterogeneous Execution Opportunities for Energy-Efficient Edge LLM Inference",
+      "abstract": "Modern edge system-on-chips (SoCs) combine CPUs, integrated GPUs (iGPUs), and neural processing units (NPUs), yet existing LLM runtimes typically make coarse device-level decisions or optimize operators in isolation. As a result, they underutilize heterogeneous resources, particularly on unified-memory platforms where performance depends on both device placement and task-graph coordination.   We present HeteroMosaic, a heterogeneity-first scheduling framework for edge LLM inference. HeteroMosaic first uses a heterogeneous roofline model to identify when combining iGPU and NPU execution is beneficial. It then decomposes inference into dependency-preserving micro-batches that expose cross-accelerator overlap and applies trace-guided co-optimization of scheduling and device allocation under practical effects such as memory contention, DVFS, device variation, and NPU runtime overheads.   We implement HeteroMosaic in PyTorch C++ and evaluate it on three AMD Ryzen AI platforms spanning NPU-heavy, balanced, and iGPU-heavy designs. On the balanced platform, HeteroMosaic achieves up to 1.73X speedup over an iGPU baseline, 1.78X over an NPU baseline, and 2.05X over frameworks such as \\texttt{llama.cpp}, while reducing energy by up to 45.3%. It also improves performance over prior heterogeneous edge AI solutions by up to 2.35X.",
+      "authors": [
+        "Gregory Hyegang Jun",
+        "Wesley Pang",
+        "Eddie Richter",
+        "Mehdi Saeedi",
+        "Aporva Amarnath",
+        "Pallavi Ferrao",
+        "Deming Chen"
+      ],
+      "primary_category": "cs.DC",
+      "categories": [
+        "cs.DC",
+        "cs.AR"
+      ],
+      "published": "2026-07-14T14:56:14+00:00",
+      "link": "https://arxiv.org/pdf/2607.12839v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "leverages unified-memory platforms for edge LLM inference, scheduling across heterogeneous accelerators to improve energy efficiency, relevant to near-memory computing",
+      "llm_evidence_cn": "利用统一内存平台进行边缘LLM推理，通过异构加速器调度提升能效，与近存计算相关",
+      "llm_evidence": "利用统一内存平台进行边缘LLM推理，通过异构加速器调度提升能效，与近存计算相关",
+      "canonical_evidence": "利用统一内存平台进行边缘LLM推理，通过异构加速器调度提升能效，与近存计算相关",
+      "llm_tldr_en": "HeteroMosaic schedules LLM inference across CPU, iGPU, and NPU on unified-memory SoCs, using heterogeneous roofline analysis and micro-batch decomposition for energy efficiency.",
+      "llm_tldr_cn": "针对边缘LLM推理中异构资源利用率不足的问题，本文提出HeteroMosaic调度框架，基于异构屋顶线模型识别加速器组合收益，并将推理分解为依赖保持的微批次以暴露跨加速器重叠。在统一内存SoC上实现了能效提升，展示了近存计算在边缘端的潜力。",
+      "llm_tldr": "针对边缘LLM推理中异构资源利用率不足的问题，本文提出HeteroMosaic调度框架，基于异构屋顶线模型识别加速器组合收益，并将推理分解为依赖保持的微批次以暴露跨加速器重叠。在统一内存SoC上实现了能效提升，展示了近存计算在边缘端的潜力。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "near-memory computing design",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2607.12839v2",
+      "source": "arxiv",
+      "title": "HeteroMosaic: Exposing and Exploiting Heterogeneous Execution Opportunities for Energy-Efficient Edge LLM Inference",
+      "abstract": "Modern edge system-on-chips (SoCs) combine CPUs, integrated GPUs (iGPUs), and neural processing units (NPUs), yet existing LLM runtimes typically make coarse device-level decisions or optimize operators in isolation. As a result, they underutilize heterogeneous resources, particularly on unified-memory platforms where performance depends on both device placement and task-graph coordination. We present HeteroMosaic, a heterogeneity-first scheduling framework for edge LLM inference. HeteroMosaic first uses a heterogeneous roofline model to identify when combining iGPU and NPU execution is beneficial. It then decomposes inference into dependency-preserving micro-batches that expose cross-accelerator overlap and applies trace-guided co-optimization of scheduling and device allocation under practical effects such as memory contention, DVFS, device variation, and NPU runtime overheads. We implement HeteroMosaic in PyTorch C++ and evaluate it on three AMD Ryzen AI platforms spanning NPU-heavy, balanced, and iGPU-heavy designs. On the balanced platform, HeteroMosaic achieves up to 1.73X speedup over an iGPU baseline, 1.78X over an NPU baseline, and 2.05X over frameworks such as llama.cpp, while reducing energy by up to 45.3%. It also improves performance over prior heterogeneous edge AI solutions by up to 2.35X.",
+      "authors": [
+        "Gregory Hyegang Jun",
+        "Wesley Pang",
+        "Eddie Richter",
+        "Mehdi Saeedi",
+        "Aporva Amarnath",
+        "Pallavi Ferrao",
+        "Deming Chen"
+      ],
+      "primary_category": "cs.DC",
+      "categories": [
+        "cs.DC",
+        "cs.AR"
+      ],
+      "published": "2026-07-14T14:56:14+00:00",
+      "link": "https://arxiv.org/pdf/2607.12839v2",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "leverages unified-memory platforms for edge LLM inference, scheduling across heterogeneous accelerators to improve energy efficiency, relevant to near-memory computing",
+      "llm_evidence_cn": "利用统一内存平台进行边缘LLM推理，通过异构加速器调度提升能效，与近存计算相关",
+      "llm_evidence": "利用统一内存平台进行边缘LLM推理，通过异构加速器调度提升能效，与近存计算相关",
+      "canonical_evidence": "利用统一内存平台进行边缘LLM推理，通过异构加速器调度提升能效，与近存计算相关",
+      "llm_tldr_en": "HeteroMosaic schedules LLM inference across CPU, iGPU, and NPU on unified-memory SoCs, using heterogeneous roofline analysis and micro-batch decomposition for energy efficiency.",
+      "llm_tldr_cn": "针对边缘LLM推理中异构资源利用率不足的问题，本文提出HeteroMosaic调度框架，基于异构屋顶线模型识别加速器组合收益，并将推理分解为依赖保持的微批次以暴露跨加速器重叠。在统一内存SoC上实现了能效提升，展示了近存计算在边缘端的潜力。",
+      "llm_tldr": "针对边缘LLM推理中异构资源利用率不足的问题，本文提出HeteroMosaic调度框架，基于异构屋顶线模型识别加速器组合收益，并将推理分解为依赖保持的微批次以暴露跨加速器重叠。在统一内存SoC上实现了能效提升，展示了近存计算在边缘端的潜力。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "near-memory computing design",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

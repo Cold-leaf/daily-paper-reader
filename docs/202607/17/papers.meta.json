@@ -1,0 +1,54 @@
+{
+  "label": "2026-07-17",
+  "date": "2026-07-17",
+  "generated_at": "2026-07-17T21:18:36",
+  "count": 3,
+  "papers": [
+    {
+      "paper_id": "202607/17/2607.15123v1-nifa-nonlinear-imc-enhanced-fpga-for-efficient-ml-inference",
+      "section": "deep",
+      "title_en": "NIFA: Nonlinear IMC enhanced FPGA for efficient ML inference",
+      "authors": "Jiajun Hu, Ruthwik Reddy Sunketa, Lei Zhao, Archit Gajjar, Luca Buonanno, Aman Arora",
+      "date": "2026-07-16",
+      "pdf": "https://arxiv.org/pdf/2607.15123v1",
+      "score": "8.0",
+      "evidence": "基于ReRAM的模拟存内计算用于机器学习推理",
+      "tldr": "传统FPGA使用IMC加速深度学习推理时，仅支持静态权重，Transformer动态操作依赖数字逻辑，且IMC中ADC模块功耗占比超70%。本文提出新型FPGA架构，使用无ADC的IMC块，以模拟内容可寻址存储器（ACAM）替代ADC，原生执行非线性操作，并利用ACAM实现动态矩阵乘法。设计空间探索优化交叉存储尺寸，实现高效映射。实验表明，CNN和Transformer的能效分别提升40倍和1.9倍，面积效率提升4.1倍和2.5倍。该架构显著提升FPGA推理效率，尤其适应Transformer长序列计算，推动领域专用FPGA发展。",
+      "tags": "query:cim",
+      "abstract_en": "Recent FPGAs have improved deep learning (DL) inference efficiency through dedicated tensor blocks and in-BRAM computation. ReRAM-based analog in-memory computing (IMC) pushes efficiency further, offering an order-of-magnitude improvement in compute density and energy efficiency over conventional digital logic by performing vector-matrix multiplication (VMM) directly within the ReRAM crossbar; prior work has integrated such IMC blocks into FPGAs for DL inference. However, conventional IMC designs support only static-weight VMM, leaving nonlinear operations and dynamic matrix-matrix multiplication (DIMM) to the FPGA fabric. As a result, the benefits of IMC are largely confined to static-weight models, whereas Transformer-based models, which rely on frequent nonlinear and DIMM operations, gain only limited improvement. Moreover, the ADCs within each IMC block consume more than 70% of its area and power, further limiting system efficiency and scalability. To address these limitations, we propose a novel FPGA architecture that integrates an ADC-free IMC block, replacing the conventional ADC with analog content-addressable memories (ACAMs) that natively perform nonlinear operations inside the block. To fully exploit this block, we conduct an FPGA-aware design-space exploration that determines optimal crossbar dimensions while balancing FPGA area, flexibility, and DL performance, and we develop an efficient mapping that leverages ACAMs to carry out DIMM operations, extending the applicability of IMC to attention computation. On CNN and Transformer-based benchmarks, the proposed architecture achieves up to 40x and 1.9x higher energy efficiency and 4.1x and 2.5x higher area efficiency, respectively. Overall, it significantly improves FPGA DL inference efficiency and sustains robust gains on Transformer-based workloads across long input sequences, advancing domain-specialized FPGA design.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202607/17/2607.15005v1-differentiable-routability-driven-package-floorplanning-with-pin-assignment",
+      "section": "quick",
+      "title_en": "Differentiable Routability-Driven Package Floorplanning with Pin Assignment",
+      "authors": "Yiqi Huang, Zepeng Li, Zhen Zhuang, Kehao Chen, Genggeng Liu, Tsung-Yi Ho",
+      "date": "2026-07-16",
+      "pdf": "https://arxiv.org/pdf/2607.15005v1",
+      "score": "7.0",
+      "evidence": "面向3D集成的高级封装可布线驱动布局规划",
+      "tldr": "先进封装中RDL互连密度激增使可布线性成为瓶颈，但电源完整性要求迫使信号网通过扇出区，而现有均匀网格拥塞模型无法准确刻画扇出拥塞，引脚分配也难以评估网交叉。本文提出可微分布图规划与引脚分配算法：通过可微分线长最小化直接优化芯片位置与方向，利用交叉感知DPSO结合GPU并行评估减少线长，并构建扇出定制拥塞模型实现可布线性梯度反向传播。实验表明该方法在所有基准上达成100%可布线性，相比领先方法线长最多降低约23%。",
+      "tags": "query:cim",
+      "abstract_en": "As advanced packaging technology evolves, increasing interconnect density in redistribution layers (RDLs) makes routability critical to package floorplanning. Meanwhile, power integrity requirements often reserve fan-in regions for the power delivery network (PDN), forcing signal nets through fan-out regions and complicating routability estimation. Existing uniform grid-based congestion models cannot accurately characterize fan-out congestion, while previous pin assignment methods struggle to evaluate net crossings. We propose a differentiable routability-driven floorplanning and pin assignment algorithm for advanced packaging with fan-out routing. First, a differentiable wirelength minimization method directly models discrete chip orientations and back-propagates wirelength gradients to chip locations and orientations. It reduces wirelength under fixed pin selection while avoiding the bias of continuous-angle modeling. Second, a crossing-aware pin assignment method incorporates net-crossing cost into a multi-strategy DPSO algorithm and uses GPU-parallel cost evaluation to reduce wirelength efficiently. Finally, a differentiable routability maximization method constructs a congestion model tailored to fan-out routing and establishes a back-propagation path from congestion information to chip locations, thereby guiding routability optimization. Experimental results show that our method achieves 100% routability on all benchmarks. For cases successfully routed by the baselines, it reduces wirelength by up to approximately 23% compared with a leading floorplanning method equipped with our pin assignment flow.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202607/17/2607.10186v1-flashaccel-leveraging-high-bandwidth-flash-for-high-throughput-llm-inference",
+      "section": "quick",
+      "title_en": "FlashAccel: Leveraging High-Bandwidth Flash for High-Throughput LLM Inference",
+      "authors": "Xinyu Wang, Yalong Xue, Xiaotian Sun, Xiaoyu Zhang, Chunmeng Dou, Xueqi Li, Xiaoming Chen",
+      "date": "2026-07-11",
+      "pdf": "https://arxiv.org/pdf/2607.10186v1",
+      "score": "6.0",
+      "evidence": "将高带宽闪存集成到GPU中实现近存计算",
+      "tldr": "大语言模型推理面临GPU高带宽内存（HBM）容量不足的瓶颈，而高带宽闪存（HBF）虽容量大、带宽高，但存在延迟高、带宽利用率低和异构资源管理难题。FlashAccel通过将HBF集成到GPU，设计架构级延迟隐藏、针对模型权重和KV缓存的专用数据布局，并结合HBF感知的存储管理层与编程模型，实现高效异构内存协调。实验表明，集成6个HBF堆栈后，在100ms延迟约束下，每GPU吞吐量提升2.54倍，能效提升1.93倍，显著突破HBM容量限制。",
+      "tags": "query:cim",
+      "abstract_en": "Large language model (LLM) inference is increasingly limited by the capacity of High-Bandwidth Memory (HBM) in GPUs, as model weights and KV cache grow rapidly. High-Bandwidth Flash (HBF) provides higher capacity than HBM while retaining comparable bandwidth, making it a promising substrate for capacity-constrained LLM inference. However, its inherently high access latency, low bandwidth utilization, and lack of support for heterogeneous resource management make it difficult to integrate HBF into GPUs for LLM inference. We present FlashAccel, a co-designed system that enables efficient LLM inference using HBF. FlashAccel integrates HBF into HBM-based GPUs, providing architectural support to mitigate access latency. It improves bandwidth utilization through specialized data layouts for both model weights and KV cache, and introduces an HBF-aware storage management layer together with a programming model to organize persistent data in HBF and coordinate heterogeneous memory resources at the system level. Experimental results demonstrate that integrating six HBF stacks into the GPU enables FlashAccel to deliver an average improvement of 2.54$\\times$ and 1.93$\\times$ in throughput per GPU and energy efficiency over the HBM-only GPU under 100ms latency constraint, respectively.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

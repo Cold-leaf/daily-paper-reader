@@ -1,6 +1,9 @@
 * <a class="dpr-sidebar-root-link" href="#/">首页</a>
 * <a class="dpr-sidebar-root-link dpr-sidebar-noactive-link" href="javascript:void(0)" data-dpr-hash="#/tutorial/README">使用教程</a>
 * Daily Papers
+  * 2026-07-19 <!--dpr-date:20260719-->
+    * 速读区
+      * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202607/19/2607.13700v1-csco-a-backside-pdn-aware-clock-signal-co-optimization-framework-for-improved-ppa" data-sidebar-item="{&quot;title&quot;: &quot;CSCO: A Backside-PDN-Aware Clock-Signal Co-Optimization Framework for Improved PPA&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2607.13700v1-csco-a-backside-pdn-aware-clock-signal-co-optimization-framework-for-improved-ppa&quot;, &quot;score&quot;: &quot;7.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;cim&quot;}], &quot;evidence&quot;: &quot;背侧供电网络用于3D集成电路设计&quot;}">CSCO: A Backside-PDN-Aware Clock-Signal Co-Optimization Framework for Improved PPA</a>
   * 2026-07-18 <!--dpr-date:20260718-->
     * 精读区
       * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202607/18/2607.14908v1-coda-algorithm-hardware-co-design-for-edge-video-diffusion-via-nmp-enabled-compute-cache-operator-disaggregation" data-sidebar-item="{&quot;title&quot;: &quot;CODA: Algorithm-Hardware Co-design for Edge Video Diffusion via NMP-Enabled Compute-Cache Operator Disaggregation&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2607.14908v1-coda-algorithm-hardware-co-design-for-edge-video-diffusion-via-nmp-enabled-compute-cache-operator-disaggregation&quot;, &quot;score&quot;: &quot;8.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;cim&quot;}], &quot;evidence&quot;: &quot;近存计算用于边缘视频扩散模型&quot;}">CODA: Algorithm-Hardware Co-design for Edge Video Diffusion via NMP-Enabled Compute-Cache Operator Disaggregation</a>

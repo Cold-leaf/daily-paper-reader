@@ -6,28 +6,26 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-07-18
-- 运行时间：2026-07-18 21:04:58 UTC
+- 最新运行日期：2026-07-19
+- 运行时间：2026-07-19 21:14:46 UTC
 - 运行状态：成功
-- 本次总论文数：2
-- 精读区：1
+- 本次总论文数：1
+- 精读区：0
 - 速读区：1
 
 ### 今日简报（AI）
-今日关注边缘视频扩散的算法-硬件协同设计，以及计算系统的能量代数计算。  
-精读推荐：《CODA》通过NMP解耦算子，显著提升边缘视频扩散效率，值得深入研究。  
-建议普通读者重点关注边缘AI硬件优化方向，速读的能量代数可作为理论补充。
-- 详情：[/202607/18/README](/202607/18/README)
+1) 今日速读：一篇关于背侧PDN感知的时钟信号协同优化框架论文（评分7.0）。
+2) 核心方向：提出CSCO框架，在先进工艺下联合优化时钟与电源网络以改善PPA。
+3) 建议关注：时钟与电源网络协同设计方法，特别适合在3D堆叠或背面供电场景中提升性能与功耗效率。
+- 详情：[/202607/19/README](/202607/19/README)
 
 ### 精读区论文标签
-1. [CODA: Algorithm-Hardware Co-design for Edge Video Diffusion via NMP-Enabled Compute-Cache Operator Disaggregation](/202607/18/2607.14908v1-coda-algorithm-hardware-co-design-for-edge-video-diffusion-via-nmp-enabled-compute-cache-operator-disaggregation)  
-   标签：评分：8.0/10、query:cim
-   evidence：近存计算用于边缘视频扩散模型
+- 本次无精读推荐。
 
 ### 速读区论文标签
-1. [Energy Calculus: A Compositional Algebra of Energy in Computational Systems](/202607/18/2607.11087v1-energy-calculus-a-compositional-algebra-of-energy-in-computational-systems)  
-   标签：评分：6.0/10、query:cim
-   evidence：提供了一种用于分析计算系统能效的组合代数，可应用于存算一体架构的能效评估
+1. [CSCO: A Backside-PDN-Aware Clock-Signal Co-Optimization Framework for Improved PPA](/202607/19/2607.13700v1-csco-a-backside-pdn-aware-clock-signal-co-optimization-framework-for-improved-ppa)  
+   标签：评分：7.0/10、query:cim
+   evidence：背侧供电网络用于3D集成电路设计
 
 
 <div class="dpr-home-promo-card">

@@ -1,0 +1,24 @@
+{
+  "label": "2026-07-20",
+  "date": "2026-07-20",
+  "generated_at": "2026-07-20T21:04:13",
+  "count": 1,
+  "papers": [
+    {
+      "paper_id": "202607/20/2607.15929v1-current-should-not-sneak-constrained-codes-for-reliable-memristor-crossbar-arrays",
+      "section": "deep",
+      "title_en": "Current Should Not Sneak: Constrained Codes for Reliable Memristor Crossbar Arrays",
+      "authors": "Selahattin Kaan Kırgeç, Yunus Alp Bıyıkoğlu, Ahmed Hareedy",
+      "date": "2026-07-17",
+      "pdf": "https://arxiv.org/pdf/2607.15929v1",
+      "score": "9.0",
+      "evidence": "关注基于忆阻器交叉阵列的存内计算",
+      "tldr": "忆阻器交叉阵列用于存内计算，但潜路径问题会导致读取错误。本文提出RES-LOCO约束编码方案，针对同时读取b行的情况设计非二进制容量达界码，其中b=2时采用GF(4)码、b=3时采用GF(8)码，并针对b=4提出纵向游程限制方案。该编码重点抑制短周长潜路径，实验证实了其对于不同阵列设置的有效性。",
+      "tags": "query:cim",
+      "abstract_en": "The approach of squeezing more transistors in the same area in order to speed up computing is no longer effective. Currently, researchers and engineers are searching for novel solutions that offer faster computing. One of these solutions is to compute where you store, known as in-memory computing. Resistive random access memories (ReRAMs), which are based on memristor crossbar arrays, enable in-memory computing. Moreover, ReRAMs offer large storage capacity associated with energy efficiency. In this work, we focus on storing digital data in memristor crossbar arrays. A critical challenge here is the sneak-path problem, occurring when there is a rectangle on the array with three low and one high resistances at the corners. The electric current in this case is prone to sneaking through the low-resistance path upon reading, which results in the high resistance data becoming erroneous. In this paper, we propose effective constrained coding solutions to the sneak-path problem after finding the expected number of sneak paths over a two-dimensional array given their circumferences. In particular, we adopt a literature model where $b$ rows on the crossbar array are read simultaneously while the others are grounded, and we design capacity-achieving non-binary constrained codes for the cases of $b=2$ and $b=3$. We focus more on the sneak paths with shorter circumferences as they are more detrimental. Here, GF refers to Galois field. Our GF$(4)$ codes, for $b=2$, and GF$(8)$ codes, for $b=3$, are a class of lexicographically-ordered constrained (LOCO) codes, and we call them resistive-LOCO (RES-LOCO) codes. RES-LOCO codes operate horizontally, and we also suggest a run-length-limited scheme for coding data on the crossbar array vertically to mitigate the sneak-path problem for $b=4$. We experimentally demonstrate the effectiveness of our RES-LOCO codes for various array setups.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

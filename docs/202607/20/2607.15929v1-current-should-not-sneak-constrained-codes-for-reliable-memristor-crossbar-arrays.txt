@@ -1,0 +1,1655 @@
+Title: Current Should Not Sneak: Constrained Codes for Reliable Memristor Crossbar Arrays
+
+URL Source: https://arxiv.org/pdf/2607.15929v1
+
+Published Time: Mon, 20 Jul 2026 00:55:25 GMT
+
+Number of Pages: 27
+
+Markdown Content:
+> 1
+
+# Current Should Not Sneak: Constrained Codes for Reliable Memristor Crossbar Arrays 
+
+Selahattin Kaan Kırgeç, Yunus Alp Bıyıko˘ glu, and Ahmed Hareedy, Member, IEEE 
+
+Abstract 
+
+The approach of squeezing more transistors in the same area in order to speed up computing is no longer effective. Currently, researchers and engineers are searching for novel solutions that offer faster computing. One of these solutions is to compute where you store, commonly known as in-memory computing, and it also addresses parallel processing challenges. Resistive random access memories (ReRAMs), which are based on memristor crossbar arrays, enable in-memory computing. Moreover, ReRAMs offer large storage capacity associated with energy efficiency. In this work, we focus on storing digital data in memristor crossbar arrays. A critical challenge here is the sneak-path problem, occurring when there is a rectangle on the array with three low and one high resistances at the corners. The electric current in this case is prone to sneaking through the low-resistance path upon reading, which results in the high resistance data becoming erroneous. In this paper, we propose effective constrained coding solutions to the sneak-path problem after finding the expected number of sneak paths over a two-dimensional array given their circumferences. In particular, we adopt a literature model where b rows on the crossbar array are read simultaneously while the others are grounded, and we design capacity-achieving non-binary constrained codes for the cases of b = 2 and b = 3 . We focus more on the sneak paths with shorter circumferences as they are more detrimental. Here, GF refers to Galois field. Our GF (4) codes, for b = 2 , and GF (8) codes, for b = 3 , are a class of lexicographically-ordered constrained (LOCO) codes, and we call them resistive-LOCO (RES-LOCO) codes. RES-LOCO codes operate horizontally, and we also suggest a run-length-limited scheme for coding data on the crossbar array vertically to mitigate the sneak-path problem for b = 4 . We experimentally demonstrate the effectiveness of our RES-LOCO codes in remarkably reducing the number of sneak paths, and we offer numerical results for various array setups. 
+
+Index Terms 
+
+In-memory computing, ReRAMs, memristor crossbar arrays, sneak path, constrained codes, LOCO codes. 
+
+I. I NTRODUCTION 
+
+In today’s world, fast and efficient computing is necessary for a wide range of applications, including data mining, autonomous vehicles, healthcare, and edge devices. For example, the meteoric rise of machine learning algorithms requires speedy distributed computing. The world has witnessed the steady decline of Moore’s law, and the fundamental idea of shrinking the device size to gain computing power has become a thing of the past. Instead, parallel computing has been the answer for some time, and a notable example is the usage of multi-core graphical processing units (GPUs) to support multi-core central processing units (CPUs). A major hurdle facing distributed computing is the data transfer back-and-forth between the computing and the storage units, which is called the von Neumann bottleneck [1]. A promising solution to this bottleneck is in-memory computing, and the relevant systems we focus on here are resistive random access memories (ReRAMs) based on memristor crossbar arrays. In-memory computing enables processing to occur directly where data is stored. Moreover, ReRAMs offer remarkably large storage capacities, and they are energy-efficient. The memristor, an abbreviation of memory resistor, was first introduced by Chua in 1971 as the missing circuit element [2]. Between voltage, current, flux linkage, and charge, Chua introduced the memristor to relate flux and charge, which was the missing link. Since then, the physics of memristors was extensively studied. Physical memristor realization was discussed in [3]. A version of Ohm’s law that is state dependent was introduced in [4] to define a memristor. Charge-based vs resistance-based memristor devices were compared in [5]. Here, we focus on using memristor crossbar arrays in digital storage as a first step towards in-memory computing. While the memristor offers two stable states for binary storage, it suffers from a serious problem called the sneak-path problem. The sneak-path problem, in brief, occurs when a rectangle on the two-dimensional crossbar array has three low resistances, each representing logic 1, and one high resistance, representing logic 0, at its four corners. Naturally, the electric current takes the parallel path with three low resistances in this case, resulting in the likelihood of the logic 0 mistakenly read as logic 1 upon reading [6]. From the circuits perspective, there is also a rich literature discussing memristors and their crossbar arrays. A detailed overview of the materials used, switching techniques, device modeling, and performance analysis was presented in [7]. The effect of wordline and bitline scaling on the performance and energy efficiency of the crossbar array was discussed in [8]. Circuit-based solutions to the sneak-path problem were also introduced in [6] and in [9]. Memristors and ReRAMs have several different applications. The usage of memristors for in-memory computing was discussed in [10]. How memristors can 
+
+This work was supported in part by the TÜB˙ ITAK 2232-B International Fellowship for Early Stage Researchers. Selahattin Kaan Kırgeç and Ahmed Hareedy are with the Department of Electrical and Electronics Engineering, Middle East Technical University (METU), 06800 Ankara, Turkey (e-mail: kirgec.kaan@metu.edu.tr; ahareedy@metu.edu.tr). Yunus Alp Bıyıko˘ glu is with the Department of Electrical and Computer Engineering, University of Illinois Urbana-Champaign (UIUC), Urbana, IL 61801 USA (e-mail: yunusab2@illinois.edu). arXiv:2607.15929v1 [cs.IT] 17 Jul 2026 2
+
+be adopted for faster deep learning, efficient neural networks, as well as neuromorphic computing was illustrated in [11]. A survey of the past, present, and future of memristors can be found in [12]. From the coding and information theoretic perspective, there are many recent results for memristor crossbar arrays. There are results focusing on constrained coding for error prevention, and others focusing on error-correction coding. Cassuto et al. modeled the associated channel as a z-channel where an error can only occur from a 0 to a 1 [13]. The same group also introduced a novel idea to mitigate sneak-path effects by reading a number b of rows (wordlines) simultaneously at any given time while grounding all other crossbar array rows [14], and they offered constrained coding solutions. A bridge from memristor physics-circuits to memristor information-coding theoretic techniques was built in [15]. Nguyen et al. presented a straightforward sneak-path-mitigating approach based on run-length-limited (RLL) constrained codes [16]. Maximum a posteriori (MAP) detection and constrained coding were introduced in [17]. On the side of error correction, there are techniques based on low-density parity-check (LDPC) codes [18], polar codes [19], as well as irregular repeat-accumulate (IRA) codes [20] for ReRAMs and their crossbar arrays. There are other data processing approaches customized for memristor crossbar arrays. A communications-inspired sneak-path estimation approach was proposed in [21]. Chen et al. introduced a technique for adaptive reading and detection to mitigate sneak-path effects [22]. Rate coding with memristors for spiking neural networks was presented in [23]. On the error-correction decoding side, there are results on bit-flipping algorithms [24], majority-logic algorithms [25], as well as joint detection and decoding based on belief propagation [26] to enhance the reliability of ReRAMs. Constrained codes prevent error-prone data patterns from being written (transmitted) in order to enhance the reliability of data storage (transmission) systems. Shannon introduced these codes in 1948 under the label coding for discrete noiseless systems as he represented the constrained system via a finite-state transition diagram (FSTD) and evaluated the capacity [27]. Constrained codes can be designed using finite-state machines or lexicographic indexing, and we here focus on the latter. Early developments on the design of constrained codes based on lexicographic indexing, also called enumerative codes, include the run-length-limited (RLL) code design by Tang and Bahl in [28]. More recent works on enumerative constrained codes include [29], [30] and [31] for Flash memory systems, as well as [32] for DNA data storage. In 2019, Hareedy and Calderbank introduced lexicographically-ordered constrained codes, in short LOCO codes [33]. Based on Cover’s result in [34], a general method to design LOCO codes for any finite set of forbidden patterns was then presented in [35]. LOCO codes achieve capacity with low complexity since their encoding-decoding algorithms are based on a simple mathematical rule that can be executed by a reconfigurable adder [35]. Since then, this general method was used to design advanced non-binary LOCO codes for modern data storage systems [36], [37], [38]. In general, we adopt the model in [14], where b rows are read simultaneously on the crossbar array while grounding all other rows, in this work. However, we also show that our schemes notably enhance ReRAM reliability under other models. Our contribution in this paper is four-fold: 1) We compute the expected number of sneak paths over any two-dimensional (2D) crossbar array for a specific circum-ference and for a given circumference range as well as for a given probability of low resistance. We show that such expectations offer accurate estimates of the actual sneak-path counts. 2) For the case of b = 2 , we design effective and efficient GF( 4) LOCO codes to remove all sneak paths of all circumferences within each group of two rows. Here, GF refers to Galois field. We call our proposed codes resistive-LOCO codes, in short RES-LOCO codes. 3) For the case of b = 3 , we design effective and efficient GF( 8) LOCO codes to remove all sneak paths of the shortest circumference, which is 4, within each group of three rows. Such sneak paths are known to be the most detrimental [22]. 4) For the case of b = 4 , we propose a binary RLL scheme for coding data on the crossbar array vertically to mitigate the sneak-path problem. RES-LOCO codes operate horizontally on the rows. For RES-LOCO codes, we convert a two-dimensional binary problem into a one-dimensional non-binary problem. We offer the detailed analysis of these codes and show that they naturally achieve capacity. All our proposed coding schemes offer feasible code rates for data storage. RES-LOCO codes are simple and can be easily reconfigured as the ReRAM device ages because of their encoding-decoding rule. Over different crossbar array setups and grounding mechanisms, we experimentally show that the proposed coding schemes significantly reduce the number of sneak paths, notably increasing the reliability of the ReRAM device. The rest of the paper is organized as follows. In Section II, we introduce the necessary preliminaries and estimate sneak-path counts. In Section III, we design our GF( 4) RES-LOCO codes for memristor crossbar arrays. In Section IV, we design our GF( 8) RES-LOCO codes for memristor crossbar arrays. In Section V, we discuss finite-length challenges and state the code rates. In Section VI, we present our binary RLL constrained coding idea. In Section VII, we introduce our experimental results. In Section VIII, we conclude the paper and state future work. II. P RELIMINARIES AND COUNT ESTIMATION 
+
+Memristor-based ReRAMs, designed using crossbar arrays, are becoming popular since they can store a large amount of data in a small area and consume less energy than traditional memory technologies. They also enable in-memory computing, 3 
+
+> BL 1
+> BL 2
+> BL 3
+> WL 1
+> WL 2
+> WL 3
+> expected
+> sneak path
+> Low R (1)
+> High R (0)
+> Fig. 1. Memristor crossbar array showing expected current path (green solid) and sneak path (red dashed).
+
+where data can be processed in the same hardware where it is stored [5], [10], [11]. However, these crossbar arrays suffer from the sneak-path problem , which causes read errors. This problem is discussed below in detail. To mitigate the sneak-path problem, researchers have proposed various coding and circuit strategies, although these strategies can still be improved to further increase the overall storage capacity [19]. Our approach employs LOCO codes, which encode and decode data in a simple way that avoids these harmful configurations. By applying LOCO codes to ReRAM crossbar arrays, we can eliminate the most detrimental sneak paths and approach capacity. In fact, LOCO codes achieve capacity under a given constraint. Next, we discuss the sneak-path problem. In ReRAM-based crossbar architectures, one of the main challenges is the emergence of unintended current pathways, called sneak paths , which may arise during both read and write operations [14]. In this work, we primarily focus on the read operation problem. Before we formally define and express the sneak path mathematically, consider Fig. 1. Memristor cells exist at each wordline-bitline intersection. In this figure, high resistance (low resistance) cells are shown as red (green) small circles. Suppose we want to read the cell at the intersection of Wordline 2 and Bitline 2. Ideally, the current should follow the expected line, which is green solid, in the figure. However, due to low resistances at (2 , 3) , (1 , 3) , and (1 , 2) , where the notation is wordline index followed by bitline index, the current may instead follow the sneak-path line, which is red dashed. Consequently, a high-resistance cell representing a 0 can be mistakenly read as a low-resistance cell representing a 1 due to the sneak-path problem. Therefore, we can say that a sneak path exists at (2 , 2) .
+
+Definition 1 (Sneak-Path Problem) . In a crossbar array, let a(i, j ) denote the stored binary value of the memristor at position 
+
+(i, j ). High (Low) resistance, which implies low (high) conductance, corresponds to a(i, j ) = 0 (a(i, j ) = 1 ). A high resistance cell at position (i, j ), i.e., a(i, j ) = 0 , is subject to a sneak path if there exist indices s̸ = i and c̸ = j such that there are three low resistance cells as follows: 
+
+a(i, c ) = a(s, j ) = a(s, c ) = 1 , (1) 
+
+which create an alternative current route (i, c ) → (s, c ) → (s, j ) that bypasses the target cell during the read operation. The circumference of this sneak path is L = 2( |s − i| + |c − j|). In an array with no selectors and no diodes (1R array), this path is always active. In a 1D1R array, each cell has a diode that blocks unwanted current. In this case, the sneak path is active only when the diode at the corner cell (s, c ) fails [22]. In a 1S1R array, each cell has a selector that exhibits high resistance if the cell is on a possible sneak path. In this case, the sneak path is active only when the selectors at all three rectangular sneak-path corners, other than (i, j ), fail [22]. 
+
+Remark 1. In the absence of a diode or a selector, sneak-path configurations are more general and cannot be restricted to rectangular shapes. However, in 1D1R (one diode-one memristor) and 1S1R (one selector-one memristor) architectures, the formation of non-rectangular paths would require simultaneous failure of multiple diodes, more in the case of 1S1R, which has a statistically negligible probability. Moreover, the dominance of longer sneak paths is significantly mitigated by the cumulative effect of line resistance, making them notably less detrimental. Consequently, the following assumptions are maintained throughout this work: 
+
+1) Sneak paths are assumed to be strictly rectangular. In 1D1R or 1S1R architectures, this implies the failure of a single diode or three selectors, respectively. In crossbar arrays without diodes/selectors, only rectangular forms are considered, while others are ignored. 4
+
+2) Following Definition 1, only paths up to a determined maximum circumference are considered. Longer paths are ignored as increasing line resistance reduces their impact on system performance. 
+
+To address the sneak-path problem, we propose LOCO coding schemes. To evaluate the effectiveness of our coding schemes, we derive the expected number of sneak paths first, which is a result we will use later. In this section, we derive general formulae for the expected number of sneak paths with arbitrary circumferences, then construct various LOCO coding schemes that improve performance in the following sections. 
+
+Lemma 1 (Expected Number of Sneak Paths With Specific Circumference) . Consider a (γ1 × γ2) crossbar array where memristor states are independent and identically distributed, with p1 denoting the probability that a memristor is in the low-resistance state ( 1 in binary). For sufficiently large dimensions γ1 and γ2, the expected number of sneak paths with circumference L = 2 ℓ + 4 , where ℓ ∈ { 0, 1, 2, . . . , min( γ1, γ 2) − 2}, is given by: 
+
+A(ℓ) = 23 p31(1 − p1)( ℓ + 1) 
+
+h
+
+6γ1γ2 − 3( γ1 + γ2)( ℓ + 2) + ( ℓ + 2)( ℓ + 3) 
+
+i
+
+, (2) 
+
+where ℓ is the effective circumference parameter, i.e., actual circumferences L ∈ { 4, 6, 8, . . . } are mapped to ℓ ∈ { 0, 1, 2, . . . },and A(ℓ) is the expected number of sneak paths with circumference L.Proof. To find A(ℓ), based on Definition 1, we probabilistically analyze all valid placements of rectangular shapes with circumference L in the (γ1 × γ2) crossbar array. While the sneak path technically refers to the path of the current, we also use the same terminology to refer to the rectangular shape causing it to occur. First, we consider the probability of forming a sneak path for a fixed set of coordinates, i.e., fixed four corners. Since we require three memristors to be in the low-resistance state (LRS) and one to be in the high-resistance state (HRS), there are  41
+
+ = 4 such configurations. The probability for any specific rectangle location is therefore 4p31(1 − p1).Next, we determine the number of valid spatial positions of these rectangular shapes. Let r and c represent the lengths of the row and column spans of the path, respectively. The circumference constraint L = 2 ℓ + 4 implies that 2( r + c) = 2 ℓ + 4 ,which simplifies to r + c = ℓ + 2 . For a fixed pair of lengths (r, c ), the number of ways to embed this rectangle into a (γ1 × γ2)
+
+array is (γ1 − r)( γ2 − c).Summing over all valid integer combinations of r and c gives: 
+
+A(ℓ) = 4 p31(1 − p1) X   
+
+> {(r,c )|r+c=ℓ+2 ,(r,c )∈{ 1,2,...,ℓ +1 }2}
+
+(γ1 − r)( γ2 − c).
+
+To evaluate this sum, we substitute c = ( ℓ + 2) − r. Since r ≥ 1 and c ≥ 1, the summation index r ranges from 1 to ℓ + 1 .Therefore, the expression becomes: 
+
+A(ℓ) = 4 p31(1 − p1)
+
+> ℓ+1
+
+X
+
+> r=1
+
+(γ1 − r)
+
+
+
+γ2 − (ℓ + 2) + r
+
+
+
+.
+
+Let K = ℓ + 2 . The term inside the summation can be expanded as a polynomial in r as follows: 
+
+(γ1 − r)( γ2 − K + r) = ( γ1γ2 − γ1K) + r(γ1 − γ2 + K) − r2.
+
+We now apply the known summation identities for the first n integers and their squares, where n = ℓ + 1 :
+
+> n
+
+X
+
+> r=1
+
+r = n(n + 1) 2 ,
+
+> n
+
+X
+
+> r=1
+
+r2 = n(n + 1)(2 n + 1) 6 .
+
+Substituting these identities into the expanded sum and simplifying the resulting algebraic expression yields the final expression of A(ℓ) in (2) and completes the proof. ■
+
+Lemma 2 (Cumulative Expected Number of Sneak Paths) . Consider an (γ1 × γ2) crossbar array where memristor states are independent and identically distributed, with p1 denoting the probability that a memristor is in the low-resistance state ( 1
+
+in binary). For sufficiently large dimensions γ1 and γ2, the cumulative expected number of sneak paths with circumferences ranging from L = 4 to Lmax = 2 ℓmax + 4 , where ℓmax ∈ { 0, 1, 2, . . . , min( γ1, γ 2) − 2}, is given by: 
+
+B(ℓmax ) = p31(1 − p1)6
+
+γ1γ2
+
+ 24 + 36 ℓmax + 12 ℓ2max 
+
+ − (γ1 + γ2) 24 + 44 ℓmax 
+
++ 24 ℓ2max + 4 ℓ3max 
+
+ +  24 + 50 ℓmax + 35 ℓ2max + 10 ℓ3max + ℓ4max 
+
+ , (3) 
+
+where ℓmax is the maximum effective circumference parameter and B(ℓmax ) is the cumulative expected number of sneak paths with circumferences from L = 4 to Lmax .5
+
+Proof. When min( γ1, γ 2) ≥ ℓmax + 2 , the cumulative count B(ℓmax ) is obtained by summing the result from Lemma 1 over all valid integer parameters ℓ as follows: 
+
+B(ℓmax ) = 
+
+> ℓmax
+
+X
+
+> ℓ=0
+
+A(ℓ).
+
+From Lemma 1, we know that A(ℓ) is a polynomial in ℓ of degree 3. In particular, A(ℓ) contains terms involving ℓ0, ℓ1, ℓ2,and ℓ3. To evaluate the cumulative sum, we rely on the linearity of the summation operator and known power sum identities up to the third degree. In addition to the identities of P ℓ and P ℓ2 used in the proof of Lemma 1, we utilize the identity of the sum of integer cubes: nX
+
+> ℓ=0
+
+ℓ3 =
+
+ n(n + 1) 2
+
+2
+
+,
+
+where n = ℓmax . By substituting the explicit form of A(ℓ) from (2) into the summation of B(ℓmax ) and applying these identities to the terms with powers of ℓ, we obtain the algebraic expression in (3). ■
+
+The lemmas we have introduced provide a general model for sneak-path enumeration in arrays sufficiently large to include all possible sneak-path configurations (e.g., a circumference-sixteen sneak path occurring as 2(1 + 7) , 2(2 + 6) , etc.). For finite dimensions, direct expressions can be found. For example, consider a 2 × 100 memristor array. Here, we can express the sneak-path expectation contribution as 99 K for circumference-four paths, 98 K for circumference-six paths, 97 K for circumference-eight paths, and so on, where K = 4 p31(1 − p1) is the probabilistic multiplier. For any memristor model, the shortest sneak paths are considered the most dominant. This is because they take up less physical space, making them more common in a limited area. Moreover, in larger sneak paths, the current encounters significantly more line resistance, which weakens the sneak-path effect [8] as the effective resistance of the possible sneak path increases. This observation [22] and our lemmas hold true for general crossbar arrays. Throughout this paper, we use the general methodology for constructing LOCO codes as described in [35]. The goal is to find the encoding-decoding function g(c), which gives the lexicographic index of any codeword c ≜ cm−1cm−2 . . . c 0 in the codes defined in the following sections. The steps of this general methodology can be summarized as follows: 1) Partition the code into groups based on the forbidden patterns. 
+
+2) Formulate the codebook size using the recursive nature of the group hierarchy. 
+
+3) Characterize the special-case codeword patterns arising from the forbidden pattern constraints. 
+
+4) Derive the lexicographic index contribution of each non-zero symbol for both special and typical cases. 
+
+5) Synthesize a unified index equation from all case contributions, establishing the LOCO encoding-decoding rule. 
+
+6) Design the encoding and decoding algorithms that implement this rule. 
+
+III. RES-LOCO C ODING SCHEME OVER GF (4) 
+
+In this section, we first introduce the GF (4) RES-LOCO coding scheme that prevents sneak paths of circumference 4. Then, we develop the GF (4) coding scheme for general circumference range from 4 to Lmax with increments of 2. These codes are defined over GF (4) = {0, 1, α, α 2}, and they forbid the sneak-path (SP) patterns where the row span is always 1. We adopt the following mapping-demapping between GF (4) and 2-tuple array columns in order to specify the forbidden patterns in a way that eliminates the relevant SP patterns. We then design and analyze the constrained codes. The GF (4) RES-LOCO coding scheme adopts the following GF (4) ←→ [GF (2)] 2 mapping-demapping: 
+
+0 ←→ [0 0] T, 1 ←→ [0 1] T,α ←→ [1 0] T, α2 ←→ [1 1] T. (4) We adopt the general methodology in [35] for the construction of RES-LOCO codes. The process begins with an examination of the forbidden patterns, from which the cardinality equations are derived, followed by the steps leading to deriving the encoding-decoding rule. Our forbidden patterns for preventing sneak paths of circumference 4 are in 
+
+T 4,0 = {1α2, αα 2, α 21, α 2α}. (5) The set corresponds to the [1 1] T column associated from either side with a column that has exactly one 0, which creates a sneak path. The generalization of this set for any ℓ, denoted by T 4,ℓ , is in (14). 
+
+Remark 2. A key feature of our design is that it is independent of any specific memristor model, and the channel analysis in [22] supports our approach. Consequently, the proposed solution is applicable to any memristor architecture such as 1R, 1D1R, and 1S1R memristor crossbar arrays, although its performance may vary depending on physical parameters such as wire resistance and diode/selector endurance. 
+
+The formal definition of a GF (4) RES-LOCO code is as follows: 6
+
+Definition 2 (GF (4) RES-LOCO Code) . A RES-LOCO code, RES 4,ℓ m , is defined by the following properties: 
+
+1) Codewords in RES 4,ℓ m are defined over GF (4) , the code alphabet, and are of length m symbols. 
+
+2) Codewords in RES 4,ℓ m are lexicographically ordered. 
+
+3) Codewords in RES 4,ℓ m do not contain any patterns from the set T 4,ℓ .
+
+4) Any codeword satisfying the above properties is included in RES 4,ℓ m .
+
+Lexicographic ordering means codewords are ordered following the notion 0 < 1 < α < α 2 and symbol significance reduces from left to right within the codeword. A codeword c is defined as the sequence cm−1cm−2 . . . c 1c0. Now, we develop the 
+
+RES 4,0 
+
+> m
+
+code to illustrate the main ideas on a simpler code, and then we develop the RES-LOCO code for general ℓ. When we say “starting” for a codeword, we always mean from the left. 
+
+First, we specify the group structure. Groups of RES 4,0 
+
+> m
+
+codes that prevents sneak paths of circumference L = 4 are:  
+
+> •
+
+Group 1 contains all the codewords starting with 0x, where x can be any of the four GF (4) symbols.  
+
+> •
+
+Group 2 contains all the codewords starting with 1δ1, where δ1 ∈ { 0, 1, α }. 
+
+> •
+
+Group 3 contains all the codewords starting with αδ 1, where δ1 ∈ { 0, 1, α }. 
+
+> •
+
+Group 4 contains all the codewords starting with α2δ2, where δ2 ∈ { 0, α 2}.
+
+Second, we enumerate the codewords. Let N4,0(m) denote the number of RES 4,0 
+
+> m
+
+codewords, which have length m.Additionally, let N4,0,i (m) denote the number of RES 4,0 
+
+> m
+
+codewords belonging to Group i, where i ∈ { 1, 2, 3, 4}. From this, it follows that N4,0(m) = P4 
+
+> i=1
+
+N4,0,i (m).
+
+Theorem 1. The cardinality N4,0(m) of a RES-LOCO code RES 4,0 
+
+> m
+
+, for m ≥ 3, is given by: 
+
+N4,0(m) = 4 N4,0(m − 1) − 2N4,0(m − 2) − 2N4,0(m − 3) , (6) 
+
+where the defined cardinalities are N4,0(2) ≜ 12 , N4,0(1) ≜ 4, and N4,0(0) ≜ 1.Proof. From the group structure, it can be seen that 
+
+N4,0,1(m) = N4,0(m − 1) , (7) since any codeword in RES 4,0 
+
+> m−1
+
+can be concatenated to the right of the symbol 0 for Group 1. Similarly, we have the relation 
+
+N4,0,2(m) = N4,0,3(m) = N4,0(m − 1) − N4,0,4(m − 1) , (8) since any codeword in RES 4,0 
+
+> m−1
+
+starting with a symbol in {0, 1, α } can be concatenated to the right of the symbol 1 for Group 2 or to the symbol α for Group 3. Additionally, 
+
+N4,0,4(m) = N4,0,1(m − 1) + N4,0,4(m − 1) = N4,0(m − 2) + N4,0,4(m − 1) . (9) By using N4,0(m) = P4 
+
+> i=1
+
+N4,0,i (m) along with (7), (8), and (9), we reach 
+
+N4,0(m) = 3 N4,0(m − 1) + N4,0(m − 2) − N4,0,4(m − 1) . (10) Since we know that N4,0,4(m − 1) − N4,0,4(m − 2) = N4,0(m − 3) from (9), if we find N4,0(m) − N4,0(m − 1) via (10), we reach (6). Moreover, N4,0(1) and N4,0(2) can be found directly using the set of forbidden patterns. As for N4,0(0) , we can use (7) because N4,0,1(1) = N4,0(0) = 1 . ■
+
+Third and Fourth, we find the special cases and symbol contribution. After deriving the necessary cardinality relations, we are able to advance to the next step, which is to define the typical and special cases to be used when calculating the contributions of symbols. We define the contribution of a given symbol ci to the overall codeword index g(c) as the number of smaller-length codewords that we can generate by replacing that symbol with c′ 
+
+> i
+
+< c i and the symbols to its right with valid constrained alternatives. Valid here means we can concatenate them from the right to cm−1cm−2 . . . c i+2 ci+1 , the symbols of c, without violating the constraint. To calculate the contribution of symbol ci, we must look at the preceding symbols 
+
+cm−1 . . . c i+2 ci+1 . This is necessary because replacing cici−1 . . . c 0 with shorter-length codewords as illustrated above might create a forbidden pattern once concatenated to cm−1 . . . c i+2 ci+1 . If this concatenation creates a forbidden pattern, which we characterize as a “special” case, some of the shorter-length codewords need to be omitted to correctly calculate the contribution of the symbol at hand. Otherwise, all shorter-length codewords can be concatenated and counted in the symbol contribution, which we characterize as a “typical” case. We then find the symbol contribution for each case. 
+
+Theorem 2. The encoding-decoding rule of a RES-LOCO code RES 4,0 
+
+> m
+
+, for m ≥ 3, is given by: 
+
+g(c) = 
+
+> m−1
+
+X
+
+> i=0
+
+h
+
+ki, 1[N4,0(i + 1) − N4,0(i − 1)] + ki, 2N4,0(i)
+
+i
+
+, (11) 
+
+where ki, 1 and ki, 2 are defined according to the special/typical case of symbol ci in c as shown in (12) .7
+
+Proof. Using the forbidden patterns that we previously specified in (5), we identify the typical and special cases as well as determine their corresponding symbol contributions gi(ci) as follows:  
+
+> •
+
+Special case S1, ci+1 ci = α2α2: gi(ci) = N4,0,1(i + 1) = N4,0(i) since only codewords starting with c′ 
+
+> i
+
+= 0 in RES 4,0
+
+> i+1
+
+can contribute because of the forbidden patterns.  
+
+> •
+
+Typical case T1, ci+1 ci = δ1, δ ∈ { 0, 1, α }: gi(ci) = N4,0,1(i + 1) = N4,0(i). 
+
+> •
+
+Typical case T2, ci+1 ci = δα : gi(ci) = N4,0,1(i + 1) + N4,0,2(i + 1) = N4,0(i + 1) − N4,0(i) − N4,0(i − 1) . 
+
+> •
+
+Typical case T3, ci+1 ci = 0 α2: gi(ci) = N4,0,1(i + 1) + 2 N4,0,2(i + 1) = 2 N4,0(i + 1) − 3N4,0(i) − 2N4,0(i − 1) .In the above equations of gi(ci), we use the group cardinalities in Theorem 1 and its proof, including that N4,0(i + 1) = 4N4,0(i) − 2N4,0(i − 1) − 2N4,0(i − 2) . If ci corresponds to the leftmost symbol of the codeword, then we assume that 
+
+ci+1 = cm ≜ 0 for the purposes of identifying typical and special cases for cm−1 (always typical). 
+
+Fifth, we formulate the encoding-decoding rule. After outlining the symbol contributions for each special and typical case to the overall codeword index, we are now able to find the merged indexing rule, which combines all the aforementioned cases. We define indicator functions yi,S 1 , yi,T 1 , yi,T 2 , and yi,T 3 that attain the value 1 whenever the current case is S1, T1, T2, or 
+
+T3, respectively, and have the value 0 otherwise. With these indicator functions, we write the merged indexing rule as follows: 
+
+gi(ci) = ( yi,T 2 + 2 yi,T 3 )
+
+| {z }
+
+> ki, 1
+
+[N4,0(i + 1) − N4,0(i − 1)] + ( yi,T 1 − yi,T 2 − 3yi,T 3 + yi,S 1 )
+
+| {z }
+
+> ki, 2
+
+N4,0(i)= ki, 1[N4,0(i + 1) − N4,0(i − 1)] + ki, 2N4,0(i), (12) 
+
+g(c) = 
+
+> m−1
+
+X
+
+> i=0
+
+gi(ci). (13) Combining (12) and (13) completes the proof and gives the encoding-decoding rule. ■
+
+Next, we introduce examples to clarify the idea of the encoding-decoding rule. From Theorem 1, we find that N4,0(3) = 38 .
+
+Example 1 (Decoding) . We find the index of the codeword α2α2α2 in RES 4,03 . For i = 0 and i = 1 , we identify the special case S1. For i = 2 , we identify the typical case T3. Using the encoding-decoding rule: 
+
+g(α2α2α2) = g0(c0) + g1(c1) + g2(c2)= N4,0(0) + N4,0(1) + [2 N4,0(3) − 3N4,0(2) − 2N4,0(1)] = 1 + 4 + [2(38) − 3(12) − 2(4)] = 37 .
+
+This result is consistent with N4,0(3) = 38 , as α2α2α2 is the last codeword of length 3.
+
+Example 2 (Encoding) . We find the codeword with index 36 in RES 4,03 . For i = 2 , the possible contributions are:  
+
+> •
+
+T1: g2(1) = N4,0(2) = 12 . 
+
+> •
+
+T2: g2(α) = N4,0(3) − N4,0(2) − N4,0(1) = 22 . 
+
+> •
+
+T3: g2(α2) = 2 N4,0(3) − 3N4,0(2) − 2N4,0(1) = 32 . 
+
+> •
+
+S1: g2(α2) = N4,0(2) = 12 .We select the largest contribution that does not exceed 36 , which is g2(α2) = 32 associated with T3. Thus, c2 = α2 and the remaining index is 36 − 32 = 4 .For i = 1 , given that c2 = α2, we identify the special case S1 with g1(α2) = N4,0(1) = 4 . Thus, c1 = α2 and the remaining index becomes 4 − 4 = 0 .For i = 0 , since the remaining index is 0, we have c0 = 0 .Therefore, the codeword with g(c) = 36 is α2α20. This result is consistent with our decoding example, as the index of 
+
+α2α2α2 is 37 , confirming that α2α20 immediately precedes it. 
+
+Now, we extend the GF (4) RES-LOCO coding scheme to prevent sneak paths of all circumferences L ∈ { 4, 6, 8, . . . , L max },where Lmax = 2 ℓ + 4 and ℓ ∈ { 0, 1, 2, . . . }. We adopt the general methodology in [35] for designing the RES-LOCO code. The process begins with an examination of the forbidden patterns, using which the cardinality equations are derived, followed by the derivation of the encoding and decoding rule. Our forbidden patterns for preventing sneak paths of circumferences up to Lmax are in 
+
+T 4,ℓ = {1α2, 10 α2, 102α2, . . . , 10ℓα2, αα 2, α 0α2, α 02α2, . . . , α 0ℓα2,α21, α 201 , α 2021, . . . , α 20ℓ1, α 2α, α 20α, α 202α, . . . , α 20ℓα}. (14) Here, we adopt the notation yr to denote a run of r consecutive identical symbols y, i.e., yr =
+
+> r
+
+z }| {
+
+y y · · · y, with y0 denoting the empty string. 8
+
+First, we specify the group structure. Groups of RES 4,ℓ m code are:  
+
+> •
+
+Group 1 contains all the codewords starting with 0x, where x can be any of the four GF (4) symbols.  
+
+> •
+
+Group 2 contains all the codewords starting with 1:
+
+– Subgroup 2k, 1: 10kαδ 1, where k = 0 , 1, . . . , ℓ , δ1 ∈ { 0, 1, α }.
+
+– Subgroup 2k, 2: 10k1δ1, where k = 0 , 1, . . . , ℓ .
+
+– Subgroup 2ℓ+1 : 10ℓ+1 . 
+
+> •
+
+Group 3 contains all the codewords starting with α:
+
+– Subgroup 3k, 1: α0kαδ 1, where k = 0 , 1, . . . , ℓ , δ1 ∈ { 0, 1, α }.
+
+– Subgroup 3k, 2: α0k1δ1, where k = 0 , 1, . . . , ℓ .
+
+– Subgroup 3ℓ+1 : α0ℓ+1 . 
+
+> •
+
+Group 4 contains all the codewords starting with α2:
+
+– Subgroup 4k: α20kα2δ2, where k = 0 , 1, . . . , ℓ , δ2 ∈ { 0, α 2}.
+
+– Subgroup 4ℓ+1 : α20ℓ+1 .
+
+Second, we enumerate the codewords. Let N4,ℓ (m) denote the number of RES 4,ℓ m codewords, which have length m.Additionally, let N4,ℓ,i (m) denote the number of RES 4,ℓ m codewords belonging to Group i, where i ∈ { 1, 2, 3, 4}. From this, it follows that N4,ℓ (m) = P4 
+
+> i=1
+
+N4,ℓ,i (m).
+
+Theorem 3. The cardinality N4,ℓ (m) of a RES-LOCO code RES 4,ℓ m , for m ≥ 2ℓ + 3 , is given by: 
+
+N4,ℓ (m) = 4 N4,ℓ (m − 1) − 2
+
+> 2ℓ+3
+
+X
+
+> k=2
+
+N4,ℓ (m − k), (15) 
+
+where the defined cardinalities can be computed based on the group structure for the value of ℓ of interest. Proof. From the group structure, we observe that 
+
+N4,ℓ, 1(m) = N4,ℓ (m − 1) , (16) since any codeword in RES 4,ℓ m−1 can be concatenated to the right of the symbol 0 for Group 1.For the subgroups of Group 2, and also Group 3 by symmetry, we have 
+
+N4,ℓ, 2k, 1 (m) + N4,ℓ, 2k, 2 (m) + N4,ℓ, 4k (m) = N4,ℓ (m − k − 1) − N4,ℓ, 1(m − k − 1) = N4,ℓ (m − k − 1) − N4,ℓ (m − k − 2) , (17) for k = 0 , 1, . . . , ℓ . The reason is that the codewords of RES 4,ℓ m in these subgroups are all the codewords in RES 4,ℓ m−k−1 that do not start with a 0.Using (17) and summing over all subgroups of Groups 2 and 4 collectively yields 
+
+N4,ℓ, 2(m) + N4,ℓ, 4(m) = 
+
+> ℓ
+
+X
+
+> k=0
+
+[N4,ℓ (m − k − 1) − N4,ℓ (m − k − 2)] + N4,ℓ, 2ℓ+1 (m) + N4,ℓ, 4ℓ+1 (m)=
+
+> ℓ
+
+X
+
+> k=0
+
+[N4,ℓ (m − k − 1) − N4,ℓ (m − k − 2)] + 2 N4,ℓ (m − ℓ − 2) = N4,ℓ (m − 1) + N4,ℓ (m − ℓ − 2) . (18) The second equality follows from that codewords in Subgroup 2ℓ+1 or in Subgroup 4ℓ+1 of RES 4,ℓ m are all codewords in 
+
+RES 4,ℓ m−ℓ−1 that start with a 0.The individual group cardinalities satisfy 
+
+N4,ℓ, 2(m) = N4,ℓ (m − 1) −
+
+> ℓ+1
+
+X
+
+> k=1
+
+N4,ℓ, 4(m − k), (19) 
+
+N4,ℓ, 4(m) = N4,ℓ (m − 1) − 2
+
+> ℓ+1
+
+X
+
+> k=1
+
+N4,ℓ, 2(m − k). (20) As for (19), the justification is that codewords in Group 2 at length m are all codewords at length m − 1 except those starting with α2, 0α2, 02α2, . . . , or 0ℓα2, which can also be obtained from Group 4 at lengths m − 1, m − 2, . . . , or m − ℓ − 1. As for (20), the justification is that codewords in Group 4 at length m are all codewords at length m − 1 except those starting with β, 0β, 02β, . . . , or 0ℓβ, where β ∈ { 1, α }, which can also be obtained from Groups 2 and 3 at lengths m − 1, m − 2,. . . , or m − ℓ − 1.9
+
+Since N4,ℓ (m) = N4,ℓ, 1(m) + 2 N4,ℓ, 2(m) + N4,ℓ, 4(m), using (16), (19), and (20), we obtain 
+
+N4,ℓ (m) = 4 N4,ℓ (m − 1) − 2
+
+> ℓ+1
+
+X
+
+> k=1
+
+[N4,ℓ, 2(m − k) + N4,ℓ, 4(m − k)] . (21) Substituting (18) for length m − k in (21) then gives 
+
+N4,ℓ (m) = 4 N4,ℓ (m − 1) − 2
+
+> ℓ+1
+
+X
+
+> k=1
+
+[N4,ℓ (m − k − 1) + N4,ℓ (m − k − ℓ − 2)] = 4 N4,ℓ (m − 1) − 2
+
+> 2ℓ+3
+
+X
+
+> k=2
+
+N4,ℓ (m − k). (22) This completes the proof. For further verification, we check the case of ℓ = 0 . Here, (15) reduces to N4,0(m) = 4 N4,0(m −
+
+1) − 2N4,0(m − 2) − 2N4,0(m − 3) , which agrees with (6). ■
+
+For convenience, and since they are also needed in the derivations of the encoding-decoding rule, we use Equations (16)–(22) to determine the following recursive relations for the cardinalities of Groups 2, 3, and 4 in RES 4,ℓ m :
+
+N4,ℓ, 2(m) = N4,ℓ, 3(m) = N4,ℓ (m) − 2N4,ℓ (m − 1) − N4,ℓ (m − ℓ − 2) . (23) 
+
+N4,ℓ, 4(m) = −N4,ℓ (m) + 3 N4,ℓ (m − 1) + 2 N4,ℓ (m − ℓ − 2) . (24) 
+
+Third and Fourth, we find the special cases and symbol contribution. After deriving the necessary cardinality relations, we are able to advance to the next step, which is to define the typical and special cases to be used when calculating the contributions of symbols. We define the contribution of a given symbol ci to the overall codeword index g(c) as the number of smaller-length codewords that we can generate by replacing that symbol with c′ 
+
+> i
+
+< c i and the symbols to its right with valid constrained alternatives. Valid here means we can concatenate them from the right to cm−1cm−2 . . . c i+2 ci+1 , the symbols of c, without violating the constraint. To calculate the contribution of symbol ci, we must look at the preceding symbols 
+
+cm−1 . . . c i+2 ci+1 . This is necessary because replacing cici−1 . . . c 0 with shorter-length codewords as illustrated above might create a forbidden pattern once concatenated to cm−1 . . . c i+2 ci+1 . If this concatenation creates a forbidden pattern, which we characterize as a “special” case, some of the shorter-length codewords need to be omitted to correctly calculate the contribution of the symbol at hand. Otherwise, all shorter-length codewords can be concatenated and counted in the symbol contribution, which we characterize as a “typical” case. We then find the symbol contribution for each case. 
+
+Theorem 4. The encoding-decoding rule of a RES-LOCO code RES 4,ℓ m , for m ≥ 3, is given by: 
+
+g(c) = 
+
+> m−1
+
+X
+
+> i=0
+
+"
+
+ki, 1N4,ℓ (i + 1) + ki, 2N4,ℓ (i) + ki, 3N4,ℓ (i − ℓ − 1) +
+
+> ℓ
+
+X
+
+> r=1
+
+(
+
+ki, 4,r 
+
+N4,ℓ (i + 1) − N4,ℓ (i − ℓ − 1) 
+
++
+
+> i−1
+
+X
+
+> j=i+r−ℓ−1
+
+h
+
+ki, 5,r N4,ℓ (j + 1) + ki, 6,r N4,ℓ (j) + ki, 7,r N4,ℓ (j − ℓ − 1) 
+
+i)# 
+
+, (25) 
+
+where ki, 1, ki, 2, ki, 3, ki, 4,r , ki, 5,r , ki, 6,r , and ki, 7,r are defined according to the special/typical case of symbol ci in c as shown in (41) .Proof. Using the forbidden patterns that we previously specified, we identify the typical and special cases as well as determine their corresponding symbol contributions gi(ci) as follows: 
+
+Typical cases:  
+
+> •
+
+Typical case T1, ci+1 ci = ζ1, i = m − 1, or ci+p . . . c i = 0p1, where ci = 1 in both cases, p ≥ ℓ, and ζ is a symbol that refers to out of codeword bounds: 
+
+gi(ci) = N4,ℓ, 1(i + 1) = N4,ℓ (i) (26) since only the codewords starting with c′ 
+
+> i
+
+= 0 in RES 4,ℓ i+1 can be concatenated from the right to the symbols preceding 
+
+ci without violating the constraint, and their count is N4,ℓ (i). 
+
+> •
+
+Typical case T2, ci+1 ci = ζα , i = m − 1, or ci+p . . . c i = 0pα, where ci = α in both cases, p ≥ ℓ, and ζ is a symbol that refers to out of codeword bounds: 
+
+gi(ci) = N4,ℓ (i + 1) − N4,ℓ (i) − N4,ℓ (i − ℓ − 1) (27) 10 
+
+since replacing ci = α with c′ 
+
+> i
+
+= 1 contributes the codewords starting with 1 and replacing ci = α with c′ 
+
+> i
+
+= 0 contributes the codewords starting with 0 that can be concatenated without creating a forbidden pattern. Observe that the number of these codewords is obtained via (16) and (23).  
+
+> •
+
+Typical case T3, ci+p . . . c i = 0pα2, where ci = α2 and p > ℓ :
+
+gi(ci) = 2 N4,ℓ (i + 1) − 3N4,ℓ (i) − 2N4,ℓ (i − ℓ − 1) (28) since replacing ci = α2 with each of the lexicographically-smaller symbols c′ 
+
+> i
+
+∈ { 0, 1, α } contributes the corresponding valid codewords to concatenate, none of which is restricted because the preceding 0p run, with p > ℓ , prevents any forbidden pattern. Observe that the number of these codewords is obtained again via (16) and (23). 
+
+Special cases:  
+
+> •
+
+Special case S1, ci+r . . . c i = 1 0r−11, where r ∈ { 1, 2, . . . , ℓ }:
+
+gi(ci) = N4,ℓ (i) −
+
+> i−1
+
+X
+
+> j=i+r−ℓ−1
+
+ − N4,ℓ (j + 1) + 3 N4,ℓ (j) + 2 N4,ℓ (j − ℓ − 1)  (29) since this is the typical contribution of ci = 1 in (26) with a necessary subtraction. The short 0 run of length r − 1 < ℓ 
+
+following the leading 1 restricts some of the shorter-length codewords, specifically the ones starting with α2 at various shorter lengths, and the summation adds these omitted codewords. Observe that the number of such omitted codewords is given by (24).  
+
+> •
+
+Special case S2, ci+r . . . c i = 1 0r−1α, where r ∈ { 1, 2, . . . , ℓ }:
+
+gi(ci) = N4,ℓ (i + 1) − N4,ℓ (i) − N4,ℓ (i − ℓ − 1) −
+
+> i−1
+
+X
+
+> j=i+r−ℓ−1
+
+ − N4,ℓ (j + 1) + 3 N4,ℓ (j) + 2 N4,ℓ (j − ℓ − 1)  (30) since this is the typical contribution of ci = α in (27) with a necessary subtraction. The short 0 run of length r − 1 < ℓ 
+
+following the leading 1 restricts some of the shorter-length codewords, specifically the ones starting with α2 at various shorter lengths, and the summation adds these omitted codewords.  
+
+> •
+
+Special case S3, ci+r . . . c i = α0r−11, where r ∈ { 1, 2, . . . , ℓ }:
+
+gi(ci) = N4,ℓ (i) −
+
+> i−1
+
+X
+
+> j=i+r−ℓ−1
+
+ − N4,ℓ (j + 1) + 3 N4,ℓ (j) + 2 N4,ℓ (j − ℓ − 1)  (31) since this is the typical contribution of ci = 1 in (26) with a necessary subtraction. The short 0 run following the leading 
+
+α restricts the shorter-length codewords that start with α2, and the summation adds these omitted codewords.  
+
+> •
+
+Special case S4, ci+r . . . c i = α0r−1α, where r ∈ { 1, 2, . . . , ℓ }:
+
+gi(ci) = N4,ℓ (i + 1) − N4,ℓ (i) − N4,ℓ (i − ℓ − 1) −
+
+> i−1
+
+X
+
+> j=i+r−ℓ−1
+
+ − N4,ℓ (j + 1) + 3 N4,ℓ (j) + 2 N4,ℓ (j − ℓ − 1)  (32) since this is the typical contribution of ci = α in (27) with a necessary subtraction. The short 0 run following the leading 
+
+α restricts the shorter-length codewords that start with α2, and the summation adds these omitted codewords.  
+
+> •
+
+Special case S5, ci+r . . . c i = α20r−1α2, where r ∈ { 1, 2, . . . , ℓ }:
+
+gi(ci) = N4,ℓ (i) − 2
+
+> i−1
+
+X
+
+> j=i+r−ℓ−1
+
+N4,ℓ (j + 1) − 2N4,ℓ (j) − N4,ℓ (j − ℓ − 1)  (33) since this is the typical contribution of ci = α2 in (28) with a necessary subtraction. The short 0 run of length r − 1 < ℓ 
+
+following the leading α2 restricts some of the shorter-length codewords, specifically the ones starting with 1 or α at various shorter lengths, and the summation adds these omitted codewords. Observe that the number of such omitted codewords is given by (23) multiplied by 2. 
+
+> •
+
+Special case S6, ci+ℓ+1 . . . c i = α20ℓα2:
+
+gi(ci) = N4,ℓ (i) (34) since the 0 run of length exactly ℓ is just long enough to satisfy the constraint. Thus, only the codewords starting with 
+
+c′ 
+
+> i
+
+= 0 contribute, and their number is N4,ℓ (i).Observe that if an index extends beyond the leftmost symbol of the codeword, then we assume that ck ≜ 0 for all k ≥ m
+
+for the purposes of identifying typical and special cases. 
+
+Fifth, we formulate the encoding-decoding rule. After outlining the symbol contributions for each special and typical case to the overall codeword index, we are now able to find the merged indexing rule, which combines all the aforementioned cases. We define indicator functions yi,T 1 , yi,T 2 , yi,T 3 , yi,S 1,r , yi,S 2,r , yi,S 3,r , yi,S 4,r , yi,S 5,r , and yi,S 6 that attain the value 11 
+
+1 whenever the current case is the corresponding case, and have the value 0 otherwise. To simplify the analysis, we define merging flags that combine indicator functions for cases with identical symbol contributions as follows: 
+
+yi, 1 = yi,T 1 + yi,S 6 , (35) 
+
+yi, 2 = yi,T 2 , (36) 
+
+yi, 3 = yi,T 3 , (37) 
+
+yi, 4,r = yi,S 1,r + yi,S 3,r , (38) 
+
+yi, 5,r = yi,S 2,r + yi,S 4,r , (39) 
+
+yi, 6,r = yi,S 5,r . (40) With these merging flags, we write the merged indexing rule as follows: 
+
+gi(ci) = ( yi, 2 + 2 yi, 3)N4,ℓ (i + 1) + 
+
+
+
+yi, 1 − yi, 2 − 3yi, 3 +
+
+> ℓ
+
+X
+
+> r=1
+
+(yi, 4,r − yi, 5,r + yi, 6,r )
+
+
+
+N4,ℓ (i)+ ( −yi, 2 − 2yi, 3)N4,ℓ (i − ℓ − 1) + 
+
+> ℓ
+
+X
+
+> r=1
+
+(
+
+yi, 5,r 
+
+N4,ℓ (i + 1) − N4,ℓ (i − ℓ − 1) 
+
++
+
+> i−1
+
+X
+
+> j=i+r−ℓ−1
+
+h
+
+(yi, 4,r + yi, 5,r − 2yi, 6,r )N4,ℓ (j + 1) + ( −3yi, 4,r − 3yi, 5,r + 4 yi, 6,r )N4,ℓ (j)+ ( −2yi, 4,r − 2yi, 5,r + 2 yi, 6,r )N4,ℓ (j − ℓ − 1) 
+
+i)
+
+, (41) 
+
+g(c) = 
+
+> m−1
+
+X
+
+> i=0
+
+gi(ci). (42) Observe that the variables in (25) are given by ki, 1 = yi, 2 + 2 yi, 3, ki, 2 = yi, 1 − yi, 2 − 3yi, 3 + Pℓr=1 (yi, 4,r − yi, 5,r + yi, 6,r ),
+
+ki, 3 = −yi, 2 − 2yi, 3, ki, 4,r = yi, 5,r , ki, 5,r = yi, 4,r + yi, 5,r − 2yi, 6,r , ki, 6,r = −3yi, 4,r − 3yi, 5,r + 4 yi, 6,r , and ki, 7,r =
+
+−2yi, 4,r − 2yi, 5,r + 2 yi, 6,r . Combining (41) and (42) completes the proof and gives the encoding-decoding rule. ■
+
+Remark 3. The encoding-decoding rule derived in Theorem 4 explicitly assumes ℓ ≥ 1. This assumption is necessary solely to accommodate special cases S1, S2, S3, S4, and S5, which handle omitting shorter codewords as a result of intermediate 0
+
+runs of length r − 1, where r ∈ { 1, 2, . . . , ℓ }. Since r ≥ 1, the required range for r becomes invalid when ℓ = 0 . Consequently, these specific short runs cannot mathematically exist, and cases S1 through S5 become infeasible. Conversely, the typical cases (T1, T2, T3) and the special case S6 remain structurally identical regardless of whether ℓ = 0 or ℓ ≥ 1. Therefore, while the overarching logic aligns, the specific boundary case where ℓ = 0 here reduces to the specialized rule previously established in Theorem 2. Sixth, we develop the encoding and decoding algorithms. The encoding and decoding algorithms follow the same systematic procedure detailed in [35], where the encoding-decoding rule is used to map between messages and codewords. Having illustrated the procedure for the GF (4) codes with ℓ = 0 above via Example 1 and Example 2, we omit the detailed algorithmic description for brevity. IV. RES-LOCO C ODING SCHEME OVER GF (8) 
+
+In this section, we introduce the GF (8) RES-LOCO coding scheme that prevents sneak paths of circumference 4. The code here is defined over GF (8) = {0, 1, α, α 2, α 3, α 4, α 5, α 6}, and it forbids sneak-path (SP) patterns. We adopt the general methodology in [35] for the construction of the RES-LOCO code. The process begins with an examination of the forbidden patterns, using which the cardinality equations are derived, followed by the derivation of the encoding-decoding rule. The GF (8) RES-LOCO coding scheme adopts the following GF (8) ←→ [GF (2)] 3 mapping-demapping: 
+
+0 ←→ [0 0 0] T, 1 ←→ [0 0 1] T,α ←→ [0 1 0] T, α2 ←→ [0 1 1] T,α3 ←→ [1 0 0] T, α4 ←→ [1 0 1] T, (43) 
+
+α5 ←→ [1 1 0] T, α6 ←→ [1 1 1] T.
+
+Our forbidden pattern for preventing sneak paths of circumference 4 is 
+
+T 8,0 = {1α2, 1α6, αα 2, αα 5, αα 6, α 21, α 2α, α 2α4, α 2α5, α 2α6, α 3α5, α 3α6, α 4α2, α 4α5, α 4α6,α5α, α 5α2, α 5α3, α 5α4, α 5α6, α 61, α 6α, α 6α2, α 6α3, α 6α4, α 6α5}. (44) 12 
+
+To further clarify, consider the forbidden pattern 1α6. Here, we have the two columns [0 0 1] T and [1 1 1] T consecutively on the crossbar array, which results in a circumference-4 sneak path across the bottom two rows. The formal definition of a GF (8) RES-LOCO code is as follows: 
+
+Definition 3 (GF (8) RES-LOCO Code) . A RES-LOCO code, RES 8,0 
+
+> m
+
+, is defined by the following properties: 
+
+1) Codewords in RES 8,0 
+
+> m
+
+are defined over GF (8) , the code alphabet, and are of length m symbols. 
+
+2) Codewords in RES 8,0 
+
+> m
+
+are lexicographically ordered. 
+
+3) Codewords in RES 8,0 
+
+> m
+
+do not contain any patterns from the set T 8,0.
+
+4) Any codeword satisfying the above properties is included in RES 8,0 
+
+> m
+
+.
+
+Lexicographic ordering means codewords are ordered following the notion 0 < 1 < α < α 2 < α 3 < α 4 < α 5 < α 6 and symbol significance reduces from left to right within the codeword. 
+
+First, we specify the group structure. Groups of RES 8,0 
+
+> m
+
+code are:  
+
+> •
+
+Group 1 contains all the codewords starting with 0x, where x can be any of the eight symbols.  
+
+> •
+
+Group 2 contains all the codewords starting with 1δ1, where δ1 ∈ { 0, 1, α, α 3, α 4, α 5}. 
+
+> •
+
+Group 3 contains all the codewords starting with αδ 2, where δ2 ∈ { 0, 1, α, α 3, α 4}. 
+
+> •
+
+Group 4 contains all the codewords starting with α2δ3, where δ3 ∈ { 0, α 2, α 3}. 
+
+> •
+
+Group 5 contains all the codewords starting with α3δ4, where δ4 ∈ { 0, 1, α, α 2, α 3, α 4}. 
+
+> •
+
+Group 6 contains all the codewords starting with α4δ5, where δ5 ∈ { 0, 1, α, α 3, α 4}. 
+
+> •
+
+Group 7 contains all the codewords starting with α5δ6, where δ6 ∈ { 0, 1, α 5}. 
+
+> •
+
+Group 8 contains all the codewords starting with α6δ7, where δ7 ∈ { 0, α 6}.
+
+Second, we enumerate the codewords. Let N8,0(m) denote the number of RES 8,0 
+
+> m
+
+codewords of length m. Additionally, let 
+
+N8,0,i (m) denote the number of RES 8,0 
+
+> m
+
+codewords of length m belonging to Group i, where i ∈ { 1, 2, 3, 4, 5, 6, 7, 8}. Thus, it follows that N8,0(m) = P8 
+
+> i=1
+
+N8,0,i (m).From the GF (8) mapping, we observe a symmetric structure. We map 1 as [0 0 1] T and α3 as [1 0 0] T, and binary columns with 1 at the top or 1 at the bottom result in the symmetry of Groups 2 and 5. Similarly, [0 1 1] T and [1 1 0] T are binary columns with 0 at the top or 0 at the bottom, and thus Groups 4 and 7 are symmetric. By definition of the group structure, Groups 3 and 6 are of equal cardinalities. Consequently, the following cardinality relations hold: 
+
+N8,0,2(m) = N8,0,5(m), (45) 
+
+N8,0,3(m) = N8,0,6(m), (46) 
+
+N8,0,4(m) = N8,0,7(m). (47) 
+
+Theorem 5. The cardinality N8,0(m) of a RES-LOCO code RES 8,0 
+
+> m
+
+, for m ≥ 5, is given by the following recurrence relation: 
+
+N8,0(m) = 7 N8,0(m − 1) − 7N8,0(m − 2) − 10 N8,0(m − 3) + 10 N8,0(m − 4) + 2 N8,0(m − 5) , (48) 
+
+where the defined cardinalities are N8,0(0) ≜ 1, N8,0(−1) ≜ 1, N8,0(−2) ≜ −1, N8,0(−3) ≜ 4.5, and N8,0(−4) ≜ −23 .5.Proof. From the group structure, we observe that: 
+
+N8,0,1(m) = N8,0(m − 1) , (49) since any codeword of length m − 1 can be concatenated to the right of symbol 0.For Group 2, δ1 cannot be α2 and α6. Therefore, and by symmetry: 
+
+N8,0,2(m) = N8,0,5(m) = N8,0(m − 1) − N8,0,4(m − 1) − N8,0,8(m − 1) . (50) For Groups 3 and 6, since δ2 (or δ5) cannot be α2, α 5, α 6, we have: 
+
+N8,0,3(m) = N8,0,6(m) = N8,0(m − 1) − N8,0,4(m − 1) − N8,0,7(m − 1) − N8,0,8(m − 1) . (51) Using symmetry N8,0,4(m) = N8,0,7(m), this simplifies to: 
+
+N8,0,3(m) = N8,0(m − 1) − 2N8,0,4(m − 1) − N8,0,8(m − 1) . (52) Now, we combine Groups 4 and 7, resulting in the addition of all codewords starting with {0, α 2, α 3} ∪ { 0, 1, α 5} from the left at length m − 1, where each codeword starting with a 0 is added twice. Therefore, and using symmetry: 
+
+2N8,0,4(m) = N8,0(m − 1) + N8,0,1(m − 1) − N8,0,3(m − 1) − N8,0,6(m − 1) − N8,0,8(m − 1) . (53) 13 
+
+Using (49) and substituting N8,0,3(m) from (52) (using index m − 1 on the right-hand side), we obtain: 
+
+2N8,0,4(m) = N8,0(m − 1) + N8,0(m − 2) 
+
+− 2
+
+h
+
+N8,0(m − 2) − 2N8,0,4(m − 2) − N8,0,8(m − 2) 
+
+i
+
+− N8,0,8(m − 1) . (54) Expanding the terms in (54) yields the following recurrence for N8,0,4:
+
+2N8,0,4(m) = N8,0(m − 1) − N8,0(m − 2) + 4 N8,0,4(m − 2) + 2 N8,0,8(m − 2) − N8,0,8(m − 1) . (55) For Group 8, since δ7 ∈ { 0, α 6}:
+
+N8,0,8(m) = N8,0,1(m − 1) + N8,0,8(m − 1) = N8,0(m − 2) + N8,0,8(m − 1) . (56) Rearranging (56) gives the difference relation: 
+
+N8,0,8(m) − N8,0,8(m − 1) = N8,0(m − 2) . (57) Now, we sum all group cardinalities to reach the recursion of the total cardinality N8,0(m). Using (49), (50), and (52): 
+
+N8,0(m) = N8,0,1(m) + 2 N8,0,2(m) + 2 N8,0,3(m) + 2 N8,0,4(m) + N8,0,8(m)= 5 N8,0(m − 1) + 
+
+h
+
+2N8,0,4(m) − 6N8,0,4(m − 1) 
+
+i
+
++
+
+h
+
+N8,0,8(m) − 4N8,0,8(m − 1) 
+
+i
+
+. (58) We eliminate N8,0,4(·) by computing N8,0(m)−2N8,0(m−2) from (58). This operation groups the N8,0,4(·) terms into the form 
+
+2N8,0,4(k)−4N8,0,4(k−2) , which can be directly replaced using (55) by N8,0(k−1) −N8,0(k−2)+2 N8,0,8(k−2) −N8,0,8(k−1) .Substituting these relations and simplifying the resulting N8,0,8(·) terms using (57) yields Equation (59), which depends only on N8,0(·) and N8,0,8(·):
+
+N8,0(m) = 6 N8,0(m − 1) − 2N8,0(m − 2) − 8N8,0(m − 3) + 3 N8,0(m − 4) + N8,0,8(m) − 4N8,0,8(m − 1) − N8,0,8(m − 2) + 5 N8,0,8(m − 3) . (59) To eliminate the remaining N8,0,8(·) terms, we compute the difference N8,0(m) − N8,0(m − 1) . This operation changes the 
+
+N8,0,8(·) terms in (59) into differences of the form N8,0,8(k) − N8,0,8(k − 1) . Applying (57) replaces each such difference with N8,0(k − 2) , resulting in an equation that depends solely on N8,0(·). Rearranging the terms yields the final recurrence in (48), which completes the proof. We note that the defined cardinalities are calculated from the “known” cardinalities. In particular, we use the cardinalities 
+
+N8,0(1) , N8,0(2) , N8,0(3) , N8,0(4) , and N8,0(5) to build five equations in five unknowns N8,0(0) , N8,0(−1) , N8,0(−2) ,
+
+N8,0(−3) , and N8,0(−4) . Then, we solve these equations. Alternatively, we can also build five equations in the same five unknowns by observing that N8,0,1(1) = N8,0,2(1) = N8,0,3(1) = N8,0,4(1) = N8,0,8(1) = 1 , and the recursion of these group cardinalities is explicitly found in Corollary 1. ■
+
+Corollary 1. The individual group cardinalities can be expressed solely in terms of the total cardinality N8,0(·):
+
+N8,0,1(m) = N8,0(m − 1) , (60) 
+
+N8,0,2(m) = 114 [17 N8,0(m − 1) − 19 N8,0(m − 2) − 36 N8,0(m − 3) + 6 N8,0(m − 4) + 2 N8,0(m − 5)] , (61) 
+
+N8,0,3(m) = 17 [17 N8,0(m − 1) − 61 N8,0(m − 2) − 22 N8,0(m − 3) + 90 N8,0(m − 4) + 16 N8,0(m − 5)] , (62) 
+
+N8,0,4(m) = 114 [−16 N8,0(m − 1) + 127 N8,0(m − 2) − 4N8,0(m − 3) − 200 N8,0(m − 4) − 34 N8,0(m − 5)] , (63) 
+
+N8,0,8(m) = N8,0(m − 1) − 5N8,0(m − 2) + 2 N8,0(m − 3) + 12 N8,0(m − 4) + 2 N8,0(m − 5) . (64) 
+
+Proof. The derivation proceeds by solving equations for each group sequentially. 
+
+1. Derivation of N8,0,8(m): We determine N8,0,8(m) by equating the right-hand side of (59) to that of (48). First, we simplify the N8,0,8(·) terms in (59). In particular, by repeatedly applying the difference relation from (57), the N8,0,8(·) terms can be simplified as follows: 
+
+N8,0,8(m)−4N8,0,8(m−1) −N8,0,8(m−2)+5 N8,0,8(m−3) = N8,0(m−2) −3N8,0(m−3) −4N8,0(m−4)+ N8,0,8(m−3) . (65) Substituting (65) back into (59) yields: 
+
+N8,0(m) = 6 N8,0(m − 1) − N8,0(m − 2) − 11 N8,0(m − 3) − N8,0(m − 4) + N8,0,8(m − 3) . (66) 14 
+
+We now equate the right-hand side of (66) to the expansion of N8,0(m) provided by (48), which is the main recursion: 
+
+6N8,0(m − 1) − N8,0(m − 2) − 11 N8,0(m − 3) − N8,0(m − 4) + N8,0,8(m − 3) = 7 N8,0(m − 1) − 7N8,0(m − 2) − 10 N8,0(m − 3) + 10 N8,0(m − 4) + 2 N8,0(m − 5) .
+
+Solving for N8,0,8(m − 3) gives: 
+
+N8,0,8(m − 3) = N8,0(m − 1) − 6N8,0(m − 2) + N8,0(m − 3) + 11 N8,0(m − 4) + 2 N8,0(m − 5) . (67) Shifting the indices such that m → m + 3 and substituting the future terms N8,0(m + 2) and N8,0(m + 1) using (48) results in the recursive expression in (64). 
+
+2. Derivation of N8,0,4(m): We begin by substituting the formula for N8,0,8(m) from (64) into the relation derived in (58). This yields the following recurrence for N8,0,4(·) in terms of N8,0(·):
+
+2N8,0,4(m) − 6N8,0,4(m − 1) = 5 N8,0(m − 1) − 26 N8,0(m − 2) − 4N8,0(m − 3) + 46 N8,0(m − 4) + 8 N8,0(m − 5) . (68) To replace the N8,0,4(m − 1) term, we consider the shifted version of (68) computed at index m − 1 and multiplied by 3. We then compute the linear combination: 
+
+h
+
+2N8,0,4(m) − 6N8,0,4(m − 1) 
+
+i
+
++ 3 
+
+h
+
+2N8,0,4(m − 1) − 6N8,0,4(m − 2) 
+
+i
+
+.
+
+This simplifies the left-hand side to 2N8,0,4(m) − 18 N8,0,4(m − 2) . By applying this operation to the right-hand side of (68), i.e., RHS (m) + 3 RHS (m − 1) , we arrive at the refined equation: 
+
+2N8,0,4(m) − 18 N8,0,4(m − 2) = 17 N8,0(m − 1) − 95 N8,0(m − 2) + 2 N8,0(m − 3) + 154 N8,0(m − 4) + 26 N8,0(m − 5) . (69) We then subtract (69) from (55), substitute N8,0,8(·) from (64), and replace m with m + 2 to reach the final closed-form expression presented in (63). 
+
+3. Derivation of N8,0,2(m): We compute N8,0,2(m) directly from (50): 
+
+N8,0,2(m) = N8,0(m − 1) − N8,0,4(m − 1) − N8,0,8(m − 1) .
+
+Substituting the index-shifted version of expressions (64) and (63) into this relation and summing the coefficients for each term N8,0(m − k) yields the result in (61). 
+
+4. Derivation of N8,0,3(m): We derive N8,0,3(m) using (52): 
+
+N8,0,3(m) = N8,0(m − 1) − 2N8,0,4(m − 1) − N8,0,8(m − 1) .
+
+Substituting the index-shifted version of expressions (64) and (63) into this relation and summing the coefficients for each term N8,0(m − k) yields the result in (62). ■
+
+Third and Fourth, we find the special cases and symbol contribution. After calculating the necessary cardinality relations, we advance to the next stage, which is to define the typical and special cases to be used when calculating the contributions of symbols. We define the contribution of a given symbol ci to the overall codeword index g(c) as the number of smaller-length codewords that we can generate by replacing that symbol with c′ 
+
+> i
+
+< c i and the symbols to its right with valid constrained alternatives. Valid here means we can concatenate them from the right to cm−1cm−2 . . . c i+2 ci+1 , the symbols of c, without violating the constraint. To calculate the contribution of symbol ci, we must look at the preceding symbols 
+
+cm−1 . . . c i+2 ci+1 . This is necessary because replacing cici−1 . . . c 0 with shorter-length codewords might create a forbidden pattern once concatenated to cm−1 . . . c i+2 ci+1 . If this concatenation creates a forbidden pattern, which we characterize as a “special” case, some of the shorter-length codewords need to be omitted to correctly calculate the contribution of the symbol at hand. Otherwise, all shorter-length codewords can be concatenated and counted in the symbol contribution, which we characterize as a “typical” case. We then find the symbol contribution for each case. 
+
+Theorem 6. The encoding-decoding rule of a RES-LOCO code RES 8,0 
+
+> m
+
+, for m ≥ 2, is given by: 
+
+g(c) = 
+
+> m−1
+
+X
+
+> i=0
+
+wi, 1N8,0(i) + wi, 2N8,0(i − 1) + wi, 3N8,0(i − 2) + wi, 4N8,0(i − 3) + wi, 5N8,0(i − 4) , (70) 
+
+where wi, 1, wi, 2, wi, 3, wi, 4, and wi, 5 are defined according to the special/typical case of symbol ci in c. In particular, 
+
+[wi, 1 wi, 2 wi, 3 wi, 4 wi, 5] = 114 YTC, where the vector Y and the matrix C are given in (85) and (88) , respectively. Proof. Using the forbidden patterns that we have previously defined, we identify the typical and special cases as well as determine their corresponding symbol contributions gi(ci) as follows. 
+
+Typical cases: 15  
+
+> •
+
+Typical case T1, ci+1 ci = δ11, where δ1 ∈ GF (8) \ { α2, α 6}:
+
+gi(ci) = N8,0,1(i + 1) (71) since ci = 1 enables only the smaller symbol c′ 
+
+> i
+
+= 0 , contributing the codewords of Group 1. 
+
+> •
+
+Typical case T2, ci+1 ci = δ1α, where δ1 ∈ GF (8) \ { α2, α 5, α 6}:
+
+gi(ci) = N8,0,1(i + 1) + N8,0,2(i + 1) (72) since ci = α enables its smaller symbols c′ 
+
+> i
+
+∈ { 0, 1}, contributing the codewords of Groups 1 and 2. 
+
+> •
+
+Typical case T3, ci+1 ci = δ2α2, where δ2 ∈ { 0, α 3}:
+
+gi(ci) = N8,0,1(i + 1) + N8,0,2(i + 1) + N8,0,3(i + 1) (73) since ci = α2 enables its smaller symbols, and the preceding symbol being in {0, α 3} creates no forbidden pattern. Thus, the codewords of Groups 1 through 3 all contribute.  
+
+> •
+
+Typical case T4, ci+1 ci = δ2α3, where δ2 ∈ { 0, α 3}:
+
+gi(ci) = N8,0,1(i + 1) + N8,0,2(i + 1) + N8,0,3(i + 1) + N8,0,4(i + 1) (74) since ci = α3 enables all its smaller symbols without any restriction resulting from the preceding symbol. Thus, the codewords of Groups 1 through 4 all contribute.  
+
+> •
+
+Typical case T5, ci+1 ci = δ2α4, where δ2 ∈ { 0, α 3}:
+
+gi(ci) = N8,0,1(i + 1) + N8,0,2(i + 1) + N8,0,3(i + 1) + N8,0,4(i + 1) + N8,0,5(i + 1) (75) since ci = α4 enables all its smaller symbols without restriction, and thus the codewords of Groups 1 through 5 all contribute.  
+
+> •
+
+Typical case T6, ci+1 ci = 0 α5:
+
+gi(ci) = N8,0,1(i + 1) + N8,0,2(i + 1) + N8,0,3(i + 1) + N8,0,4(i + 1) + N8,0,5(i + 1) + N8,0,6(i + 1) (76) since ci = α5 enables all its smaller symbols, and the preceding 0 initiates no forbidden pattern, and thus the codewords of Groups 1 through 6 all contribute.  
+
+> •
+
+Typical case T7, ci+1 ci = 0 α6:
+
+gi(ci) = N8,0,1(i + 1) + N8,0,2(i + 1) + N8,0,3(i + 1) + N8,0,4(i + 1) + N8,0,5(i + 1) + N8,0,6(i + 1) + N8,0,7(i + 1) (77) since ci = α6 enables all its smaller symbols, and the preceding 0 initiates no forbidden pattern, and thus the codewords of all seven relevant groups contribute. 
+
+Special cases:  
+
+> •
+
+Special case S1, ci+1 ci = α2α2:
+
+gi(ci) = N8,0,1(i + 1) (78) since the preceding α2 disables all but Group 1 codewords when ci = α2 is replaced by a smaller symbol.  
+
+> •
+
+Special case S2, ci+1 ci = δ3α3, where δ3 ∈ { 1, α, α 4}:
+
+gi(ci) = N8,0,1(i + 1) + N8,0,2(i + 1) + N8,0,3(i + 1) (79) since the preceding symbol in {1, α, α 4} enables codewords in all relevant groups except Group 4 relative to the typical contribution of ci = α3. 
+
+> •
+
+Special case S3, ci+1 ci = α2α3:
+
+gi(ci) = N8,0,1(i + 1) + N8,0,4(i + 1) (80) since the preceding α2 disables codewords in all relevant groups other than Groups 1 and 4. 
+
+> •
+
+Special case S4, ci+1 ci = δ3α4, where δ3 ∈ { 1, α, α 4}:
+
+gi(ci) = N8,0,1(i + 1) + N8,0,2(i + 1) + N8,0,3(i + 1) + N8,0,5(i + 1) (81) since the preceding symbol in {1, α, α 4} enables codewords in all relevant groups except Group 4 relative to the typical contribution of ci = α4. 
+
+> •
+
+Special case S5, ci+1 ci = 1 α5:
+
+gi(ci) = N8,0,1(i + 1) + N8,0,2(i + 1) + N8,0,3(i + 1) + N8,0,5(i + 1) + N8,0,6(i + 1) (82) since the preceding 1 enables codewords in all relevant groups except Group 4 relative to the typical contribution of 
+
+ci = α5.16  
+
+> •
+
+Special case S6, ci+1 ci = α5α5:
+
+gi(ci) = N8,0,1(i + 1) + N8,0,2(i + 1) (83) since the preceding α5 disables codewords in all relevant groups other than Groups 1 and 2 when ci = α5 is replaced by a smaller symbol.  
+
+> •
+
+Special case S7, ci+1 ci = α6α6:
+
+gi(ci) = N8,0,1(i + 1) (84) since the preceding α6 disables codewords in all relevant groups other than Group 1 when ci = α6 is replaced by a smaller symbol according to the lexicographic ordering. If ci corresponds to the leftmost symbol of the codeword, i.e., ci = cm−1, then we assume that ci+1 = cm ≜ 0 for the purposes of identifying typical and special cases. 
+
+Fifth, we formulate the encoding-decoding rule. After outlining the symbol contributions for each special and typical case to the overall codeword index, we are now able to determine the merged indexing rule, which combines all the aforementioned cases. We define indicator functions yi,T k for k ∈ { 1, 2, . . . , 7} and yi,S k for k ∈ { 1, 2, . . . , 7} that attain the value 1 whenever the relevant case is the corresponding case, and have the value 0 otherwise. To simplify the analysis, we define merging flags that combine indicator functions for cases with identical contributions as follows: 
+
+Yi, 1 = yi,T 1 + yi,S 1 + yi,S 7 , Yi, 2 = yi,T 2 + yi,S 6 ,Yi, 3 = yi,T 3 + yi,S 2 , Yi, 4 = yi,T 4 ,Yi, 5 = yi,T 5 , Yi, 6 = yi,T 6 ,Yi, 7 = yi,T 7 , Yi, 8 = yi,S 5 ,Yi, 9 = yi,S 4 , Yi, 10 = yi,S 3 .
+
+(85) Using the symmetry relations N8,0,2(·) = N8,0,5(·), N8,0,3(·) = N8,0,6(·), and N8,0,4(·) = N8,0,7(·), the indexing rule becomes: 
+
+gi(ci) = 
+
+> 10
+
+X
+
+> k=1
+
+Yi,k N8,0,1(i + 1) + 
+
+> 4
+
+X
+
+> k=2
+
+Yi,k + 2 
+
+> 9
+
+X
+
+> k=5
+
+Yi,k 
+
+!
+
+N8,0,2(i + 1) +
+
+> 5
+
+X
+
+> k=3
+
+Yi,k + 2 
+
+> 8
+
+X
+
+> k=6
+
+Yi,k + Yi, 9
+
+!
+
+N8,0,3(i + 1) + 
+
+> 6
+
+X
+
+> k=4
+
+Yi,k + 2 Yi, 7 + Yi, 10 
+
+!
+
+N8,0,4(i + 1) . (86) Using the group cardinality relations we derived in Corollary 1, this can be expressed in matrix form as: 
+
+gi(ci) = 114 YTCN , (87) where Y = [ Yi, 1 Yi, 2 · · · Yi, 10 ]T, N = [ N8,0(i) N8,0(i − 1) · · · N8,0(i − 4)] T, and 
+
+C =
+
+
+
+14 0 0 0 031 −19 −36 6 265 −141 −80 186 34 49 −14 −84 −14 066 −33 −120 −8 2100 −155 −164 172 34 84 −28 −168 −28 0116 −282 −160 372 68 82 −160 −116 192 36 
+
+−2 127 −4 −200 −34 
+
+
+
+. (88) Observe that the coefficients in (70) are the elements of the row vector [wi, 1 wi, 2 wi, 3 wi, 4 wi, 5] = 114 YTC. Combining the above with 
+
+g(c) = 
+
+> m−1
+
+X
+
+> i=0
+
+gi(ci) (89) completes the proof and gives the encoding-decoding rule. ■
+
+Remark 4. Starting from (86) , there are two approaches for determining the individual group cardinalities. The first approach applies Corollary 1 to express each individual cardinality in terms of the total cardinalities, N8,0(·), at various lengths. The second approach uses the fact that individual group cardinalities satisfy the recurrence relation given in Theorem 5 of the total cardinality, i.e., the growth rate of all group cardinalities is identical to that of the total one (see Remark 5). This approach bypasses the total cardinality entirely, requiring only the general recursion equation (in Theorem 5) and the initial cardinalities for each specific group. Because the system is deterministic and observable, these initial values are always unique. While this 17 
+
+second approach offers lower computational complexity, it introduces a higher storage overhead. In this paper, we proceed with the first approach. 
+
+Remark 5. The reason why individual group cardinalities must satisfy the recursive relation of the total cardinality as stated above is an application of the Cayley-Hamilton theorem. Consider GF (4) RES-LOCO codes with ℓ = 0 . For this case, the characteristic-polynomial term of which the maximum real positive eigenvalue λmax is a root gives: 
+
+λ4max − 4λ3max + 2 λ2max + 2 λmax = 0 . (90) 
+
+Using the Cayley-Hamilton theorem, the transition matrix A, which is the adjacency matrix of the transition diagram describing the code, also satisfies the same equation (90) , leading to: 
+
+Am = 4 Am−1 − 2Am−2 − 2Am−3. (91) 
+
+Observe that (91) gives exactly the total cardinality recursion if we multiply both sides from the right by the column vector 
+
+[1 1 . . . 1] T and from the left by the row vector [1 1 . . . 1] . Now, if we multiply both sides of (91) only from the right by the column vector [1 1 . . . 1] T, different rows of the resulting vectors give different group cardinalities at different lengths. Since the recursion remains exactly the same, group cardinalities maintain the same total-cardinality recursion. Sixth, we develop the encoding and decoding algorithms. The encoding and decoding algorithms follow the same systematic procedure detailed in [35], where the encoding-decoding rule is used to map between messages and codewords. Having established this rule for the GF (8) codes with ℓ = 0 above, we omit the algorithmic description. However, we illustrate the main ideas via the following example focused on decoding. 
+
+Example 3 (Decoding) . We find the index of codeword α6α6α6 in RES 8,03 .For i = 0 , we have c1c0 = α6α6 ⇒ yS7 = 1 ⇒ Y1 = 1 :
+
+g0(c0) = 114 [14 N8,0(0)] = N8,0(0) = 1 . (92) 
+
+For i = 1 , we have c2c1 = α6α6 ⇒ yS7 = 1 ⇒ Y1 = 1 :
+
+g1(c1) = 114 [14 N8,0(1)] = N8,0(1) = 8 . (93) 
+
+For i = 2 , we have c3c2 = 0 α6 ⇒ yT7 = 1 ⇒ Y7 = 1 :
+
+g2(c2) = 114 [84 N8,0(2) − 28 N8,0(1) − 168 N8,0(0) − 28 N8,0(−1)] = 6 N8,0(2) − 2N8,0(1) − 12 N8,0(0) − 2N8,0(−1) = 6(38) − 2(8) − 12 − 2 = 198 . (94) 
+
+Therefore, g(α6α6α6) = 1 + 8 + 198 = 207 . This result is consistent with N8,0(3) = 208 , as α6α6α6 is the last codeword of length 3.
+
+V. B RIDGING , S ELF -C LOCKING , AND CAPACITY ACHIEVABILITY 
+
+In the previous sections, we designed a series of codes defined over GF( 4) and GF( 8), which we denote as RES-LOCO codes, that eliminate or reduce the occurrence of sneak paths in isolated segments of a 2D memristor crossbar array consisting of two and three consecutive rows, respectively. From here, the next step is to perform bridging and self-clocking to address the following two issues, respectively: preventing forbidden patterns (i.e., sneak paths of certain circumferences) from occurring when two or more codewords are concatenated and ensuring that at least one symbol transition takes place in every concatenation of a codeword and its bridging symbols. While the system objective of bridging is obvious as it directly stems from mitigating the sneak-path problem, self-clocking is needed to maintain self calibration by preventing the current reader from measuring values in the same range consecutively. From there, we show capacity achievability of RES-LOCO codes as well as finite-length rates as the codeword length grows. Bridging refers to the addition of a certain number of symbols at the end of each codeword such that the possibility of the creation of new forbidden patterns that arise from the concatenation of two or more codewords is eliminated. We designate the number of symbols added to each codeword as η3. In certain cases, there might be multiple combinations of η3 symbols that can be placed in between two codewords that all result in no new forbidden patterns at the transitions. In these cases, an additional η2 message bits can be coded within the bridging segment, depending on the number of these combinations, which increases the finite-length rate. Self-clocking requires that not all symbols of a codeword associated with its bridging symbols be the same, so that there is at least one symbol transition within the codeword and its bridging symbols. To ensure this, we try to optimize the bridging patterns to induce at least one symbol transition in cases where the pre-bridging RES-LOCO codeword is comprised of the same symbol repeated for the whole length, and remove a certain number of codewords from the codebook if necessary, whose amount we denote by η1.18                                                                                                       
+
+> TABLE I POSSIBLE BRIDGING PATTERNS FOR GF( 4) RES-LOCO C ODES WITH η3=ℓ+ 2 ,p, q ≥0
+> Left-hand LOCO ending with Possible bridging patterns Right-hand LOCO beginning with
+> α20p0ℓ+2 ,0ℓ+1 1,0ℓ+1 α,α20ℓ+1 0q1,0qα
+> 10p,α0p0ℓ+2 ,10ℓ+1 ,α0ℓ+1 ,0ℓ+1 α20qα2
+> α20p0ℓ+2 ,α20ℓ+1 ,0α20ℓ,α2α20ℓ0qα2
+> 10p,α0p0ℓ+2 ,10ℓ+1 ,0ℓ+1 1,0ℓ+1 α0q1,0qα
+> TABLE II POSSIBLE BRIDGING PATTERNS FOR GF( 4) RES-LOCO C ODES WITH η3=ℓ+ 3 ,p, q ≥0
+> Left-hand LOCO ending with Possible bridging scenarios Right-hand LOCO beginning with
+> α20p0ℓ+2 1,0ℓ+2 α,0ℓ+1 10 ,0ℓ+1 11 ,0ℓ+1 1α,0ℓ+1 α0,0ℓ+1 α1,0ℓ+1 αα 0q1,0qα
+> 10p,α0p01 0ℓ+1 ,0α0ℓ+1 ,10ℓ+2 ,11 0ℓ+1 ,1α0ℓ+1 ,α0ℓ+2 ,α10ℓ+1 ,αα 0ℓ+1 0qα2
+> α20p0ℓ+3 ,00 α20ℓ,0α20ℓ+1 ,0α2α20ℓ,α20ℓ+2 ,α20α20ℓ,α2α20ℓ+1 ,α2α2α20ℓ0qα2
+> 10p,α0p11 0ℓ+1 ,11 α0ℓ,1α10ℓ,1αα 0ℓ,α11 0ℓ,α1α0ℓ,αα 10ℓ,αα 0ℓ+1 0q1,0qα
+
+In the presence of bridging and self-clocking, we define the code rate for our RES-LOCO GF( 4), for a generic ℓ, and GF( 8)codes as follows, where m denotes the original codeword length: 
+
+RGF (4) = ⌊log 2(N4,ℓ (m) − η1)⌋ + η2
+
+2( m + η3) , (95) 
+
+RGF (8) = ⌊log 2(N8,0(m) − η1)⌋ + η2
+
+3( m + η3) . (96) The following two subsections provide bridging scenarios, tables, and finite-length rates for our two RES-LOCO codes. 
+
+A. RES-LOCO GF( 4) Bridging and Self-Clocking 
+
+GF( 4) RES-LOCO codes prevent any and all sneak paths up to a horizontal dimension of ℓ + 1 , with a vertical dimension of 
+
+1 due to the grouping of two consecutive rows. To effectively combat against the case where one codeword ends with α2 and the other begins with 1 or α (and vice versa), at least ℓ + 1 bridging symbols need to be inserted in between the codewords. As such, we investigate bridging in three cases: η3 = ℓ + 1 , η3 = ℓ + 2 , and η3 = ℓ + 3 .In the η3 = ℓ + 1 case, bridging with all zeros ( 0ℓ+1 ) is necessary to accommodate the aforementioned case where one codeword ends with α2 and the other begins with 1 or α (and vice versa), since inserting any symbol other than zero at any location within the bridging segment would create a sneak path of horizontal dimension smaller than or equal to ℓ + 1 . Hence, we are unable to encode any extra bits through bridging (since only one option is available) and have to remove the all-zero RES-LOCO codeword ( 0m) to ensure self-clocking. Therefore, η1 = 1 and η2 = 0 .In the η3 = ℓ + 2 case, we find that there are at least 4 possible bridging patterns (the minimum is 4) for every possible configuration of concatenated codewords, which results in η2 = ⌊log 2(4) ⌋ = 2 bits. Additionally, we chose to remove the all-zero and all-α2 codewords, resulting in η1 = 2 . Table I outlines the possible bridging patterns for η3 = ℓ + 2 .In the η3 = ℓ + 3 case, we find that there are at least 8 possible bridging patterns (the minimum is 14 ) for every possible configuration of concatenated codewords, which results in η2 = ⌊log 2(8) ⌋ = 3 bits. Additionally, we chose to remove the all-zero and all-α2 codewords, resulting in η1 = 2 . Table II outlines the possible bridging configurations for η3 = ℓ + 3 .For the case where ℓ = 0 , we calculated finite-length rates for various codeword lengths, using the three bridging schemes described above. These rates are provided in Table III. We show that, in all three cases, the rate approaches the capacity of this constrained coding scheme, which is 0.8323 , as the codeword size grows. Additionally, we observe that the bridging scheme with η3 = ℓ + 2 consistently performs the best out of the three. Note that the capacity of any constrained code can be systematically obtained from the finite-state transition diagram (FSTD) characterizing it as shown below, and the FSTD of the GF( 4) RES-LOCO code with ℓ = 0 is provided in Fig. 2. Since the bridging scheme with η3 = ℓ + 2 consistently performs the best out of the three. Thus, our rate relation for GF (4) 
+
+ℓ = 0 coding is: 
+
+RGF (4) = ⌊log 2(N4,0(m) − 2) ⌋ + 2 2( m + 2) . (97) As m goes to ∞, we reach the capacity but also the codeword-to-message error propagation factor 12 (s − 1) increases, where  
+
+> 12
+
+(s − 1) = 12 (⌊log 2(N4,0(m) − 2) ⌋ − 1) . The reason behind this is in Subsection VII-C. That is why moderate values of m
+
+are recommended. 19 
+
+α2 α
+
+10
+
+0
+
+0
+
+1 α
+
+0
+
+α2 α
+
+1                                                         
+
+> Fig. 2. Finite-state transition diagram for GF (4) RES-LOCO code. TABLE III FINITE -LENGTH RATES WITH THE THREE BRIDGING SCHEMES VERSUS CODEWORD LENGTH FOR GF( 4) RES-LOCO C ODES AND ℓ= 0
+> η3
+> m6912 15 21 30 45 75 105 170 260
+> 10.7143 0.7500 0.7692 0.7813 0.7955 0.8065 0.8152 0.8224 0.8255 0.8275 0.8295
+> 20.7500 0.7727 0.7857 0.7941 0.8043 0.8125 0.8191 0.8247 0.8271 0.8285 0.8302
+> 30.7222 0.7500 0.7667 0.7778 0.7917 0.8030 0.8125 0.8205 0.8241 0.8266 0.8289
+
+The (normalized) capacity C is equal to 12 log 2(λmax ) = 0 .8323 , where λmax is the maximum real positive eigenvalue of transition matrix A. Note that 
+
+A =
+
+
+
+1 1 1 11 1 1 01 1 1 01 0 0 1
+
+ ,
+
+where rows and columns are associated with ci = 0 , 1, α, α 2 ordered from top to bottom and from left to right, respectively. Observe that A is derived from the FSTD in Fig. 2. For m = 18 , RGF (4) = 0 .8, which is already close to the capacity and the error propagation factor is 12 (⌊log 2(N4,0(18) − 2) ⌋− 
+
+1) = 14 .5, which is acceptable. 
+
+B. RES-LOCO GF( 8) Bridging and Self-Clocking 
+
+GF( 8) RES-LOCO codes prevent sneak paths of size 1 × 1, with ℓ = 0 . Similarly to the GF( 4) case, we consider bridging in three cases: η3 = 1 , η3 = 2 , and η3 = 3 .In the η3 = 1 case, the only option that works for all cases is to bridge with a single 0, since if the left-hand codeword ends with α6 and the right-hand codeword begins with α5 (or vice versa), inserting any symbol other than 0 in between the codewords would create a sneak path. Recall that α6 corresponds to [1 1 1] T, while α5 corresponds to [1 1 0] T. Hence, in this case, we are unable to encode any additional bits within the bridging segment and have to remove the all-zero codeword. Therefore, η2 = 0 and η1 = 1 .In the η3 = 2 case, there are at least 4 compatible bridging patterns (the minimum is 4) for every possible ordered pair of codewords to be concatenated, which results in η2 = 2 . Additionally, we need to remove the all-zero and all-α6 codewords. Therefore, we have η1 = 2 . The possible bridging arrangements for this case are provided in Table IV. In the η3 = 3 case, there are at least 8 compatible bridging patterns (the minimum is 14 ) for every possible ordered pair of codewords to be concatenated, which results in η2 = 3 . For some cases, the number of bridging scenarios is limited to a number greater than or equal to 8 but strictly less than 16 , so η2 cannot be larger than 3. Hence, an effective bridging scheme would be to simply use the arrangement 0δ30, where δ3 can be any of the GF( 8) symbols. We also need to remove the all-zero codeword. Therefore, we have η1 = 1 .Similarly to our GF( 4) code, we calculated finite-length rates for various GF( 8) RES-LOCO codeword lengths using the three bridging schemes described above. These rates are provided in Table V. In all three cases, the rate approaches the capacity of this constrained coding scheme, which is 0.8145 , as the codeword size grows. Additionally, we observe that the bridging scheme with η3 = 1 consistently performs the best out of the three, even though no new bits of information are coded within the bridging segment. 20                                                                                                                            
+
+> TABLE IV POSSIBLE BRIDGING PATTERNS FOR GF( 8) RES-LOCO C ODES WITH η3= 2
+> Left-hand LOCO Possible bridging Right-hand LOCO codeword ending scenarios codeword beginning with with
+> α600 ,0α6,α60,α6α6α6
+> α600 ,01 ,0α5,α60α5
+> α600 ,01 ,0α,α60α4,α3,α,1,0
+> α600 ,0α2,0α3,α60α2
+> α500 ,0δ1,10 ,α50δ1:δ1∈ { 1, α, . . . , α 6}
+> α500 ,0α5,α50,11 0
+> α200 ,0δ2,α20,α30δ2:δ2∈ { 1, α, . . . , α 6}
+> α200 ,0α2,α20,α3α300,1,α,α3,α400 ,10 ,α0,α30Any symbol TABLE V FINITE -LENGTH RATES WITH THE THREE BRIDGING SCHEMES VERSUS CODEWORD LENGTH FOR GF( 8) RES-LOCO C ODES AND ℓ= 0
+> η3
+> m6913 18 22 31 40 70 110 160 250
+> 10.7143 0.7333 0.7619 0.7719 0.7826 0.7917 0.7967 0.8028 0.8078 0.8095 0.8114
+> 20.7083 0.7273 0.7556 0.7667 0.7778 0.7879 0.7937 0.8009 0.8065 0.8086 0.8108
+> 30.6667 0.6944 0.7292 0.7460 0.7600 0.7745 0.7829 0.7945 0.8024 0.8057 0.8090
+
+As we discussed before, the best bridging scheme rate-wise is adding 0 between two codewords. We remove all 0’s codeword due to level-based signaling. Thus, our rate relation for GF (8) coding is: 
+
+RGF (8) = ⌊log 2(N8,0(m) − 1) ⌋
+
+3( m + 1) . (98) As m goes to ∞, we reach the capacity but also the codeword-to-message error propagation factor 12 (s − 1) increases, where  
+
+> 12
+
+(s − 1) = 12 (⌊log 2(N8,0(m) − 1) ⌋ − 1) . That is why moderate values of m are recommended. The (normalized) capacity C is equal to 13 log 2(λmax ) = 0 .8145 , where λmax is the maximum real positive eigenvalue of transition matrix A. Note that 
+
+A =
+
+
+
+1 1 1 1 1 1 1 11 1 1 0 1 1 1 01 1 1 0 1 1 0 01 0 0 1 1 0 0 01 1 1 1 1 1 0 01 1 1 0 1 1 0 01 1 0 0 0 0 1 01 0 0 0 0 0 0 1
+
+
+
+,
+
+where rows and columns are associated with ci = 0 , 1, α, . . . , α 6 ordered from top to bottom and from left to right, respectively. Observe that A is derived from the FSTD in Fig. 3. For m = 18 , RGF (8) = 0 .7719 , which is already close to the capacity and the error propagation factor in this case is  
+
+> 12
+
+(⌊log 2(N8,0(18) − 1) ⌋ − 1) = 21 .5, which is acceptable. VI. R UN -L ENGTH LIMITED CODE DESIGN FOR SNEAK -P ATH REDUCTION 
+
+For the b = 4 case, a non-binary LOCO code designed to mitigate sneak-path effects will be defined over GF( 16 ). The same applies also to the case of b > 4. In this case, the complexity remarkably increases for multiple reasons, including the notable increase in the number of patterns to forbid, the higher storage overhead because of bigger cardinalities, and the more sophisticated encoding-decoding rule. Instead, we have turned to run-length-limited (RLL) coding solutions, which while not being rate-wise optimal, they still offer relatively high coding rate as well as low complexity. We have designed a binary RLL code, where we code vertically on the crossbar array, for the b = 4 case. We also modify a prior result from literature to combat the case with a greater number of consecutive rows read simultaneously. 
+
+A. Vertical RLL Coding for Groups of Four Consecutive Rows 
+
+In the case where four consecutive rows of memristors are grouped and read at once with all other rows grounded, we have designed a binary RLL coding scheme to reduce the number of sneak paths. In this scheme, the data over every 4-element column is treated as an RLL codeword, and consecutive 1’s are prevented as the forbidden pattern becomes 11 . This results in a code with a rate of 0.75 that prevents all sneak paths of circumference 4 within the 4-row segment, since every possible arrangement of a circumference-4 sneak path would have to feature two vertical consecutive 1’s. Out of 16 possible 4-bit 21 
+
+0
+
+1
+
+α
+
+α2
+
+α3
+
+α4
+
+α5
+
+α6  
+
+> Fig. 3. Finite-state transition diagram for GF (8) RES-LOCO code.
+
+vertical codewords, 8 are free of the forbidden pattern 11 , allowing log 2 8 = 3 bits to be encoded per 4-bit codeword, and thus resulting in a rate of 0.75 . These codewords are the following: [0 0 0 0] T, [0 0 0 1] T, [0 0 1 0] T, [0 1 0 0] T, [0 1 0 1] T, [1 0 0 0] T,
+
+[1 0 0 1] T, [1 0 1 0] T. Observe that preventing 11 vertically (or horizontally) eliminates all sneak paths of circumference 4. The main advantage this scheme provides is its low decoding complexity, as the decoding is performed using a small lookup table with only 8 entries. On the other hand, its main disadvantage is its rate of 0.75 , which is lower than those of our RES-LOCO codes. 
+
+B. General RLL Solution 
+
+In [16], a binary RLL coding solution is presented, which prevents sneak paths from occurring in every sliding window of size μ1 × μ1 in an μ2 × μ2 memristor crossbar array, using (μ1 − 1, ∞) RLL codewords over the rows of the two dimensional array. Such a code imposes at least ( μ1 −1) 0’s between consecutive 1’s. For μ1 > 1, this coding scheme has rates that are quite low for storage. For example, the capacity drops below 0.5 as μ1 becomes 3 or higher. We can modify this scheme to focus on the most detrimental sneak paths, those of circumference 4, as follows. Set the data over each row of the 2D resistive array to store a (1 , ∞) RLL codeword, preventing the pattern 11 from occurring anywhere within a codeword. This code prevents all sneak paths of circumference 4 over the whole array, but has the lowest rate of all the codes we have discussed so far, as its capacity is 0.6942 . Having said that, despite the lowered rate, this code provides an effective solution to prevent sneak paths of circumference 4 in crossbar arrays where at least five rows are read simultaneously while the others are grounded, situations where enumerative constrained coding solutions can grow notably in complexity. VII. S IMULATION RESULTS 
+
+In this section, we present simulation results that demonstrate the effectiveness of our coding schemes in mitigating the sneak-path problem. 
+
+A. GF (4) Coding Results 
+
+Simulations were conducted for GF (4) RES-LOCO codes with different ℓ values ( 0, 1, and 2), as these correspond to the most dominant sneak-path errors. For larger ℓ values, line (wire) resistance becomes more dominant compared with smaller 
+
+ℓ values, reducing the probability of sneak-path occurrence as circumference increases. We also show how using RES-LOCO codes with specific ℓ values contributes to the mitigation of sneak-paths of circumference more than 2ℓ + 4 .
+
+1) Simulation Setup 1: All-Zero Row Insertion: In a memristor array with two rows, sneak paths with circumference 4 are not observed when the data is coded using a GF (4) RES-LOCO code. However, for arrays with more than two rows, sneak paths with circumference 4 and higher begin to appear even when the data is coded. To prevent this, an all-zero row is inserted after every second data row (i.e., as the 3rd, 6th, 9th, etc., row). This strategy protects the data stored in each group of two rows by blocking the most dominant type of sneak path, which has a circumference of 4.22 
+
+Let SL denote the number of sneak paths with circumference L averaged over all Monte Carlo trials. We performed the simulation using a message length of 18 and 10 6 Monte Carlo trials. The number of rows was fixed at 98 , while the number of columns was set to 98 , 102 , and 106 for ℓ values of 0, 1, and 2, respectively. Recall that for ℓ = 0 , 1, 2, we have Lmax = 4 , 6, 8,respectively. The simulation results are presented in Table VI.                     
+
+> TABLE VI SIMULATION SETUP 1 R ESULTS : A LL -Z ERO ROW INSERTION
+> Lmax
+> SkS4S6S8S10
+> 40511 .70 1226 .71599 .860284 .54 880 .74 1142 .680279 .98 824 .46 1065 .7
+
+Although achieving S4 = 0 is a positive result, the overall code rate decreases due to the insertion of redundant all-zero rows as one all-zero row is added for every two data rows. Consequently, the new effective rate, Rnew , is two-thirds of the original rate, R:
+
+Rnew = 23 R. (99) For example, with the original rate R = 0 .7143 (for Lmax = 6 and message length 18 ), the new rate becomes: 
+
+Rnew = 23 × 0.7143 = 0 .4762 . (100) We note that these reported numbers for S4, S6, S8, and S10 , generated while using our GF (4) RES-LOCO codes at various 
+
+Lmax values, are remarkably lower than those associated with the uncoded setting even when the all-zero rows are used. 
+
+2) Simulation Setup 2: Sequential Paired Reading: In Simulation Setup 1, achieving S4 = 0 comes at the cost of reducing the code rate to 2/3 of its original value due to the insertion of redundant, all-zero rows. To address this rate loss, we adopt a method from [14] that eliminates the need for all-zero rows by modifying the data reading process. In this method, the memristor array is read in non-overlapping pairs. Specifically, Rows (2 k − 1) and 2k are read together at each step, where 
+
+k ∈ { 1, 2, . . . }. For instance, Rows 1 and 2 are read first, followed by Rows 3 and 4, and so on. When using our GF (4) 
+
+RES-LOCO codes, this technique successfully prevents the dominant S4 sneak paths while preserving the original code rate. The same is also true for all SL sneak paths when the RES-LOCO code is adjusted accordingly via the correct Lmax .The simulation was conducted with a message length of 18 and 10 6 Monte Carlo trials. The number of rows was fixed at 
+
+98 , while the number of columns was set to 98 , 102 , and 106 for Lmax = 4 , Lmax = 6 , and Lmax = 8 , respectively. The results are presented in Table VII. Observe that Uncoded 1 is associated with array dimensions 98 × 98 , Uncoded 2 is associated with array dimensions 98 ×102 , and Uncoded 3 is associated with the array dimensions 98 ×106 . Hence, Uncoded 1 setting is compared with GF( 4) RES-LOCO coding where ℓ = 0 , Uncoded 2 setting is compared with GF( 4) RES-LOCO coding where ℓ = 1 , and Uncoded 3 setting is compared with GF( 4) RES-LOCO coding where ℓ = 2 . Observe also that for all uncoded settings, we use p1 = 0 .5 for unconstrained user messages.                                 
+
+> TABLE VII SIMULATION SETUP 2 R ESULTS : S EQUENTIAL PAIRED READING
+> Lmax
+> SkS4S6S8S10
+> Uncoded 1 2352 .34656 6911 .59119 40281 .17 358 .72 391 .75
+> Uncoded 2 2449 .34849 7199 .59501 60071 .93 100 .04
+> Uncoded 3 2546 .35042 7487 .59883 800019 .82
+
+The results demonstrate clear improvement over Simulation Setup 1, both in terms of sneak-path reduction and code rate preservation. However, this approach introduces a potential trade-off in the form of increased latency. Because the array must be read sequentially (pair by pair), the total reading time increases compared with reading the entire array simultaneously. Furthermore, power consumption in this method can potentially be higher. A detailed quantitative analysis of the latency issue is beyond the scope of this work. Nevertheless, we suggest that for small-scale memristor arrays, this effect would be manageable. Furthermore, even for large-scale arrays, the impact may not be critical, depending on the application requirements and tolerance for processing delays. We note that these reported numbers for S4, S6, S8, and S10 , generated while using our GF (4) RES-LOCO codes at various 
+
+Lmax values, are remarkably lower than those associated with the uncoded setting. In particular, the reduction factors are ∞,
+
+16 .56 , 19 .26 , and 23 .27 for S4, S6, S8, and S10 , respectively, when the array dimensions are 98 × 98 . The reduction factors 23 
+
+are ∞, ∞, 100 .09 , and 94 .97 for S4, S6, S8, and S10 , respectively, when the array dimensions are 98 × 102 . The reduction factors are ∞, ∞, ∞, and 498 .64 for S4, S6, S8, and S10 , respectively, when the array dimensions are 98 × 106 .Observe that for the case of the 98 × 106 crossbar array, where our GF (4) RES-LOCO code has ℓ = 2 , to achieve the coded averages of S4, S6, and S8 in the uncoded setting, the value of p1 must be 1 or 0, which implies that no information can be stored. As for S10 , to achieve the coded average in the uncoded setting, the value of p1 must be 0.99987 or 0.05093 , which implies that limited amount of information can be stored. Furthermore, to achieve the cumulative coded average of S4, S6,
+
+S8, and S10 in the uncoded setting, the value of p1 must be 0.99995 or 0.03722 , which implies even further limitations on the amount of information to be stored. These are obtained via Lemma 1 and Lemma 2 relations. 
+
+3) Simulation Setup 3: Simultaneous Reading: Simulation Setup 3 involves simultaneous reading, where all rows of the memristor crossbar array are read at once (with no all-zero rows and no grounding). This method has two key characteristics: 1) Reduced latency: By reading all rows simultaneously, this approach avoids the sequential reading latency of Simulation Setup 2. 2) Preserved rate: The code rate is identical to that of Simulation Setup 2, as no redundant rows are used. The simulation parameters are identical to those of Simulation Setup 2. The results are presented in Table VIII.                    
+
+> TABLE VIII SIMULATION SETUP 3 R ESULTS : S IMULTANEOUS READING
+> Lmax
+> SkS4S6S8S10
+> 4484 .78 1762 .02843 .63855 .86427 .61 1252 .22109 .32922 .88420 .21 1236 .61989 .72728 .6
+
+While this approach avoids both additional latency and rate reduction, it has a significant drawback: the number of sneak paths with circumference 4 (S4) cannot be zero using our coding techniques. Observe that sneak paths of circumference 4 can be entirely removed under simultaneous reading using the RLL coding idea if we bridge with a 0 vertically after each binary 
+
+4-tuple. However, this approach is conceptually similar to Simulation Setup 1. To properly evaluate the effectiveness of our proposed method (Simulation Setup 3), we perform comparisons in the performance analysis part below, comparing observed cumulative sneak-path average values in simulations against theoretically expected values calculated under maxentropic probability assumptions. Maxentropic probabilities are those associated with maximum entropy of the FSTD, and they are obtained as discussed in [39] and [40]. 
+
+4) Performance Analysis: Comparison with Theoretical Expectation: To evaluate the performance of our method, we conduct a stringent comparison, one that would demonstrate the minimum gains that can be achieved using our coding schemes. In particular, we measure the total number of observed sneak paths from the simultaneous reading simulations (Simulation Setup 3) averaged over all trials, P 
+
+> k
+
+Sk, and compare it against the theoretically expected value of P 
+
+> k
+
+Sk, which we denote by E[P 
+
+> k
+
+Sk], obtained via Lemma 2. The “Total observed SPs” column in Table IX represents the cumulative sum of sneak paths with circumferences up to the given Lmax . Specifically,  
+
+> •
+
+For Lmax = 4 : It is S4. 
+
+> •
+
+For Lmax = 6 : It is S4 + S6. 
+
+> •
+
+For Lmax = 8 : It is S4 + S6 + S8.The improvement, or the reduction, factor is calculated by dividing the theoretical expectation of P 
+
+> k
+
+Sk by this cumulative observed count. The complete comparison is summarized in Table IX.         
+
+> TABLE IX COMPARISON OF TOTAL OBSERVED SP SWITH THEORETICAL P
+> kSkEXPECTATION
+
+Lmax p0 p1 E[P   
+
+> kSk]
+> (theory) Total observed SPs PSk
+> Impr. Factor
+
+4 0.6528 0.3472 1028 .3 484 .78 2.121 6 0.6680 0.3320 2854 .5 1679 .81 1.699 8 0.6674 0.3326 5923 .1 3646 .51 1.624 
+
+As shown in Table IX, even using this conservative metric, the improvement factor exceeds 1.6 for all cases. This strongly suggests that with other simulation setups that involve circuit plus coding solutions, the improvement factor will be remarkably higher as shown above. Observe that these calculations do not account for wire resistance. Including wire resistance in the model would likely decrease the number of observed sneak paths, particularly those with large circumference. 24 
+
+B. GF (8) Coding Results 
+
+Simulations were conducted for GF (8) RES-LOCO codes with ℓ = 0 (i.e., Lmax = 4 ), as this corresponds to the most dominant sneak-path errors. 
+
+1) Simulation Setup 1: All-Zero Row Insertion: In a memristor array with three rows, sneak paths with circumference 4
+
+are not observed when the data is coded using a GF (8) RES-LOCO code. However, for arrays with more than three rows, sneak paths with circumference 4 and higher begin to appear even when the data is coded. To prevent this, an all-zero row is inserted after every third data row (i.e., as the 4th, 8th, 12 th, etc., row). This strategy protects the data stored in each group of three rows by blocking the most dominant type of sneak path, which has a circumference of 4.Recall that SL denotes the number of sneak paths with circumference L averaged over all Monte Carlo trials. We performed the simulation using a message length of 18 and 10 6 Monte Carlo trials. The number of rows was fixed at 99 , while the number of columns was set to 94 for ℓ = 0 . Recall that for ℓ = 0 , we have Lmax = 4 . The simulation results are: 
+
+S4 = 0 , S6 = 760 .07 , S8 = 1175 .7, S10 = 1865 .9. (101) Although achieving S4 = 0 is a positive result, the overall code rate decreases due to the insertion of redundant all-zero rows as one all-zero row is added for every three data rows. Consequently, the new effective rate, Rnew , is three-quarters of the original rate, R:
+
+Rnew = 34 R. (102) For example, with the original rate R = 0 .7719 (for Lmax = 4 and message length 18 ), the new rate becomes: 
+
+Rnew = 34 × 0.7719 = 0 .5789 . (103) We note that these reported numbers for S4, S6, S8, and S10 , generated while using our GF (8) RES-LOCO codes at 
+
+Lmax = 4 , are remarkably lower than those associated with the uncoded setting even when the all-zero rows are used. 
+
+2) Simulation Setup 2: Sequential Triplet Reading: In Simulation Setup 1, achieving S4 = 0 comes at the cost of reducing the code rate to 3/4 of its original value due to the insertion of redundant, all-zero rows. To address this rate loss, we adopt a method from [14] that eliminates the need for all-zero rows by modifying the data reading process. In this method, the memristor array is read in non-overlapping triplets. Specifically, Rows (3 k − 2) through 3k are read together at each step, where k ∈ { 1, 2, . . . }. For instance, Rows 1 through 3 are read first, followed by Rows 4 through 6, and so on. When using our GF (8) RES-LOCO codes, this technique successfully prevents the dominant S4 sneak paths while preserving the original code rate. The simulation was conducted with a message length of 18 and 10 6 Monte Carlo trials. The number of rows was fixed at 
+
+99 , while the number of columns was set to 94 for Lmax = 4 .The results are presented in Table X. Observe that Uncoded 1 is associated with array dimensions 99 ×94 . Hence, Uncoded 1 setting is compared with GF( 8) RES-LOCO coding where ℓ = 0 . Observe also that for the uncoded setting, we use p1 = 0 .5
+
+for unconstrained user messages.                  
+
+> TABLE X SIMULATION SETUP 2 R ESULTS : S EQUENTIAL TRIPLET READING FOR GF( 8)
+> Lmax
+> SkS4S6S8S10
+> Uncoded 1 2278 .54509 .36692 .58828 .540638 .31 735 .87 753 .03
+
+The results demonstrate clear improvement over Simulation Setup 1, both in terms of sneak-path reduction and code rate preservation. The reason behind the performance gains is that for Simulation Setup 1, we can have sneak paths of circumference more than 4 showing across different groups of 3 rows, while this is not possible in Simulation Setup 2 because of the grounding mechanism. However, this approach introduces a potential trade-off in the form of increased latency. Because the array must be read sequentially (triplet by triplet), the total reading time increases compared with reading the entire array simultaneously. Furthermore, power consumption in this method can potentially be higher. A detailed quantitative analysis of the latency issue is beyond the scope of this work. Nevertheless, we suggest that for small-scale memristor arrays, this effect would be manageable. Furthermore, even for large-scale arrays, the impact may not be critical, depending on the application requirements and tolerance for processing delays. We note that these reported numbers for S4, S6, S8, and S10 , generated while using our GF (8) RES-LOCO codes at 
+
+Lmax = 4 , are remarkably lower than those associated with the uncoded setting. In particular, the reduction factors are ∞,
+
+7.06 , 9.09 , and 11 .72 for S4, S6, S8, and S10 , respectively, when the array dimensions are 99 × 94 .Observe that for the case of the 99 × 94 crossbar array, where our GF (8) RES-LOCO code has ℓ = 0 , to achieve the coded average of S4 in the uncoded setting, the value of p1 must be 1 or 0, which implies that no information can be stored. Furthermore, to achieve the cumulative coded average of S4, S6, S8, and S10 in the uncoded setting, the value of p1 must be 
+
+0.9939 or 0.1949 , which implies that limited amount of information can be stored. 25 
+
+3) Simulation Setup 3: Simultaneous Reading: Simulation Setup 3 involves simultaneous reading, where all rows of the memristor crossbar array are read at once (with no all-zero rows and no grounding). This method has two key characteristics: 1) Reduced latency: By reading all rows simultaneously, this approach avoids the sequential reading latency of Simulation Setup 2. 2) Preserved rate: The code rate is identical to that of Simulation Setup 2, as no redundant rows are used (preserving the original code rate of 0.7719 ). The simulation parameters are identical to those of Simulation Setup 2. The results are: 
+
+S4 = 368 .67 , S6 = 1462 .5, S8 = 2462 .8, S10 = 3335 .8. (104) While this approach avoids both additional latency and rate reduction, it has a significant drawback: the number of sneak paths with circumference 4 (S4) cannot be zero using our coding techniques. Observe that sneak paths of circumference 4 can be entirely removed under simultaneous reading using the RLL coding idea if we bridge with a 0 vertically after each binary 
+
+4-tuple. However, this approach is conceptually similar to Simulation Setup 1. To properly evaluate the effectiveness of our proposed method (Simulation Setup 3), we perform comparisons in the perfor-mance analysis part below, comparing the observed average number of sneak paths with circumference 4 (S4) in simulations against theoretically expected values calculated under maxentropic probability assumptions. Maxentropic probabilities are those associated with maximum entropy of the FSTD, and they are obtained as discussed in [39] and [40]. 
+
+4) Performance Analysis: Comparison with Theoretical Expectation: To evaluate the performance of our method, we conduct a stringent comparison, one that would demonstrate the minimum gains that can be achieved using our coding schemes. In particular, we measure the observed number of sneak paths with circumference 4 from the simultaneous reading simulations (Simulation Setup 3) averaged over all trials, S4, and compare it against its theoretically expected value, which we denote by 
+
+E[S4], obtained via Lemma 2. First, we calculate the maxentropic probabilities of the low-resistance state ( p1) and high-resistance state ( p0) via the code’s transition structure. For the GF (8) code with Lmax = 4 , we find p0 = 0 .6439 and p1 = 0 .3561 . These probabilities are used to calculate the theoretical expectation for an array with 99 rows and 94 columns. The improvement, or the reduction, factor is calculated by dividing the theoretical expectation of S4 by the observed simulation count. The complete comparison is summarized in Table XI.                
+
+> TABLE XI COMPARISON OF OBSERVED S4WITH THEORETICAL EXPECTATION FOR GF( 8)
+> Lmax p0p1E[S4]
+> (theory) Observed S4
+> (simulation) Impr. Factor
+> 40.6439 0.3561 1060 368 .67 2.875
+
+As shown in Table XI, even using this conservative metric, the improvement factor is approximately 2.9. This strongly suggests that with other simulation setups that involve circuit plus coding solutions, the improvement factor will be remarkably higher as shown above. Observe that these calculations do not account for wire resistance. Including wire resistance in the model would likely decrease the number of observed sneak paths, particularly those with large circumference. 
+
+C. Error Propagation Analysis 
+
+LOCO codes do not suffer from codeword-to-codeword error propagation. However, codeword-to-message error propagation is an issue. That is, one error in the codeword can result in multiple errors in the message after constrained decoding [35]. The extent of error propagation is a critical factor in determining a suitable message length. A fundamental trade-off exists in this selection:  
+
+> •
+
+Short message lengths limit the propagation of errors, but their corresponding code rates are typically far from the capacity.  
+
+> •
+
+Long message lengths can achieve higher rates closer to capacity, but they are more susceptible to higher error propagation. The best case scenario is that one codeword error results in one message error, and the worst case scenario is that one codeword error results in s message errors. In the first, there is no error propagation, while in the second, a single error propagates to (s − 1) message bits. Therefore, a quantitative measure for the average extent of error propagation is given by: Error Propagation = 12 (s − 1) = 12 (⌊log 2(N (m) − η1)⌋ − 1) , (105) where N (m) is the cardinality of the code with message length m, while s is the message length in bits. This metric quantifies the average number of bits that can be affected when a single symbol error occurs during decoding. Table XII shows the error propagation values for different code configurations and message lengths. 26 
+
+Note that this trade-off is not relevant for metrics like frame error rate (FER) as it can only be affected by codeword-to-codeword error propagation, and LOCO codes do not suffer from this problem, unlike codes based on finite-state machines. Table XII shows that the error propagation factors of RES-LOCO codes are acceptable. 
+
+TABLE XII ERROR PROPAGATION FOR DIFFERENT CODE CONFIGURATIONS 
+
+Configuration 
+
+m 5 10 15 20 
+
+GF (4) , ℓ = 0 3.5 7.5 12 16 
+
+GF (4) , ℓ = 1 3.5 7.5 11 .5 15 .5
+
+GF (4) , ℓ = 2 3.5 7 11 15 
+
+GF (8) , ℓ = 0 5.5 11 .5 18 24 
+
+VIII. C ONCLUSIONS AND FUTURE WORK 
+
+We provided estimates for the number of sneak paths in the emerging in-memory computing systems. We introduced various constrained coding schemes that address the sneak-path problem in these systems by removing data patterns that result in sneak paths. In particular, we designed RES-LOCO coding schemes defined over GF( 4) and GF( 8) where data is coded horizontally as well as an RLL coding scheme where data is coded vertically on the memristor crossbar array. We determined recursive formulae for the cardinalities of RES-LOCO codes. Moreover, we devised their encoding-decoding rules, where the codeword and its lexicographic index are bijectively related, which guarantee low complexity. We proposed bridging mechanisms that are rate-wise efficient. We presented experimental results that demonstrate the effectiveness of our coding schemes in mitigating the sneak-path problem. While RES-LOCO codes can remove the most detrimental sneak paths entirely when sequential reading is adopted, they still can be used with a variety of other circuit solutions and reading approaches. Future work includes incorporating memristor models and wire resistances in order to test our coding solutions under practical operating conditions. Another future direction is developing effective error-correction coding schemes for memristor crossbar arrays and combining them with our constrained coding solutions. ACKNOWLEDGMENT 
+
+The authors would like to thank Arash Motazedian for the helpful discussions on the research topic. REFERENCES [1] J. Backus. “Can programming be liberated from the von Neumann style?: A functional style and its algebra of programs,” ACM Commun , vol. 21, no. 8, pp. 613–641, Aug. 1978. [2] L. Chua, “Memristor-the missing circuit element,” IEEE Trans. Circuit Theory , vol. 18, no. 5, pp. 507–519, Sep. 1971. [3] D. B. Strukov, G. S. Snider, D. R. Stewart, and R. S. Williams, “The missing memristor found,” Nature , vol. 453, no. 7191, pp. 80–83, May 2008. [4] L. Chua, “Resistance switching memories are memristors,” in Handbook of Memristor Networks , L. Chua, G. Ch. Sirakoulis, and A. Adamatzky, Eds. Cham, Switzerland: Springer, 2019, pp. 197–230. [5] A. Sebastian, M. Le Gallo, R. Khaddam-Aljameh, and E. Eleftheriou, “Memory devices and applications for in-memory computing,” Nat. Nanotechnol. ,vol. 15, no. 7, pp. 529–544, Jul. 2020. [6] M. A. Zidan, H. A. H. Fahmy, M. M. Hussain, and K. N. Salama, “Memristor-based memory: The sneak paths problem and solutions,” Microelectron. J. , vol. 44, no. 2, pp. 176–183, Feb. 2013. [7] F. Zahoor, T. Z. Azni Zulkifli, and F. A. Khanday, “Resistive random access memory (RRAM): An overview of materials, switching mechanism, performance, multilevel cell (MLC) storage, modeling, and applications,” Nanoscale Res. Lett. , vol. 15, no. 1, p. 90, Apr. 2020. [8] J. Liang, S. Yeh, S. S. Wong, and H.-S. P. Wong, “Effect of wordline/bitline scaling on the performance, energy consumption, and reliability of cross-point memory array,” ACM J. Emerg. Technol. Comput. Syst. , vol. 9, no. 1, pp. 9:1–9:14, Feb. 2013. [9] Y. Lee, B. Jeon, Y. Cho, J. Kim, W. Shim, and S. Kim, “Recent progress in memristor array structures and solutions for sneak path current reduction,” 
+
+Adv. Mater. Technol. , vol. 10, no. 4, p. 2400585, 2025. [10] D. Ielmini and H.-S. P. Wong, “In-memory computing with resistive switching devices,” Nat. Electron. , vol. 1, no. 6, pp. 333–343, Jun. 2018. [11] A. Mehonic, A. Sebastian, B. Rajendran, O. Simeone, E. Vasilaki, and A. J. Kenyon, “Memristors—from in-memory computing, deep learning acceleration, and spiking neural networks to the future of neuromorphic and bio-inspired computing,” Adv. Intell. Syst. , vol. 2, no. 11, p. 2000085, Aug. 2020. [12] Y. Chen, “ReRAM: History, status, and future,” IEEE Trans. Electron Devices , vol. 67, no. 4, pp. 1420–1433, Apr. 2020. [13] Y. Cassuto, S. Kvatinsky, and E. Yaakobi, “On the channel induced by sneak-path errors in memristor arrays,” in Proc. Int. Conf. Signal Process. Commun. (SPCOM) , Jul. 2014, pp. 1–6. [14] Y. Cassuto, S. Kvatinsky, and E. Yaakobi, “Information-theoretic sneak-path mitigation in memristor crossbar arrays,” IEEE Trans. Inf. Theory , vol. 62, no. 9, pp. 4801–4813, Sep. 2016. [15] E. Dupraz, F. Leduc-Primeau, K. Cai, and L. Dolecek, “Turning to information theory to bring in-memory computing into practice,” IEEE BITS Inf. Theory Mag. , vol. 3, no. 3, pp. 64–77, Sep. 2023. [16] T. T. Nguyen, P. Li, K. Cai, and K. A. S. Immink, “Locally mitigating sneak-path interference in resistive memory arrays,” in Proc. IEEE Int. Symp. Inf. Theory (ISIT) , Jun. 2023, pp. 1130–1135. [17] Y. Ben-Hur and Y. Cassuto, “Detection and coding schemes for sneak-path interference in resistive memory arrays,” IEEE Trans. Commun. , vol. 67, no. 6, pp. 3821–3833, Jun. 2019. [18] Q. Pang and Z. Ma, “Across-array LDPC codes design for resistive random-access memories,” IEEE Trans. Comput.-Aided Des. Integr. Circuits Syst. ,2025. [19] B. Dai, K. Cai, Z. Mei, and X. Zhong, “Polar code construction for resistive memories with sneak-path interference,” IEEE Commun. Lett. , vol. 28, no. 8, pp. 1765–1769, Aug. 2024. 27 
+
+[20] G. Song, M. Gao, Y. Li, B. Dai, and K. Cai, “Performance analysis and code design for resistive random-access memory using channel decomposition approach,” IEEE Trans. Inf. Theory , vol. 72, no. 1, pp. 358–373, Jan. 2026. [21] R. Naous, M. A. Zidan, A. Sultan-Salem, and K. N. Salama, “Memristor based crossbar memory array sneak path estimation,” in Proc. Int. Workshop Cellular Nanoscale Netw. Their Appl. (CNNA) , Jul. 2014, pp. 1–2. [22] Z. Chen, C. Schoeny, and L. Dolecek, “Pilot assisted adaptive thresholding for sneak-path mitigation in resistive memories with failed selection devices,” 
+
+IEEE Trans. Commun. , vol. 68, no. 1, pp. 66–81, Jan. 2020. [23] S. Pallathuvalappil and A. James, “Rate coding with 3D memristor crossbar,” IEEE Trans. Circuits Syst. Artif. Intell. , vol. 2, no. 1, pp. 25–36, Mar. 2025. [24] M. Kim and J. Ha, “Sneak path aware bit-flipping algorithm for ReRAM crossbar array,” in Proc. Int. Conf. Inf. Commun. Technol. Converg. (ICTC) ,Oct. 2022, pp. 451–454. [25] L. Kong, Y. Qi, H. Liu, and C. Meng, “Sneak path-aware reliability-based iterative majority-logic decoding algorithms for LDPC codes in ReRAM systems,” IEEE Commun. Lett. , vol. 29, no. 9, pp. 2018–2022, Sep. 2025. [26] C. Sun, K. Cai, G. Song, T. Q. S. Quek, and Z. Fei, “Belief propagation based joint detection and decoding for resistive random access memories,” 
+
+IEEE Trans. Commun. , vol. 70, no. 4, pp. 2227–2239, Apr. 2022. [27] C. E. Shannon, “A mathematical theory of communication,” Bell Sys. Tech. J., vol. 27, Oct. 1948. [28] D. T. Tang and R. L. Bahl, “Block codes for a class of constrained noiseless channels,” Inf. and Control , vol. 17, no. 5, pp. 436–461, 1970. [29] S. Datta and S. W. McLaughlin, “Optimal block codes for M-ary runlength-constrained channels,” IEEE Trans. Inf. Theory , vol. 47, no. 5, pp. 2069–2078, Jul. 2001. [30] A. Hareedy and R. Calderbank, “Asymmetric LOCO codes: Constrained codes for flash memories,” in Proc. Annu. Allerton Conf. Commun., Control, Comput. , Sep. 2019, pp. 124–131. [31] A. Hareedy, B. Dabak, and R. Calderbank, “Managing device lifecycle: Reconfigurable constrained codes for M/T/Q/P-LC Flash memories,” IEEE Trans. Inf. Theory , vol. 67, no. 1, pp. 282–295, Jun. 2021. [32] Y. Wang, M. Noor-A-Rahim, E. Gunawan, Y. L. Guan, and C. L. Poh, “Construction of bio-constrained code for DNA data storage,” IEEE Commun. Lett. , vol. 23, no. 6, pp. 963–966, Jun. 2019. [33] A. Hareedy and R. Calderbank, “LOCO codes: Lexicographically-ordered constrained codes,” IEEE Trans. Inf. Theory , vol. 66, no. 6, pp. 3572–3589, Jun. 2020. [34] T. Cover, “Enumerative source encoding,” IEEE Trans. Inf. Theory , vol. 19, no. 1, pp. 73–77, Jan. 1973. [35] A. Hareedy, B. Dabak, and R. Calderbank, “The secret arithmetic of patterns: A general method for designing constrained codes based on lexicographic indexing,” IEEE Trans. Inf. Theory , vol. 68, no. 9, pp. 5747–5778, Sep. 2022. [36] I. Guzel, D. Özbayrak, R. Calderbank, and A. Hareedy, “Eliminating media noise while preserving storage capacity: Reconfigurable constrained codes for two-dimensional magnetic recording,” IEEE Trans. Inf. Theory , vol. 70, no. 7, pp. 4905–4927, Jul. 2024. [37] C. ˙ Irima˘ gzı, Y. Uslan, and A. Hareedy, “Protecting the future of information: LOCO coding with error detection for DNA data storage,” IEEE Trans. Mol., Biol., Multi-Scale Commun. , vol. 10, no. 2, pp. 317–333, Jun. 2024. [38] C. ˙ Irima˘ gzı and A. Hareedy, “LOCO codes can correct as well: Error-correction constrained coding for DNA data storage,” IEEE Trans. Commun. , vol. 74, pp. 2235-2250, Jan. 2026. [39] B. H. Marcus, R. M. Roth, and P. H. Siegel, An Introduction to Coding for Constrained Systems. Lecture notes, 2001. [40] D. Özbayrak, D. Uyar, and A. Hareedy, “Low-Complexity Constrained Coding Schemes for Two-Dimensional Magnetic Recording,” in Proc. IEEE Int. Symp. Inf. Theory (ISIT) , Athens, GR, Jul. 2024, pp. 1–6.

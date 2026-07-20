@@ -1,6 +1,9 @@
 * <a class="dpr-sidebar-root-link" href="#/">首页</a>
 * <a class="dpr-sidebar-root-link dpr-sidebar-noactive-link" href="javascript:void(0)" data-dpr-hash="#/tutorial/README">使用教程</a>
 * Daily Papers
+  * 2026-07-20 <!--dpr-date:20260720-->
+    * 精读区
+      * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202607/20/2607.15929v1-current-should-not-sneak-constrained-codes-for-reliable-memristor-crossbar-arrays" data-sidebar-item="{&quot;title&quot;: &quot;Current Should Not Sneak: Constrained Codes for Reliable Memristor Crossbar Arrays&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2607.15929v1-current-should-not-sneak-constrained-codes-for-reliable-memristor-crossbar-arrays&quot;, &quot;score&quot;: &quot;9.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;cim&quot;}], &quot;evidence&quot;: &quot;关注基于忆阻器交叉阵列的存内计算&quot;}">Current Should Not Sneak: Constrained Codes for Reliable Memristor Crossbar Arrays</a>
   * 2026-07-19 <!--dpr-date:20260719-->
     * 速读区
       * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202607/19/2607.13700v1-csco-a-backside-pdn-aware-clock-signal-co-optimization-framework-for-improved-ppa" data-sidebar-item="{&quot;title&quot;: &quot;CSCO: A Backside-PDN-Aware Clock-Signal Co-Optimization Framework for Improved PPA&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2607.13700v1-csco-a-backside-pdn-aware-clock-signal-co-optimization-framework-for-improved-ppa&quot;, &quot;score&quot;: &quot;7.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;cim&quot;}], &quot;evidence&quot;: &quot;背侧供电网络用于3D集成电路设计&quot;}">CSCO: A Backside-PDN-Aware Clock-Signal Co-Optimization Framework for Improved PPA</a>

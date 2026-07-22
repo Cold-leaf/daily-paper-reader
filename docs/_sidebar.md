@@ -1,6 +1,9 @@
 * <a class="dpr-sidebar-root-link" href="#/">首页</a>
 * <a class="dpr-sidebar-root-link dpr-sidebar-noactive-link" href="javascript:void(0)" data-dpr-hash="#/tutorial/README">使用教程</a>
 * Daily Papers
+  * 2026-07-22 <!--dpr-date:20260722-->
+    * 精读区
+      * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202607/22/2607.17074v1-thame-3d-memory-enabled-heterogeneous-accelerator-for-llm-mixture-of-experts" data-sidebar-item="{&quot;title&quot;: &quot;ThAME: 3D Memory-Enabled Heterogeneous Accelerator for LLM Mixture of Experts&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2607.17074v1-thame-3d-memory-enabled-heterogeneous-accelerator-for-llm-mixture-of-experts&quot;, &quot;score&quot;: &quot;9.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;cim&quot;}], &quot;evidence&quot;: &quot;三维异构多芯粒架构，FeFET非易失性存储&quot;}">ThAME: 3D Memory-Enabled Heterogeneous Accelerator for LLM Mixture of Experts</a>
   * 2026-07-21 <!--dpr-date:20260721-->
     * 精读区
       * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202607/21/2607.18169v1-rram-dp-device-calibrated-differential-privacy-for-in-memory-edge-learning" data-sidebar-item="{&quot;title&quot;: &quot;RRAM-DP: Device-Calibrated Differential Privacy for In-Memory Edge Learning&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2607.18169v1-rram-dp-device-calibrated-differential-privacy-for-in-memory-edge-learning&quot;, &quot;score&quot;: &quot;10.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;cim&quot;}], &quot;evidence&quot;: &quot;基于RRAM的存内计算用于边缘学习，融合差分隐私&quot;}">RRAM-DP: Device-Calibrated Differential Privacy for In-Memory Edge Learning</a>

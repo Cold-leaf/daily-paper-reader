@@ -1,0 +1,39 @@
+{
+  "label": "2026-07-27",
+  "date": "2026-07-27",
+  "generated_at": "2026-07-27T20:58:04",
+  "count": 2,
+  "papers": [
+    {
+      "paper_id": "202607/27/2607.21693v1-micro-electromechanical-photonic-integrated-memristors",
+      "section": "deep",
+      "title_en": "Micro-electromechanical photonic integrated memristors",
+      "authors": "Matthew Zimmermann, Julia M. Boyle, Hardit Singh, Alex Witte, Kevin Palm, Thuy-Linh Le, Andrew J. Leenheer, Daniel Dominguez, Matt Eichenfield, Mark Dong",
+      "date": "2026-07-23",
+      "pdf": "https://arxiv.org/pdf/2607.21693v1",
+      "score": "9.0",
+      "evidence": "基于光子忆阻器的存内光学计算",
+      "tldr": "现有光学忆阻器面临耐久性、光损耗、可重构性和良率等挑战。本文提出一种基于CMOS兼容光子集成微机电悬臂梁的模拟可编程忆阻器，利用低损耗氮化硅波导和静电-压电力编程。实现了5位相位存储、50 kbit/s编程速度、超1小时非易失性、超10亿次循环耐久性，并通过电子刷新电路将记忆延长至数天。该技术为实用光学忆阻器的发展迈出了重要一步。",
+      "tags": "query:cim",
+      "abstract_en": "Programmable optical memristors embedded in photonic integrated circuits (PICs) are emerging as an important technology for high-speed optical storage and in-memory optical computing applications. These devices provide multi-level, non-volatile storage of optical phases that can be interrogated at the speed of light, enabling parallel data readout or energy-efficient multiply-accumulate operations in artificial neural networks. However, there remains several outstanding challenges with existing optical memristor technology including durability, material-induced optical losses, large-scale reconfigurability, or fabrication yield for realistic applications. Here we introduce an analog-programmable photonic memristor based on photonic integrated micro-electromechanical (MEMS) cantilevers produced in a CMOS foundry. The memristor consists of low-loss silicon nitride waveguides, requires no additional back-end materials integration, and is all electrically programmed with electrostatic-piezoelectric forces. We demonstrate up to 5-bit phase storage levels, 50 kbit/s programming speeds, strain-assisted non-volatility lifetimes >1 hour, >1 billion cycle endurance, and stress-tested millions of write-read cycles with pseudorandom bit sequences. We further extend the memory lifetime to several days with simple electronic refresh circuits in a portable battery-powered module, demonstrating a proof-of-concept optical random-access memory in static or dynamic configurations. Our MEMS-photonics technology represents an important step toward practical optical memristors.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202607/27/2607.22022v1-hemera-a-heterogeneous-memory-centric-accelerator-with-recursive-dataflow-for-edge-constrained-state-space-duality-models-inference",
+      "section": "quick",
+      "title_en": "HEMERA: A Heterogeneous Memory-Centric Accelerator with Recursive Dataflow for Edge-Constrained State-Space-Duality Models Inference",
+      "authors": "Hao Ding, Ling Liang, Ruitong Qiao, Dongxue Zhao, Xiantong Qiu, Jinshan Li, Meng Li, Lei Jin, Zhiliang Xia, Zongliang Huo, Zongwei Wang, Yimao Cai",
+      "date": "2026-07-24",
+      "pdf": "https://arxiv.org/pdf/2607.22022v1",
+      "score": "7.0",
+      "evidence": "采用存内计算技术的异构内存中心加速器用于状态空间模型推理",
+      "tldr": "结构化状态空间模型Mamba-2中的结构化状态空间对偶（SSD）计算带来二次中间存储和依赖约束执行等系统开销。HEMERA通过将SSD重构成等价的流式递归数据流，避免二次中间存储，并采用异构内存中心架构：内存计算单元处理密集线性运算，专用流引擎处理递归状态更新。在130M至2.8B参数模型上，较NVIDIA A100上优化内核实现1.4x-3.6x加速和12.2x-27.0x能效提升，SSD执行时间占比降至14.12%。该工作为边缘约束下SSM高效推理提供新范式。",
+      "tags": "query:cim",
+      "abstract_en": "Structured State Space Models (SSMs), such as Mamba, enable efficient long-sequence modeling with linear time complexity. Recent implementations realize this capability through Structured State Space Duality (SSD), which transforms recursive state evolution into matrix-form computations. However, SSD introduces substantial system-level overheads, including quadratic intermediate materialization, irregular data movement, and prefix-dependent execution, leading to excessive memory traffic and bandwidth demand on conventional architectures. Although prior accelerators mitigate these overheads through optimized dataflows or compute-in-memory techniques, they largely retain matrix-oriented SSD execution and cannot simultaneously avoid quadratic intermediate storage and efficiently map dependency-bound state propagation.   This paper presents HEMERA, a heterogeneous memory-centric accelerator for efficient Mamba-2 inference. Rather than directly executing the matrix-form SSD computation, HEMERA reformulates it into an algebraically equivalent streaming-recursive dataflow that avoids quadratic intermediate storage while preserving the original computation. The resulting heterogeneous execution paradigm maps dense linear operations onto in-memory computing units and recursive state updates onto a dedicated streaming engine. Across Mamba-2 models ranging from 130M to 2.8B, HEMERA achieves average latency speedups of 1.4x-3.6x and energy-efficiency improvements of 12.2x-27.0x over the official optimized fused Mamba-2 kernel on NVIDIA A100. It further reduces the average SSD-related execution-time ratio across model scales to 14.12% during long-sequence inference, demonstrating its potential for efficient deployment under edge constraints.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,1167 @@
+Title: Multi-primitive in-memory computing for Monte Carlo tree search
+
+URL Source: https://arxiv.org/pdf/2607.22869v1
+
+Published Time: Tue, 28 Jul 2026 00:13:20 GMT
+
+Number of Pages: 53
+
+Markdown Content:
+# Multi-primitive in-memory computing for Monte Carlo tree search 
+
+Tergel Molom-Ochir 1,2* , Benjamin F. Morris III 1, Yintao He 1,Archit Gajjar 2, Giacomo Pedretti 2, Hai “Helen” Li 1,Yiran Chen 1, Jim Ignowski 2, Aishwarya Natarajan 2
+
+1* Department of Electrical and Computer Engineering, Duke University, Durham, 27708, NC, USA. 
+
+2Hewlett Packard Labs, Milpitas, 95035, CA, USA. *Corresponding author(s). E-mail(s): tergel.molom-ochir@duke.edu; 
+
+Abstract 
+
+Monte Carlo tree search (MCTS) enables artificial intelligence (AI) decision-making, but requires 55–300 W on conventional processors, limiting edge deploy-ment. In-memory computing (IMC) is energy-efficient on regular workloads but has been considered incompatible with irregular multi-phase algorithms. We introduce phase-to-primitive decomposition, which reformulates each algorith-mic phase as a hardware-native IMC primitive. Applied to MCTS, selection, expansion, rollout and backpropagation map to content-addressable memory, combinational logic, a resistive random-access memory (RRAM) crossbar and static random-access memory, keeping search on chip. At 22 nm with fabricated RRAM-array parameters, IMC-MCTS consumes ∼60 mW for 9×9 Go, achieving 
+
+96 × energy efficiency over a central processing unit (CPU) and 65 ×–2,059 ×
+
+over an H100 graphics processing unit (GPU). It reaches a European Go Federa-tion rating within sample-size uncertainty of open-source Go engines (Pachi-UCT and Michi-C). The same substrate runs eight applications across four AI domains. 
+
+Keywords: in-memory computing, Monte Carlo tree search, edge AI, neuromorphic computing, hardware-software co-design 
+
+1arXiv:2607.22869v1 [cs.AR] 24 Jul 2026 Simulate 4    
+
+> moves into
+> the future
+> W: 3
+> V: 10
+> W: 11
+> V: 12
+> W: 4
+> V: 8
+> W: 3
+> V: 10
+> W: 11
+> V: 12
+> W: 4
+> V: 8
+> W: 12
+> V: 13
+> W: 27
+> V: 55
+> W: 27
+> V: 55
+> W: 27
+> V: 55
+> W: 28
+> V: 56
+> W: 3
+> V: 10
+> W: 11
+> V: 12
+> W: 4
+> V: 8 W: 3
+> V: 10
+> W: 4
+> V: 8
+> Pick best
+> node
+> Add child
+> node
+> Rollout to
+> terminal
+> Update node
+> values
+
+SELECTION  EXPANSION  ROLLOUT  BACKPROP (a) ADC ADC ADC ADC ADC 
+
+> DAC
+> DAC
+> DAC
+> DAC
+
+CAM ARRAY 
+
+LOGIC UNIT 
+
+RRAM CROSSBAR 
+
+SRAM BANK 
+
+SELECTION 
+
+EXPANSION 
+
+ROLLOUT 
+
+BACKPROPAGATION 
+
+> Identify decision points
+> Explore possible outcomes
+> Analyze states
+> Update tree
+
+(b) Single IMC Primitive  Multi-Primitive IMC 
+
+> Heterogeneous
+> Workload
+> (different operations
+> per phase)
+> Homogeneous
+> Workload
+> (same operation type)
+
+ISAAC [ISCA '16] 
+
+NeurRRAM [Nature '22] 
+
+PRIME [ISCA '16] 
+
+Established IMC paradigm 
+
+Multiple memories,  same 
+
+operation  (neural inference) 
+
+HEIRS [DAC '24] 
+
+AIG-CIM [DAC '24] 
+
+> New: multi-primitive IMC for
+> phase-heterogeneous workloads
+> (neurosymbolic workloads)
+
+One primitive has to serve 
+
+multiple distinct workloads 
+
+PE  
+
+> CIM
+> MAC
+
+PE  PE  PE ... 
+
+PE 
+
+Add 
+
+Mul 
+
+Shift     
+
+> Search Eval Expand Update
+
+(c) 
+
+Fig. 1 : Phase-to-primitive decomposition. a , Monte Carlo tree search (MCTS) iterates through four phases (selection, expansion, rollout, backpropagation) over a search tree. b, Phase-to-primitive mapping: each phase corresponds to a co-located in-memory computing (IMC) primitive (content-addressable memory (CAM), combina-tional logic, resistive random-access memory (RRAM) crossbar, static random-access memory (SRAM)). c, The IMC workload landscape, with prior IMC accelerators occupying the homogeneous quadrants and IMC-MCTS in the phase-heterogeneous, multi-primitive quadrant. Monte Carlo tree search (MCTS)[1, 2] underpins artificial intelligence (AI) decision-making in domains from world-champion game-playing agents[3, 4] to robotic path planning[5], protein-folding heuristics[6] and combinatorial optimization[7]. Yet its 55–300 W power draw on conventional processors[8, 9] confines it to data-center hardware. This places MCTS out of reach of the milliwatt-scale embedded platforms (drones, surgical robots, battery-powered scientific instruments) where autonomous decision-making under tight energy budgets is increasingly needed. The cause is structural: MCTS’s irregular tree traversal, control-flow-heavy expansion and sta-tistical update phases parallelize inefficiently on conventional multi-core and GPU architectures[10, 11]. Full neural-guided MCTS systems therefore run on data-center-scale hardware (the distributed AlphaGo used 1,202 central processing units (CPUs) and 176 graphics processing units (GPUs))[3]. 2Closing this gap requires moving computation to where the data lives. In-memory computing (IMC)[12] does exactly that, co-locating computation with storage and eliminating the data movement that dominates conventional architectures. IMC has produced dramatic energy efficiency gains for regular workloads (deep neural-network inference[13], kernel approximation[14], recurrent networks[15] and reinforcement-learning policy networks[16]) by mapping a single dominant operation, typically matrix-vector multiplication, onto a single IMC primitive. Algorithms with multiple, qualitatively distinct phases (e.g. MCTS’s selection, expansion, rollout and backprop-agation) have not previously been mapped onto IMC, to our knowledge, because no single primitive can serve all of their operations efficiently. Here we show that this incompatibility is not fundamental. We introduce phase-to-primitive decomposition , a four-step methodology (profile, match, reformulate, compose) that converts a phase-heterogeneous algorithm into a multi-primitive IMC workload. The methodology requires that each algorithmic phase be reformulated to expose a hardware-native operation, after which the phases compose into an end-to-end pipeline that keeps all data on-chip. The composition of multiple, qualitatively distinct primitives within one substrate parallels the heterogeneous, anatomically spe-cialized organization of biological neural systems[17, 18] and aligns with principles in neuromorphic engineering[19, 20]; however, we make no claim of direct corre-spondence between any specific primitive and any specific brain region. We apply this methodology to MCTS, demonstrating that an algorithm previously regarded as IMC-incompatible can be mapped end-to-end onto co-located memory primitives (Fig. 1). The resulting accelerator (IMC-MCTS) executes all four MCTS phases on co-located memory primitives: content-addressable memory (CAM)[21] performs O(1) 
+
+associative lookup of tree nodes, replacing O(n) hash-chain traversal; combinational logic generates legal moves in a single-cycle pass, replacing sequential software loops; an analog resistive random-access memory (RRAM) crossbar[22, 23] performs learned position evaluation in the analog domain at 0.308 pJ per multiply–accumulate (MAC) operation; and static random-access memory (SRAM) holds tree statistics that are updated in-place, eliminating off-chip data transfer. A compact finite-state machine (FSM) orchestrates a four-stage pipeline that maintains deterministic timing. We test IMC-MCTS on the game of Go, chosen because its 10 170 legal posi-tions make it a stringent test of decision-making and a long-standing benchmark for AI[4, 24]. In a 1,050-game round-robin tournament (50 games per pairing) against six engines ranging from random play to KataGo[25], IMC-MCTS hardware reached a final European Go Federation (EGF) tournament rating of ≈1727 (3 kyu) at matched 500-simulation compute, on par with Michi-C ( ≈1706 EGF) and Pachi-UCT (Pachi using Upper Confidence bounds applied to Trees) without hand-coded priors ( ≈1660 EGF). This is achieved despite the hardware using only an analog evaluator with an 8-bit analog-to-digital converter (ADC) and binary (1-bit) digital-to-analog converter (DAC) input encoding, with floating-point differential-conductance weights. To test versatility, we evaluate the same hardware, without architectural modi-fications, by reprogramming crossbar weights, on eight applications across four AI domains: strategy games (Connect Four, Othello, Hex, Go), navigation (FrozenLake, 3MiniGrid), scientific optimization (hydrophobic-polar (HP) protein folding) and puz-zles (Minesweeper). All eight tasks show observed better play over random rollouts, with Search Guidance Gain (SGG; Methods) ranging from +0 .09 to +0 .56 . All eight exceed the threshold of +0 .05 used to mark visible effects in these 10-game demonstrations (Methods; Supplementary Note 9.3). The energy savings are substantial: energy per move scales from ∼3 μJ at 8×8
+
+boards to ∼18 μJ at 13 ×13 . At 9×9 Go, IMC-MCTS consumes ∼60 mW during sus-tained 5,000-iteration-per-move search (Methods), roughly three orders of magnitude below the 55–300 W power draw of CPU and GPU MCTS implementations, achiev-ing 96 × energy efficiency over CPU and 65 ×–2,059 × over an H100 GPU depending on neural-MCTS batch size (single-position to batched-256; Fig. 3c). These results demonstrate that the apparent incompatibility between IMC and irregular AI algorithms is a property of the operating-point chosen rather than a fun-damental limit, and that milliwatt-scale, multi-domain AI decision-making (previously confined to data-center processors) can be supported on edge hardware. 
+
+# Results 
+
+Phase-to-primitive decomposition 
+
+Phase-to-primitive decomposition treats a heterogeneous algorithm as a sequence of computational phases, each of which is independently mapped onto an IMC primitive matching its dominant operation pattern. The methodology has four steps. First, we 
+
+profile each phase and classify its compute pattern as memory-bound, compute-bound, control-bound or deterministic. Second, we match each pattern to an IMC primitive class: associative search to CAM, dense linear algebra to an analog crossbar, sequen-tial read-modify-write to SRAM, and fixed regular logic to combinational hardware. Third, we reformulate phases that are incompatible with their matched primitive into compatible operations; this step may require algorithmic changes. Fourth, we com-pose the primitives into an end-to-end pipeline with explicit handshaking, so that no phase reverts to off-chip storage. Applying the methodology to MCTS exposes four phases with distinct compu-tational patterns: selection (memory-bound, irregular), expansion (control-bound, deterministic), rollout (compute-bound, approximate-tolerant) and backpropagation (memory-bound, sequential). Crucially, the primary bottleneck is highly dependent on the target platform (Extended Data Fig. 1, Extended Data Table 1). On a CPU, rollout dominates execution; whether a branchy random play-out or a dense matrix-vector product, it forms the largest per-iteration block of serial compute. On GPU under traditional MCTS, backpropagation dominates instead, consuming 68.2% of execution time on the H100 because of per-iteration Compute Unified Device Architecture (CUDA) kernel-launch overhead and counter-update contention in the 
+
+mcts_numba_cuda reference. Neural-MCTS amortizes these updates across larger CUDA Basic Linear Algebra Subprograms (cuBLAS) batches, shrinking backpropa-gation to a negligible share of GPU time, but the dominant phase still moves. Because the bottleneck shifts across conventional platforms, accelerating any single phase is 4insufficient: an end-to-end, multi-primitive approach is required to accelerate the full pipeline. Three reformulations make MCTS fully IMC-compatible. First, we replace variable-length random rollouts with a fixed-latency, two-layer neural evaluator, as crossbars require fixed-dimension inputs. Second, we restructure pointer-chasing tree traversal into a parallel associative lookup enabling CAM. Third, we convert off-chip statistics updates to in-place SRAM writes. Together with the finite state machine as the orchestrator, the resulting four primitives reinforce one another. The CAM’s single-cycle latency prevents stalls that would otherwise idle the analog crossbar, while the crossbar’s deterministic timing permits a fixed-stage pipeline. This load-bearing property, where each hardware primitive depends on the others’ timing guarantees, is what distinguishes our phase-to-primitive decomposition from traditional, isolated modular acceleration. 
+
+Architecture and operation 
+
+The IMC-MCTS accelerator is organized as a tiled chip with a host Peripheral Com-ponent Interconnect Express (PCIe) interface (Fig. 2a). Each tile contains multiple cores sharing a level-2 (L2) SRAM (Fig. 2b), and each core implements the full four-stage MCTS pipeline (Fig. 2c). The selection stage stores tree-node board states as bit patterns in a six-transistor (6T) SRAM-based CAM and reads Upper Confi-dence Bound (UCB1) statistics from a tightly coupled SRAM hierarchy; an issued query returns the addresses of all child nodes in parallel, and a tournament selec-tor identifies the best child within a single-cycle decision. The expansion stage uses a Game Logic Unit (GLU) that evaluates all N 2 board cells simultaneously through combinational logic, producing legal-move successor states deterministically. The roll-out stage encodes the leaf state through binary (1-bit) DACs and performs analog matrix-vector multiplication on RRAM crossbars storing pre-trained differential-conductance weights ( 162 ×96 and 96 ×3 for 9×9 Go). 8-bit ADCs then digitize the output, and a softmax yields win/loss/draw probabilities. The backpropagation stage performs in-place read-modify-write on SRAM along the leaf-to-root path, using saturating counters to prevent overflow. A finite-state machine implemented with a ternary content-addressable memory (TCAM) orchestrates these four stages with deterministic timing. The four-stage pipeline matches the four MCTS phases. Like other resistive in-memory compute accelerators[13], the crossbar uses an 8-bit ADC datapath against binary (1-bit) DAC input encoding (the standard operating point for analog in-memory neural-network accelerators[26]) and stores weights as differential-conductance pairs. Methodological details (synthesis flow, register-transfer level (RTL) hierarchy, SRAM characterization via the CACTI 6.0 memory modeling tool[27], cycle-accurate simulation through the Structural Simulation Toolkit (SST)[28], and crossbar noise-robustness analysis) are reported in Methods and Supplementary Notes 3–5. 5Config Registers 
+
+CORE  CORE 
+
+CORE CORE 
+
+Shared L2 SRAM 
+
+TILE  TILE TILE 
+
+TILE  TILE TILE 
+
+TILE  TILE TILE 
+
+CONTROL  PCIe Interface 
+
+> Tile Controller
+
+Tile Chip 
+
+(a)  (b) 
+
+(c) 
+
+EXPANSION 2
+
+CAM Array 
+
+Match 
+
+Resolver 
+
+Node 
+
+SRAM 
+
+Children 
+
+SRAM 
+
++1 
+
+Children 
+
+Address 
+
+Gen 
+
+UCB1 
+
+Calculator 
+
+Best 
+
+Child 
+
+Selector 
+
+Output 
+
+Multiplexer 
+
+Empty position 
+
+Detector 
+
+0 0 1
+
+Move 
+
+Generator 
+
+Child State 
+
+Generator 
+
+Player Turn 
+
+Logic 
+
+> T
+
+Statistics 
+
+Updater 
+
+Path Address 
+
+Extractor 
+
+Memory Write 
+
+Controller 
+
+n n+1  ... 
+
+Win Decision Logic 
+
+> White wins, Draw, Black wins
+
+Crossbar 
+
+#1 
+
+Crossbar 
+
+#2 
+
+Current-to-
+
+Digital 
+
+ADCs 
+
+Crossbar 
+
+Control 
+
+Position-to-
+
+Voltage 
+
+DACs 
+
+SELECTION 1 ROLLOUT 3
+
+BACKPROP 4
+
+current state  input  next state      
+
+> SELECT EXPAND
+> EXPAND ROLLOUT
+> ROLLOUT BACKPROP
+> BACKPROP IDLE
+> IDLE SELECT start
+> CAM_ready
+> expand_done
+> rollout_done
+> update_done
+
+input 
+
+enable 
+
+next_state 
+
+> cam_en
+> glue_en
+> crossbar_en
+> sram_en
+
+CAM array  RAM 
+
+FINITE STATE MACHINE 5
+
+current state 
+
+leaf_state 
+
+node_id 
+
+board_state 
+
+result 
+
+leaf_state 
+
+visit_count 
+
+win_count 
+
+update_done 2x2 3x3 5x5 9x9 13x13 19x19 
+
+Board Size 
+
+10 3
+
+10 2
+
+10 1
+
+10 0
+
+> Area (mm²)
+
+Selection 
+
+Expansion 
+
+Rollout 
+
+Backprop 
+
+FSM (d) 2x2 3x3 5x5 9x9 13x13 19x19 
+
+Board Size 
+
+10 0
+
+10 1
+
+10 2
+
+10 3
+
+> Power (mW)
+
+Low Play Strength 
+
+Medium Play Strength 
+
+High Play Strength (e) 
+
+Fig. 2 : IMC-MCTS architecture and resource scaling. a , Chip view: multiple tiles connected through a top-level control block and a host Peripheral Component Interconnect Express (PCIe) interface. b, Tile view: cores share a level-2 (L2) SRAM through a tile controller. c, Core schematic: one core implements the four-stage MCTS pipeline (Selection, Expansion, Rollout, Backpropagation) under TCAM-based finite-state-machine control. d, Per-component area scaling from 2×2 to 19 ×19 Go. e, Per-component power distribution during sustained 5,000-iteration-per-move search at 
+
+9×9, summing to 60.26 mW. Per-component values are in Supplementary Table S3. 6Decision quality on Go 
+
+We evaluated the playing strength of IMC-MCTS hardware on 9×9 Go through a 1,050-game round-robin tournament against six reference engines: KataGo[25] (strongest reference engine), Pachi-UCT[29], Michi-C[30], GnuGo at level 10, an MCTS-trained-with-supervision baseline (IMC-weak), and a uniform-random base-line. Tournament Elo ( K = 32 , initial 1500) is calibrated against GnuGo-L10’s standard EGF rating of 1500 (6 kyu). KataGo settles at ≈3200 EGF in the tourna-ment, consistent with its commonly reported strong-amateur range. All MCTS players used 500 simulations per move under standard Go tournament rules (full configuration in Methods). The IMC-MCTS hardware reaches an EGF rating within sample-size uncer-tainty of two established open-source MCTS engines, Pachi-UCT and Michi-C, in the 1,050-game round-robin tournament at 500 simulations per move (Fig. 3d). Pachi’s iso-compute configuration is detailed in Methods. We evaluate two evaluator-training regimes on identical hardware. IMC-strong uses a self-play-trained evaluator, itera-tively refined inside the IMC-MCTS search loop over 10 iterations of ∼35,000 positions each, sparring against Pachi-UCT, and reaches ∼96% three-class validation accuracy. 
+
+IMC-weak uses the same supervised training pipeline but is deliberately checkpointed at 60% three-class validation accuracy, providing a low-quality-evaluator baseline on identical silicon (Methods). Final placements on the tournament EGF scale were as follows: IMC-strong ≈1727 (3 kyu), Michi-C ≈1706 (3 kyu), Pachi-UCT no-patterns ≈1660 (4 kyu), GnuGo-L10 ≈1500 (6 kyu, calibration anchor), KataGo ≈3200 (upper reference), IMC-weak 
+
+≈1139 (9 kyu). The pairwise gaps separating IMC-strong from Michi-C ( ∆ ≈21 Elo) and from Pachi-UCT ( ∆ ≈67 Elo) are small at the 50-games-per-pairing sample size used here. We therefore report the relative ordering and defer formal separation claims pending the larger-n validation planned for follow-on work (Supplementary Note 9.3). No decision-quality degradation relative to software MCTS was observed within the sample size used at matched compute. The averaging across hundreds of rollouts per move stabilizes decision quality against the analog substrate’s noise. Individual posi-tion evaluations may be perturbed by the modeled σ ∈ { 2, 5, 10 }% conductance noise, but the search ensemble’s relative ordering of moves remains robust (Supplementary Note 5). The IMC-weak comparison isolates evaluator quality from substrate noise: on identical hardware and matched 500-simulation compute, IMC-weak settles at ≈1139 EGF (9 kyu), ∼590 EGF below IMC-strong, with a head-to-head record of 9–41 (18% wins). The ∼36 -percentage-point gap in evaluator validation accuracy ( ∼96% vs 60%) tracks the Elo gap. IMC-strong’s self-play loop generates training data drawn from the positions encountered at deployment, while IMC-weak does not. This distributional alignment is what mediates the gap: training-data quality, not analog computation, sets playing strength. 7Energy efficiency and edge deployment 
+
+Beyond decision quality, the architecture’s value rests on its energy profile relative to conventional platforms. We measured IMC-MCTS energy and latency at 22-nm complementary metal-oxide-semiconductor (CMOS) technology against three baseline platforms running matched neural-guided MCTS: Intel Xeon Platinum 8462Y+, AMD Threadripper PRO 5945WX, and NVIDIA H100 (80 GB High Bandwidth Memory 3 (HBM3)). The H100 was run in both single-position and batched (64- and 256-position) configurations. CPU power was instrumented through Intel Running Average Power Limit[31], GPU power through nvidia-smi. At 9×9 Go, IMC-MCTS delivers 96 × energy efficiency over the CPU baseline and 65 ×–2,059 × over an H100 GPU depending on neural-MCTS batch size (Fig. 3c). The 65 × endpoint is against batched-256 H100 (256-leaf virtual-loss batching, the standard high-throughput operating point). The 2,059 × endpoint is against single-position H100. Sustained chip power is ∼60 mW during 5,000-iteration-per-move search. The batched configuration is the fair operating-point comparison because the single-position figure conflates IMC’s architectural advantage with GPU underutili-sation (Supplementary Note 6.4). Extended Data Table 2 reports the neural-MCTS hardware-only energy baselines across board sizes. The CPU-baseline gain decom-poses stepwise (Fig. 3c): swapping random rollout for the neural evaluator on CPU yields the blue ≈1.4× algorithmic segment, then swapping CPU for IMC at neural-MCTS yields the orange ≈68 × hardware segment, multiplying to the 96 × headline. This stepwise attribution uses two measured before/after ratios, not parallel ablations. The architectural advantage (constant-time CAM lookup, weight-stationary analog rollout, in-place SRAM updates) outweighs process scaling for irregular workloads. Throughput ranges from 18,471 iterations per second at 2×2 to 510 at 19 ×19 . At 
+
+9×9 Go the sustained throughput is ≈2,400 iterations per second. This rate is set by MCTS’s strict sequential dependency between iterations (each iteration’s selection phase reads tree statistics updated by the previous iteration’s backpropagation), not by single-iteration pipeline latency. Despite a 22-nm node against the H100’s 4-nm process, IMC-MCTS retains a 3.4× latency advantage over the batched H100 base-line. An iso-process Stillmaker[35] projection is provided in Supplementary Note 3.5. Sustained power scales with board dimensions, from ∼60 mW at 9×9 to ∼1.4 W at 
+
+19 ×19 (Fig. 2e), remaining 1–2 orders of magnitude below CPU/GPU operating points across the full scaling range. These operating points place IMC-MCTS in a power class previously unreach-able by CPU or GPU implementations (55–300 W), opening three new deployment regimes (Supplementary Note 10). Drone autonomy operates with sub-10-W total compute budgets; a 55-W planner alone would consume the full budget. Microcon-troller unit (MCU)-class embedded controllers (sub-100 mW total power) can run IMC-MCTS as an on-device planning co-processor for motion planning[5] and maneu-ver selection[32]. Implantable or wearable devices are reachable through low duty-cycle operation between infrequent inferences. AI decision-making previously confined to data-center processors becomes deployable on coin-cell-powered embedded systems. A detailed comparison against prior MCTS hardware accelerators (field-programmable gate array (FPGA) and GPU) is provided in Supplementary Note 8. 82x2 3x3 5x5 9x9 13x13 19x19 
+
+> Board Size (N×N)
+> 10 0
+> 10 2
+> 10 4
+> 10 6
+> Energy per Inference/Move (  J)  This Work
+> CPU (AMD Threadripper 5945WX)
+> GPU Fair (H100)
+> GPU Max (H100)
+
+(a) 10 0 10 1 10 2 10 3 
+
+> Latency (ms)
+> 10 2
+> 10 3
+> 10 4
+> 10 5
+> Energy (mJ)
+> AMD TR
+> Xeon
+> H100
+> b64
+> b256
+> IMC-MCTS
+> (this work)
+> Traditional MCTS
+> Neural MCTS
+> Algorithmic gain
+
+(b) AMD TR Xeon H100 H100     
+
+> (b64)
+> H100
+> (b256)
+> 10 0
+> 10 1
+> 10 2
+> 10 3
+> 10 4
+> IMC-MCTS Gain (×)
+> 96×
+> 50×
+> 63×
+> 56×
+> 2,059×
+> 1,022×
+> 99×
+> 49× 65×
+> 32×
+> Hardware gain Algorithmic gain Energy (solid) Latency (hatched)
+
+(c) (d) 
+
+Fig. 3 : Energy efficiency and decision quality. a , Energy per 5,000-iteration MCTS search vs. board size, for IMC-MCTS and traditional CPU/GPU MCTS base-lines (single-position GPU-Fair: 1 tree, 1 playout; batched GPU-Max: 8 trees, 128 playouts). Neural-MCTS batch-size comparisons appear in panel c. b, Energy vs. latency at 9×9 Go (Pareto view). c, Stepwise total gain attribution across five base-lines (AMD Threadripper, Intel Xeon, NVIDIA H100 single-position, H100 batch-64, H100 batch-256): algorithmic step (swap to neural evaluator) followed by architec-tural step (swap to end-to-end IMC), measured as sequential before/after ratios rather than parallel ablations. For AMD Threadripper energy, the blue algorithmic segment is ≈ 1.4× and the orange hardware segment is ≈ 68 ×, yielding the labeled 96 ×
+
+total. d, Elo progression during a 1,050-game round-robin tournament on 9×9 Go among seven engines (KataGo, Pachi-UCT, Michi-C, GnuGo-L10, IMC-strong, IMC-weak, uniform-random). Tournament Elo ( K = 32 , initial 1500) is calibrated against GnuGo-L10’s standard EGF rating of 1500 (6 kyu); final placements are annotated on the right edge. At the 50-games-per-pairing sample size used here, small pairwise gaps (e.g. IMC-strong vs Pachi-UCT, ∆ ≈67 Elo; IMC-strong vs Michi-C, ∆ ≈21 Elo) should be read as ordered rather than statistically separated; larger-n validation is planned for follow-on work. 9Substrate reusability across grid-based decision tasks 
+
+To demonstrate that the architecture is not Go-specific, we ran the same hard-ware on eight grid-based decision tasks spanning four AI domains: strategy games (Connect Four, Othello, Hex, Go), grid navigation (FrozenLake, MiniGrid), scien-tific optimization (HP protein folding) and puzzles (Minesweeper). The pipeline is fully application-agnostic across all five units (CAM, GLU, RRAM crossbar, SRAM, FSM) for the eight applications shown here. The GLU implements an Empty Posi-tion Detector that emits a superset of legal moves. The trained crossbar evaluator then suppresses illegal moves at evaluation time, removing the need for game-specific legality logic in hardware (Extended Data Table 3, footnote; Supplementary Note 9). The GLU itself accounts for ∼1.4% of total chip area with memory arrays included, or 
+
+∼43% of digital logic alone (Supplementary Table S3). Only the crossbar weights are reprogrammed per task. Per-application hardware customization is a synthesis-time parameter change on a single SystemVerilog design, parameterized by board size and encoding channels (Methods). No RTL is re-written per application. Connect Four 
+
+> Othello
+> Hex
+> Go
+> FrozenLake
+> MiniGrid
+> HP Protein Fold
+> Minesweeper
+> Application
+> 0.0
+> 0.1
+> 0.2
+> 0.3
+> 0.4
+> 0.5
+> 0.6
+> Search Guidance Gain (SGG)
+> +0.05 noise threshold
+> +0.37
+> +0.30
+> +0.22
+> +0.09
+> +0.15
+> +0.56
+> +0.20
+> +0.11
+> Strategy
+> Navigation
+> Science
+> Puzzle
+
+(a) Connect 4    
+
+> 8×8
+> Othello
+> 8×8
+> Hex
+> 11×11
+> Go
+> 9×9
+> FrozenLake
+> 8×8
+> MiniGrid
+> 8×8
+> HP Protein
+> 13×13
+> Minesweeper
+> 9×9
+> 0.0
+> 2.5
+> 5.0
+> 7.5
+> 10.0
+> 12.5
+> 15.0
+> 17.5
+> 20.0
+> Energy per move (μJ)
+> 2.6 2.6
+> 9.3
+> 4.2
+> 2.6 2.6
+> 17.8
+> 4.2
+> Board Games
+> Navigation
+> Optimization
+> Puzzles
+
+(b) 
+
+Fig. 4 : Substrate reusability across eight grid-based decision tasks. The same substrate and pipeline execute all eight applications (Connect Four, Othello, Hex, Go, FrozenLake, MiniGrid, HP protein folding, Minesweeper); only the crossbar weights are reprogrammed per task, while CAM, GLU ( ∼1.4% of total chip area), SRAM, FSM and crossbar peripherals are unchanged. a, Search Guidance Gain (SGG; Methods) across the eight applications. The dashed +0 .05 line is an indicative policy-lift threshold used to mark visible effects in the 10-game demonstrations; it is not a statistical-significance boundary. Specifically, the Go ( +0 .09 ), Minesweeper ( +0 .11 )and FrozenLake ( +0 .15 ) bars should be read as directional rather than statistically resolved. b, Per-move energy across the eight applications on identical hardware. All eight applications run on the same hardware with observed positive Search Guidance Gain (SGG) over a random-rollout MCTS baseline (Fig. 4a, Extended Data Table 3). Intuitively, SGG is the normalized head-to-head win-rate margin between neural-guided MCTS and random-rollout MCTS at matched iteration count (or score margin for single-player tasks). On the reference configuration of 50 iterations and 8×8
+
+board, SGG = 0 means a 50% win rate (no improvement), SGG = +0 .2 corresponds to 10 ∼60% , and SGG = +0 .5 to ∼75% . The normalization makes values comparable across boards and iteration budgets of different size (Supplementary Note 9). Across the eight applications, SGG ranges from +0 .09 (Go) to +0 .56 (MiniGrid), all above the +0 .05 
+
+indicative policy-lift threshold used in Fig. 4a. The smaller lifts (Go, Minesweeper, FrozenLake) should be read as directional pending larger-n validation. We therefore present this section as a substrate-reusability demonstration rather than a statistical claim of generality. Per-move energy ranges from 2.6 to 17.8 μJ across applications on identical hardware (Fig. 4b). The variation is driven primarily by crossbar size, with 
+
+8×8 boards consuming the least and 13 ×13 the most. 
+
+# Discussion 
+
+IMC has so far been treated as a compute methodology for regular workloads (con-volution, matrix multiplication, attention) where a single dominant operation can be mapped onto a single primitive[13, 14, 33]. The implicit assumption has been that algorithms with multiple computational modes either require general-purpose hard-ware or revert to off-chip storage between phases, negating IMC’s energy advantage. Our results challenge that assumption. Phase-to-primitive decomposition shows that the relevant property is not the regularity of an algorithm, but whether each of its phases admits a hardware-native reformulation. When that condition holds, the phases can be composed into an end-to-end pipeline that retains IMC’s data-locality benefits across all phases. A survey of 12 prior MCTS hardware acceleration efforts (Supplementary Note 8, Supplementary Table S6; representative anchors in Extended Data Table 4), spanning implementations across four FPGAs, six GPUs, one neuromorphic platform, and one multi-core CPU, finds three structural gaps: none uses in-memory computing for any phase, 11 of 12 retain random-simulation rollouts rather than modern neural evalu-ators, and only one of 12 reports a complete energy-efficiency figure. IMC-MCTS is the first MCTS accelerator to co-deploy multiple in-memory primitives across all four phases of a neural-guided MCTS pipeline, and the first to report end-to-end energy efficiency against both CPU and modern batched-GPU baselines. For MCTS specifically, the consequence is a ∼60 mW operating point at 9×9 Go (sustained Medium-strength power), a regime ∼10 3× below the power draw of CPU and GPU MCTS implementations. This shifts the deployable footprint of MCTS from data-center racks to battery-powered or duty-cycled embedded systems, a transition relevant to autonomous robotics, surgical planning, in-the-field scientific optimization and any AI agent that must decide under tight energy budgets. The same substrate executes eight diverse grid-based decision tasks without architectural modifications, demonstrating that the design is not Go-specific. Whether the phase-to-primitive methodology generalizes to non-grid algorithms is a question for future work. Several limitations bear noting. First, the accelerator targets grid-representable state spaces; non-grid states (continuous robotics, large-graph routing) require encod-ing modifications, although the four-stage pipeline itself remains applicable. Second, our energy and latency numbers derive from synthesis at 22 nm with crossbar device parameters drawn from fabricated memristor crossbars[22], including a 180-nm 64 ×64 
+
+11 array[23]. While we empirically establish device-non-ideality tolerance up to σ = 10 %additive conductance noise via noise injection through the analog evaluator (Methods; Supplementary Note 5), end-to-end silicon validation of the CAM–crossbar interaction at full pipeline rate is the natural next step. Finally, the analog evaluator’s strong-kyu Go play (8-bit ADC datapath, differential-conductance weights) reflects the quality of self-play training data more than the precision of the analog substrate. This is highly favorable for adoption, as algorithmic improvements in training transfer directly to the hardware. However, it means stronger play (e.g. professional dan level) requires both higher-quality training data and crossbar capacity scaling. Beyond MCTS, phase-to-primitive decomposition offers a methodology for acceler-ating other control-flow-heavy AI algorithms whose phases admit primitive-compatible reformulations: constraint satisfaction[34], planning under partial observability, and neuro-symbolic reasoning. As AI agents increasingly couple neural perception with symbolic decision-making, the demand for milliwatt-scale decision hardware will move from a luxury to a necessity. Our results indicate that such hardware is now within reach. The path to it lies through algorithmic decomposition rather than through ever-larger general-purpose accelerators. 
+
+# Methods 
+
+Phase-to-primitive decomposition (overview) 
+
+The four-step methodology (profile, match, reformulate, compose) is described in full in Supplementary Note 2. In brief, profiling identifies each phase’s compute pat-tern (memory-bound, compute-bound, control-bound, deterministic); matching pairs each pattern to an IMC primitive class (associative search to CAM, dense linear algebra to analog crossbar, sequential read-modify-write to SRAM, fixed regular logic to combinational hardware); reformulation rewrites incompatible phases into primitive-compatible operations (Supplementary Note 2.3 details the three reformu-lations required for MCTS); and composition wires the primitives into an end-to-end pipeline with explicit handshaking. The decomposition is load-bearing: ablating any single primitive substantially degrades end-to-end performance, with per-component multipliers (energy and latency itemized separately) detailed in Supplementary Note 7. 
+
+IMC-MCTS architecture and synthesis 
+
+The accelerator is implemented as a hierarchical SystemVerilog design supporting board sizes from 2×2 to 19 ×19 , with conditional generate blocks synthesizing only the logic required for the chosen board size. Five hardware units (CAM-based selec-tion, combinational expansion via a Game Logic Unit, analog RRAM crossbar rollout, in-memory SRAM backpropagation, and a TCAM-based finite-state-machine con-troller) are connected through a custom interconnect with valid/ready handshakes. Digital components were synthesized with Synopsys Design Compiler against a Tai-wan Semiconductor Manufacturing Company (TSMC) 65-nm standard-cell library at 500 MHz, typical-typical corner, 1.2 V, and scaled to 22 nm via Stillmaker’s technology-independent scaling[35]. SRAMs were characterized through the CACTI 12 6.0 memory modeling tool[27]; the CAM[21, 36] and a conventional 16T TCAM[21] uses prior implementations scaled to 22 nm. Per-component area and power break-downs at 9×9 Go appear in Fig. 2d, e; full RTL hierarchy, verification methodology and synthesis parameters appear in Supplementary Notes 3 and 4. 
+
+Crossbar device modeling 
+
+The analog rollout unit uses RRAM crossbars in a 1T1R (one-transistor, one-memristor) configuration[22, 23, 37], with differential-conductance weight encoding in the 0.1–99.9 μS range. The ADC datapath is 8-bit (the standard operating point for analog in-memory neural-network accelerators) and the input encoding is binary (1-bit DAC: Vhigh = 1 .0 V, Vlow = 0 V). Crossbar dimensions scale with board size: 9×9
+
+Go uses two arrays ( 162 ×96 and 96 ×3); for 19 ×19 (722 ×128 ), the first layer parti-tions across three sub-arrays ( ≤256 rows each), preserving single-cycle semantics. The 768-ns read latency decomposes into 256 ns of wordline charging and 512 ns of ADC conversion, characterized from a fabricated 180-nm CMOS 64 ×64 RRAM crossbar with complete ADC and DAC peripherals[23] and scaled to 22 nm. Crossbar weights derive from two-layer feedforward networks scaling with board size (8–722 inputs, 16–192 hidden neurons, 3-class softmax output), trained with AdamW ( η = 0 .003 ) on 2,000 labeled positions per board size with early stopping. Three-class accuracy varies with task complexity: 60% on 9×9 Go (the largest and noisiest action space), 80% on Connect Four, Othello and Hex, 93% on Minesweeper, and 100% on FrozenLake, MiniGrid and HP protein folding (per-application values in Extended Data Table 3). Per-application accuracy reflects substrate demonstra-tion rather than policy optimization: the 2,000-position training budget per board size is intentionally light, so that any observed playing strength is attributable to the hardware–algorithm composition rather than to extensively-trained networks. Scaling the training set is orthogonal to the architectural contribution of this paper; larger training corpora are expected to improve absolute playing strength but would obscure the substrate-vs-data attribution that the present comparison makes. Crossbar non-idealities (device-to-device conductance variation, programming write noise, drift) were modeled by injecting additive Gaussian noise of σ ∈ { 2, 5, 10 }%(matching reported RRAM programming-variation envelopes[13, 22, 23]) at each for-ward pass. End-to-end MCTS robustness across this noise range (quantified through win-rate against a matched random-rollout baseline at each σ, together with per-σ
+
+1-ply policy agreement) is reported in Supplementary Note 5. 
+
+Cycle-accurate simulation 
+
+A custom discrete-event simulator built on the Structural Simulation Toolkit (SST)[28] models cycle-accurate timing across the full pipeline. Each pipeline unit is implemented as an SST component communicating via 1–5 ns delay links. We sim-ulate 18 configurations (six board sizes from 2×2 to 19 ×19 × three play-strength levels: low, medium, high; per-configuration iteration budgets in Supplementary Table S1). Functional verification used SystemVerilog testbenches with directed and 13 constrained-random stimuli, complemented by differential testing against a cycle-accurate Python golden model across more than 1,000 randomized games to confirm functional equivalence and end-to-end throughput. 
+
+Iteration budgets and energy metrics 
+
+Different results in this paper use different MCTS iteration budgets per move, sum-marized here for clarity. The Go decision-quality tournament used 500 simulations per move (iso-compute comparison against software MCTS engines). The sustained energy and power measurements, including the 60.26 mW headline at 9×9 and the energies in Extended Data Table 2, used 5,000 iterations per move (Medium strength). High-strength scaling experiments used up to 50,000 iterations per move (Supplementary Table S1). Cross-domain applications (Extended Data Table 3, Fig. 4) use per-task budgets in the 50–200 iterations-per-move range, also tabulated in Supplementary Table S1. Energy is reported throughout at the level of a full N -iteration move (energy per move ≡ energy per N -iteration search at a given N ); sustained power is the chip’s operating power during search; energy-efficiency gain is the ratio of baseline energy per move to IMC energy per move under matched N . Units (mJ vs μJ) reflect the absolute magnitude at the configuration in question: Go at Medium strength (5,000 iter/move) reports mJ per move (Extended Data Table 2), while cross-domain applications at 50–200 iter/move report μJ per move (Fig. 4b, Extended Data Table 3). 
+
+Tournament evaluation 
+
+We validated decision quality through comprehensive round-robin tournaments with sample-size-aware interpretation. The evaluation used a 1,050-game round-robin tournament on 9×9 Go with seven engines: KataGo[25], Pachi-UCT[29], Michi-C[30], GnuGo at level 10, IMC-strong (self-play-trained evaluator, ∼96% three-class validation accuracy on held-out self-play positions; 10 iterations of ∼35,000 posi-tions each, sparring against Pachi-UCT), IMC-weak (the same supervised training pipeline deliberately checkpointed at 60% three-class validation accuracy to provide a low-quality-evaluator baseline on identical silicon; per-application accuracies for the separate cross-domain demonstration networks are tabulated in Extended Data Table 3), and a uniform-random baseline. Each of the 21 matchups comprised 50 games with alternating colours. All MCTS players used 500 simulations per move; KataGo used its default playout schedule. Pachi-UCT was run with 3×3 pattern libraries dis-abled to match the iso-compute with no-prior-knowledge configuration of the other MCTS players. This is below Pachi’s competitive operating point (10k–100k playouts with patterns enabled), but it is the necessary configuration for a fair head-to-head comparison at matched compute. Games were scored under Chinese area scoring with a 6.5-point komi. Tournament Elo ratings ( K = 32 , initial 1500) are calibrated against GnuGo-L10’s standard EGF rating of 1500 (6 kyu); KataGo’s tournament rating of ≈3200 EGF is consistent with its commonly reported strong-amateur range and serves as the upper reference. Pachi-UCT no-patterns ( ≈1660 EGF, 4 kyu) and Michi-C ( ≈1706 EGF, 3 kyu) settle 14 to their natural tournament placements reflecting head-to-head results. The relative ordering of engines is set by win rates and is invariant to the choice of upper-anchor pinning. All MCTS players used UCB1 selection (Eq. 1, Supplementary Note 1.2); the predictor-UCB applied to trees (PUCT) extension[4] is supported by the hardware (Supplementary Note 1.3) but is not exercised in our experiments, which keep selection comparable across all tested engines. 
+
+Baselines and energy measurement 
+
+CPU baselines (Intel Xeon Platinum 8462Y+, AMD Threadripper PRO 5945WX) used optimized C++17 ( -O3 ) with single-threaded Upper Confidence bounds applied to Trees (UCT)[2]; GPU baselines (NVIDIA H100) used both traditional MCTS via 
+
+mcts_numba_cuda [38] and neural MCTS via the Compute Unified Device Architecture (CUDA) Basic Linear Algebra Subprograms (cuBLAS) library, in single-position and batched (64-, 128-, 256-position) configurations. CPU power was measured via Intel Running Average Power Limit[31]; GPU power via nvidia-smi . All baselines use single-position inference per MCTS iteration (matching the algorithm’s sequential dependency); batched configurations are reported separately to ensure fair comparison against optimized GPU operating points. Both platforms implement random-rollout and neural-network variants across six board sizes. 
+
+Cross-domain evaluation protocol 
+
+For each of the eight applications (Connect Four, Othello, Hex, Go, FrozenLake, MiniGrid, HP protein folding, Minesweeper), per-application neural networks were trained on self-play data with task-specific input encodings (Extended Data Table 3). Hardware area and energy were computed using the parameterized synthesis model described in Supplementary Note 3; the same pipeline processes all eight applica-tions without architectural modifications, with only crossbar weights reprogrammed per application. SGG values were averaged over 10-game matchups against random-rollout MCTS on the same board size and iteration budget; the +0 .05 indicative cutoff and its 10-game sample-size limitations are detailed in Supplementary Note 9. 
+
+Data and code availability 
+
+The cycle-accurate simulator, RTL sources, training scripts, tournament transcripts, analysis code and plotting scripts, and trained crossbar weight matrices will be deposited in a public repository (Zenodo) upon publication, with the persistent dig-ital object identifier (DOI) provided in the published version. The repository will include all code required to reproduce the figures, tables and numerical claims in this manuscript. Reviewer access via an anonymized private link is available on request to the corresponding author. 
+
+Supplementary information. The Supplementary Information accompanies this manuscript and contains: (1) MCTS algorithm details; (2) phase-to-primitive decom-position methodology in full; (3) RTL design and synthesis methodology; (4) 15 per-component circuit details for CAM, GLU, RRAM crossbar, in-memory back-propagation, and FSM controller; (5) crossbar noise-robustness analysis; (6) baseline implementations and methodology; (7) ablation studies; (8) hardware comparison with prior MCTS accelerators; (9) per-application encodings, training protocols and Search Guidance Gain definition; (10) edge-deployment scenarios; supplementary tables and figures. 
+
+Acknowledgments. We thank colleagues at the Duke Center for Computational Evolutionary Intelligence (CEI) and at Hewlett Packard Labs (HPL) for techni-cal discussions throughout this work. Crossbar device parameters were drawn from previously fabricated 64 ×64 arrays at HPL; we thank the HPL fabrication and char-acterization teams for making these data available. Computational resources were provided by Hewlett Packard Enterprise (HPE) compute infrastructures. 
+
+# Declarations 
+
+Funding. This work was supported by Hewlett Packard Labs and by the U.S. Depart-ment of Energy under Award Nos. DE-SC0026254 and DE-SC0026382, the National Science Foundation under Award Nos. 2328805 and 2328712, and the Air Force Office of Scientific Research under Award No. FA9550-24-1-0322. The funders had no role in study design, data collection and analysis, decision to publish, or preparation of the manuscript. 
+
+Competing interests. T.M.-O. and A.N. are named inventors on a pending U.S. patent application filed by Hewlett Packard Enterprise Development LP relating to the in-memory MCTS acceleration architecture described in this manuscript. A.G., G.P., J.I. and A.N. are employees of Hewlett Packard Labs. The remaining authors declare no competing interests. 
+
+Author contributions. T.M.-O. conceived the phase-to-primitive decomposition methodology, designed the IMC-MCTS architecture, performed RTL synthesis and cycle-accurate simulation, conducted the Go tournament and cross-domain evaluation, and led the manuscript drafting. B.F.M. contributed to architecture-level design and manuscript drafting. Y.H. provided guidance on architecture-level design decisions and contributed to manuscript drafting and revision. A.G. provided GPU bench-marking and profiling. G.P. contributed to the manuscript drafting and discussions on rollout unit at HPE Labs. H.L. provided guidance on memory-system trade-offs. Y.C. co-supervised the work overall. J.I. co-supervised the HPE-side contributions. A.N. co-supervised the HPE-side contributions and the conception of the work with the architecture design and coordinated the overall effort. All authors reviewed and approved the manuscript. 
+
+Data availability. See Methods. 
+
+Code availability. See Methods. 
+
+# Extended Data 
+
+16 2x2 3x3 5x5 9x9 13x13 19x19 
+
+Board Size 
+
+0
+
+20 
+
+40 
+
+60 
+
+80 
+
+100 
+
+> Execution Time (%)
+
+Rollout 
+
+Expansion 
+
+Backpropagation 
+
+Selection 
+
+CPU 
+
+GPU-F 
+
+GPU-M Extended Data Fig. 1 : Phase-wise execution-time profiling. Per-phase fraction of total MCTS execution time on a central processing unit (CPU), graphics processing unit (GPU)-Fair (1 tree, 1 playout) and GPU-Max (8 trees, 128 playouts) across six Go board sizes ( 2×2 to 19 ×19 ). 
+
+Extended Data Table 1 : MCTS phase breakdown on central processing unit (CPU) vs. graphics processing unit (GPU) at 9×9 Go (5,000 iterations). 
+
+Bold cells mark the per-platform bottleneck. Measured on AMD Ryzen Threadrip-per PRO 5945WX and NVIDIA H100 80 GB High Bandwidth Memory 3 (HBM3). The traditional-MCTS backpropagation row (2,482 ms, 68.2%) reflects per-iteration Compute Unified Device Architecture (CUDA) kernel-launch overhead and global-memory counter-update contention in the mcts_numba_cuda reference; neural-MCTS amortizes the same operation within larger CUDA Basic Linear Algebra Subprograms (cuBLAS) evaluator batches and so reports 0.14 ms on identical hardware. The Oth-er/overhead row collects scheduler, launch, measurement and rounding overhead not attributable to one MCTS phase.                                     
+
+> Phase Traditional MCTS Neural MCTS Bottleneck CPU (AMD) GPU-M (H100) CPU (AMD) GPU-M (H100)
+> Selection 5.88 ms (5.3%) 188.5 ms (5.2%) 7.43 ms (11.6%) 4.04 ms (1.7%) Hash lookup Expansion 8.68 ms (7.8%) 556.8 ms (15.3%) 5.63 ms (8.8%) 7.42 ms (3.1%) Thread divergence Rollout 95.5 ms (86.3%) 281.6 ms (7.7%) 50.6 ms (78.8%) 227.8 ms (95.0%) Compute-bound Backprop 0.11 ms (0.1%) 2,482.2 ms (68.2%) 0.12 ms (0.2%) 0.14 ms (0.1%) Memory bandwidth Other/overhead 0.43 ms (0.4%) 129.9 ms (3.6%) 0.52 ms (0.8%) 0.40 ms (0.2%) Scheduler/launch
+> Total 110.6 ms 3,639.0 ms 64.3 ms 239.8 ms —
+
+17 Extended Data Table 2 : Energy per 5,000-iteration search across board sizes at medium play strength. 
+
+Neural-network (NN) evaluation in all configurations. CPU-NN (CPU with NN evaluator) and GPU-NN (GPU with NN evaluator) values are mean ± s.d. across 5 trials; IMC-NN (IMC with NN evaluator) values are from cycle-accurate deter-ministic simulation (single run, no variance) and therefore reported without error bars. Comparisons start at 3×3; the 
+
+2×2 GPU-NN measurement was dominated by H100 warm-up and idle-power floor and is omitted. 
+
+Board CPU-NN GPU-NN IMC-NN IMC vs. Size (mJ) (mJ) (mJ) GPU-NN 
+
+3×3 86.1 ± 78.6 16,523 ± 155 0.14 118,021 ×
+
+5×5 390.3 ± 84.4 33,171 ± 296 1.40 23,693 ×
+
+9×9 8,471 ± 471 167,878 ± 2,535 124.18 1,351 ×
+
+13 ×13 51,349 ± 3,975 260,477 ± 1,571 1,144.66 228 ×
+
+19 ×19 157,133 ± 7,980 370,789 ± 1,692 12,865.28 29 ×
+
+Extended Data Table 3 : Cross-domain generalizability across 8 applications spanning 4 AI domains. Per-application encoding, crossbar dimensions, evaluator accuracy (MCTS+neural network (NN)), area, energy per move and Search Guidance Gain (SGG; Methods). Hardware modeled at 22 nm. Per-application customization is a single-pass digital synthesis: the parameterized SystemVerilog design (Methods, 
+
+IMC-MCTS architecture and synthesis ) is re-synthesized with the application’s board-size and encoding parameters, which sizes the CAM, GLU, SRAM and crossbar arrays accordingly; no RTL logic is rewritten per application. At runtime, only the crossbar weights are reprogrammed.                                                                               
+
+> Domain Application Encoding Board Crossbar MCTS+NN Area Energy SGG Size (In →H→Out) (%) (mm 2)(μJ)
+> Board games (2-player; head-to-head win rate, N= 10 , sides swapped)
+> Strategy Connect Four †{empty,R,Y} 8129 →96 →380 1.30 2.6 +0.37 Strategy Othello †{empty,B,W} 8129 →96 →380 1.30 2.6 +0.30 Strategy Hex ‡stone + edge dist. 11 485 →96 →380 1.87 9.3 +0.22 Strategy Go {empty,B,W} 9162 →96 →360 1.84 4.2 +0.09
+> Single-player (avg. score; SGG uses score lift over random-MCTS baseline)
+> Navigation FrozenLake †{safe,hole,goal} 8129 →96 →3100 1.30 2.6 +0.15 Navigation MiniGrid {empty,wall,goal} 8129 →96 →3100 1.30 2.6 +0.56 Science HP Protein Fold ‡{empty,H,P} + seq. ctx. 13 344 →128 →3100 2.79 17.8 +0.20 Puzzle Minesweeper ‡cell state + adj. count 9244 →96 →393 1.84 4.2 +0.11
+
+† Empty-position detection generates a superset of legal moves; the network suppresses illegal ones. ‡ Encoding extends beyond three-state representation (see column). 
+
+18 Extended Data Table 4 : Representative prior MCTS hardware acceler-ators. Five anchor entries from a 12-work survey across field-programmable gate array (FPGA), graphics processing unit (GPU), neuromorphic and multi-core central processing unit (CPU) platforms (full survey in Supplementary Table S6); application-specific integrated circuit (ASIC) denotes a custom chip platform. Energy-efficiency entries report the work’s stated figure against its own baseline; “—” denotes no energy figure reported. No prior work uses in-memory computing for any MCTS phase; 11 of 12 surveyed works retain random-simulation rollouts (only Thomas 2022 uses a neu-ral evaluator); only Ho et al. 2024 reports an energy-efficiency figure.                       
+
+> Work Platform Rollout Energy efficiency
+> Meng et al. 2023[39] CPU–FPGA Random sim. —Buzer & Cazenave 2023[7] GPU Random sim. —Thomas 2022[40] GPU NN evaluator —Ho et al. 2024[41] Neuromorphic Random sim. 5.6–10.4 ×
+> Steinmetz & Gini 2020[42] Multi-core CPU Random sim. —
+> This work ASIC + IMC NN evaluator 96 ×over CPU 65 ×–2,059 ×over H100
+
+# References 
+
+[1] Coulom, R.: Efficient selectivity and backup operators in Monte-Carlo tree search. In: International Conference on Computers and Games, pp. 72–83. Springer, Berlin, Heidelberg (2006) [2] Kocsis, L., Szepesvári, C.: Bandit based Monte-Carlo planning. In: Euro-pean Conference on Machine Learning (ECML), pp. 282–293. Springer, Berlin, Heidelberg (2006) [3] Silver, D., Huang, A., Maddison, C.J., Guez, A., Sifre, L., Driessche, G., Schrit-twieser, J., Antonoglou, I., Panneershelvam, V., Lanctot, M., Dieleman, S., Grewe, D., Nham, J., Kalchbrenner, N., Sutskever, I., Lillicrap, T., Leach, M., Kavukcuoglu, K., Graepel, T., Hassabis, D.: Mastering the game of Go with deep neural networks and tree search. Nature 529 (7587), 484–489 (2016) https://doi.org/10.1038/nature16961 [4] Silver, D., Hubert, T., Schrittwieser, J., Antonoglou, I., Lai, M., Guez, A., Lanc-tot, M., Sifre, L., Kumaran, D., Graepel, T., Lillicrap, T.P., Simonyan, K., Hassabis, D.: A general reinforcement learning algorithm that masters chess, shogi, and Go through self-play. Science 362 (6419), 1140–1144 (2018) https: //doi.org/10.1126/science.aar6404 [5] Dam, T., Chalvatzaki, G., Peters, J., Pajarinen, J.: Monte-Carlo robot path planning. IEEE Robotics and Automation Letters 7(4), 11213–11220 (2022) https://doi.org/10.1109/LRA.2022.3199674 [6] Deng, H., Yuan, X., Tian, Y., Hu, J.: Neural-augmented two-stage Monte Carlo 19 tree search with over-sampling for protein folding in HP model. IEEJ Trans-actions on Electrical and Electronic Engineering 17 (5), 685–694 (2022) https: //doi.org/10.1002/tee.23556 [7] Buzer, L., Cazenave, T.: GPU for Monte Carlo search. In: International Con-ference on Learning and Intelligent Optimization (LION). Lecture Notes in Computer Science, vol. 14286, pp. 179–193. Springer, Cham (2023). https://doi. org/10.1007/978-3-031-44505-7_13 [8] Intel Corporation: Intel Xeon Platinum 8462Y+ Processor Specifications. Prod-uct brief (2023) [9] NVIDIA Corporation: NVIDIA H100 Tensor Core GPU Architecture. Whitepa-per (2022) [10] Chaslot, G.M.J.-B., Winands, M.H.M., Herik, H.J.: Parallel Monte-Carlo tree search. In: International Conference on Computers and Games (CG 2008), pp. 60–71. Springer, Berlin, Heidelberg (2008) [11] Rocki, K., Suda, R.: Large-scale parallel Monte-Carlo tree search on GPU. In: 2011 IEEE International Symposium on Parallel and Distributed Processing Workshops and PhD Forum, pp. 2034–2037. IEEE, Piscataway, NJ (2011) [12] Ielmini, D., Wong, H.-S.P.: In-memory computing with resistive switching devices. Nature Electronics 1(6), 333–343 (2018) https://doi.org/10.1038/ s41928-018-0092-2 [13] Wan, W., Kubendran, R., Schaefer, C., Eryilmaz, S.B., Zhang, W., Wu, D., Deiss, S., Raina, P., Qian, H., Gao, B., Joshi, S., Wu, H., Wong, H.-S.P., Cauwenberghs, G.: A compute-in-memory chip based on resistive random-access memory. Nature 
+
+608 , 504–512 (2022) https://doi.org/10.1038/s41586-022-04992-8 [14] Büchel, J., Camposampiero, G., Vasilopoulos, A., Lammie, C., Le Gallo, M., Rahimi, A., Sebastian, A.: Kernel approximation using analogue in-memory computing. Nature Machine Intelligence (2024) https://doi.org/10.1038/ s42256-024-00943-2 [15] Li, C., Wang, Z., Rao, M., Belkin, D., Song, W., Jiang, H., Yan, P., Li, Y., Lin, P., Hu, M., Ge, N., Strachan, J.P., Barnell, M., Wu, Q., Williams, R.S., Yang, J.J., Xia, Q.: Long short-term memory networks in memristor crossbar arrays. Nature Machine Intelligence 1, 49–57 (2019) https://doi.org/10.1038/s42256-018-0001-4 [16] Portner, K., Zellweger, T., Martinelli, F., Bégon-Lours, L., Bragaglia, V., Weilen-mann, C., Jubin, D., Falcone, D., Hermann, F., Hrynkevych, O., Stecconi, T., La Porta, A., Drechsler, U., Olziersky, A., Offrein, B.J., Gerstner, W., Luisier, M., Emboras, A.: Actor–critic networks with analogue memristors mimicking reward-based learning. Nature Machine Intelligence (2025) https://doi.org/10. 20 1038/s42256-025-01149-w [17] Marr, D.: Simple memory: A theory for archicortex. Philosophical Transactions of the Royal Society of London. Series B, Biological Sciences 262 (841), 23–81 (1971) https://doi.org/10.1098/rstb.1971.0078 [18] Treves, A., Rolls, E.T.: Computational analysis of the role of the hippocampus in memory. Hippocampus 4(3), 374–391 (1994) https://doi.org/10.1002/hipo. 450040319 [19] Mead, C.: Neuromorphic electronic systems. Proceedings of the IEEE 78 (10), 1629–1636 (1990) https://doi.org/10.1109/5.58356 [20] Sebastian, A., Le Gallo, M., Khaddam-Aljameh, R., Eleftheriou, E.: Memory devices and applications for in-memory computing. Nature Nanotechnology 15 ,529–544 (2020) https://doi.org/10.1038/s41565-020-0655-z [21] Pagiamtzis, K., Sheikholeslami, A.: Content-addressable memory (CAM) circuits and architectures: A tutorial and survey. IEEE Journal of Solid-State Circuits 
+
+41 (3), 712–727 (2006) [22] Hu, M., Graves, C.E., Li, C., Li, Y., Ge, N., Montgomery, E., Dávila, N., Jiang, H., Williams, R.S., Yang, J.J., Xia, Q., Strachan, J.P.: Memristor-based ana-log computation and neural network classification with a dot product engine. Advanced Materials 30 (9), 1705914 (2018) [23] Li, C., Ignowski, J., Sheng, X., Wessel, R., Jaffe, B., Ingemi, J., Graves, C., Strachan, J.P.: CMOS-integrated nanoscale memristive crossbars for CNN and optimization acceleration. In: 2020 IEEE International Memory Work-shop (IMW), pp. 1–4. IEEE, Piscataway, NJ (2020). https://doi.org/10.1109/ IMW48823.2020.9108112 [24] Tromp, J.: The number of legal Go positions. In: Computers and Games (CG 2016). Lecture Notes in Computer Science, vol. 10068, pp. 183–190. Springer, Cham (2016). https://doi.org/10.1007/978-3-319-50935-8_17 [25] Wu, D.J.: Accelerating self-play learning in Go. arXiv preprint arXiv:1902.10565 (2019) [26] Shafiee, A., Nag, A., Muralimanohar, N., Balasubramonian, R., Strachan, J.P., Hu, M., Williams, R.S., Srikumar, V.: ISAAC: A convolutional neural network accelerator with in-situ analog arithmetic in crossbars. In: Proceedings of the 43rd International Symposium on Computer Architecture (ISCA), pp. 14–26. IEEE Press, Piscataway, NJ, USA (2016). https://doi.org/10.1145/3007787.3001139 [27] Muralimanohar, N., Balasubramonian, R., Jouppi, N.P.: CACTI 6.0: A tool to model large caches. Technical Report HPL-2009-85, HP Labs (2009) 21 [28] Rodrigues, A.F., Hemmert, K.S., Barrett, B.W., Kersey, C., Oldfield, R., Weston, M., Risen, R., Cook, J., Rosenfeld, P., Cooper-Balis, E., Jacob, B.: The structural simulation toolkit. SIGMETRICS Performance Evaluation Review 38 (4), 37–42 (2011) [29] Baudis, P., Gailly, J.-l.: Pachi: State of the art open source Go program. In: Advances in Computer Games (ACG), pp. 24–38. Springer, Berlin, Heidelberg (2011). https://doi.org/10.1007/978-3-642-31866-5_3 [30] Baudis, P.: Michi: Minimalistic Go MCTS Engine. GitHub repository. https:// github.com/pasky/michi (2014) [31] Khan, K.N., Hirki, M., Niemi, T., Nurminen, J.K., Ou, Z.: RAPL in action: Experiences in using RAPL for power measurements. ACM Transactions on Modeling and Performance Evaluation of Computing Systems 3(2), 9 (2018) https://doi.org/10.1145/3177754 [32] Lenz, D., Kessler, T., Knoll, A.: Tactical cooperative planning for autonomous highway driving using Monte-Carlo tree search. In: 2016 IEEE Intelligent Vehicles Symposium (IV), pp. 447–453. IEEE, Piscataway, NJ (2016). https://doi.org/10. 1109/IVS.2016.7535424 [33] Fujiwara, H., Mori, H., Zhao, W.-C., Chuang, M.-C., Naous, R., Chuang, C.-K., Hashizume, T., Sun, D., Lee, C.-F., Akarvardar, K., Adham, S., Chou, T.-L., Sinangil, M.E., Wang, Y., Chih, Y.-D., Chen, Y.-H., Liao, H.-J., Chang, T.-Y.J.: A 5-nm 254-TOPS/W 221-TOPS/mm 2 fully-digital computing-in-memory macro supporting wide-range dynamic-voltage-frequency scaling and simultaneous MAC and write operations. In: 2022 IEEE International Solid-State Circuits Conference (ISSCC), vol. 65, pp. 1–3. IEEE, Piscataway, NJ (2022). https://doi.org/10.1109/ ISSCC42614.2022.9731754 [34] Cai, F., Kumar, S., Van Vaerenbergh, T., Sheng, X., Liu, R., Li, C., Liu, Z., Foltin, M., Yu, S., Xia, Q., Yang, J.J., Beausoleil, R., Lu, W.D., Stra-chan, J.P.: Power-efficient combinatorial optimization using intrinsic noise in memristor hopfield neural networks. Nature Electronics 3(7), 409–418 (2020) https://doi.org/10.1038/s41928-020-0436-6 [35] Stillmaker, A., Baas, B.: Scaling equations for the accurate prediction of CMOS device performance from 180 nm to 7 nm. Integration 58 , 74–81 (2017) [36] Auth, C., et al. : A 22nm high performance and low-power CMOS technology featuring fully-depleted tri-gate transistors, self-aligned contacts and high density MIM capacitors. In: 2012 Symposium on VLSI Technology (VLSIT), pp. 131–132 (2012). https://doi.org/10.1109/VLSIT.2012.6242496 [37] Sheng, X., Graves, C.E., Kumar, S., Li, X., Buchanan, B., Zheng, L., Lam, S., Li, C., Strachan, J.P.: Low-conductance and multilevel CMOS-integrated nanoscale 22 oxide memristors. Advanced Electronic Materials 5(9), 1800876 (2019) [38] Klęsk, P.: MCTS-NC: A thorough GPU parallelization of Monte-Carlo tree search implemented in python via numba.cuda. SoftwareX 30 , 102139 (2025) https: //doi.org/10.1016/j.softx.2025.102139 [39] Meng, Y., Kannan, R., Prasanna, V.: A framework for Monte-Carlo tree search on CPU–FPGA heterogeneous platform via on-chip dynamic tree management. In: Proceedings of the 2023 ACM/SIGDA International Symposium on Field Programmable Gate Arrays (FPGA), pp. 235–245. ACM, New York, NY, USA (2023). https://doi.org/10.1145/3543622.3573177 [40] Thomas, G.: A Full-GPU Implementation of MCTS in Julia: The Key to Gumbel MuZero? Google Summer of Code 2022 project report (AlphaZero.jl). Available online (2022) [41] Ho, Y., Carbajal, A., Escamilla, L., Pinar, A.: Neuromorphic Monte Carlo tree search methods for shortest path interdiction. In: 2024 International Conference on Neuromorphic Systems (ICONS), pp. 307–311. IEEE, Piscataway, NJ (2024). https://doi.org/10.1109/ICONS62911.2024.00053 [42] Steinmetz, E., Gini, M.: More trees or larger trees: Parallelizing Monte Carlo tree search. IEEE Transactions on Games 13 (3), 315–320 (2021) https://doi.org/10. 1109/TG.2020.3048331 23 Supplementary Information for Multi-primitive in-memory computing for Monte Carlo tree search 
+
+Tergel Molom-Ochir 1,2* , Benjamin F. Morris III 1, Yintao He 1,Archit Gajjar 2, Giacomo Pedretti 2, Hai “Helen” Li 1,Yiran Chen 1, Jim Ignowski 2, Aishwarya Natarajan 2
+
+> 1*
+
+Department of Electrical and Computer Engineering, Duke University, Durham, 27708, NC, USA. 
+
+> 2
+
+Hewlett Packard Labs, Milpitas, 95035, CA, USA. *Corresponding author(s). E-mail(s): tergel.molom-ochir@duke.edu; Contributing authors: ben.morris@duke.edu; yintao.he@duke.edu; archit.gajjar@hpe.com; giacomo.pedretti@hpe.com; hai.li@duke.edu; yiran.chen@duke.edu; jim.ignowski@hpe.com; aishwarya.natarajan@hpe.com; 
+
+Abstract 
+
+This Supplementary Information accompanies the main paper and contains: (1) MCTS algorithm details and the UCB1 / PUCT formulations; (2) the phase-to-primitive decomposition methodology in full, with the three reformu-lations required for MCTS; (3) RTL design and synthesis methodology; (4) per-component circuit details for CAM, GLU, RRAM crossbar, in-memory back-propagation and FSM controller; (5) crossbar noise-robustness analysis; (6) baseline implementations and methodology; (7) ablation studies; (8) comparison with prior MCTS hardware accelerators; (9) per-application encodings, training protocols, and the Search Guidance Gain definition. Cross-references in the main paper of the form “Supplementary Note N ” point to the corresponding section here. 
+
+1Contents 
+
+1 MCTS algorithm details 4
+
+1.1 The four phases . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 41.2 UCB1 and the exploration–exploitation tradeoff . . . . . . . . . . . . . 51.3 Extension to PUCT . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5
+
+2 Phase-to-primitive decomposition methodology 6
+
+2.1 Profile – Match – Reformulate – Compose . . . . . . . . . . . . . . . . 62.2 Profiling MCTS phases . . . . . . . . . . . . . . . . . . . . . . . . . . . 62.3 The three reformulations required for MCTS . . . . . . . . . . . . . . 72.4 Composition and load-bearing nature . . . . . . . . . . . . . . . . . . . 8
+
+3 RTL design and synthesis 9
+
+3.1 SystemVerilog hierarchy . . . . . . . . . . . . . . . . . . . . . . . . . . 93.2 Synthesis flow and technology scaling . . . . . . . . . . . . . . . . . . . 93.3 Cycle-accurate simulation framework . . . . . . . . . . . . . . . . . . . 93.4 Verification and validation . . . . . . . . . . . . . . . . . . . . . . . . . 10 3.5 Iso-process projection . . . . . . . . . . . . . . . . . . . . . . . . . . . 10 
+
+4 Per-component circuit details 12 
+
+4.1 CAM-based selection unit . . . . . . . . . . . . . . . . . . . . . . . . . 12 4.2 Game Logic Unit (combinational expansion) . . . . . . . . . . . . . . . 13 4.3 RRAM crossbar rollout unit . . . . . . . . . . . . . . . . . . . . . . . . 13 4.4 In-memory backpropagation unit . . . . . . . . . . . . . . . . . . . . . 14 4.5 TCAM-based FSM controller . . . . . . . . . . . . . . . . . . . . . . . 14 4.6 Per-component area and power . . . . . . . . . . . . . . . . . . . . . . 14 
+
+5 Crossbar noise-robustness analysis 16 6 Baseline implementations and methodology 17 
+
+6.1 CPU baselines . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 17 6.2 GPU baselines (single-position and batched) . . . . . . . . . . . . . . . 17 6.3 Neural-MCTS baseline implementation . . . . . . . . . . . . . . . . . . 17 6.4 Why batched-GPU comparison is fair . . . . . . . . . . . . . . . . . . 17 
+
+7 Ablation studies 19 
+
+7.1 Component-by-component substitution . . . . . . . . . . . . . . . . . . 19 7.2 Crossbar at MCTS scale vs. digital systolic arrays . . . . . . . . . . . 19 
+
+8 Comparison with prior MCTS hardware accelerators 21 
+
+8.1 Survey of 12 prior MCTS hardware works . . . . . . . . . . . . . . . . 21 8.2 Why no prior IMC accelerator co-deployed multiple primitives . . . . 22 
+
+9 Per-application encodings, training, and the Search Guidance Gain 23 
+
+9.1 Encodings for the eight applications . . . . . . . . . . . . . . . . . . . 23 29.2 Training data and protocols . . . . . . . . . . . . . . . . . . . . . . . . 24 9.3 Search Guidance Gain definition and threshold justification . . . . . . 24 9.4 Generalizability analysis . . . . . . . . . . . . . . . . . . . . . . . . . . 25 
+
+10 Edge-deployment scenarios 26 
+
+3Supplementary Note 1 MCTS algorithm details 
+
+1.1 The four phases 
+
+Monte Carlo tree search (MCTS) constructs decision trees through statistical sam-pling via four iterative phases (Algorithm 1)[1, 2]: selection navigates root-to-leaf via the Upper Confidence Bound (UCB1) policy (Eq. S1), balancing exploitation and exploration; expansion adds child states by generating all legal moves from the current position; rollout evaluates the position via random simulation to a terminal state or a single neural-network forward pass; and backpropagation updates visit counts and win statistics along the leaf-to-root path. We evaluate on Go, where the number of legal positions reaches 10 170 [3], making exhaustive search intractable. MCTS executes 
+
+N iterations (typically 5,000) per move, each exploring one path before selecting the highest-visit-count child. 
+
+Algorithm 1 Monte Carlo Tree Search 
+
+Require: Initial state s0, iteration budget N , exploration constant C
+
+Ensure: Best move m∗ from root state  
+
+> 1:
+
+root ← CreateNode( s0) 
+
+> 2:
+
+for i = 1 to N do  
+
+> 3:
+
+// Phase 1: Selection  
+
+> 4:
+
+node ← root  
+
+> 5:
+
+while node has children and node not terminal do  
+
+> 6:
+
+node ← arg max c∈node.children UCB1( c, C) 
+
+> 7:
+
+end while  
+
+> 8:
+
+// Phase 2: Expansion  
+
+> 9:
+
+if node.visits > 0 and node not terminal then  
+
+> 10:
+
+moves ← GetLegalMoves( node.state ) 
+
+> 11:
+
+node ← AddChild( node , RandomChoice( moves ))  
+
+> 12:
+
+end if  
+
+> 13:
+
+// Phase 3: Rollout  
+
+> 14:
+
+state ← node.state  
+
+> 15:
+
+while state not terminal do  
+
+> 16:
+
+move ← RandomMove( state ); state ← ApplyMove( state , move ) 
+
+> 17:
+
+end while  
+
+> 18:
+
+result ← Evaluate( state ) 
+
+> 19:
+
+// Phase 4: Backpropagation  
+
+> 20:
+
+while node ̸ = null do  
+
+> 21:
+
+node.visits ← node.visits + 1 ; node.wins ← node.wins + result  
+
+> 22:
+
+node ← node.parent  
+
+> 23:
+
+end while  
+
+> 24:
+
+end for  
+
+> 25:
+
+return arg max c∈root.children c.visits 
+
+41.2 UCB1 and the exploration–exploitation tradeoff 
+
+The Upper Confidence Bound (UCB1) policy balances exploitation and exploration during the selection phase: 
+
+UCB1( vi) = wi
+
+ni
+
++ C
+
+√ ln Nni
+
+, (S1) where wi and ni are the wins and visits accumulated for child i, N is the parent’s visit count, and C is the exploration constant ( C = √2 is optimal[2]). Traditional MCTS uses random rollouts (simulating games via random legal moves to terminal states); modern implementations replace random rollouts with neural-network evaluation (a single forward pass)[4, 5]. Tree search remains essential because UCB1 prevents local optima and discovers tactical sequences that a network alone may miss[5]. 
+
+1.3 Extension to PUCT 
+
+The selection unit extends to AlphaZero’s PUCT policy[5], which replaces ln( N ) with √N and adds a neural policy prior P (s, a i):
+
+PUCT( vi) = wi
+
+ni
+
++ C · P (s, a i) ·√N
+
+1 + ni
+
+. (S2) This simplifies the hardware (one √N per parent vs. one ln( N )) and requires only a 
+
+∼1.4 × crossbar weight increase for 9×9 Go to add a policy head. PUCT evaluation is left to future work; all results in this manuscript use UCB1. 5Supplementary Note 2 Phase-to-primitive decomposition methodology 
+
+2.1 Profile – Match – Reformulate – Compose 
+
+Phase-to-primitive decomposition is a four-step methodology that converts a phase-heterogeneous algorithm into a multi-primitive in-memory-computing (IMC) work-load. The four steps are independent enough to be applied algorithm-by-algorithm but interlocking enough that ablating any one step (Supplementary Note 7) collapses the end-to-end advantage. 
+
+Step 1 — Profile. 
+
+Each algorithmic phase is classified by its dominant compute pattern, drawn from a small fixed vocabulary: memory-bound (irregular access defeating cache prefetching), 
+
+compute-bound (dominated by arithmetic), control-bound (branch-heavy, irregular control flow) or deterministic (fixed-shape regular operations). The classification is platform-independent and captures the algorithm’s intrinsic structure rather than properties of any particular processor. 
+
+Step 2 — Match. 
+
+Each pattern is mapped to a hardware-native IMC primitive class: associative search to content-addressable memory (CAM); dense linear algebra to an analog crossbar; sequential read-modify-write to static random-access memory (SRAM); fixed regular logic to combinational hardware. The match must be one-to-one for each phase; if more than one primitive can serve a phase, the more energy-efficient option is chosen. 
+
+Step 3 — Reformulate. 
+
+Phases whose original formulation is incompatible with the matched primitive are rewritten into primitive-compatible operations. This step may require algorithmic changes that preserve the phase’s externally observable behavior but alter how it is computed (Supplementary Note 2, §2.3 lists the three reformulations needed for MCTS). 
+
+Step 4 — Compose. 
+
+The reformulated phases are wired into an end-to-end pipeline with explicit handshak-ing. Composition succeeds only when each primitive can sustain throughput at the timing of its predecessor and successor; the resulting pipeline keeps all data on-chip and avoids reverting to off-chip storage between phases. The composition is load-bearing: ablating any single primitive substantially degrades end-to-end performance, with per-component energy and latency multipliers itemised in Supplementary Note 7. 
+
+2.2 Profiling MCTS phases 
+
+Step 1 of the methodology classifies each MCTS phase by its compute pattern. Profil-ing on AMD Threadripper PRO 5945WX and NVIDIA H100 (80 GB HBM3) reveals 6four phases with distinct, qualitatively different bottlenecks. Selection is memory-bound and irregular: the data-dependent UCB1 traversal (Eq. S1) defeats hardware prefetchers, accumulating a 160-ns hash-table lookup latency that persists regardless of optimization. Expansion is control-bound and deterministic: variable branching fac-tors cause GPU warp divergence even though each individual move-generation step is regular logic. Rollout is compute-bound: it accounts for 86.3% of CPU execution time at 9×9 Go (95.5/110.6 ms), and tolerates approximate evaluation because MCTS’s statistical averaging over thousands of iterations absorbs per-evaluation error[5]; we quantify this robustness directly for the analogue substrate in Supplementary Note 5. 
+
+Backpropagation is memory-bound and sequential: pointer chasing along O(log T )
+
+depth paths for read-modify-write of statistics. Bottlenecks shift across platforms (Extended Data Fig. 1 of the main paper). On CPU, rollout dominates execution. On GPU running peak-throughput traditional MCTS (8 trees, 128 playouts), backpropagation alone consumes 68.2% of the time due to memory contention from concurrent tree updates. Switching to neural-MCTS on the same GPU, rollout returns to dominance at 95.0% as the neural-network evaluator replaces the random simulation. The shifting bottleneck across platforms confirms that single-phase acceleration is insufficient; an end-to-end multi-primitive approach is required. 
+
+2.3 The three reformulations required for MCTS 
+
+Step 3 of the methodology required three reformulations to make MCTS IMC-compatible. Each reformulation preserves MCTS’s externally observable algorithmic semantics (the tournament result in Fig. 3d confirms that the resulting hardware MCTS plays at the strong-kyu band ( ≈3 kyu), matching software MCTS refer-ence engines such as Pachi-UCT and Michi-C within the sample-size uncertainty at 500-simulation compute) while changing how the phase is computed. 
+
+Reformulation 1: variable-length random rollout → fixed-latency neural evaluator. 
+
+Traditional MCTS rollouts simulate games via random legal moves to a terminal state, which can take 20–200 sequential moves and dominates 86.3% of CPU exe-cution. Crossbars require fixed-dimension inputs, so we replace random simulation with a learned two-layer feed-forward neural network ( 162 → 96 → 3 for 9×9 Go) that produces win/loss/draw probabilities in a single deterministic forward pass[4, 5]. The neural evaluator serves the same algorithmic role for UCB1 as a random rollout outcome but with bounded latency. The cost is that the evaluator must be trained (we use self-play on 2,000 labeled positions per board size) and programmed onto differential-conductance pairs (0.1–99.9 μS range) for crossbar deployment; on-device non-idealities are modeled at inference by additive Gaussian conductance noise of 
+
+σ ∈ { 2, 5, 10 }% (Supplementary Note 5). 7Reformulation 2: pointer-chasing tree traversal → parallel associative lookup. 
+
+Conventional MCTS implementations store the search tree in a hash table indexed by board state and follow parent–child pointers during selection. Hash-table tree storage requires chained collision resolution, yielding variable-latency lookups that break the deterministic fixed-stage pipeline. We restructure tree traversal as parallel associative lookup: each node’s board state is stored as a CAM bit pattern, and a single CAM query returns the addresses of all child nodes simultaneously. The cost is CAM area (CAM cells include match-line logic in addition to storage; per-cell areas are reported in Supplementary Note 4) and the requirement that tree size match CAM capacity; for 
+
+9×9 Go, a 1,024-entry CAM occupies 0.049 mm 2 (∼2.7% of total chip area, taking the denominator as digital logic plus all on-chip memory arrays (Node SRAM, Children SRAM and CAM) as quantified in Supplementary Note 3). 
+
+Reformulation 3: off-chip statistics updates → in-place SRAM read-modify-write. 
+
+Conventional implementations shuttle visit counts and win statistics between DRAM and ALUs during backpropagation, contributing the bulk of GPU-Max execution time at 9×9 (68.2%). We co-locate the arithmetic logic with on-chip SRAM and perform read-modify-write in-place, eliminating off-chip data movement. The cost is dedicated saturating-counter logic adjacent to the SRAM banks (3 submodules, <2 mW at 9×9). 
+
+2.4 Composition and load-bearing nature 
+
+The four reformulated phases compose into an end-to-end pipeline only because each primitive’s timing guarantees match the requirements of the next. CAM’s single-cycle worst-case latency prevents stalls that would idle the crossbar between selections; the crossbar’s deterministic 768-ns read latency, in turn, permits the four-stage pipeline to be fixed-depth rather than data-dependent; and the in-place SRAM updates at the backpropagation stage close the loop without ever leaving the chip. Each primitive depends on the others’ timing guarantees, which is what distinguishes phase-to-primitive decomposition from simple modular acceleration. The load-bearing nature is verified empirically through the ablation study (Supplementary Note 7): replacing any single primitive with its conventional counterpart costs 65 × to 250 × in phase-local energy or latency on the affected phase; the end-to-end impact on the four-stage pipeline is bounded above by that phase’s share of total execution time (Amdahl’s Law across the four phases), as itemised in Supplementary Note 7. 8Supplementary Note 3 RTL design and synthesis 
+
+3.1 SystemVerilog hierarchy 
+
+A hierarchical SystemVerilog architecture supports board sizes from 2×2 to 19 ×19 .The top-level module instantiates five units (CAM-based selection, GLU expansion, crossbar interface, SRAM backpropagation, FSM controller) connected through a cus-tom interconnect with valid/ready handshakes. Conditional generate blocks synthesize only the logic required for the chosen board size, so a 5×5 build is materially smaller than a 19 ×19 build at the same RTL source. Key design trade-offs are exposed at the top level: CAM capacity must match expected tree size, flat vs. hierarchical SRAM organization is selected per board size, and the FSM controller uses one-hot encoding. 
+
+3.2 Synthesis flow and technology scaling 
+
+Digital components were synthesized with Synopsys Design Compiler against a TSMC 65-nm standard-cell library at 500 MHz, typical-typical corner, 1.2 V, then scaled to 22 nm via the technology-independent scaling rules of Stillmaker and Baas[6]. Per-component area, power and timing breakdowns at 9×9 Go appear in Supplementary Table S3 and Extended Data Fig. 1 of the main paper. SRAM macros were character-ized through CACTI 6.0[7]. The selection CAM uses 6T-SRAM-based cells[8], with a per-cell area taken as the 22-nm 6T-SRAM cell (0.092 μm2)[9]; the FSM-controller TCAM uses conventional 16T cells[10], with a per-cell area of 0.676 μm2 at 22 nm. The synthesized system at 9×9 Go totals 0.059 mm 2 of digital logic (excluding off-chip memory arrays: Node SRAM, Children SRAM and CAM array, which are quantified separately) at 22 nm and consumes 60.26 mW in sustained Medium-strength opera-tion. The total chip area including the CAM array (0.049 mm 2) and Node + Children SRAM macros is approximately 1.8 mm 2 at 9 × 9 Go; memory arrays dominate the total. 
+
+3.3 Cycle-accurate simulation framework 
+
+Functional behavior and end-to-end performance were modeled with a custom discrete-event simulator built on the Structural Simulation Toolkit (SST)[11]. Each pipeline unit is implemented as an SST component communicating with neighbour-ing components through links with 1–5 ns nominal delay. Eighteen RTL modules are instantiated across the five pipeline units; each module’s SST component reads its syn-thesized gate count, capacitance and timing from the Synopsys flow so the simulator’s energy and latency accounting reflects the synthesized hardware rather than behav-ioral estimates. We simulate 18 configurations (six board sizes from 2×2 to 19 ×19 ×
+
+three play-strength levels: low, medium, high) at 50,000–100,000 iterations per game (per-configuration iteration budgets in Supplementary Table S1). The simulator’s out-puts (end-to-end energy per move, per-iteration latency, and per-component power) form the basis for all simulation-derived numbers in the main paper. 9Table S1 Supplementary Table S1.                              
+
+> MCTS iteration budgets used for the three play-strength configurations (Low, Medium, High) at each evaluated board size. Low uses fast random rollouts at exploration constant c= 1 .0; Medium uses random rollouts at c=√2; High uses neural-network-guided rollouts at
+> c=√2for deep search. These configurations parameterize the area, power and energy results in Extended Data Fig. 1 of the main paper.
+> Board Size Low Medium High
+> 2×250 200 1,000 3×375 500 5,000 5×5100 1,000 10,000 9×9500 5,000 50,000 13 ×13 1,000 7,500 75,000 19 ×19 2,000 10,000 100,000
+
+3.4 Verification and validation 
+
+Functional verification used SystemVerilog testbenches with directed and constrained-random stimuli across all 18 RTL modules. A cycle-accurate Python golden model independently implements the MCTS pipeline at the same level of abstraction; dif-ferential testing between RTL and golden model across more than 1,000 randomised games confirmed functional equivalence and matching end-to-end throughput (18,471 iterations/s on 2×2, 510 iterations/s on 19 ×19 ). Decision-quality validation against software MCTS reference engines is provided by the 1,050-game round-robin tourna-ment (main paper Fig. 3d), in which hardware IMC-MCTS settles at ≈1727 EGF (3 kyu), matching Pachi-UCT (1660, 4 kyu) and Michi-C (1706, 3 kyu) within the sample-size uncertainty at 500-simulation compute. 
+
+3.5 Iso-process projection 
+
+To address the question of whether IMC-MCTS’s energy advantage stems from archi-tectural decisions or process-node mismatch, we apply the same Stillmaker scaling rules[6] used in our 65 →22-nm conversion to project the 22-nm power figures to a 4-nm node matching H100. The projection breaks down by component (Table S2). The projected sustained 9×9 Go power at 4 nm falls in the range ∼15–25 mW (point estimate ∼17 mW with ±30–40% uncertainty from peripheral-circuit re-characterization at the target node), widening the energy-per-move advantage over batched H100 to roughly 100 ×–180 ×. We emphasize this is a back-of-envelope pro-jection: precise 4-nm synthesis would require re-characterising ADC/DAC sizing, crossbar driver circuitry and memory periphery at the target node, any of which could shift the projected range further. The measured 22-nm result alone establishes the architectural advantage; this iso-process estimate is provided to clarify that the com-ponents that scale most favourably with process (logic, SRAM) also dominate the 10 Table S2 Supplementary Table S2. Back-of-envelope iso-process power projection at 4 nm. Component shares at 22 nm are taken from Supplementary Table S3. 
+
+Component 22-nm Scaling (22 → 4 nm) 4-nm CMOS logic (GLU/FSM/CAM ctrl) ∼45 mW ∼4× reduction ∼11 mW SRAM (Node/Children/backprop) ∼13 mW ∼2.5 × (memory) ∼5 mW RRAM crossbar (prog. state) ∼1.5 mW process-independent ∼1.5 mW 
+
+Total (projected) 60.26 mW — ∼15–25 mW 
+
+22-nm power budget, so closing the process gap would not be expected to reverse the direction of the advantage. 11 Supplementary Note 4 Per-component circuit details 
+
+4.1 CAM-based selection unit 
+
+The selection unit stores tree-node board states as bit patterns in a 6T-SRAM-based CAM, enabling parallel pattern matching across all entries and reducing O(n) tree traversal into a single-cycle operation. Each CAM row represents an MCTS tree node; its corresponding SRAM address stores the node’s metadata (visit counts and reward values) used for UCB1 scoring. When the FSM issues a selection query with the current node’s identifier, the CAM activation pattern returns the addresses of all child nodes in parallel. These addresses access the SRAM arrays which in turn provide the visit counts and reward values to a tournament selector, which computes UCB1 scores (Eq. S1) and identifies the best child within a single-cycle decision. Seven submodules implement this pipeline: 1○ a 6T-SRAM-based CAM for par-allel pattern matching, 2○ Node SRAM and Child SRAM for metadata, 3○ access controllers for both, 4○ a Best Child Selector, 5○ a UCB1 Calculator, 6○ a Children Address Generator, and 7○ an Output Multiplexer. 
+
+State encoding and memory hierarchy. 
+
+Board positions use 2 bits per cell (empty = 00 , black = 01 , white = 10 ), yielding 2N 2
+
+bits for an N ×N board. The selection unit employs a three-tier memory hierarchy. Tier 1 CAM stores tree nodes sized to board dimensions (50 bits for 5×5, 722 bits for 
+
+19 ×19 ) plus metadata fields (node identifier, SRAM address, validity, flags). Tier 2 Node SRAM stores 24-byte statistics (visit count, win count, mean value) with 2–3 cycle access latency. Tier 3 Children SRAM stores variable-length child lists as 8-byte entries. Total selection-unit memory scales as O(iterations × N 2), dominated by Children SRAM. Board symmetries are not exploited, trading a potential 8× state-space reduction for simpler hardware that avoids canonical-transform logic and the latency of symmetry detection during traversal. 
+
+Why CAM over processing-in-memory hash tables. 
+
+Processing-in-memory hash-table designs reduce data movement compared with con-ventional DRAM hash tables but degrade to O(n) on collision chains and require 
+
+k sequential lookups to retrieve all children of a node. CAM guarantees single-cycle worst-case lookup and activates all children in parallel. CAM cells require additional area for match-line logic beyond plain storage; the absolute area at MCTS scale remains modest: the 1,024-entry CAM for 9×9 Go occupies 0.049 mm 2, which is ∼2.7% of total chip area when the memory arrays (Node SRAM, Children SRAM, CAM) are summed alongside the digital logic reported in Supplementary Table S3. The PUCT extension (Eq. S2) further simplifies the selection hardware by replacing ln( N ) with √N .12 4.2 Game Logic Unit (combinational expansion) 
+
+Expansion produces deterministic outputs from the current board state, making it ideal for single-cycle combinational logic. Whereas software MCTS loops sequentially over board cells, our expansion unit evaluates all N 2 cells in parallel through four sub-modules: 1 ○ an Empty Position Detector built from parallel 2-bit comparators against the empty-cell pattern 00 ; 2○ a Move Generator implementing per-application game rules; 3 ○ a Child State Generator that applies legal moves to produce successor board states; and 4○ Player Turn Logic that toggles the move color. Configurable bit-width parameters scale the Game Logic Unit (GLU) from 2×2 to 19 ×19 without adding cycles. The single-cycle combinational approach generalises to other discrete-state games through per-application synthesis of game-specific rule logic; this is the only pipeline stage that requires per-application customization, and accounts for ∼1.4% of total chip area when memory arrays are included in the denominator (or ∼43% of digital logic alone; Supplementary Table S3; Supplementary Note 9). 
+
+4.3 RRAM crossbar rollout unit 
+
+Replacing variable-length random rollouts with a learned two-layer neural-network evaluator converts the rollout bottleneck into a matrix–vector multiplication that maps naturally onto analog resistive-memory crossbar arrays[12–14]. The crossbars are organized in a 1T1R (one-transistor, one-memristor) configuration, performing analog multiply–accumulate in a single step. Weights are stored as differential-conductance pairs in the 0.1–99.9 μS range; the datapath uses an 8-bit ADC and binary (1-bit) DAC input encoding. The rollout data path proceeds through five stages: 1○ position-to-voltage DACs convert the leaf board state to analog inputs; 2○ Crossbar #1 computes the first layer ( W1 ∈ R162 ×96 for 9×9 Go); 3○ Crossbar #2 computes the second layer ( W2 ∈
+
+R96 ×3); 4○ current-to-digital ADCs digitise the outputs; and 5○ Win Decision Logic applies softmax to produce win/loss/draw probabilities. For larger boards ( 19 ×19 
+
+uses 722 ×128 ), the first layer partitions across three sub-arrays ( ≤256 rows each) to preserve single-cycle semantics. The 768-ns read latency decomposes into 256 ns of wordline charging and 512 ns of ADC conversion, characterized from a fabricated 180-nm CMOS 64 ×64 RRAM crossbar with complete ADC/DAC peripherals[14] and scaled to 22 nm via Stillmaker[6]. 
+
+Weight stationarity at MCTS scale. 
+
+The crossbar’s decisive advantage at this scale is weight stationarity. Although roll-out is compute-bound on CPUs, at MCTS scale ( <20,000 MACs per inference) the energy required to fetch weights from SRAM on digital hardware exceeds the energy of the computation itself. Crossbar weights programmed in situ are never fetched during inference, eliminating this access cost. By contrast, a 256 ×256 digital systolic array leaves more than 75% of its processing elements idle on the 162 ×96 first layer (only ∼24% utilization), confirming that the crossbar’s advantage stems primarily from eliminating weight movement rather than from analog arithmetic alone. Scaled to 22 nm, the rollout unit achieves 0.308 pJ per multiply–accumulate operation including 13 ADC/DAC overhead, a ∼65 × energy advantage over digital MACs (up to 20 pJ/MAC for Eyeriss-class accelerators at MCTS scale; Supplementary Table S5). The method-ology is technology-agnostic and adaptable to SRAM-based, phase-change-memory or ferroelectric-FET alternatives; the primary requirement is that the storage technology supports stable multi-level conductance states. 
+
+4.4 In-memory backpropagation unit 
+
+Once rollout produces a win-probability estimate, the result flows immediately into the backpropagation unit, the final pipeline stage, which updates visit counts and win statistics along the leaf-to-root path. By integrating arithmetic logic directly with on-chip SRAM, the backpropagation unit performs in-place read-modify-write opera-tions, ensuring that all data remains on-chip. Three submodules divide the work: 1 ○ aStatistics Updater increments visit and win counters using saturating logic to prevent overflow; 2○ a Path Address Extractor walks parent pointers from the expanded leaf back to the root; and 3○ a Memory Write Controller orchestrates pipelined writes. Co-locating computation with storage eliminates the memory-bandwidth bottleneck that conventional architectures incur when shuttling statistics between DRAM and ALUs. Backpropagation SRAM scales from 512 bytes ( 2×2) to 8 KB ( 19 ×19 ), fitting entirely on-chip with zero DRAM traffic in any configuration we evaluated. 
+
+4.5 TCAM-based FSM controller 
+
+A ternary CAM-based finite-state machine orchestrates the four-stage pipeline: it tran-sitions deterministically through IDLE → SELECT → EXPAND → ROLLOUT → BACKPROP 
+
+→ IDLE , replacing the irregular branch-and-schedule control flow of software MCTS with fixed hardware sequencing. The TCAM matches the current state and inputs to select the next transition, while a companion RAM stores the next-state outputs. Handshaking protocols between adjacent pipeline stages prevent resource conflicts while maintaining predictable throughput. Pipeline latency varies modestly with board complexity but remains deterministic: small boards ( 2×2 to 5×5) complete an iteration in 19 cycles, while larger boards ( 9×9 to 19 ×19 ) require 19–23 cycles due to increased CAM search depth and crossbar evaluation time. This fixed-latency design enables predictable throughput regardless of board-state distribution, in con-trast to software implementations whose tree-structure variations cause unpredictable performance. 
+
+4.6 Per-component area and power 
+
+Component-level area and power scaling from 2×2 to 19 ×19 Go are reported in the main paper (Fig. 2d,e). Per-component values at the 9×9 configuration are listed in Supplementary Table S3 below. 14 Table S3 Supplementary Table S3. Accelerator parameters at the 9×9 Go configuration in 22 nm CMOS, 500 MHz. Area and power are reported per pipeline unit at sustained Medium-strength operation (5,000 iterations/move). Values traced from 
+
+power_area_breakdown.csv in the simulator artifact. The TCAM row reports the ternary CAM storage array alone; the FSM Control row aggregates the next-state RAM, transition decoder, handshaking glue and pipeline-stage sequencer that surround it (Supplementary Note 4).                  
+
+> Component Area (mm 2)Power (mW)
+> TCAM 7.04 ×10 −50.25 CAM Selection 0.0147 14.82 GLU Expansion 0.0253 28.11 Crossbar Rollout †0.0013 1.54 SRAM Backpropagation 0.0026 3.03 FSM Control 0.015 12.50
+> System Total 0.0590 60.26
+> †
+
+Crossbar rollout figure is sustained average power across DAC, crossbar MVM, and ADC stages; energy-equivalent is 0.308 pJ/MAC including ADC/DAC over-head. Areas exclude off-chip memory arrays (Node SRAM, Children SRAM, CAM array) which are quan-tified separately in Supplementary Note 3. 
+
+15 Supplementary Note 5 Crossbar noise-robustness analysis 
+
+The analog rollout unit’s central reliability question is whether device-level non-idealities (device-to-device conductance variation, programming write noise, drift) propagate into degraded MCTS decisions. To probe this directly, we inject additive Gaussian conductance noise with standard deviation σ ∈ { 2, 5, 10 }% (relative to the center conductance, matching reported RRAM programming-variation envelopes[12, 14, 15]) into the trained 9×9 Go evaluator at each forward pass, then replay the tournament against a random-rollout-MCTS baseline at the same compute budget (Table S4).                 
+
+> Table S4 Supplementary Table S4. Crossbar noise robustness on 9×9Go. Win-rate of noisy-evaluator MCTS versus a random-rollout-MCTS baseline at matched compute (200 simulations per move), and 1-ply policy agreement of the noisy evaluator with the noise-free evaluator.
+> σ(% Gcenter )Win-rate vs random-rollout MCTS ( n=30 )1-ply policy agreement vs σ=0 (n=100 )293% 0.85 5100% 0.71 10 93% 0.57
+
+30 games per row (3 independent noise realisations × 10 games, alternating colors), 200 MCTS simulations per move; raw CSV at results/noise_sweep_9x9.csv .
+
+Two findings are notable. First, MCTS win-rate against the random-rollout base-line stays essentially flat at 93–100% across all σ values, statistically indistinguishable from the noise-free 93% reference. Second, this stability holds even though the under-lying neural network’s 1-ply move choices diverge sharply from the noise-free policy — agreement falls from 0.85 at σ = 2 % to 0.57 at σ = 10 %, a 43-percentage-point divergence at the highest noise level. The two findings together provide direct empir-ical confirmation of the AlphaZero-style averaging argument[5]: MCTS’s statistical ensemble across hundreds of rollouts absorbs per-evaluation perturbations that would otherwise corrupt single-shot decisions, so device non-idealities within the reported RRAM envelope do not translate into degraded play. The strong-kyu Go playing strength reported in the main paper (Fig. 3d, IMC-MCTS at ≈1727 EGF / 3 kyu) is therefore robust to the device non-idealities the analog substrate is known to exhibit, and remains so under noise levels at the upper end of published RRAM variation envelopes. 16 Supplementary Note 6 Baseline implementations and methodology 
+
+6.1 CPU baselines 
+
+CPU baselines run on Intel Xeon Platinum 8462Y+ and AMD Threadripper PRO 5945WX, both representative of current-generation server CPUs. Both implementa-tions use optimized C++17 with the -O3 compiler flag and single-threaded UCT, the standard MCTS reference[2]. We evaluate both random-rollout and neural-network-evaluator variants of MCTS on each platform across all six tested board sizes ( 2×2
+
+to 19 ×19 ). CPU power is instrumented through Intel Running Average Power Limit (RAPL)[16], which provides direct package-level energy counters. 
+
+6.2 GPU baselines (single-position and batched) 
+
+The GPU baseline is an NVIDIA H100 with 80 GB of HBM3 memory. We evaluate two MCTS implementations on this hardware: a traditional MCTS engine, the open-source mcts_numba_cuda implementation[17], and a neural-evaluation MCTS engine implemented on top of CUDA cuBLAS for matrix–vector multiplication. We report two GPU operating categories. Single-position (denoted GPU-Fair throughout) issues one inference per MCTS iteration, matching the algorithm’s natural sequential depen-dency for iso-resource comparison. Batched neural-MCTS configurations accumulate 64, 128 or 256 leaf positions per inference call to better match GPU compute/memory characteristics. GPU power is measured via nvidia-smi sampled at 100 Hz during execution. 
+
+6.3 Neural-MCTS baseline implementation 
+
+Both CPU and GPU neural-MCTS baselines use a two-layer feed-forward network whose architecture matches the accelerator’s crossbar (e.g. 162 → 96 → 3 for 9×9 Go). Networks are trained via supervised learning on 10,000+ self-play game trajectories per board size, achieving >92% three-class (win/loss/draw) classification accuracy on a held-out test set. The trained network replaces the random-rollout phase of MCTS with a single forward pass, following AlphaZero methodology[5]. This setup ensures the comparison is between the same algorithm running on different hardware, isolating the hardware contribution from any algorithmic difference. 
+
+6.4 Why batched-GPU comparison is fair 
+
+The single-position GPU baseline underutilises the H100’s compute capacity ( <5% occupancy), so a hardware-only result against single-position would attribute too much of IMC-MCTS’s gain to GPU underutilisation rather than to architectural advantages. To remove this confound, we additionally compare against batched neural-MCTS configurations where 64–256 leaf positions are accumulated through virtual-loss batching, in which in-flight nodes are temporarily marked as losses to preserve some exploration diversity. Batching trades exploration diversity for compute occupancy, 17 but is the standard practical baseline for high-throughput GPU MCTS deployments. Even against the strongest batched configuration (batch-256), IMC-MCTS retains 65 × total software-times-hardware energy efficiency (46 × hardware-only energy effi-ciency for neural-MCTS alone) and 3.4 × latency advantage at 9×9 Go, and does so at a 22 nm process node compared to the H100’s 4 nm node, which is a strong indicator that the gain is architectural rather than process-driven. 18 Supplementary Note 7 Ablation studies 
+
+7.1 Component-by-component substitution 
+
+To verify that each IMC primitive is load-bearing, we replaced each in turn with its conventional counterpart while retaining the other three primitives, and re-measured end-to-end performance. Each bullet reports a phase-local multiplier — the energy or latency cost of replacing one IMC primitive with its conventional counterpart while keeping the other three primitives unchanged. These phase-local multipliers exceed the 96 × system gain because each phase contributes only its share to end-to-end energy (Amdahl’s Law across the four-phase pipeline); they should not be multiplied together. 
+
+• CAM → hash table: 1.31 pJ (CAM) vs. 220 pJ (hash table) per selection — a 168 × energy multiplier and 14 × latency multiplier, driven by DRAM-bound chain traversal. 
+
+• Analog crossbar → digital neural network: 0.308 pJ/MAC (crossbar) vs. up to 20 pJ/MAC (Eyeriss-class digital; Supplementary Table S5) — a 65 × rollout-phase energy multiplier at identical evaluation accuracy. 
+
+• GLU → software expansion: 250 × slower per expansion step (a latency multiplier on the expansion phase, reflecting sequential loops over N 2 board cells); end-to-end energy impact is bounded by the expansion phase’s ∼28 mW share of total power (Supplementary Table S3). 
+
+• In-place SRAM → DRAM tree backup: each statistic update incurs an off-chip round-trip (50–100 ns DRAM access vs. single-cycle on-chip SRAM), eliminating the data locality that motivates the in-place design; magnitude is memory-subsystem dependent and is therefore reported qualitatively rather than as a fixed multiplier. The full phase-to-primitive mapping is load-bearing: replacing any single primitive collapses the end-to-end advantage. Note that the per-component figures above are measured on isolated workloads and not multiplied to produce the full system gain; the combined 96 × end-to-end energy advantage over CPU is the result of all four primitives operating in concert and is bounded above by Amdahl’s Law across the four phases. 
+
+7.2 Crossbar at MCTS scale vs. digital systolic arrays 
+
+Digital systolic arrays achieve excellent energy efficiency on large dense neural-network layers but suffer severe under-utilization at MCTS workload scale ( <20,000 MACs per inference). A representative 256 ×256 systolic array processing the 162 ×96 MCTS first layer leaves more than 75% of its processing elements idle (only ∼24% utiliza-tion), and the idle elements still consume static power. The analog crossbar sized to the actual layer dimensions instead achieves near-100% utilization. Furthermore, crossbar weights are stationary (programmed once and never re-fetched), which elim-inates weight-fetch energy entirely, a property that is critical for inference embedded 19 Table S5 Supplementary Table S5. Energy efficiency of analog crossbar vs. representative digital accelerators at the MCTS workload scale ( <20 k MACs per inference). Higher relative-energy values are worse; the IMC-MCTS crossbar is normalized to 1×.                              
+
+> ISAAC [18] Eyeriss [19] TPU v1 [20] DiP [21] Ours
+> Node 32 nm 65 nm 28 nm 22 nm 22 nm Paradigm Analog IMC Digital Digital Digital Analog IMC pJ/MAC 1.5–2.0 8.3–20 0.43–2.0 1.0 a0.308
+> TOPS/W 0.5–0.7 0.12 2.3 9.6 b3.25
+> Rel. energy c4.9–6.5 ×27–65 ×1.4–6.5 ×3.2 ×1×
+> a
+
+DiP at low utilization ( <10%) for small networks. b DiP peak for large workloads (4,096 PEs). c Relative to this work at MCTS scale; higher is worse. 
+
+within a tight search loop where weights would otherwise be fetched every iteration. Supplementary Table S5 quantifies the resulting energy advantage: 0.308 pJ/MAC for the IMC-MCTS crossbar vs. 0.43–20 pJ/MAC for representative digital accelerators at MCTS scale, a 1.4 × to 65 × relative-energy gap. 20 Table S6 Supplementary Table S6. Survey of 12 prior MCTS hardware acceleration efforts on FPGA, GPU, neuromorphic and multi-core platforms, plus this work. Speedup is reported relative to each work’s stated baseline. 11 of 12 prior works use random-simulation rollouts; only 1 of 12 reports an energy-efficiency figure. This work is the first IMC accelerator that co-deploys multiple primitives across all four MCTS phases.                                                                         
+
+> Work Platform Application Speedup Rollout Energy eff.
+> FPGA implementations
+> Meng et al. 2023[22] CPU–FPGA General 6.8 ×Random sim. —Meng et al. 2022[23] CPU–FPGA General 35 ×Random sim. —Carvalho 2019[24] Zynq SoC Chess (8) 98 ×Random sim. —Qasemi et al. 2014[25] FPGA Blokus (14) —Random sim. —
+> GPU implementations
+> Buzer & Cazenave 2023 [26] GPU optimization 420 ×Random sim. —Sun et al. 2022[27] GPU Amazons 20 ×Random sim. —Thomas 2022[28] GPU Connect-4 13 ×NN eval. —Huang et al. 2022[29] GPU Robotics 30 ×Random sim. —Johnson et al. 2016[30] GPU Go ( 5,19 )72 ×Random sim. —Rocki & Suda 2011 [31] GPU Reversi (8) 100–200 ×Random sim. —
+> Other platforms
+> Ho et al. 2024 [32] Neuromorphic Graph problems Quality Random sim. 5.6–10.4 ×
+> Steinmetz & Gini 2020[33] Multi-core CPU Go ( 9,19 )Win rate Random sim. —
+> This work ASIC + IMC Go ( 2–19 )—dNN eval. 96.0 ×
+
+Board-size column shows the single board dimension N (i.e. N ×N ); a range or comma-list denotes multiple sizes evaluated by that work. d This work optimises end-to-end energy effi-ciency rather than wall-clock speedup; the energy column is the canonical metric. Prior works’ speedups use heterogeneous baselines (per-platform CPU, GPU, single-threaded reference) that are not directly comparable. 
+
+# Supplementary Note 8 Comparison with prior MCTS hardware accel-erators 
+
+8.1 Survey of 12 prior MCTS hardware works 
+
+Supplementary Table S6 surveys 12 representative prior MCTS hardware accelera-tion efforts. The set spans four FPGA implementations (Meng et al. 2023[22] and 2022[23]; Carvalho 2019 on Zynq SoC[24]; Qasemi et al. 2014[25]), six GPU implemen-tations (Buzer & Cazenave 2023[26]; Sun et al. 2022[27]; Thomas 2022[28]; Huang et al. 2022[29]; Johnson et al. 2016[30]; Rocki & Suda 2011[31]), one neuromorphic accel-erator (Ho et al. 2024[32]) and one multi-core CPU effort (Steinmetz & Gini 2020[33]). Three structural observations emerge from the survey. First, all twelve works retain conventional memory hierarchies (DRAM-backed hash tables for tree storage, sepa-rate compute and memory units), and none uses in-memory computing for any phase. Second, 11 of 12 (92%) use random-simulation rollouts despite modern algorithmic practice having moved to neural evaluators since AlphaZero; only 1 of 12 (Thomas 2022) uses neural evaluation. Third, only 1 of 12 (Ho et al. neuromorphic) reports a complete energy-efficiency figure rather than time speedup, leaving energy as a largely unexplored optimization dimension in MCTS hardware. 21 8.2 Why no prior IMC accelerator co-deployed multiple primitives 
+
+Prior IMC accelerators, from early proposals such as PRIME and ISAAC[18] to more recent silicon prototypes[15, 34] and broader IMC surveys, target regular, data-parallel workloads (convolution, matrix multiplication, attention) whose execution can be expressed in a single dominant operation (typically matrix–vector multiply). They co-deploy at most one IMC primitive per design and place ancillary control logic in a conventional digital pipeline alongside the IMC core. MCTS is structurally differ-ent: its phase heterogeneity demands four qualitatively distinct primitives (CAM for selection, combinational logic for expansion, analog crossbar for rollout, SRAM for in-place backpropagation), each chosen to match a different compute pattern. To our knowledge, IMC-MCTS is the first IMC accelerator to co-design an algorithm with a multi-primitive IMC pipeline that maps all four heterogeneous phases end-to-end. This pattern is what phase-to-primitive decomposition formalises, and it is what enables the methodology to extend to other irregular AI decision algorithms beyond MCTS. 22 Supplementary Note 9 Per-application encodings, training, and the Search Guidance Gain 
+
+9.1 Encodings for the eight applications 
+
+The eight applications span four AI domains: strategy games (Connect Four, Othello, Hex, Go), grid navigation (FrozenLake, MiniGrid), scientific optimization (HP protein folding) and puzzles (Minesweeper). Per-application encodings, board sizes, network dimensions and per-decision energy are summarized in Extended Data Table 3 of the main paper. 
+
+Connect Four. 
+
+Three-state encoding {empty , R, Y} on a 7 × 6 board (padded to 8 × 8 for hardware uniformity); network is 129 → 96 → 3, achieving 80% three-class accuracy. The expansion unit relies on the GLU’s empty-position detection (column-wise top-down lowest empty cell), which generates a superset of legal moves; the network suppresses illegal ones at evaluation time. 
+
+Othello. 
+
+Three-state encoding {empty , B, W} on the standard 8 × 8 board; same 129 → 96 → 3
+
+network as Connect Four; 80% accuracy. Move legality (capture-flanking) handled by network rather than GLU, again with empty-position-based superset generation. 
+
+Hex. 
+
+Stone + edge-distance feature encoding on 11 × 11 ; network is 485 → 96 → 3;80% accuracy. Hex’s connectivity-based win condition makes it the most demanding evaluation of the four strategy games at this network size. 
+
+Go. 
+
+Three-state encoding {empty , B, W} on 9 × 9; network is 162 → 96 → 3; 60% three-class accuracy on the larger and noisier action space. The kyu-to-dan-transition playing strength reported in main paper Fig. 3 is achieved at this configuration. 
+
+FrozenLake. 
+
+Three-state encoding {safe , hole , goal } on 8×8; network 129 → 96 → 3; 100% accuracy on the deterministic version. Single-player setting; SGG measures score lift over a random-rollout MCTS baseline rather than head-to-head win rate. 
+
+MiniGrid. 
+
+Three-state encoding {empty , wall , goal } on 8 × 8; same network as FrozenLake; 100% accuracy. MiniGrid has the largest observed SGG ( +0 .56 ) of the eight applications, consistent with grid-navigation tasks benefiting from neural guidance over random rollouts. 23 HP protein folding. 
+
+Hydrophobic–polar lattice encoding with sequence context, on a 13 ×13 board; network is 344 → 128 → 3 (the only application requiring a wider hidden layer); 100% three-class accuracy. The encoding extends beyond three-state by adding a sequence-context channel. 
+
+Minesweeper. 
+
+Cell-state + adjacency-count encoding on 9 × 9; network is 244 → 96 → 3; 93% accuracy. Like HP protein folding, the encoding extends beyond three-state to capture the adjacency-count information that makes the puzzle decidable from local context. 
+
+9.2 Training data and protocols 
+
+Per-application neural networks are trained on self-play game data with task-specific input encodings. We use the AdamW optimiser with learning rate η = 0.003 ,training on 2,000 labeled positions per board size with early stopping when vali-dation accuracy plateaus (70–90% accuracy across applications, dependent on task complexity). Trained floating-point weights are then programmed onto differential-conductance pairs in the 0.1–99.9 μS range for RRAM crossbar deployment; on-device non-idealities are modeled at inference time by additive Gaussian conductance noise of σ ∈ { 2, 5, 10 }% (Methods; Supplementary Note 5). The same training protocol is used uniformly across all eight applications; only the input encoding and the network’s input width vary. 
+
+9.3 Search Guidance Gain definition and threshold justification 
+
+To compare neural-network benefit fairly across applications of different complexity, we define a normalized Search Guidance Gain: 
+
+SGG = Pnn − Prand 
+
+log 2 N · √B/K ref 
+
+, Kref = log 2 50 · √64 ≈ 45 .15 , (S3) where Pnn and Prand are the win rates (or normalized scores for single-player tasks) of MCTS guided by the trained crossbar evaluator versus MCTS using random rollouts on the same board and iteration budget; N is iterations; B is board cells; and Kref 
+
+normalises the metric to the raw lift expected on a 50-iteration, 64-cell reference game. The normalisation factor log 2 N · √B captures how much harder the search problem becomes with deeper search and larger boards, so SGG scales the raw win-rate lift to a comparable-difficulty reference. Two caveats up front (also recorded with Eq. S3). (i) All SGG values reported in this paper are computed from 10-game matchups; these runs are intended as substrate demonstrations rather than formal statistical separation tests. (ii) The +0 .05 cutoff is therefore best read as an indicative policy-lift cutoff, not a statistical significance threshold; SGG values close to zero should be interpreted as “lift present but not statistically resolved”, and values above ∼0.20 are more robust to sample noise. Larger-
+
+n validation is straightforward on silicon and is planned for follow-on work. 24 With those caveats stated: the +0 .05 cutoff corresponds to roughly a 5-percentage-point win-rate lift on the reference game, which we use as an indicative policy-lift cutoff for the 10-game demonstrations rather than as a statistical boundary. SGG remains preferable to raw win-rate because it allows a Go SGG of +0 .09 (50/50-class three-state task at 9×9, 60 iterations) to be compared meaningfully against a MiniGrid SGG of +0 .56 (single-player at 8×8, 100 iterations); the raw win-rate lifts of these two applications are not directly comparable. 
+
+9.4 Generalizability analysis 
+
+The pipeline transfers across applications because four of its five units (CAM, RRAM crossbar, in-memory SRAM, FSM controller) are fully application-agnostic and depend only on the interface between phases, not on the semantic content of any phase. The fifth unit, the Game Logic Unit for expansion, requires per-application customisation: 5 of the 8 applications share an identical three-state encoding and use the same unmodified GLU; the remaining 3 (Hex, HP Protein Fold, Minesweeper) add input features while reusing the core move-generation logic. Crucially, the cross-bar weights are tuned per application; this is a one-time configuration step analogous to loading new firmware and does not require any RTL change. All eight applications share three structural properties required by the pipeline: (i) grid-representable state spaces, (ii) tree search over legal actions, and (iii) position evaluation that is learnable from self-play. The architectural contribution is the phase-to-primitive decomposition itself (the recognition that MCTS’s four phases each map to a natural IMC primitive), not any individual unit. Beyond these eight applications, problems with larger encodings (VLSI floorplanning[35], circuit routing) or non-grid states (Sokoban-style block puzzles, autonomous driving maneuver planning[36]) require crossbar scaling or encoding modifications, but the core pipeline remains applicable. Grid-based robotics planning maps directly to FrozenLake-style encod-ing, with sub-10 mW power and sub-millisecond latency enabling battery-powered 500 Hz robotic control — a regime impractical at the 55–300 W draw of conventional processors. 25 Supplementary Note 10 Edge-deployment scenarios 
+
+The 55–300 W power draw of CPU and GPU MCTS implementations rules out three classes of deployment that IMC-MCTS at ∼60 mW makes feasible. Drone autonomy 
+
+typically operates with a sub-10 W total compute budget across all subsystems (per-ception, control, communication); a 55-W MCTS planner alone would consume the full budget and shorten flight time by an order of magnitude. MCU-class embedded controllers (sub-100 mW total power) can integrate IMC-MCTS as a co-processor for planning tasks (motion planning[37], maneuver selection[36]) that would otherwise be impossible at this power class. Implantable or wearable medical devices (sub-mW con-tinuous power for years on a single battery) lie an additional order of magnitude below the IMC-MCTS active power, but are addressable through low duty-cycle operation that keeps the device in sub-μW standby between infrequent inferences. These three regimes share the common property that AI decision-making at this power scale was previously infeasible regardless of duty cycle, and IMC-MCTS is what changes that. 26 References 
+
+[1] Coulom, R.: Efficient selectivity and backup operators in Monte-Carlo tree search. In: International Conference on Computers and Games, pp. 72–83. Springer, Berlin, Heidelberg (2006) [2] Kocsis, L., Szepesvári, C.: Bandit based Monte-Carlo planning. In: Euro-pean Conference on Machine Learning (ECML), pp. 282–293. Springer, Berlin, Heidelberg (2006) [3] Tromp, J.: The number of legal Go positions. In: Computers and Games (CG 2016). Lecture Notes in Computer Science, vol. 10068, pp. 183–190. Springer, Cham (2016). https://doi.org/10.1007/978-3-319-50935-8_17 [4] Silver, D., Huang, A., Maddison, C.J., Guez, A., Sifre, L., Driessche, G., Schrit-twieser, J., Antonoglou, I., Panneershelvam, V., Lanctot, M., Dieleman, S., Grewe, D., Nham, J., Kalchbrenner, N., Sutskever, I., Lillicrap, T., Leach, M., Kavukcuoglu, K., Graepel, T., Hassabis, D.: Mastering the game of Go with deep neural networks and tree search. Nature 529 (7587), 484–489 (2016) https://doi.org/10.1038/nature16961 [5] Silver, D., Hubert, T., Schrittwieser, J., Antonoglou, I., Lai, M., Guez, A., Lanc-tot, M., Sifre, L., Kumaran, D., Graepel, T., Lillicrap, T.P., Simonyan, K., Hassabis, D.: A general reinforcement learning algorithm that masters chess, shogi, and Go through self-play. Science 362 (6419), 1140–1144 (2018) https: //doi.org/10.1126/science.aar6404 [6] Stillmaker, A., Baas, B.: Scaling equations for the accurate prediction of CMOS device performance from 180 nm to 7 nm. Integration 58 , 74–81 (2017) [7] Muralimanohar, N., Balasubramonian, R., Jouppi, N.P.: CACTI 6.0: A tool to model large caches. Technical Report HPL-2009-85, HP Labs (2009) [8] Pagiamtzis, K., Sheikholeslami, A.: Content-addressable memory (CAM) circuits and architectures: A tutorial and survey. IEEE Journal of Solid-State Circuits 
+
+41 (3), 712–727 (2006) [9] Auth, C., et al. : A 22nm high performance and low-power CMOS technology featuring fully-depleted tri-gate transistors, self-aligned contacts and high density MIM capacitors. In: 2012 Symposium on VLSI Technology (VLSIT), pp. 131–132 (2012). https://doi.org/10.1109/VLSIT.2012.6242496 [10] Jeloka, S., Akesh, N.B., Sylvester, D., Blaauw, D.: A 28 nm configurable memory (TCAM/BCAM/SRAM) using push-rule 6T bit cell enabling logic-in-memory. IEEE Journal of Solid-State Circuits 51 (4), 1009–1021 (2016) https://doi.org/ 10.1109/JSSC.2016.2515510 27 [11] Rodrigues, A.F., Hemmert, K.S., Barrett, B.W., Kersey, C., Oldfield, R., Weston, M., Risen, R., Cook, J., Rosenfeld, P., Cooper-Balis, E., Jacob, B.: The structural simulation toolkit. SIGMETRICS Performance Evaluation Review 38 (4), 37–42 (2011) [12] Hu, M., Graves, C.E., Li, C., Li, Y., Ge, N., Montgomery, E., Dávila, N., Jiang, H., Williams, R.S., Yang, J.J., Xia, Q., Strachan, J.P.: Memristor-based ana-log computation and neural network classification with a dot product engine. Advanced Materials 30 (9), 1705914 (2018) [13] Sheng, X., Graves, C.E., Kumar, S., Li, X., Buchanan, B., Zheng, L., Lam, S., Li, C., Strachan, J.P.: Low-conductance and multilevel CMOS-integrated nanoscale oxide memristors. Advanced Electronic Materials 5(9), 1800876 (2019) [14] Li, C., Ignowski, J., Sheng, X., Wessel, R., Jaffe, B., Ingemi, J., Graves, C., Strachan, J.P.: CMOS-integrated nanoscale memristive crossbars for CNN and optimization acceleration. In: 2020 IEEE International Memory Work-shop (IMW), pp. 1–4. IEEE, Piscataway, NJ (2020). https://doi.org/10.1109/ IMW48823.2020.9108112 [15] Wan, W., Kubendran, R., Schaefer, C., Eryilmaz, S.B., Zhang, W., Wu, D., Deiss, S., Raina, P., Qian, H., Gao, B., Joshi, S., Wu, H., Wong, H.-S.P., Cauwenberghs, G.: A compute-in-memory chip based on resistive random-access memory. Nature 
+
+608 , 504–512 (2022) https://doi.org/10.1038/s41586-022-04992-8 [16] Khan, K.N., Hirki, M., Niemi, T., Nurminen, J.K., Ou, Z.: RAPL in action: Experiences in using RAPL for power measurements. ACM Transactions on Modeling and Performance Evaluation of Computing Systems 3(2), 9 (2018) https://doi.org/10.1145/3177754 [17] Klęsk, P.: MCTS-NC: A thorough GPU parallelization of Monte-Carlo tree search implemented in python via numba.cuda. SoftwareX 30 , 102139 (2025) https: //doi.org/10.1016/j.softx.2025.102139 [18] Shafiee, A., Nag, A., Muralimanohar, N., Balasubramonian, R., Strachan, J.P., Hu, M., Williams, R.S., Srikumar, V.: ISAAC: A convolutional neural network accelerator with in-situ analog arithmetic in crossbars. In: Proceedings of the 43rd International Symposium on Computer Architecture (ISCA), pp. 14–26. IEEE Press, Piscataway, NJ, USA (2016). https://doi.org/10.1145/3007787.3001139 [19] Chen, Y.-H., Krishna, T., Emer, J.S., Sze, V.: Eyeriss: An energy-efficient recon-figurable accelerator for deep convolutional neural networks. IEEE Journal of Solid-State Circuits 52 (1), 127–138 (2017) https://doi.org/10.1109/JSSC.2016. 2616357 [20] Jouppi, N.P., Young, C., Patil, N., Patterson, D., Agrawal, G., Bajwa, R., Bates, S., Bhatia, S., Boden, N., Borchers, A., et al. : In-datacenter performance analysis 28 of a tensor processing unit. ACM SIGARCH Computer Architecture News 45 (2), 1–12 (2017) https://doi.org/10.1145/3140659.3080246 [21] Abdelmaksoud, A.J., Agwa, S., Prodromakis, T.: DiP: A scalable, energy-efficient systolic array for matrix multiplication acceleration. IEEE Transactions on Cir-cuits and Systems I: Regular Papers (2025) https://doi.org/10.1109/TCSI.2025. 3591960 [22] Meng, Y., Kannan, R., Prasanna, V.: A framework for Monte-Carlo tree search on CPU–FPGA heterogeneous platform via on-chip dynamic tree management. In: Proceedings of the 2023 ACM/SIGDA International Symposium on Field Programmable Gate Arrays (FPGA), pp. 235–245. ACM, New York, NY, USA (2023). https://doi.org/10.1145/3543622.3573177 [23] Meng, Y., Kannan, R., Prasanna, V.K.: Accelerating Monte-Carlo tree search on CPU–FPGA heterogeneous platform. In: 2022 32nd International Confer-ence on Field-Programmable Logic and Applications (FPL), pp. 298–305. IEEE, Piscataway, NJ, USA (2022) [24] Carvalho, R.R.: SoC–FPGA Monte Carlo tree search processor. Master’s thesis, Instituto Superior Técnico, Universidade de Lisboa, Lisboa, Portugal (2019) [25] Qasemi, E., Samadi, A., Shadmehr, M.H., Azizian, B., Mozaffari, S., Shirian, A., Alizadeh, B.: Highly scalable, shared-memory, Monte-Carlo tree search based Blokus Duo solver on FPGA. In: 2014 International Conference on Field-Programmable Technology (FPT), pp. 370–373. IEEE, Piscataway, NJ, USA (2014) [26] Buzer, L., Cazenave, T.: GPU for Monte Carlo search. In: International Con-ference on Learning and Intelligent Optimization (LION). Lecture Notes in Computer Science, vol. 14286, pp. 179–193. Springer, Cham (2023). https://doi. org/10.1007/978-3-031-44505-7_13 [27] Sun, Y., Yuan, D., Gao, M., Zhu, P.: GPU acceleration of Monte Carlo tree search algorithm for Amazon chess and its evaluation function. In: 2022 3rd International Conference on Artificial Intelligence, Information Processing and Cloud Computing (AIIPCC), pp. 434–440. IEEE, Piscataway, NJ, USA (2022) [28] Thomas, G.: A Full-GPU Implementation of MCTS in Julia: The Key to Gumbel MuZero? Google Summer of Code 2022 project report (AlphaZero.jl). Available online (2022) [29] Huang, B., Boularias, A., Yu, J.: Parallel Monte Carlo tree search with batched rigid-body simulations for speeding up long-horizon episodic robot planning. In: 2022 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), pp. 1–8. IEEE, Piscataway, NJ, USA (2022) 29 [30] Johnson, C., Barford, L., Dascalu, S.M., Harris, F.C.: CUDA implementation of computer Go game tree search. In: Latifi, S. (ed.) Information Technology: New Generations, pp. 339–350. Springer, Cham (2016) [31] Rocki, K., Suda, R.: Large-scale parallel Monte-Carlo tree search on GPU. In: 2011 IEEE International Symposium on Parallel and Distributed Processing Workshops and PhD Forum, pp. 2034–2037. IEEE, Piscataway, NJ, USA (2011) [32] Ho, Y., Carbajal, A., Escamilla, L., Pinar, A.: Neuromorphic Monte Carlo tree search methods for shortest path interdiction. In: 2024 International Conference on Neuromorphic Systems (ICONS), pp. 307–311. IEEE, Piscataway, NJ, USA (2024). https://doi.org/10.1109/ICONS62911.2024.00053 [33] Steinmetz, E., Gini, M.: More trees or larger trees: Parallelizing Monte Carlo tree search. IEEE Transactions on Games 13 (3), 315–320 (2021) https://doi.org/10. 1109/TG.2020.3048331 [34] Fujiwara, H., Mori, H., Zhao, W.-C., Chuang, M.-C., Naous, R., Chuang, C.-K., Hashizume, T., Sun, D., Lee, C.-F., Akarvardar, K., Adham, S., Chou, T.-L., Sinangil, M.E., Wang, Y., Chih, Y.-D., Chen, Y.-H., Liao, H.-J., Chang, T.-Y.J.: A 5-nm 254-TOPS/W 221-TOPS/mm 2 fully-digital computing-in-memory macro supporting wide-range dynamic-voltage-frequency scaling and simultaneous MAC and write operations. In: 2022 IEEE International Solid-State Circuits Conference (ISSCC), vol. 65, pp. 1–3. IEEE, Piscataway, NJ, USA (2022). https://doi.org/ 10.1109/ISSCC42614.2022.9731754 [35] Geng, Z., Wang, J., Liu, Z., Xu, S., Tang, Z., Yuan, M., Hao, J., Zhang, Y., Wu, F.: Reinforcement learning within tree search for fast macro placement. In: Proceedings of the 41st International Conference on Machine Learning (ICML). Proceedings of Machine Learning Research, vol. 235, pp. 15405–15436. PMLR, Vienna, Austria (2024) [36] Lenz, D., Kessler, T., Knoll, A.: Tactical cooperative planning for autonomous highway driving using Monte-Carlo tree search. In: 2016 IEEE Intelligent Vehicles Symposium (IV), pp. 447–453. IEEE, Piscataway, NJ, USA (2016). https://doi. org/10.1109/IVS.2016.7535424 [37] Thrun, S., Burgard, W., Fox, D.: Probabilistic Robotics. MIT Press, Cambridge, MA, USA (2005) 30

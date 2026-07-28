@@ -1,0 +1,232 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-07-28T20:04:21.431214+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 4,
+    "deep_cap": 6,
+    "deep_selected": 4,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [
+    {
+      "id": "2607.19661v1",
+      "source": "arxiv",
+      "title": "Leveraging ECRAM for Edge Continual Learning",
+      "abstract": "Several edge computing platforms, such as autonomous vehicles and smart sensing devices, need to adapt to dynamic environments in real time by learning from new data in the field. Continual learning has emerged as a promising solution for edge training, by incorporating techniques that successfully combine a highly summarized version of previously trained data (to avoid catastrophic forgetting) with recently sensed data. However, as is the case with other ML algorithms, continual learning generates significant data movement between general-purpose CPUs/GPUs and memory, impacting the suitability of continual learning for edge platforms. In-memory computing (IMC; also known as processing-using-memory) can curtail this waste and make continual learning feasible at the edge, but it faces two unique challenges: (1) IMC architectures make use of noisy computation operations that significantly harm training accuracy; and (2) IMC architectures have poor and often incomplete support for resource-efficient training.   To address these challenges, we propose CLASP (the Continual Learning Acceleration System Platform), which to our knowledge is the first end-to-end system with IMC acceleration for continual learning. The hardware and software of CLASP are co-designed to support a wide range of continual learning algorithms, through software-visible assembly-level instructions that can be incorporated without constraints into ML-based algorithms. CLASP is designed around a back-end-of-line (BEOL) compatible ECRAM device that we fabricate, which can overcome the challenges of IMC-based training using other emerging memory devices. We show that CLASP with ECRAM approaches the accuracy of in-GPU training, while delivering a speedup of 67x and energy savings of 132x for learning without forgetting and experience replay using MNIST.",
+      "authors": [
+        "Nabila Tasnim",
+        "Haoran Liu",
+        "Qing Cao",
+        "Saugata Ghose"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR",
+        "cs.ET",
+        "cs.LG"
+      ],
+      "published": "2026-07-22T02:00:22+00:00",
+      "link": "https://arxiv.org/pdf/2607.19661v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "In-memory computing (IMC) for continual learning at edge",
+      "llm_evidence_cn": "利用内存计算实现边缘持续学习",
+      "llm_evidence": "利用内存计算实现边缘持续学习",
+      "canonical_evidence": "利用内存计算实现边缘持续学习",
+      "llm_tldr_en": "Leveraging ECRAM for edge continual learning: proposes using in-memory computing to reduce data movement, making continual learning feasible on edge platforms.",
+      "llm_tldr_cn": "边缘持续学习面临大量数据搬运导致的能效瓶颈。本工作提出利用电化学RAM（ECRAM）实现内存计算（processing-using-memory），将训练过程中的数据移动降至最低。通过在边缘平台的原型评估，表明该方法在保持学习精度的同时显著降低了能耗。该工作为边缘设备上的自适应学习提供了可行的硬件方案。",
+      "llm_tldr": "边缘持续学习面临大量数据搬运导致的能效瓶颈。本工作提出利用电化学RAM（ECRAM）实现内存计算（processing-using-memory），将训练过程中的数据移动降至最低。通过在边缘平台的原型评估，表明该方法在保持学习精度的同时显著降低了能耗。该工作为边缘设备上的自适应学习提供了可行的硬件方案。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "compute-in-memory architecture",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.21731v1",
+      "source": "arxiv",
+      "title": "RED-PIM: Reducing Data Movement for Transformers using Processing-in-Memory",
+      "abstract": "Transformers are widely used across many domains, including natural language processing, computer vision, web search, and DNA sequence analysis. Given their broad applicability, improving the performance of transformer models is critical. However, the high volume of data movement between processing units and memory during attention operations significantly limits their efficiency. Processing-In-Memory (PIM) mitigates this issue by performing computations directly inside memory. While prior work has proposed PIM-based transformer implementations, they suffer from costly inter-bank communication, and struggle to scale due to the limited capacity of memory banks. As a result, attention-related data must be split across banks, diminishing the potential benefits of PIM.   In this work, we propose RED-PIM, an algorithm-architecture co-design that reduces attention latency by minimizing inter-bank data movement from O(N^2) to O(N) and shrinking intermediate attention matrices from N x N to d x d. By reorganizing matrix operations, performing computations locally, and employing an optimized data transfer strategy, RED-PIM significantly reduces computation cost and interconnect traffic. Compared to baseline PIM implementation, RED-PIM achieves inference time reductions ranging from 16.05% to 99.99% (geometric mean of 66.42%), with the largest gains on longer sequences. On real-world datasets, RED-PIM improves performance by 99.60% for long documents and 13.44% for shorter ones, while maintaining or improving accuracy. These results demonstrate RED-PIM's effectiveness for scalable and efficient transformer inference.",
+      "authors": [
+        "Zahra Yousefijamarani",
+        "Alaa Alameldeen"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AR"
+      ],
+      "published": "2026-07-23T18:28:13+00:00",
+      "link": "https://arxiv.org/pdf/2607.21731v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Processing-in-Memory for transformers reducing data movement",
+      "llm_evidence_cn": "针对Transformer的存内处理以减少数据移动",
+      "llm_evidence": "针对Transformer的存内处理以减少数据移动",
+      "canonical_evidence": "针对Transformer的存内处理以减少数据移动",
+      "llm_tldr_en": "RED-PIM proposes a processing-in-memory architecture for transformers that reduces data movement between memory and compute units, improving efficiency and scalability.",
+      "llm_tldr_cn": "Transformer模型在注意力计算中面临大量数据移动问题，限制了效率。RED-PIM提出基于存内处理（PIM）的方案，将计算直接集成到内存中，减少数据传输。针对现有PIM实现中片间通信开销大、内存容量有限的问题，RED-PIM通过优化数据分布和通信机制，提升了Transformer在大规模部署中的性能和能效。",
+      "llm_tldr": "Transformer模型在注意力计算中面临大量数据移动问题，限制了效率。RED-PIM提出基于存内处理（PIM）的方案，将计算直接集成到内存中，减少数据传输。针对现有PIM实现中片间通信开销大、内存容量有限的问题，RED-PIM通过优化数据分布和通信机制，提升了Transformer在大规模部署中的性能和能效。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "processing-in-memory systems",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.22869v1",
+      "source": "arxiv",
+      "title": "Multi-primitive in-memory computing for Monte Carlo tree search",
+      "abstract": "Monte Carlo tree search (MCTS) enables artificial intelligence (AI) decision-making, but requires 55-300 W on conventional processors, limiting edge deployment. In-memory computing (IMC) is energy-efficient on regular workloads but has been considered incompatible with irregular multi-phase algorithms. We introduce phase-to-primitive decomposition, which reformulates each algorithmic phase as a hardware-native IMC primitive. Applied to MCTS, selection, expansion, rollout and backpropagation map to content-addressable memory, combinational logic, a resistive random-access memory (RRAM) crossbar and static random-access memory, keeping search on chip. At 22 nm with fabricated RRAM-array parameters, IMC-MCTS consumes ~60 mW for 9x9 Go, achieving 96x energy efficiency over a central processing unit (CPU) and 65x-2,059x over an H100 graphics processing unit (GPU). It reaches a European Go Federation rating within sample-size uncertainty of open-source Go engines (Pachi-UCT and Michi-C). The same substrate runs eight applications across four AI domains.",
+      "authors": [
+        "Tergel Molom-Ochir",
+        "Benjamin F. Morris",
+        "Yintao He",
+        "Archit Gajjar",
+        "Giacomo Pedretti",
+        "Hai Helen Li",
+        "Yiran Chen",
+        "Jim Ignowski",
+        "Aishwarya Natarajan"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR",
+        "cs.AI",
+        "cs.ET"
+      ],
+      "published": "2026-07-24T19:17:37+00:00",
+      "link": "https://arxiv.org/pdf/2607.22869v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "in-memory computing using RRAM crossbar for MCTS",
+      "llm_evidence_cn": "基于RRAM交叉杆的存内计算用于蒙特卡洛树搜索",
+      "llm_evidence": "基于RRAM交叉杆的存内计算用于蒙特卡洛树搜索",
+      "canonical_evidence": "基于RRAM交叉杆的存内计算用于蒙特卡洛树搜索",
+      "llm_tldr_en": "Proposes phase-to-primitive decomposition to map MCTS phases onto IMC primitives, achieving 96x energy efficiency at 22nm with RRAM arrays.",
+      "llm_tldr_cn": "该论文提出了一种相位到原语的分解方法，将蒙特卡洛树搜索（MCTS）的每个算法阶段映射为硬件原生的存内计算原语，包括内容可寻址存储器、组合逻辑、RRAM交叉杆和静态随机存储器。在22nm工艺下使用实际RRAM阵列参数，实现9x9围棋游戏仅需约60mW功耗，相比传统处理器能效提升96倍。这项工作展示了存内计算在非规则多阶段算法中的可行性，为边缘AI决策提供了低功耗解决方案。",
+      "llm_tldr": "该论文提出了一种相位到原语的分解方法，将蒙特卡洛树搜索（MCTS）的每个算法阶段映射为硬件原生的存内计算原语，包括内容可寻址存储器、组合逻辑、RRAM交叉杆和静态随机存储器。在22nm工艺下使用实际RRAM阵列参数，实现9x9围棋游戏仅需约60mW功耗，相比传统处理器能效提升96倍。这项工作展示了存内计算在非规则多阶段算法中的可行性，为边缘AI决策提供了低功耗解决方案。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "compute-in-memory architecture",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.24196v1",
+      "source": "arxiv",
+      "title": "PIMID: A Full-System Simulator with Intricacy and Diversity for Processing-in-Memory",
+      "abstract": "Processing-in-Memory addresses the memory wall by co-locating computation with memory, but because real PIM hardware remains scarce, simulation is the primary way to explore the PIM design space. Yet existing PIM simulators each cover only part of that space: they typically model a single memory technology, fix processing elements at one level of the memory hierarchy, support a single execution model, and stop at the device boundary. We therefore present PIMID, an execution- and trace-driven full-system simulator that closes these gaps in one tool. PIMID supports both the shared-memory and message-passing execution models, running annotated parallel code in OpenMP and MPI side by side across eleven memory technologies (seven DRAM standards, SRAM, and three non-volatile memories); it places PEs anywhere from subarrays to logic dies, sweeps PE count and core-model fidelity, and prices the in-memory network per technology from measured congestion. Its single-process host-device co-simulation resolves an end-to-end time and energy breakdown (host preparation, device compute, and explicit boundary charges) that device-only tools cannot produce. Across the resulting dual-execution-model dataset, PIMID shows that the memory technology alone moves execution time by more than an order of magnitude and that the best host main memory is not the best PIM substrate; that regular kernels scale superlinearly with PE count as in-memory bandwidth co-scales with compute; that graph traversal under message-passing hits a collective-communication wall absent under shared memory; and that at full-system scope the offload trades time for energy only on the bandwidth-class memory: shared-memory offload saves energy on HBM3 while a 16-core host keeps every end-to-end time win. PIMID's plugin interfaces let new engines and models be added through standardized YAML specifications as PIM technology evolves.",
+      "authors": [
+        "Yuan He",
+        "Masaaki Kondo",
+        "Galen M. Shipman",
+        "Jered B. Dominguez-Trujillo",
+        "Shigeki Tomishima",
+        "Kazi Asifuzzaman"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-07-27T09:14:57+00:00",
+      "link": "https://arxiv.org/pdf/2607.24196v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "full-system simulator for processing-in-memory",
+      "llm_evidence_cn": "处理存内全系统模拟器",
+      "llm_evidence": "处理存内全系统模拟器",
+      "canonical_evidence": "处理存内全系统模拟器",
+      "llm_tldr_en": "PIMID is a full-system simulator for processing-in-memory, supporting eleven memory technologies, both shared-memory and message-passing models, enabling comprehensive PIM design space exploration.",
+      "llm_tldr_cn": "处理存内(PIM)硬件目前稀缺，现有模拟器覆盖不全。本文提出PIMID，一个执行与跟踪驱动的全系统模拟器，同时支持共享内存和消息传递两种执行模型，可模拟11种内存技术（包括7种DRAM标准）。PIMID填补了现有工具在内存技术多样性、执行模型支持和系统级模拟方面的空白，为PIM设计空间探索提供了统一平台。",
+      "llm_tldr": "处理存内(PIM)硬件目前稀缺，现有模拟器覆盖不全。本文提出PIMID，一个执行与跟踪驱动的全系统模拟器，同时支持共享内存和消息传递两种执行模型，可模拟11种内存技术（包括7种DRAM标准）。PIMID填补了现有工具在内存技术多样性、执行模型支持和系统级模拟方面的空白，为PIM设计空间探索提供了统一平台。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "processing-in-memory systems",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2607.23042v1",
+      "source": "arxiv",
+      "title": "Application-Driven Architecture Exploration for Cross-Layer Heterogeneous Systems",
+      "abstract": "AI and HPC infrastructure increasingly serves workload portfolios that combine dense tensor computation, sparse kernels, large memory footprints, and communication-intensive collectives. Supporting these portfolios requires coordinated choices across accelerators, memory tiers, scale-up fabrics, and cluster networks. The resulting Cross-layer Heterogeneous System (XHS) design space is difficult to explore: hardware choices change legal task mappings, while rack power, switch radix, cabling, and cost constraints invalidate many candidates. We present CHASE, an application-driven framework that searches physically feasible XHS architectures through the workloads they must execute. CHASE represents candidates as hierarchical typed graphs and rejects designs that violate deployment constraints. It avoids intractable joint hardware-mapping search with a decoupled two-level loop: an inner mapper translates hardware-independent workload DAGs into topology-aware event traces, a calibrated event-driven simulator evaluates each mapping, and an outer telemetry-guided optimizer evolves the hardware graph. We evaluate CHASE on sparse-computing and LLM workloads. Its mapper remains within 6.06% of exhaustive optima while reducing mapping time by 60.5% on average relative to PEFT. Compute-model errors average 4.4-7.5%, and communication validation reproduces key trends across physical platforms. The outer search reaches near-global optima within 64 iterations. End-to-end case studies show that sparse workloads favor criticality-aware heterogeneous pods, whereas LLM inference favors scale-up islands; the resulting designs deliver 6.20$\\times$ and 2.12$\\times$ geomean speedups, respectively, while reducing cost and power relative to the baselines.",
+      "authors": [
+        "Yuchen Fan",
+        "Minghong Sun",
+        "Jikui Ma",
+        "Yunpeng Xu",
+        "Shunyu Mao",
+        "Liu He",
+        "Shunan Dong",
+        "Jiahao Yang",
+        "Yu Zhu",
+        "Xinhao Yang",
+        "Tianyan Zhong",
+        "Haoran Sun",
+        "Daoqi Liu",
+        "Zongle Huang",
+        "Xinyuan Lin",
+        "Huazhong Yang",
+        "Maokun Li",
+        "Yongpan Liu",
+        "Yu Wang",
+        "Zhenhua Zhu",
+        "Hongyang Jia",
+        "Shuwen Deng"
+      ],
+      "primary_category": "cs.DC",
+      "categories": [
+        "cs.DC"
+      ],
+      "published": "2026-07-25T04:53:36+00:00",
+      "link": "https://arxiv.org/pdf/2607.23042v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Cross-layer heterogeneous system design including memory hierarchy and accelerators",
+      "llm_evidence_cn": "跨层异构系统设计，涉及内存层级与加速器协同探索",
+      "llm_evidence": "跨层异构系统设计，涉及内存层级与加速器协同探索",
+      "canonical_evidence": "跨层异构系统设计，涉及内存层级与加速器协同探索",
+      "llm_tldr_en": "CHASE framework explores physically feasible cross-layer heterogeneous systems for AI and HPC workloads, covering accelerators, memory tiers, and networks, supporting near-memory computing design.",
+      "llm_tldr_cn": "针对混合AI与HPC工作负载，本文提出CHASE框架，通过分层类型图表示架构候选，搜索物理可行的跨层异构系统，涵盖加速器、内存层级和网络。该方法为近内存计算系统的架构探索提供了系统级协同设计支持。",
+      "llm_tldr": "针对混合AI与HPC工作负载，本文提出CHASE框架，通过分层类型图表示架构候选，搜索物理可行的跨层异构系统，涵盖加速器、内存层级和网络。该方法为近内存计算系统的架构探索提供了系统级协同设计支持。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "near-memory computing design",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

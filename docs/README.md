@@ -6,39 +6,28 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-07-28
-- 运行时间：2026-07-28 20:08:53 UTC
+- 最新运行日期：2026-07-29
+- 运行时间：2026-07-29 21:45:51 UTC
 - 运行状态：成功
-- 本次总论文数：5
-- 精读区：4
+- 本次总论文数：2
+- 精读区：1
 - 速读区：1
 
 ### 今日简报（AI）
-今日阅读5篇论文，精读4篇，其中两篇高分论文值得重点关注。
-
-最值得关注的方向是：利用ECRAM实现边缘持续学习，以及采用存内计算（PIM）减少Transformer数据移动。
-
-建议深入理解ECRAM在边缘设备上的非易失性存储与计算协同机制，并对比RED-PIM方案对Transformer推理效率的实际提升。
-- 详情：[/202607/28/README](/202607/28/README)
+今日精读一项65nm浮栅模拟存内计算保留损失缓解研究（9分），并速读铁电半导体光致电流与短时记忆工作（6分）。  
+最值得关注的是模拟存内计算中保留损失对推理精度的定量影响及缓解策略，以及铁电半导体实现储层计算短时记忆的潜力。  
+建议普通读者优先掌握存内计算可靠性优化方法，并关注新型光控忆阻器在神经网络中的应用前景。
+- 详情：[/202607/29/README](/202607/29/README)
 
 ### 精读区论文标签
-1. [Leveraging ECRAM for Edge Continual Learning](/202607/28/2607.19661v1-leveraging-ecram-for-edge-continual-learning)  
+1. [Mitigating the Impact of Retention Loss on Inference Accuracy in 65 nm Single-Poly Floating-Gate Analog In-Memory Computing](/202607/29/2607.25058v1-mitigating-the-impact-of-retention-loss-on-inference-accuracy-in-65-nm-single-poly-floating-gate-analog-in-memory-computing)  
    标签：评分：9.0/10、query:cim
-   evidence：利用内存计算实现边缘持续学习
-2. [RED-PIM: Reducing Data Movement for Transformers using Processing-in-Memory](/202607/28/2607.21731v1-red-pim-reducing-data-movement-for-transformers-using-processing-in-memory)  
-   标签：评分：9.0/10、query:cim
-   evidence：针对Transformer的存内处理以减少数据移动
-3. [Multi-primitive in-memory computing for Monte Carlo tree search](/202607/28/2607.22869v1-multi-primitive-in-memory-computing-for-monte-carlo-tree-search)  
-   标签：评分：9.0/10、query:cim
-   evidence：基于RRAM交叉杆的存内计算用于蒙特卡洛树搜索
-4. [PIMID: A Full-System Simulator with Intricacy and Diversity for Processing-in-Memory](/202607/28/2607.24196v1-pimid-a-full-system-simulator-with-intricacy-and-diversity-for-processing-in-memory)  
-   标签：评分：9.0/10、query:cim
-   evidence：处理存内全系统模拟器
+   evidence：模拟内存计算中保留损失缓解技术，提升推理准确性
 
 ### 速读区论文标签
-1. [Application-Driven Architecture Exploration for Cross-Layer Heterogeneous Systems](/202607/28/2607.23042v1-application-driven-architecture-exploration-for-cross-layer-heterogeneous-systems)  
+1. [Photo-induced currents and short-term memory for reservoir computing in a ferroelectric semiconductor](/202607/29/2607.20810v1-photo-induced-currents-and-short-term-memory-for-reservoir-computing-in-a-ferroelectric-semiconductor)  
    标签：评分：6.0/10、query:cim
-   evidence：跨层异构系统设计，涉及内存层级与加速器协同探索
+   evidence：探索利用铁电半导体实现物理储层计算，属于替代性存算一体范式
 
 
 <div class="dpr-home-promo-card">

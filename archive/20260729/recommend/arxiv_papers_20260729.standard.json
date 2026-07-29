@@ -1,0 +1,98 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-07-29T21:42:55.983042+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [
+    {
+      "id": "2607.25058v1",
+      "source": "arxiv",
+      "title": "Mitigating the Impact of Retention Loss on Inference Accuracy in 65 nm Single-Poly Floating-Gate Analog In-Memory Computing",
+      "abstract": "We show with experiments and system-level simulations that it is possible to successfully mitigate the impact of retention loss on inference accuracy degradation by using both circuit-level compensation techniques and batch normalization recalibration at the algorithmic level. Experiments are performed on a single-poly floating-gate (FG) analog non-volatile memory array for analog in-memory computing fabricated in a standard 65 nm CMOS. We use a model of retention-loss statistics calibrated with experiments to evaluate the system-level impact on neural network models such as VGG-10/CIFAR-10 and WideResNet-28-10/CIFAR-100. We show that, after 60 days since programming, combined mitigation techniques enable to recover the baseline inference accuracy within 2-4%",
+      "authors": [
+        "Mirko Brazzini",
+        "Giulio Filippeschi",
+        "Alessandro Catania",
+        "Sebastiano Strangio",
+        "Giuseppe Iannaccone"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR",
+        "cs.NE",
+        "physics.app-ph"
+      ],
+      "published": "2026-07-27T20:41:46+00:00",
+      "link": "https://arxiv.org/pdf/2607.25058v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "mitigation of retention loss in analog in-memory computing for neural network inference",
+      "llm_evidence_cn": "模拟内存计算中保留损失缓解技术，提升推理准确性",
+      "llm_evidence": "模拟内存计算中保留损失缓解技术，提升推理准确性",
+      "canonical_evidence": "模拟内存计算中保留损失缓解技术，提升推理准确性",
+      "llm_tldr_en": "This paper demonstrates circuit-level compensation and batch-norm recalibration to mitigate retention loss in analog in-memory computing, preserving inference accuracy over time.",
+      "llm_tldr_cn": "模拟内存计算中，存储单元的数据保留损失会随电池耗尽或时间推移而降低推理准确率。本文基于65nm单多晶浮动栅模拟非易失存储阵列，提出结合电路级补偿和批量归一化重标定的协同缓解技术。实验表明，在VGG-10/CIFAR-10和WideResNet-28-10/CIFAR-100上，编程后60天内的推理准确率下降被显著抑制。该工作为模拟内存计算的可靠性提供了实用解决方案。",
+      "llm_tldr": "模拟内存计算中，存储单元的数据保留损失会随电池耗尽或时间推移而降低推理准确率。本文基于65nm单多晶浮动栅模拟非易失存储阵列，提出结合电路级补偿和批量归一化重标定的协同缓解技术。实验表明，在VGG-10/CIFAR-10和WideResNet-28-10/CIFAR-100上，编程后60天内的推理准确率下降被显著抑制。该工作为模拟内存计算的可靠性提供了实用解决方案。",
+      "llm_tags": [
+        "query:cim:composite"
+      ],
+      "matched_query_tag": "query:cim:composite",
+      "matched_query_text": "Papers central to 存算一体，主要关注基于混合键合的三维堆叠的近存计算, especially work that connects or combines: compute-in-memory architecture; hybrid bonding 3D integration; 3D stacking memory technology; near-memory computing design; processing-in-memory systems; 3D integrated circuit design; What are the key benefits of hybrid bonding for 3D stacked near memory computing?; How does compute in memory architecture improve energy efficiency?; Design challenges of 3D stacking for near memory computing systems.",
+      "matched_requirement_id": "req-composite-cim",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2607.20810v1",
+      "source": "arxiv",
+      "title": "Photo-induced currents and short-term memory for reservoir computing in a ferroelectric semiconductor",
+      "abstract": "Physical reservoir computing represents an energy efficient approach for processing temporal signals by exploiting the intrinsic nonlinear dynamics and fading memory of a physical system. Recently, ferroelectric semiconductors moved into focus as reservoir materials motivated by their versatile electronic responses to external stimuli. Here, we explore the fundamental possibility to recognize time-varying light pulses via photo-induced currents, using the small-band-gap p-type semiconductor ErMnO$_3$ as a model system. Under white light illumination, ErMnO$_3$ exhibits non-linearly evolving photo-induced currents and controllable relaxation dynamics that naturally realize the high-dimensional projection and fading memory capabilities required for reservoir computing. The reservoir capability of ErMnO$_3$ is reflected by the improved recognition accuracy of \"Past\" input pulses, which increases from ~33% to ~93% after applying reservoir transformation to the input signal. The results present ferroelectric hexagonal manganites as a promising platform for photo-induced current-based reservoir computing and highlight the potential of light-driven oxide semiconductors for temporal information processing.",
+      "authors": [
+        "Yan Meng Chong",
+        "Atreya Majumdar",
+        "Manuel Zahn",
+        "Ingvild Hansen",
+        "Karin Everschor-Sitte",
+        "Dennis Meier"
+      ],
+      "primary_category": "cond-mat.mtrl-sci",
+      "categories": [
+        "cond-mat.mtrl-sci"
+      ],
+      "published": "2026-07-23T00:44:36+00:00",
+      "link": "https://arxiv.org/pdf/2607.20810v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "explores physical reservoir computing using ferroelectric semiconductor, an alternative compute-in-memory paradigm",
+      "llm_evidence_cn": "探索利用铁电半导体实现物理储层计算，属于替代性存算一体范式",
+      "llm_evidence": "探索利用铁电半导体实现物理储层计算，属于替代性存算一体范式",
+      "canonical_evidence": "探索利用铁电半导体实现物理储层计算，属于替代性存算一体范式",
+      "llm_tldr_en": "Demonstrates photo-induced currents in ErMnO3 for reservoir computing, enabling energy-efficient temporal signal processing with inherent memory.",
+      "llm_tldr_cn": "本文以ErMnO3铁电半导体为模型系统，利用光致电流的非线性演化与可控弛豫实现物理储层计算，展示了其在时间信号处理中的能效优势。该工作拓展了存算一体的物理实现途径，蕴含了新型近存计算思路。",
+      "llm_tldr": "本文以ErMnO3铁电半导体为模型系统，利用光致电流的非线性演化与可控弛豫实现物理储层计算，展示了其在时间信号处理中的能效优势。该工作拓展了存算一体的物理实现途径，蕴含了新型近存计算思路。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "compute-in-memory architecture",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

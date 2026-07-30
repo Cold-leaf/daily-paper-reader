@@ -6,28 +6,35 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-07-29
-- 运行时间：2026-07-29 21:45:51 UTC
+- 最新运行日期：2026-07-30
+- 运行时间：2026-07-30 21:41:58 UTC
 - 运行状态：成功
-- 本次总论文数：2
-- 精读区：1
-- 速读区：1
+- 本次总论文数：4
+- 精读区：4
+- 速读区：0
 
 ### 今日简报（AI）
-今日精读一项65nm浮栅模拟存内计算保留损失缓解研究（9分），并速读铁电半导体光致电流与短时记忆工作（6分）。  
-最值得关注的是模拟存内计算中保留损失对推理精度的定量影响及缓解策略，以及铁电半导体实现储层计算短时记忆的潜力。  
-建议普通读者优先掌握存内计算可靠性优化方法，并关注新型光控忆阻器在神经网络中的应用前景。
-- 详情：[/202607/29/README](/202607/29/README)
+1) 今日精读两篇高分论文，聚焦模拟存内计算的精度挑战与芯片间物理层建模。
+2) 最值得关注：65nm浮栅模拟内存计算中保留损失对推理准确率的影响（9.0分），以及DICE端到端PHY建模方法（8.0分）。
+3) 建议优先阅读第一篇，了解非理想效应对存算一体芯片实际部署的关键制约。
+- 详情：[/202607/30/README](/202607/30/README)
 
 ### 精读区论文标签
-1. [Mitigating the Impact of Retention Loss on Inference Accuracy in 65 nm Single-Poly Floating-Gate Analog In-Memory Computing](/202607/29/2607.25058v1-mitigating-the-impact-of-retention-loss-on-inference-accuracy-in-65-nm-single-poly-floating-gate-analog-in-memory-computing)  
+1. [Mitigating the Impact of Retention Loss on Inference Accuracy in 65 nm Single-Poly Floating-Gate Analog In-Memory Computing](/202607/30/2607.25058v1-mitigating-the-impact-of-retention-loss-on-inference-accuracy-in-65-nm-single-poly-floating-gate-analog-in-memory-computing)  
    标签：评分：9.0/10、query:cim
-   evidence：模拟内存计算中保留损失缓解技术，提升推理准确性
+   evidence：65nm浮栅阵列上的模拟存内计算
+2. [DICE: Detailed Inter-Chiplet End-to-End PHY Modeling for Accurate Chiplet Simulation](/202607/30/2607.24221v2-dice-detailed-inter-chiplet-end-to-end-phy-modeling-for-accurate-chiplet-simulation)  
+   标签：评分：8.0/10、query:cim
+   evidence：提出详细的芯片间物理层模型，支持基于芯片的3D集成设计，可准确模拟混合键合互连
+3. [LLMET: Enabling Cross-Layer Evaluation of Emerging M3D Memories for Energy-Efficient LLM Serving](/202607/30/2607.26491v1-llmet-enabling-cross-layer-evaluation-of-emerging-m3d-memories-for-energy-efficient-llm-serving)  
+   标签：评分：8.0/10、query:cim
+   evidence：利用单片3D内存减少数据移动，提高LLM服务的能效
+4. [NELSSA: A GPU-PNM Heterogeneous System for Mixed-Length LLM Serving via Length-based Request Placement](/202607/30/2607.26633v1-nelssa-a-gpu-pnm-heterogeneous-system-for-mixed-length-llm-serving-via-length-based-request-placement)  
+   标签：评分：8.0/10、query:cim
+   evidence：集成GPU与实际处理近内存加速器
 
 ### 速读区论文标签
-1. [Photo-induced currents and short-term memory for reservoir computing in a ferroelectric semiconductor](/202607/29/2607.20810v1-photo-induced-currents-and-short-term-memory-for-reservoir-computing-in-a-ferroelectric-semiconductor)  
-   标签：评分：6.0/10、query:cim
-   evidence：探索利用铁电半导体实现物理储层计算，属于替代性存算一体范式
+- 本次无速读推荐。
 
 
 <div class="dpr-home-promo-card">

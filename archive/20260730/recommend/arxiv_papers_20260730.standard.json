@@ -1,0 +1,183 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-07-30T21:39:10.772802+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 4,
+    "deep_cap": 6,
+    "deep_selected": 4,
+    "quick_candidates": 0,
+    "quick_skim_target": 11,
+    "quick_selected": 0
+  },
+  "deep_dive": [
+    {
+      "id": "2607.25058v1",
+      "source": "arxiv",
+      "title": "Mitigating the Impact of Retention Loss on Inference Accuracy in 65 nm Single-Poly Floating-Gate Analog In-Memory Computing",
+      "abstract": "We show with experiments and system-level simulations that it is possible to successfully mitigate the impact of retention loss on inference accuracy degradation by using both circuit-level compensation techniques and batch normalization recalibration at the algorithmic level. Experiments are performed on a single-poly floating-gate (FG) analog non-volatile memory array for analog in-memory computing fabricated in a standard 65 nm CMOS. We use a model of retention-loss statistics calibrated with experiments to evaluate the system-level impact on neural network models such as VGG-10/CIFAR-10 and WideResNet-28-10/CIFAR-100. We show that, after 60 days since programming, combined mitigation techniques enable to recover the baseline inference accuracy within 2-4%",
+      "authors": [
+        "Mirko Brazzini",
+        "Giulio Filippeschi",
+        "Alessandro Catania",
+        "Sebastiano Strangio",
+        "Giuseppe Iannaccone"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR",
+        "cs.NE",
+        "physics.app-ph"
+      ],
+      "published": "2026-07-27T20:41:46+00:00",
+      "link": "https://arxiv.org/pdf/2607.25058v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "analog in-memory computing on 65nm floating-gate array",
+      "llm_evidence_cn": "65nm浮栅阵列上的模拟存内计算",
+      "llm_evidence": "65nm浮栅阵列上的模拟存内计算",
+      "canonical_evidence": "65nm浮栅阵列上的模拟存内计算",
+      "llm_tldr_en": "This paper mitigates retention loss in analog in-memory computing using circuit compensation and batch normalization recalibration, demonstrated on a 65nm floating-gate array.",
+      "llm_tldr_cn": "该论文针对65nm浮栅模拟存内计算中的保持损失问题，提出了电路级补偿与批量归一化重校准相结合的缓解技术。实验在65nm CMOS工艺制造的浮栅阵列上进行，并使用校准后的保持损失统计模型评估对VGG-10和WideResNet-28-10等神经网络推理精度的影响。结果表明，结合缓解技术后，编程后60天的推理精度损失得到有效控制，验证了模拟存内计算在非易失性存储器中的可行性。",
+      "llm_tldr": "该论文针对65nm浮栅模拟存内计算中的保持损失问题，提出了电路级补偿与批量归一化重校准相结合的缓解技术。实验在65nm CMOS工艺制造的浮栅阵列上进行，并使用校准后的保持损失统计模型评估对VGG-10和WideResNet-28-10等神经网络推理精度的影响。结果表明，结合缓解技术后，编程后60天的推理精度损失得到有效控制，验证了模拟存内计算在非易失性存储器中的可行性。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "compute-in-memory architecture",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.24221v2",
+      "source": "arxiv",
+      "title": "DICE: Detailed Inter-Chiplet End-to-End PHY Modeling for Accurate Chiplet Simulation",
+      "abstract": "Scaling monolithic multicores is increasingly constrained by power/thermal limits, yield, and rising manufacturing and testing costs. Chiplet designs address these challenges by partitioning large dies into smaller parts (typically multiple core-complex dies and an I/O die) linked via high-bandwidth physical fabrics (PHY). As bandwidth and wiring density scale, however, these short-reach links are pushed closer to their signal-integrity limits, increasing susceptibility to noise, crosstalk, and channel loss, motivating stronger link-level reliability mechanisms such as forward error correction (FEC). Despite this trend, state-of-the-art simulation infrastructures often approximate inter-chiplet links using oversimplified, fixed-latency models. Such abstractions overlook the inherently dynamic, runtime-dependent behavior of the PHY -- including channel conditions (e.g., signal-to-noise ratio shifts, signal crosstalk, clock jitter), iterative decoder convergence and packet retransmissions, and application dynamics (e.g., LLC-misses that travel across chiplet boundaries) -- all of which are hard to determine offline. We show that neglecting these effects distorts inter-chiplet packet-level timing and high-level performance metrics such as IPC, leading to off-trend simulation results. We present DICE, an in-simulation, runtime PHY modeling in gem5 that captures the end-to-end inter-chiplet datapath, including QC-LDPC encoding/decoding, PAM4 modulation, lossy-channel transmission, LLR-based demodulation, adaptive packet re-sending, and PHY-level flow control between chiplets.",
+      "authors": [
+        "Rashid Aligholipour",
+        "Stefanos kaxiras",
+        "Yuan Yao"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-07-27T09:53:10+00:00",
+      "link": "https://arxiv.org/pdf/2607.24221v2",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "detailed inter-chiplet PHY modeling, directly supports chiplet-based 3D integration design, enabling accurate simulation of hybrid bonding links",
+      "llm_evidence_cn": "提出详细的芯片间物理层模型，支持基于芯片的3D集成设计，可准确模拟混合键合互连",
+      "llm_evidence": "提出详细的芯片间物理层模型，支持基于芯片的3D集成设计，可准确模拟混合键合互连",
+      "canonical_evidence": "提出详细的芯片间物理层模型，支持基于芯片的3D集成设计，可准确模拟混合键合互连",
+      "llm_tldr_en": "DICE provides detailed end-to-end PHY modeling for chiplet-to-chiplet links, addressing signal integrity and reliability in 3D integrated systems; essential for hybrid bonding 3D integration design.",
+      "llm_tldr_cn": "该论文针对芯片间互连的物理层，提出了DICE详细建模框架，支持高带宽、高密度的短距离链路（如混合键合）的精确仿真。当前主流模拟器通常使用固定延迟近似，而DICE能够捕捉噪声、串扰、信道损耗等信号完整性效应，从而支持前向纠错等可靠性机制的评估。该工作为3D集成chiplet系统的设计空间探索提供了关键工具。",
+      "llm_tldr": "该论文针对芯片间互连的物理层，提出了DICE详细建模框架，支持高带宽、高密度的短距离链路（如混合键合）的精确仿真。当前主流模拟器通常使用固定延迟近似，而DICE能够捕捉噪声、串扰、信道损耗等信号完整性效应，从而支持前向纠错等可靠性机制的评估。该工作为3D集成chiplet系统的设计空间探索提供了关键工具。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "hybrid bonding 3D integration",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.26491v1",
+      "source": "arxiv",
+      "title": "LLMET: Enabling Cross-Layer Evaluation of Emerging M3D Memories for Energy-Efficient LLM Serving",
+      "abstract": "The energy consumption of Large Language Model (LLM) serving is becoming a major system challenge as deployment scales, driven by hardware power and thermal constraints and rising electricity costs. A key contributor to chip energy dissipation is data movement between limited on-chip cache and off-chip High Bandwidth Memory (HBM). Meanwhile, emerging memory technologies such as monolithic 3D (M3D) integration of cache memories at the Back-End-Of-Line (BEOL) of logic chips enable larger and denser on-chip memories, creating new opportunities to reduce costly off-chip traffic. However, it remains unclear whether continuously scaling on-chip memory using emerging technologies can effectively improve the energy efficiency of LLM serving. To address this gap, we develop LLMET (LLM with Emerging Technology), a validated cross-layer simulation framework, and conduct a comprehensive study on the impact of large-capacity on-chip memory technologies across a broad range of models, applications and platforms. Utilizing M3D technology to expand the L2 cache from 40MB to 1GB yields a 44% reduction in chip energy during the Llama3.1-70B prefill phase with a 16K context window, based on LLMET simulation on a dual NVIDIA A100 GPU setup. On the 8x NVIDIA B200-like platform, extending the L2 cache from 128MB to 4GB saves the prefill energy by up to 24%. For the edge platform and workloads, the decode energy saving reaches 30% when increasing the 8MB cache size to 256MB. These results highlight the promise of ultra-large on-chip memories for energy-efficient LLM serving systems.",
+      "authors": [
+        "Ming-Yen Lee",
+        "Hanchen Yang",
+        "Faaiq Waqar",
+        "Harsono Simka",
+        "Tushar Krishna",
+        "Muhammed Ahosan Ul Karim",
+        "Shimeng Yu"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR",
+        "cs.AI",
+        "cs.ET",
+        "cs.LG"
+      ],
+      "published": "2026-07-29T05:37:31+00:00",
+      "link": "https://arxiv.org/pdf/2607.26491v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "uses monolithic 3D memory to reduce data movement, improving energy efficiency for LLM serving",
+      "llm_evidence_cn": "利用单片3D内存减少数据移动，提高LLM服务的能效",
+      "llm_evidence": "利用单片3D内存减少数据移动，提高LLM服务的能效",
+      "canonical_evidence": "利用单片3D内存减少数据移动，提高LLM服务的能效",
+      "llm_tldr_en": "LLMET evaluates emerging M3D cache memories to reduce off-chip data movement, enabling energy-efficient LLM serving.",
+      "llm_tldr_cn": "大型语言模型（LLM）服务能耗巨大，主要源于片外数据移动。LLMET提出跨层评估方法，探索在逻辑芯片后道工艺中集成单片3D（M3D）缓存存储器，以增大片上缓存容量，减少高带宽内存（HBM）访问。实验表明，M3D缓存能显著降低LLM服务能耗。该工作为存算一体架构中的3D堆叠内存能效优化提供了系统级评估框架。",
+      "llm_tldr": "大型语言模型（LLM）服务能耗巨大，主要源于片外数据移动。LLMET提出跨层评估方法，探索在逻辑芯片后道工艺中集成单片3D（M3D）缓存存储器，以增大片上缓存容量，减少高带宽内存（HBM）访问。实验表明，M3D缓存能显著降低LLM服务能耗。该工作为存算一体架构中的3D堆叠内存能效优化提供了系统级评估框架。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "How does compute in memory architecture improve energy efficiency?",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.26633v1",
+      "source": "arxiv",
+      "title": "NELSSA: A GPU-PNM Heterogeneous System for Mixed-Length LLM Serving via Length-based Request Placement",
+      "abstract": "Modern LLMs and their agentic applications are broadening the range of serving workloads, spanning context lengths from a few hundred tokens to hundreds of thousands. As these requests frequently interleave within the same serving window, LLM serving systems must handle highly heterogeneous mixed-length workloads. Such mixed-length workloads expose fundamental inefficiencies in GPU-centric serving architectures, whose throughput depends on large, memory-constrained batches. In this paper, we present NELSSA, an LLM serving system that integrates GPUs with real-world Processing-near-Memory (PNM) accelerator devices to efficiently support mixed-length workloads. NELSSA employs length-based request placement to route short-context requests to GPUs and long-context requests to the PNM tier, incorporating runtime migration to accommodate dynamic context growth without recomputation. We prototype NELSSA as an end-to-end system, implementing device-level sparse attention on PNM, GPU decode kernels, and a host-side runtime that orchestrates scheduling and cross-tier memory movement over a CXL-enabled infrastructure with RPC and RDMA support. Across mixed-length LLM workloads, NELSSA improves decode throughput by up to 5.5x in tokens/sec and reduces P99 latency by up to 15x compared to GPU-only baselines. Our end-to-end prototype and experimental results suggest that integrated GPU-PNM serving, enabled by CXL-based disaggregation, is a promising system paradigm for scalable and flexible LLM infrastructures that support evolving workloads.",
+      "authors": [
+        "Sookyung Choi",
+        "Seungyong Lee",
+        "Kangkyu Park",
+        "Yunseo Chun",
+        "Junseok Lee",
+        "Hyeongseok Gwak",
+        "Myunghyun Rhee",
+        "Euiseok Kim",
+        "Donguk Moon",
+        "Kwangsik Shin",
+        "Guseul Heo",
+        "Youngpyo Joo",
+        "Hoshik Kim",
+        "Jongse Park"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-07-29T08:58:04+00:00",
+      "link": "https://arxiv.org/pdf/2607.26633v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "integrates GPUs with real-world Processing-near-Memory (PNM) accelerators",
+      "llm_evidence_cn": "集成GPU与实际处理近内存加速器",
+      "llm_evidence": "集成GPU与实际处理近内存加速器",
+      "canonical_evidence": "集成GPU与实际处理近内存加速器",
+      "llm_tldr_en": "NELSSA integrates GPUs with PNM accelerators for efficient mixed-length LLM serving via length-based request placement.",
+      "llm_tldr_cn": "NELSSA系统针对LLM服务中变长请求的效率问题，提出将GPU与真实处理近内存（PNM）加速器集成，通过基于长度的请求放置路由短上下文请求至PNM，利用其近存计算优势减少数据移动，显著提升混合长度工作负载下的吞吐量和能效。",
+      "llm_tldr": "NELSSA系统针对LLM服务中变长请求的效率问题，提出将GPU与真实处理近内存（PNM）加速器集成，通过基于长度的请求放置路由短上下文请求至PNM，利用其近存计算优势减少数据移动，显著提升混合长度工作负载下的吞吐量和能效。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "near-memory computing design",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": []
+}

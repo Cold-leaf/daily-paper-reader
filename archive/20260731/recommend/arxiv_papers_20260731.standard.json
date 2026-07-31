@@ -1,0 +1,57 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-07-31T21:51:41.871614+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2607.27140v1",
+      "source": "arxiv",
+      "title": "Investigating reservoir computing for branch predictionin pipelined processors using emerging CMOS memristor devices",
+      "abstract": "This project aimed to develop a novel reservoir compute (RC) implementation framework targeting high-speed operation and integration with CMOS digital logic. With the target workload of branch prediction (BP) for multistage pipelined central pro-cessing unit (CPU) cores. For this, a novel memristor based RC design framework was developed within the context of the workload requirements. This was then implemented in simulation using industry standard modelling languages of System Verilog (SV) and Verilog-AMS (VAMS).The developed RC design framework was subsequently verified using a basic sequence detection task before further benchmarking for its effectiveness at BP. The developed RC framework was tested using the Dhrystone performance benchmark, while targeting the RISC-V RV64GC instruction set architecture (ISA). Conducted testing demonstrates that RC shows great promise for ap-plication to BP and is capable of achieving impressive overall prediction accuracy. However, testing also shows that further refinement of the developed RC design framework is necessary to address shortfalls in the adaptability of the proposed RC system. As comparison against the state of the art TAGE predictor showed the proposed RC design framework to be 15x slower to adapt to changes in branching behaviour.",
+      "authors": [
+        "Harvey Samuel George Johnson",
+        "Sendy Phang"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR",
+        "cs.CE",
+        "cs.ET",
+        "cs.LG",
+        "physics.app-ph"
+      ],
+      "published": "2026-07-29T17:12:18+00:00",
+      "link": "https://arxiv.org/pdf/2607.27140v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "memristor-based reservoir computing framework, a device technology for compute-in-memory",
+      "llm_evidence_cn": "基于忆阻器的储备池计算框架，属于存内计算器件技术范畴",
+      "llm_evidence": "基于忆阻器的储备池计算框架，属于存内计算器件技术范畴",
+      "canonical_evidence": "基于忆阻器的储备池计算框架，属于存内计算器件技术范畴",
+      "llm_tldr_en": "Presents a memristor-based reservoir computing framework for high-speed branch prediction with CMOS compatibility, validated via SystemVerilog and Verilog-AMS simulations.",
+      "llm_tldr_cn": "针对流水线处理器中分支预测任务对高速、低开销计算的需求，本文开发了一种基于新兴CMOS忆阻器的储备池计算实现框架，目标是实现高速运行并与CMOS数字逻辑无缝集成。该框架使用SystemVerilog和Verilog-AMS进行了电路级仿真实现，先通过基本序列检测任务验证，再在分支预测负载上进行基准测试。实验结果表明该框架能够有效处理分支预测任务，并展现出与CMOS工艺结合的可行性。这项工作为面向CPU加速的忆阻存内计算硬件提供了可复用的设计方法。",
+      "llm_tldr": "针对流水线处理器中分支预测任务对高速、低开销计算的需求，本文开发了一种基于新兴CMOS忆阻器的储备池计算实现框架，目标是实现高速运行并与CMOS数字逻辑无缝集成。该框架使用SystemVerilog和Verilog-AMS进行了电路级仿真实现，先通过基本序列检测任务验证，再在分支预测负载上进行基准测试。实验结果表明该框架能够有效处理分支预测任务，并展现出与CMOS工艺结合的可行性。这项工作为面向CPU加速的忆阻存内计算硬件提供了可复用的设计方法。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "compute-in-memory architecture",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

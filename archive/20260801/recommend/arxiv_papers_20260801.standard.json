@@ -1,0 +1,98 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-01T21:21:15.313511+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [
+    {
+      "id": "2607.26335v1",
+      "source": "arxiv",
+      "title": "The Fabric Is the Cluster Driver: Cross-Layer eBPF Policies for GPU-CXL Fabrics",
+      "abstract": "We present fabric_ext, an eBPF middleware compiler and runtime for extensible OS policies over GPU--CXL fabrics. fabric_ext lets one policy program execute across GPU hooks, driver/runtime hooks, DPU/NIC hooks, and CXL switch or near-memory hooks. The key abstraction is a semantic movement graph: edges describe bytes, stride, reuse distance, read/write ratio, source and destination, ordering requirement, alias set, ownership, and transformations such as Move, Quantize, Compress, Checksum, Filter, Reduce, Scatter/Gather, Replicate, and Persist. The compiler lowers this graph into per-device eBPF programs, verifier obligations, consistency-classed BPF maps, and artifacts for bpftime and dputime. At the fabric edge, fabric_ext treats a near-Type-2 small core as a hardware-JIT and state manager: it specializes verified movement descriptors into local copy, placement, ordering, and transformation commands, while the surrounding Von Neumann island of memory, DMA, and compute engines performs the dataflow. Because this dataflow is data-driven, fabric_ext also places observation beside the island, where queues, DMA completions, memory placement, and ownership transitions are visible as they happen. The canonical stress case is LLM prefill: attention streams KV blocks and reductions while FFN streams activations, weights, and compressible intermediates, forcing one request to cross GPU tensor execution, DPU/NIC event execution, and CXL or switch-local dataflow islands.",
+      "authors": [
+        "Yiwei Yang",
+        "Andi Quinn"
+      ],
+      "primary_category": "cs.DC",
+      "categories": [
+        "cs.DC"
+      ],
+      "published": "2026-07-28T23:14:45+00:00",
+      "link": "https://arxiv.org/pdf/2607.26335v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "near-memory hooks in GPU-CXL fabric middleware for near-memory computing",
+      "llm_evidence_cn": "GPU-CXL存储结构中的近存计算钩子与跨层eBPF策略",
+      "llm_evidence": "GPU-CXL存储结构中的近存计算钩子与跨层eBPF策略",
+      "canonical_evidence": "GPU-CXL存储结构中的近存计算钩子与跨层eBPF策略",
+      "llm_tldr_en": "fabric_ext enables cross-layer eBPF policies over GPU-CXL fabrics with near-memory hooks, using a semantic movement graph to program near-memory processing and optimize data movement.",
+      "llm_tldr_cn": "GPU与CXL内存组成的存储结构日益复杂，数据搬运和策略管理变得困难。本文提出fabric_ext，一个基于eBPF的中间件编译器和运行时，允许同一策略程序跨越GPU、驱动、DPU和CXL近存钩子执行。核心是通过语义移动图抽象数据的字节、复用距离和变换操作，并将图编译为逐设备eBPF程序，支持近内存计算与数据迁移优化。这为大规模GPU-CXL存储系统提供了可编程、可扩展的系统软件基础。",
+      "llm_tldr": "GPU与CXL内存组成的存储结构日益复杂，数据搬运和策略管理变得困难。本文提出fabric_ext，一个基于eBPF的中间件编译器和运行时，允许同一策略程序跨越GPU、驱动、DPU和CXL近存钩子执行。核心是通过语义移动图抽象数据的字节、复用距离和变换操作，并将图编译为逐设备eBPF程序，支持近内存计算与数据迁移优化。这为大规模GPU-CXL存储系统提供了可编程、可扩展的系统软件基础。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "near-memory computing design",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2607.23709v1",
+      "source": "arxiv",
+      "title": "Elemental Germanium Phase-Change Memory",
+      "abstract": "Phase-change memory (PCM) is a mature technology for fast, scalable, non-volatile data storage, with applications spanning embedded memory, as well as in-memory and neuromorphic computing. PCM predominantly relies on chalcogenide alloys, with $\\mathrm{Ge_2Sb_2Te_5}$ (GST) as the industry standard. Yet in these alloys, the individual Ge, Sb, and Te atoms redistribute upon cycling, causing stochastic operation and ultimately device failure. To address this issue, elemental antimony was proposed as a PCM material, but it exhibits a metastable amorphous state that prevents reliable data retention. Moreover, tellurium and antimony can contaminate complementary metal-oxide-semiconductor (CMOS) production lines or act as unintended dopants, restricting manufacturing of PCM to dedicated fabs. Here we introduce elemental germanium (Ge) as a CMOS-native phase-change material that overcomes these fundamental limitations. In a vertical PCM cell architecture, Ge enables sub-nanosecond crystallization (240 ps, 40 times faster than GST), non-volatile data storage with excellent thermal stability ($>$110 °C for 10 years vs. $\\sim$87 °C for GST), and a resistance drift coefficient approximately 60% lower than in GST. These results establish pure Ge, a standard semiconductor, as an alternative to chalcogenide phase-change materials, achieving superior performance in key metrics and enabling phase-change memory to be fabricated in standard semiconductor facilities.",
+      "authors": [
+        "Till Zellweger",
+        "Marko Mladenović",
+        "Kevin Portner",
+        "Christoph Weilenmann",
+        "Michael Stiefel",
+        "Hanglin He",
+        "Klemens Bauer",
+        "Luiz Felipe Aguinsky",
+        "Mathieu Luisier",
+        "Alexandros Emboras"
+      ],
+      "primary_category": "cond-mat.mtrl-sci",
+      "categories": [
+        "cond-mat.mtrl-sci",
+        "physics.app-ph"
+      ],
+      "published": "2026-07-26T15:09:15+00:00",
+      "link": "https://arxiv.org/pdf/2607.23709v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "phase-change memory for in-memory and neuromorphic computing",
+      "llm_evidence_cn": "面向存内计算与神经形态计算的相变存储器件",
+      "llm_evidence": "面向存内计算与神经形态计算的相变存储器件",
+      "canonical_evidence": "面向存内计算与神经形态计算的相变存储器件",
+      "llm_tldr_en": "Proposes elemental germanium phase-change memory as a CMOS-compatible alternative to GST, targeting applications like in-memory computing and neuromorphic hardware.",
+      "llm_tldr_cn": "相变存储器(PCM)是存内计算和神经形态计算的重要器件基础，但主流硫系合金在循环中原子迁移导致失效。本文提出元素锗(Ge)作为PCM材料，改善亚稳态和非CMOS兼容问题。该材料有望抑制循环失效并兼容CMOS产线，为存算一体应用提供更可靠的存储器件。",
+      "llm_tldr": "相变存储器(PCM)是存内计算和神经形态计算的重要器件基础，但主流硫系合金在循环中原子迁移导致失效。本文提出元素锗(Ge)作为PCM材料，改善亚稳态和非CMOS兼容问题。该材料有望抑制循环失效并兼容CMOS产线，为存算一体应用提供更可靠的存储器件。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "compute-in-memory architecture",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

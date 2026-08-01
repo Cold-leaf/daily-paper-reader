@@ -1,0 +1,39 @@
+{
+  "label": "2026-08-01",
+  "date": "2026-08-01",
+  "generated_at": "2026-08-01T21:23:39",
+  "count": 2,
+  "papers": [
+    {
+      "paper_id": "202608/01/2607.26335v1-the-fabric-is-the-cluster-driver-cross-layer-ebpf-policies-for-gpu-cxl-fabrics",
+      "section": "deep",
+      "title_en": "The Fabric Is the Cluster Driver: Cross-Layer eBPF Policies for GPU-CXL Fabrics",
+      "authors": "Yiwei Yang, Andi Quinn",
+      "date": "2026-07-28",
+      "pdf": "https://arxiv.org/pdf/2607.26335v1",
+      "score": "8.0",
+      "evidence": "GPU-CXL存储结构中的近存计算钩子与跨层eBPF策略",
+      "tldr": "GPU-CXL架构下，跨设备的数据移动与内存管理需要统一的可扩展OS策略；我们提出fabric_ext，以eBPF中间件将策略程序编译为语义移动图，并降级到GPU、DPU、CXL交换机等各设备钩子上执行；其将近Type-2小核心用作硬件JIT与状态管理器，使验证过的移动描述符驱动本地数据流，同时实现观测；在LLM预填充负载中，策略可跨越张量执行、网络事件和数据流岛，显著简化异构策略部署。",
+      "tags": "query:cim",
+      "abstract_en": "We present fabric_ext, an eBPF middleware compiler and runtime for extensible OS policies over GPU--CXL fabrics. fabric_ext lets one policy program execute across GPU hooks, driver/runtime hooks, DPU/NIC hooks, and CXL switch or near-memory hooks. The key abstraction is a semantic movement graph: edges describe bytes, stride, reuse distance, read/write ratio, source and destination, ordering requirement, alias set, ownership, and transformations such as Move, Quantize, Compress, Checksum, Filter, Reduce, Scatter/Gather, Replicate, and Persist. The compiler lowers this graph into per-device eBPF programs, verifier obligations, consistency-classed BPF maps, and artifacts for bpftime and dputime. At the fabric edge, fabric_ext treats a near-Type-2 small core as a hardware-JIT and state manager: it specializes verified movement descriptors into local copy, placement, ordering, and transformation commands, while the surrounding Von Neumann island of memory, DMA, and compute engines performs the dataflow. Because this dataflow is data-driven, fabric_ext also places observation beside the island, where queues, DMA completions, memory placement, and ownership transitions are visible as they happen. The canonical stress case is LLM prefill: attention streams KV blocks and reductions while FFN streams activations, weights, and compressible intermediates, forcing one request to cross GPU tensor execution, DPU/NIC event execution, and CXL or switch-local dataflow islands.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/01/2607.23709v1-elemental-germanium-phase-change-memory",
+      "section": "quick",
+      "title_en": "Elemental Germanium Phase-Change Memory",
+      "authors": "Till Zellweger, Marko Mladenović, Kevin Portner, Christoph Weilenmann, Michael Stiefel, Hanglin He, Klemens Bauer, Luiz Felipe Aguinsky, Mathieu Luisier, Alexandros Emboras",
+      "date": "2026-07-26",
+      "pdf": "https://arxiv.org/pdf/2607.23709v1",
+      "score": "6.0",
+      "evidence": "面向存内计算与神经形态计算的相变存储器件",
+      "tldr": "现有相变存储器多依赖硫系合金GST，但原子重构导致性能漂移且Te/Sb污染CMOS产线。本文提出利用标准半导体元素Ge作为CMOS兼容相变材料，在垂直单元中实现240ps亚纳秒结晶，比GST快40倍；10年热稳定性超110°C，电阻漂移系数降低60%。纯Ge开辟了在标准半导体产线制造高性能相变存储的新路径。",
+      "tags": "query:cim",
+      "abstract_en": "Phase-change memory (PCM) is a mature technology for fast, scalable, non-volatile data storage, with applications spanning embedded memory, as well as in-memory and neuromorphic computing. PCM predominantly relies on chalcogenide alloys, with $\\mathrm{Ge_2Sb_2Te_5}$ (GST) as the industry standard. Yet in these alloys, the individual Ge, Sb, and Te atoms redistribute upon cycling, causing stochastic operation and ultimately device failure. To address this issue, elemental antimony was proposed as a PCM material, but it exhibits a metastable amorphous state that prevents reliable data retention. Moreover, tellurium and antimony can contaminate complementary metal-oxide-semiconductor (CMOS) production lines or act as unintended dopants, restricting manufacturing of PCM to dedicated fabs. Here we introduce elemental germanium (Ge) as a CMOS-native phase-change material that overcomes these fundamental limitations. In a vertical PCM cell architecture, Ge enables sub-nanosecond crystallization (240 ps, 40 times faster than GST), non-volatile data storage with excellent thermal stability ($>$110 °C for 10 years vs. $\\sim$87 °C for GST), and a resistance drift coefficient approximately 60% lower than in GST. These results establish pure Ge, a standard semiconductor, as an alternative to chalcogenide phase-change materials, achieving superior performance in key metrics and enabling phase-change memory to be fabricated in standard semiconductor facilities.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

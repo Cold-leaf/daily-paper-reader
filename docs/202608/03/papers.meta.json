@@ -1,0 +1,39 @@
+{
+  "label": "2026-08-03",
+  "date": "2026-08-03",
+  "generated_at": "2026-08-03T21:34:34",
+  "count": 2,
+  "papers": [
+    {
+      "paper_id": "202608/03/2607.29070v1-query-density-driven-partitioning-for-spatiotemporal-load-balancing-on-processing-in-memory-systems",
+      "section": "deep",
+      "title_en": "Query Density-Driven Partitioning for Spatiotemporal Load Balancing on Processing-in-Memory Systems",
+      "authors": "Takato Hideshima, Shigeyuki Sato, Tomoharu Ugawa",
+      "date": "2026-07-31",
+      "pdf": "https://arxiv.org/pdf/2607.29070v1",
+      "score": "9.0",
+      "evidence": "直接针对处理中内存(PIM)系统的查询负载均衡，匹配PIM系统需求。",
+      "tldr": "PIM系统面临时空负载均衡与范围聚合查询难以兼顾的问题，现有PIM-tree通过牺牲空间局部性实现负载均衡，但削弱了范围查询效率。本文提出查询密度驱动的键范围分区方案，平衡查询密度并可调节负载与数据大小，进而开发B+-Forest索引。实验表明，B+-Forest比密度无感B+-tree抗偏斜性更强，点查询性能媲美PIM-tree，同时高效支持范围聚合，为PIM系统提供了兼顾负载均衡与空间局部性的解决方案。",
+      "tags": "query:cim",
+      "abstract_en": "Processing-in-Memory (PIM) systems, which consist of many processors with small local memory, have recently emerged as commercial products and attracted much attention as a means of overcoming the memory wall, particularly in the context of in-memory database technology. The state-of-the-art PIM-oriented index PIM-tree has been demonstrated to achieve asymptotically good spatiotemporal load balancing---query loads and data sizes are balanced among processors---for skewed queries, by trading spatial locality. Unfortunately, such a sacrifice of spatial locality hinders the PIM-oriented processing of range-aggregate queries. To achieve both spatiotemporal load balancing and efficiently executing range-aggregate queries on PIM systems, we develop a query density-driven key-range partitioning scheme. It balances query density among PIM processors, allowing us to strike a balance between query load and data size via a parameter. We then develop B${}^\\text{+}$-Forest, a PIM-oriented B${}^\\text{+}$-tree variant based on our partitioning scheme. Experimental results demonstrated that it exhibits higher skew resistance than a B${}^\\text{+}$-tree based on space-constrained, query-load-balanced, density-unaware partitioning, and performance comparable to PIM-tree in point-get queries, as well as efficient support for range-aggregate queries.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/03/2607.29076v1-selective-kv-cache-protection-for-noise-resilient-llm-inference-on-analog-compute-in-memory-systems",
+      "section": "deep",
+      "title_en": "Selective KV Cache Protection for Noise-Resilient LLM Inference on Analog Compute-In-Memory Systems",
+      "authors": "Yuannuo Feng, Wenyong Zhou, Yuang Ma, Yizhe Chen, Wenshuai Yao, Yuxin Xie, Ngai Wong, Wang Kang",
+      "date": "2026-07-31",
+      "pdf": "https://arxiv.org/pdf/2607.29076v1",
+      "score": "9.0",
+      "evidence": "模拟存内计算架构，KV缓存噪声鲁棒性保护",
+      "tldr": "模拟计算存储阵列用于LLM推理时，KV缓存动态更新与权重固定的模式不匹配，导致显著硬件噪声。首次研究发现初始token和最近token对噪声尤其敏感，据此提出分层保护策略：将sink token和滑动窗口保留在数字高精度路径，其余KV缓存由模拟CIM处理，并设计协同调度器控制开销。在9个LLM上，困惑度从33.91降至11.95，接近无噪声基线11.06，同时编程行利用率从23.1%提升至91.2%，展现噪声鲁棒且高效的推理潜力。",
+      "tags": "query:cim",
+      "abstract_en": "Analog compute-in-memory (CIM) arrays have emerged as a promising substrate for energy-efficient LLM inference, particularly for weight-stationary computations in linear layers. However, extending analog CIM to attention mechanisms introduces a fundamental challenge: KV cache operations demand repeated in-situ weight updates, and the resulting mismatch with the weight-stationary paradigm exposes dynamic computations to significant hardware noise, a critical problem that remains largely unexplored. In this paper, we present the first systematic study of dynamic attention computation on analog CIM arrays, revealing that initial and recent tokens exhibit disproportionate vulnerability to hardware noise. Motivated by this token-level insight, we propose a hierarchical token protection strategy that keeps sink tokens and a sliding recent-token window on a higher-precision digital path while processing the bulk KV cache on analog CIM. A co-designed scheduler combines analog programming, ownership transition, and bulk-MVM tile formation to bound digital overhead. Evaluations on nine LLMs show that our approach lowers average perplexity under analog noise from 33.91 to 11.95, close to the clean baseline of 11.06, while improving dynamic-KV programming-row utilization from 23.1\\% to 91.2\\%.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,2518 @@
+Title: Query Density-Driven Partitioning for Spatiotemporal Load Balancing on Processing-in-Memory Systems
+
+URL Source: https://arxiv.org/pdf/2607.29070v1
+
+Published Time: Mon, 03 Aug 2026 00:30:05 GMT
+
+Number of Pages: 17
+
+Markdown Content:
+# Query Density-Driven Partitioning for Spatiotemporal Load Balancing on Processing-in-Memory Systems 
+
+# Takato Hideshima 
+
+hideshima-takato182@g.ecc.u-tokyo.ac.jp The University of Tokyo Tokyo, Japan 
+
+# Shigeyuki Sato 
+
+sato.shigeyuki@acm.org The University of Electro-Communications Tokyo, Japan 
+
+# Tomoharu Ugawa 
+
+tugawa@acm.org The University of Tokyo Tokyo, Japan 
+
+## Abstract 
+
+Processing-in-Memory (PIM) systems, which consist of many pro-cessors with small local memory, have recently emerged as com-mercial products and attracted much attention as a means of over-coming the memory wall, particularly in the context of in-memory database technology. The state-of-the-art PIM-oriented index PIM-tree has been demonstrated to achieve asymptotically good spa-tiotemporal load balancing—query loads and data sizes are balanced among processors—for skewed queries, by trading spatial local-ity. Unfortunately, such a sacrifice of spatial locality hinders the PIM-oriented processing of range-aggregate queries. To achieve both spatiotemporal load balancing and efficiently executing range-aggregate queries on PIM systems, we develop a query density-driven key-range partitioning scheme. It balances query density among PIM processors, allowing us to strike a balance between query load and data size via a parameter. We then develop B +-Forest, a PIM-oriented B +-tree variant based on our partitioning scheme. Experimental results demonstrated that it exhibits higher skew resistance than a B +-tree based on space-constrained, query-load-balanced, density-unaware partitioning, and performance compa-rable to PIM-tree in point-get queries, as well as efficient support for range-aggregate queries. 
+
+## CCS Concepts 
+
+• Information systems → Key-value stores ; Main memory en-gines ; • Software and its engineering → Distributed memory .
+
+## Keywords 
+
+Processing-in-Memory, Key-value store, Range-aggregate query, Spatiotemporal load balancing, Query density-driven partitioning 
+
+## 1 Introduction 
+
+The “memory wall” problem has become increasingly challenging for data-intensive computing because physical data movement in-curs inevitable costs. One natural, promising approach to breaking the memory wall is to distribute data across the small local mem-ory of many processors and process it in parallel with reduced data movement. This idea is commonly shared by Massively Paral-lel Processor Array (MPPA) [3, 10, 15] and Processing-in-Memory (PIM) [1] architectures, which tackle the memory wall. Since the first real PIM system UPMEM PIM [ 30 ] emerged, a variety of PIM applications [ 11 , 14 , 26 ] have been studied. One of the most promising applications is in-memory databases [ 2 , 22 ], particularly key-value stores, for two major reasons. They are easy to exploit parallelism by batching queries as in recent batch-parallel data structures [ 19 , 20 , 31 , 32 ]. Computation with database indexes is data-driven; i.e., computations arise only at relevant parts of the entire data. For in-memory key-value stores on UPMEM PIM, various PIM-oriented index data structures [ 6 , 7 , 9, 18 –21 ] were developed, supporting point and range queries. The main challenge in in-memory key-value stores on UPMEM PIM, or many processors with small local memory, has been re-sistance to skewed queries, where data accesses of workloads are non-uniform, biased as in real-world workloads [ 4]. To fully lever-age systems like UPMEM PIM, not only query loads on processors but also the data sizes assigned to them must be balanced even under skewed queries. We call this requirement spatiotemporal load balancing. The state-of-the-art data structure PIM-tree [ 20 ] has achieved asymptotically good spatiotemporal load balancing. A key trick of PIM-tree for spatiotemporal load balancing is random scattering of small (specifically, cache line-granular) chunks of the key space over PIM processors. It works asymptotically very well for point queries and range-scan queries because queries to the same chunk can be fused, and frequently accessed chunks are evenly distributed with high probability. The resultant spatiotemporal balance satisfies the resource constraints of UPMEM PIM. Unfortunately, random chunk scattering sacrifices spatial local-ity. Range queries with long key ranges result in lying over many processors, thereby amplifying the communication between CPUs and PIM processors. Such a sacrifice of spatial locality becomes more severe for range-aggregate queries because ranges that fit into a single processor can be efficiently aggregated with minimal com-munication, which is the PIM-friendly situation. To make matters worse, query fusion, which is feasible for range-scan queries, does not work well with user-defined aggregate functions [ 8 , 12 ]. It thus remains an open challenge to achieve spatiotemporal load balance under query skew while preserving the spatial locality required for efficient range-aggregate query processing. To this end, we present a novel workload-driven key-range parti-tioning scheme for ordered-key indexes. It partitions the key range to balance query density , i.e., the number of hit queries per data amount, across PIM processors. High-density, i.e., hot , ranges are identified and distributed so that each PIM processor has at most one hot range and the key-value pairs therein, as illustrated in Fig. 1. The remaining ranges, i.e., cold ranges, and the key-value pairs therein are assigned to PIM processors in a block-partitioning manner. Supposing that skewed queries make hot ranges few and narrow, a dominant part of the data is distributed contiguously and mostly evenly, preserving spatial locality, while query loads are balanced. Our partitioning algorithm also has a tuning parameter 
+
+> 1arXiv:2607.29070v1 [cs.DB] 31 Jul 2026 Takato Hideshima, Shigeyuki Sato, and Tomoharu Ugawa Ordered Data
+> Query Density
+> Hot Partitions
+> Cold Partitions
+
+Figure 1: Overview of query density-driven partitioning. ...  
+
+> CPU cache DRAM PIM host
+> economic processor
+> DRAM
+> DPU
+> DPU
+> DPU
+
+Figure 2: Structure of UPMEM PIM. 
+
+that allows us to find a sweet spot of the trade-off between query load balance and data size balance empirically. Moreover, our query density-driven approach is index-agnostic and applicable to any ordered-key index. Then, we develop B +-Forest, an adaptation of our partitioning algorithm to B +-trees on top of UPMEM PIM by following the PIM-oriented hybrid design [ 6 ], where the upper part of the B +-tree resides as a routing table on the CPU side, and the lower part, i.e., a forest of subtrees, is distributed to the PIM side. Our algorithm for executing batched general range-aggregate queries on B +-trees follows this structure straightforwardly; it performs query routing on the CPU side by following the routing table, query execution for subtrees on the PIM side, and the final aggregation on the CPU side. It is simple yet efficiently meets the resource constraints of UPMEM PIM, thanks to the high degree of spatial locality of our partitioning scheme. We experimentally evaluate B +-Forest against two baselines: a distributed B +-tree based on query-load-balanced yet density-unaware variable-sized block partitioning (i.e., classic chains-on-chains partitioning [ 27 ]) under space constraints; and PIM-tree, the state-of-the-art PIM-oriented index. B +-Forest has achieved more robust load balancing under space constraints for skewed queries than the density-unaware partitioned B +-tree, demonstrating the ef-fectiveness of query density-driven partitioning for skew resistance. B+-Forest has achieved performance comparable to PIM-tree in an apples-to-apples comparison on point-get queries, yet has been able to handle range-aggregate queries efficiently, unlike PIM-tree, and benefit from larger batches of queries. Our main contributions are summarized as follows: 
+
+• We have presented a query-driven key-range partitioning scheme for ordered-key indexes, for spatiotemporal load balancing (Section 4). It balances query density among PIM processors by distributing high query-density ranges, of-fering a tuning parameter to control the balance of query load and data size. 
+
+• We have developed B +-Forest by applying our partitioning scheme to B +-trees, following the PIM-oriented hybrid de-sign [ 6] on top of UPMEM PIM (Section 5). Our algorithm for batched range-aggregate queries to B +-Forest is simple yet efficient, thanks to the high degree of spatial locality of our partitioning scheme. 
+
+• We have experimentally demonstrated that B +-Forest ex-hibits higher skew resistance than a distributed B +-tree based on query-load-balanced yet density-unaware variable-sized block partitioning [ 27 ] (Section 6). It also performs comparably to the state-of-the-art PIM-oriented index PIM-tree [ 20 ] in point-get queries, despite its ability to handle range-aggregate queries efficiently. 
+
+Scope and Limitations. This paper assumes offline full rebalancing based on the presented partitioning scheme for brevity. A sophisti-cated online partial rebalancing method is addressed in our concur-rent paper [ 16 ] for dynamic workload changes. Our approach does not depend on UPMEM PIM and is naturally amenable to a wide range of MPPA architectures, whereas B +-Forest is not feasible for lockstep PIM architectures, such as HBM-PIM [23]. 
+
+## 2 UPMEM PIM 
+
+The computational model of UPMEM PIM consists of a host and a large number of PIM processors called DPUs operating in parallel, as illustrated in Fig. 2. Each DPU consists of only 64 MiB DRAM and an economic 400 MHz processor. UPMEM PIM has a conven-tional heterogeneous configuration: the host utilizes the DPUs as accelerators. The CPU and all DPUs do not share memory, and every communication is explicitly initiated by the CPU and allowed only between the CPU and the DPUs. In typical use cases, DPUs perform homogeneous computations, i.e., the same kernel code is simultaneously invoked for all DPUs. In the computational model of UPMEM PIM, the CPU and DPUs have different strengths. The CPU is advantageous to high-locality computations owing to the processor cache; the DPUs are advanta-geous for low-locality parallel computations because data accesses dominate the total time, and their throughput benefits from parallel accesses. A practical choice of concurrency control is only barrier synchronization such that the CPU waits for all DPUs to terminate. See [14] for the details. Considering the above, spatiotemporal load balancing is neces-sary to fully leverage UPMEM PIM. Spatial load balance is required to handle such large-scale data that is suitable for parallel process-ing on DPUs, because of low-capacity DRAM per DPU. Temporal load balance among DPUs is also required to achieve the scalability derived from the parallelism of DPUs. 
+
+## 3 Batched Range-Aggregate Queries 
+
+This paper deals with user-defined range-aggregate queries (RAQs). An RAQ consists of a key range 𝑟 𝑞 and an aggregator (𝑓 , ⊕) and 
+
+> 2Query Density-Driven Partitioning for Spatiotemporal Load Balancing on Processing-in-Memory Systems
+
+calculates É 𝑓 (𝑘, 𝑣 ) for all key-value pairs (𝑘, 𝑣 ) such that 𝑘 ∈
+
+𝑟 𝑞 . As an instance of RAQs, a range-count-if query counts items in a specified key range that meet a specified condition: with an aggregator (𝑓 , +) such that 𝑓 (𝑘, 2𝑖 ) = 1 and 𝑓 (𝑘, 2𝑖 + 1) = 0 for 
+
+𝑖 ∈ Z, it counts the number of items whose values are even. For aggregator (𝑓 , ⊕) , we call ⊕ the reduction operator. We assume that the reduction operator is associative and has an identity. RAQs are a generalization of range-scan queries, where a query of range 
+
+𝑟 𝑞 returns all key-value pairs (𝑘, 𝑣 ) such that 𝑘 ∈ 𝑟 𝑞 .We address batch-parallel queries, i.e., parallel processing of a batch of RAQs. It is widely used as a representation of parallel tasks for various data structures, such as k-d trees [ 31 ], skip lists [ 19 ,20 ], array-based B-trees [ 32 ], and tries [ 21 ]. Following these prior studies, we assume a batch to consist of RAQs of the same type. Key-range partitioning is a common approach to load balanc-ing of distributed key-value stores. It divides key-value pairs into non-overlapping sets (i.e., partitions) over the key space, and dis-tributes them over workers, providing key-range assignments. Each partition typically stores key-value pairs in key order. Queries are dispatched to the workers according to the key-range assignments. For point queries, each worker can execute dispatched queries as-is within its own partitions, resulting in high-performance query pro-cessing. For RAQs, each worker can similarly execute given queries as-is, except that the postprocessing of partial aggregation results of RAQs spanning multiple workers is required. We assume that the number of items involved in the key range of an RAQ is about 100, according to the report [ 4 ], where most range accesses in the real-world workloads at Facebook involved fewer than 100 items. Long-range queries have distinct effects on load balancing because they can span many workers, amplifying the queries. Handling range queries uniformly regardless of range length is impractical. We focus on skewed range queries with a typical range length. Although coarser-grained key-range partitioning suppresses range query amplification more, UPMEM PIM requires spatiotem-poral load balancing. Meeting both at once is still an open problem. 
+
+## 4 Query Density-Driven Partitioning 4.1 Key Ideas 
+
+Our primary observation is that query density , i.e., the number of hit queries per data size for given queries and data items, is very important for spatiotemporal load balancing for skewed queries. A significant gap in query density among DPUs translates to an imbalance in query load or data size. A gap in query density among DPUs can be algorithmically sup-pressed by partitioning a given dataset into fine-grained pieces and scattering them randomly over DPUs, as in existing PIM-oriented data structures [ 19 , 20 ], because hot ranges of high density and cold 
+
+ranges of low density will be mixed within the data assigned to each DPU. Unfortunately, as mentioned in Section 3, fine-grained partitioning is not suitable for batched RAQs. Our key idea to achieve both coarse-grained partitioning and query density balance is to pinpoint, divide, and distribute hot ranges and key-value pairs therein over DPUs, as illustrated in Fig. 3c. Now, we consider assigning a small number of partitions Ordered Data 
+
+> Query Density
+> (a) Data-balanced one-dimensional partitioning. Ordered Data
+> Query Density
+> (b) Query-balanced one-dimensional partitioning. Ordered Data
+> Query Density
+> (c) Query density-driven partitioning.
+
+Figure 3: Query density-driven partitioning (c) versus one-dimensional partitioning schemes (a, b) for skewed queries. 
+
+to each DPU because single-partition schemes, as in classic one-dimensional partitioning [ 24 , 27 ], are difficult to achieve even den-sity in the presence of high skewness, as illustrated in Fig. 3. 
+
+## 4.2 Overview of Partitioning 
+
+On the basis of the key ideas aforementioned, we design our query density-driven offline key-range partitioning scheme. Its entire algorithm is summarized in Algorithm 1, where the notations used in algorithmic descriptions are summarized in Table 1. As seen from Algorithm 1, our partitioning algorithm assumes two things. One is that input key-value pairs are sorted in key order and uniformly divided into data chunks 𝑐 𝑖 , where the chunk size is a parameter to tune spatial locality. The size information is given as Size at the algorithmic level. The other is that a reference workload is given as NQrys , which is supposed to count the number of hit queries by converting range queries to point ones. Algorithm 1 proceeds as follows. First, it divides the key space into the same number of ranges as DPUs 𝑃 so that the data size is evenly distributed, forming base partitions (line 2). If the workload is not so skewed and all their ranges are cold, the partitioning process is complete. If hot ranges inhabit base partitions, the imbalance of query loads will arise, which shall be addressed in the following steps. Second, it identifies hot ranges within each base partition and splits hot partitions out of it, which is modeled as FindHot in line 3. After removing the hot partitions, the remaining ranges should consist only of cold ranges with sufficiently low query counts. These are now cold partitions (line 4). Lastly, it distributes the hot partitions. A DPU that has a relatively lower query load on its cold partitions receives at most one hot partition (line 6–9). To realize this assignment, FindHot has to ensure that the number of extracted hot ranges is at most equal to the number of DPUs. 
+
+> 3Takato Hideshima, Shigeyuki Sato, and Tomoharu Ugawa
+
+Table 1: Symbols used for algorithmic descriptions. 
+
+Symbol Definition 
+
+{𝑐 𝑖 }𝑁 𝑖 =1 𝑁 data chunks 𝑐 𝑖 in key order. 
+
+NQrys (𝑆 ) Function that takes a set of data chunks 𝑆 and returns the number of queries hitting 𝑆 .
+
+Size (𝑆 ) Function that takes a set of data chunks 𝑆 and returns the total size of data in 𝑆 .
+
+𝑃 Number of DPUs. 
+
+N𝑃 A set of DPU numbers 1, . . . , 𝑃 .
+
+𝑄 Number of queries in the reference workload, i.e., 
+
+NQrys  {𝑐 𝑖 }𝑁 𝑖 =1
+
+.
+
+𝐷 Total size of data, i.e., Size  {𝑐 𝑖 }𝑁 𝑖 =1
+
+.
+
+Algorithm 1: Construction of hot/cold partitions. 
+
+Input : Data chunks 𝐸 = {𝑐 𝑖 }𝑁 𝑖 =1
+
+Output : Routing table 𝑇 : N𝑃 → P ( 𝐸 ) 
+
+> 1
+
+Function HotColdPartition (𝐸 ) 
+
+> 2
+
+𝐵 ←
+
+n𝑐 𝑗 
+
+> 𝑒 𝑖
+> 𝑗 =𝑠 𝑖
+
+o𝑃 𝑖 =1, with Size 
+
+
+
+{𝑐 𝑗 }𝑒 𝑖 
+
+> 𝑗 =𝑠 𝑖
+
+
+
+balanced  
+
+> 3
+
+𝐻 ← Ð{FindHot (𝑏 ) | 𝑏 ∈ 𝐵 } 
+
+> 4
+
+𝐶 ←
+
+n
+
+𝑑 ↦ → 𝑏 \ Ð 𝐻 𝑑 ∈ N 𝑃 ∧ 𝑏 = 𝑐 𝑗 
+
+> 𝑒 𝑑
+> 𝑗 =𝑠 𝑑
+
+o 
+
+> 5
+
+𝑇 ← ∅  
+
+> 6
+
+for 𝑑 ↦ → 𝑐 ∈ 𝐶 in ascending order of NQrys (𝑐 ) do  
+
+> 7
+
+ℎ ← argmax  
+
+> ℎ′∈𝐻
+
+NQrys (ℎ′) if 𝐻 ≠ ∅ otherwise ∅ 
+
+> 8
+
+𝐻 ← 𝐻 \ ℎ 
+
+> 9
+
+𝑇 ← 𝑇 ∪ { 𝑑 ↦ → ℎ ∪ 𝑐 } 
+
+> 10
+
+return 𝑇 
+
+By design, the number of partitions is limited to at most 3𝑃 
+
+because at most 𝑃 hot partitions are extracted from 𝑃 base parti-tions. It will bring smaller memory footprints for query routing, suppressing CPU cache misses. In the following subsections, we specify FindHot , which is the technical heart of query density-driven partitioning. 
+
+## 4.3 Greedy Hot Range Selection 
+
+As mentioned in Section 4.1, we should identify hot ranges of high density. Now, the window width used to calculate density is a crucial parameter that should be adjusted for a trade-off, depending on the given workload. Narrow windows bring small hot partitions, resulting in data size balance, whereas wide windows bring more hot partitions to move, resulting in query load balance. To allow us to select a sweet spot in the trade-off, we introduce a parameter 
+
+𝛼 , the ratio of the data size of a base partition to the maximum width of a hot partition. It is a positive integer, with a larger value indicating a greater emphasis on data size balancing and a value closer to 1 indicating a greater emphasis on query load balancing. We consider the optimal 𝛼 to be the minimum 𝛼 that allows the data size to fit in memory. Algorithm 2 shows a simple greedy algorithm based on such 𝛼 
+
+for FindHot . Note that max 𝑆 produces −∞ if 𝑆 = ∅ throughout 
+
+Algorithm 2: Greedy hot range selection. 
+
+Input : A base partition 𝑏 = {𝑐 𝑖 }𝑒 𝑖 =𝑠 
+
+Output : A set of hot ranges ℎ from 𝑏  
+
+> 1
+
+Function FindHot (𝑏 ) 
+
+> 2
+
+(ℎ, 𝑙 ) ← (∅ , 𝑠 ) 
+
+> 3
+
+for 𝑟 ← 𝑠 to 𝑒 do  
+
+> 4
+
+𝑙 ′ ← max 
+
+n
+
+𝑙 ′ ∈ ( 𝑙, 𝑟 ] Size 
+
+
+
+{𝑐 𝑖 }𝑟 𝑖 =𝑙 ′
+
+
+
+≥ 1
+
+> 𝛼 𝐷 𝑃
+
+o 
+
+> 5
+
+𝑙 ← max {𝑙, 𝑙 ′ } 
+
+> 6
+
+if NQrys 
+
+
+
+{𝑐 𝑖 }𝑟 𝑖 =𝑙 
+
+
+
+≥ 𝑄 𝑃 then  
+
+> 7
+
+ℎ ← ℎ ∪ {𝑐 𝑖 }𝑟 𝑖 =𝑙  
+
+> 8
+
+𝑙 ← 𝑟 + 1 
+
+> 9
+
+return ℎ𝛼 𝑄 𝐷 
+
+> 1
+> 𝛼 𝐷 𝑃
+
+Ordered Data 
+
+Query Density #Queries < 𝑄 𝑃 
+
+⇒ No hot ranges 
+
+Figure 4: Too few hot ranges selected in Algorithm 2: no candidate window contains more queries than the threshold, and the query load becomes imbalanced. 
+
+this paper. This algorithm scans the base partition by the windows of size 1 
+
+> 𝛼 𝐷 𝑃
+
+(line 4) and extracts data chunks as hot partitions if the number of queries targeting those data chunks exceeds the threshold 𝑄 𝑃 , where 𝑄 is the total number of queries in the reference workload (line 6). This greedy hot range selection algorithm conforms to the basic design of query density-driven partitioning because the number of hot ranges is at most 𝑃 . Besides, it has the following properties: 
+
+• The data size of each hot partition is limited to 1 
+
+> 𝛼 𝐷 𝑃
+
++ 𝑀 𝑑 ,where 𝑀 𝑑 is the maximum size of data per chunk, i.e., 𝑀 𝑑 =
+
+max 1≤𝑖 ≤𝑁 Size ({ 𝑐 𝑖 }) ;
+
+• The query load on each hot partition is limited to 𝑄 𝑃 + 𝑀 𝑞 ,where 𝑀 𝑞 is the maximum number of queries targeting a single data chunk, i.e., 𝑀 𝑞 = max 1≤𝑖 ≤𝑁 NQrys ({ 𝑐 𝑖 }) ;
+
+• The query load for cold partitions remaining in each DPU is suppressed below 𝛼 𝑄 𝑃 .The query load on each DPU is thus controlled to be less than (𝛼 +
+
+1) 𝑄 𝑃 + 𝑀 𝑞 , and the data size is done to be less than   1 
+
+> 𝛼
+
++ 1 𝐷 𝑃 + 𝑀 𝑑 .The proof is in Section A. 
+
+## 4.4 Double-Scan Hot Range Selection 
+
+Unfortunately, Algorithm 2 fails to prevent the cases of an insuffi-cient number of hot partitions found, even though the query load is unevenly distributed among the base partitions. This shortcoming is particularly apparent when 𝛼 is large, as illustrated in Fig. 4. As a result, some DPUs cannot receive hot partitions and will be nearly idle after the partitioning. 
+
+> 4Query Density-Driven Partitioning for Spatiotemporal Load Balancing on Processing-in-Memory Systems
+
+Algorithm 3: Double-scan hot range selection. 
+
+Input : A base partition 𝑏 = {𝑐 𝑖 }𝑒 𝑖 =𝑠 
+
+Output : A set of hot ranges ℎ from 𝑏  
+
+> 1
+
+Function FindHot (𝑏 ) 
+
+> 2
+
+ℎ ← FindHotGreedy (𝑏 ) // Alias of Algorithm 2  
+
+> 3
+
+ℎ∗ ← Ð ℎ 
+
+> 4
+
+𝛽 ←
+
+j
+
+NQrys (𝑏 \ ℎ∗)/ 𝑄 𝑃 
+
+k 
+
+> 5
+
+if 𝛽 = 0 then return ℎ 
+
+> 6
+
+(𝑙, 𝑙 0, 𝑟 0) ← ( 𝑠, 𝑠, 𝑠 ) 
+
+> 7
+
+for 𝑟 ← 𝑠 to 𝑒 do  
+
+> 8
+
+𝑙 ′ ← max 
+
+n
+
+𝑙 ′ ∈ ( 𝑙, 𝑟 ] Size 
+
+
+
+{𝑐 𝑖 }𝑟 𝑖 =𝑙 ′
+
+
+
+≥ 𝛽 𝛼 𝐷 𝑃 
+
+o 
+
+> 9
+
+𝑙 ← max {𝑙, 𝑙 ′ } 
+
+> 10
+
+if NQrys 
+
+
+
+{𝑐 𝑖 }𝑟 𝑖 =𝑙 \ ℎ∗
+
+
+
+> NQrys 
+
+
+
+{𝑐 𝑖 }𝑟 0 
+
+> 𝑖 =𝑙 0
+
+\ ℎ∗
+
+
+
+then 
+
+(𝑙 0, 𝑟 0) ← ( 𝑙, 𝑟 ) 
+
+> 11
+
+𝑟 ← 𝑟 0 
+
+> 12
+
+while 𝑙 0 ≤ 𝑟 do  
+
+> 13
+
+𝑙 ← max 
+
+n
+
+𝑙 ′ ∈ ( 𝑙 0, 𝑟 ] Size 
+
+
+
+{𝑐 𝑖 }𝑟 𝑖 =𝑙 ′
+
+
+
+≥ 1
+
+> 𝛼 𝐷 𝑃
+
+o 
+
+> 14
+
+𝑙 ← max {𝑙 0, 𝑙 } 
+
+> 15
+
+ℎ ← ℎ ∪
+
+{𝑐 𝑖 }𝑟 𝑖 =𝑙 \ ℎ∗ \ {∅} 
+
+ 
+
+> 16
+
+𝑟 ← 𝑙 − 1 
+
+> 17
+
+return ℎ
+
+To address this problem, we present double-scan extension, which introduces the second scan that selects hot ranges with more re-laxed criteria if necessary. The number of hot partitions that the second scan tries to select is determined by the number of queries remaining in each base partition after Algorithm 2 runs. Algorithm 3 shows hot range selection with the double-scan sophistication. Let 𝑞 𝑙𝑒 𝑓 𝑡 be the number of queries left in the base partition and 𝛽 :=
+
+j 𝑞 𝑙𝑒 𝑓 𝑡 
+
+> 𝑄 /𝑃
+
+k
+
+(line 4). It tries to find 𝛽 hot ranges. This design is intended to select a hot range for approximately every  
+
+> 𝑄 𝑃
+
+queries. It scans the base partition in windows of data size 𝛽 𝛼 𝐷 𝑃 
+
+(line 9) and finds the location of the window with the maximum number of queries left in it (line 10). It then divides the data chunks overlapping the window at that location into 𝛽 equal parts based on data size (line 13), removes the chunks in existing hot ranges, and selects the resulting parts as new hot ranges (line 15). This double-scan algorithm satisfies all properties achieved by the greedy algorithm in Section 4.3. Furthermore, the upper limit of the query load on cold partitions remaining in each DPU is reduced to 𝛼 +13 
+
+> 𝑄 𝑃
+
+for 𝛼 > 1. For example, when 𝛼 is 10, this reduces from 
+
+10 𝑄 𝑃 to 11 3 
+
+> 𝑄 𝑃
+
+, which is roughly a 63% reduction. As a result, the query load on each DPU is controlled to be less than 𝛼 +43 
+
+> 𝑄 𝑃
+
++ 𝑀 𝑞 ,while keeping the data size less than   1 
+
+> 𝛼
+
++ 1 𝐷 𝑃 + 𝑀 𝑑 . The proof is in Section B. 
+
+## 4.5 Computational Cost 
+
+The time complexity of Algorithm 1 is 𝑂 (𝑃 ), and those of Algo-rithms 2 and 3 are 𝑂 (𝑁 ). Hence, our partitioning algorithm runs in 
+
+𝑂 (𝑃 +𝑁 ) time. This cost is negligible in practice to the extent of our 113 250 287 339 380 9825 Bounds        
+
+> Key
+> 0132 1299 DestDPUs
+> Example: [250, 367]
+> ÐRouted to {1, 32}
+
+Figure 5: Implementation of the routing table with an exam-ple of routing. 
+
+experience. In the worst-case full rebalancing scenario, for example, the cost of partitioning is less by three orders of magnitude than that of the other parts: the (de)serialization and data transfer of key-value pairs. 
+
+## 5 B+-Forest 
+
+We implement B +-Forest, a key-value store that adopts query density-driven partitioning, dedicated to batched RAQs with commutative reduction operators. 
+
+## 5.1 Data Representation 
+
+B+-Forest performs partitioning as the initialization as follows. It first distributes the key-value pairs evenly across the DPUs to form base partitions. Then, it constructs the routing table on the CPU from a given reference workload by using the proposed algorithm, treating subtrees of height 1 of B +-trees in DPUs as data chunks. Lastly, the key-value pairs of hot partitions are exchanged among DPUs. Rebalancing in operation is left for future work. Each DPU maintains two B +-trees for the data in its assigned partitions; one is for the cold partitions and the other is for the hot partition. We employ the “occupancy embedding” technique [ 17 ], where both key and value are embedded in the node of 256 bytes without boxing. The routing table is represented by two arrays: the partition boundary array and the destination DPU array, as illustrated in Fig. 5. The DPUs responsible for any RAQ are identified through binary search followed by linear search on the partition boundary array. Since 3𝑃 partitions at most are constructed, the routing table is sufficiently small to fit into the CPU cache. 
+
+## 5.2 Query Processing 
+
+B+-Forest takes a batch of RAQs represented as an array of RAQs, and yields an array of the RAQ results arranged in the same order as the batch. Figure 6 illustrates the flow of processing a batch of RAQs, which consists three steps: 1) Routing, 2) Evaluation, and 3) Postprocessing. In the following, we describe each step one by one. 
+
+Routing. Given a batch of RAQs, the host CPU creates a sub-batch for each DPU according to the routing table. Each sub-batch con-tains the RAQs, of which the ranges intersect with the key ranges of the DPU. For postprocessing, it also records the IDs (or indexes) of the RAQs in each sub-batch, in order, in the corresponding side table. After that, the sub-batches are sent to the DPUs. The The CPU initially divides a given batch evenly among all the threads. Each thread has its local arrays for sub-batches and 
+
+> 5Takato Hideshima, Shigeyuki Sato, and Tomoharu Ugawa
+
+CPU CPU 
+
+DPU DPU DPU DPU DPU DPU 
+
+> QQQQQQQQQ
+
+A batch of RAQs 
+
+Routing 1
+
+> key range
+> 113–249
+> 250–286
+> 287–338
+> DPU
+> 0
+> 1
+> 32
+
+Routing table [5] [5] [5] [5] [9] [9] [9] [9] [3] [3] [3] [3] 
+
+IDs of RAQs 
+
+Postprocessing 3
+
+> QQQQ
+> QQQQ
+> QQQQ
+
+Sub-batches for each DPU 
+
+> AAAA
+> AAAA
+> AAAA
+
+Partial aggregation results 
+
+Evaluation 
+
+2 
+
+> Hot Cold
+
+Index structures (B +-trees) 
+
+> AAAAAAAAA
+
+Results for the batch 
+
+Figure 6: Workflow of B +-Forest processing an RAQ batch. 
+
+records the RAQs into the appropriate local arrays according to the routing table. After that, the local arrays of all threads are gathered, producing sub-batches. 
+
+Evaluation. Given a sub-batch of RAQs, the DPU calculates the partial result of each RAQ through aggregation over both B +-trees. The partial results are stored in a resultant array in order. This step is simply parallelized by evenly dividing the sub-batch among all threads on the DPU. No synchronization is required. 
+
+Postprocessing. The CPU collects the partial results from the DPUs, aggregates them, and stores the results into an output array in the order of the input RAQs. To store each result in order in constant time, the side table of RAQ IDs for each sub-batch is used. To pursue synchronization-free aggregation, we assign the par-tial results of an RAQ to the thread that has routed it; specifically, we scatter all the partial results to thread-local arrays, as the inverse of gathering in routing. After that, all threads run independently. 
+
+## 6 Evaluation 
+
+We experimentally demonstrate the following points: 
+
+• Query density-driven partitioning outperforms density-unaware partitioning in spatiotemporal load balancing for skewed queries (Section 6.2). 
+
+• Query density-driven partitioning is adaptable to various memory limits and DPU numbers (Section 6.3). 
+
+• The impacts of the downsides of our approach for workload sensitivity (Section 6.4). 
+
+• B+-Forest has performance comparable to the state-of-the-art skew-resistant index PIM-tree [ 20 ] in point-get queries, yet handles RAQs efficiently (Section 6.5). 
+
+## 6.1 Experimental Setting 
+
+The workload used in our experiments, unless otherwise noted, is as follows. The dataset consisted of 500 million key-value pairs and was distributed to DPUs (i.e., 𝐷 = 500 M ). The keys and values were integers synthesized to be uniformly distributed within the 64-bit space. The upper limit on the number of key-value pairs assigned to each DPU was 1.1 × 𝐷 𝑃 . This is achieved by setting 
+
+𝛼 = 10 in query density-driven partitioning. Queries on these data were given in batches of 1 million RAQs (i.e., 𝑄 = 1 M ). As an instance of RAQs, we used range-count-if queries, each of which consisted of a key range 𝑟 𝑞 and a value 𝑣 𝑞 , and counted the number of key-value pairs (𝑘, 𝑣 ) such that 𝑘 ∈ 𝑟 𝑞 and 𝑣 = 𝑣 𝑞 . The lower ends of 𝑟 𝑞 followed the Zipf-composite distribution [ 5 , 13 , 34 ]: the upper 14 bits followed a Zipf distribution, and the lower 50 bits followed a uniform distribution. We examined variously skewed queries by varying the Zipf skewness parameter 1 between 0.6 and 1.2; larger values indicate more severe skewness. The upper ends of 𝑟 𝑞 were designed to encompass approximately 100 key-value pairs each. We prepared 30 batches of queries for each experimental parameter setting, used the first 10 batches for warming up, and used the remaining 20 batches for measurement. The error bars in the subsequent figures represent the 1𝜎 intervals calculated from the results of the 20 evaluation batches. The first warm-up batch was also used as the reference workload for partitioning. We define imbalance factors as indicators of spatial and tempo-ral load balance, which we use in the following subsections. The imbalance factor of data, indicating spatial load imbalance, is calcu-lated by dividing the maximum number of key-value pairs stored in each DPU by the arithmetic mean. The imbalance factor of queries, indicating temporal load imbalance, is calculated by dividing the maximum number of queries processed by each DPU by the arith-metic mean. By definition, imbalance factors are greater than or equal to 1; values closer to 1 are better. The hardware environment was a server purchased from UP-MEM ®, equipped with a pair of Intel ® Xeon ® Silver 4216 (16 cores, 32 threads, 2.1 GHz , 22 MB cache), 256 GB memory on the CPU side, and the PIM-enabled memory that consisted of 40 ranks of UPMEM ® v1B, where each rank had up to 64 DPUs (see Section 2 for the details). Excluding inactive ones, a total of 2,538 DPUs were available for use. Unless otherwise noted, we used 16 ranks, i.e., 1,012 DPUs ( 𝑃 = 1012 ) and ran 16 threads on each DPU. We prepared two competitors: a B +-tree variant with query density-unaware partitioning and PIM-tree. As a representative of query density-unaware partitioning, we used the partitioning that minimizes the imbalance factor of queries under a spatial con-straint such that the imbalance factor of data did not exceed the given upper limit of 1.1 and the number of partitions was the same as that of DPUs. This is also known as a solution to the chains-on-chains partitioning problem [ 27 ]. The PIM-tree implementation              
+
+> 1The default setting of the Zipf skewness in YCSB is 0.99; the skewness is known to fall typically into the range [0.2,1.2] [33]. 6Query Density-Driven Partitioning for Spatiotemporal Load Balancing on Processing-in-Memory Systems 0.60.70.80.91.01.11.2
+> Zipf skewness param
+> 0
+> 2
+> 4
+> 6
+> 8
+> Imbalance factor of queries
+> 0.60.70.80.91.01.11.2
+> Zipf skewness param
+> 0
+> 20
+> 40
+> 60
+> 80
+> Batch processing time [ms]
+> Density-driven (double-scan) Density-driven (greedy) Density-unaware
+> (a) Imbalance factor of queries. (b) Elapsed time.
+
+Figure 7: The imbalance factor of queries and the processing time of RAQ batches for query density-driven partitioning (with two hot range selection algorithms) and query density-unaware partitioning. 
+
+was based on the publicly available version [ 20 ] by the authors, with minimal modifications 2 to use a specified batch size. It should be noted that, to ensure a fair comparison, the experiments in Sec-tion 6.5 used the parameters well-suited to PIM-tree: 1M was the default batch size of PIM-tree; 11 threads on each DPU, instead of 16, were used because that was the maximum feasible number for PIM-tree; and all the 2,538 DPUs in 40 ranks, instead of 1,012, were used because PIM-tree could only use all the DPUs in the machine. More importantly, B +-Forest and PIM-tree are not directly comparable for range queries; B +-Forest supports RAQ, whereas PIM-tree supports range-scan (or simply scan) queries with query fusion. Only for get queries are they comparable. To exclude the warm-up for PIM-tree, we calculated the time for 20 batches by subtracting the time for 10 batches from the time for 30 batches. 
+
+## 6.2 Query Density-Driven vs. Density-Unaware 
+
+We compare the spatiotemporal load balance resulting from query density-driven partitioning with that from query density-unaware partitioning under various levels of skewness. Figure 7a illustrates the relationship between query skewness and the imbalance factor of queries. With query density-unaware partitioning, the imbal-ance factor increased as the queries became more skewed. Mean-while, query density-driven partitioning with double-scan achieved a nearly constant imbalance factor. These results indicate that query density-unaware partitioning lost skew resistance under memory constraints, whereas query density-driven partitioning retained it. It has also been shown that query density-driven partitioning with double-scan resulted in a smaller imbalance factor than query density-unaware partitioning when the Zipf skewness was around 1.0. This result justifies the second scan to produce a sufficient number of hot partitions and reduce idle DPUs. At a Zipf skewness of 0.6, query density-unaware partitioning achieved a better load balance than query density-driven partitioning. This is attributed to the design of our method, which is intended to maintain load         
+
+> 2They have no significant effect on performance as far as we know. 0.00 0.25 0.50 0.75 1.00 1.25 1.50 1.75 2.00
+> Imbalance factor of data
+> 0
+> 20
+> 40
+> 60
+> 80
+> 100
+> 120
+> Batch processing time [ms]
+> Zipf(0.6) Zipf(0.8) Zipf(1.0) Zipf(1.2)
+
+Figure 8: Trade-off between the imbalance factor of data and RAQ-batch processing time: plotting by varying the parti-tioning parameter 𝛼 = 1, 2, 3, 4, 5, 6, 8, 10 , 15 , 20 , . . . , 65 .
+
+balance across a range of query skews rather than to optimize the balance further under sufficiently mild skew. Such a level of spatiotemporal load balancing cannot be yielded with simple one-dimensional partitioning shown in Figs. 3a and 3b. For example, at the Zipf skewness of 1.0, data-balanced partitioning results in an imbalance factor of queries of 334, and query-balanced partitioning results in an imbalance factor of data of 10.2. Figure 7b illustrates the relationship between query skewness and RAQ-batch processing time. In most cases, the processing time had the same trend as the imbalance factor of queries shown in Fig. 7a. It indicates that, under realistic query skewness, query density-driven partitioning improved query load balance, thereby improving the performance of RAQ processing. We conducted a similar experiment with range-max queries and observed the same trend. 
+
+## 6.3 Parameter Sensitivity 
+
+We evaluate the impact of changes in memory usage and the num-bers of DPUs on query density-driven partitioning. Figure 8 illustrates the relationship between the imbalance factor of data and RAQ-batch processing time. We adjust the imbalance factor of data by changing the partitioning parameter 𝛼 . Regardless of the Zipf skewness, we have confirmed that the processing time became small (toward the bottom) by relaxing the imbalance factor (toward the right). Therefore, tuning 𝛼 as per the available memory capacity leads us to the sweet spot, regardless of the workload. As the imbalance factor of data increased, the RAQ-batch pro-cessing time converged to different values depending on query skewness. We attribute it to data chunking (Section 4.2). Since load balancing is based on distributing data chunks, we cannot help but have load imbalance in the case where one chunk receives a large number of queries, which becomes more significant in the case where chunk granularity becomes coarser or query skewness becomes more severe. Note that the chunk granularity in our exper-iments was derived from the B +-Forest implementation, not from the query density-driven partitioning scheme. The negative effect of chunking may therefore be mitigated, depending on the data structures and chunking methods used.              
+
+> 7Takato Hideshima, Shigeyuki Sato, and Tomoharu Ugawa 01000 2000
+> #DPUs ( P)
+> 0
+> 50
+> 100
+> 150
+> Batch processing time [ms]
+> 01000 2000
+> #DPUs ( P)
+> 0
+> 50
+> 100
+> 150
+> Zipf(0.6) Zipf(0.8) Zipf(1.0) Zipf(1.2)
+> (a) 𝐷 =200 M .(b) 𝐷 =500 M .
+
+Figure 9: Relationship between the number of DPUs ( 𝑃 ) and RAQ-batch processing time. 
+
+Figure 9 illustrates the relationship between the number of DPUs 
+
+𝑃 and batch processing time. We here also conducted experiments with 𝐷 = 200 M because the key-value pairs did not fit into mem-ory with a small 𝑃 and a data size of 𝐷 = 500 M . Except for the cases of Zipf(1.2) with 𝐷 = 200 M , we observed that the query-ing performance scaled up to 𝑃 = 1, 012 , and had no gain or even deteriorated in 𝑃 = 2, 538 . That was due to the negative effect of data chunking on load balancing, in addition to the augmented cost of query routing and postprocessing on the CPU, which has been corroborated by the fact that performance degraded more with smaller data sizes and more severe query skewness. It is evident that the cases of Zipf(1.2) with 𝐷 = 200 M have suffered severely from this phenomenon. 
+
+## 6.4 Workload Sensitivity 
+
+We investigated the impact of deviation from the reference work-load. We set the reference workload as a Zipf-composite with a Zipf skewness parameter of 1.0. We selected a base partition and ampli-fied the relative probability of queries reaching that base partition by a factor of 10, thereby deviating from the reference workload. We refer to the resulting distribution as ZcAmp( 𝑏 𝑖 , 10), where 𝑏 𝑖 is the base partition subject to amplification. The area plot in Fig. 10 shows the imbalance factor of queries for the ZcAmp( 𝑏 𝑖 , 10) workload for each base partition 𝑏 𝑖 , where the partitions were computed based on the reference workload before amplification. Colors indicate the breakdown of query destinations (hot or cold partitions) in the most loaded DPU. The line plot shows the number of queries to each base partition before the deviation, relative to the average number of queries among DPUs. The dotted line indicates the portion of queries routed to cold partitions. These results show that, when the workload deviates from the reference workload, cold partitions that attract increased queries are more likely to become performance bottlenecks than hot partitions. More precisely, when the query density increases in cold partitions that originally had relatively high density, load imbalance arises. Base partition index i      
+
+> 050 100 250 500 750 1000
+> 0.0
+> 0.5
+> 1.0
+> 1.5
+> 2.0
+> 2.5
+> 3.0
+> #Qrys in  bi w.r.t. the avg., for ref. workload base cold
+> 0510 15 20 25 30
+> Imbalance factor of queries for ZcAmp( bi, 10)  queries to cold part. queries to hot part.
+
+Figure 10: Area plot of the imbalance factor of queries for ZcAmp( 𝑏 𝑖 , 10) versus the base partition index 𝑖 (blue/red indi-cating queries to cold/hot partitions; left vertical axis), over-laid with a line plot of the number of queries to 𝑏 𝑖 and its cold partitions prior to deviation, normalized by the average number across DPUs (right vertical axis). 
+
+In fact, for 10 ≤ 𝑖 ≤ 331 , the DPU that hosted the cold partitions of the base partition 𝑏 𝑖 processed the largest number of queries for ZcAmp( 𝑏 𝑖 , 10). This is indicated in Fig. 10, where the shape of the area chart in blue matches the dotted line for such 𝑖 . In particular, the DPU that hosted the cold partitions of 𝑏 20 processed the largest number of queries before the workload deviation, and the imbalance factor of queries increased from 2.8 to 26 when we amplify the query density in this base partition 𝑏 20 (i.e., for ZcAmp( 𝑏 20 , 10)). These results are consistent with our analysis in Section 4.4, which shows that the total query load on cold partitions of a single base partition can exceed 𝑄 𝑃 (and bounded by 𝛼 +13 
+
+> 𝑄 𝑃
+
+) whereas the query load on a hot partition is at most 𝑄 𝑃 + 𝑀 𝑞 .
+
+## 6.5 B+-Forest vs. PIM-tree 
+
+We compare the performance of B +-Forest with PIM-tree for get queries. Figure 11 illustrates the arithmetic means of get-batch processing time for B +-Forest and PIM-tree, and their breakdowns: CPU, communication, and PIM, where the PIM time means the duration of the DPU kernel running. We measured the PIM and communication times, and calculated the CPU time by subtracting those values from the total. B +-Forest outperformed PIM-tree up to Zipf(1.0), and the tables were turned at Zipf(1.2). That was due to query fusion implemented in PIM-tree; more skewed workloads lead to greater degree of fusion, thereby decreasing the querying cost. In contrast, as seen in Fig. 9a, B +-Forest simply suffers a larger performance penalty from more skewed workloads. Meanwhile, B+-Forest has benefited from its simplicity and spatial locality. The PIM time of B +-Forest was generally less than that of PIM-tree. For the CPU time, PIM-tree benefited from pipelined querying with two CPU threads, whereas B +-Forest omitted it for implementation simplicity. Both advantages offset each other, thereby resulting in comparable performance around Zipf(1.0).          
+
+> 8Query Density-Driven Partitioning for Spatiotemporal Load Balancing on Processing-in-Memory Systems 0.6 0.8 1.0 1.2 Zipf skewness
+> 0
+> 5
+> 10
+> 15
+> 20
+> 25
+> Avg. batch processing time [ms] 0.6 0.8 1.0 1.2 Zipf skewness
+> 0
+> 5
+> 10
+> 15
+> 20
+> 25
+> Avg. batch processing time [ms] CPU Communication PIM
+> (a) B +-Forest. (b) PIM-tree.
+
+Figure 11: Get-batch processing time: B +-Forest vs. PIM-tree. 0.6 0.8 1.0 1.2 Zipf skewness         
+
+> 0
+> 20
+> 40
+> 60
+> 80
+> Throughput [Mop/s] 0.6 0.8 1.0 1.2 Zipf skewness 0.6 0.8 1.0 1.2 Zipf skewness
+> (a) 1M Gets. (b) 1M RAQs. (c) 20M Gets.
+
+Figure 12: Throughput of batched queries on B +-Forest. 
+
+Here, we emphasize the virtues of B +-Forest for two major points. One is that B +-Forest supports efficient RAQs. As illustrated in Figs. 12a and 12b, batched RAQs had no less than 50% of through-put as get-batch up to Zipf(1.0); even at Zipf(1.2), it was 44.2%. The ratio of throughput shrinkage is a very small constant com-pared to the number of hit items, which is about 100. The other is that B +-Forest is capable of handling significantly larger batches of queries than PIM-tree; while PIM-tree could handle up to 1M with-out modification and up to 5M with minor modifications, B +-Forest could handle 1.1G. Consequently, the throughput was enhanced, and the performance deterioration at Zipf(1.2) was suppressed, as illustrated in Fig. 12c. This is a blessing of its simplicity and spatial locality. Lastly, saying again, a direct comparison of the results of B +-Forest and PIM-tree (Fig. 13) is not intended because they had different design choices and handled different queries. However, if we would like to implement RAQs for databases backed by PIM-tree, it is natural to issue scan queries and aggregate the results on the CPU. In that scenario, the scan-batch processing time shown in Fig. 13 is inevitable. Therefore, the results have demonstrated that B+-Forest works well for RAQs. 0.6 0.8 1.0 1.2 Zipf skewness   
+
+> 0
+> 1000
+> 2000
+> Avg. batch processing time [ms] CPU Communication PIM
+
+Figure 13: Scan-batch processing time on PIM-tree. 
+
+## 7 Related Work 
+
+In ordered-key indexing, key-range partitioning is a natural choice [ 6,7] amenable to the hardware of UPMEM PIM, while it suffers con-siderably from skewed queries. In contrast, hash-based random distribution of elements over DPUs is effective in load balancing against skewed queries, which is the heart of PIM-balanced skip lists [ 19 ]. In a PIM-balanced skip list, the lower part is randomly dis-tributed over DPUs, and the upper part is replicated among DPUs. In querying, all DPUs cooperatively perform pointer chasing by passing the remaining traversal queries to other DPUs that own the referents. PIM-tree [ 20 ], which has been compared with B +-Forest in Section 6, is an improved version of PIM-balanced skip lists in terms of two major points. One is the push-pull search strategy: it combines the pull strategy on the CPU, which efficiently handles a small set of nodes fitting in the cache, and the push one on the DPUs, which exploits the massive parallelism of DPUs. It adopts the pull strategy to handle high-contention (i.e., hot) internal nodes in search, where hot nodes are temporarily copied to the CPU side, more specifically, into the cache. The other is chunking nodes of skip lists to take advantage of locality in search, as in B-trees. The chunk size of PIM-tree is 16 by default; it is reasonably small to suppress load imbalance against skewed point queries, whereas it increases the probability that the ranges of range queries lie over multiple DPUs, incurring the amplification of range queries. The state-of-the-art PIM-oriented skip list RADAR [ 18 ] allevi-ates a locality sacrifice in the random distribution of fine-grained, even chunks, as in PIM-tree, by using the hotness information. It initially assigns a large key range to each DPU to enhance spatial locality. Then, it identifies busy DPUs at runtime, adaptively splits the key ranges on them into finer-grained subranges, and redis-tributes them and their key-value pairs to all DPUs. Finest-grained subranges are migrated to the CPU side to exploit the cache locality. A key improvement over PIM-tree is that RADAR biases the random distribution of key subranges to hot ranges; hotter ranges are split finer so that every DPU evaluates queries over hot ranges in their DRAM. Some basic ideas of enhancing locality while taming skew-ness, such as adaptive partitioning based on hotness, are shared between RADAR and B +-Forest. However, RADAR addresses only load balancing of query evaluation and does not account for the imbalance of data distribution. Moreover, it is not designed for gen-eral range-aggregate queries. Note that RADAR’s adaptive online 
+
+> 9Takato Hideshima, Shigeyuki Sato, and Tomoharu Ugawa
+
+partitioning is monotone and irreversible, thereby not addressing workload changes. PIMLex [ 9 ] is a state-of-the-art PIM-oriented learned index de-signed to run efficiently on UPMEM PIM, where learned indexes [ 25 ,29 ] are a kind of workload-driven approach and calculate item posi-tions via machine learning models. Although PIMLex also addresses skewed queries, there are differences in design between PIMLex and B +-Forest. In PIMLex, every key-value pair resides on the CPU side, and a learned index containing part of the keys resides on the DPU side; a single partition of the key space is assigned to each DPU. PIMLex thus does not support range-aggregate queries and is not designed to run key-value pair aggregation on DPUs. PIMLex addresses skewed queries by assigning replicas of hot partitions to multiple DPUs and randomly selecting the DPUs on querying. The replication of partitions complicates query processing in the case where key-value pairs reside on the DPU side, as in B +-Forest. Even though typical workload-driven approaches to indexing, including our work, do not address dynamic workload changes, there has recently been a notable exception: HeatList [ 28 ], which is a range index based on skip lists and is aware of hotspots (i.e., hot partitions in this paper). It is equipped with a fast reaction mechanism that quickly detects hotspot shifts and moves nodes to the top layer, which is designed to fit into the CPU cache. HeatList is designed for shared memory and does not address load balancing. The problem setting differs from our work. Load-balanced partitioning of one-dimensional arrays, which is called the chains-on-chains partitioning problem, has been well studied. There are efficient exact algorithms [ 27 ] for optimal parti-tioning, which are inherently sequential and known to be difficult to run efficiently in parallel [ 24 ]. The variant of chains-on-chains partitioning used in Section 6 runs in serial and yields optimal solutions in the size-constrained setting. Our partitioning scheme is designed for a relaxed setting of the size-constrained chains-on-chains partitioning problem in which the total number of partitions is not exactly 𝑃 but is bounded by 𝑂 (𝑃 ). Our partitioning algo-rithms are designed to run in parallel as-is and are PIM-friendly because hot range selection can run independently on each DPU. PIM systems are currently under active development in both academia and industry. Another representative of commercial PIM systems, other than UPMEM PIM, is Samsung HBM-PIM [ 23 ]. It adopts a lockstep computational model and is apt to regular data-parallel workloads, such as tensor processing in deep neural net-works. Although both are classified as PIM, UPMEM PIM and HBM-PIM have different, complementary computing scopes. 
+
+## 8 Conclusions 
+
+We have presented a query density-driven partitioning scheme of ordered-key indexes for spatiotemporal load balancing on resource-constrained PIM systems like UPMEM PIM. It balances query den-sity among DPUs by distributing high query-density ranges over DPUs, while the remaining part is distributed contiguously and mostly evenly. We have developed B +-Forest, which supports effi-cient range-aggregate queries on UPMEM PIM, by applying our par-titioning scheme to B +-trees. The experimental results have shown that B +-Forest exhibited higher skew resistance than a B +-tree based on density-unaware partitioning and performance comparable to PIM-tree, the state-of-the-art index without native support of RAQs, on point-get queries. There remains much room for further development of our par-titioning scheme. First and foremost is greater sophistication to address dynamic workload changes. In the concurrent paper [ 16 ], we have already developed an online partial rebalancing method and obtained preliminary experimental results showing that it is more efficient than the full rebalancing method used in this paper under dynamically changing workloads. Thus, we can suppose a variety of rebalancing methods based on our partitioning scheme. Organizing and coordinating them in a database system to holisti-cally handle realistic changes in workload is a significant challenge. Last but not least, although UPMEM PIM systems were discon-tinued in 2025, this does not imply that the UPMEM PIM model is useless; we can identify similar system models, including MPPA architectures. We therefore consider that our work on techniques to adapt data-intensive computing to the UPMEM PIM model is a general, reusable effort to break the memory wall. The adaptation to MPPA architectures, such as Kalray [ 10 ] and PEZY [ 15 ], holds considerable promise. 
+
+## Acknowledgments 
+
+This work was supported by JSPS KAKENHI Grant Number 22K17872, 23K24822, 24KJ0638, 26K02887. 
+
+## References                          
+
+> [1] Kazi Asifuzzaman, Narasinga Rao Miniskar, Aaron R. Young, Frank Liu, and Jeffrey S. Vetter. 2023. A Survey on Processing-in-Memory Techniques: Advances and Challenges. Memories - Materials, Devices, Circuits and Systems 4 (2023), 100022:1–100022:11. doi:10.1016/j.memori.2022.100022 [2] Arthur Bernhardt, Andreas Koch, and Ilia Petrov. 2023. pimDB: From Main-Memory DBMS to Processing-in-Memory DBMS-Engines on Intelligent Memo-ries. In Proceedings of the 19th International Workshop on Data Management on New Hardware (DaMoN ’23) . ACM, 44–52. doi:10.1145/3592980.3595312 [3] Mike Butts. 2007. Synchronization through Communication in a Massively Parallel Processor Array. IEEE Micro 27, 5 (2007), 32–40. doi:10.1109/MM.2007. 4378781 [4] Zhichao Cao, Siying Dong, Sagar Vemuri, and David H.-C. Du. 2020. Characteriz-ing, Modeling, and Benchmarking RocksDB Key-Value Workloads at Facebook. In
+> Proceedings of the 18th USENIX Conference on File and Storage Technologies (FAST ’20) . USENIX, 209–223. https://www.usenix.org/conference/fast20/presentation/ cao-zhichao [5] Chen Chen, Wenshao Zhong, and Xingbo Wu. 2022. Building an Efficient Key-Value Store in a Flexible Address Space. In Proceedings of the Seventeenth European Conference on Computer Systems (EuroSys ’22) . ACM, 51–68. doi:10.1145/3492321. 3519555 [6] Jiwon Choe, Andrew Crotty, Tali Moreshet, Maurice Herlihy, and R. Iris Ba-har. 2022. HybriDS: Cache-Conscious Concurrent Data Structures for Near-Memory Processing Architectures. In Proceedings of the 34th ACM Sympo-sium on Parallelism in Algorithms and Architectures (SPAA ’22) . ACM, 321–332. doi:10.1145/3490148.3538591 [7] Jiwon Choe, Amy Huang, Tali Moreshet, Maurice Herlihy, and R. Iris Bahar. 2019. Concurrent Data Structures with Near-Data-Processing: An Architecture-Aware Implementation. In Proceedings of the 31st ACM Symposium on Parallelism in Algorithms and Architectures (SPAA ’19) . ACM, 297–308. doi:10.1145/3323165. 3323191 [8] Sara Cohen. 2006. User-Defined Aggregate Functions: Bridging Theory and Practice. In Proceedings of the 2006 ACM SIGMOD International Conference on Management of Data (SIGMOD ’06) . ACM, 49–60. doi:10.1145/1142473.1142480 [9] Lixiao Cui, Kedi Yang, Yusen Li, Gang Wang, and Xiaoguang Liu. 2025. PIMLex: A High-Performance Learned Index with Processing-in-Memory. In Proceedings of the 23rd USENIX Conference on File and Storage Technologies (FAST ’25) . USENIX, 287–303. https://www.usenix.org/conference/fast25/presentation/cui [10] Benoît Dupont de Dinechin. 2015. Kalray MPPA ®: Massively Parallel Processor Array: Revisiting DSP Acceleration with the Kalray MPPA Manycore Processor. In 2015 IEEE Hot Chips 27 Symposium (HCS) . IEEE, 1–27. doi:10.1109/HOTCHIPS. 2015.7477332 10
+
+Query Density-Driven Partitioning for Spatiotemporal Load Balancing on Processing-in-Memory Systems 
+
+[11] Yann Falevoz and Julien Legriel. 2024. Energy Efficiency Impact of Processing in Memory: A Comprehensive Review of Workloads on the UPMEM Architecture. In 
+
+Euro-Par 2023: Parallel Processing Workshops . Springer, 155–166. doi:10.1007/978-3-031-48803-0_13 [12] Yannis Foufoulas and Alkis Simitsis. 2023. User-Defined Functions in Modern Data Engines. In 2023 IEEE 39th International Conference on Data Engineering (ICDE ’23) . IEEE, 3593–3598. doi:10.1109/ICDE55515.2023.00276 [13] Eran Gilad, Edward Bortnikov, Anastasia Braginsky, Yonatan Gottesman, Eshcar Hillel, Idit Keidar, Nurit Moscovici, and Rana Shahout. 2020. EvenDB: Optimizing Key-Value Storage for Spatial Locality. In Proceedings of the Fifteenth European Conference on Computer Systems (EuroSys ’20) . ACM, 1–16. doi:10.1145/3342195. 3387523 [14] Juan Gómez-Luna, Izzat El Hajj, Ivan Fernandez, Christina Giannoula, Geraldo F. Oliveira, and Onur Mutlu. 2022. Benchmarking a New Paradigm: Experimental Analysis and Characterization of a Real Processing-in-Memory System. IEEE Access 10 (2022), 52565–52608. doi:10.1109/ACCESS.2022.3174101 [15] Naoya Hatta, Shuntaro Tsunoda, Kouhei Uchida, Taichi Ishitani, Toru Koizumi, Ryota Shioya, and Kei Ishii. 2025. PEZY-SC4s: The Fourth Generation MIMD Many-core Processor with High Energy Efficiency and Flexibility for HPC and AI Applications. In 2025 IEEE Hot Chips 37 Symposium (HCS) . IEEE, 1–42. doi:10. 1109/HCS66204.2025.11154388 [16] Takato Hideshima, Shigeyuki Sato, and Tomoharu Ugawa. 2026. Spatiotemporal Load Balancing for Near-Memory Accelerated Databases by Partial Resharding. In Workshop Proceedings of the 55th International Conference on Parallel Processing (ICPP Workshops ’26) . ACM, 8 pages. doi:10.1145/3816891.3834892 To appear. [17] Takato Hideshima and Tomoharu Ugawa. 2025. Exploring B+-Tree Implementa-tions Using Scratchpad Memory. In Proceedings of the 16th ACM SIGOPS Asia-Pacific Workshop on Systems (APSys ’25) . ACM, 75–81. doi:10.1145/3725783. 3764412 [18] Yifan Hua, Shengan Zheng, Weihan Kong, Cong Zhou, Kaixin Huang, Ruoyan Ma, and Linpeng Huang. 2024. RADAR: A Skew-Resistant and Hotness-Aware Ordered Index Design for Processing-in-Memory Systems. IEEE Trans. Parallel Distrib. Syst. 35, 9 (2024), 1598–1614. doi:10.1109/TPDS.2024.3424853 [19] Hongbo Kang, Phillip B. Gibbons, Guy E. Blelloch, Laxman Dhulipala, Yan Gu, and Charles McGuffey. 2021. The Processing-in-Memory Model. In Proceedings of the 33rd ACM Symposium on Parallelism in Algorithms and Architectures (SPAA ’21) . ACM, 295–306. doi:10.1145/3409964.3461816 [20] Hongbo Kang, Yiwei Zhao, Guy E. Blelloch, Laxman Dhulipala, Yan Gu, Charles McGuffey, and Phillip B. Gibbons. 2022. PIM-Tree: A Skew-Resistant Index for Processing-in-Memory. Proc. VLDB Endow. 16, 4 (2022), 946–958. doi:10.14778/ 3574245.3574275 https://github.com/cmuparlay/PIM-tree. [21] Hongbo Kang, Yiwei Zhao, Guy E. Blelloch, Laxman Dhulipala, Yan Gu, Charles McGuffey, and Phillip B. Gibbons. 2023. PIM-trie: A Skew-Resistant Trie for Processing-in-Memory. In Proceedings of the 35th ACM Symposium on Parallelism in Algorithms and Architectures (SPAA ’23) . ACM, 1–14. doi:10.1145/3558481. 3591070 [22] Tiago R. Kepe, Eduardo C. de Almeida, and Marco A. Z. Alves. 2019. Database Processing-in-Memory: An Experimental Study. Proc. VLDB Endow. 13, 3 (2019), 334–347. doi:10.14778/3368289.3368298 [23] Sukhan Lee, Shin-haeng Kang, Jaehoon Lee, Hyeonsu Kim, Eojin Lee, Seungwoo Seo, Hosang Yoon, Seungwon Lee, Kyounghwan Lim, Hyunsung Shin, Jinhyun Kim, Seongil O, Anand Iyer, David Wang, Kyomin Sohn, and Nam Sung Kim. 2021. Hardware Architecture and Software Stack for PIM Based on Commercial DRAM Technology. In Proceedings of the 48th Annual International Symposium on Computer Architecture (ISCA ’21) . IEEE, 43–56. doi:10.1109/ISCA52012.2021.00013 [24] Matthias Lieber and Wolfgang E. Nagel. 2014. Scalable High-Quality 1D Par-titioning. In 2014 International Conference on High Performance Computing & Simulation (HPCS ’14) . IEEE, 112–119. doi:10.1109/HPCSim.2014.6903676 [25] Qiyu Liu, Maocheng Li, Yuxiang Zeng, Yanyan Shen, and Lei Chen. 2025. How Good Are Multi-Dimensional Learned Indexes? An Experimental Survey. VLDB J. 34, 2 (2025), 17:1–17:29. doi:10.1007/s00778-024-00893-6 [26] Joel Nider, Craig Mustard, Andrada Zoltan, John Ramsden, Larry Liu, Jacob Grossbard, Mohammad Dashti, Romaric Jodin, Alexandre Ghiti, Jordi Chauzi, and Alexandra Fedorova. 2021. A Case Study of Processing-in-Memory in Off-the-Shelf Systems. In Proceedings of the 2021 USENIX Annual Technical Conference (USENIX ATC ’21) . USENIX, 117–130. https://www.usenix.org/conference/atc21/ presentation/nider [27] Ali Pınar and Cevdet Aykanat. 2004. Fast Optimal Load Balancing Algorithms for 1D Partitioning. J. Parallel and Distrib. Comput. 64, 8 (2004), 974–996. doi:10. 1016/j.jpdc.2004.05.003 [28] Junru Shen, Miao Cai, Kangyue Gao, Baoliu Ye, and Guo Cheng. 2025. HeatList: The Case for Retrofitting In-memory Range Index with Hotspot Awareness. In 
+
+Proceedings of the 54th International Conference on Parallel Processing (ICPP ’25) .ACM, 362–373. doi:10.1145/3754598.3754627 [29] Zhaoyan Sun, Xuanhe Zhou, and Guoliang Li. 2023. Learned Index: A Compre-hensive Experimental Evaluation. Proc. VLDB Endow. 16, 8 (2023), 1992–2004. doi:10.14778/3594512.3594528 [30] UPMEM SAS. [n. d.]. UPMEM – UPMEM is Releasing a True Processing-in-Memory (PIM) Acceleration Solution. https://www.upmem.com/. Accessed on December 18, 2024. [31] Yiqiu Wang, Rahul Yesantharao, Shangdi Yu, Laxman Dhulipala, Yan Gu, and Julian Shun. 2022. ParGeo: A Library for Parallel Computational Geometry. In 
+
+Proceedings of the 30th Annual European Symposium on Algorithms (ESA ’22) .Schloss Dagstuhl, 88:1–88:19. doi:10.4230/LIPICS.ESA.2022.88 [32] Brian Wheatman, Randal Burns, Aydin Buluç, and Helen Xu. 2024. CPMA: An Efficient Batch-Parallel Compressed Set Without Pointers. In Proceedings of the 29th ACM SIGPLAN Annual Symposium on Principles and Practice of Parallel Programming (PPoPP ’24) . ACM, 348–363. doi:10.1145/3627535.3638492 [33] Yue Yang and Jianwen Zhu. 2016. Write Skew and Zipf Distribution: Evidence and Implications. ACM Trans. Storage 12, 4 (2016), 21:1–21:19. doi:10.1145/2908557 [34] Wenshao Zhong, Chen Chen, Xingbo Wu, and Song Jiang. 2021. REMIX: Efficient Range Query for LSM-trees. In Proceedings of the 19th USENIX Conference on File and Storage Technologies (FAST ’21) . USENIX, 51–64. https://www.usenix.org/ conference/fast21/presentation/zhong 
+
+## A Proof of the Properties of the Greedy Hot Selection Algorithm 
+
+We prove the properties satisfied by the result of Algorithm 2 below. Unless otherwise specified, line numbers are used to refer to the processing and states within Algorithm 2. 
+
+Theorem A.1. The data load on each hot partition is less than 
+
+1
+
+𝛼 𝐷 𝑃 + 𝑀 𝑑 .
+
+Proof. Suppose that there is a hot partition ℎ? := {𝑐 𝑖 }𝑟 𝑖 =𝑙 ? such that 
+
+Size (ℎ?) ≥ 1
+
+𝛼 𝐷 𝑃 + 𝑀 𝑑 . (1) From the definition of 𝑀 𝑑 ,
+
+𝑀 𝑑 ≥ Size  {𝑐 𝑙 ? } . (2) From eqs. (1) and (2), 𝑙 ? < 𝑟 , and so we can consider a non-empty sequence of data chunks ℎ′
+
+? := {𝑐 𝑖 }𝑟 𝑖 =𝑙 ?+1. Because it follows from eqs. (1) and (2) that Size (ℎ′
+
+?) = Size (ℎ?) − Size  {𝑐 𝑙 ? } ≥ 1
+
+𝛼 𝐷 𝑃 ,after Algorithm 2 passes line 4 with such 𝑟 , 𝑙 ′ ≥ 𝑙 ? + 1 > 𝑙 ? and after the next line 𝑙 > 𝑙 ?. This contradicts the assumption that ℎ? was selected as a hot range in line 7. □
+
+Theorem A.2. The query load on each hot partition is between 𝑄 𝑃 
+
+and 𝑄 𝑃 + 𝑀 𝑞 .
+
+Proof. Since a range selected as a hot range should pass the condition in line 6, the query load is 𝑄 𝑃 or higher. Suppose that there exists a hot partition ℎ? := {𝑐 𝑖 }𝑟 ?
+
+𝑖 =𝑙 ? such that 
+
+NQrys (ℎ?) ≥ 𝑄 𝑃 + 𝑀 𝑞 . (3) From the definition of 𝑀 𝑞 ,
+
+𝑀 𝑞 ≥ NQrys  {𝑐 𝑟 ? } . (4) From eqs. (3) and (4), 𝑙 ? < 𝑟 ?, and so we can consider a non-empty sequence of data chunks ℎ′
+
+? := {𝑐 𝑖 }𝑟 ? −1
+
+𝑖 =𝑙 ? . Here, because 𝑙 is updated only in lines 5 and 8, 𝑙 increases monotonically during the algorithm. The fact that ℎ? was selected as a hot range in line 7 means that when it reached line 5 with 𝑟 = 𝑟 ?, the value of 𝑙 became 𝑙 ?. Therefore, 
+
+11 Takato Hideshima, Shigeyuki Sato, and Tomoharu Ugawa 
+
+based on monotonicity, when 𝑟 = 𝑟 ? − 1, 𝑙 ≤ 𝑙 ?. At this point, 
+
+NQrys  {𝑐 𝑖 }𝑟 𝑖 =𝑙 
+
+ = NQrys 
+
+
+
+{𝑐 𝑖 }𝑟 ? −1
+
+> 𝑖 =𝑙
+
+
+
+≥ NQrys (ℎ′
+
+> ?
+
+) (∵ 𝑙 ≤ 𝑙 ?)
+
+= NQrys (ℎ?) − NQrys ({ 𝑐 𝑟 ? }) ≥ 𝑄 𝑃 , (∵ eqs. (3) and (4) )
+
+so {𝑐 𝑖 }𝑟 ? −1 
+
+> 𝑖 =𝑙
+
+should pass the condition in line 6 and be selected as a hot range. Then, after 𝑙 is updated to 𝑟 ? in line 8, the next iteration begins, which is the only iteration in Algorithm 2 where 𝑟 has the value 𝑟 ?. However, if this is the case, due to the monotonicity of 𝑙 ,
+
+𝑙 ≥ 𝑟 ? holds thereafter, so 𝑙 = 𝑙 ? cannot be true, and ℎ? = {𝑐 𝑖 }𝑟 ?
+
+> 𝑖 =𝑙 ?
+
+cannot be selected as a hot range in line 7. This contradicts the assumption, so the query load of each hot partition is less than  
+
+> 𝑄 𝑃
+
++ 𝑀 𝑞 . □
+
+Definition A.3. A sequence of hot ranges 
+
+n
+
+{𝑐 𝑖 }𝑟 𝑗 
+
+> 𝑖 =𝑙 𝑗
+
+o𝑛 𝑗 =1 is consec-utive if for all 𝑗 ∈ [ 1, 𝑛 ), 𝑟 𝑗 + 1 = 𝑙 𝑗 .
+
+Definition A.4. A consecutive sequence of hot ranges 
+
+𝑆 :=
+
+n
+
+{𝑐 𝑖 }𝑟 𝑗  
+
+> 𝑖 =𝑙 𝑗
+
+o𝑛 𝑗 =1 is maximal if there exists no consecutive sequence 
+
+𝑇 ≠ 𝑆 such that 𝑆 is a subseqeunce of 𝑇 .
+
+Lemma A.5. A maximal sequence of hot ranges in the key space starts from the starting point of a base partition or has a total data size of 1 
+
+> 𝛼 𝐷 𝑃
+
+or more. 
+
+Proof. When 𝑙 is updated to 𝑙 ′ in line 5, Size 
+
+
+
+{𝑐 𝑖 }𝑟 𝑖 =𝑙 
+
+
+
+≥ 1
+
+> 𝛼 𝐷 𝑃
+
+holds due to line 4. Otherwise, Size 
+
+
+
+{𝑐 𝑖 }𝑟 𝑖 =𝑙 
+
+
+
+is larger than in the previous iteration because 𝑟 has incremented. Therefore, once 𝑙 is updated in line 5, Size 
+
+
+
+{𝑐 𝑖 }𝑟 𝑖 =𝑙 
+
+
+
+≥ 1 
+
+> 𝛼 𝐷 𝑃
+
+holds until the algorithm finds a hot range. Here, considering a maximal sequence of hot ranges that does not start from the starting point of the base partition, the value of 
+
+𝑙 must be updated in line 5 while finding the first hot range ℎ0 of the sequence. This is because otherwise, the beginning of ℎ0 would be that of the base partition or immediately after the previous hot range. Therefore, ℎ0 satisfies Size (ℎ0) ≥ 1 
+
+> 𝛼 𝐷 𝑃
+
+, and the data size of the entire sequence containing it is also greater than or equal to this value. □
+
+Lemma A.6. Ignoring queries to the hot ranges, placing the window of FindHot anywhere in a base partition results in the number of queries to the data chunks that overlap with the window being less than 𝑄 𝑃 .
+
+Proof. Let 𝑏 := {𝑐 𝑖 }𝑒 𝑖 =𝑠 be a base partition, ℎ be FindHot (𝑏 ), ℎ∗
+
+be Ð ℎ, and 
+
+𝐿 (𝑧 ) :=
+
+
+
+𝑙 ∈ [ 𝑠, 𝑧 ] Size  {𝑐 𝑖 }𝑧 𝑖 =𝑙 
+
+ ≥ 1
+
+𝛼 𝐷 𝑃 
+
+
+
+, (5) 
+
+𝑎 (𝑧 ) :=
+
+(
+
+𝑠 (𝐿 (𝑧 ) = ∅) 
+
+max 𝐿 (𝑧 ) (otherwise ) . (6) Then, this lemma says that for all 𝑧 such that 𝑠 ≤ 𝑧 ≤ 𝑒 ,
+
+NQrys 
+
+
+
+{𝑐 𝑖 }𝑧 𝑖 =𝑎 (𝑧 ) \ ℎ∗ 
+
+< 𝑄 𝑃 
+
+holds. First, we show that {𝑐 𝑖 }𝑧 𝑖 =𝑎 (𝑧 ) \ℎ∗ is ∅ or a sequence of consecutive data chunks. Note that 𝑎 (𝑧 ) ≤ 𝑧 by definition, so {𝑐 𝑖 }𝑧 𝑖 =𝑎 (𝑧 ) is well-defined. Suppose that it consists of two or more sequences. Then, 
+
+𝑎 (𝑧 ) + 2 ≤ 𝑧 , and a maximal sequence of hot ranges is included in {𝑐 𝑖 }𝑧 −1  
+
+> 𝑖 =𝑎 (𝑧 )+ 1
+
+. Because 𝑎 (𝑧 ) ≥ 𝑠 , we have 𝑎 (𝑧 ) + 1 > 𝑠 , so by Theorem A.5, 
+
+Size 
+
+
+
+{𝑐 𝑖 }𝑧 −1  
+
+> 𝑖 =𝑎 (𝑧 )+ 1
+
+
+
+≥ 1
+
+𝛼 𝐷 𝑃 . (7) When 𝐿 (𝑧 ) = ∅, for all 𝑙 ∈ [ 𝑠, 𝑧 ], Size 
+
+
+
+{𝑐 𝑖 }𝑧 𝑖 =𝑙 
+
+
+
+< 1 
+
+> 𝛼 𝐷 𝑃
+
+by eq. (5). If so, 
+
+Size 
+
+
+
+{𝑐 𝑖 }𝑧 −1  
+
+> 𝑖 =𝑎 (𝑧 )+ 1
+
+
+
+≤ Size 
+
+
+
+{𝑐 𝑖 }𝑧 𝑖 =𝑎 (𝑧 )
+
+
+
+< 1
+
+𝛼 𝐷 𝑃 ,
+
+which contradicts eq. (7). When 𝐿 (𝑧 ) ≠ ∅, from eq. (7), 
+
+Size 
+
+
+
+{𝑐 𝑖 }𝑧 𝑖 =𝑎 (𝑧 )+ 1
+
+
+
+≥ Size 
+
+
+
+{𝑐 𝑖 }𝑧 −1  
+
+> 𝑖 =𝑎 (𝑧 )+ 1
+
+
+
+≥ 1
+
+𝛼 𝐷 𝑃 
+
+holds and implies that 𝑎 (𝑧 ) + 1 ∈ 𝐿 (𝑧 ), max 𝐿 (𝑧 ) ≥ 𝑎 (𝑧 ) + 1, but this contradicts eq. (6). Therefore, either {𝑐 𝑖 }𝑧 𝑖 =𝑎 (𝑧 ) \ ℎ∗ = ∅ or 
+
+> ∃
+
+𝑎 ′, ∃𝑧 ′ s.t. {𝑐 𝑖 }𝑧 𝑖 =𝑎 (𝑧 ) \ ℎ∗ = {𝑐 𝑖 }𝑧 ′ 
+
+> 𝑖 =𝑎 ′
+
+(8) holds. In the former case, NQrys ({ 𝑐 𝑖 }𝑧 𝑖 =𝑎 (𝑧 ) \ ℎ∗) = 0 < 𝑄 𝑃 . Below, we consider the latter case. From eq. (8), 
+
+> ∀
+
+𝑐 ∈ { 𝑐 𝑖 }𝑧 ′ 
+
+> 𝑖 =𝑎 ′
+
+, 𝑐 ∉ ℎ∗, (9) 
+
+𝑎 (𝑧 ) ≤ 𝑎 ′ ≤ 𝑧 ′ ≤ 𝑧. (10) In applying Algorithm 2 to 𝑏 , we should have reached line 4 with 
+
+𝑟 = 𝑧 ′. From eq. (10), we have 𝑟 = 𝑧 ′ ≤ 𝑧 , and from eq. (6), we have 𝑙 ′ ≤ 𝑎 (𝑧 ) at this line, and again from eq. (10), we have 𝑙 ′ ≤ 𝑎 ′.From the similar reasoning, we have 𝑙 ′ ≤ 𝑎 ′ in line 4 of all previous iterations where 𝑟 < 𝑧 ′. Therefore, 𝑙 has not been updated to a value greater than 𝑎 ′ in line 5 up to this point. In addition, from eq. (9), we have not found a hot range in any iteration where 𝑎 (𝑧 ) ≤ 𝑟 < 𝑧 ′,so 𝑙 has not been updated to a value greater than 𝑎 ′ in line 8 either. So, 𝑙 ≤ 𝑎 ′ in line 5 of the iteration with 𝑟 = 𝑧 ′ ≤ 𝑧 , and thus 
+
+{𝑐 𝑖 }𝑟 𝑖 =𝑙 ⊇ { 𝑐 𝑖 }𝑧 ′ 
+
+> 𝑖 =𝑎 ′
+
+. (11) According to eq. (9), {𝑐 𝑖 }𝑟 𝑖 =𝑙 should not have been selected as a hot range, so NQrys 
+
+
+
+{𝑐 𝑖 }𝑟 𝑖 =𝑙 
+
+
+
+< 𝑄 𝑃 holds in line 6. Hence, 
+
+NQrys 
+
+
+
+{𝑐 𝑖 }𝑧 𝑖 =𝑎 (𝑧 ) \ ℎ∗ 
+
+= NQrys 
+
+
+
+{𝑐 𝑖 }𝑧 ′
+
+> 𝑖 =𝑎 ′
+
+
+
+(∵ eq. (8) )≤ NQrys  {𝑐 𝑖 }𝑟 𝑖 =𝑙 
+
+ (∵ eq. (11) )
+
+< 𝑄 𝑃 .
+
+□
+
+Theorem A.7. The query load on the ranges not selected as hot ranges in each base partition is less than 𝛼 𝑄 𝑃 .
+
+> 12 Query Density-Driven Partitioning for Spatiotemporal Load Balancing on Processing-in-Memory Systems
+
+Proof. Let 𝑏 := {𝑐 𝑖 }𝑒 𝑖 =𝑠 be a base partition, ℎ be FindHot (𝑏 ), ℎ∗
+
+be Ð ℎ. Then, this theorem says that NQrys (𝑏 \ ℎ∗) ≤ 𝛼 𝑄 𝑃 .Let 𝑟 1 := 𝑒 and 
+
+𝑙 1 := max 
+
+
+
+𝑙 ∈ [ 𝑠, 𝑟 1] Size 
+
+
+
+{𝑐 𝑖 }𝑟 1
+
+> 𝑖 =𝑙
+
+
+
+≥ 1
+
+𝛼 𝐷 𝑃 
+
+
+
+be defined. Note that because 
+
+Size  {𝑐 𝑖 }𝑒 𝑖 =𝑠 
+
+ = Size (𝑏 ) = 𝐷 𝑃 ≥ 1
+
+𝛼 𝐷 𝑃 
+
+based on line 2 in Algorithm 1, such 𝑙 1 ≥ 𝑠 certainly exists. From Theorem A.6, we have NQrys 
+
+
+
+{𝑐 𝑖 }𝑟 1 
+
+> 𝑖 =𝑙 1
+
+\ ℎ∗
+
+
+
+< 𝑄 𝑃 . Similarly, if 
+
+Size 
+
+
+
+{𝑐 𝑖 }𝑙 1 −1
+
+> 𝑖 =𝑠
+
+
+
+≥ 1 
+
+> 𝛼 𝐷 𝑃
+
+, then 𝑟 2 := 𝑙 1−1, 𝑙 2 := max 
+
+n
+
+𝑙 ∈ [ 𝑠, 𝑟 2] Size 
+
+
+
+{𝑐 𝑖 }𝑟 2
+
+> 𝑖 =𝑙
+
+
+
+≥ 1
+
+> 𝛼 𝐷 𝑃
+
+o
+
+can be defined, and NQrys 
+
+
+
+{𝑐 𝑖 }𝑟 2 
+
+> 𝑖 =𝑙 2
+
+\ ℎ∗
+
+
+
+< 𝑄 𝑃 holds. Let us suppose that such a truncation from the end of 𝑏 can be performed 𝑛 times and {𝑙 𝑗 }𝑛 𝑗 =1, {𝑟 𝑗 }𝑛 𝑗 =1 are obtained. Then, for 
+
+𝑗 ∈ [ 1, 𝑛 ],
+
+𝑙 𝑗 := max 
+
+
+
+𝑙 ∈ [ 𝑠, 𝑟 𝑗 ] Size 
+
+
+
+{𝑐 𝑖 }𝑟 𝑗 
+
+> 𝑖 =𝑙
+
+
+
+≥ 1
+
+𝛼 𝐷 𝑃 
+
+
+
+, (12) 
+
+NQrys 
+
+
+
+{𝑐 𝑖 }𝑟 𝑗  
+
+> 𝑖 =𝑙 𝑗
+
+\ ℎ∗ 
+
+< 𝑄 𝑃 . (13) Since 𝑙 𝑗 +1 ≤ 𝑟 𝑗 +1 = 𝑙 𝑗 − 1 < 𝑙 𝑗 for 𝑗 ∈ [ 1, 𝑛 ), the sequence {𝑙 𝑗 }𝑛 𝑗 =1 is strictly monotonically decreasing, and thus for sufficiently large 𝑛 ,
+
+Size 
+
+
+
+{𝑐 𝑖 }𝑙 𝑛 −1
+
+> 𝑖 =𝑠
+
+
+
+< 1 
+
+> 𝛼 𝐷 𝑃
+
+holds. It can be shown that such 𝑛 is less than or equal to 𝛼 . Suppose that 𝑛 is greater than 𝛼 . Then, 
+
+Size 
+
+
+
+{𝑐 𝑖 }𝑙 𝛼 −1
+
+> 𝑖 =𝑠
+
+
+
+≥ 1
+
+𝛼 𝐷 𝑃 . (14) 
+
+∴ Size (𝑏 ) = Size 
+
+
+
+{𝑐 𝑖 }𝑙 𝛼 −1
+
+> 𝑖 =𝑠
+
+
+
++ Size 
+
+
+
+{𝑐 𝑖 }𝑒 𝑖 =𝑙 𝛼 
+
+
+
+≥ 1
+
+𝛼 𝐷 𝑃 +
+
+> 𝛼
+
+∑︁ 
+
+> 𝑗 =1
+
+Size 
+
+
+
+{𝑐 𝑖 }𝑟 𝑗  
+
+> 𝑖 =𝑙 𝑗
+
+
+
+(∵ eq. (14) )≥ 𝛼 + 1
+
+𝛼 𝐷 𝑃 . (∵ eq. (12) )
+
+On the other hand, from line 2 in Algorithm 1, we have 
+
+Size (𝑏 ) = 𝐷 𝑃 , (15) which contradicts the above. Therefore, either 𝑛 = 𝛼 or 𝑛 ≤ 𝛼 − 1 holds, and either assumption allows us to show that NQrys (𝑏 \ ℎ∗) ≤ 𝛼 𝑄 𝑃 . From eq. (12), 
+
+Size 
+
+
+
+{𝑐 𝑖 }𝑒 𝑖 =𝑙 𝑛 
+
+
+
+=
+
+> 𝑛
+
+∑︁ 
+
+> 𝑗 =1
+
+Size 
+
+
+
+{𝑐 𝑖 }𝑟 𝑗  
+
+> 𝑖 =𝑙 𝑗
+
+
+
+≥ 𝑛 𝛼 𝐷 𝑃 . (16) From eq. (13), 
+
+NQrys 
+
+
+
+{𝑐 𝑖 }𝑒 𝑖 =𝑙 𝑛 \ ℎ∗ 
+
+=
+
+> 𝑛
+
+∑︁ 
+
+> 𝑗 =1
+
+NQrys 
+
+
+
+{𝑐 𝑖 }𝑟 𝑗   
+
+> 𝑖 =𝑙 𝑗
+
+\ ℎ∗ 
+
+< 𝑛 𝑄 𝑃 . (17) When 𝑛 = 𝛼 . Since 
+
+Size 
+
+
+
+{𝑐 𝑖 }𝑙 𝑛 −1
+
+> 𝑖 =𝑠
+
+
+
+= Size (𝑏 ) − Size 
+
+
+
+{𝑐 𝑖 }𝑒 𝑖 =𝑙 𝑛 
+
+
+
+≤ 𝐷 𝑃 − 𝑛 𝛼 𝐷 𝑃 (∵ eqs. (15) and (16) )
+
+= 0 (∵ 𝑛 = 𝛼 ),
+
+{𝑐 𝑖 }𝑙 𝑛 −1 
+
+> 𝑖 =𝑠
+
+is an empty sequence of data chunks, and so 
+
+NQrys ({ 𝑐 𝑖 }𝑙 𝑛 −1 
+
+> 𝑖 =𝑠
+
+) = 0. Therefore, 
+
+NQrys (𝑏 \ ℎ∗)
+
+= NQrys 
+
+
+
+{𝑐 𝑖 }𝑙 𝑛 −1 
+
+> 𝑖 =𝑠
+
+\ ℎ∗ 
+
++ NQrys 
+
+
+
+{𝑐 𝑖 }𝑒 𝑖 =𝑙 𝑛 \ ℎ∗ 
+
+< 0 + 𝑛 𝑄 𝑃 (∵ eq. (17) )
+
+= 𝛼 𝑄 𝑃 . (∵ 𝑛 = 𝛼 )
+
+When 𝑛 ≤ 𝛼 − 1. From Theorem A.6, we have 
+
+NQrys 
+
+
+
+{𝑐 𝑖 }𝑙 𝑛 −1 
+
+> 𝑖 =𝑠
+
+\ ℎ∗ 
+
+< 𝑄 𝑃 , (18) and therefore, 
+
+NQrys (𝑏 \ ℎ∗)
+
+= NQrys 
+
+
+
+{𝑐 𝑖 }𝑙 𝑛 −1 
+
+> 𝑖 =𝑠
+
+\ ℎ∗ 
+
++ NQrys 
+
+
+
+{𝑐 𝑖 }𝑒 𝑖 =𝑙 𝑛 \ ℎ∗ 
+
+< 𝑄 𝑃 + 𝑛 𝑄 𝑃 (∵ eqs. (17) and (18) )≤ 𝛼 𝑄 𝑃 . (∵ 𝑛 ≤ 𝛼 − 1)
+
+□
+
+Theorem A.8. The number of hot ranges found in all base parti-tions is at most 𝑃 in total. 
+
+Proof. From Theorem A.2, the number of queries targeting each hot range is not less than 𝑄 𝑃 . Hence, since the total number of queries is 𝑄 , the number of hot ranges is at most 𝑄 
+
+> 𝑄 𝑃
+
+= 𝑃 . □
+
+Theorem A.9. The data load and query load on each DPU are less than   1 
+
+> 𝛼
+
++ 1 𝐷 𝑃 + 𝑀 𝑑 and (𝛼 + 1) 𝑄 𝑃 + 𝑀 𝑞 , respectively. 
+
+Proof. From Theorem A.1, the data load on each hot partition is less than 1 
+
+> 𝛼 𝐷 𝑃
+
++ 𝑀 𝑑 . The data load on the remaining cold partitions in each DPU is no more than that of a base partition, which is 𝐷 𝑃 
+
+according to line 2 of Algorithm 1. Because Algorithm 1 assigns at most one hot partition to a single DPU, the data load on each DPU is less than   1 
+
+> 𝛼 𝐷 𝑃
+
++ 𝑀 𝑑 
+
+ + 𝐷 𝑃 =   1 
+
+> 𝛼
+
++ 1 𝐷 𝑃 + 𝑀 𝑑 .From Theorem A.2, the query load on each hot partition is less than 𝑄 𝑃 + 𝑀 𝑞 . From Theorem A.7, the query load on the remaining cold partitions in each DPU is less than 𝛼 𝑄 𝑃 . Therefore, the query load on each DPU is less than 
+
+ 𝑄 𝑃 + 𝑀 𝑞 
+
+
+
++𝛼 𝑄 𝑃 = (𝛼 + 1) 𝑄 𝑃 +𝑀 𝑞 . □
+
+> 13 Takato Hideshima, Shigeyuki Sato, and Tomoharu Ugawa
+
+## B Proof of the Properties of the Double-Scan Hot Selection Algorithm 
+
+We prove the properties satisfied by the result of Algorithm 3 below. Unless otherwise specified, line numbers are used to refer to the processing and states within Algorithm 3. 
+
+Theorem B.1. Each hot partition consists of a sequence of consec-utive data chunks in the key space. 
+
+Proof. It is selfevident for hot ranges selected in the first scan in line 2. Let 𝑏 := {𝑐 𝑖 }𝑒 𝑖 =𝑠 be a base partition, and consider a hot range in 𝑏 added to ℎ in line 15. When we reach line 15, 𝑙 can be expressed using the function 𝑎 defined in eqs. (5) and (6) as 
+
+𝑙 = max {𝑙 0, 𝑎 (𝑟 )} . (19) In the proof of Theorem A.6, it has been shown that, for all 𝑧 ∈ [ 𝑠, 𝑒 ],
+
+{𝑐 𝑖 }𝑧 𝑖 =𝑎 (𝑧 ) \ ℎ∗ is either ∅ or a sequence of consecutive data chunks. Therefore, by eq. (19), {𝑐 𝑖 }𝑟 𝑖 =𝑙 \ ℎ∗ is also either ∅ or a sequence of consecutive data chunks. If it is ∅ then it will not be added to ℎ
+
+in line 19, so the set of hot ranges ℎ consists only of sequences of consecutive data chunks. □
+
+Theorem B.2. The data load on each hot partition is less than  
+
+> 1
+> 𝛼 𝐷 𝑃
+
++ 𝑀 𝑑 .
+
+Proof. For the hot ranges selected in the first scan in line 2, refer to Theorem A.1. Below, we consider a hot range selected in the second scan. By a discussion analogous to the proof of Theorem A.1, it can be derived that 
+
+Size  {𝑐 𝑖 }𝑟 𝑖 =𝑙 
+
+ < 1
+
+𝛼 𝐷 𝑃 + 𝑀 𝑑 
+
+holds when we reach line 15. Therefore, 
+
+Size  {𝑐 𝑖 }𝑟 𝑖 =𝑙 \ ℎ∗  ≤ Size  {𝑐 𝑖 }𝑟 𝑖 =𝑙 
+
+ < 1
+
+𝛼 𝐷 𝑃 + 𝑀 𝑑 .
+
+Consequently, the data load of the elements added to ℎ in line 15 is less than 1 
+
+> 𝛼 𝐷 𝑃
+
++ 𝑀 𝑑 . □
+
+Theorem B.3. The query load on each hot partition is less than  
+
+> 𝑄 𝑃
+
++ 𝑀 𝑞 .
+
+Proof. For the hot ranges selected in the first scan in line 2, refer to Theorem A.2. For the ranges selected in the second scan, the proposition holds because the following inequality holds when we reach line 15. 
+
+NQrys  {𝑐 𝑖 }𝑟 𝑖 =𝑙 \ ℎ∗  ≤ NQrys 
+
+
+
+{𝑐 𝑖 }𝑟 𝑖 =𝑎 (𝑟 ) \ ℎ∗ 
+
+(∵ eq. (19) )
+
+< 𝑄 𝑃 (∵ Theorem A.6 )
+
+< 𝑄 𝑃 + 𝑀 𝑞 . (∵ 𝑀 𝑞 ≥ 0)
+
+□
+
+Definition B.4. Let 𝑟, 𝑡 𝑙 be indices of data chunks such that 𝑡 𝑙 ≤ 𝑟 .Let 𝑡 𝑠 be a data size. Define the function 𝐿 (𝑟, 𝑡 𝑙 , 𝑡 𝑠 ) that returns an index of data chunk as follows: The sequence of data chunks 
+
+{𝑐 𝑖 }𝑟 𝑖 =𝐿 (𝑟,𝑡 𝑙 ,𝑡 𝑠 ) is the shortest consecutive sequence that ends at 𝑐 𝑟 ,begins with 𝑐 𝑡 𝑙 or later, and contains data of size 𝑡 𝑠 or greater. If no such sequence exists, return 𝑡 𝑙 . 𝐿 is formalized as 
+
+𝐿 (𝑟, 𝑡 𝑙 , 𝑡 𝑠 ) :=
+
+(
+
+𝑡 𝑙 (𝐷 (𝑟, 𝑡 𝑙 , 𝑡 𝑠 ) = ∅) 
+
+max 𝐷 (𝑟, 𝑡 𝑙 , 𝑡 𝑠 ) (otherwise ) ,
+
+where 𝐷 (𝑟, 𝑡 𝑙 , 𝑡 𝑠 ) is 
+
+𝐷 (𝑟, 𝑡 𝑙 , 𝑡 𝑠 ) := 𝑙 ∈ [ 𝑡 𝑙 , 𝑠 ] Size  {𝑐 𝑖 }𝑟 𝑖 =𝑙 
+
+ ≥ 𝑡 𝑠 .
+
+Using Theorem B.4, we can express that in line 9, the value of 𝑙 
+
+is updated to 
+
+𝑙 = 𝐿 
+
+
+
+𝑟, 𝑠, 𝛽 𝛼 𝐷 𝑃 
+
+
+
+. (20) Also, the update of 𝑙 in line 14 can be expressed as 
+
+𝑙 = 𝐿 
+
+
+
+𝑟, 𝑙 0, 1
+
+𝛼 𝐷 𝑃 
+
+
+
+. (21) 
+
+Theorem B.5. The number of hot ranges found in all base parti-tions is at most 𝑃 in total. 
+
+Proof. Let 𝑏 := {𝑐 𝑖 }𝑒 𝑖 =𝑠 be a base partition and consider the number of hot ranges found in it. We define ℎ1 and ℎ2 as 
+
+ℎ1 := FindHotGreedy (𝑏 ),ℎ2 := FindHot (𝑏 ) \ ℎ1.
+
+Then the number of hot ranges in 𝑏 is 𝑛 ℎ := |ℎ1 | + | ℎ2 |. From Theorem A.2, 
+
+NQrys 
+
+Ø 
+
+ℎ1
+
+
+
+≥ | ℎ1 | 𝑄 𝑃 . (22) From here, we show that the following inequality holds: 
+
+NQrys 
+
+
+
+𝑏 \
+
+Ø
+
+ℎ1
+
+
+
+≥ | ℎ2 | 𝑄 𝑃 . (23) When we reach line 4, 𝛽 is set to 
+
+𝛽 =
+
+ NQrys (𝑏 \ Ð ℎ1)
+
+𝑄 /𝑃 
+
+
+
+. (24) Therefore, 
+
+𝛽 ≤ NQrys (𝑏 \ Ð ℎ1)
+
+𝑄 /𝑃 
+
+∴ NQrys 
+
+
+
+𝑏 \
+
+Ø
+
+ℎ1
+
+
+
+≥ 𝛽 𝑄 𝑃 . (25) If 𝛽 = 0, we will exit Algorithm 3 in line 5, so eq. (23) holds because 
+
+|ℎ2 | = 0. For the case where 𝛽 ≥ 1, we show |ℎ2 | ≤ 𝛽 to produce eq. (23) from eq. (25). Suppose 
+
+|ℎ2 | > 𝛽. (26) This means that the addition of a hot range to ℎ was performed 
+
+|ℎ2 |( > 𝛽 ) times in line 15. Therefore, if we denote the number of iterations of the loop 3 starting at line 12 as 𝐼 𝑡𝑒𝑟 , then 
+
+𝐼 𝑡𝑒𝑟 ≥ | ℎ2 | > 𝛽 ≥ 1. (27) Here, we denote the values of 𝑙 and 𝑟 when we reach line 15 during the 𝑘 -th iteration ( 𝑘 ∈ [ 1, 𝐼 𝑡𝑒𝑟 ]) as 𝑙 𝑘 and 𝑟 𝑘 , respectively. From eq. (21), 
+
+> ∀
+
+𝑘 ∈ [ 1, 𝐼 𝑖𝑡𝑒𝑟 ], 𝑙 𝑘 = 𝐿 
+
+
+
+𝑟 𝑘 , 𝑙 0, 1
+
+𝛼 𝐷 𝑃 
+
+
+
+. (28) Because 𝑟 is reinitialized to 𝑟 0 immediately before the loop begins (line 11), 
+
+𝑟 1 = 𝑟 0. (29)           
+
+> 3𝐼 𝑡𝑒𝑟 can be greater than |ℎ2|. This is because nothing is added to ℎin the iterations where {𝑐 𝑖 }𝑟 𝑖 =1⊂ℎ∗occurs in line 15. 14 Query Density-Driven Partitioning for Spatiotemporal Load Balancing on Processing-in-Memory Systems
+
+Based on the update of 𝑟 in line 16, 
+
+> ∀
+
+𝑘 ∈ [ 2, 𝐼 𝑡𝑒𝑟 ], 𝑟 𝑘 = 𝑙 𝑘 −1 − 1. (30) From Theorem B.4 and eq. (28), we have 
+
+> ∀
+
+𝑘 ∈ [ 1, 𝐼 𝑡𝑒𝑟 ], 𝑙 𝑘 ≤ 𝑟 𝑘 , and (31) 
+
+> ∀
+
+𝑘 ∈ [ 1, 𝐼 𝑡𝑒𝑟 ], 𝑙 𝑘 ≥ 𝑙 0. (32) From eq. (32), in Algorithm 3, 𝑟 is updated to a value of 𝑙 0 − 1 or greater. Consequently, if the condition in Algorithm 3 immediately afterward becomes false, 𝑟 can only be 𝑙 0 − 1. Thus, the value of 𝑙 
+
+in the final iteration is 𝑙 0, meaning 
+
+𝑙 𝐼 𝑡𝑒𝑟 = 𝑙 0. (33) Combining eqs. (29) to (31) and (33), we have 
+
+𝑙 0 = 𝑙 𝐼 𝑡𝑒𝑟 ≤ 𝑟 𝐼 𝑡𝑒𝑟 < 𝑙 𝐼 𝑡𝑒𝑟 −1 ≤ 𝑟 𝐼 𝑡𝑒𝑟 −1 < · · · < 𝑙 1 ≤ 𝑟 1 = 𝑟 0 (34) Consider the data size of {𝑐 𝑖 }𝑟 0 
+
+> 𝑖 =𝑙 𝑘
+
+for 𝑘 ∈ [ 1, 𝐼 𝑡𝑒𝑟 − 1]. For all 𝑘 
+
+within this range, eq. (34) implies that 𝑙 𝑘 > 𝑙 0. So, from eq. (28), 
+
+> ∀
+
+𝑘 ∈ [ 1, 𝐼 𝑡𝑒𝑟 − 1], Size 
+
+
+
+{𝑐 𝑖 }𝑟 𝑘 
+
+> 𝑖 =𝑙 𝑘
+
+
+
+≥ 1
+
+𝛼 𝐷 𝑃 (35) holds. Then, for all 𝑘 ∈ [ 1, 𝐼 𝑡𝑒𝑟 − 1], we have 
+
+Size 
+
+
+
+{𝑐 𝑖 }𝑟 0
+
+> 𝑖 =𝑙 𝑘
+
+
+
+=
+
+> 𝑘
+
+∑︁ 
+
+> 𝑗 =1
+
+Size 
+
+
+
+{𝑐 𝑖 }𝑟 𝑗  
+
+> 𝑖 =𝑙 𝑗
+
+
+
+(∵ eq. (34) )≥
+
+> 𝑘
+
+∑︁ 
+
+> 𝑗 =1
+
+1
+
+𝛼 𝐷 𝑃 (∵ eq. (35) )
+
+= 𝑘 𝛼 𝐷 𝑃 .
+
+Therefore, from Theorem B.4, 
+
+> ∀
+
+𝑘 ∈ [ 1, 𝐼 𝑡𝑒𝑟 − 1], 𝑙 𝑘 ≤ 𝐿 
+
+
+
+𝑟 0, 𝑠, 𝑘 𝛼 𝐷 𝑃 
+
+
+
+.
+
+Because we have 𝛽 ∈ [ 1, 𝐼 𝑡𝑒𝑟 − 1] from eq. (27), this implies 
+
+𝑙 𝛽 ≤ 𝐿 
+
+
+
+𝑟 0, 𝑠, 𝛽 𝛼 𝐷 𝑃 
+
+
+
+∴ 𝑙 0 = 𝑙 𝐼 𝑖𝑡𝑒𝑟 < 𝑙 𝛽 ≤ 𝐿 
+
+
+
+𝑟 0, 𝑠, 𝛽 𝛼 𝐷 𝑃 
+
+
+
+. (∵ eqs. (27) and (34) ) (36) However, because eq. (20) holds whenever we reach line 10, we have 
+
+𝑙 0 = 𝐿 
+
+
+
+𝑟 0, 𝑠, 𝛽 𝛼 𝐷 𝑃 
+
+
+
+,
+
+which contradicts eq. (36). Therefore, 
+
+|ℎ2 | ≤ 𝛽. (37) From eqs. (25) and (37), eq. (23) holds. Then, from eqs. (22) and (23), 
+
+NQrys (𝑏 ) = NQrys 
+
+Ø 
+
+ℎ1
+
+
+
++ NQrys 
+
+
+
+𝑏 \
+
+Ø
+
+ℎ1
+
+
+
+≥ | ℎ1 | 𝑄 𝑃 + | ℎ2 | 𝑄 𝑃 
+
+= 𝑛 ℎ
+
+𝑄 𝑃 .
+
+Because this holds for all base partitions, if we denote the total number of hot ranges as 𝑛 , then 
+
+𝑄 ≥ 𝑛 𝑄 𝑃 ,
+
+proving that 𝑛 ≤ 𝑃 . □
+
+Theorem B.6. The query load on the ranges not selected as hot ranges in each base partition is at most 𝑄 𝑃 max  𝛼 +13 , 1 .
+
+Proof. Let us define a base partition 𝑏 , the set of hot ranges selected in the first and second scans ℎ1 and ℎ2 in the same manner as in the proof of Theorem B.5. 
+
+𝑏 := {𝑐 𝑖 }𝑒 𝑖 =𝑠 ,ℎ1 := FindHotGreedy (𝑏 ), and 
+
+ℎ2 := FindHot (𝑏 ) \ ℎ1.
+
+Also, let us define 
+
+𝑞 := NQrys 
+
+
+
+𝑏 \
+
+Ø
+
+ℎ1
+
+
+
+, and 
+
+Δ𝑞 := NQrys 
+
+Ø 
+
+ℎ2
+
+
+
+.
+
+This theorem says that 𝑞 − Δ𝑞 ≤ 𝑄 𝑃 max  𝛼 +13 , 1 .By the same discussion as in the proof of Theorem B.5, we have 
+
+𝛽 =
+
+ NQrys (𝑏 \ Ð ℎ1)
+
+𝑄 /𝑃 
+
+
+
+=
+
+ 𝑞 𝑄 /𝑃 
+
+
+
+. (38) From Theorem A.7, we have 𝑞 < 𝛼 𝑄 𝑃 , then 0 ≤ 𝛽 < 𝛼 . If 𝛽 = 0, we have 
+
+𝑞 − Δ𝑞 = 𝑞 
+
+< 𝑄 𝑃 (∵ eq. (38) )≤ 𝑄 𝑃 max 
+
+ 𝛼 + 13 , 1
+
+
+
+.
+
+Below, we prove 𝑞 − Δ𝑞 ≤ 𝛼 +13 
+
+> 𝑄 𝑃
+
+for 1 ≤ 𝛽 < 𝛼 . Note that 𝛼 +13 is not less than 1 since we have 𝛼 ≥ 𝛽 + 1 ≥ 2 in this case. Consider the case where 2𝛼 −13 ≤ 𝛽 < 𝛼 . Let 𝑙 𝑒 be 𝐿 
+
+
+
+𝑒, 𝑠, 𝛽 𝛼 𝐷 𝑃 
+
+
+
+.From eq. (20), Algorithm 3 for the base partition 𝑏 examines {𝑐 𝑖 }𝑒 𝑖 =𝑙 𝑒 
+
+as a candidate of {𝑐 𝑖 }𝑟 0 
+
+> 𝑖 =𝑙 0
+
+in line 10. Because the algorithm finally se-lects {𝑐 𝑖 }𝑟 0 
+
+> 𝑖 =𝑙 0
+
+for which the remaining query count NQrys 
+
+
+
+{𝑐 𝑖 }𝑟 0
+
+> 𝑖 =𝑙 0
+
+
+
+reaches its maximum value Δ𝑞 ,
+
+NQrys 
+
+
+
+{𝑐 𝑖 }𝑒 𝑖 =𝑙 𝑒 \
+
+Ø
+
+ℎ1
+
+
+
+≤ Δ𝑞. 
+
+If 𝑙 𝑒 = 𝑠 , since this left-hand side is the same as 𝑞 , we have 𝑞 ≤ Δ𝑞 ,then 𝑞 − Δ𝑞 ≤ 0 ≤ 𝛼 +13 
+
+> 𝑄 𝑃
+
+. Otherwise, 
+
+𝑞 − Δ𝑞 ≤ NQrys 
+
+
+
+𝑏 \
+
+Ø
+
+ℎ1
+
+
+
+− NQrys 
+
+
+
+{𝑐 𝑖 }𝑒 𝑖 =𝑙 𝑒 \
+
+Ø
+
+ℎ1
+
+
+
+= NQrys 
+
+
+
+{𝑐 𝑖 }𝑙 𝑒 −1 
+
+> 𝑖 =𝑠
+
+\
+
+Ø
+
+ℎ1
+
+
+
+. (39) Let us define 
+
+𝑛 :=
+
+
+
+Size 
+
+
+
+{𝑐 𝑖 }𝑙 𝑒 −1
+
+> 𝑖 =𝑠
+
+
+
+> 1
+> 𝛼 𝐷 𝑃
+
+
+
+.
+
+> 15 Takato Hideshima, Shigeyuki Sato, and Tomoharu Ugawa
+
+Then, we can prove that {𝑐 𝑖 }𝑙 𝑒 −1 
+
+> 𝑖 =𝑠
+
+can be covered by 𝑛 ′ disjoint ranges {𝑐 𝑖 }𝑟 𝑗   
+
+> 𝑖 =𝑙 𝑗
+
+(𝑗 ∈ [ 1, 𝑛 ′]) such that 
+
+𝑛 ′ ≤ 𝑛 𝑟 1 = 𝑙 𝑒 − 1,𝑟 𝑗 = 𝑙 𝑗 −1 − 1 for 𝑗 ∈ [ 2, 𝑛 ′],𝑙 𝑗 = 𝐿 
+
+
+
+𝑟 𝑗 , 𝑠, 1
+
+𝛼 𝐷 𝑃 
+
+
+
+for 𝑗 ∈ [ 1, 𝑛 ′], and 
+
+𝑙 1 = 𝑠 
+
+by a similar discussion as in the proof of Theorem A.7. From Theo-rem A.6, it follows for each 𝑗 ∈ [ 1, 𝑛 ′] that 
+
+NQrys 
+
+
+
+{𝑐 𝑖 }𝑟 𝑗  
+
+> 𝑖 =𝑙 𝑗
+
+\
+
+Ø
+
+ℎ1
+
+
+
+< 𝑄 𝑃 .
+
+Therefore, from eq. (39), 
+
+𝑞 − Δ𝑞 ≤ NQrys 
+
+
+
+{𝑐 𝑖 }𝑙 𝑒 −1 
+
+> 𝑖 =𝑠
+
+\
+
+Ø
+
+ℎ1
+
+
+
+=
+
+> 𝑛 ′
+
+∑︁ 
+
+> 𝑗 =1
+
+NQrys 
+
+
+
+{𝑐 𝑖 }𝑟 𝑗   
+
+> 𝑖 =𝑙 𝑗
+
+\
+
+Ø
+
+ℎ1
+
+
+
+< 𝑛 ′ 𝑄 𝑃 
+
+≤ 𝑛 𝑄 𝑃 
+
+=
+
+
+
+Size 
+
+
+
+{𝑐 𝑖 }𝑙 𝑒 −1
+
+> 𝑖 =𝑠
+
+
+
+> 1
+> 𝛼 𝐷 𝑃
+
+
+
+𝑄 𝑃 . (40) From the definitions of 𝑙 𝑒 and 𝐿 ,
+
+Size 
+
+
+
+{𝑐 𝑖 }𝑙 𝑒 −1
+
+> 𝑖 =𝑠
+
+
+
+= Size (𝑏 ) − Size 
+
+
+
+{𝑐 𝑖 }𝑟 𝑖 =𝑙 𝑒 
+
+
+
+≤ 𝐷 𝑃 − 𝛽 𝛼 𝐷 𝑃 
+
+= (𝛼 − 𝛽 ) 1
+
+𝛼 𝐷 𝑃 .
+
+Then, from eq. (40), 
+
+𝑞 − Δ𝑞 ≤ ⌈ 𝛼 − 𝛽 ⌉ 𝑄 𝑃 
+
+= (𝛼 − 𝛽 ) 𝑄 𝑃 (∵ 𝛼, 𝛽 ∈ N)≤
+
+
+
+𝛼 − 2𝛼 − 13
+
+ 𝑄 𝑃 
+
+
+
+∵ 𝛽 ≥ 2𝛼 − 13
+
+
+
+= 𝛼 + 13
+
+𝑄 𝑃 .
+
+We have proved the theorem for 𝛽 = 0 and 2𝛼 −13 ≤ 𝛽 < 𝛼 . From here, we forcus on the case where 1 ≤ 𝛽 < 2𝛼 −13 . Let 
+
+𝑚 :=
+
+&
+
+Size (𝑏 )
+
+> 𝛽 𝛼 𝐷 𝑃
+
+'
+
+. (41) Then, we can prove that the base partition 𝑏 can be covered by 𝑚 ′
+
+disjoint ranges {𝑐 𝑖 }𝑟 ′
+
+> 𝑗
+> 𝑖 =𝑙 ′
+> 𝑗
+
+(𝑗 ∈ [ 1, 𝑚 ′]) such that 
+
+𝑚 ′ ≤ 𝑚, 𝑟 ′ 
+
+> 1
+
+= 𝑒, 𝑟 ′ 
+
+> 𝑗
+
+= 𝑙 ′  
+
+> 𝑗 −1
+
+− 1 for 𝑗 ∈ [ 2, 𝑚 ′],𝑙 ′ 
+
+> 𝑗
+
+= 𝐿 
+
+
+
+𝑟 ′ 
+
+> 𝑗
+
+, 𝑠, 𝛽 𝛼 𝐷 𝑃 
+
+
+
+for 𝑗 ∈ [ 1, 𝑚 ′], and 
+
+𝑙 ′ 
+
+> 1
+
+= 𝑠 
+
+by a similar discussion as in the proof of Theorem A.7. The for-loop on line 7 in Algorithm 3 examines ranges {𝑐 𝑖 }𝑟 𝑖 =𝑙 including all such ranges and selects the one with the maximum number of remaining queries 
+
+NQrys 
+
+
+
+{𝑐 𝑖 }𝑟 𝑖 =𝑙 \
+
+Ø
+
+ℎ1
+
+
+
+.
+
+Because hot ranges in ℎ2 are created by dividing the selected range in this for-loop, Δ𝑞 = NQrys (Ð ℎ2) is the number of queries for the selected range. Thus,  
+
+> ∀
+
+𝑗 ∈ [ 1, 𝑚 ′], NQrys 
+
+
+
+{𝑐 𝑖 }𝑟 ′
+
+> 𝑗
+> 𝑖 =𝑙 ′
+> 𝑗
+
+\
+
+Ø
+
+ℎ1
+
+
+
+≤ Δ𝑞 (42) holds. Therefore, 
+
+𝑞 = NQrys 
+
+
+
+𝑏 \
+
+Ø
+
+ℎ1
+
+
+
+=
+
+> 𝑚 ′
+
+∑︁ 
+
+> 𝑗 =1
+
+NQrys 
+
+
+
+{𝑐 𝑖 }𝑟 ′
+
+> 𝑗
+> 𝑖 =𝑙 ′
+> 𝑗
+
+\
+
+Ø
+
+ℎ1
+
+
+
+≤ 𝑚 ′Δ𝑞 
+
+≤ 𝑚 Δ𝑞. 
+
+Then, 
+
+𝑞 − Δ𝑞 ≤ 𝑞 − 𝑞 𝑚 
+
+= 𝑞 
+
+
+
+1 − 1
+
+𝑚 
+
+
+
+= 𝑞 
+
+©«
+
+1 − 1
+
+ Size (𝑏 )
+
+> 𝛽 𝛼 𝐷 𝑃
+
+ª®®®®¬
+
+(∵ eq. (41) )
+
+= 𝑞 ©«
+
+1 − 1
+
+l 𝛼 𝛽 
+
+m ª®®¬
+
+(43) Here, let 𝑟 := 𝑞 𝑄 /𝑃 − 𝛽 . We have 𝑟 ∈ [ 0, 1) by eq. (38). Using this to evaluate the right-hand side of eq. (43), 
+
+𝑞 − Δ𝑞 ≤ ( 𝛽 + 𝑟 ) 𝑄 𝑃 
+
+©«
+
+1 − 1
+
+l 𝛼 𝛽 
+
+m ª®®¬
+
+.
+
+Because this right-hand side is monotonically increasing with re-spect to 𝑟 , from 𝑟 < 1, we have 
+
+𝑞 − Δ𝑞 < (𝛽 + 1) 𝑄 𝑃 
+
+©«
+
+1 − 1
+
+l 𝛼 𝛽 
+
+m ª®®¬
+
+. (44) 
+
+> 16 Query Density-Driven Partitioning for Spatiotemporal Load Balancing on Processing-in-Memory Systems
+
+Below, we will consider two different cases: 1 ≤ 𝛽 < 𝛼  
+
+> 2
+
+and  
+
+> 𝛼
+> 2
+
+≤ 𝛽 < 2𝛼 −13 . When 1 ≤ 𝛽 < 𝛼  
+
+> 2
+
+, we have 
+
+l 𝛼 𝛽 
+
+m
+
+≥ 3. Therefore, 
+
+𝑞 − Δ𝑞 < (𝛽 + 1) 𝑄 𝑃 
+
+©«
+
+1 − 1
+
+l 𝛼 𝛽 
+
+m ª®®¬
+
+(∵ eq. (44) )≤ ( 𝛽 + 1) 𝑄 𝑃 
+
+
+
+1 − 13
+
+
+
+.
+
+Because 𝛽 < 𝛼  
+
+> 2
+
+implies 𝛽 ≤ 𝛼 −12 when 𝛼 and 𝛽 are integers, 
+
+∴ 𝑞 − Δ𝑞 ≤
+
+ 𝛼 − 12 + 1
+
+ 𝑄 𝑃 
+
+
+
+1 − 13
+
+
+
+= 𝛼 + 13
+
+𝑄 𝑃 .
+
+When 𝛼  
+
+> 2
+
+≤ 𝛽 < 2𝛼 −13 , we have 
+
+l 𝛼 𝛽 
+
+m
+
+= 2. Therefore, 
+
+𝑞 − Δ𝑞 < (𝛽 + 1) 𝑄 𝑃 
+
+©«
+
+1 − 1
+
+l 𝛼 𝛽 
+
+m ª®®¬
+
+(∵ eq. (44) )
+
+= (𝛽 + 1) 𝑄 𝑃 
+
+
+
+1 − 12
+
+ 
+
+∵
+
+ 𝛼 𝛽 
+
+
+
+= 2
+
+
+
+<
+
+ 2𝛼 − 13 + 1
+
+ 𝑄 𝑃 
+
+
+
+1 − 12
+
+ 
+
+∵ 𝛽 < 2𝛼 − 13
+
+
+
+= 𝛼 + 13
+
+𝑄 𝑃 .
+
+□

@@ -6,29 +6,26 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-08-03
-- 运行时间：2026-08-03 21:34:26 UTC
+- 最新运行日期：2026-08-04
+- 运行时间：2026-08-04 20:34:18 UTC
 - 运行状态：成功
 - 本次总论文数：2
-- 精读区：2
-- 速读区：0
+- 精读区：1
+- 速读区：1
 
 ### 今日简报（AI）
-今日精读2篇高分论文（均9.0/10），聚焦Processing-in-Memory系统的时空负载均衡与模拟存内计算的LLM推理噪声鲁棒性。  
-最值得关注的方向：一是查询密度驱动的分区策略可优化时空任务调度，二是选择性KV缓存保护能显著提升模拟计算环境下的LLM抗噪能力。  
-建议优先阅读这两篇论文，可结合实践验证分区策略与缓存保护方法对系统性能的实际提升。
-- 详情：[/202608/03/README](/202608/03/README)
+今日精读1篇、速读1篇，聚焦AI加速器通信与半导体可靠性。最值得关注的是HCCL论文（8.0/10），面向Meta训练/推理加速器的集合通信设计。建议普通读者优先精读HCCL，速读材料可作扩展了解。
+- 详情：[/202608/04/README](/202608/04/README)
 
 ### 精读区论文标签
-1. [Query Density-Driven Partitioning for Spatiotemporal Load Balancing on Processing-in-Memory Systems](/202608/03/2607.29070v1-query-density-driven-partitioning-for-spatiotemporal-load-balancing-on-processing-in-memory-systems)  
-   标签：评分：9.0/10、query:cim
-   evidence：直接针对处理中内存(PIM)系统的查询负载均衡，匹配PIM系统需求。
-2. [Selective KV Cache Protection for Noise-Resilient LLM Inference on Analog Compute-In-Memory Systems](/202608/03/2607.29076v1-selective-kv-cache-protection-for-noise-resilient-llm-inference-on-analog-compute-in-memory-systems)  
-   标签：评分：9.0/10、query:cim
-   evidence：模拟存内计算架构，KV缓存噪声鲁棒性保护
+1. [HCCL: Collective Communication for Meta Training and Inference Accelerators](/202608/04/2608.00358v1-hccl-collective-communication-for-meta-training-and-inference-accelerators)  
+   标签：评分：8.0/10、query:cim
+   evidence：MTIA 300芯片的专用消息引擎集成了近存计算(NMC)，用于卸载集合通信执行
 
 ### 速读区论文标签
-- 本次无速读推荐。
+1. [Recursive transformers for semiconductor thermo-mechanical reliability](/202608/04/2607.27251v1-recursive-transformers-for-semiconductor-thermo-mechanical-reliability)  
+   标签：评分：6.0/10、query:cim
+   evidence：热机械可靠性是三维堆叠半导体系统设计中的关键挑战
 
 
 <div class="dpr-home-promo-card">

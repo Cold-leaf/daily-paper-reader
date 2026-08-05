@@ -6,26 +6,30 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-08-04
-- 运行时间：2026-08-04 20:34:18 UTC
+- 最新运行日期：2026-08-05
+- 运行时间：2026-08-05 22:02:06 UTC
 - 运行状态：成功
-- 本次总论文数：2
-- 精读区：1
-- 速读区：1
+- 本次总论文数：3
+- 精读区：3
+- 速读区：0
 
 ### 今日简报（AI）
-今日精读1篇、速读1篇，聚焦AI加速器通信与半导体可靠性。最值得关注的是HCCL论文（8.0/10），面向Meta训练/推理加速器的集合通信设计。建议普通读者优先精读HCCL，速读材料可作扩展了解。
-- 详情：[/202608/04/README](/202608/04/README)
+今日精读2篇，聚焦模拟存内计算的量化与异构LLM服务。最值得关注：噪声底感知的混合精度非均匀量化，以及面向检索稀疏注意力的近内存处理方案。建议读者优先消化这两项技术对能效和推理延迟的潜在收益。
+- 详情：[/202608/05/README](/202608/05/README)
 
 ### 精读区论文标签
-1. [HCCL: Collective Communication for Meta Training and Inference Accelerators](/202608/04/2608.00358v1-hccl-collective-communication-for-meta-training-and-inference-accelerators)  
+1. [NANQ: Noise-Floor-Aware Mixed-Precision Non-Uniform Quantization for Analog Compute-in-Memory](/202608/05/2608.02700v1-nanq-noise-floor-aware-mixed-precision-non-uniform-quantization-for-analog-compute-in-memory)  
+   标签：评分：9.0/10、query:cim
+   evidence：面向模拟存内计算的噪声感知量化
+2. [Heterogeneous LLM Serving with General-Purpose Processing-Near-Memory for Retrieval-Based Sparse Attention](/202608/05/2608.03555v1-heterogeneous-llm-serving-with-general-purpose-processing-near-memory-for-retrieval-based-sparse-attention)  
+   标签：评分：9.0/10、query:cim
+   evidence：直接设计面向LLM服务的近内存处理系统，PNM节点持有KV缓存并执行读取缓存的运算
+3. [AgenticECO: An Agentic Framework for ECO on 3D Integrated Circuits](/202608/05/2608.03738v1-agenticeco-an-agentic-framework-for-eco-on-3d-integrated-circuits)  
    标签：评分：8.0/10、query:cim
-   evidence：MTIA 300芯片的专用消息引擎集成了近存计算(NMC)，用于卸载集合通信执行
+   evidence：面向三维集成电路ECO的智能体框架，处理键合级缺陷
 
 ### 速读区论文标签
-1. [Recursive transformers for semiconductor thermo-mechanical reliability](/202608/04/2607.27251v1-recursive-transformers-for-semiconductor-thermo-mechanical-reliability)  
-   标签：评分：6.0/10、query:cim
-   evidence：热机械可靠性是三维堆叠半导体系统设计中的关键挑战
+- 本次无速读推荐。
 
 
 <div class="dpr-home-promo-card">

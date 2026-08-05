@@ -1,0 +1,731 @@
+Title: AgenticECO: An Agentic Framework for ECO on 3D Integrated Circuits
+
+URL Source: https://arxiv.org/pdf/2608.03738v1
+
+Published Time: Wed, 05 Aug 2026 01:27:06 GMT
+
+Number of Pages: 20
+
+Markdown Content:
+# AgenticECO: An Agentic Framework for ECO on 3D Integrated Circuits 
+
+## Shuo Ren, Yaohui Han, Libo Shen, Zhiqiang Jia, Rongliang Fu, Bei Yu, Tsung-Yi Ho 
+
+The Chinese University of Hong Kong 
+
+Abstract 
+
+As Moore’s law slows, the industry is turning to three-dimensional integration; yet in merged 3D-IC flows, routed designs expose bond-level defects with no 2D analogue, and post-route engineering change orders (ECO) remain manual, expertise-bound work. Worse, the standard edit-then-fully-reroute practice entangles a repair with router churn, so a sig-noff number cannot be attributed to the edit that motivated it. We present AgenticECO, an evidence-gated tool-using agent workflow for 3D-IC ECO on the open-source TaiWei flow, paired with EcoRoute, a minimal-disturbance ECO-routing layer that drives the unmodified pinned router so a repair is at-tributable to its edit. Across nine matched natural defect cases under identical budgets, AgenticECO clears seven versus two for both full reroute and stock repair, at 0.66% mean distur-bance over cleared cases and zero clock nets touched, and a cross-backbone rerun under the same sealed contract clears all nine. Controlled studies show that the repair moves are necessary under preservation, that occupancy-aware choice buys legal landings rather than repair success, and that un-der tightened clocks minimal disturbance flips accept versus reject. Three preregistered visual studies localize the pixel instrument’s edge to contested landing sites, and a preregis-tered blind diagnostic exactly restores every held-out injected defect, the only arm with zero wrong edits. Every accepted result passes routing, fresh extraction, max/min timing, DRC, and structural-equivalence gates. Code, environment, and per-episode audit artifacts are released with the paper. 
+
+## 1 Introduction 
+
+AI agents are moving beyond conversational assistance to-ward long-horizon engineering tasks, where they invoke spe-cialized tools, inspect intermediate artifacts, and revise de-cisions over multiple rounds (Yao et al. 2022; Schick et al. 2023; Qin et al. 2023; Liu et al. 2024; Wang et al. 2024; Shinn et al. 2023; Yang et al. 2024; Xie et al. 2024), with chip design a prominent recent example (Moonshot AI 2026). Modern chip design is not performed by a single algo-rithm: it is a sequence of specialized tools for synthesis, placement, routing, timing analysis, and physical verifica-tion, each stage producing the design state and evidence needed by later decisions. Early work established conver-sational chip co-design, domain-adapted models, RTL gen-eration and evaluation, and tool-feedback repair (Blocklove et al. 2023; Liu et al. 2023; Zhong et al. 2024; Thakur et al. Routing is done, but signoff still   
+
+> reports violations in the 3D stack.
+> Manager
+> We must close these violations
+> before tape-out, without
+> disturbing what already works.
+> Engineers
+> Every manual fix ends up
+> breaking something else, so we
+> rerun the flow and wait again.
+> I analyze the evidence behind
+> each violation and repair it
+> with minimal edits.
+> Orchestrator
+> Automation
+> Backend
+> Every edit is executed and
+> verified by the backend tools
+> before it is committed.
+> Traditional ECO AgenticECO
+> Engineers iterate by hand and wait Agents close the loop and verify the results
+
+Figure 1: Traditional ECO vs. AgenticECO’s verified loop. 2024; Lu et al. 2024; Fu et al. 2023; Blocklove et al. 2024); recent Agentic EDA systems generate and repair scripts, co-ordinate design tools, optimize flows, modify engine code, and assist physical design (Wu et al. 2024a, 2025b; Zhao et al. 2025b; Pasandi et al. 2025; Liu et al. 2025; Wu et al. 2025a; Ghose et al. 2025; Zang et al. 2025), vendors ship multi-tool automation (Cadence Design Systems 2025; Synopsys 2026; Siemens Digital Industries Software 2026), and FluxBench benchmarks agents on full RTL-to-GDS flows (Deng et al. 2026). Together these efforts position EDA as a long-horizon, tool-interactive agent task rather than a collection of isolated model predictions. A particularly demanding task arises after a chip has al-ready been placed and routed. Engineers use an engineering change order (ECO) to correct localized physical violations while preserving the valid implementation (Tsai et al. 2024). In practice, ECO is a careful debugging loop (Figure 1): an engineer inspects heterogeneous evidence, forms a re-pair hypothesis, generates an edit, performs ECO routing, runs signoff, and interprets the new outcome; a failed at-tempt may require a different candidate, additional evidence, or a different procedure altogether. The loop is labor inten-sive and state-dependent: routing and signoff expose physical consequences unavailable when the edit was proposed. This burden grows as geometric scaling nears its limits (Waldrop 2016) and design moves into three dimensions. Hybrid bonding enables dense vertical connections (Chew, De Vos, and Beyne 2024), merged physical-design method-ologies represent multiple tiers in a unified, tier-encoded database (Ku, Chang, and Lim 2019; Pentapati, Chang, and Lim 2023), and open engines and benchmarks provide the substrate (Ajayi et al. 2019; Shi et al. 2025). Even after rout-ing, such designs retain cross-tier defects; Figure 2 shows a hybrid-bond spacing violation. arXiv:2608.03738v1 [cs.AI] 4 Aug 2026 A C 
+
+> B(a) F2F hybrid bonding (b) routed I2C: merged die, defect window, per-tier reveal, violating pad pair
+
+Figure 2: The problem we target. (a) F2F stacking joins dies through bond-pad pairs (after Zhao et al. (2025a)). (b) The merged die looks legal, yet two pads sit at 1.18 μm under a 1.568 μm rule (Section 2), a cross-tier violation no 2D ECO represents. These developments establish the promise of Agentic EDA, but post-route physical repair requires more than it-erative tool use: the system must reason over evolving exe-cution outcomes. A placement-legal candidate may fail after routing, meet geometry but violate timing, or expose a new violation whose evidence refutes the assumptions behind the candidate, so resampling a fixed procedure is insufficient. Language agents refine outputs through self-feedback, tool-grounded critique, environment-guided search, or learned rules (Madaan et al. 2023; Gou et al. 2023; Zhou et al. 2024; Wu et al. 2024b; Chen et al. 2024; Shi et al. 2024), but phys-ical repair requires distinguishing a failed candidate from a refuted candidate family and revising the executable proce-dure that generates later edits. The closest repair systems act on 2D geometry: learned ECO in a fixed action space (Jiang, Chhabria, and Sapatnekar 2024), or evolved layer-wise skills over bounded layout crops (Wu et al. 2026). Neither executes routed, cross-tier-preserving 3D ECOs. To our knowledge, prior Agentic EDA systems (Wu et al. 2024a; Ghose et al. 2025, 2026; Luo et al. 2026; Li et al. 2026) have not used typed post-execution artifacts to drive semantic revision of a registered, deterministic repair procedure under fixed exter-nal acceptance gates for post-route 3D-IC ECO. Appendix P surveys related agent, hardware, and 3D-IC work in full. We introduce AgenticECO 1, an evidence-gated agentic framework for this setting. The orchestrator accumulates typed evidence from the netlist, layout, violations, routing, timing, and prior attempts, and uses that evidence to synthe-size a deterministic repair program. Exact, registered candi-date edits come from that program rather than from free-form model text. Each candidate is applied by the EcoRoute ex-ecutor and judged by the independent verifier. After a failure, the orchestrator explicitly chooses Advance for the next reg-istered candidate, Query for additional evidence, or Revise for a new repair program. Reliable revision also requires reliable feedback. Agen-ticECO therefore separates model reasoning from physical execution and acceptance. The bounded EcoRoute executor applies each edit on a copy of the design while recording the realized change and its routing disturbance. An inde-
+
+> 1The full code, the pinned environment, and per-episode au-dit artifacts are released at https://anonymous.4open.science/r/ AgenticECO; Appendix B documents their organization and re-production steps.
+
+pendent verifier evaluates routing completion, design-rule checks, max/min timing, structural equivalence, and preser-vation constraints using tool artifacts only; the orchestrator may revise its procedure after a failure, but it cannot revise the acceptance gates. This separation makes failure evidence attributable, exact actions replayable, and accepted repairs externally verifiable. Our contributions are summarized as follows: 
+
+• To the best of our knowledge, AgenticECO is the first agentic framework that repairs post-route HBT-level DRC violations in 3D integrated circuits. 
+
+• We formulate the task around its central difficulty: an edit is judged only after routing runs, so each verified failure forces a choice between the next candidate, more evidence, and a new repair procedure. 
+
+• We design the multi-agent information flow: read-only specialists distill the database into typed, provenance-bearing evidence, the orchestrator compiles it into a repair program that emits every coordinate, and an artifact-only verifier judges each localized edit. 
+
+• Experiments show AgenticECO repairs defects that full reroute and stock repair leave standing, at a fraction of their disturbance with zero clock touches, and overturns the single agent’s wrong infeasibility verdicts. 
+
+## 2 Preliminaries 
+
+2.1 The Physical State and the 3D Defect 
+
+We introduce only the physical-design objects needed to de-fine the agent’s task. A face-to-face two-tier design (Fig-ure 2a) is represented in one merged database (Ku, Chang, and Lim 2019; Pentapati, Chang, and Lim 2023). Its routed state is 
+
+X = ( I, N , t, p, R ), (1) where I and N are instances and nets, t(i) and pi give an instance’s tier and location, and R is routed geometry. Every repair starts from a frozen checkpoint; X′ denotes the resulting state. For the post-route task studied here, connectivity and tier assignment are frozen. Placement has chosen p using cell-body constraints, whereas routing draws wires between the resulting pins and determines where a cross-tier wire crosses the bonding interface: 
+
+ R, {Bn}n∈N ×
+
+ = Route( I, N , t, p ; θR). (2) DB: Evidence History   
+
+> Adaptive profile
+> Failure / gap status
+> Strategy status
+> Making Decision
+> Advance, Query,
+> Revise
+> Candidate edits
+> ranked
+> Baseline artifacts
+> Prior decisions
+> Verified outcomes
+> ECO Decision
+> ECO Layout
+> Signoff Gates
+> Orchestrator LLM Backbone
+> Agent Harness Receive one sealed, scoped analysis task, inspect only approved
+> artifacts through lane-specific tools, and return evidence-backed
+> findings with tool and checkpoint provenance.
+> Specialist Agent
+> Maintain provenance-bearing evidence, delegate scoped read-
+> only analyses, generate ranked repair candidates, and steer the
+> repair loop using verifier feedback.
+> Accumulates provenance-
+> bearing evidence and decides to
+> advance, query, or revise
+> Edit a DB copy; a verifier
+> commits or rolls back
+> ECO Routing
+> ECO result
+> Update DB
+> Contract
+> Adaptive profile
+> Failure / gap status
+> Strategy status
+> Adaptive profile
+> Failure / gap status
+> Strategy status
+
+Figure 3: AgenticECO framework. Read-only specialist agents return evidence-backed findings; the orchestrator maintains the provenance-bearing evidence history with its adaptive profile and decides Advance, Query, or Revise; the registered repair program emits ranked candidate edits; EcoRoute executes each edit on a database copy; and the independent verifier’s signoff gates commit verified X′ or roll back. Here Bn ⊂ R2 is the final HBT geometry and θR is the frozen router configuration. Thus legal cell placement alone does not guarantee legal spacing between terminals created later. Let N× be the cross-tier nets and sB the minimum terminal spacing. The target bond-level defects are 
+
+DB (X) = {m, n } ⊆ N × : sep B (Bm, B n) < s B , (3) where sep B is the backend’s rule-specific geometry spacing. In our technology setup an HBT is 0.032 μm wide whereas 
+
+sB = 1 .568 μm, so legal cell bodies can produce violating terminals later (Figure 2b). The merged backend folds both tiers and the bond layer into one routing stack. 
+
+2.2 The Agent’s Information Boundary 
+
+From an agent’s perspective, the routed state X of Eq. (1) is environment state, not prompt text. The full-chip database and its reports exceed a practical context window, while the answer to a repair question often re-sides in a small region or tool result. The task there-fore provides three distinct information roles. A fixed con-tract Γ = ( schema , rules , edit vocabulary , acceptance gates )
+
+guides the agent without identifying a successful repair. A tool query qt reveals a scoped observation ot = Qqt (Xt).Finally, feedback ft becomes available only after an edit changes the physical state. Thus the agent acts from the bounded history 
+
+ht =  Γ, {(qj , Q qj (Xj )) }j≤t, {fj }j<t 
+
+, (4) not from all of X. The research problem is deciding which 
+
+qt to issue and how to revise a repair after ft contradicts its assumptions; Section 3.2 specifies how AgenticECO turns database queries into model-readable evidence. 
+
+2.3 ECO as Partially Observed Repair 
+
+In our repair interface, the agent influences the HBT terminal geometry Bn of Eq. (2) only indirectly, by relocating a small same-tier set of endpoint instances, 
+
+a = {i 7 → p′ 
+
+> i
+
+: i ∈ I a}, t′(i) = t(i), |I a| ≪ |I| ,
+
+(5) and the EcoRoute executor reroutes invalidated nets to pro-duce X′ = T (X, a ). Transition T has no closed form: route feasibility and collateral violations appear only after execu-tion. Localized repair should also preserve the already-valid implementation. Using a canonical geometry fingerprint 
+
+Hn(X) for each net, we measure 
+
+∆net (X, X ′) = {n ∈ N : Hn(X′)̸ = Hn(X)} ; (6) small disturbance suppresses unrelated routing churn and keeps feedback attributable to the requested edit. The task is thus 
+
+min  
+
+> a
+
+∆net (X, T (X, a )) s.t. DB (T (X, a )) = ∅,
+
+V(X, T (X, a )) = pass ,
+
+(7) where the fixed verifier V checks the declared routing, DRC, realized-edit, connectivity, and preservation criteria. The model neither computes T nor declares pass: the agentic problem is deciding what to inspect and how to revise a repair procedure when execution refutes its assumptions. 
+
+## 3 Methodology 
+
+3.1 AgenticECO Framework 
+
+The objective of Eq. (7) is observable only after a physi-cal edit executes. AgenticECO therefore repeats four named stages: query scoped evidence, generate a repair program, execute one registered edit, and verify its artifacts (Fig-ure 3). Reasoning may expand the evidence available to the orchestrator, but only an edit a changes the database through 
+
+T (X, a ).The orchestrator A maintains an evidence set E, initialized with baseline tool artifacts and only ever grown under the fixed contract Γ of Section 2.2. An independent verifier VAlgorithm 1: AgenticECO closed-loop repair                                                                                                           
+
+> Input: Checkpoint X, contract Γ, verification budget K
+> Output: Accepted state X′, or verified failure with audit trail
+> 1E=InitialEvidence (X);k= 0 ;
+> 2while k < K do
+> 3q=SelectQuery A(Γ , E );
+> 4E=E∪ { Qq(X)};// query, Eq. (8)
+> 5g∼pA(· | Γ, E );// generate, §3.2
+> 6(C,≺) = Register (g, X );// ranking Eq. (9)
+> 7while Untried (C)̸=∅and k < K do
+> 8a=FirstUntried (C,≺);
+> 9k=k+ 1 ;
+> 10 X′=EcoRoute (X, a );// execute, Eq. (10)
+> 11 V=V(X, X ′);// verify, §3.3
+> 12 if V=pass then return X′;
+> 13 E=E∪Artifacts (X′);roll back to X;
+> 14 repeat
+> 15 d=Decide A(Γ , E, C);
+> 16 if d=Query then q=SelectQuery A(Γ , E );
+> E=E∪ { Qq(X)};
+> 17 until d̸=Query ;
+> 18 if d=Revise then break // regenerate g;
+> 19 return verified failure with the full audit trail;
+
+closes the loop. One round is 
+
+E ← E ∪ { Qq (X)} query 
+
+g ∼ pA(· | Γ, E ), (C, ≺) = g(X) generate 
+
+X′ = EcoRoute (X, a ) execute 
+
+V = V(X, X ′) ∈ { pass , fail } verify (8) Here the orchestrator selects q from the queries approved by 
+
+Γ, and g is a deterministic repair program synthesized from 
+
+Γ and accumulated evidence E. Through approved APIs, 
+
+g maps the tool-retained state to ranked candidates (C, ≺)
+
+without exposing X to the model. The highest-ranked un-tried candidate executes; a pass commits X′, whereas a fail rolls back to X and appends its artifacts to E. The new evidence then determines whether the orchestrator selects Advance within C, Query for more evidence, or Revise to re-place g. This failure-conditioned procedure revision, rather than repeated sampling from a fixed procedure, is the central control mechanism. Algorithm 1 implements this control loop under budget 
+
+K.After every failure the orchestrator selects an explicit con-trol action: Query folds freshly acquired evidence back into the same deliberation, so the loop leaves it only with a com-mitment, and Advance to the next registered candidate is that ranking re-affirmed under the failure’s evidence, not a default. Revise declares the whole family refuted, exits the inner loop, and regenerates g from the enlarged evidence set. 
+
+3.2 Specialist Queries and Repair-Program Generation 
+
+Generation converts heterogeneous physical evidence into database-consistent candidates. AgenticECO delegates bounded, read-only queries and compiles the returned evi-dence into the deterministic program g.
+
+Specialist evidence queries. The orchestrator A never se-rializes X into a context window. Instead, each specialist agent receives a contract naming its question, tools, and permitted artifacts. Tool adapters reduce database objects, reports, and rendered windows to typed records contain-ing query scope, normalized payload, producing tool, and checkpoint provenance. Specialist agents cover source and netlist semantics, local layout, the HBT conflict graph of Eq. (3), and router or violation reports. Every returned claim cites its artifacts, and every measurement originates from a tool. Rendered-layout records (V-Pix) encode local occu-pancy only, never a downstream outcome. Concurrent views supply complementary evidence and diverse candidate hy-potheses without exposing the full database. 
+
+Adaptive edit generation. The orchestrator merges these records into a coordinate-free repair specification: target vi-olations, movable instances, protected objects, and the fixed gates inherited from Γ. It then synthesizes g, which queries legal sites and emits ranked edits. Because g is conditioned on all of E, failure artifacts can exclude a refuted family, narrow the region, or replace single relocations with tuples for coupled conflicts. Pre-execution tool records define de-terministic residual-conflict and occupancy scores c(a) and 
+
+o(a):
+
+a ≺ a′ ⇐⇒ c(a) < c (a′) ∨  c(a) = c(a′)∧o(a) < o (a′).
+
+(9) Remaining ties use canonical instance and site identifiers. These scores order feasible hypotheses; localized execution constrains disturbance and the verifier measures it, without claiming a global optimum of Eq. (7). 
+
+The model writes the program; the program writes the edits. Sampling stops at g. Registration fixes every coor-dinate, ranking, scope, and inherited gate before execution, making the round deterministic and replayable and prevent-ing post-hoc reordering or softened acceptance. 
+
+3.3 Localized ECO Execution and Verification 
+
+The execution stage applies a proposed edit so that the observed outcome is attributable to the edit; the verifica-tion stage judges the resulting artifacts independently of the model. Invoking backend routing without an explicit preser-vation scope can change nets the edit never touched, conflat-ing the edit with unrelated routing churn. 
+
+Localized execution. AgenticECO executes every edit through the EcoRoute executor, which drives the unmodi-fied pinned router on a copy of the design. For an edit a
+
+on instances Ia, the initial reroute set contains exactly their incident nets, 
+
+R0 = {n ∈ N : n is incident to some i ∈ I a}, (10) and every other net is frozen. Let R be the reroute set of a routing round, X′ its output, and D the full DRC violation set. The round succeeds only if 
+
+∀n ∈ R : n is routed in X′,
+
+∀n ∈ N \ R : Hn(X′) = Hn(X),
+
+D(X′) \ D (X) = ∅.
+
+(11) The second condition uses the fingerprints of (6) to certify that every net outside R is unchanged; the complete ledger then computes ∆net across both tiers and the bond layer. If a new violation implicates previously frozen signal nets Uk,they are admitted in a bounded escalation, 
+
+Rk+1 = Rk ∪ U k, k ≤ 3, (12) and clock nets are never admitted. 
+
+Verification outside the model. The verdict is produced by 
+
+V, a frozen deterministic verifier whose source is archived alongside every verdict it emits. It compares the baseline and candidate artifacts (router completion, DRC reports, the structural-connectivity check, 3D legality, and the task-specific target) against the gates registered before execution, and it consumes no model text: no orchestrator or special-ist agent statement can enter the judgment. What enters the record is the realized edit, recovered from the output database rather than from the request. Execution is copy-on-write, so a fail costs nothing but its evidence. 
+
+Verification-guided refinement. The verifier accepts or rolls back; it never optimizes. Improvement happens in the next round, where the residual conflict set DB (X′), the router log, and the realized edit enter E, and the orchestrator decides at the decision point of Algorithm 1 whether to Advance, Query, or Revise. When the evidence shows the objective unreachable within the edit space, the loop returns a veri-fied failure backed by the same artifacts as a success. Every delegation contract, evidence artifact, registered program, re-alized edit, and verdict joins an audit trail, so a repair can be replayed and audited. 
+
+## 4 Experiments 
+
+4.1 Setup 
+
+All experiments run on one workstation: Ubuntu 22.04, two Xeon Gold 6426Y, 251 GiB RAM. The backend is the pub-lic, unmodified TaiWei flow, pinned end to end; exact com-mits are listed in Appendix A, and the agent contracts, tool registry, ledger, worked trajectory, renderer, glossary, clean-room protocol, and scope limits in Appendices C–I and O. The technology is the ASAP7 predictive PDK; the three de-signs are GCD, a macro-free I2C peripheral, and a UART. The cases are nine natural post-route cut-spacing defects (three per design), surfaced by HBT-density and utiliza-tion sweeps rather than injection, frozen with their baseline signoff before any method runs. Agentic methods run on two frozen backbones: Claude Opus 4.8 under the Claude Code harness, and GPT-5.6 under the Codex harness. Every method runs each case once under an identical ≤ 40 -call, 
+
+≤ 3-signoff budget; a repair must reach zero DRC (through-out, a DRC count is the number of design-rule violations the pinned full-design check reports), produce the disturbance   
+
+> (a) EcoRoute, 3 moves (b) full reroute, 3 moves (c) full reroute, no moves
+
+Figure 4: Three DRC0 repairs of one I2C defect at identical full-die scale: lit area (clock in yellow) is the repair budget. ledger of (6), preserve setup WNS (or leave it nonnega-tive), avoid worse TNS, and preserve structural equivalence. Cut-spacing violations threaten manufacturability, not con-nectivity, so timing enters as this non-regression gate, not an outcome axis. 
+
+4.2 Surgical Repair and Attribution 
+
+A deterministic baseline trichotomy. Figure 4 makes the disturbance contrast concrete: all three I2C runs reach DRC0, but EcoRoute touches only 6/1247 nets and no clocks (a), versus full reroute’s 185–707 nets, 11 rewired clocks, or replanned bonds (b,c). Table 1 compares the methods. Full reroute, a whole-design rip-up, is a blunt hammer: it clears only 2/9 cases, rewires 55.9% of nets on average, churns 98 clock nets, and silently rewrites the hybrid-bond topology on 5/9 cases. Stock repair, the backend’s built-in repair pass, is nearly free (0.8% mean disturbance, two clock nets) but clears only 2/9 and passes every gate on one. Between a churning hammer and a scalpel too weak to cut, deliberate repair moves are necessary. 
+
+AgenticECO dominates the baselines. AgenticECO clears DRC on 7/9 cases against full reroute’s and stock repair’s 2/9, at 0.66% mean disturbance over cleared cases, zero clock nets, and the hybrid-bond via count preserved on all nine: stock-repair disturbance with far higher clearing power. The two hardest cases, both uncleared, are GCD-3 (an I/O-pinned bond site outside the edit space) and UART-1 (Figure 6); even there AgenticECO makes the most DRC progress in the matched block ( 26 → 16 , 9 → 1). Its only other gate losses are sub-picosecond ∆-timing trips on GCD’s already-negative baseline. 
+
+Versus a single agent. The single-agent control is the same backbone dropped into the same AgenticECO environment, keeping the sealed episode, the seven frozen tool wrappers including the EcoRoute executor, the budget, and the inde-pendent verifier; it gives up only delegation, orchestration, and preregistered revision. A bare coding agent without this surface cannot drive the pinned engine at all, so the com-parison isolates agentic organization, not tooling. Over the shared cases AgenticECO wins five, ties three, and loses one (UART-3, 10 disturbed nets versus 5). But the single agent also reached two wrong infeasibility verdicts, declar-ing GCD-2 unresolvable at DRC 4 and surrendering GCD-3 at DRC 26 (cases AgenticECO improved to 0 and 16), each after only ∼4 of its 40 tool calls: adaptive orchestration con-verts unused budget into reached repairs. Table 1: Matched end-to-end repair quality on nine natural post-route hybrid-bond defect cases (three per design: 1/2/3): per-design DRC and changed-net triplets, plus nine-case robustness aggregates.                                                                                                                                                              
+
+> GCD (≈600 nets/case) I2C (≈1,250 nets/case) UART (≈900 nets/case) All nine cases Method
+> Full DRC out (1/2/3) ↓
+> ∆Nets (1/2/3) ↓DRC0 cases ↑
+> Full DRC out (1/2/3) ↓
+> ∆Nets (1/2/3) ↓DRC0 cases ↑
+> Full DRC out (1/2/3) ↓
+> ∆Nets (1/2/3) ↓DRC0 cases ↑
+> ΣDRC in →out ↓
+> DRC reduction ↑
+> Improved cases ↑DRC0 cases ↑
+> All gates pass ↑
+> Mean ∆Nets (%) ↓
+> Clock touched ↓
+> HBT topology preserved ↑
+> Worst residual DRC ↓
+> No repair 4/6/26 0/0/0 0/3 5/23/6 0/0/0 0/3 9/5/10 0/0/0 0/3 94 →94 0.0% 0/9 0/9 0/9 0.00 09/9 26 Full reroute 20/4/47 337/331/352 0/3 0/14/0 707/678/699 2/3 14/6/11 508/501/518 0/3 94 →116 −23 .4%4/9 2/9 2/9 55.85 98 4/9 47 Stock repair 0/6/27 5/3/14 1/3 1/8/0 5/15/5 1/3 6/5/10 8/1/3 0/3 94 →63 33.0% 5/9 2/9 1/9 0.77 27/9 27 Single agent (Opus 4.8) 0/4/26 3/9/0 1/3 0/0/0 6/12/5 3/3 5/0/0 8/2/5 2/3 94 →35 62.8% 8/9 6/9 5/9 0.61 09/9 26
+> AgenticECO (Opus 4.8) 0/0/16 3/8/20 2/3 0/0/0 3/12/4 3/3 1/0/0 17/2/10 2/3 94 →17 81.9% 9/9 7/9 5/9 1.08 09/9 16
+> Single agent (GPT-5.6) 0/0/0 3/10/16 3/3 0/0/0 6/12/5 3/3 0/0/0 8/4/10 3/3 94 →0100.0% 9/9 9/9 6/9 1.00 08/9 *0AgenticECO (GPT-5.6) 0/0/0 5/1/2 3/3 0/0/0 3/12/1 3/3 0/0/0 6/4/2 3/3 94 →0100.0% 9/9 9/9 7/9 0.44 09/9 0
+> Frozen backend, matched budgets; bolding compares the Opus 4.8 block. Bottom block reruns the same sealed contract on GPT-5.6, independently re-verified. Equivalence is structural (no formal LEC). *: exceeded the call budget; moved one bond via. GCD-1 GCD-2 GCD-3 I2C-1 I2C-2 I2C-3 UART-1 UART-2 UART-3
+> 0.1
+> 1
+> 10
+> tokens (M, log)  Single agent (GPT-5.6)
+> AgenticECO (GPT-5.6)
+> Single agent (Opus 4.8)
+> AgenticECO (Opus 4.8)
+> non-cached (fresh in + out)
+
+(a) tokens per episode; saturated base is the non-cached part GCD-1 GCD-2 GCD-3 I2C-1 I2C-2 I2C-3 UART-1 UART-2 UART-3 
+
+> 0
+> 20
+> 40
+> episode wall clock (min)
+> Single agent (GPT-5.6)
+> AgenticECO (GPT-5.6)
+> Single agent (Opus 4.8)
+> AgenticECO (Opus 4.8)
+> backend EDA tool time (bar base)
+
+(b) wall clock, backend tool time at the bar base 0 2 4 6 8 10 12 
+
+verification attempt     
+
+> 0.0
+> 0.5
+> 1.0
+> norm. best DRC
+> single agent (Opus 4.8) accepted final, 94 →35
+> single agent (GPT-5.6) accepted final, 94 →0
+> AgenticECO (Opus 4.8)
+> AgenticECO (GPT-5.6)
+
+(c) best verified DRC by attempt (thin: per episode; bold: sum) 
+
+Figure 5: Cost and convergence of the four agentic arms of Table 1; both AgenticECO arms undercut the Opus 4.8 single-agent accepted final within four attempts. Nothing is estimated. 
+
+Backbones bound the search, not the contract. Rerun with a GPT-5.6 backbone under the identical sealed contract, both agent arms clear all nine cases at DRC0 (Table 1, bottom block; per-cell in Appendix J), AgenticECO at 0.44% mean disturbance against its single-agent control’s 1.00%, with zero clock nets touched: the Opus 4.8 residuals are search floors, not physical ones, and the contract transfers intact. 
+
+Ablations locate the mechanism. The I2C/UART com-ponent ablations (figure and raw table in Appendix K) lo-calize the damage: outside the executor ablation every I2C case clears, and the removed factor decides which contested UART case survives. Removing EcoRoute collapses Agen-ticECO onto the hammer: on I2C-1 its accepted layout is byte-identical to the no-agent full-reroute reference, and over six cases it is indistinguishable from full reroute (55.9% dis-turbance, 82 clock nets). Removing vision (V-Pix) is asym-metric: it matches AgenticECO on all I2C cases and grid-clean UART-3 but fails on exactly the two contested UART sites, at DRC 6 and DRC 5, the latter with a false out-of-scope verdict; pixels lose precisely the contested landings, as the vi-sual studies predict. Removing delegation preserves quality on 5/6 cases but fails the hardest, UART-1 (DRC 6 versus 1): one candidate line cannot diversify enough. Table 2 comple-ments these ablations with a development-exposed UART planner-by-executor replay, mechanism and cost evidence rather than a causal success-rate claim. 
+
+Delegation width and experience. Shrinking delegation width monotonically raises residual damage: total residual DRC 1 at widths up to three, 6 for serial, and 15 for root-only; the root-only residual falls entirely on the UART cases: width is spent where defects are contested. A predeclared eight-rule generic playbook is double-edged: the experience arm alone fully clears the hardest case (UART-1, 9 → 0), yet it leaves DRC 6 on UART-3 and only ties the serial ablation’s total ( 58 → 6): experience relocates which case is hard; width buys robustness. 
+
+What the search costs, and what it buys. Figure 5a,b measure tokens and wall clock on all four agentic arms; Figure 5c shows what they buy: summed best-verified DRC undercuts the Opus 4.8 single agent’s final on the first (Opus) and fourth (GPT-5.6) attempts, reaching zero on GPT-5.6 by attempt six. Fan-out costs two to three times the single-agent control’s tokens (76.2M versus 39.0M on GPT-5.6, 104.5M versus 35.3M on Opus 4.8), but 93.2% and 91.4% of that input is cache reads, and part of the single agent’s smaller bill is surrender: its wrong infeasibility verdicts each spent ∼4
+
+of 40 calls, leaving the violations standing. The extra tokens buy the repairs it never reached ( 94 → 17 versus 94 → 35 
+
+on Opus 4.8) and half its disturbance at DRC0 on GPT-5.6. Routing and signoff occupy 47/163 minutes (GPT-5.6) and 38/194 (Opus 4.8); agent time dominates. 
+
+Case study: anatomy of one repair. Figure 6 shows the hardest matched case, UART-1: nine of 22 hybrid-bond an-chors in a 1.6×1.1 μm cluster inside the 8×8 μm window of panel a, with +18 ps slack. Round 1 tries the cheapest family, rerouting alone, and refutes it: freed bond vias re-collide at the same crowded sites (DRC 9 → 6 and 9 → 12 ). Round 2 escalates to move-plus-reroute and plateaus at DRC 5, but its signoff returns WNS bit-identical to baseline: the defect nets sit off the critical path, so displacement is free. Round 3 tests the hammer once and rejects it as strictly worse (DRC 14, 508/907 nets, nine of ten clock nets; panel c). Round 4 spends Table 2: UART planner-by-executor replay on one development-exposed case: two committed placement plans replayed through both routing executors, separating plan provenance from physical execution.                                                                           
+
+> Configuration Repair Locality PPA Measured cost / source trace Plan source Executor Route scope Fresh full DRC in →out ↓
+> Removed count / % ↑
+> Moved cells ↓
+> ∆Nets / kept count / % ↓
+> Clock touched ↓
+> HBT vias WNS max/min (ps) ↑
+> Power (mW) ↓
+> WL (μm) ↓
+> Route rounds ↓
+> EDA wall (s) ↓
+> Platform calls ↓
+> Total tokens ↓
+> Agent wall (s) ↓
+> Single Stock all nets 15 →411/15 (73.3) 3/850 77/881 / 91.26 2/10 63/63 9.314/4.159 1.7909 4806.2 184 19 1.325M 396.0
+> Single *EcoRoute 6 signal 15 →411/15 (73.3) 3/850 6/881 / 99.32 0/10 63/63 9.314/4.159 1.7913 4803.0 131 19 1.325M 396.0 1+2 *Stock all nets 15 →96/15 (40.0) 3/850 43/881 / 95.12 0/10 63/63 9.314/4.157 1.7913 4797.7 178 66 3.769M 633.5
+> 1+2 EcoRoute 6 signal 15 →411/15 (73.3) 3/850 6/881 / 99.32 0/10 63/63 9.314/4.159 1.7913 4801.5 157 66 3.769M 633.5
+> *
+
+counterfactual replay: the committed placement is reused and only the executor changes (costs repeat for provenance). DRC is a fresh full-design recheck; TNS stays 0. A one-case mechanism diagnostic, not an efficacy claim. full_reroute 
+
+> DRC 9 → 14
+> nets churned 508/907
+> clock rewired 9/10
+> gate: FAIL-CLOSED
+
+(a) defect window, (b) bond-pad layer, (c) rejected full baseline: DRC 9 victim nets lit reroute (clock hit) eco_route wide8 
+
+> DRC 9 → 1
+> nets changed 17/907
+> clock touched 0
+> committed: best verified
+
+(d) same window, (e) pads spread to (f) committed repaired: DRC 1 legal sites surgical spread 
+
+Figure 6: The UART-1 case study in real routed databases: the 8 × 8 μm defect window, its bond-pad layer, and the full die; top, baseline and rejected reroute; bottom, the committed repair; red boxes mark DRC violations. the proven-free timing, spreading eight anchors to a ≥ 2 μmpitch, and is committed as the best verified state: DRC 9 → 1
+
+at 17/907 nets and zero clock touches (panels d–f). Round 5 probes the residual pair, finds it invariant under every family tried, and reports “DRC = 1 is the hard floor”: a verified floor, not a cosmetic zero (the cross-backbone rerun later cleared it), in 13 of 40 tool calls. The single agent on the same sealed case stopped at DRC 5, declining any cell move as “a gamble . . . judged unjustified”; the move it feared, AgenticECO had proven timing-free and committed. 
+
+The picosecond attribution and a tight-clock flip. Aseparate attribution study replays committed edits through EcoRoute while holding every untouched net byte-identical; a step-by-step I2C walkthrough is in Appendix L. On a UART resize, the replay reroutes only the resized instance’s two nets, holds that checkpoint’s other 838 nets byte-identical, reaches DRC0, and moves max WNS by one picosecond, where the historical full-route pass reported a +0 .795 ns setup shift after rewiring the clock tree. Re-judging both frozen results under a tightened clock exhibits a 0.794 ns decision-flip band: any setup target inside it fails the full-reroute result and passes the minimal-disturbance one. 
+
+4.3 When Visual Evidence Helps 
+
+In the development study of relocation-target choice (Ap-pendix M), the pixel-free choice lands on occupied geometry and is displaced by legalization on both designs, while the V-Pix occupancy instrument of Section 3.2 lands exactly: 2/2 versus 0/2. Both V-Pix repairs end at DRC 6 and are rejected; the supported signal is placement occupancy, never routing, timing, or DRC. Three preregistered held-out campaigns reuse the policy frozen before any held-out pixel was rendered. At five hash-random anchors per design, V-Pix and pixel-free N-Hash chose different ring points but both legalized every reloca-tion (5/5 twice): random neighborhoods saturate the binary feasibility gate. At five DB-selected contested anchors, the registered edge returned: V-Pix 4/5 versus N-Hash 3/5, with all ten outcomes predicted by occupancy. Thus pixels help at contested landings, not random anchors. 
+
+4.4 Held-Out Diagnosis on GCD 
+
+A clean GCD foundation receives five held-out seeds with 13 HBT-driver overdrives plus verifier-only decoys. Six meth-ods run per seed (Appendix N). All 30 outputs pass physical checks, but only the frozen agent diagnostic restores all 13 clean masters exactly with no wrong edit. Blanket downsiz-ing finds the 13 positives but restores four; random selection and stock repair make false edits; the register-only Pin-3D rule misses the combinational defect. Per-seed overhead re-covery is 29.1–51.1% (mean 38.9%). One failed execution was corrected before outcomes were observed, and an inde-pendent audit verified all 30 runs. 
+
+## 5 Conclusion 
+
+In this paper, we presented AgenticECO, an agentic frame-work that closes the 3D physical-ECO loop behind fail-closed gates: typed evidence drives Advance, Query, or Revise; EcoRoute executes attributable edits; the verifier commits or rolls back. It repairs what full reroute, stock repair, and the single agent leave standing, at a fraction of their disturbance, and holds across two backbones. 
+
+## References 
+
+Ajayi, T.; Chhabria, V. A.; Fogaça, M.; Hashemi, S.; Hosny, A.; Kahng, A. B.; Kim, M.; Lee, J.; Mallappa, U.; Neseem, M.; et al. 2019. Toward an Open-Source Digital Flow: First Learnings from the OpenROAD Project. In Proceedings of the 56th Annual Design Automation Conference , 1–4. Blocklove, J.; Garg, S.; Karri, R.; and Pearce, H. 2023. Chip-Chat: Challenges and Opportunities in Conversational Hard-ware Design. In Proceedings of the 2023 ACM/IEEE Work-shop on Machine Learning for CAD , 1–6. Blocklove, J.; Thakur, S.; Tan, B.; Pearce, H.; Garg, S.; and Karri, R. 2024. Can EDA Tool Feedback Improve Verilog Generation by LLMs? arXiv preprint arXiv:2411.11856 .Cadence Design Systems. 2025. Cadence Welcomes Chip-Stack. https://community.cadence.com/cadence_blogs_8/b/ corporate-news/posts/cadence-welcomes-chipstack. Chen, M.; Li, Y.; Yang, Y.; Yu, S.; Lin, B.; and He, X. 2024. AutoManual: Constructing Instruction Manuals by LLM Agents via Interactive Environmental Learning. In 
+
+Advances in Neural Information Processing Systems , vol-ume 37, 589–631. Chew, S. A.; De Vos, J.; and Beyne, E. 2024. Wafer-to-Wafer Hybrid Bonding at 400-nm Interconnect Pitch. Nature Reviews Electrical Engineering , 1(2): 71–72. Chu, H.-Y.; Chen, G.-W.; Wei, S.-Y.; and Lin, Y.-C. 2025. Large Language Models for 3D IC Space Planning. In Pro-ceedings of the 2025 8th Artificial Intelligence and Cloud Computing Conference , 407–415. Deng, J.; Chen, Z.; Wei, X.; Xing, T.; Wen, C.; and Zhuo, C. 2026. Can AI Agents Really Complete RTL-to-GDS? Lessons from Benchmarking Tool-Interactive EDA Work-flows. arXiv preprint arXiv:2607.17528 .Fu, Y.; Zhang, Y.; Yu, Z.; Li, S.; Ye, Z.; Li, C.; Wan, C.; and Lin, Y. C. 2023. GPT4AIGChip: Towards Next-Generation AI Accelerator Design Automation via Large Language Models. In Proceedings of the 2023 IEEE/ACM International Conference on Computer-Aided Design .Ghose, A.; Jang, J.; Kahng, A. B.; and Lee, J. 2026. Au-tomated QoR Improvement in OpenROAD with Coding Agents. arXiv preprint arXiv:2601.06268 .Ghose, A.; Kahng, A. B.; Kundu, S.; and Wang, Z. 2025. ORFS-Agent: Tool-Using Agents for Chip Design Optimiza-tion. In Proceedings of the 2025 ACM/IEEE International Symposium on Machine Learning for CAD , 1–13. Gou, Z.; Shao, Z.; Gong, Y.; Shen, Y.; Yang, Y.; Duan, N.; and Chen, W. 2023. CRITIC: Large Language Models Can Self-Correct with Tool-Interactive Critiquing. arXiv preprint arXiv:2305.11738 .Jiang, W.; Chhabria, V. A.; and Sapatnekar, S. S. 2024. IR-Aware ECO Timing Optimization Using Reinforcement Learning. In Proceedings of the 2024 ACM/IEEE Interna-tional Symposium on Machine Learning for CAD , 1–7. Ku, B. W.; Chang, K.; and Lim, S. K. 2019. Compact-2D: A Physical Design Methodology to Build Two-Tier Gate-Level 3-D ICs. IEEE Transactions on Computer-Aided Design of Integrated Circuits and Systems , 39(6): 1151–1164. Li, Q.; Chen, R.; Cheng, Q.; Wang, C.; Tang, S.; Li, W.; Ding, D.; Ho, C.-T.; Ren, H.; Pan, D. Z.; Lan, T.; and Cao, W. 2026. PDAGENT-BENCH: Characterizing, Grounding, and Architecting LLM Agents for VLSI Physical Design. 
+
+arXiv preprint arXiv:2606.17253 .Liu, B.; Zhang, H.; Gao, X.; Kong, Z.; Tang, X.; Lin, Y.; Wang, R.; and Huang, R. 2025. LayoutCopilot: An LLM-Powered Multiagent Collaborative Framework for Interactive Analog Layout Design. IEEE Transactions on Computer-Aided Design of Integrated Circuits and Systems , 44(8): 3126–3139. Liu, M.; Ene, T.-D.; Kirby, R.; Cheng, C.; Pinckney, N.; Liang, R.; Alben, J.; Anand, H.; Banerjee, S.; Bayraktaroglu, I.; et al. 2023. ChipNeMo: Domain-Adapted LLMs for Chip Design. arXiv preprint arXiv:2311.00176 .Liu, X.; Yu, H.; Zhang, H.; Xu, Y.; Lei, X.; Lai, H.; Gu, Y.; Ding, H.; Men, K.; Yang, K.; et al. 2024. AgentBench: Evaluating LLMs as Agents. In International Conference on Learning Representations .Lu, Y.; Liu, S.; Zhang, Q.; and Xie, Z. 2024. RTLLM: An Open-Source Benchmark for Design RTL Generation with Large Language Model. In Proceedings of the 29th Asia and South Pacific Design Automation Conference , 722–727. Luo, Y.; Zuo, D.; Ma, Y.; et al. 2026. Retrieve, Schedule, Reflect: LLM Agents for Chip QoR Optimization. arXiv preprint arXiv:2603.13767 .Madaan, A.; Tandon, N.; Gupta, P.; Hallinan, S.; Gao, L.; Wiegreffe, S.; Alon, U.; Dziri, N.; Prabhumoye, S.; Yang, Y.; et al. 2023. Self-Refine: Iterative Refinement with Self-Feedback. In Advances in Neural Information Processing Systems , volume 36, 46534–46594. Moonshot AI. 2026. Kimi K3: Open Frontier Intelligence. https://www.kimi.com/blog/kimi-k3. Official technical blog, accessed July 24, 2026. Pasandi, G.; Kunal, K.; Tej, V.; Shah, K.; Sun, H.; Jain, S.; Li, C.; Deng, C.; Ene, T.-D.; Ren, H.; and Pratty, S. 2025. JARVIS: A Multi-Agent Code Assistant for High-Quality EDA Script Generation. arXiv preprint arXiv:2505.14978 .Pentapati, S.; Chang, K.; and Lim, S. K. 2023. Pin-3D: Effective Physical Design Methodology for Multidie Co-Optimization in Monolithic 3-D ICs. IEEE Transactions on Computer-Aided Design of Integrated Circuits and Systems ,43(4): 1009–1022. Qin, Y.; Liang, S.; Ye, Y.; Zhu, K.; Yan, L.; Lu, Y.; Lin, Y.; Cong, X.; Tang, X.; Qian, B.; et al. 2023. ToolLLM: Facilitating Large Language Models to Master 16000+ Real-World APIs. In The Twelfth International Conference on Learning Representations .Schick, T.; Dwivedi-Yu, J.; Dessì, R.; Raileanu, R.; Lomeli, M.; Hambro, E.; Zettlemoyer, L.; Cancedda, N.; and Scialom, T. 2023. Toolformer: Language Models Can Teach Them-selves to Use Tools. In Advances in Neural Information Processing Systems , volume 36, 68539–68551. Shi, Y.; Gao, C.; Ren, W.; Xie, P.; Xu, S.; Xue, K.; Yuan, M.; Qian, C.; and Zhou, Z.-H. 2025. Open3DBench: Open-Source Benchmark for 3D-IC Backend Implementation and PPA Evaluation. arXiv preprint arXiv:2503.12946 .Shi, Z.; Gao, S.; Chen, X.; Feng, Y.; Yan, L.; Shi, H.; Yin, D.; Ren, P.; Verberne, S.; and Ren, Z. 2024. Learning to Use Tools via Cooperative and Interactive Agents. In Findings of the Association for Computational Linguistics: EMNLP 2024 , 10642–10657. Shinn, N.; Cassano, F.; Gopinath, A.; Narasimhan, K.; and Yao, S. 2023. Reflexion: Language Agents with Verbal Re-inforcement Learning. In Advances in Neural Information Processing Systems , volume 36, 8634–8652. Siemens Digital Industries Software. 2026. Siemens launches Fuse EDA AI Agent. https://news.siemens.com/en-us/siemens-fuse-eda-ai-agent/. Synopsys. 2026. Agentic AI: Automating Engineering Work-flows with AI Agents. https://www.synopsys.com/ai/agentic-ai.html. Thakur, S.; Ahmad, B.; Pearce, H.; Tan, B.; Dolan-Gavitt, B.; Karri, R.; and Garg, S. 2024. VeriGen: A Large Language Model for Verilog Code Generation. ACM Transactions on Design Automation of Electronic Systems , 29(3): 46:1–46:31. Tsai, C.-P.; Hsu, F.-Y.; Mak, W.-K.; and Wang, T.-C. 2024. An Effective ECO Methodology for Reducing Back-side De-sign Rule Violations in Double-sided Signal Routing. In 
+
+Proceedings of the 43rd IEEE/ACM International Confer-ence on Computer-Aided Design , 1–9. Waldrop, M. M. 2016. The Chips Are Down for Moore’s Law. Nature , 530(7589): 144–147. Wang, X.; Chen, Y.; Yuan, L.; Zhang, Y.; Li, Y.; Peng, H.; and Ji, H. 2024. Executable Code Actions Elicit Better LLM Agents. In Proceedings of the 41st International Conference on Machine Learning .Wu, B.-Y.; Ho, C.-T.; Yang, H.; Khailany, B.; and Chhabria, V. A. 2026. EvoDRC: A Self-Evolving Agentic Frame-work for Automated DRC Violation Repair. arXiv preprint arXiv:2607.20019 .Wu, B.-Y.; Sharma, U.; Rovinski, A.; and Chhabria, V. A. 2025a. OpenROAD Agent: An Intelligent Self-Correcting Script Generator for OpenROAD. In Proceedings of the 2025 IEEE International Conference on LLM-Aided Design ,16–22. Wu, H.; He, Z.; Zhang, X.; Yao, X.; Zheng, S.; Zheng, H.; and Yu, B. 2024a. ChatEDA: A Large Language Model Powered Autonomous Agent for EDA. IEEE Transactions on Computer-Aided Design of Integrated Circuits and Systems ,43(10): 3184–3197. Wu, H.; Zheng, H.; He, Z.; and Yu, B. 2025b. Divergent Thoughts toward One Goal: LLM-Based Multi-Agent Col-laboration System for Electronic Design Automation. In 
+
+Proceedings of the 2025 Conference of the Nations of the Americas Chapter of the Association for Computational Lin-guistics: Human Language Technologies , 1710–1721. Wu, Q.; Liu, W.; Luan, J.; and Wang, B. 2024b. ToolPlanner: A Tool Augmented LLM for Multi-Granularity Instructions with Path Planning and Feedback. In Proceedings of the 2024 Conference on Empirical Methods in Natural Language Processing , 18315–18339. Xie, T.; Zhang, D.; Chen, J.; Li, X.; Zhao, S.; Cao, R.; Hua, T. J.; Cheng, Z.; Shin, D.; Lei, F.; et al. 2024. OSWorld: Benchmarking Multimodal Agents for Open-Ended Tasks in Real Computer Environments. In Advances in Neural Information Processing Systems , volume 37, 52040–52094. Yang, J.; Jimenez, C. E.; Wettig, A.; Lieret, K.; Yao, S.; Narasimhan, K.; and Press, O. 2024. SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineer-ing. In Advances in Neural Information Processing Systems ,volume 37. Yao, S.; Zhao, J.; Yu, D.; Shafran, I.; Narasimhan, K. R.; and Cao, Y. 2022. ReAct: Synergizing Reasoning and Acting in Language Models. In NeurIPS 2022 Foundation Models for Decision Making Workshop .Zang, Z.; Song, Y.; Wang, A.; Ling, B. W.-K.; Sun, Q.; Lei, Z.; Yang, F.; Zhuo, C.; and Luo, J. 2025. The Dawn of Agentic EDA: A Survey of Autonomous Digital Chip Design. arXiv preprint arXiv:2512.23189 .Zhao, X.; Li, W.; Zeng, Z.; Huang, Z.; Xie, B.; Li, X.; and Bao, Y. 2025a. Toward Advancing 3D-ICs Physical Design: Challenges and Opportunities. In Proceedings of the 30th Asia and South Pacific Design Automation Conference (ASP-DAC) , 294–301. Zhao, Y.; Zhang, H.; Huang, H.; Yu, Z.; and Zhao, J. 2025b. MAGE: A Multi-Agent Engine for Automated RTL Code Generation. In Proceedings of the 62nd ACM/IEEE Design Automation Conference .Zhong, R.; Du, X.; Kai, S.; Tang, Z.; Xu, S.; Zhen, H.-L.; Hao, J.; Xu, Q.; Yuan, M.; and Yan, J. 2024. LLM4EDA: Emerging Progress in Large Language Models for Electronic Design Automation. arXiv preprint arXiv:2401.12224 .Zhou, A.; Yan, K.; Shlapentokh-Rothman, M.; Wang, H.; and Wang, Y.-X. 2024. Language Agent Tree Search Uni-fies Reasoning, Acting, and Planning in Language Models. In Proceedings of the 41st International Conference on Ma-chine Learning , 62138–62160. This technical appendix documents the evidence behind the main text without introducing any separate headline claim. Appendices A–H record the infrastructure: the pinned plat-form, the released code package, the agent contract cards and sealed prompts, the tool budget, the ledger vocabulary, a worked trajectory, the rendering instrument, and a glos-sary. Appendices I–N follow the main text’s experimental order with the raw measurements behind each summary; Appendices O and P state the evaluation boundaries and the extended related-work context. The main text remains self-contained; the appendix exists so that every mechanism can be audited and every reported experiment reproduced from the released artifacts, with no reliance on model-authored success fields or external links. 
+
+## A Platform and Pinned Versions 
+
+Every claim in this appendix ultimately rests on a fixed phys-ical substrate, so the record begins there: the main paper’s setup states that the platform is pinned end to end and that ex-act commits and host are listed here. All experiments run on the public, unmodified TaiWei repository at commit a73758a 
+
+with OpenROAD build 305d3ba , on Ubuntu 22.04 (two Xeon Gold 6426Y, 251 GiB RAM). The studied designs are GCD, the macro-free I2cGpioExpander (I2C), and a UART, all on the ASAP7 predictive PDK. Every router, timer, and DRC invocation uses these pinned binaries. 
+
+## B Artifact: Code and Environment Release 
+
+A pinned platform is only auditable if the code that ran on it ships with the paper. The released repository 2 contains the complete agent framework and integration surface described in the methodology section of the main paper; Figure 7 maps its layout, organized so that each guarantee is inspectable in code at the indicated path. Readers can exercise the full loop with no model, no API key, and no EDA engine: python3 scripts/smoke_test.py 
+
+runs one offline episode end to end (a candidate is rejected by the DRC gate, rolled back, and a guarded alternative ac-cepted), re-verifies the sealed ledger from disk, and exits nonzero on any failure. Fixture-backed runs are watermarked 
+
+scientific_claim_eligible=false in their own ledgers. The code is released under the BSD-3-Clause license. 
+
+## C Agent Construction: Contract Cards and Prompt Palette 
+
+With the platform pinned (Appendix A) and the code re-leased (Appendix B), the remaining trust question is who is allowed to say what. The methodology section of the main paper answers it with a claim: every agent operates under a declared contract, and no model statement is ever treated as a measurement. This section reproduces the gov-erning text behind that claim. Every agent in AgenticECO is governed by a contract card : a declaration of what it may see, what it must return, and what it may never do, plus a 
+
+> 2
+
+Released at https://anonymous.4open.science/r/AgenticECO (engine pinned as a git submodule; clone with git clone –recurse-submodules ).               
+
+> AgenticECO/ agenticeco/ # runtime: orchestrator, #ledger, schema, verifier framework/ # role roster as data: one #contract card per agent adapters/taiwei/ # EcoRoute runner, ledgers, #fail-closed gates (clock #nets excluded in code) engine_cc/ # single-agent control arm episodes/ # sealed manifest + example third_party/TaiWei/ # engine pinned as a git #submodule; versions.lock docker/, Dockerfile # one-step self-check image docs/REPRODUCING.md # reproduction protocol scripts/smoke_test.py # offline full-loop check tests/ # runtime + visual suites
+
+Figure 7: Layout of the released code package. The sub-module pin is the exact commit set of Appendix A; every guarantee named in the methodology section is inspectable at the indicated path. prompt card stating its protocol. The cards summarized be-low are the governing text shipped in the released repository (framework/prompts/ ; the orchestrator’s card keeps its his-torical internal filename operator.md ); the runtime schema enforces the same boundaries mechanically, so a prompt can-not widen what the schema admits. 
+
+C.1 Orchestrator 
+
+Contract. The orchestrator performs evidence-gated repair-program synthesis. It sits at the root of the loop (query 
+
+→ generate → execute → verify) and delegates across four read-only specialist roles: netlist, layout_vpix, hb_graph, and drc_router_logs. It emits a repair specification and then a de-terministic repair program g; it never emits coordinates, tool verdicts, or measurements. 
+
+Protocol. (1) Delegate read-only analyses to the special-ists; every returned claim must cite its source artifact. No specialist statement is a measurement. (2) Aggregate find-ings into a repair specification: targeted violations, movable instances, protected objects led by the clock tree, and the fixed acceptance criteria inherited from Γ; intent and constraints only, never coordinates. (3) Synthesize the repair program 
+
+g: a short deterministic procedure that turns evidence into a ranked candidate list. Sampling stops at g; from g onward the round is replayable. (4) After a failed attempt, decide explicitly: Advance to the next ranked candidate, Query fur-ther evidence, or Revise after judging the registered family refuted. Record the decision and its evidence. (5) The proce-dure may be revised after a failure; the registered acceptance gates may never be revised. 
+
+Failure modes to avoid. Resampling a refuted candidate family instead of excluding it; escalating to full reroute with-out written justification; treating a plateaued DRC count as unreachable without probing invariance. C.2 Read-Only Specialists 
+
+netlist: source and netlist semantics. Sees HDL source windows, netlist windows, and the violating-net list; returns typed evidence records, each citing file/line; never sees pix-els, DRC totals, or timing numbers it did not query. Its role is to explain what the violating nets are: their drivers, sinks, hierarchy, and function, so the orchestrator knows which in-stances are movable and which objects must be protected. It returns findings only, each citing the exact source artifact. 
+
+layout_vpix: rendered-layout occupancy (V-Pix). Sees one rendered layout window (pixels only); returns visual_ specialist_result/v1 records carrying tier, bounding box, repair side, confidence, and enumerated evidence codes; never sees candidate IDs, instance or net names, or DRC and routing outcomes. Its role is to score how occupied the placement and routing look around a location. The scope is deliberately narrow: exact-feasibility of a landing site, noth-ing downstream. It cannot name candidates; a frozen spatial mapper converts its geometric signal into candidate risks outside the model. 
+
+hb_graph: hybrid-bond conflict graph. Sees the bond-terminal geometry of cross-tier nets and the spacing rule; returns conflict-graph records of violating pairs, separations, and connected components; never sees pixels or timing. Its role is to build the conflict structure underlying the defect set: which bond terminals violate spacing against which, and whether surviving violations are coupled (removing one re-creates another). Coupling is what shifts the orchestrator from single relocations to relocation tuples. 
+
+drc_router_logs: reports to typed records. Sees the DRC reports and router logs of the baseline and of failed rounds; re-turns normalized violation records and the escalation/round structure; never sees pixels or source code. Its role is to turn raw tool text into typed evidence: violation type, layer, bounding box, the nets implicated, and what the router did in each round (reroute-set growth, new violations). Failed rounds are evidence, not noise. 
+
+C.3 Non-Model Contracts: Executor and Verifier 
+
+The remaining two cards govern programs, not models; they are stated here because they complete the trust chain. 
+
+EcoRoute executor. Input: one registered edit (instance →
+
+new placement, same tier). Substrate: a copy of the design and the unmodified pinned router. The initial reroute set is exactly the nets incident to the moved instances; every other net is frozen and checked net-by-net by geometry hash. Escalation is bounded ( k ≤ 3) and admits implicated signal nets only; clock nets are never admitted. The output is X′, a realized-edit record, and the disturbance ledger. That ledger is a certificate, not an estimate: each untouched net’s routed geometry must hash identically to baseline, across both tiers of the folded stack and including bond-layer vias. A failure costs nothing but its evidence (copy-on-write). 
+
+Independent verifier. Frozen and external. It reads base-line and candidate tool artifacts and the gates registered be-fore execution; it never reads the model text of any agent. The                    
+
+> Tool (budget) Semantics
+> eco_route (1 call) minimal-disturbance route of a regis-tered edit; rounds k≤3
+> move_cells (1 call) legalized relocation of a named in-stance set on a DB copy
+> full_reroute (1 call) engine full detailed reroute (the “ham-mer”)
+> gui_render (1 call) rendered layout window for V-Pix
+> drc_check ,sta_report ,
+> power_report (1 signoff attempt) three faces of one signoff invocation: one fresh DEF reload =one of the
+> ≤3attempts disturbance (exempt) ledger/gate bookkeeping; reads DEFs, emits the per-net geometry ledger; not agent-visible
+
+Table 3: Registered tools and their budget semantics; the 40-call budget counts wrapper invocations. gates are routing completion, DRC, max/min timing, struc-tural equivalence, and preservation. A pass commits X′; a failure rolls back and the artifacts join the evidence set. A failure can change the agent’s procedure; it can never change the standard. When the objective is unreachable within the edit space, the loop returns a verified failure backed by the same artifacts as a success. 
+
+C.4 The Sealed Single-Agent Prompt 
+
+The single-agent control arms (both backbones) run under one sealed prompt template, frozen before the first single-agent run; {...} fields are filled per cell and nothing else changes. Tools are listed alphabetically to avoid ordering hints. The template is reproduced verbatim in Figure 8. 
+
+## D Tool Registry and Budget Accounting 
+
+The contract cards of Appendix C name seven tools; this sec-tion prices them. Every method runs each case once under an identical ≤ 40 -call, ≤ 3-signoff budget, so the definitions below fix what a call and a signoff are and make the call and signoff counts reported in the main paper unambiguous. Every arm sees the same seven tool names, alphabetical in the prompt and listed with their budget semantics in Table 3. Each resolves to a frozen wrapper that creates a new times-tamped run directory, records the SHA-256 of its inputs, and emits machine-readable outputs; no wrapper can overwrite a previous run. Two consequences of this accounting are worth stating. First, a signoff is deliberately atomic: an arm cannot buy a cheap DRC-only glance, since asking about DRC costs the same attempt that also reveals timing and power, which is what makes “spend a signoff to prove timing is free” (the UART-1 pivot of the main text) a real decision. Second, the exempt disturbance tool removes any incentive to avoid mea-suring one’s own footprint: the host audits the disturbance ledger of every candidate, so an arm cannot save calls by skipping it. Sealed single-agent prompt (template, both backbones) 
+
+You are an autonomous EDA engineer. Repair a post-route defect in a folded-3D (ASAP7, two-tier, hybrid-bond) design. You work alone: you may not spawn sub-agents or delegate. 
+
+Workspace : {run_dir} (your scratch; the episode checkpoint has been copied here). Original episode reference: {episode_dir} (READ-ONLY — never write there). 
+
+Design : {design}, episode {episode}. Baseline (from sealed signoff): DRC violations = {drc_baseline}; max WNS = {wns_baseline} ps; TNS = {tns_baseline} ps; HBT vias = {hbt_baseline}; total nets = {total_nets}. Baseline reports are in {run_dir}/baseline/. 
+
+Goal , in priority order: 1. DRC = 0 (detailed-route violations fully cleared); 2. timing not degraded: final max WNS 
+
+≥ min(0 , {wns _baseline }) ps and TNS not worse than baseline; 3. disturb as little of the existing layout as possible: fewer nets with changed routing geometry is better; avoid touching clock nets; 4. preserve power and hybrid-bond count as close to baseline as possible. 
+
+Tools (invocation details in TOOL_REGISTRY.md, provided in {run_dir}): listed alphabetically — drc_check, eco_route, full_reroute, gui_render, move_cells, power_report, sta_report. You may also inspect any file in your workspace with ordinary shell commands. 
+
+Budget (hard) : at most 40 tool invocations total; at most 3 signoff attempts (a signoff = drc_check + sta_report + power_report on a candidate result). When the budget is exhausted, stop and report your best state. 
+
+Report (final message): the final checkpoint path, and for each claim (DRC, WNS, TNS, disturbed nets, clock nets, HBT, power) the path of the tool output file that proves it. Unverified claims are worthless: any number you state without a corresponding tool output will be treated as fabricated. 
+
+Figure 8: The sealed single-agent prompt template, verbatim. It is frozen before the first single-agent run and shared by both backbones; {...} fields are filled per cell and nothing else changes. 
+
+Event class Recorded content  
+
+> observe
+
+scoped query, artifact hashes, check-point binding  
+
+> fanout.diagnose
+
+delegation contracts, specialist re-ports, provider provenance (incl. 
+
+> real_subagent_api_used
+
+) 
+
+> algorithm.exec
+
+frozen ranking/mapping subprocess: input hash, command hash, output  
+
+> plan.action_sel
+
+registered program, ranked candi-dates, gates (all pre-execution)  
+
+> execute.completed
+
+executor receipt: realized edit, run di-rectory, exit status  
+
+> fanout.verify
+
+(legacy name) independent non-model verifier ver-dict, gate-by-gate record  
+
+> decide
+
+/ reflect Advance/Query/Revise decision with cited failure artifacts; rollback record  
+
+> seal
+
+chain head, blob and event counts 
+
+Table 4: Ledger event classes. Every accepted and rejected candidate leaves the same event shape, which is what makes a verified failure as auditable as a success. 
+
+## E Evidence-Ledger Event Taxonomy 
+
+A budget only binds if spending is recorded, so contracts and prices are completed by bookkeeping: every episode, accepted or refused, joins an audit trail, and this section gives the event vocabulary of that tamper-evident record. Each episode’s ledger is a hash chain: every event carries the SHA-256 of its canonical-JSON payload and of its predeces-sor, blobs are content-addressed, and the writer API has no overwrite path (files are opened create-new), so a finished record cannot be edited. Sealing writes the chain head; veri-fication replays the chain from disk. The event vocabulary is in Table 4. Two provenance flags are carried end to end and decide claim eligibility: evidence_class (real_tool vs. 
+
+synthetic_smoke ) and real_subagent_api_used . A run whose EDA side is a fixture can exercise every code path yet is watermarked scientific_claim_eligible=false in its own ledger; the released smoke test demonstrates exactly this. 
+
+## F Worked Trajectory: The UART-1 Ledger, Round by Round 
+
+Appendices C–E define the contract, the price list, and the bookkeeping; this section shows all three operating at once on a single episode. Figure 6 of the main text summarizes UART-1; Table 5 is its complete budgeted tool-call ledger, transcribed from the archived run (annotations condensed). The budget column shows cumulative calls/signoffs after each round; the seven exempt disturbance-ledger audits that checked every candidate are not rows in the table. Read in order, the ledger shows each budget decision do-ing work. R1 spends three calls refuting the cheapest family first: rerouting alone frees the crowded bond vias only to watch them re-collide at the same sites ( 9 → 6 and 9 → 12 ), so the family is excluded rather than resampled. R2 escalates to move-plus-reroute and plateaus at DRC 5; the first sig-noff (call 8) is then spent deliberately, and its return, WNS bit-identical to baseline, converts “displacement is proba-bly safe” into a proven-free budget that later rounds may spend. R3 is the contract’s escalation discipline in minia-ture: a written justification, one test of the hammer, and a rejection on evidence (DRC 14, 508/907 nets, 9/10 clock nets) rather than on taste. R4 spends the proven-free timing on the revised program, eight anchors spread to a ≥ 2 μmpitch, and reaches DRC 9 → 1 at 17/907 nets with zero clock touches; R5 probes the residual pair and finds it invariant under every family tried, which is what licenses reporting a floor instead of guessing one. The second signoff (call 13) certifies the committed state. The third signoff attempt is never spent: once the residual is proven invariant, another certificate could not change the decision, and the loop stops twenty-seven calls under budget. Round Calls What happened Budget R1 1–3 render; eco_route alone, two vari-ants: DRC 9 → 6, 9 → 12 ; freed bond vias re-collide, family refuted 3/40, 0/3 R2 4–7 move_cells +eco_route , two pro-grams: plateau at DRC 5; conflict pinned to the bond-site grid 7/40, 0/3 R2s 8 signoff of best-so-far (DRC 5): WNS bit-identical to baseline; timing proven free 8/40, 1/3 R3 9 written escalation; full_reroute :DRC 14, 508/907 nets, 9/10 clock nets; strictly worse, rejected 9/40, 1/3 R4 10–11 revised program spends the free tim-ing: 8 anchors at ≥ 2 μm pitch; DRC                 
+
+> 9→1, 17/907 nets, 0 clock 11/40, 1/3 R5 12 probe the residual pair: it is move-and reroute-invariant under every re-pair family tried so far 12/40, 1/3 R4s 13 signoff of committed state: WNS
+> +18 .166 ps (=baseline), TNS 0, HBT 74, power +0 .024% , EQY pass 13/40, 2/3
+
+Table 5: UART-1 budgeted ledger (arm AgenticECO, sealed episode), in call order: the R4 signoff (call 13) follows the R5 invariance probe. 
+
+## G Rendered-Layout Instrument Details 
+
+One instrument has so far gone unpinned: the camera. The visual evidence used in the main paper is only as trustworthy as the instrument that produced it, so this section pins that instrument the same way Appendix A pins the engine. All layout imagery in the paper, both the V-Pix inputs and every figure panel, comes from one pinned pipeline: the engine GUI run headless ( xvfb ), loading an archived database and saving a window-registered PNG at fixed resolution. Disturbance renders hide all routing/cut layers except the lit changed-net overlay (signal nets in one highlight group, clock nets in a second), so lit area is exactly the disturbance ledger drawn to scale; defect-window renders keep all layers. DRC markers are drawn afterwards by an exact micron →pixel affine map from the violation report’s bounding boxes; composition scripts crop and annotate but never redraw layout pixels. The released repository ships the snapshot bundler with input hashing ( adapters/taiwei/vision/ ), and the V-Pix result must parse under the narrow visual schema (tier, bounding box, side, confidence, enumerated evidence codes), so a vision model cannot smuggle a candidate name through free text into the loop. 
+
+## H Glossary of 3D-IC Terms 
+
+The infrastructure appendices close with vocabulary. The main paper and the sections above lean on the following 3D-IC terms; they are collected here for readers outside physical design, after which Appendices I–N turn from mechanism to measurement. 
+
+Face-to-face (F2F) two dies bonded with their metal stacks facing each other; cross-tier nets cross the bond interface directly. 
+
+Hybrid bond / HBT the bonded pad pair realizing one cross-tier connection; in our ASAP7 setup an HBT cut is 
+
+0.032 μm wide under a 1.568 μm spacing rule, an asym-metry that lets legal cell placements produce illegal ter-minals. 
+
+Folded (merged) representation both tiers and the bond layer represented in one database and one routing stack, so a single router sees cross-tier geometry. 
+
+Bond-level cut-spacing defect two HBT cuts of different nets closer than the rule; the defect class studied here. It threatens manufacturability, not connectivity. 
+
+ECO engineering change order: a localized post-route repair that must preserve the surrounding verified implementa-tion. 
+
+Disturbance ledger the per-net certificate that untouched routing is byte-identical to baseline (canonical geometry hash per net, both tiers, bond vias included). 
+
+Signoff the fresh-reload evaluation of a candidate: full-design DRC recount, max/min STA, power, and HBT count; one reload = one budgeted attempt. 
+
+Verified failure a terminal state backed by the same audited artifacts as a success, produced when the objective is shown unreachable within the edit space. 
+
+## I Leakage-Controlled Agent Evaluation 
+
+The experimental appendices begin with the rules of admis-sion. The main paper reports every arm as a single official run against a sealed case; this section documents the harness that makes such a run admissible, and every study in Ap-pendices J–N runs inside it. Agent benchmarks inside a live engineering repository are unusually vulnerable to contami-nation. A model may discover an earlier repair, a comparison table, or a failed arm from the worktree, local memory, shell history, or another agent’s scratch space. It may then ap-pear to diagnose a defect that it has actually seen before. We therefore separate the method-visible namespace from a controller-only evidence namespace (Table 6). This isola-tion is evaluation infrastructure, not an additional reasoning module in AgenticECO. 
+
+Experience control and claim boundary. Every arm re-ceives the same seven frozen tool wrappers, including the  
+
+> eco_route
+
+executor. The clean-room single-agent baseline receives no repair experience. An AgenticECO arm may receive only a predeclared, leak-scanned eight-rule cross-case playbook containing generic rules such as “diagnose before execution” and “accept only after full signoff.” It con-tains no same-episode instance, coordinate, victim-net list, action, route result, or comparison outcome. This distinction is recorded as a method resource rather than hidden. Con-sequently, a comparison between the experience-free sin-gle agent and the complete AgenticECO stack is an end-to-end systems comparison, not a causal estimate of delegation alone. A paper-eligible causal study must additionally equal-ize experience or use a factorial ablation over agent topology and experience access. Control Implementation Threat addressed Sealed input Byte-identical ODB, DEF, SDC, netlist, configura-tion, and required baseline reports are copied into a read-only capsule and bound by SHA-256. Input drift, stale checkpoints, and unequal physical start-ing points. Filesystem Project roots, Git metadata, paper tables, old sessions, local memories, plugins, web access, and previous method outputs are absent. Only sealed inputs and frozen wrappers are readable; only a new arm direc-tory is writable. Retrieval of a prior answer, outcome, coordinate, victim scope, or repair trace. Agent isolation Each method starts in a fresh session. Delegated spe-cialists start with no parent conversation, receive dis-joint lane tasks, cannot read the peer lane, cannot call EDA, and cannot spawn descendants. Cross-arm leakage, anchoring between specialists, and hidden extra search. Commitment The orchestrator hashes both terminal specialist re-ports, then commits one action and one ordered vic-tim scope before any route result is visible. The first terminal routing outcome is final. Selecting an action or a favorable intermediate round after seeing physical results. EDA wrappers EDA access is restricted to frozen wrappers with create-new run directories, fixed eight-thread execu-tion, explicit call budgets, and machine-readable re-ceipts. Unlogged tool calls, silent retries, thread-count con-founding, and overwritten failures. Host authority A host-side evaluator reconstructs hashes and call or-der and reads fresh full-design DRC and max/min STA outputs. Model-authored pass/fail fields are never treated as physical authority. Self-reported success, incremental/full-DRC mixing, unit mistakes, and missing evidence. 
+
+Table 6: Clean-room controls used by the agent-evaluation harness. These controls determine whether a run is admissible; they do not improve the candidate repair. 
+
+Specialist context isolation. The orchestrator creates a hash-bound query handoff before delegation. Specialists may read only their own task, the sealed episode, the declared experience bundle, and the exact query files named by that handoff. They cannot inspect the orchestrator’s draft, the peer report, or any EDA outcome. Their only write is a create-new lane report. The orchestrator can read the reports only after both specialists terminate. Thus fan-out supplies two in-dependent diagnoses rather than two agents collaboratively converging on a previously exposed answer. 
+
+Case construction and reuse across studies. All evalua-tion cases are natural post-route hybrid-bond defects: they are induced by sweeping legitimate flow knobs (seed, HBT site density, utilization) until the frozen backend itself produces a defective signoff state, and never by editing the database to plant a violation. Injection risks encoding its own re-pair, namely the inverse of the injecting edit, whereas knob-induced defects are states the production flow can actually reach, with no privileged answer. Each case is frozen with its checkpoint, baseline signoff, and content hashes before any method runs, and every method arm executes exactly once against the sealed state under one budget. Because the man-ifest is sealed first and each cell is a single official run, the same sealed cases, or their declared subsets, can serve ev-ery matched study (the method comparison, the component ablations, and the backbone-substitution arms) as controlled comparisons in which the manipulated factor is the only dif-ference; reusing cases across arms is what makes the columns comparable, and cannot tune any method because no arm is ever rerun against an observed outcome. The component ablations use the I2C/UART subset: the GCD baseline al-ready violates timing, so its zero-tolerance non-regression gate converts sub-picosecond extraction noise into gate flips, which would contaminate a causal readout. Freshly gener-ated held-out cases are reserved for a future generalization claim; no such claim is made here. 
+
+Specialist roles versus instantiation width. The four spe-cialist roles of the methodology section (netlist semantics, rendered layout, hybrid-bond conflict graph, and violation-report parsing) are a query decomposition, not a fixed agent count. The orchestrator decides per round how many concur-rent child agents to instantiate and which roles each carries, under a sealed campaign bound: the matched matrix per-mits at most three parallel specialist agents (observed widths range from three on first-round diagnosis down to one on late convergent rounds), the delegation ablation restricts the same tool face to width one in series, and the clean-room protocol of this appendix pins exactly two disjoint-lane specialists as a leakage-control constraint rather than a framework constant. Actual per-round width is recorded in each run’s ledger. 
+
+Audit and resource accounting. Before launch, the har-ness scans the complete method-visible tree, including print-able strings embedded in binary inputs. A paper-eligible run additionally scans model-visible text, tool arguments and outputs, reasoning events, and inter-agent messages after ter-mination. Forbidden content, a missing receipt, a nonregis-tered EDA call, an incorrect thread count, a budget overrun, or a hash mismatch invalidates the protocol instead of be-coming a favorable or missing table entry. Native per-session usage events are aggregated over the orchestrator and every child into input, cached-input, output, reasoning, and total tokens. Structured event logs separately count platform calls and registered physical calls; launcher and EDA timestamps provide controller and physical wall time. The isolation launcher, leak scanner, hash verifier, usage aggregator, and final evaluator are measurement apparatus. They are not agents in AgenticECO, cannot propose or mod-ify a repair, and their outputs are never returned to a running method. We report method-tree resources for the orchestrator and children, while keeping host-side instrumentation sepa-rately identifiable. 
+
+Status of the preliminary live pilot. The current UART two-row pilot was deliberately labeled Preliminary-Test-Not-Paper-Eligible . Its prelaunch scan covered 55 method-visible files and found no forbidden match; the live Agen-ticECO session created exactly two medium-reasoning spe-cialists and issued three registered, eight-thread physical calls. It then failed closed at routing. Because this pilot did not run the formal post-termination finalizer, it demonstrates the execution and measurement plumbing but is not used as paper-level efficacy evidence. Formal tables include only runs that satisfy the full pre- and post-run protocol. 
+
+## J Backbone-Substitution Arms: Per-Cell Results 
+
+The first claim audited under that harness is transfer: the main paper reports that the sealed contract carries across backbones, giving the GPT-5.6-backbone rerun of Table 1 of the main text in aggregate. The per-cell tuples are in Table 7, every number re-derived from raw artifacts (fresh DRC re-count at the final DEF, per-net ledger recount, sealed-baseline re-hash) by an independent verification pass. Gates: g1 =
+
+DRC0, g2 = disturbance ledger produced with zero clock nets touched, g3 = timing non-regression. Three cell-level patterns underlie the aggregate. First, both arms clear the same nine defects, but they pay differently for the same outcome: AgenticECO’s disturbed-net count is strictly lower than the single agent’s in six of nine cells, equal in two (I2C-2 and UART-2), and higher only on GCD-1 (5/591 versus 3/591), so the mean gap (0.44% versus 1.00%) is consistent per-cell frugality, not one outlier. Second, the only budget violation in the whole rerun is disclosed in the table note: the single agent on GCD-2 overran the call budget with 16 unregistered engine invocations and moved one bond via ( 70 → 71 ); the cell is reported as-is rather than repaired, and every other cell in both arms preserves the baseline HBT count exactly, with zero clock nets touched anywhere. Third, the g3 timing crosses concentrate entirely on GCD, in all three single-agent cells and two of three AgenticECO cells; as in the Opus 4.8 matrix, these are sub-picosecond ∆-timing trips on GCD’s already-negative baseline, a property of the design’s frozen starting point rather than of either backbone.                                                                                                                                                         
+
+> Arm Cell DRC in →out ∆Nets Clk g1 g2 g3 HBT Single GCD-1 4→03/591 0✓✓×74 Single GCD-2 a6→010/619 0✓✓×71 Single GCD-3 26 →016/614 0✓✓×75 Single I2C-1 5→06/1247 0✓✓✓97 Single I2C-2 23 →012/1245 0✓✓✓80 Single I2C-3 6→05/1248 0✓✓✓84 Single UART-1 9→08/907 0✓✓✓74 Single UART-2 5→04/882 0✓✓✓62 Single UART-3 10 →010/944 0✓✓✓60 Ours GCD-1 4→05/591 0✓✓×74 Ours GCD-2 6→01/619 0✓✓×70 Ours GCD-3 26 →02/614 0✓✓✓75 Ours I2C-1 5→03/1247 0✓✓✓97 Ours I2C-2 23 →012/1245 0✓✓✓80 Ours I2C-3 6→01/1248 0✓✓✓84 Ours UART-1 9→06/907 0✓✓✓74 Ours UART-2 5→04/882 0✓✓✓62 Ours UART-3 10 →02/944 0✓✓✓60
+> aoverran the call budget (16 unregistered engine invocations) and moved one bond via (70 →71), reported as-is; every other cell preserves the baseline HBT count.
+
+Table 7: GPT-5.6-backbone per-cell results: Single = the single-agent control, Ours = AgenticECO, identical sealed contract and budgets. 
+
+## K Matched Component-Ablation Data 
+
+Where Appendix J holds the architecture fixed and swaps the backbone, this section does the opposite, removing one com-ponent at a time. The main paper’s ablation paragraphs report which component removal costs which case; this section is the raw evidence behind them. Table 8 is the per-case table, Figure 9 visualizes it, and Figure 10 adds the cost–quality view over the same six-case configurations. The raw columns support three readings that the summary bars compress. First, cost and quality move together: the full system spends the most registered tool calls (42 over the six cases) and leaves the least damage ( ΣDRC 58 → 1), while the serial w/o-delegation arm is the cheapest (22 calls) and fails exactly the hardest site (UART-1 at DRC 6); calls are being spent where defects are contested, not evenly. Second, the executor ablation is categorical rather than marginal: its per-case disturbances (501–707 nets) sit two orders of mag-nitude above every other arm’s, and it is the only variant that touches clock nets (82, against zero in all five others), which is what “collapses onto the hammer” means at column level. Third, the vision ablation posts the lowest mean disturbance of all (0.48%) while clearing only 4/6: the two contested UART sites it fails (residuals 6 and 5) are precisely where deliberate repair work, and hence disturbance, would have been spent. The experience arm matches the full system’s 5/6 at lower cost (32 calls, one signoff per case) but relo-cates the hard case, uniquely zeroing UART-1 while leaving DRC 6 on UART-3. 
+
+## L Surgical Repair Attribution on I2C 
+
+The ablations above price whole components in disturbed nets; the next two sections descend to a single repair and Configuration I2C (three cases) UART (three cases) All six cases Variant Vision                                                                                                                     
+
+> eco_ route
+> Full DRC out (1/2/3) ↓
+> ∆Nets (1/2/3) ↓DRC0 cases ↑
+> Full DRC out (1/2/3) ↓
+> ∆Nets (1/2/3) ↓DRC0 cases ↑
+> ΣDRC in
+> →out ↓
+> DRC reduc-tion ↑
+> Hard UART-1 resid. ↓DRC0 cases ↑
+> All gates pass ↑
+> Mean
+> ∆Nets (%) ↓
+> Clock touch-ed ↓
+> Tool calls ↓
+> Sign-offs /case ↓
+> AgenticECO ✓✓0/0/0 3/12/4 3/3 1/0/0 17/2/10 2/3 58 →198.3% 15/6 5/6 0.78 042 1.17 w/ experience ∗✓✓0/0/0 5/12/7 3/3 0/0/6 10/4/4 2/3 58 →689.7% 05/6 5/6 0.65 032 1.00
+> w/o eco_route ✓–0/14/0 707/678/699 2/3 5/6/9 515/501/515 0/3 58 →34 41.4% 52/6 2/6 55.88 82 29 1.50 w/o vision –✓0/0/0 3/12/3 3/3 6/5/0 8/1/4 1/3 58 →11 81.0% 64/6 4/6 0.48 035 1.00
+> w/o delegation ✓✓0/0/0 5/12/5 3/3 6/0/0 8/6/18 2/3 58 →689.7% 65/6 5/6 0.87 022 1.33 root-only ∗✓✓0/0/0 5/12/5 3/3 5/0/10 8/7/3 1/3 58 →15 74.1% 54/6 4/6 0.63 029 1.00
+> *“w/ experience” and “root-only” are independently verified re-run arms: same sealed cases, budgets, and Claude Opus 4.8 medium backbone as the matrix. Transcript-audited delegation widths: “w/ experience” fanned out three concurrent specialists on two of six cases and worked alone otherwise; “w/o delegation” runs one serial specialist agent; “root-only” spawns no child agents by construction.
+
+Table 8: Matched architecture ablation on the six I2C/UART cases (raw data for the main-paper ablation figure). 
+
+Figure 9: Matched six-case component ablation, visualizing Table 8. (a) Residual DRC per case and variant; green marks a cleared case. (b) Mean disturbed nets, log scale. ask what its individual moves cost physically. The main pa-per attributes a picosecond-level timing effect to a UART resize through an EcoRoute replay; the companion I2C study below decomposes the same mechanism on a natural three-relocation repair, through EcoRoute replays that hold every untouched net byte-identical. Replaying the accepted three relocations and rerouting only their six victim nets reaches DRC0 while leaving the other 1,241 nets, the entire clock tree included, byte-identical (Figure 11c), whereas the no-move full reroute escapes only through the 56.7% rewrite and bond re-plan of Figure 11d. A no-move control rerouting only the five violating nets stalls at one residual violation between 
+
+Figure 10: Campaign statistics over the six cases: (a) residual DRC falls as delegation width grows; (b) the full system spends most, damages least. two of the split buffers the accepted repair relocates, show-ing that relocation is necessary in the minimal-disturbance regime. A matched nonvisual control of ten preregistered direction tuples rejected eight at the exact-placement check (the M0 gate: a relocation must land on its chosen legal site with zero legalization shift) and saw its two legal hits each rewire a clock net, so occupancy-aware choice buys legal, minimally disruptive landings, not the possibility of repair. Table 9 collects these cross-design outcomes. 
+
+L.1 Full Walkthrough: Replaying the Accepted I2C Repair 
+
+The accepted I2C repair is three same-tier relocations of split-buffer instances that clear the natural five-violation defect. The attribution question is what those three moves cost by themselves, separated from router churn. The replay answers Figure 11: Surgical repair versus full reroute on the natural I2C defect. (a) Full-die routed baseline. (b) Zoom on the five HBT cut-spacing violations. (c) After EcoRoute: only the six victim nets of the three relocated split buffers change; the clock tree is untouched. (d) After the no-move full reroute: churn spreads across the fabric and rewires the clock tree. it in four steps, each leaving a hashed artifact. 
+
+Step 1: reconstruct a routed starting state. The historical repair’s own candidate database is unusable for attribution: its flow tore up all routing before rerouting (1,241 of 1,247 nets unrouted), so replaying it would measure a full reroute, not the edit. Instead the replay starts from the routed baseline checkpoint and applies exactly the three recorded relocations (coordinates and orientations bit-identical to the accepted repair) with routing untouched. 
+
+Step 2: a fail-closed rejection that proves the gate. The first replay attempt fed the historical candidate database any-way, and the per-round gate correctly refused it: from the frozen baseline’s perspective, 1,239 nets of routing would have “appeared from nowhere” (1,239 is the 1,247-net total minus the eight nets that are unrouted even in the base-line, whose absence the gate does not count; the candidate database itself keeps routing on only six nets, hence its 1,241 unrouted). This rejected run is kept as evidence that the freeze contract fails closed rather than silently absorbing a full reroute. (Incidentally, that de-facto full reroute converged to three residual violations where the same input historically reached zero; full reroute is sensitive to environment and iteration order, one more reason its outcomes cannot be at-tributed to an edit.) 
+
+Step 3: the minimal-disturbance replay. With the correct starting state, EcoRoute reroutes only the six nets incident to the three moved instances and freezes the other 1,241, verified net-by-net from output geometry (Table 10): Both executors clear the defect; only one produces a result attributable to the edit. Every violation implicated at least one rerouted net, so the clearance is visible to the checker as a true elimination, not frozen out of view. 
+
+Step 4: what the replay taught the gate. The I2C scale exposed one over-strict rule in the first gate version: the base-line itself contains eight dangling nets with no routing, and the gate demanded they appear as frozen routing. The cor-rected rule was added with two regression tests: an unrouted baseline net is preserved by staying unrouted, while grow-ing routing from nothing remains a failure. The episode is recorded because it is the honest shape of a freeze contract meeting a real design: the contract, not the measurement, is what gets amended, and only ever in the stricter-to-looser direction visible in the released eco_gate.py .
+
+Scope. On a design this small the wall-clock advantage (2.1×) is incidental, since detailed-route fixed costs domi-nate. The walkthrough’s claim is the disturbance and timing-preservation contrast, and it is the mechanism behind the picosecond attribution of the main text. 
+
+## M Visual Feasibility Campaigns 
+
+The repairs replayed above were selected with visual evi-dence in the loop; this section collects every campaign in which that evidence was itself put on trial. The “When Vi-sual Evidence Helps” subsection of the main text summarizes these campaigns; Table 11 lists every one of them and Fig-ure 12 shows the anchor geometry that decides the outcome. Three reading notes complete that summary. First, the de-velopment study is a placement-occupancy result only: both full visual candidates end at DRC 6 and are rejected, so the supported signal is never routing, timing, or DRC. Second, the held-out UART row carries one development-exposed anchor, disclosed in the table note, so that campaign’s held-out claim rests on 4/4 versus 4/4 rather than on 5/5. Third, the contested campaign is the registered prediction rather than a post-hoc slice: the five contested anchors were cho-sen by a pixel-free DB-geometry census, and all ten of its outcomes are predicted exactly by occupancy of the chosen point. Read against Figure 12, the scope is the registered one: pixels confer an exact-feasibility edge only where landings are contested, and hash-random anchors are not contested. 
+
+## N Held-Out GCD Diagnosis Details 
+
+Every study so far lives on the I2C/UART development ma-trix; the held-out GCD diagnosis leaves it. The main paper’s held-out GCD subsection reports method-level aggregates and points here for the per-method and per-seed detail. All 30 physical results pass the pinned OpenROAD and structural-equivalence checks. The Agent diagnostic is the only method that restores all 13 clean masters exactly without a wrong in-stance or target. Recovery remains below 100% because the denominator includes verifier-only non-HBT power decoys outside the frozen diagnostic policy. The register-only Pin-3D rule scans launch registers by construction (its discovery logs enumerate them per seed) and finds none actionable, so Evidence Design/arm Edit or task receipt DRC Max/min WNS (ns) EQY Power (μW) Decision Pixel I2C V-Pix 1 relocation; exact, shift 0.000 μm 6 +15.612/+0.029 PASS 44.277 Reject Pixel control I2C N-Hash 1 relocation; shifted 0.162 μm (3 sites) – – – – Reject M0 Pixel UART V-Pix 1 relocation; exact, shift 0.000 μm 6 +11.385/+13.376 PASS 1390.410 Reject Pixel control UART N-Hash 1 relocation; shifted 0.216 μm (4 sites) – – – – Reject M0 Natural I2C TaiWei 0 edits; defect diagnosed after full DRT 5 +15.614/– – 44.3 ∗ Reject Reflection I2C graph+independent 3 relocations; residual triangle re-mains 3 +15.610/– PASS 44.286 Reject Reflection I2C graph+joint+reroute 3 exact E/W/E relocations; fresh GRT/DRT 0 +15.611/+0.030 PASS 44.278 Accept Supporting UART guarded resize 1 same-tier BUFx3 →BUFx2 0 +12.697/– PASS 1376.935 Accept †
+
+Table 9: Cross-design physical outcomes; dashes mean not run or unavailable. N-Hash stopped after failing the exact-placement (M0) gate. Power is absolute; ∗the native I2C report is rounded. †The UART resize is setup/max-only supporting evidence; its 
+
+−0.02131% outcome is measured against an independently recovered baseline, not a single-factor causal gain. 
+
+Full reroute EcoRoute replay Nets changed 185/1247 6/1247 
+
+Clock nets rewired 11 (incl. root) 0
+
+Natural DRC 5 → 0 5 → 0
+
+New DRC 0 0Setup WNS (ps) +15611 .2 +15613 .7 (=base) 
+
+Hold WNS / TNS / FEP +29 .82 / 0 / 0 +27 .96 / 0 / 0 HBT physical vias 93 ( −4) 97 (=base) 
+
+Total power ( μW) 44.27829 44.27677 Detailed-route wall (s) 103.8 49.7 
+
+Table 10: Same checkpoint, SDC, and host: three relocations judged through two executors. The replay’s WNS is the base-line value because its 1,241 frozen nets keep their timing. 
+
+Campaign Anchors V-Pix N-Hash Development (2 designs) defect-site 2/2 0/2 Held-out I2C hash-random 5/5 5/5 Held-out UART hash-random 5/5 a 5/5 a
+
+Held-out I2C, registered pred. contested 4/5 3/5 
+
+> aone anchor development-exposed and disclosed; held-out claim rests on 4/4 vs 4/4.
+
+Table 11: Visual-feasibility campaigns: exact-relocation gate, one relocation per arm, anchors and choices sealed before EDA. Pixels discriminate only at occupied landings. it emits no edit anywhere (0/0/13): every injected overdrive sits on a combinational HBT-driver, which is the main text’s “misses the combinational defect.” 
+
+N.1 The Full 30-Cell Grid: Five Seeds × Six Methods 
+
+Table 12 aggregates over seeds; the complete grid is Ta-ble 13. Each cell reports corrupted-instance identification (TP/FP/FN against the hidden ground truth), exact master restorations, and injected-overhead recovery on total power. 
+
+Figure 12: Contested versus hash-random anchors. Where ring landing points overlap cells, pixels regain an exact-feasibility edge; where the ring is clean, the gate saturates. Positive counts differ by seed (3/2/2/2/4); recovery 0.00% 
+
+marks the two arms that emit no edit. Three patterns are visible only at this resolution. First, the blanket arm’s identification is perfect in every seed yet its restoration is almost never exact: the gap between finding a defect and undoing it is per-seed universal, not an aggregate artifact. Second, the random arm’s recovery is negative in all five seeds: matched edit count without diagnosis reliably makes the design worse. Third, the agent’s recovery beats the blanket arm’s within every seed; only across seeds does the blanket arm’s best ( +31 .9% , Seed 5) exceed the agent’s worst ( +29 .1% , Seed 4), and on that same Seed 5 the agent recovers +51 .1% . The agent is also the only method with zero wrong edits anywhere in the grid. 
+
+## O Scope and Claim Boundaries 
+
+With the raw evidence now on the table, this section draws the line around what it supports. The main paper claims mech-anism evidence on a pinned engine rather than statistical superiority; this section states the boundaries that claim rests Method Physical pass TP/FP/FN Exact Wrong depth/master Mean recovery Agent diagnostic 5/5 13/0/0 13/13 0 +38.87% Blanket one-step down 5/5 13/0/0 4/13 9 +22.37% Random matched-count 5/5 2/11/11 0/13 2 −19 .19%                
+
+> Stock timing repair 5/5 0/20/13 0/13 0−19 .06%
+> Pin-3D rule 5/5 0/0/13 0/13 00.00% No repair 5/5 0/0/13 0/13 00.00%
+
+Table 12: Five held-out GCD seeds, ten HBT candidates each, 13 positives. TP/FP/FN scores identification; Exact and Wrong depth/master score the realized cell. Recovery is (P0 − Pm)/(P0 − Pclean ) over no-repair and method powers: injected-overhead recovery, not a 38.87% chip-power reduction; the Agent’s mean total-power drop is 0.09336% (566.76 nW).                                                                                                                   
+
+> Seed 1 (3+) Seed 2 (2+) Seed 3 (2+) Seed 4 (2+) Seed 5 (4+) Method T/F/N Ex Rec.% T/F/N Ex Rec.% T/F/N Ex Rec.% T/F/N Ex Rec.% T/F/N Ex Rec.%
+> Agent diagnostic 3/0/0 3+33 .52/0/0 2+35 .32/0/0 2+45 .42/0/0 2+29 .14/0/0 4+51 .1
+> Blanket one-step down 3/0/0 1+20 .52/0/0 1+21 .92/0/0 0+19 .62/0/0 1+18 .04/0/0 1+31 .9
+> Random matched-count 1/2/2 0−8.20/2/2 0−26 .50/2/2 0−29 .40/2/2 0−23 .21/3/3 0−8.7
+> Stock timing repair 0/4/3 0−11 .50/4/2 0−25 .40/4/2 0−23 .60/4/2 0−18 .00/4/4 0−16 .7
+> Pin-3D rule 0/0/3 00.00/0/2 00.00/0/2 00.00/0/2 00.00/0/4 00.0
+> No repair 0/0/3 00.00/0/2 00.00/0/2 00.00/0/2 00.00/0/4 00.0
+
+Table 13: Held-out GCD diagnosis, every cell: T/F/N = TP/FP/FN identification, Ex = exact master restorations, Rec. =
+
+injected-overhead recovery on total power (%). The agent diagnostic is perfect on both in all five seeds; blanket downsizing matches identification but recovers only partially; random selection and stock repair introduce false edits and negative recovery. on. The controlled N =5 campaign uses five seeds of one GCD foundation, not five designs or public benchmarks. It validates a frozen diagnostic and target depth, not the causal benefit of a live LLM or delegation. The first campaign ex-ecution had an infrastructure handoff failure and required a pre-scored, sealed recovery. The development visual sample is two tasks; UART is controlled and I2C has a three-way tie; both visual-only edits fail DRC. The three sealed held-out campaigns gate only on exact placement (the M0 gate of the cross-design table), five anchors each, and the contested margin is one arm at N =5 . The natural I2C closure is adap-tive development: full DRT diagnosed the defect, but edits were replayed from a GRT checkpoint and fully rerouted; the matched nonvisual and no-move controls of the cross-design table (Table 9) were executed post hoc with EcoRoute, so the accepted I2C trajectory itself remains a development run. The rank-2 candidate’s exact-placement (M0) check was omitted contrary to the sealed rule, although the executed rank-1 ev-idence remains valid. The interactive Codex session lacks a sealed model transcript and exact sampling metadata, and the UART no-edit control failed. The tight-clock decision-flip band is an STA-only re-judgment of frozen routed arti-facts, not a full tight-clock implementation flow. TaiWei uses a merged-flat 3D encoding rather than native z-coordinates. Results are therefore mechanism evidence on a pinned en-gine, not statistical superiority over OpenROAD or Pin-3D. Every claim in the main paper is scoped to these bound-aries by construction; no generality claim is made or needed here. Macro-free RISC-V designs, public 3D bench-marks, complete tightened-constraint flows, and sealed live-delegation ablations are the natural scale-out of the same frozen contract. 
+
+## P Extended Related Work 
+
+The main paper’s introduction places this work against agent, hardware-LLM, and 3D-backend literature in one paragraph and points here for the full survey. 
+
+General and iterative agents. General agents interleave reasoning with tools, learn API use, execute code, and operate computer interfaces (Yao et al. 2022; Schick et al. 2023; Qin et al. 2023; Liu et al. 2024; Wang et al. 2024; Yang et al. 2024; Xie et al. 2024). Iterative methods use self-feedback, tool-grounded critique, search, or learned rules to improve later behavior (Madaan et al. 2023; Shinn et al. 2023; Gou et al. 2023; Zhou et al. 2024; Wu et al. 2024b; Chen et al. 2024); specialized agents can also calibrate one another’s tool actions (Shi et al. 2024). These works do not address exact edits and externally verified acceptance in a physical-design database. 
+
+LLMs and agents for hardware. LLMs for hardware first targeted conversational co-design, domain adaptation, RTL generation and evaluation, accelerator generation, and tool-feedback repair (Blocklove et al. 2023; Liu et al. 2023; Zhong et al. 2024; Thakur et al. 2024; Lu et al. 2024; Fu et al. 2023; Blocklove et al. 2024). Agentic systems now coordinate mul-tiple roles for RTL generation and EDA scripts, interact with physical-design tools, optimize flows, patch engine source, and support analog layout (Wu et al. 2024a, 2025b; Zhao et al. 2025b; Pasandi et al. 2025; Wu et al. 2025a; Liu et al. 2025; Ghose et al. 2025, 2026; Luo et al. 2026; Li et al. 2026; Zang et al. 2025), while vendors ship multi-tool au-tomation (Cadence Design Systems 2025; Synopsys 2026; Siemens Digital Industries Software 2026). Post-route repair of design-rule violations is an established ECO task in its own right, most recently for back-side routing in advanced double-sided nodes (Tsai et al. 2024). Learned ECO has used reinforcement learning in a fixed 2D action space (Jiang, Chhabria, and Sapatnekar 2024). Most closely, EvoDRC de-composes 2D block layouts into bounded crops and evolves layer-wise repair skills from verified operation–DRV records (Wu et al. 2026). It directly edits layout polygons and uses lo-cal DRC plus a benchmark connectivity checker; it does not execute routed 3D ECOs or enforce cross-tier preservation and hybrid-bond constraints. 
+
+Agentic EDA execution. LLM agents solve complex tasks more effectively when they reason, call tools, inspect ex-ecution results, and revise decisions over multiple steps rather than emit one static output. In EDA, an academic line has begun to execute flows and edit tools: ChatEDA connects an LLM planner to EDA tools (Wu et al. 2024a); ORFS-Agent tunes flow parameters (Ghose et al. 2025); Au-DoPEDA uses coding agents to improve OpenROAD source (Ghose et al. 2026); Retrieve–Schedule–Reflect studies re-trieval and optimization scheduling (Luo et al. 2026); and PDAGENT-BENCH characterizes both language and vision agents for physical design (Li et al. 2026). OSWorld high-lights execution-grounded evaluation for multimodal agents in open-ended computer environments (Xie et al. 2024). In industry, Cadence introduced ChipStack for AI-assisted chip design and verification (Cadence Design Systems 2025), Synopsys introduced AgentEngineer for multi-agent automa-tion of RTL and verification tasks (Synopsys 2026), and Siemens EDA launched the Fuse EDA AI Agent for multi-tool automation from design to physical implementation (Siemens Digital Industries Software 2026). The open and 3D line provides the substrate: OpenROAD is the open phys-ical engine (Ajayi et al. 2019); Compact-2D and Pin-3D establish merged multi-tier methodologies and 3D optimiza-tion (Ku, Chang, and Lim 2019; Pentapati, Chang, and Lim 2023); Open3DBench broadens open 3D evaluation (Shi et al. 2025); and recent work uses LLMs for 3D-IC space planning (Chu et al. 2025). These systems act at the level of flows, parameters, code, or documents. Surgical ECO on a true 3D backend, with agent-selected observations and algo-rithms and with causal attribution of the outcome to a specific component, has to our knowledge not been demonstrated.

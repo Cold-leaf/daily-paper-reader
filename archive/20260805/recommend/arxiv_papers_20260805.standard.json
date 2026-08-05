@@ -1,0 +1,138 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-05T21:59:22.713643+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 3,
+    "deep_cap": 6,
+    "deep_selected": 3,
+    "quick_candidates": 0,
+    "quick_skim_target": 11,
+    "quick_selected": 0
+  },
+  "deep_dive": [
+    {
+      "id": "2608.02700v1",
+      "source": "arxiv",
+      "title": "NANQ: Noise-Floor-Aware Mixed-Precision Non-Uniform Quantization for Analog Compute-in-Memory",
+      "abstract": "Analog compute-in-memory (CIM) enables energy-efficient neural network inference, but device variation and read noise can severely degrade low-bit quantized models. Existing CIM-oriented quantization methods mainly minimize ideal quantization error, ignoring the hardware noise floor and thus causing inefficient precision allocation. We propose NANQ, a noise-aware mixed-precision non-uniform quantization framework for analog CIM. NANQ models magnitude-dependent weight noise from measured responses of an eFlash CIM array and converts the noise profile into an adaptive quantization density, assigning finer resolution to low-noise regions while avoiding ineffective precision in noise-dominated regions. It further assigns layer-wise bit-widths by identifying each layer's precision saturation point under hardware noise using a unified threshold. On-chip experiments on an eFlash CIM SoC show that, under 2-bit weight-magnitude quantization, NANQ improves vision-model accuracy by 8.05 percentage points and reduces language-model PPL by 54.7% on average over PowerQuant. Mixed-precision NANQ captures most of the gains obtainable from additional quantization resources with only 3.2-3.8 equivalent bits.",
+      "authors": [
+        "Yizhe Chen",
+        "Wenshuai Yao",
+        "Saiya Wang",
+        "Yuannuo Feng",
+        "Wenbo Qi",
+        "Kechao Tang",
+        "Ngai Wong",
+        "Wenyong Zhou",
+        "Wang Kang"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI"
+      ],
+      "published": "2026-08-03T14:21:21+00:00",
+      "link": "https://arxiv.org/pdf/2608.02700v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Noise-aware quantization for analog compute-in-memory",
+      "llm_evidence_cn": "面向模拟存内计算的噪声感知量化",
+      "llm_evidence": "面向模拟存内计算的噪声感知量化",
+      "canonical_evidence": "面向模拟存内计算的噪声感知量化",
+      "llm_tldr_en": "Presents NANQ, a noise-floor-aware mixed-precision non-uniform quantization framework for analog compute-in-memory, which models measured array noise and adaptively allocates precision to improve inference accuracy and energy efficiency.",
+      "llm_tldr_cn": "本文提出NANQ，一种面向模拟存内计算的噪声感知混合精度非均匀量化框架。针对器件变化与读噪声导致低比特量化模型精度严重下降的问题，NANQ根据实测eFlash CIM阵列的幅度相关噪声建立模型，并将其转化为自适应量化密度，在低噪声区域分配更细精度，避免在噪声主导区域浪费精度。实验结果表明，NANQ能有效提升模拟CIM神经网络推断的准确性和能效，为存内计算硬件量化设计提供了实用方法。",
+      "llm_tldr": "本文提出NANQ，一种面向模拟存内计算的噪声感知混合精度非均匀量化框架。针对器件变化与读噪声导致低比特量化模型精度严重下降的问题，NANQ根据实测eFlash CIM阵列的幅度相关噪声建立模型，并将其转化为自适应量化密度，在低噪声区域分配更细精度，避免在噪声主导区域浪费精度。实验结果表明，NANQ能有效提升模拟CIM神经网络推断的准确性和能效，为存内计算硬件量化设计提供了实用方法。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "compute-in-memory architecture",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.03555v1",
+      "source": "arxiv",
+      "title": "Heterogeneous LLM Serving with General-Purpose Processing-Near-Memory for Retrieval-Based Sparse Attention",
+      "abstract": "This paper presents a heterogeneous decode-phase serving system that relocates the KV cache out of GPU memory, motivated by the retrieval-based sparse attention that recent frontier LLMs adopt to serve million-token contexts. It partitions a decode step by operation type: GPU nodes hold the model weights and execute the projections and MoE layers, while processing-near-memory (PNM) nodes hold the KV cache and index keys and execute every operation that reads them. We first show that the assumptions behind prior PIM and PNM designs no longer hold for these operations, and derive four design requirements for such a node. From these requirements, we propose KARAT (KV-cache-resident Accelerator for Retrieval-based ATtention), a general-purpose PNM design that is the design point meeting all four. A KARAT device combines large LPDDR capacity with general-purpose compute sized for the retrieval indexer, serving an operational intensity beyond what PIM/PNM designs built for low-intensity GEMV target while accommodating diverse sparse attention algorithms that fixed-function units cannot support as they evolve. To reduce pipeline bubbles as the two device types alternate between micro-batches, we further propose opportunistic, fine-grained micro-batch scheduling (OFMS), which hides expert all-to-all behind the other micro-batch's GEMMs, and context-length-aware micro-batch rebalancing (CMR), which equalizes their token counts despite the variance in context length. Across three state-of-the-art models and real agentic traces, our proposed system improves throughput per TDP under a service-level objective by 2.09-6.13x over a GPU-only baseline and runs training-free sparse attention methods with 1.36-3.21x improvements.",
+      "authors": [
+        "Hyungkyu Ham",
+        "Junhyeong Bae",
+        "Seungheon Lee",
+        "Myeongjae Jeon",
+        "Gwangsun Kim"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-08-04T12:25:45+00:00",
+      "link": "https://arxiv.org/pdf/2608.03555v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Directly designs a processing-near-memory system for LLM serving, with PNM nodes holding KV cache and executing cache-reading operations",
+      "llm_evidence_cn": "直接设计面向LLM服务的近内存处理系统，PNM节点持有KV缓存并执行读取缓存的运算",
+      "llm_evidence": "直接设计面向LLM服务的近内存处理系统，PNM节点持有KV缓存并执行读取缓存的运算",
+      "canonical_evidence": "直接设计面向LLM服务的近内存处理系统，PNM节点持有KV缓存并执行读取缓存的运算",
+      "llm_tldr_en": "Presents a heterogeneous decode-phase LLM serving system that moves KV cache to general-purpose processing-near-memory nodes, deriving four design requirements and proposing KARAT for retrieval-based sparse attention, showing prior PIM/PNM assumptions no longer hold.",
+      "llm_tldr_cn": "针对基于检索的稀疏注意力的大模型解码阶段KV缓存庞大、GPU内存难以容纳的问题，提出将KV缓存迁出GPU内存、由通用近内存处理（PNM）节点持有并执行所有读取缓存运算的异构系统。作者通过分析发现以往PIM/PNM设计假设不再适用，推导出四点设计要求，并据此设计了KARAT加速器。该系统按操作类型划分GPU与PNM分工，能够有效降低数据搬移，为百万级token上下文的稀疏注意力服务提供高效方案。",
+      "llm_tldr": "针对基于检索的稀疏注意力的大模型解码阶段KV缓存庞大、GPU内存难以容纳的问题，提出将KV缓存迁出GPU内存、由通用近内存处理（PNM）节点持有并执行所有读取缓存运算的异构系统。作者通过分析发现以往PIM/PNM设计假设不再适用，推导出四点设计要求，并据此设计了KARAT加速器。该系统按操作类型划分GPU与PNM分工，能够有效降低数据搬移，为百万级token上下文的稀疏注意力服务提供高效方案。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "near-memory computing design",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.03738v1",
+      "source": "arxiv",
+      "title": "AgenticECO: An Agentic Framework for ECO on 3D Integrated Circuits",
+      "abstract": "As Moore's law slows, the industry is turning to three-dimensional integration; yet in merged 3D-IC flows, routed designs expose bond-level defects with no 2D analogue, and post-route engineering change orders (ECO) remain manual, expertise-bound work. Worse, the standard edit-then-fully-reroute practice entangles a repair with router churn, so a signoff number cannot be attributed to the edit that motivated it. We present AgenticECO, an evidence-gated tool-using agent workflow for 3D-IC ECO on the open-source TaiWei flow, paired with EcoRoute, a minimal-disturbance ECO-routing layer that drives the unmodified pinned router so a repair is attributable to its edit. Across nine matched natural defect cases under identical budgets, AgenticECO clears seven versus two for both full reroute and stock repair, at 0.66\\% mean disturbance over cleared cases and zero clock nets touched, and a cross-backbone rerun under the same sealed contract clears all nine. Controlled studies show that the repair moves are necessary under preservation, that occupancy-aware choice buys legal landings rather than repair success, and that under tightened clocks minimal disturbance flips accept versus reject. Three preregistered visual studies localize the pixel instrument's edge to contested landing sites, and a preregistered blind diagnostic exactly restores every held-out injected defect, the only arm with zero wrong edits. Every accepted result passes routing, fresh extraction, max/min timing, DRC, and structural-equivalence gates. Code, environment, and per-episode audit artifacts are released as supplementary material.",
+      "authors": [
+        "Shuo Ren",
+        "Yaohui Han",
+        "Libo Shen",
+        "Zhiqiang Jia",
+        "Rongliang Fu",
+        "Bei Yu",
+        "Tsung-Yi Ho"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-08-04T14:32:43+00:00",
+      "link": "https://arxiv.org/pdf/2608.03738v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "3D-IC ECO framework targeting bond-level defects",
+      "llm_evidence_cn": "面向三维集成电路ECO的智能体框架，处理键合级缺陷",
+      "llm_evidence": "面向三维集成电路ECO的智能体框架，处理键合级缺陷",
+      "canonical_evidence": "面向三维集成电路ECO的智能体框架，处理键合级缺陷",
+      "llm_tldr_en": "AgenticECO automates engineering change orders for 3D ICs using an agentic workflow and minimal-disturbance routing. It targets bond-level defects in merged 3D flows and attributes repairs to specific edits. It clears seven of nine defect cases under equal budgets.",
+      "llm_tldr_cn": "三维集成电路在混合流程中会出现键合级缺陷，而传统ECO依赖人工且难以将修复归因于特定编辑。本文提出AgenticECO，一个基于工具调用的智能体工作流，并搭配EcoRoute最小扰动布线层，使修复可归因于具体修改。在九个匹配的自然缺陷案例中，AgenticECO在相同预算下解决了七个，验证了3D-IC ECO自动化的可行性与有效性。",
+      "llm_tldr": "三维集成电路在混合流程中会出现键合级缺陷，而传统ECO依赖人工且难以将修复归因于特定编辑。本文提出AgenticECO，一个基于工具调用的智能体工作流，并搭配EcoRoute最小扰动布线层，使修复可归因于具体修改。在九个匹配的自然缺陷案例中，AgenticECO在相同预算下解决了七个，验证了3D-IC ECO自动化的可行性与有效性。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "3D integrated circuit design",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": []
+}

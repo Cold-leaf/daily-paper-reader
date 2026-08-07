@@ -1,15 +1,15 @@
 {
   "mode": "standard",
-  "generated_at": "2026-08-07T02:02:17.273264+00:00",
+  "generated_at": "2026-08-07T21:14:36.052022+00:00",
   "stats": {
     "mode": "standard",
     "tag_count": 1,
-    "deep_divecandidates": 2,
+    "deep_divecandidates": 5,
     "deep_cap": 6,
-    "deep_selected": 2,
-    "quick_candidates": 2,
+    "deep_selected": 5,
+    "quick_candidates": 0,
     "quick_skim_target": 11,
-    "quick_selected": 2
+    "quick_selected": 0
   },
   "deep_dive": [
     {
@@ -34,20 +34,103 @@
         "keyword:cim",
         "query:cim"
       ],
-      "llm_score": 9.0,
-      "llm_evidence_en": "DRAM-based processing-in-memory (PIM) system design principles",
-      "llm_evidence_cn": "基于DRAM的存内处理系统设计原则",
-      "llm_evidence": "基于DRAM的存内处理系统设计原则",
-      "canonical_evidence": "基于DRAM的存内处理系统设计原则",
-      "llm_tldr_en": "This paper evaluates heterogeneous DRAM-PIM-GPU systems for LLM inference and reveals design principles, showing static power dominates efficiency and decoding performance is non-monotonic, guiding efficient PIM-GPU system design.",
-      "llm_tldr_cn": "异构DRAM-PIM-GPU系统有望提升LLM推理特别是长输出解码阶段的能效，但现有设计实践忽略了影响真实性能的关键因素。通过系统评估OPT和Mamba2等多种架构与工作负载，该工作总结出三条基本设计原则：静态功耗（DRAM漏电、刷新、GPU空闲功耗）可能主导能效，仅按动态功耗估算会高估token/W；解码性能呈单调非单调变化。这些原则为PIM-GPU系统的能效优化提供了重要依据。",
-      "llm_tldr": "异构DRAM-PIM-GPU系统有望提升LLM推理特别是长输出解码阶段的能效，但现有设计实践忽略了影响真实性能的关键因素。通过系统评估OPT和Mamba2等多种架构与工作负载，该工作总结出三条基本设计原则：静态功耗（DRAM漏电、刷新、GPU空闲功耗）可能主导能效，仅按动态功耗估算会高估token/W；解码性能呈单调非单调变化。这些原则为PIM-GPU系统的能效优化提供了重要依据。",
+      "llm_score": 10.0,
+      "llm_evidence_en": "Proposes design principles for heterogeneous DRAM-based processing-in-memory (PIM)-GPU systems, directly addressing PIM system efficiency.",
+      "llm_evidence_cn": "针对DRAM-based PIM-GPU异构系统提出设计原则，直接关于处理-近存计算系统。",
+      "llm_evidence": "针对DRAM-based PIM-GPU异构系统提出设计原则，直接关于处理-近存计算系统。",
+      "canonical_evidence": "针对DRAM-based PIM-GPU异构系统提出设计原则，直接关于处理-近存计算系统。",
+      "llm_tldr_en": "Presents three design principles for heterogeneous DRAM-PIM-GPU systems, showing that static power dominates efficiency, and provides systematic evaluation on LLM inference workloads.",
+      "llm_tldr_cn": "该文针对异构DRAM-PIM-GPU系统的能效设计问题展开研究。作者通过系统评估OPT和Mamba2等多种大语言模型工作负载，提出三条核心设计原则：静态功耗（DRAM漏电、刷新和GPU空闲功耗）会主导能效计算，仅考虑动态功耗会使token/W高估最多3.85倍；解码性能并非单调变化，需要综合考量。这些原则为实际部署PIM-GPU系统提供了重要指导，有助于提升长输出大模型推理的能效。",
+      "llm_tldr": "该文针对异构DRAM-PIM-GPU系统的能效设计问题展开研究。作者通过系统评估OPT和Mamba2等多种大语言模型工作负载，提出三条核心设计原则：静态功耗（DRAM漏电、刷新和GPU空闲功耗）会主导能效计算，仅考虑动态功耗会使token/W高估最多3.85倍；解码性能并非单调变化，需要综合考量。这些原则为实际部署PIM-GPU系统提供了重要指导，有助于提升长输出大模型推理的能效。",
       "llm_tags": [
         "query:cim"
       ],
       "matched_query_tag": "query:cim",
       "matched_query_text": "processing-in-memory systems",
       "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.04856v1",
+      "source": "arxiv",
+      "title": "High-speed time-series prediction using compact memristor circuits with adjustable dynamics",
+      "abstract": "Ta$_2$O$_5$ nonvolatile memristors are used as compact, traceable, and well-controllable dynamic reservoir computing layers to perform time-series prediction tasks. The strongly voltage-dependent switching speed is utilized for information processing. It enables the configuration of tailorable programming and forgetting times in response to the positive and negative driving voltage pulses. Benchmarking this framework on time-series prediction problems reveals that the configurable forgetting dynamics enables a high prediction accuracy using a rather small number of memristive input channels. The training is based either on optimizing the output layer using linear regression with fixed forgetting times, or on optimizing the forgetting times as well. In the first case, six memristive channels, while in the second, only two memristive channels are used to demonstrate excellent prediction accuracy for the benchmark tasks. This scheme allows for the tunability of the operating frequency over many orders of magnitude: by adjusting the input voltage levels, the information processing speed of the same memristive dynamic layer can be increased from the kHz to the MHz range while maintaining excellent prediction accuracy. These findings demonstrate the merits of memristor based dynamic networks in the analysis, prediction and recovery of fast temporal signals, approaching telecommunication data rates.",
+      "authors": [
+        "Dániel Molnár",
+        "János Volk",
+        "Tímea Nóra Török",
+        "Zoltán Balogh",
+        "Nadia Jimenez Olalla",
+        "Miklós Csontos",
+        "Juerg Leuthold",
+        "András Halbritter"
+      ],
+      "primary_category": "cond-mat.mes-hall",
+      "categories": [
+        "cond-mat.mes-hall"
+      ],
+      "published": "2026-08-05T13:48:19+00:00",
+      "link": "https://arxiv.org/pdf/2608.04856v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "memristor circuits perform in-situ computation for time-series prediction",
+      "llm_evidence_cn": "忆阻器电路实现时序预测的原位计算",
+      "llm_evidence": "忆阻器电路实现时序预测的原位计算",
+      "canonical_evidence": "忆阻器电路实现时序预测的原位计算",
+      "llm_tldr_en": "Compact Ta2O5 memristors as dynamic reservoir layers enable high-accuracy time-series prediction with few input channels, exploiting voltage-dependent switching speed for configurable forgetting dynamics.",
+      "llm_tldr_cn": "针对时间序列预测任务，传统方案中存储与计算分离带来了较大的能耗和面积开销。作者采用紧凑的Ta2O5非易失忆阻器作为动态储备池计算层，利用其强烈依赖电压的开关速度实现可配置的编程与遗忘时间。在多个时间序列预测基准上，具有可调遗忘动力学的方案仅需较少的忆阻输入通道即可达到高预测精度。该工作展示了忆阻器作为计算与存储融合器件的潜力，为存算一体架构提供了紧凑高效的实现思路。",
+      "llm_tldr": "针对时间序列预测任务，传统方案中存储与计算分离带来了较大的能耗和面积开销。作者采用紧凑的Ta2O5非易失忆阻器作为动态储备池计算层，利用其强烈依赖电压的开关速度实现可配置的编程与遗忘时间。在多个时间序列预测基准上，具有可调遗忘动力学的方案仅需较少的忆阻输入通道即可达到高预测精度。该工作展示了忆阻器作为计算与存储融合器件的潜力，为存算一体架构提供了紧凑高效的实现思路。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "compute-in-memory architecture",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.03814v1",
+      "source": "arxiv",
+      "title": "Self-Focusing Control for Depth-Precise Wafer Slicing of 4H-SiC in Femtosecond Laser Processing",
+      "abstract": "4H-SiC has emerged as a third-generation chip material because its superior thermal conductivity and high breakdown field enable the material to achieve high power density and higher switching frequencies in power-electronics applications. As chip architectures evolve toward 3D and heterogeneous integration, the mechanical and thermal design space tightens while yield risks grow. In particular, advanced packages require mid-process wafer thinning to < 100 $μ$m to shorten interconnects and control thermo-mechanical stress. Femtosecond laser slicing for 4H-SiC wafers offers a non-contact processing approach to produce thin layers with low defects, while strong optical nonlinearities obscure the relationship between the laser parameters and the resulting slicing quality. Here, we systematically investigate Kerr-induced self-focusing using a femtosecond laser in 4H-SiC slicing by combining experiments, a semi-empirical analytical model, and numerical ray optics simulations. We demonstrate that the interplay between pulse energy and processing depth governs the self-focusing behavior, which directly correlates with post-separation surface texture parameters and separation stress, thereby linking nonlinear beam propagation to slicing quality. Based on this relationship, we define a processability map in the pulse energy with self-focusing depth space over a normalized irradiance background. Analytically, the model extends the Marburger formula to focused beams by replacing the power ratio with a normalized irradiance. Ray optics simulations capture the geometric features at the self-focusing point and are validated against experimental observations. Within physically defined thresholds, the processability map directly connects laser parameters to separation stress and surface texture metrics, providing practical guidance for depth control beyond trial-and-error.",
+      "authors": [
+        "Dong Hee Kang",
+        "Jaeseung Lim",
+        "Mishfaqur Rahman",
+        "Seongheum Han",
+        "Jae-Hak Lee",
+        "Seungman Kim",
+        "Jihoon Jeong"
+      ],
+      "primary_category": "physics.optics",
+      "categories": [
+        "physics.optics",
+        "cond-mat.mtrl-sci",
+        "physics.app-ph"
+      ],
+      "published": "2026-08-04T15:24:12+00:00",
+      "link": "https://arxiv.org/pdf/2608.03814v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "wafer thinning/slicing for 3D and heterogeneous integration, enabling short interconnects for hybrid bonding",
+      "llm_evidence_cn": "面向3D/异构集成的晶圆减薄与切片，为混合键合提供短互连基础",
+      "llm_evidence": "面向3D/异构集成的晶圆减薄与切片，为混合键合提供短互连基础",
+      "canonical_evidence": "面向3D/异构集成的晶圆减薄与切片，为混合键合提供短互连基础",
+      "llm_tldr_en": "Proposes self-focusing control for depth-precise femtosecond laser slicing of 4H-SiC wafers, enabling the mid-process thinning below 100 μm required for 3D packaging and hybrid bonding.",
+      "llm_tldr_cn": "随着芯片架构向3D与异构集成演进，先进封装需要将晶圆减薄至100微米以下以缩短互连并控制热机械应力，但飞秒激光切片中强光学非线性使深度难以控制。本文提出自聚焦控制方法，通过实时调控激光参数实现4H-SiC晶圆的深度精确切片，降低缺陷率和碎裂风险。该技术为三维堆叠和混合键合工艺提供了关键的晶圆减薄方案，支撑高密度互连的封装集成。",
+      "llm_tldr": "随着芯片架构向3D与异构集成演进，先进封装需要将晶圆减薄至100微米以下以缩短互连并控制热机械应力，但飞秒激光切片中强光学非线性使深度难以控制。本文提出自聚焦控制方法，通过实时调控激光参数实现4H-SiC晶圆的深度精确切片，降低缺陷率和碎裂风险。该技术为三维堆叠和混合键合工艺提供了关键的晶圆减薄方案，支撑高密度互连的封装集成。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "hybrid bonding 3D integration",
+      "matched_requirement_id": "req-2",
       "selection_source": "fresh_fetch"
     },
     {
@@ -80,13 +163,59 @@
         "query:cim"
       ],
       "llm_score": 8.0,
-      "llm_evidence_en": "memory-centric hierarchical architecture designed for memory-bound parallel-sequential workloads",
-      "llm_evidence_cn": "面向内存受限并行-顺序负载设计的内存中心层次化架构",
-      "llm_evidence": "面向内存受限并行-顺序负载设计的内存中心层次化架构",
-      "canonical_evidence": "面向内存受限并行-顺序负载设计的内存中心层次化架构",
-      "llm_tldr_en": "MCHA is a reconfigurable memory-centric hierarchical architecture for parallel-sequential workloads, targeting main-memory bottlenecks caused by irregular access patterns and reducing global buffer saturation and memory-bound overheads.",
-      "llm_tldr_cn": "多智能体强化学习、神经形态计算等负载既需大规模并行又受内存不规则访问制约，传统架构易出现全局缓冲饱和与内存瓶颈。为此该文提出MCHA，一种可重构的内存中心层次化硬件架构，以内存为中心组织存储与计算层级，适配并行-顺序混合执行模式。实验表明MCHA能有效缓解访存瓶颈，提升此类负载的执行效率。这项工作为近存计算架构设计提供了新思路。",
-      "llm_tldr": "多智能体强化学习、神经形态计算等负载既需大规模并行又受内存不规则访问制约，传统架构易出现全局缓冲饱和与内存瓶颈。为此该文提出MCHA，一种可重构的内存中心层次化硬件架构，以内存为中心组织存储与计算层级，适配并行-顺序混合执行模式。实验表明MCHA能有效缓解访存瓶颈，提升此类负载的执行效率。这项工作为近存计算架构设计提供了新思路。",
+      "llm_evidence_en": "memory-centric hierarchical architecture for memory-bound workloads",
+      "llm_evidence_cn": "面向内存瓶颈的以内存为中心的层次化架构",
+      "llm_evidence": "面向内存瓶颈的以内存为中心的层次化架构",
+      "canonical_evidence": "面向内存瓶颈的以内存为中心的层次化架构",
+      "llm_tldr_en": "MCHA is a reconfigurable memory-centric hierarchical architecture that mitigates global buffer saturation and main-memory bottlenecks in parallel-sequential workloads like MARL and neuromorphic computing.",
+      "llm_tldr_cn": "多智能体强化学习、大规模神经形态计算等新兴负载具有并行-串行混合特性，然而其不规则的数据访问高度集中于主存，导致全局缓冲饱和和内存瓶颈，传统架构难以高效执行。本文提出以内存为中心的层次化架构MCHA，通过可重构的层次化存储与计算结合，把数据搬运最小化，并针对并行-串行执行模式优化数据流调度。实验表明MCHA能有效缓解存储端压力，提升此类负载的执行效率，为近存计算提供了实际可行的硬件设计方案。",
+      "llm_tldr": "多智能体强化学习、大规模神经形态计算等新兴负载具有并行-串行混合特性，然而其不规则的数据访问高度集中于主存，导致全局缓冲饱和和内存瓶颈，传统架构难以高效执行。本文提出以内存为中心的层次化架构MCHA，通过可重构的层次化存储与计算结合，把数据搬运最小化，并针对并行-串行执行模式优化数据流调度。实验表明MCHA能有效缓解存储端压力，提升此类负载的执行效率，为近存计算提供了实际可行的硬件设计方案。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "near-memory computing design",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.05483v1",
+      "source": "arxiv",
+      "title": "PLoRA: An NDP-Enhanced Pooled-Memory System for Cost-Efficient Multi-LoRA Serving",
+      "abstract": "Multi-LoRA serving is how one base model becomes thousands of specialized variants, one adapter per user, task, or agent, and the deployments can hold 1000-plus adapters. Serving them is hard because the workload inverts what GPUs provide: terabytes of memory against only tens of TFLOPS, and because every published system stages its adapters from CPU DRAM over PCIe, where each access pays a kernel stop and a host-run copy and capacity ends at the motherboard's DIMM slots. Meanwhile, memory-semantic fabrics such as CXL and NVLink are converging on pooled memory that an accelerator addresses with its own loads and stores, and near-data processing (NDP) can place compute beside the pooled data. How to serve multi-LoRA workloads on such hardware remains unexplored.   This paper introduces PLoRA, an NDP-enhanced pooled-memory system for cost-efficient multi-LoRA serving. PLoRA keeps adapters and KV cache in the pool and returns only reduced results over the link, through a read-compute interface the GPU drives with its own loads and stores. Above this architecture, a GPU memory management system picks among four LoRA and two attention execution strategies for each adapter and caches the most performance-critical bytes in GPU memory, guided by a link-parameterized cost model. On one H100 serving 1000 adapters, PLoRA attains the lowest decode latency on every model and workload we measure, averaging 6.6x below a real-machine S-LoRA at under 3.4% added device area. The link itself stops mattering: throughput saturates at 32 GB/s on short contexts, a quarter of CXL 3.1, and the verdict survives scale: per-GPU demand falls from 7B to a modeled 1.2T deployment once adapter traffic shards with the tensor parallelism. The design runs unchanged from CXL-class to NVLink-class fabrics, and surplus bandwidth buys pooled capacity rather than speed.",
+      "authors": [
+        "Zhongkai Yu",
+        "Ohm Rishabh Venkatachalam",
+        "Zheng Wang",
+        "Yikai Li",
+        "Yichen Lin",
+        "Zihao Yu",
+        "Yuke Wang",
+        "Liu Liu",
+        "Xulong Tang",
+        "Shuyi Pei",
+        "Yangwook Kang",
+        "Yufei Ding"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR",
+        "cs.DC"
+      ],
+      "published": "2026-08-06T00:19:56+00:00",
+      "link": "https://arxiv.org/pdf/2608.05483v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "NDP-enhanced pooled-memory system for multi-LoRA serving",
+      "llm_evidence_cn": "面向多LoRA服务的NDP增强池化内存系统",
+      "llm_evidence": "面向多LoRA服务的NDP增强池化内存系统",
+      "canonical_evidence": "面向多LoRA服务的NDP增强池化内存系统",
+      "llm_tldr_en": "PLoRA is an NDP-enhanced pooled-memory serving system that places compute beside pooled memory over memory-semantic fabrics, avoiding CPU DRAM staging for per-adapter data and enabling efficient multi-LoRA serving.",
+      "llm_tldr_cn": "多LoRA服务常需上千个适配器，逐次从CPU DRAM经PCIe搬运会造成严重开销与容量瓶颈。该论文提出PLoRA，将CXL/NVLink等内存语义互联引入池化内存，并利用近数据处理（NDP）将计算贴近池化数据。这避免了主机复制和内核停顿，使大型适配器池能以更低成本获得更高吞吐。该工作为内存受限的推理服务提供了一种高效的系统设计方案。",
+      "llm_tldr": "多LoRA服务常需上千个适配器，逐次从CPU DRAM经PCIe搬运会造成严重开销与容量瓶颈。该论文提出PLoRA，将CXL/NVLink等内存语义互联引入池化内存，并利用近数据处理（NDP）将计算贴近池化数据。这避免了主机复制和内核停顿，使大型适配器池能以更低成本获得更高吞吐。该工作为内存受限的推理服务提供了一种高效的系统设计方案。",
       "llm_tags": [
         "query:cim"
       ],
@@ -96,87 +225,5 @@
       "selection_source": "fresh_fetch"
     }
   ],
-  "quick_skim": [
-    {
-      "id": "2608.03285v1",
-      "source": "arxiv",
-      "title": "Fovea: Physical-Implication-Aware Wafer-Scale DSE with Decision-Domain-Guided Cross-Fidelity Refinement",
-      "abstract": "Modern pre-silicon design-space exploration (DSE) follows a coarse-to-fine workflow: low-cost evaluators screen candidate spaces, while detailed evaluation is reserved for a shortlist. Wafer-scale systems strain both stages. Architecture choices induce coupled physical implications for reticle compliance, wafer tiling, die area, D2D capability, boundary access, and placement, so the design space cannot be treated as an unconstrained Cartesian product. Meanwhile, detailed evaluation is too expensive to cover the resulting space, whereas analytical-to-reference ranking inversions make a fixed shortlist unreliable. We present Fovea, a reusable methodology for workload-specific wafer architecture selection rather than a fixed wafer template. Fovea first performs physical-implication-aware design-space formulation to construct a distinct modeled-feasible space while preserving cross-dimensional trade-offs and applying only evaluator-preserving local reductions. It then performs Decision-Domain-guided cross-fidelity refinement. Paired in-domain calibration estimates workload- and space-specific analytical-to-reference disagreement, which parameterizes reference-consistent performance intervals and induces a Decision Domain for selective designated-reference evaluation. Under a valid domain-wide disagreement bound, this domain contains the designated-reference optimum; the sampling-based implementation is evaluated empirically on exhaustive-reference design spaces. Across ten reference-verifiable design spaces and seven LLM-training workloads, Fovea with 10% paired calibration recovers the exhaustive designated-reference optimum in all 70 evaluated pairs while achieving 4.13x average and 7.80x maximum end-to-end speedup.",
-      "authors": [
-        "Jinxi Li",
-        "Huizheng Wang",
-        "Jinyi Deng",
-        "Yang Hu",
-        "Shouyi Yin"
-      ],
-      "primary_category": "cs.AR",
-      "categories": [
-        "cs.AR"
-      ],
-      "published": "2026-08-04T08:00:29+00:00",
-      "link": "https://arxiv.org/pdf/2608.03285v1",
-      "tags": [
-        "keyword:cim",
-        "query:cim"
-      ],
-      "llm_score": 6.0,
-      "llm_evidence_en": "Physical-implication-aware wafer-scale design-space exploration with die-to-die capability, transferable to 3D integrated circuit design",
-      "llm_evidence_cn": "物理影响感知的晶圆级设计空间探索，考虑D2D能力等约束，可迁移至三维集成电路设计",
-      "llm_evidence": "物理影响感知的晶圆级设计空间探索，考虑D2D能力等约束，可迁移至三维集成电路设计",
-      "canonical_evidence": "物理影响感知的晶圆级设计空间探索，考虑D2D能力等约束，可迁移至三维集成电路设计",
-      "llm_tldr_en": "Fovea provides physical-implication-aware wafer-scale design-space exploration with decision-domain-guided cross-fidelity refinement, addressing coupled constraints including die-to-die capability; it is a reusable methodology for workload-specific wafer architecture selection.",
-      "llm_tldr_cn": "面向晶圆级系统预硅设计空间探索，指出现有粗到细流程忽视架构选择带来的光罩、晶圆拼接、芯片面积和D2D能力等耦合物理影响，且解析与参考排序倒置使固定候选列表不可靠。提出Fovea可复用方法，以决策域引导的跨保真度细化进行工作负载特定的晶圆架构选择。该方法对三维集成电路/先进封装的架构探索具有迁移价值。",
-      "llm_tldr": "面向晶圆级系统预硅设计空间探索，指出现有粗到细流程忽视架构选择带来的光罩、晶圆拼接、芯片面积和D2D能力等耦合物理影响，且解析与参考排序倒置使固定候选列表不可靠。提出Fovea可复用方法，以决策域引导的跨保真度细化进行工作负载特定的晶圆架构选择。该方法对三维集成电路/先进封装的架构探索具有迁移价值。",
-      "llm_tags": [
-        "query:cim"
-      ],
-      "matched_query_tag": "query:cim",
-      "matched_query_text": "3D integrated circuit design",
-      "matched_requirement_id": "req-6",
-      "selection_source": "fresh_fetch",
-      "quick_tier": "6"
-    },
-    {
-      "id": "2608.04856v1",
-      "source": "arxiv",
-      "title": "High-speed time-series prediction using compact memristor circuits with adjustable dynamics",
-      "abstract": "Ta$_2$O$_5$ nonvolatile memristors are used as compact, traceable, and well-controllable dynamic reservoir computing layers to perform time-series prediction tasks. The strongly voltage-dependent switching speed is utilized for information processing. It enables the configuration of tailorable programming and forgetting times in response to the positive and negative driving voltage pulses. Benchmarking this framework on time-series prediction problems reveals that the configurable forgetting dynamics enables a high prediction accuracy using a rather small number of memristive input channels. The training is based either on optimizing the output layer using linear regression with fixed forgetting times, or on optimizing the forgetting times as well. In the first case, six memristive channels, while in the second, only two memristive channels are used to demonstrate excellent prediction accuracy for the benchmark tasks. This scheme allows for the tunability of the operating frequency over many orders of magnitude: by adjusting the input voltage levels, the information processing speed of the same memristive dynamic layer can be increased from the kHz to the MHz range while maintaining excellent prediction accuracy. These findings demonstrate the merits of memristor based dynamic networks in the analysis, prediction and recovery of fast temporal signals, approaching telecommunication data rates.",
-      "authors": [
-        "Dániel Molnár",
-        "János Volk",
-        "Tímea Nóra Török",
-        "Zoltán Balogh",
-        "Nadia Jimenez Olalla",
-        "Miklós Csontos",
-        "Juerg Leuthold",
-        "András Halbritter"
-      ],
-      "primary_category": "cond-mat.mes-hall",
-      "categories": [
-        "cond-mat.mes-hall"
-      ],
-      "published": "2026-08-05T13:48:19+00:00",
-      "link": "https://arxiv.org/pdf/2608.04856v1",
-      "tags": [
-        "keyword:cim",
-        "query:cim"
-      ],
-      "llm_score": 6.0,
-      "llm_evidence_en": "memristor circuits as compact dynamic reservoir computing layers",
-      "llm_evidence_cn": "忆阻器电路作为紧凑动态储层计算层",
-      "llm_evidence": "忆阻器电路作为紧凑动态储层计算层",
-      "canonical_evidence": "忆阻器电路作为紧凑动态储层计算层",
-      "llm_tldr_en": "Uses Ta2O5 memristors as tunable reservoir computing layers for time-series prediction, leveraging voltage-dependent switching speed for configurable forgetting dynamics and achieving high accuracy with few input channels.",
-      "llm_tldr_cn": "时间序列预测任务对硬件提出了高吞吐与低功耗的需求，传统数字电路往往资源开销大。本文利用Ta2O5非易失忆阻器的强电压依赖开关速度，构建了紧凑的动态储层计算层，通过正负驱动电压脉冲可配置编程与遗忘时间，从而实现可调的储层动力学。在标准时间序列预测基准测试中，该系统仅需少量忆阻输入通道即可达到高预测精度，并展示了高速预测能力。该研究为忆阻器在类脑储层计算中的应用提供了有力验证，也为低功耗实时预测硬件设计提供了紧凑且可控的解决方案。",
-      "llm_tldr": "时间序列预测任务对硬件提出了高吞吐与低功耗的需求，传统数字电路往往资源开销大。本文利用Ta2O5非易失忆阻器的强电压依赖开关速度，构建了紧凑的动态储层计算层，通过正负驱动电压脉冲可配置编程与遗忘时间，从而实现可调的储层动力学。在标准时间序列预测基准测试中，该系统仅需少量忆阻输入通道即可达到高预测精度，并展示了高速预测能力。该研究为忆阻器在类脑储层计算中的应用提供了有力验证，也为低功耗实时预测硬件设计提供了紧凑且可控的解决方案。",
-      "llm_tags": [
-        "query:cim"
-      ],
-      "matched_query_tag": "query:cim",
-      "matched_query_text": "compute-in-memory architecture",
-      "matched_requirement_id": "req-1",
-      "selection_source": "fresh_fetch",
-      "quick_tier": "6"
-    }
-  ]
+  "quick_skim": []
 }

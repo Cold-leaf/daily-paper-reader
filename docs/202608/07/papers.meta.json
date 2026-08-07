@@ -1,0 +1,69 @@
+{
+  "label": "2026-08-07",
+  "date": "2026-08-07",
+  "generated_at": "2026-08-07T02:07:21",
+  "count": 4,
+  "papers": [
+    {
+      "paper_id": "202608/07/2608.04169v1-on-design-principles-for-efficient-heterogeneous-dram-pim-gpu-systems",
+      "section": "deep",
+      "title_en": "On Design Principles for Efficient Heterogeneous DRAM-PIM-GPU Systems",
+      "authors": "Corey Lammie, Hadjer Benmeziane, William Andrew Simon, Irem Boybat",
+      "date": "2026-08-04",
+      "pdf": "https://arxiv.org/pdf/2608.04169v1",
+      "score": "9.0",
+      "evidence": "基于DRAM的存内处理系统设计原则",
+      "tldr": "异构DRAM-PIM-GPU系统用于LLM长输出推理潜力大，但现有设计忽视静态功耗、通道层次与映射策略的交互。通过系统评估OPT-7B/70B和Mamba2-2.7B/70B，发现动态功耗模型高估能效最多3.85倍，解码性能随通道数饱和，固定容量下存在近最优层次，映射优化收益有限。提炼三项设计原则，指出系统级协同优化才是效率提升关键。",
+      "tags": "query:cim",
+      "abstract_en": "Heterogeneous DRAM-based processing-in-memory (PIM)-GPU systems promise significant efficiency gains for decode-phase large language model (LLM) inference, particularly in long-output generation, yet current design practices overlook critical factors that determine real-world performance. Through systematic evaluation of diverse architectures and workloads (OPT-7B/70B, Mamba2-2.7B/70B), we reveal three fundamental design principles: (i) static power consumption (DRAM leakage, refresh, and GPU idle power) can dominate the efficiency calculus, causing dynamic-only models to overestimate tokens/s/W by up to 3.85X for realistic deployments (Mamba2-2.7B, batch size 1, 128 input tokens, and 2,048 output tokens); (ii) decoding performance is monotonically non-decreasing with channel count across all evaluated models and workloads, generally plateauing at high channel counts for low-batch workloads; under a fixed-capacity sweep, all models instead share a common near-optimal hierarchy configuration, with substantially larger misconfiguration penalties for attention-based models; (iii) workload mapping strategies provide bounded improvements (up to 14.0%/17.4% kernel-level latency/energy reduction, up to 5.6% end-to-end gain) and are not primary bottlenecks. Significant efficiency gains require system-wide co-optimization. These principles provide design-space guidance for architects designing the next generation of memory-accelerated LLM systems.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/07/2608.04443v1-mcha-a-memory-centric-hierarchical-architecture-for-parallel-sequential-computing",
+      "section": "deep",
+      "title_en": "MCHA: A Memory-Centric Hierarchical Architecture for Parallel-Sequential Computing",
+      "authors": "Daijing Shi, Hongxiao Zhao, Yihan Fu, Zhan Chen, Jiayi Li, Yihang Zhu, Anjunyi Fan, Yaoyu Tao, Yuchao Yang, Bonan Yan",
+      "date": "2026-08-05",
+      "pdf": "https://arxiv.org/pdf/2608.04443v1",
+      "score": "8.0",
+      "evidence": "面向内存受限并行-顺序负载设计的内存中心层次化架构",
+      "tldr": "新兴的多智能体强化学习、神经形态计算等并行-顺序工作负载，因不规则访存集聚于主存而面临全局缓冲饱和与内存带宽瓶颈。MCHA采用内存中心层级架构，以层级通信实现分布式核间路由，降低全局内存压力，并配合事件驱动条件触发编程模型隐藏数据延迟。在MARL等基准上比A100加速153至2456倍，主存访问从96%降至5.44%，28nm工艺下面积仅2.92mm²功耗115.36mW。该工作开源了周期精确模拟器，为并行-顺序计算提供了兼具高性能与编程灵活性的可重构硬件方案。",
+      "tags": "query:cim",
+      "abstract_en": "Emerging workloads, such as Multi-Agent Reinforcement Learning (MARL), large-scale neuromorphic computing, and probabilistic graphical models, intrinsically exhibit parallel-sequential computing patterns. While these tasks demand massive parallelism to achieve high throughput, they are severely bottlenecked by irregular data access patterns centralized to main memory. Consequently, conventional architectures face fundamental limitations when executing these workloads, primarily manifesting as global buffer saturation and memory-bound bottlenecks. To address these challenges, we propose the Memory-Centric Hierarchical Architecture (MCHA), a reconfigurable hardware solution tailored for parallel-sequential execution. MCHA leverages a hierarchical communication strategy that facilitates distributed, inter-core data routing, thereby significantly reducing the bandwidth burden on the global memory. Complementing the hardware, MCHA introduces a novel parallel-sequential programming model that utilizes event-driven conditional triggers to effectively hide data transmission latency within the execution pipeline. We benchmark MCHA against a diverse suite of parallel-sequential tasks, including MARL, motor variable control, and Markov random fields. Validated through our open-source, cycle-accurate simulator, MCHA demonstrates performance speedups ranging from 153.06$\\times$ to 2456.96$\\times$ over NVIDIA A100 GPUs on MARL workloads, while maintaining robust programming flexibility across other application domains. Furthermore, the architecture successfully reduces main memory access from 96% to 5.44%. When synthesized in a 28 nm process, the MCHA implementation occupies an area footprint of 2.92mm$^2$ and consumes 115.36 mW of power at 200 MHz. MCHA is open-sourced at https://github.com/carabdis/MCHA.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/07/2608.03285v1-fovea-physical-implication-aware-wafer-scale-dse-with-decision-domain-guided-cross-fidelity-refinement",
+      "section": "quick",
+      "title_en": "Fovea: Physical-Implication-Aware Wafer-Scale DSE with Decision-Domain-Guided Cross-Fidelity Refinement",
+      "authors": "Jinxi Li, Huizheng Wang, Jinyi Deng, Yang Hu, Shouyi Yin",
+      "date": "2026-08-04",
+      "pdf": "https://arxiv.org/pdf/2608.03285v1",
+      "score": "6.0",
+      "evidence": "物理影响感知的晶圆级设计空间探索，考虑D2D能力等约束，可迁移至三维集成电路设计",
+      "tldr": "现代预硅片设计空间探索面临晶圆级系统的物理耦合与评估成本问题。Fovea提出物理含义感知的空间构建，并引入决策域引导的跨保真度优化，用少量配对校准估计分歧并界定参考最优域。在70个测试组合中全部恢复最优，平均加速4.13倍，最大7.80倍，实现可复用方法而非固定模板。",
+      "tags": "query:cim",
+      "abstract_en": "Modern pre-silicon design-space exploration (DSE) follows a coarse-to-fine workflow: low-cost evaluators screen candidate spaces, while detailed evaluation is reserved for a shortlist. Wafer-scale systems strain both stages. Architecture choices induce coupled physical implications for reticle compliance, wafer tiling, die area, D2D capability, boundary access, and placement, so the design space cannot be treated as an unconstrained Cartesian product. Meanwhile, detailed evaluation is too expensive to cover the resulting space, whereas analytical-to-reference ranking inversions make a fixed shortlist unreliable. We present Fovea, a reusable methodology for workload-specific wafer architecture selection rather than a fixed wafer template. Fovea first performs physical-implication-aware design-space formulation to construct a distinct modeled-feasible space while preserving cross-dimensional trade-offs and applying only evaluator-preserving local reductions. It then performs Decision-Domain-guided cross-fidelity refinement. Paired in-domain calibration estimates workload- and space-specific analytical-to-reference disagreement, which parameterizes reference-consistent performance intervals and induces a Decision Domain for selective designated-reference evaluation. Under a valid domain-wide disagreement bound, this domain contains the designated-reference optimum; the sampling-based implementation is evaluated empirically on exhaustive-reference design spaces. Across ten reference-verifiable design spaces and seven LLM-training workloads, Fovea with 10% paired calibration recovers the exhaustive designated-reference optimum in all 70 evaluated pairs while achieving 4.13x average and 7.80x maximum end-to-end speedup.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/07/2608.04856v1-high-speed-time-series-prediction-using-compact-memristor-circuits-with-adjustable-dynamics",
+      "section": "quick",
+      "title_en": "High-speed time-series prediction using compact memristor circuits with adjustable dynamics",
+      "authors": "Dániel Molnár, János Volk, Tímea Nóra Török, Zoltán Balogh, Nadia Jimenez Olalla, Miklós Csontos, Juerg Leuthold, András Halbritter",
+      "date": "2026-08-05",
+      "pdf": "https://arxiv.org/pdf/2608.04856v1",
+      "score": "6.0",
+      "evidence": "忆阻器电路作为紧凑动态储层计算层",
+      "tldr": "时间序列预测在实时应用中至关重要，但传统模型很难兼顾计算复杂度与处理速度。本文利用Ta2O5非易失性忆阻器作为动态储层计算层，通过电压依赖的开关速度配置编程与遗忘时间。在基准任务中，固定遗忘时间时仅需6个忆阻通道，同时优化遗忘时间时仅需2个通道，即可获得高精度；调节电压还能使处理速度从kHz提升至MHz。这展示了忆阻器动态网络在快速时间信号分析、预测与恢复中的潜力，接近电信数据速率。",
+      "tags": "query:cim",
+      "abstract_en": "Ta$_2$O$_5$ nonvolatile memristors are used as compact, traceable, and well-controllable dynamic reservoir computing layers to perform time-series prediction tasks. The strongly voltage-dependent switching speed is utilized for information processing. It enables the configuration of tailorable programming and forgetting times in response to the positive and negative driving voltage pulses. Benchmarking this framework on time-series prediction problems reveals that the configurable forgetting dynamics enables a high prediction accuracy using a rather small number of memristive input channels. The training is based either on optimizing the output layer using linear regression with fixed forgetting times, or on optimizing the forgetting times as well. In the first case, six memristive channels, while in the second, only two memristive channels are used to demonstrate excellent prediction accuracy for the benchmark tasks. This scheme allows for the tunability of the operating frequency over many orders of magnitude: by adjusting the input voltage levels, the information processing speed of the same memristive dynamic layer can be increased from the kHz to the MHz range while maintaining excellent prediction accuracy. These findings demonstrate the merits of memristor based dynamic networks in the analysis, prediction and recovery of fast temporal signals, approaching telecommunication data rates.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

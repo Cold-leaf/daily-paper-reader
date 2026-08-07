@@ -6,30 +6,32 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-08-05
-- 运行时间：2026-08-05 22:02:06 UTC
+- 最新运行日期：2026-08-07
+- 运行时间：2026-08-07 02:07:15 UTC
 - 运行状态：成功
-- 本次总论文数：3
-- 精读区：3
-- 速读区：0
+- 本次总论文数：4
+- 精读区：2
+- 速读区：2
 
 ### 今日简报（AI）
-今日精读2篇，聚焦模拟存内计算的量化与异构LLM服务。最值得关注：噪声底感知的混合精度非均匀量化，以及面向检索稀疏注意力的近内存处理方案。建议读者优先消化这两项技术对能效和推理延迟的潜在收益。
-- 详情：[/202608/05/README](/202608/05/README)
+今日精读聚焦异构存储与计算架构，重点剖析DRAM-PIM-GPU系统设计原则及内存中心层次架构。最值得关注的是PIM-GPU协同设计的效率优化方向，以及内存中心架构对并行-顺序混合计算的支撑。建议普通读者从高分的DRAM-PIM-GPU设计原则入手，快速把握异构计算核心挑战。
+- 详情：[/202608/07/README](/202608/07/README)
 
 ### 精读区论文标签
-1. [NANQ: Noise-Floor-Aware Mixed-Precision Non-Uniform Quantization for Analog Compute-in-Memory](/202608/05/2608.02700v1-nanq-noise-floor-aware-mixed-precision-non-uniform-quantization-for-analog-compute-in-memory)  
+1. [On Design Principles for Efficient Heterogeneous DRAM-PIM-GPU Systems](/202608/07/2608.04169v1-on-design-principles-for-efficient-heterogeneous-dram-pim-gpu-systems)  
    标签：评分：9.0/10、query:cim
-   evidence：面向模拟存内计算的噪声感知量化
-2. [Heterogeneous LLM Serving with General-Purpose Processing-Near-Memory for Retrieval-Based Sparse Attention](/202608/05/2608.03555v1-heterogeneous-llm-serving-with-general-purpose-processing-near-memory-for-retrieval-based-sparse-attention)  
-   标签：评分：9.0/10、query:cim
-   evidence：直接设计面向LLM服务的近内存处理系统，PNM节点持有KV缓存并执行读取缓存的运算
-3. [AgenticECO: An Agentic Framework for ECO on 3D Integrated Circuits](/202608/05/2608.03738v1-agenticeco-an-agentic-framework-for-eco-on-3d-integrated-circuits)  
+   evidence：基于DRAM的存内处理系统设计原则
+2. [MCHA: A Memory-Centric Hierarchical Architecture for Parallel-Sequential Computing](/202608/07/2608.04443v1-mcha-a-memory-centric-hierarchical-architecture-for-parallel-sequential-computing)  
    标签：评分：8.0/10、query:cim
-   evidence：面向三维集成电路ECO的智能体框架，处理键合级缺陷
+   evidence：面向内存受限并行-顺序负载设计的内存中心层次化架构
 
 ### 速读区论文标签
-- 本次无速读推荐。
+1. [Fovea: Physical-Implication-Aware Wafer-Scale DSE with Decision-Domain-Guided Cross-Fidelity Refinement](/202608/07/2608.03285v1-fovea-physical-implication-aware-wafer-scale-dse-with-decision-domain-guided-cross-fidelity-refinement)  
+   标签：评分：6.0/10、query:cim
+   evidence：物理影响感知的晶圆级设计空间探索，考虑D2D能力等约束，可迁移至三维集成电路设计
+2. [High-speed time-series prediction using compact memristor circuits with adjustable dynamics](/202608/07/2608.04856v1-high-speed-time-series-prediction-using-compact-memristor-circuits-with-adjustable-dynamics)  
+   标签：评分：6.0/10、query:cim
+   evidence：忆阻器电路作为紧凑动态储层计算层
 
 
 <div class="dpr-home-promo-card">

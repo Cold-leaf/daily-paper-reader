@@ -1,0 +1,39 @@
+{
+  "label": "2026-08-08",
+  "date": "2026-08-08",
+  "generated_at": "2026-08-08T20:36:23",
+  "count": 2,
+  "papers": [
+    {
+      "paper_id": "202608/08/2608.03285v1-fovea-physical-implication-aware-wafer-scale-dse-with-decision-domain-guided-cross-fidelity-refinement",
+      "section": "quick",
+      "title_en": "Fovea: Physical-Implication-Aware Wafer-Scale DSE with Decision-Domain-Guided Cross-Fidelity Refinement",
+      "authors": "Jinxi Li, Huizheng Wang, Jinyi Deng, Yang Hu, Shouyi Yin",
+      "date": "2026-08-04",
+      "pdf": "https://arxiv.org/pdf/2608.03285v1",
+      "score": "6.0",
+      "evidence": "面向晶圆级物理影响的架构设计空间探索，涉及die-to-die能力，可迁移至三维集成设计",
+      "tldr": "晶圆级设计空间探索中，物理影响耦合使架构空间无法简单分解，高保真评估又成本高昂。Fovea结合物理感知的空间构建与决策域引导的跨保真度细化，用配对校准估计不一致性，对决策域仅做选择性详评。在10个参考可验证空间和7个LLM训练负载的70个组合中，以10%校准数据恢复所有穷举最优。平均取得4.13倍、最大7.80倍端到端加速，为晶圆架构选择提供了可复用的高效范式。",
+      "tags": "query:cim",
+      "abstract_en": "Modern pre-silicon design-space exploration (DSE) follows a coarse-to-fine workflow: low-cost evaluators screen candidate spaces, while detailed evaluation is reserved for a shortlist. Wafer-scale systems strain both stages. Architecture choices induce coupled physical implications for reticle compliance, wafer tiling, die area, D2D capability, boundary access, and placement, so the design space cannot be treated as an unconstrained Cartesian product. Meanwhile, detailed evaluation is too expensive to cover the resulting space, whereas analytical-to-reference ranking inversions make a fixed shortlist unreliable. We present Fovea, a reusable methodology for workload-specific wafer architecture selection rather than a fixed wafer template. Fovea first performs physical-implication-aware design-space formulation to construct a distinct modeled-feasible space while preserving cross-dimensional trade-offs and applying only evaluator-preserving local reductions. It then performs Decision-Domain-guided cross-fidelity refinement. Paired in-domain calibration estimates workload- and space-specific analytical-to-reference disagreement, which parameterizes reference-consistent performance intervals and induces a Decision Domain for selective designated-reference evaluation. Under a valid domain-wide disagreement bound, this domain contains the designated-reference optimum; the sampling-based implementation is evaluated empirically on exhaustive-reference design spaces. Across ten reference-verifiable design spaces and seven LLM-training workloads, Fovea with 10% paired calibration recovers the exhaustive designated-reference optimum in all 70 evaluated pairs while achieving 4.13x average and 7.80x maximum end-to-end speedup.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/08/2608.05725v1-near-sensor-computing-for-rapid-visuotactile-perception",
+      "section": "quick",
+      "title_en": "Near-sensor Computing for Rapid Visuotactile Perception",
+      "authors": "Zhengying Zhu, Ruilin Zhang, Runze Hu, Chenxi Xiao",
+      "date": "2026-08-06",
+      "pdf": "https://arxiv.org/pdf/2608.05725v1",
+      "score": "6.0",
+      "evidence": "近传感器计算减少数据传输与延迟，与近存计算设计理念相通",
+      "tldr": "视触觉传感器的主机处理带来高功耗和可变调度延迟，限制了机器人快速接触响应。本文提出近传感器计算框架，将光谱泊松求解器做成完全流式的硬件流水线，免除了数据依赖分支与迭代收敛，从而获得确定性延迟。流水线以一百六十六兆赫兹时钟重建一百二十八乘一百二十八触觉深度图，固定延迟仅零点二一一毫秒，误差约为接触峰深的千分之一点七，功耗约三百四十七毫瓦。片上决策可在二十八点三毫秒内触发保护反射，比主机方案快约六倍，实现了准确、节能、确定的近传感器触觉感知。",
+      "tags": "query:cim",
+      "abstract_en": "Visuotactile sensors reconstruct dense contact geometry from measured surface gradients, but host-based processing increases power consumption and introduces data-transfer delays and variable scheduling latency, limiting the sensing and response speed of robotic systems. To address these limitations, we implement a near-sensor computing framework that includes a spectral Poisson solver as a fully streaming hardware pipeline. The computational core logic has an estimated power consumption of 347 mW and achieves high throughput without data-dependent branching or iterative convergence, thereby providing deterministic latency. Operating at 166 MHz, the pipeline produces the first depth value of each 128x128 frame 35,107 cycles after receiving the first input pixel, corresponding to a fixed latency of 0.211 ms. Across 15 contact geometries, the reconstructed depths differ from a double-precision reference by 0.17 % of the peak contact depth. On-chip decisions based on these reconstructions close a robot protective reflex loop in 28.3 +/- 4.9 ms, compared with 169.9 +/- 27.8 ms for an equivalent host-based loop using the same actuator. These results demonstrate that near-sensor reconstruction can provide accurate, energy-efficient, and deterministic tactile geometry on timescales suitable for rapid robotic contact responses.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

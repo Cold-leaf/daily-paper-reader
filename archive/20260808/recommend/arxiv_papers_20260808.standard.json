@@ -1,0 +1,94 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-08T20:34:07.225784+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2608.03285v1",
+      "source": "arxiv",
+      "title": "Fovea: Physical-Implication-Aware Wafer-Scale DSE with Decision-Domain-Guided Cross-Fidelity Refinement",
+      "abstract": "Modern pre-silicon design-space exploration (DSE) follows a coarse-to-fine workflow: low-cost evaluators screen candidate spaces, while detailed evaluation is reserved for a shortlist. Wafer-scale systems strain both stages. Architecture choices induce coupled physical implications for reticle compliance, wafer tiling, die area, D2D capability, boundary access, and placement, so the design space cannot be treated as an unconstrained Cartesian product. Meanwhile, detailed evaluation is too expensive to cover the resulting space, whereas analytical-to-reference ranking inversions make a fixed shortlist unreliable. We present Fovea, a reusable methodology for workload-specific wafer architecture selection rather than a fixed wafer template. Fovea first performs physical-implication-aware design-space formulation to construct a distinct modeled-feasible space while preserving cross-dimensional trade-offs and applying only evaluator-preserving local reductions. It then performs Decision-Domain-guided cross-fidelity refinement. Paired in-domain calibration estimates workload- and space-specific analytical-to-reference disagreement, which parameterizes reference-consistent performance intervals and induces a Decision Domain for selective designated-reference evaluation. Under a valid domain-wide disagreement bound, this domain contains the designated-reference optimum; the sampling-based implementation is evaluated empirically on exhaustive-reference design spaces. Across ten reference-verifiable design spaces and seven LLM-training workloads, Fovea with 10% paired calibration recovers the exhaustive designated-reference optimum in all 70 evaluated pairs while achieving 4.13x average and 7.80x maximum end-to-end speedup.",
+      "authors": [
+        "Jinxi Li",
+        "Huizheng Wang",
+        "Jinyi Deng",
+        "Yang Hu",
+        "Shouyi Yin"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-08-04T08:00:29+00:00",
+      "link": "https://arxiv.org/pdf/2608.03285v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "wafer-scale physical-implication-aware design-space exploration with die-to-die capabilities, transferable to 3D integration design",
+      "llm_evidence_cn": "面向晶圆级物理影响的架构设计空间探索，涉及die-to-die能力，可迁移至三维集成设计",
+      "llm_evidence": "面向晶圆级物理影响的架构设计空间探索，涉及die-to-die能力，可迁移至三维集成设计",
+      "canonical_evidence": "面向晶圆级物理影响的架构设计空间探索，涉及die-to-die能力，可迁移至三维集成设计",
+      "llm_tldr_en": "Introduces a reusable methodology for workload-specific wafer-scale architecture selection that accounts for reticle, tiling, die area, and D2D capability physical implications; useful for 3D physical integration exploration.",
+      "llm_tldr_cn": "针对晶圆级系统架构设计空间探索中物理影响耦合与评估代价高的问题，论文提出Fovea方法，利用决策域引导的跨保真度细化，在低代价评估与详细评估间建立可靠筛选流程。该方法显式考虑掩模版符合性、晶圆拼接、裸片面积、die-to-die能力等物理约束，并为特定工作负载选择晶圆级架构。它可迁移到三维集成设计的早期物理感知探索，但对存内计算与混合键合堆叠仅提供方法学借鉴。",
+      "llm_tldr": "针对晶圆级系统架构设计空间探索中物理影响耦合与评估代价高的问题，论文提出Fovea方法，利用决策域引导的跨保真度细化，在低代价评估与详细评估间建立可靠筛选流程。该方法显式考虑掩模版符合性、晶圆拼接、裸片面积、die-to-die能力等物理约束，并为特定工作负载选择晶圆级架构。它可迁移到三维集成设计的早期物理感知探索，但对存内计算与混合键合堆叠仅提供方法学借鉴。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "3D integrated circuit design",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2608.05725v1",
+      "source": "arxiv",
+      "title": "Near-sensor Computing for Rapid Visuotactile Perception",
+      "abstract": "Visuotactile sensors reconstruct dense contact geometry from measured surface gradients, but host-based processing increases power consumption and introduces data-transfer delays and variable scheduling latency, limiting the sensing and response speed of robotic systems. To address these limitations, we implement a near-sensor computing framework that includes a spectral Poisson solver as a fully streaming hardware pipeline. The computational core logic has an estimated power consumption of 347 mW and achieves high throughput without data-dependent branching or iterative convergence, thereby providing deterministic latency. Operating at 166 MHz, the pipeline produces the first depth value of each 128x128 frame 35,107 cycles after receiving the first input pixel, corresponding to a fixed latency of 0.211 ms. Across 15 contact geometries, the reconstructed depths differ from a double-precision reference by 0.17 % of the peak contact depth. On-chip decisions based on these reconstructions close a robot protective reflex loop in 28.3 +/- 4.9 ms, compared with 169.9 +/- 27.8 ms for an equivalent host-based loop using the same actuator. These results demonstrate that near-sensor reconstruction can provide accurate, energy-efficient, and deterministic tactile geometry on timescales suitable for rapid robotic contact responses.",
+      "authors": [
+        "Zhengying Zhu",
+        "Ruilin Zhang",
+        "Runze Hu",
+        "Chenxi Xiao"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-08-06T08:08:45+00:00",
+      "link": "https://arxiv.org/pdf/2608.05725v1",
+      "tags": [
+        "keyword:cim",
+        "query:cim"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Near-sensor computing reduces data transfer and latency, analogous design principle to near-memory computing",
+      "llm_evidence_cn": "近传感器计算减少数据传输与延迟，与近存计算设计理念相通",
+      "llm_evidence": "近传感器计算减少数据传输与延迟，与近存计算设计理念相通",
+      "canonical_evidence": "近传感器计算减少数据传输与延迟，与近存计算设计理念相通",
+      "llm_tldr_en": "Presents a near-sensor computing framework with a fully streaming spectral Poisson solver for visuotactile sensors, achieving high throughput, deterministic latency, and 347 mW estimated power.",
+      "llm_tldr_cn": "视触觉传感器需要重建密集接触几何，但主机端处理导致功耗高、传输延迟和调度延迟可变。本文提出近传感器计算框架，将谱泊松求解器实现为全流式硬件流水线，利用无数据依赖分支和免迭代收敛获得确定性延迟。流水线在166 MHz下估计功耗为347 mW，收到首像素后35107个周期即产出首帧深度值，大幅降低数据搬运开销。该工作体现了近数据计算对实时感知系统的价值。",
+      "llm_tldr": "视触觉传感器需要重建密集接触几何，但主机端处理导致功耗高、传输延迟和调度延迟可变。本文提出近传感器计算框架，将谱泊松求解器实现为全流式硬件流水线，利用无数据依赖分支和免迭代收敛获得确定性延迟。流水线在166 MHz下估计功耗为347 mW，收到首像素后35107个周期即产出首帧深度值，大幅降低数据搬运开销。该工作体现了近数据计算对实时感知系统的价值。",
+      "llm_tags": [
+        "query:cim"
+      ],
+      "matched_query_tag": "query:cim",
+      "matched_query_text": "near-memory computing design",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

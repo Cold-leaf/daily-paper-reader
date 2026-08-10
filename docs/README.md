@@ -41,17 +41,17 @@
 <section class="dpr-home-dashboard-card dpr-home-report-card">
   <div class="dpr-home-dashboard-header">
     <div>
-      <span class="dpr-home-dashboard-kicker">2026-07-12 ~ 2026-08-10</span>
+      <span class="dpr-home-dashboard-kicker">2026-08-10</span>
       <h3 class="dpr-home-dashboard-title">今日汇总</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">共 7 篇</strong>
+    <strong class="dpr-home-dashboard-count">共 5 篇</strong>
   </div>
   <dl class="dpr-home-dashboard-stats">
     <div class="dpr-home-dashboard-stat"><dt>累计更新</dt><dd>1 次</dd></div>
-    <div class="dpr-home-dashboard-stat"><dt>精读</dt><dd>4</dd></div>
+    <div class="dpr-home-dashboard-stat"><dt>精读</dt><dd>2</dd></div>
     <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>3</dd></div>
   </dl>
-  <p class="dpr-home-dashboard-body">最近更新：2026-08-10 03:08:59 UTC<br>状态：成功</p>
+  <p class="dpr-home-dashboard-body">最近更新：2026-08-10 20:01:24 UTC<br>状态：成功</p>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-brief-card">
   <div class="dpr-home-dashboard-header">
@@ -62,7 +62,9 @@
     <strong class="dpr-home-dashboard-count">AI</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<p>今日精读两篇高分论文，聚焦3D IC闭环评估与存内计算全系统模拟器。最值得关注的是CLIP-3D对性能与物理约束的联合评测，以及PIMID对存内计算系统细节的完整建模。建议普通读者优先从这两篇入手，理解3D集成与存内计算的前沿评估方法。</p>
+<p>今日5篇论文聚焦异构计算与物理仿真，精读2篇高价值工作。</p>
+<p>最值得关注异构DRAM-PIM-GPU系统设计原则（9分）与模拟存内计算噪声感知量化（8分）。</p>
+<p>建议优先精读这两篇，可快速把握存算一体与混合架构的前沿方向。</p>
   </div>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-deep-card">
@@ -71,12 +73,12 @@
       <span class="dpr-home-dashboard-kicker">今日累计</span>
       <h3 class="dpr-home-dashboard-title">精读推荐</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">4 篇</strong>
+    <strong class="dpr-home-dashboard-count">2 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="CLIP-3D: Closed-Loop Evaluation of Performance and Physical Constraints for 3D ICs">CLIP-3D: Closed-Loop Evaluation of Performance and Physical Constraints for 3D ICs</span></li><li><span class="dpr-home-dashboard-paper-title" title="PIMID: A Full-System Simulator with Intricacy and Diversity for Processing-in-Memory">PIMID: A Full-System Simulator with Intricacy and Diversity for Processing-in-Memory</span></li><li><span class="dpr-home-dashboard-paper-title" title="Recursive transformers for semiconductor thermo-mechanical reliability">Recursive transformers for semiconductor thermo-mechanical reliability</span></li></ul>
+<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="On Design Principles for Efficient Heterogeneous DRAM-PIM-GPU Systems">On Design Principles for Efficient Heterogeneous DRAM-PIM-GPU Systems</span></li><li><span class="dpr-home-dashboard-paper-title" title="NANQ: Noise-Floor-Aware Mixed-Precision Non-Uniform Quantization for Analog Compute-in-Memory">NANQ: Noise-Floor-Aware Mixed-Precision Non-Uniform Quantization for Analog Compute-in-Memory</span></li></ul>
   </div>
-  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">thermal-gnn <strong>3</strong></span><span class="dpr-home-dashboard-tag">cim <strong>1</strong></span></div>
+  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">cim <strong>2</strong></span></div>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-skim-card">
   <div class="dpr-home-dashboard-header">
@@ -87,9 +89,9 @@
     <strong class="dpr-home-dashboard-count">3 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="ARMOR-IMC: Adaptive Resource Mapping for Operational Robustness via Secure In-Memory Computing">ARMOR-IMC: Adaptive Resource Mapping for Operational Robustness via Secure In-Memory Computing</span></li><li><span class="dpr-home-dashboard-paper-title" title="LLMET: Enabling Cross-Layer Evaluation of Emerging M3D Memories for Energy-Efficient LLM Serving">LLMET: Enabling Cross-Layer Evaluation of Emerging M3D Memories for Energy-Efficient LLM Serving</span></li><li><span class="dpr-home-dashboard-paper-title" title="LEAP: A Self-Supervised Per-Cycle Toggle Propagation Model Supports Fast, Transferable, and Early Analysis of Layout Power">LEAP: A Self-Supervised Per-Cycle Toggle Propagation Model Supports Fast, Transferable, and Early Analysis of Layout Power</span></li></ul>
+<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="Thermodynamically consistent initialization of the Maxwell--Cattaneo---Vernotte heat conduction model: Analytical solutions and engineering applications">Thermodynamically consistent initialization of the Maxwell--Cattaneo---Vernotte heat conduction model: Analytical solutions and engineering applications</span></li><li><span class="dpr-home-dashboard-paper-title" title="A Physics-Informed Hybrid Neural Operator for Transient Magnetization Prediction in Power Magnetics">A Physics-Informed Hybrid Neural Operator for Transient Magnetization Prediction in Power Magnetics</span></li><li><span class="dpr-home-dashboard-paper-title" title="Reduced Basis Method for Simulating Thermal Transients in Electric Machines">Reduced Basis Method for Simulating Thermal Transients in Electric Machines</span></li></ul>
   </div>
-  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">cim <strong>2</strong></span><span class="dpr-home-dashboard-tag">thermal-gnn <strong>1</strong></span></div>
+  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">thermal-gnn <strong>3</strong></span></div>
 </section>
 </div>
 

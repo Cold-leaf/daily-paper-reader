@@ -1,0 +1,89 @@
+{
+  "date": "20260810",
+  "date_label": "",
+  "generated_at": "2026-08-10 20:01:24 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2608.04169v1",
+      "route": "202608/10/2608.04169v1-on-design-principles-for-efficient-heterogeneous-dram-pim-gpu-systems",
+      "title": "On Design Principles for Efficient Heterogeneous DRAM-PIM-GPU Systems",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "cim"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "DRAM存内处理与GPU系统设计，关注PIM架构能效与解码性能",
+      "first_seen_at": "2026-08-10 20:01:24 UTC",
+      "updated_at": "2026-08-10 20:01:24 UTC"
+    },
+    {
+      "paper_id": "2608.02700v1",
+      "route": "202608/10/2608.02700v1-nanq-noise-floor-aware-mixed-precision-non-uniform-quantization-for-analog-compute-in-memory",
+      "title": "NANQ: Noise-Floor-Aware Mixed-Precision Non-Uniform Quantization for Analog Compute-in-Memory",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "cim"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "面向存算一体架构的噪声感知混合精度量化，提升能效",
+      "first_seen_at": "2026-08-10 20:01:24 UTC",
+      "updated_at": "2026-08-10 20:01:24 UTC"
+    },
+    {
+      "paper_id": "2608.03495v1",
+      "route": "202608/10/2608.03495v1-thermodynamically-consistent-initialization-of-the-maxwell--cattaneo---vernotte-heat-conduction-model-analytical-solutions-and-engineering-applications",
+      "title": "Thermodynamically consistent initialization of the Maxwell--Cattaneo---Vernotte heat conduction model: Analytical solutions and engineering applications",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "thermal-gnn"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "热传导模型与温度场模拟，可应用于微电子热建模",
+      "first_seen_at": "2026-08-10 20:01:24 UTC",
+      "updated_at": "2026-08-10 20:01:24 UTC"
+    },
+    {
+      "paper_id": "2608.02965v1",
+      "route": "202608/10/2608.02965v1-a-physics-informed-hybrid-neural-operator-for-transient-magnetization-prediction-in-power-magnetics",
+      "title": "A Physics-Informed Hybrid Neural Operator for Transient Magnetization Prediction in Power Magnetics",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "thermal-gnn"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "面向瞬态物理量预测的物理信息神经算子，可迁移至数据驱动热预测",
+      "first_seen_at": "2026-08-10 20:01:24 UTC",
+      "updated_at": "2026-08-10 20:01:24 UTC"
+    },
+    {
+      "paper_id": "2608.05904v1",
+      "route": "202608/10/2608.05904v1-reduced-basis-method-for-simulating-thermal-transients-in-electric-machines",
+      "title": "Reduced Basis Method for Simulating Thermal Transients in Electric Machines",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "thermal-gnn"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "利用约化基方法进行瞬态热模拟，并与有限元及集总参数热网络进行精度对比",
+      "first_seen_at": "2026-08-10 20:01:24 UTC",
+      "updated_at": "2026-08-10 20:01:24 UTC"
+    }
+  ]
+}

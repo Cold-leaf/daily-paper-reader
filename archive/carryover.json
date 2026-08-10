@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-08-10T03:05:28.625184+00:00",
-  "updated_date": "20260712-20260810",
+  "generated_at": "2026-08-10T19:57:48.445441+00:00",
+  "updated_date": "20260810",
   "carryover_days": 9,
   "tag_states": {
     "cim": {
@@ -9,7 +9,7 @@
       "items": []
     },
     "thermal-gnn": {
-      "updated_date": "20260712-20260810",
+      "updated_date": "20260810",
       "carryover_days": 9,
       "items": []
     }

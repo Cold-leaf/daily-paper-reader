@@ -1,0 +1,121 @@
+{
+  "date": "20260712-20260810",
+  "date_label": "2026-07-12 ~ 2026-08-10",
+  "generated_at": "2026-08-10 03:08:59 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2607.12788v1",
+      "route": "20260712-20260810/2607.12788v1-clip-3d-closed-loop-evaluation-of-performance-and-physical-constraints-for-3d-ics",
+      "title": "CLIP-3D: Closed-Loop Evaluation of Performance and Physical Constraints for 3D ICs",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "thermal-gnn"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "面向三维集成电路的布局驱动热效应闭环评估",
+      "first_seen_at": "2026-08-10 03:08:59 UTC",
+      "updated_at": "2026-08-10 03:08:59 UTC"
+    },
+    {
+      "paper_id": "2607.24196v1",
+      "route": "20260712-20260810/2607.24196v1-pimid-a-full-system-simulator-with-intricacy-and-diversity-for-processing-in-memory",
+      "title": "PIMID: A Full-System Simulator with Intricacy and Diversity for Processing-in-Memory",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "cim"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "面向存内处理的全系统仿真器，支持多种存储技术与执行模型",
+      "first_seen_at": "2026-08-10 03:08:59 UTC",
+      "updated_at": "2026-08-10 03:08:59 UTC"
+    },
+    {
+      "paper_id": "2607.27251v1",
+      "route": "20260712-20260810/2607.27251v1-recursive-transformers-for-semiconductor-thermo-mechanical-reliability",
+      "title": "Recursive transformers for semiconductor thermo-mechanical reliability",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "thermal-gnn"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "用递归Transformer代理半导体热-机械分析，替代昂贵仿真，契合机器学习热评估需求",
+      "first_seen_at": "2026-08-10 03:08:59 UTC",
+      "updated_at": "2026-08-10 03:08:59 UTC"
+    },
+    {
+      "paper_id": "2608.01257v1",
+      "route": "20260712-20260810/2608.01257v1-active-passivation-tunes-hotspot-locations-in-gan-transistors-with-in-situ-thermal-mechanical-visualization",
+      "title": "Active Passivation Tunes Hotspot Locations in GaN Transistors with In Situ Thermal Mechanical Visualization",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "thermal-gnn"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "针对GaN晶体管热耗散的热点调控；多物理热模拟",
+      "first_seen_at": "2026-08-10 03:08:59 UTC",
+      "updated_at": "2026-08-10 03:08:59 UTC"
+    },
+    {
+      "paper_id": "2607.10938v1",
+      "route": "20260712-20260810/2607.10938v1-armor-imc-adaptive-resource-mapping-for-operational-robustness-via-secure-in-memory-computing",
+      "title": "ARMOR-IMC: Adaptive Resource Mapping for Operational Robustness via Secure In-Memory Computing",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "cim"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "基于SOT-MTJ的存内计算架构，面向能效DNN处理",
+      "first_seen_at": "2026-08-10 03:08:59 UTC",
+      "updated_at": "2026-08-10 03:08:59 UTC"
+    },
+    {
+      "paper_id": "2607.26491v1",
+      "route": "20260712-20260810/2607.26491v1-llmet-enabling-cross-layer-evaluation-of-emerging-m3d-memories-for-energy-efficient-llm-serving",
+      "title": "LLMET: Enabling Cross-Layer Evaluation of Emerging M3D Memories for Energy-Efficient LLM Serving",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "cim"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "面向LLM服务能效的M3D存储器跨层评估",
+      "first_seen_at": "2026-08-10 03:08:59 UTC",
+      "updated_at": "2026-08-10 03:08:59 UTC"
+    },
+    {
+      "paper_id": "2608.01946v1",
+      "route": "20260712-20260810/2608.01946v1-leap-a-self-supervised-per-cycle-toggle-propagation-model-supports-fast-transferable-and-early-analysis-of-layout-power",
+      "title": "LEAP: A Self-Supervised Per-Cycle Toggle Propagation Model Supports Fast, Transferable, and Early Analysis of Layout Power",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "thermal-gnn"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "面向电路仿真的图变换器，可迁移至热建模",
+      "first_seen_at": "2026-08-10 03:08:59 UTC",
+      "updated_at": "2026-08-10 03:08:59 UTC"
+    }
+  ]
+}

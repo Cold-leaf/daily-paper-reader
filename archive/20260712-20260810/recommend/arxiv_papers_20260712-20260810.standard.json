@@ -1,0 +1,300 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-10T03:05:28.623959+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 4,
+    "deep_cap": 6,
+    "deep_selected": 4,
+    "quick_candidates": 3,
+    "quick_skim_target": 11,
+    "quick_selected": 3
+  },
+  "deep_dive": [
+    {
+      "id": "2607.12788v1",
+      "source": "arxiv",
+      "title": "CLIP-3D: Closed-Loop Evaluation of Performance and Physical Constraints for 3D ICs",
+      "abstract": "3D integration packs more power into a smaller footprint, so a candidate design's actual throughput depends on its layout: which macro sits on which tier, where the hot spot lands, and how cache geometry maps to access cycles. Architectural simulators like gem5 report IPC under idealized timing. They do not produce the per-block power map, the cache cycle counts, or the 3D layout that decide the realized billion-instructions-per-second (BIPS), so early-stage 3D-IC exploration selects designs without accounting for the effects that decide whether they throttle on silicon. We present CLIP-3D, a shift-left flow that exposes 3D layout-driven thermal, wire, and cache effects to early-stage architectural exploration before any sign-off tool is invoked. The first stage lifts an architectural configuration into a physical block representation: McPAT for per-block dynamic and leakage power, CACTI for cache geometry and access cycles, and a HotSpot-compatible 3D stack discretization. The second stage runs an analytical 3D thermal-aware floorplanner over that representation. The floorplanner objective embeds a closed-form sustained-frequency expression derived from the linearity of HotSpot's steady-state operator and the standard CMOS power-frequency decomposition. Cross-tier macro assignment and in-plane placement are co-optimized for the realized BIPS rather than for a half-perimeter wirelength (HPWL)-plus-temperature surrogate with hand-tuned weights.",
+      "authors": [
+        "Shuo Ren",
+        "Libo Shen",
+        "Yaohui Han",
+        "Leilei Jin",
+        "Chenghan Wang",
+        "Zhen Zhuang",
+        "Rongliang Fu",
+        "Bei Yu",
+        "Tsung-Yi Ho"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-07-14T14:02:22+00:00",
+      "link": "https://arxiv.org/pdf/2607.12788v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "closed-loop 3D IC evaluation with layout-driven thermal effects",
+      "llm_evidence_cn": "面向三维集成电路的布局驱动热效应闭环评估",
+      "llm_evidence": "面向三维集成电路的布局驱动热效应闭环评估",
+      "canonical_evidence": "面向三维集成电路的布局驱动热效应闭环评估",
+      "llm_tldr_en": "CLIP-3D is a shift-left flow that brings 3D layout-driven thermal, wire, and cache effects into early architectural exploration, closing the loop between performance and physical constraints before sign-off. It reveals hotspots and throttle risks, improving design decisions for 3D ICs.",
+      "llm_tldr_cn": "三维集成在提升集成度的同时带来严重的热和布局耦合问题，而传统架构模拟器无法在早期反映这些物理约束。为此提出CLIP-3D，一种shift-left流程，在架构探索阶段显式引入3D布局驱动的热、布线和缓存效应，实现性能与物理约束的闭环评估。它能更早暴露热点分布与潜在降频风险，指导三维芯片的布局与缓存映射决策，提高早期设计选择的可靠性。",
+      "llm_tldr": "三维集成在提升集成度的同时带来严重的热和布局耦合问题，而传统架构模拟器无法在早期反映这些物理约束。为此提出CLIP-3D，一种shift-left流程，在架构探索阶段显式引入3D布局驱动的热、布线和缓存效应，实现性能与物理约束的闭环评估。它能更早暴露热点分布与潜在降频风险，指导三维芯片的布局与缓存映射决策，提高早期设计选择的可靠性。",
+      "llm_tags": [
+        "query:thermal-gnn"
+      ],
+      "matched_query_tag": "query:thermal-gnn",
+      "matched_query_text": "thermal modeling and simulation of three-dimensional stacked chips",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.24196v1",
+      "source": "arxiv",
+      "title": "PIMID: A Full-System Simulator with Intricacy and Diversity for Processing-in-Memory",
+      "abstract": "Processing-in-Memory addresses the memory wall by co-locating computation with memory, but because real PIM hardware remains scarce, simulation is the primary way to explore the PIM design space. Yet existing PIM simulators each cover only part of that space: they typically model a single memory technology, fix processing elements at one level of the memory hierarchy, support a single execution model, and stop at the device boundary. We therefore present PIMID, an execution- and trace-driven full-system simulator that closes these gaps in one tool. PIMID supports both the shared-memory and message-passing execution models, running annotated parallel code in OpenMP and MPI side by side across eleven memory technologies (seven DRAM standards, SRAM, and three non-volatile memories); it places PEs anywhere from subarrays to logic dies, sweeps PE count and core-model fidelity, and prices the in-memory network per technology from measured congestion. Its single-process host-device co-simulation resolves an end-to-end time and energy breakdown (host preparation, device compute, and explicit boundary charges) that device-only tools cannot produce. Across the resulting dual-execution-model dataset, PIMID shows that the memory technology alone moves execution time by more than an order of magnitude and that the best host main memory is not the best PIM substrate; that regular kernels scale superlinearly with PE count as in-memory bandwidth co-scales with compute; that graph traversal under message-passing hits a collective-communication wall absent under shared memory; and that at full-system scope the offload trades time for energy only on the bandwidth-class memory: shared-memory offload saves energy on HBM3 while a 16-core host keeps every end-to-end time win. PIMID's plugin interfaces let new engines and models be added through standardized YAML specifications as PIM technology evolves.",
+      "authors": [
+        "Yuan He",
+        "Masaaki Kondo",
+        "Galen M. Shipman",
+        "Jered B. Dominguez-Trujillo",
+        "Shigeki Tomishima",
+        "Kazi Asifuzzaman"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-07-27T09:14:57+00:00",
+      "link": "https://arxiv.org/pdf/2607.24196v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "processing-in-memory full-system simulator for PIM design space exploration",
+      "llm_evidence_cn": "面向存内处理的全系统仿真器，支持多种存储技术与执行模型",
+      "llm_evidence": "面向存内处理的全系统仿真器，支持多种存储技术与执行模型",
+      "canonical_evidence": "面向存内处理的全系统仿真器，支持多种存储技术与执行模型",
+      "llm_tldr_en": "Existing PIM simulators cover only parts of the design space. We present PIMID, a full-system simulator supporting shared-memory and message-passing models across eleven memory technologies, enabling comprehensive exploration of processing-in-memory systems.",
+      "llm_tldr_cn": "真实存内处理硬件稀缺，现有PIM仿真器各覆盖部分设计空间，难以统一探索多种存储技术、执行模型和处理单元层次。为此本文提出全系统仿真器PIMID，支持共享内存与消息传递两种执行模型，并能横跨十一种存储技术运行注解并行代码。实验表明PIMID可在同一工具中并行模拟OpenMP与MPI程序，填补了现有PIM仿真工具的空白。该平台为存内计算架构的设计空间探索提供了完整而多样的仿真基础。",
+      "llm_tldr": "真实存内处理硬件稀缺，现有PIM仿真器各覆盖部分设计空间，难以统一探索多种存储技术、执行模型和处理单元层次。为此本文提出全系统仿真器PIMID，支持共享内存与消息传递两种执行模型，并能横跨十一种存储技术运行注解并行代码。实验表明PIMID可在同一工具中并行模拟OpenMP与MPI程序，填补了现有PIM仿真工具的空白。该平台为存内计算架构的设计空间探索提供了完整而多样的仿真基础。",
+      "llm_tags": [
+        "query:cim:composite"
+      ],
+      "matched_query_tag": "query:cim:composite",
+      "matched_query_text": "Papers central to 存算一体，主要关注基于混合键合的三维堆叠的近存计算, especially work that connects or combines: compute-in-memory architecture; hybrid bonding 3D integration; 3D stacking memory technology; near-memory computing design; processing-in-memory systems; 3D integrated circuit design; What are the key benefits of hybrid bonding for 3D stacked near memory computing?; How does compute in memory architecture improve energy efficiency?; Design challenges of 3D stacking for near memory computing systems.",
+      "matched_requirement_id": "req-composite-cim",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.27251v1",
+      "source": "arxiv",
+      "title": "Recursive transformers for semiconductor thermo-mechanical reliability",
+      "abstract": "Transformer-based surrogate models are increasingly used to replace expensive first-principles simulation in engineering design. But conventional transformer architectures are often over parameterized for the small, low-dimensional datasets typical of engineering design spaces, where large simulation data is expensive to generate. Under these conditions, excess parameter capacity leads to overfitting rather than improved accuracy, while also incurring unnecessary memory and compute overhead. This motivates a shift towards architectures that focus on additional compute rather than additional learnable parameters. This paper presents a hardware-aware evaluation of three recursive transformer paradigms for surrogate thermo-mechanical analysis of advanced packages: a)Tiny Recursive Model, b) our proposed Depth Recursive transformer, c) and a simple recursive transformer. We systematically compare their predictive performance (Recall, Mean Reciprocal Rank), parameter count, computational complexity (FLOPs), providing practical design guidelines for selecting recursive transformer architectures under resource-constrained scenarios. We validate this principle on two low-dimensional engineering prediction tasks: 1) thermo-mechanical reliability analysis of advanced semiconductor packages, where stress and warpage from thermal cycling must be evaluated repeatedly across a design-of-experiments sweep under costly finite element analysis (FEA). 2) Laplace PDE iterative numerical solver for capacitance field. Overall, recursive weight-sharing transformers provide an effective and generalizable trade-off between prediction accuracy, parameter efficiency, and computational cost for small data engineering surrogate modeling.",
+      "authors": [
+        "Kart-leong Lim"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI"
+      ],
+      "published": "2026-07-28T13:58:37+00:00",
+      "link": "https://arxiv.org/pdf/2607.27251v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Transformer surrogate models for semiconductor thermo-mechanical reliability, replacing expensive simulation",
+      "llm_evidence_cn": "用递归Transformer代理半导体热-机械分析，替代昂贵仿真，契合机器学习热评估需求",
+      "llm_evidence": "用递归Transformer代理半导体热-机械分析，替代昂贵仿真，契合机器学习热评估需求",
+      "canonical_evidence": "用递归Transformer代理半导体热-机械分析，替代昂贵仿真，契合机器学习热评估需求",
+      "llm_tldr_en": "Evaluates recursive transformer variants as hardware-aware surrogates for semiconductor thermo-mechanical reliability, addressing overparameterization on small engineering datasets. Shared-weight recurrences cut memory and compute while preserving accuracy, enabling efficient chip thermal-stress evaluation.",
+      "llm_tldr_cn": "针对半导体热-机械仿真昂贵且工程数据集较小、标准Transformer易过拟合的问题，该文提出并评估三种递归Transformer代理模型。这些模型通过共享参数增加计算而非参数数量，在硬件感知条件下比较了替代仿真时的精度与开销。结果显示递归Transformer能保持代理预测精度，同时显著降低内存与算力需求。该工作为芯片热-机械可靠性评估提供了高效替代路径，支持在设计空间快速迭代。",
+      "llm_tldr": "针对半导体热-机械仿真昂贵且工程数据集较小、标准Transformer易过拟合的问题，该文提出并评估三种递归Transformer代理模型。这些模型通过共享参数增加计算而非参数数量，在硬件感知条件下比较了替代仿真时的精度与开销。结果显示递归Transformer能保持代理预测精度，同时显著降低内存与算力需求。该工作为芯片热-机械可靠性评估提供了高效替代路径，支持在设计空间快速迭代。",
+      "llm_tags": [
+        "query:thermal-gnn"
+      ],
+      "matched_query_tag": "query:thermal-gnn",
+      "matched_query_text": "thermal evaluation of integrated circuits using machine learning and simulation data",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.01257v1",
+      "source": "arxiv",
+      "title": "Active Passivation Tunes Hotspot Locations in GaN Transistors with In Situ Thermal Mechanical Visualization",
+      "abstract": "Efficient thermal dissipation has become critical in emerging electronic devices. However, most existing studies have primarily focused on engineering heat dissipation pathways, largely overlooking the intrinsic behavior of the heat source itself. We demonstrate an active passivation technology that proactively tunes hotspot locations in GaN transistors. By adjusting the active passivation layer length, the hotspot is shifted from the gate edge to the drain-side AP edge, establishing a clear one-to-one spatial correlation. In-situ thermal-mechanical visualization via micro-Raman thermography, combined with multi-physics electro-thermal-mechanical simulations, directly captures the spatial redistribution of both temperature and thermal stress profiles. Electrical analysis confirms that this hotspot migration is driven by the spatial shift of the peak electric field and localized Joule heating. This proactive heat-source tuning strategy provides critical design guidelines for power electronics.",
+      "authors": [
+        "Yicheng Wei",
+        "Sihang Liu",
+        "Zimu Jiang",
+        "jinquan Zhang",
+        "Zifeng Huang",
+        "Han Yang",
+        "Yang He",
+        "Jin Wei",
+        "Zhe Cheng"
+      ],
+      "primary_category": "physics.app-ph",
+      "categories": [
+        "physics.app-ph",
+        "cond-mat.mes-hall"
+      ],
+      "published": "2026-08-02T14:06:53+00:00",
+      "link": "https://arxiv.org/pdf/2608.01257v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "hotspot tuning for heat dissipation in GaN transistors; multi-physics thermal simulation",
+      "llm_evidence_cn": "针对GaN晶体管热耗散的热点调控；多物理热模拟",
+      "llm_evidence": "针对GaN晶体管热耗散的热点调控；多物理热模拟",
+      "canonical_evidence": "针对GaN晶体管热耗散的热点调控；多物理热模拟",
+      "llm_tldr_en": "Demonstrates active passivation to tune hotspot locations in GaN transistors; combines micro-Raman thermography with multi-physics electro-thermal-mechanical simulations to capture temperature and stress redistribution, offering a new route for chip thermal management.",
+      "llm_tldr_cn": "高效散热已成为新兴电子器件面临的关键问题，但现有研究多关注散热路径工程，忽视了热源本身的行为。该文提出有源钝化技术，通过调节钝化层长度主动调控GaN晶体管中的热点位置，使其从栅极边缘移至漏极侧钝化边缘。结合微拉曼热成像原位热机械可视化与多物理场电-热-机械仿真，直接捕捉温度与应力场的空间再分布，为芯片热管理提供了新思路。该工作实现了热点空间位置的一一对应调控，对高功率器件散热设计有重要参考价值。",
+      "llm_tldr": "高效散热已成为新兴电子器件面临的关键问题，但现有研究多关注散热路径工程，忽视了热源本身的行为。该文提出有源钝化技术，通过调节钝化层长度主动调控GaN晶体管中的热点位置，使其从栅极边缘移至漏极侧钝化边缘。结合微拉曼热成像原位热机械可视化与多物理场电-热-机械仿真，直接捕捉温度与应力场的空间再分布，为芯片热管理提供了新思路。该工作实现了热点空间位置的一一对应调控，对高功率器件散热设计有重要参考价值。",
+      "llm_tags": [
+        "query:thermal-gnn"
+      ],
+      "matched_query_tag": "query:thermal-gnn",
+      "matched_query_text": "methods for managing heat dissipation in microprocessors and chips",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2607.10938v1",
+      "source": "arxiv",
+      "title": "ARMOR-IMC: Adaptive Resource Mapping for Operational Robustness via Secure In-Memory Computing",
+      "abstract": "The massive data-movement overhead in traditional architectures has led to the adoption of In-Memory Computing (IMC) for energy-efficient Deep Neural Network (DNN) processing. By leveraging emerging devices like Spin-Orbit Torque Magnetic Tunnel Junctions (SOT-MTJs), IMC bypasses the \"memory wall\" and reduces leakage power inherent in traditional CMOS. However, this shift introduces dual hardware threats: manufacturing Process Variation (PV) degrades reliability and increases vulnerability to fault injection, while power Side-Channel Attacks (SCAs) compromise security. Existing defenses address these threats in isolation. This work presents a posttraining framework that simultaneously hardens analog IMC accelerators against both threats without retraining the model. Implemented in the IMAC-Sim simulator, our approach uses the proposed Variation Impact Score (VIS) to guide the mapping of Fault Observation Windows (FOWs) and introduces the Leakage Per Inference (LPI) metric to quantify input-dependent power variability under stochastic injection and the resulting reduction in effective signal-to-noise ratio. Experiments show that PV-induced faults can degrade accuracy by over 50%, while our method restores near-baseline accuracy and mitigates the threat of correlation-based power analysis attacks.",
+      "authors": [
+        "Muhtasim Alam Chowdhury",
+        "Ramtin Zand",
+        "Soheil Salehi"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.ET"
+      ],
+      "published": "2026-07-12T21:59:41+00:00",
+      "link": "https://arxiv.org/pdf/2607.10938v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "in-memory computing for energy-efficient DNN using SOT-MTJ devices",
+      "llm_evidence_cn": "基于SOT-MTJ的存内计算架构，面向能效DNN处理",
+      "llm_evidence": "基于SOT-MTJ的存内计算架构，面向能效DNN处理",
+      "canonical_evidence": "基于SOT-MTJ的存内计算架构，面向能效DNN处理",
+      "llm_tldr_en": "ARMOR-IMC presents a post-training framework that hardens analog in-memory computing accelerators against both process variation and side-channel attacks while maintaining energy-efficient DNN inference.",
+      "llm_tldr_cn": "传统架构中巨大的数据搬运开销促使存内计算成为能效型DNN处理的重要方向，但工艺偏差与功耗侧信道威胁使其可靠性与安全性下降。本文提出ARMOR-IMC后训练框架，在SOT-MTJ模拟存内计算加速器上同时加固两类威胁。实验验证该方法可显著提升鲁棒性并抵御故障注入与侧信道攻击，为存内计算的硬件安全与可靠性设计提供了统一方案。",
+      "llm_tldr": "传统架构中巨大的数据搬运开销促使存内计算成为能效型DNN处理的重要方向，但工艺偏差与功耗侧信道威胁使其可靠性与安全性下降。本文提出ARMOR-IMC后训练框架，在SOT-MTJ模拟存内计算加速器上同时加固两类威胁。实验验证该方法可显著提升鲁棒性并抵御故障注入与侧信道攻击，为存内计算的硬件安全与可靠性设计提供了统一方案。",
+      "llm_tags": [
+        "query:cim:composite"
+      ],
+      "matched_query_tag": "query:cim:composite",
+      "matched_query_text": "Papers central to 存算一体，主要关注基于混合键合的三维堆叠的近存计算, especially work that connects or combines: compute-in-memory architecture; hybrid bonding 3D integration; 3D stacking memory technology; near-memory computing design; processing-in-memory systems; 3D integrated circuit design; What are the key benefits of hybrid bonding for 3D stacked near memory computing?; How does compute in memory architecture improve energy efficiency?; Design challenges of 3D stacking for near memory computing systems.",
+      "matched_requirement_id": "req-composite-cim",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2608.01946v1",
+      "source": "arxiv",
+      "title": "LEAP: A Self-Supervised Per-Cycle Toggle Propagation Model Supports Fast, Transferable, and Early Analysis of Layout Power",
+      "abstract": "Accurate power analysis is critical in VLSI design, as it directly impacts power optimization strategies. However, traditional approaches are often hindered by the substantial runtime required for per-cycle toggle propagation in the netlist, which propagates register toggle information through combinational logic. To address this, we propose LEAP, the first work to enable per-cycle toggle propagation prediction with both high accuracy and efficiency. This is achieved through a novel, linear-complexity graph transformer capable of simulating toggle propagation, along with specially designed self-supervised pre-training tasks that enable the model to capture circuit structure and functionality. LEAP achieves a 7.6x speedup over the EDA tool in toggle propagation, and attains a near-perfect area under the Precision-Recall curve (PR-AUC) of 0.99 for prediction results. Moreover, LEAP can be seamlessly integrated with other machine learning based power models into LEAP-Power. This integration enables precise per-cycle layout power prediction directly from post-synthesis netlists, achieving a mean absolute percentage error(MAPE) of only 4.55%. By bypassing toggle propagation in the netlist, LEAP-Power delivers substantial runtime gains, running 5.3x faster than the model without LEAP.",
+      "authors": [
+        "Wenkai Li",
+        "Yuchao Wu",
+        "Ziyan Guo",
+        "Yao Lu",
+        "Wenji Fang",
+        "Mengming Li",
+        "Zhiyao Xie"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-08-03T09:20:00+00:00",
+      "link": "https://arxiv.org/pdf/2608.01946v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "graph transformer for circuit simulation, transferable to thermal modeling",
+      "llm_evidence_cn": "面向电路仿真的图变换器，可迁移至热建模",
+      "llm_evidence": "面向电路仿真的图变换器，可迁移至热建模",
+      "canonical_evidence": "面向电路仿真的图变换器，可迁移至热建模",
+      "llm_tldr_en": "LEAP proposes a linear-complexity graph transformer with self-supervised pretraining to predict per-cycle toggle propagation, enabling fast and transferable early power analysis of layouts.",
+      "llm_tldr_cn": "逐周期跳变传播的传统功耗分析运行成本高昂，限制了早期设计评估。LEAP首次采用线性复杂度图变换器模拟跳变传播，并设计自监督预训练任务捕获电路结构与功能，从而以高精度、高效率支持可迁移的早期版图功耗分析。尽管本文面向功耗预测，其图学习与仿真数据结合的方法可直接用于芯片热建模与热评估。",
+      "llm_tldr": "逐周期跳变传播的传统功耗分析运行成本高昂，限制了早期设计评估。LEAP首次采用线性复杂度图变换器模拟跳变传播，并设计自监督预训练任务捕获电路结构与功能，从而以高精度、高效率支持可迁移的早期版图功耗分析。尽管本文面向功耗预测，其图学习与仿真数据结合的方法可直接用于芯片热建模与热评估。",
+      "llm_tags": [
+        "query:thermal-gnn:composite"
+      ],
+      "matched_query_tag": "query:thermal-gnn:composite",
+      "matched_query_text": "Papers central to 针对芯片热建模评估的论文检索，涉及3D/3.5D封装、热感知设计、GNN/GCN热预测等。, especially work that connects or combines: thermal modeling and simulation of three-dimensional stacked chips; thermal analysis of 3.5D packaging for semiconductor devices; methods for managing heat dissipation in microprocessors and chips; computer simulation of temperature fields in integrated circuits; approaches for evaluating the accuracy of thermal models in microelectronics; data-driven prediction of chip operating temperature; graph neural network based thermal modeling for 3D chip packages; thermal evaluation of integrated circuits using machine learning and simulation data; training thermal prediction models from chip thermal simulation datasets.",
+      "matched_requirement_id": "req-composite-thermal-gnn",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2607.26491v1",
+      "source": "arxiv",
+      "title": "LLMET: Enabling Cross-Layer Evaluation of Emerging M3D Memories for Energy-Efficient LLM Serving",
+      "abstract": "The energy consumption of Large Language Model (LLM) serving is becoming a major system challenge as deployment scales, driven by hardware power and thermal constraints and rising electricity costs. A key contributor to chip energy dissipation is data movement between limited on-chip cache and off-chip High Bandwidth Memory (HBM). Meanwhile, emerging memory technologies such as monolithic 3D (M3D) integration of cache memories at the Back-End-Of-Line (BEOL) of logic chips enable larger and denser on-chip memories, creating new opportunities to reduce costly off-chip traffic. However, it remains unclear whether continuously scaling on-chip memory using emerging technologies can effectively improve the energy efficiency of LLM serving. To address this gap, we develop LLMET (LLM with Emerging Technology), a validated cross-layer simulation framework, and conduct a comprehensive study on the impact of large-capacity on-chip memory technologies across a broad range of models, applications and platforms. Utilizing M3D technology to expand the L2 cache from 40MB to 1GB yields a 44% reduction in chip energy during the Llama3.1-70B prefill phase with a 16K context window, based on LLMET simulation on a dual NVIDIA A100 GPU setup. On the 8x NVIDIA B200-like platform, extending the L2 cache from 128MB to 4GB saves the prefill energy by up to 24%. For the edge platform and workloads, the decode energy saving reaches 30% when increasing the 8MB cache size to 256MB. These results highlight the promise of ultra-large on-chip memories for energy-efficient LLM serving systems.",
+      "authors": [
+        "Ming-Yen Lee",
+        "Hanchen Yang",
+        "Faaiq Waqar",
+        "Harsono Simka",
+        "Tushar Krishna",
+        "Muhammed Ahosan Ul Karim",
+        "Shimeng Yu"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR",
+        "cs.AI",
+        "cs.ET",
+        "cs.LG"
+      ],
+      "published": "2026-07-29T05:37:31+00:00",
+      "link": "https://arxiv.org/pdf/2607.26491v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "cross-layer evaluation of monolithic 3D memory integration for reducing data movement and energy in LLM serving",
+      "llm_evidence_cn": "面向LLM服务能效的M3D存储器跨层评估",
+      "llm_evidence": "面向LLM服务能效的M3D存储器跨层评估",
+      "canonical_evidence": "面向LLM服务能效的M3D存储器跨层评估",
+      "llm_tldr_en": "LLMET provides a cross-layer evaluation framework for monolithic 3D memories, assessing whether scaling on-chip memory via BEOL integration can reduce off-chip traffic and improve energy efficiency of LLM serving under thermal constraints.",
+      "llm_tldr_cn": "大模型服务能耗居高不下，片外数据搬运是主要来源，新兴M3D存储器在逻辑芯片BEOL层集成更大片上缓存成为潜在解决方案。本文提出LLMET跨层评估框架，对M3D缓存进行能耗与热约束建模，系统分析不同容量配置对LLM服务能效的影响。结果表明，合理规模的M3D片上存储能有效降低片外HBM访问，从而提升能效，为三维堆叠存储设计提供量化依据。",
+      "llm_tldr": "大模型服务能耗居高不下，片外数据搬运是主要来源，新兴M3D存储器在逻辑芯片BEOL层集成更大片上缓存成为潜在解决方案。本文提出LLMET跨层评估框架，对M3D缓存进行能耗与热约束建模，系统分析不同容量配置对LLM服务能效的影响。结果表明，合理规模的M3D片上存储能有效降低片外HBM访问，从而提升能效，为三维堆叠存储设计提供量化依据。",
+      "llm_tags": [
+        "query:cim:composite"
+      ],
+      "matched_query_tag": "query:cim:composite",
+      "matched_query_text": "Papers central to 存算一体，主要关注基于混合键合的三维堆叠的近存计算, especially work that connects or combines: compute-in-memory architecture; hybrid bonding 3D integration; 3D stacking memory technology; near-memory computing design; processing-in-memory systems; 3D integrated circuit design; What are the key benefits of hybrid bonding for 3D stacked near memory computing?; How does compute in memory architecture improve energy efficiency?; Design challenges of 3D stacking for near memory computing systems.",
+      "matched_requirement_id": "req-composite-cim",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

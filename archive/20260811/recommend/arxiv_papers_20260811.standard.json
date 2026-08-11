@@ -1,0 +1,381 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-11T20:24:48.433442+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 4,
+    "deep_cap": 6,
+    "deep_selected": 4,
+    "quick_candidates": 5,
+    "quick_skim_target": 11,
+    "quick_selected": 5
+  },
+  "deep_dive": [
+    {
+      "id": "2608.04169v1",
+      "source": "arxiv",
+      "title": "On Design Principles for Efficient Heterogeneous DRAM-PIM-GPU Systems",
+      "abstract": "Heterogeneous DRAM-based processing-in-memory (PIM)-GPU systems promise significant efficiency gains for decode-phase large language model (LLM) inference, particularly in long-output generation, yet current design practices overlook critical factors that determine real-world performance. Through systematic evaluation of diverse architectures and workloads (OPT-7B/70B, Mamba2-2.7B/70B), we reveal three fundamental design principles: (i) static power consumption (DRAM leakage, refresh, and GPU idle power) can dominate the efficiency calculus, causing dynamic-only models to overestimate tokens/s/W by up to 3.85X for realistic deployments (Mamba2-2.7B, batch size 1, 128 input tokens, and 2,048 output tokens); (ii) decoding performance is monotonically non-decreasing with channel count across all evaluated models and workloads, generally plateauing at high channel counts for low-batch workloads; under a fixed-capacity sweep, all models instead share a common near-optimal hierarchy configuration, with substantially larger misconfiguration penalties for attention-based models; (iii) workload mapping strategies provide bounded improvements (up to 14.0%/17.4% kernel-level latency/energy reduction, up to 5.6% end-to-end gain) and are not primary bottlenecks. Significant efficiency gains require system-wide co-optimization. These principles provide design-space guidance for architects designing the next generation of memory-accelerated LLM systems.",
+      "authors": [
+        "Corey Lammie",
+        "Hadjer Benmeziane",
+        "William Andrew Simon",
+        "Irem Boybat"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR",
+        "cs.ET"
+      ],
+      "published": "2026-08-04T19:26:54+00:00",
+      "link": "https://arxiv.org/pdf/2608.04169v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Heterogeneous DRAM-PIM-GPU systems with processing-in-memory architecture and energy-efficiency design principles",
+      "llm_evidence_cn": "面向DRAM-PIM-GPU异构系统的存内计算架构与能效设计原则",
+      "llm_evidence": "面向DRAM-PIM-GPU异构系统的存内计算架构与能效设计原则",
+      "canonical_evidence": "面向DRAM-PIM-GPU异构系统的存内计算架构与能效设计原则",
+      "llm_tldr_en": "This paper studies heterogeneous DRAM-based processing-in-memory (PIM)-GPU systems for LLM decode. It identifies static power, decoding performance, and other principles that dominate real-world efficiency, showing dynamic-only models can overestimate tokens/s/W by up to 3.85x.",
+      "llm_tldr_cn": "面向大语言模型长输出解码阶段，本文系统评估了多种DRAM-PIM-GPU异构架构与工作负载，发现静态功耗（DRAM漏电、刷新和GPU空闲功耗）可在实际部署中主导能效，仅考虑动态功耗的模型会高估tokens/s/W达3.85倍。文章提出三条设计原则，强调解码性能等关键因素，为存内计算系统的能效优化提供了更贴近真实场景的评估方法。",
+      "llm_tldr": "面向大语言模型长输出解码阶段，本文系统评估了多种DRAM-PIM-GPU异构架构与工作负载，发现静态功耗（DRAM漏电、刷新和GPU空闲功耗）可在实际部署中主导能效，仅考虑动态功耗的模型会高估tokens/s/W达3.85倍。文章提出三条设计原则，强调解码性能等关键因素，为存内计算系统的能效优化提供了更贴近真实场景的评估方法。",
+      "llm_tags": [
+        "query:cim:composite"
+      ],
+      "matched_query_tag": "query:cim:composite",
+      "matched_query_text": "Papers central to 存算一体，主要关注基于混合键合的三维堆叠的近存计算, especially work that connects or combines: compute-in-memory architecture; hybrid bonding 3D integration; 3D stacking memory technology; near-memory computing design; processing-in-memory systems; 3D integrated circuit design; What are the key benefits of hybrid bonding for 3D stacked near memory computing?; How does compute in memory architecture improve energy efficiency?; Design challenges of 3D stacking for near memory computing systems.",
+      "matched_requirement_id": "req-composite-cim",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.08534v1",
+      "source": "arxiv",
+      "title": "High Thermal Conductivity of Back-End-of-Line Compatible Diamond Films",
+      "abstract": "Back-end-of-line (BEOL) thermal management requires electrically insulating heat-spreading dielectric that can be integrated within thermal budgets below 400 C. Here, we report polycrystalline diamond films grown directly on Si at a substrate temperature below 400C. Two films with average thickness of 760 and 1000 nm were characterized by Raman spectroscopy, scanning electron microscopy (SEM), and time-domain thermoreflectance (TDTR). Raman spectra show a sharp diamond peak with minor signatures of non-diamond carbon, while SEM reveals lateral growth and large grain size. Temperature dependent TDTR measurements were performed from room temperature to 100C. Sensitivity analysis indicates that the sensitivity of cross-plane thermal conductivity is comparative to the in-plane thermal conductivity. Accordingly, the films were analyzed using an isotropic thermal model by considering the nearly-isotropic grain structure, yielding room temperature effective thermal conductivity of 73 and 86 W m-1 K-1, respectively. These values are about two orders of magnitude higher than those of conventional dielectric materials and demonstrate the potential of diamond films grown at low temperatures as dielectric heat-spreading layers.",
+      "authors": [
+        "Jinwen Liu",
+        "Chufei Cheng",
+        "Feifei Tan",
+        "Jinquan Zhang",
+        "Di Lu",
+        "Bing Dai",
+        "Jiaqi Zhu",
+        "Runsheng Wang",
+        "Zhe Cheng"
+      ],
+      "primary_category": "cond-mat.mtrl-sci",
+      "categories": [
+        "cond-mat.mtrl-sci",
+        "cond-mat.mes-hall"
+      ],
+      "published": "2026-08-09T07:12:39+00:00",
+      "link": "https://arxiv.org/pdf/2608.08534v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "BEOL-compatible diamond films directly address chip heat spreading and on-chip thermal management",
+      "llm_evidence_cn": "后端兼容金刚石薄膜直接面向芯片散热与片上热管理",
+      "llm_evidence": "后端兼容金刚石薄膜直接面向芯片散热与片上热管理",
+      "canonical_evidence": "后端兼容金刚石薄膜直接面向芯片散热与片上热管理",
+      "llm_tldr_en": "A sub-400C polycrystalline diamond film on Si is demonstrated as a BEOL-compatible heat-spreading dielectric. Raman, SEM, and TDTR characterization confirm high thermal conductivity and integration feasibility for chip-level heat dissipation.",
+      "llm_tldr_cn": "面向先进制程后端（BEOL）的热管理需求，本文在低于400°C的温度下直接在硅上生长了多晶金刚石薄膜，作为可集成的绝缘导热散热介质。利用拉曼光谱、扫描电镜和时域热反射（TDTR）对760和1000纳米厚度薄膜进行表征，结果显示薄膜具有尖锐的金刚石峰、横向大晶粒和高导热率。温变TDTR测试给出了从室温到100°C的导热行为，表明该类金刚石薄膜有望解决芯片局部过热问题，为后端集成散热提供了可行的材料方案。",
+      "llm_tldr": "面向先进制程后端（BEOL）的热管理需求，本文在低于400°C的温度下直接在硅上生长了多晶金刚石薄膜，作为可集成的绝缘导热散热介质。利用拉曼光谱、扫描电镜和时域热反射（TDTR）对760和1000纳米厚度薄膜进行表征，结果显示薄膜具有尖锐的金刚石峰、横向大晶粒和高导热率。温变TDTR测试给出了从室温到100°C的导热行为，表明该类金刚石薄膜有望解决芯片局部过热问题，为后端集成散热提供了可行的材料方案。",
+      "llm_tags": [
+        "query:thermal-gnn"
+      ],
+      "matched_query_tag": "query:thermal-gnn",
+      "matched_query_text": "methods for managing heat dissipation in microprocessors and chips",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.08496v1",
+      "source": "arxiv",
+      "title": "ReVolt: Power Delivery Network-Aware Voltage Droop Control for 2.5D PIM Chiplet Architectures",
+      "abstract": "Processing-in-memory (PIM)-based 2.5D multi-chiplet platforms are enablers for machine learning (ML) workloads. However, their performance is affected by the power delivery network (PDN), where varying chiplet-level current demand induces spatially and temporally varying voltage droop. These droop events lead to voltage violations, degrades system performance, and impact inference accuracy for ML workloads. In this work, we propose ReVolt, a dynamic operation unit (OU)-based framework for mitigating voltage droop in PIM-based multi-chiplet systems. ReVolt leverages an LSTM-based PDN surrogate to predict per-chiplet supply voltage trajectories at runtime, enabling proactive adjustment of OU size to mitigate droop events. By treating OU size as a control knob, ReVolt regulates chiplet-level current demand while maintaining computational accuracy. This approach prevents voltage droop violations and improves energy-delay product (EDP) while preserving ML model inference accuracy. Experimental results demonstrate that ReVolt prevents voltage droop violations while achieving an average 76x reduction in EDP compared to existing fixed and dynamic OU-based baselines, without compromising inference accuracy of ML models.",
+      "authors": [
+        "Vibhanshu Sharma",
+        "Alish Kanani",
+        "Miao Sun",
+        "Janardhan Rao Doppa",
+        "Umit Y. Ogras",
+        "Partha Pratim Pande"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR",
+        "cs.ET"
+      ],
+      "published": "2026-08-09T05:30:28+00:00",
+      "link": "https://arxiv.org/pdf/2608.08496v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "voltage droop control for 2.5D PIM chiplet architectures using LSTM surrogate",
+      "llm_evidence_cn": "利用LSTM代理模型对2.5D PIM小芯片架构进行电压跌落控制",
+      "llm_evidence": "利用LSTM代理模型对2.5D PIM小芯片架构进行电压跌落控制",
+      "canonical_evidence": "利用LSTM代理模型对2.5D PIM小芯片架构进行电压跌落控制",
+      "llm_tldr_en": "ReVolt uses an LSTM-based PDN surrogate to predict and mitigate voltage droop in 2.5D processing-in-memory multi-chiplet systems, preserving ML inference accuracy.",
+      "llm_tldr_cn": "针对基于处理存内计算（PIM）的2.5D多芯片系统，本文提出ReVolt框架，利用LSTM构建的电源分配网络（PDN）代理模型在运行时预测各小芯片的供电电压轨迹，并主动调整计算单元（OU）尺寸以缓解电压跌落。该方法可避免电压违规、提升性能并保护ML推理精度。ReVolt展示了利用机器学习代理进行近存计算系统电源管理的新思路。",
+      "llm_tldr": "针对基于处理存内计算（PIM）的2.5D多芯片系统，本文提出ReVolt框架，利用LSTM构建的电源分配网络（PDN）代理模型在运行时预测各小芯片的供电电压轨迹，并主动调整计算单元（OU）尺寸以缓解电压跌落。该方法可避免电压违规、提升性能并保护ML推理精度。ReVolt展示了利用机器学习代理进行近存计算系统电源管理的新思路。",
+      "llm_tags": [
+        "query:cim:composite"
+      ],
+      "matched_query_tag": "query:cim:composite",
+      "matched_query_text": "Papers central to 存算一体，主要关注基于混合键合的三维堆叠的近存计算, especially work that connects or combines: compute-in-memory architecture; hybrid bonding 3D integration; 3D stacking memory technology; near-memory computing design; processing-in-memory systems; 3D integrated circuit design; What are the key benefits of hybrid bonding for 3D stacked near memory computing?; How does compute in memory architecture improve energy efficiency?; Design challenges of 3D stacking for near memory computing systems.",
+      "matched_requirement_id": "req-composite-cim",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.09508v1",
+      "source": "arxiv",
+      "title": "200 mm Wafer-Scale Monolithic 3D Integration of Atomic Layer-Deposited Oxide Semiconductors",
+      "abstract": "Monolithic 3D (M3D) integration offers a pathway to overcome the scaling limits of conventional silicon complementary metal-oxide-semiconductor (CMOS) technology by extending dense vertical stacking of multifunctional logic and memory devices. Here, we demonstrate wafer-scale M3D integration of three tiers of atomic-layer-deposited (ALD) indium oxide (InOx)-based devices (>100,000 fabricated), including ferroelectric, enhancement-mode, and depletion-mode field-effect transistors, on 200 mm silicon wafers. We achieve threshold voltage standard deviation as low as 0.04 V, average electron mobility up to 91.6 cm2V-1s-1, and fully functional cross-tier circuits. A four-tier 3D computing-in-memory (CIM) accelerator targeting large language model workloads is developed using a custom InOx process design kit, delivering 1.4x to 2.9x speedup and comparable energy-delay product improvements over 2D baselines. These results establish ALD InOx M3D integration as a scalable and CMOS-compatible platform for next-generation artificial intelligence hardware and advanced electronics.",
+      "authors": [
+        "Chang Niu",
+        "Linjia Long",
+        "Luqi Zheng",
+        "Shuting Du",
+        "Jian-Yu Lin",
+        "Kisoo Nam",
+        "Zehao Lin",
+        "Chang Liu",
+        "Juanjuan Lu",
+        "Haiyan Wang",
+        "Haitong Li",
+        "Peide D. Ye"
+      ],
+      "primary_category": "physics.app-ph",
+      "categories": [
+        "physics.app-ph",
+        "cond-mat.mtrl-sci"
+      ],
+      "published": "2026-08-10T12:13:37+00:00",
+      "link": "https://arxiv.org/pdf/2608.09508v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "wafer-scale monolithic 3D integration with three tiers of oxide devices and a four-tier 3D computing-in-memory accelerator",
+      "llm_evidence_cn": "晶圆级单片三维集成并展示三层器件与四层3D存内计算加速器，贴合3D堆叠与存算一体主题",
+      "llm_evidence": "晶圆级单片三维集成并展示三层器件与四层3D存内计算加速器，贴合3D堆叠与存算一体主题",
+      "canonical_evidence": "晶圆级单片三维集成并展示三层器件与四层3D存内计算加速器，贴合3D堆叠与存算一体主题",
+      "llm_tldr_en": "Demonstrates wafer-scale monolithic 3D integration of ALD oxide devices with three tiers on 200 mm wafers, achieving low Vth variation and functional cross-tier circuits, and a four-tier 3D computing-in-memory accelerator.",
+      "llm_tldr_cn": "该论文展示了基于原子层沉积氧化铟器件的200毫米晶圆级单片三维集成，成功制造三层器件并实现全跨层电路功能。器件阈值电压波动低至0.04V，平均迁移率达91.6 cm2V-1s-1。此外还设计了面向大型语言模型的四层三维存内计算加速器，证明单片三维集成是突破CMOS缩放限制并实现高密度存算一体的可行途径。",
+      "llm_tldr": "该论文展示了基于原子层沉积氧化铟器件的200毫米晶圆级单片三维集成，成功制造三层器件并实现全跨层电路功能。器件阈值电压波动低至0.04V，平均迁移率达91.6 cm2V-1s-1。此外还设计了面向大型语言模型的四层三维存内计算加速器，证明单片三维集成是突破CMOS缩放限制并实现高密度存算一体的可行途径。",
+      "llm_tags": [
+        "query:cim:composite"
+      ],
+      "matched_query_tag": "query:cim:composite",
+      "matched_query_text": "Papers central to 存算一体，主要关注基于混合键合的三维堆叠的近存计算, especially work that connects or combines: compute-in-memory architecture; hybrid bonding 3D integration; 3D stacking memory technology; near-memory computing design; processing-in-memory systems; 3D integrated circuit design; What are the key benefits of hybrid bonding for 3D stacked near memory computing?; How does compute in memory architecture improve energy efficiency?; Design challenges of 3D stacking for near memory computing systems.",
+      "matched_requirement_id": "req-composite-cim",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2608.03638v1",
+      "source": "arxiv",
+      "title": "Epitaxial SiGeSn alloys for CMOS-compatible thermoelectric devices",
+      "abstract": "The integration of thermoelectric devices into mainstream microelectronic technological platform could be a major breakthrough in various fields within the \\emph{so-called} Green-IT realm. In this article, the thermoelectric properties of heteroepitaxial SiGeSn alloys, a novel CMOS compatible material system, are evaluated to assess their possible application in thermoelectric devices. To this purpose, starting from the experimentally low lattice thermal conductivity of SiGeSn/Ge/Si layers of about $\\sim$1-2 W/m$\\cdot$K assessed by means of 3-$ω$ measurements, the figure of merits are calculated through the use of Boltzmann transport equation, taking into account the relevant inter-valley scattering processes, peculiar of this multi-valley material system. Values for the figure of merit $ZT$ exceeding $1$ have been obtained for both p- and n- type material at operating temperatures within the 300---400 K range, i.e. at a typical On-Chip temperatures. In this interval, the predicted power factor also features very competitive values of the order of 20 $\\rm{μW/cm\\cdot K^2}$. Our finding indicates that this new class of Si-based materials has extremely good prospects for real-world applications, and can further stimulate scientific investigation in this ambit.",
+      "authors": [
+        "Patrizio Graziosi",
+        "Damiano Marian",
+        "Andrea Tomadin",
+        "Stefano Roddaro",
+        "Omar Concepción",
+        "Johnny Tiscareño-Ramírez",
+        "Agnieszka Anna Corley-Wiciak",
+        "Dan Buca",
+        "Giovanni Capellini",
+        "Michele Virgilio"
+      ],
+      "primary_category": "cond-mat.mtrl-sci",
+      "categories": [
+        "cond-mat.mtrl-sci",
+        "physics.comp-ph"
+      ],
+      "published": "2026-08-04T13:21:09+00:00",
+      "link": "https://arxiv.org/pdf/2608.03638v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "CMOS-compatible thermoelectric materials for heat management",
+      "llm_evidence_cn": "CMOS兼容热电材料用于芯片热管理",
+      "llm_evidence": "CMOS兼容热电材料用于芯片热管理",
+      "canonical_evidence": "CMOS兼容热电材料用于芯片热管理",
+      "llm_tldr_en": "This paper evaluates epitaxial SiGeSn alloys, a CMOS-compatible material, for thermoelectric applications, using measured low lattice thermal conductivity and Boltzmann transport calculations to assess possible integration into microelectronic platforms for heat management.",
+      "llm_tldr_cn": "该论文面向微电子平台热管理需求，评估了CMOS兼容的SiGeSn合金的热电性能。基于3-ω实验测得的约1-2 W/m·K的低晶格热导率，利用玻尔兹曼输运方程计算热电优值，并考虑多谷系统特有的谷间散射，证明该材料体系有潜力用于热电冷却器件，为芯片热耗散提供新的材料方案。这项工作将热电材料与主流CMOS工艺兼容，具有绿色IT应用前景。",
+      "llm_tldr": "该论文面向微电子平台热管理需求，评估了CMOS兼容的SiGeSn合金的热电性能。基于3-ω实验测得的约1-2 W/m·K的低晶格热导率，利用玻尔兹曼输运方程计算热电优值，并考虑多谷系统特有的谷间散射，证明该材料体系有潜力用于热电冷却器件，为芯片热耗散提供新的材料方案。这项工作将热电材料与主流CMOS工艺兼容，具有绿色IT应用前景。",
+      "llm_tags": [
+        "query:thermal-gnn"
+      ],
+      "matched_query_tag": "query:thermal-gnn",
+      "matched_query_text": "methods for managing heat dissipation in microprocessors and chips",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2608.05339v2",
+      "source": "arxiv",
+      "title": "PowerScope: ML-based Intra-Cycle Power Estimation",
+      "abstract": "Power estimation at sub-clock-cycle temporal resolutions is critical for tasks such as power delivery network (PDN) design, dynamic voltage droop analysis, and pre-silicon power side-channel security evaluation. Designers commonly rely on commercial post-layout gate-level power analysis tools for these tasks, but these flows are computationally expensive and scale poorly with design size and workload length. Machine learning (ML)-based power estimation frameworks have shown promise in accelerating power estimation, but prior efforts only address average power or per-cycle power estimation. We propose PowerScope, the first ML-based intra-cycle power estimation framework. PowerScope operates purely on RTL simulation traces at inference time, eliminating the need for post-layout gate-level simulation and power analysis per workload. Across a diverse benchmark suite, PowerScope achieves 5.88% median and 9% mean absolute percentage error compared to commercial post-layout gate-level power estimates while running ~80x faster. We further demonstrate that PowerScope's predictions can be reliably used for the downstream task of pre-silicon power side-channel leakage assessment.",
+      "authors": [
+        "Jayanth Balasubramanian",
+        "Sujay Pandit",
+        "Radha Vaidya",
+        "Anand Raghunathan"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-08-05T18:56:36+00:00",
+      "link": "https://arxiv.org/pdf/2608.05339v2",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "ML-based intra-cycle power estimation from RTL simulation traces, enabling thermal evaluation inputs",
+      "llm_evidence_cn": "基于机器学习的周期内功耗估计，可为芯片热评估提供功耗输入",
+      "llm_evidence": "基于机器学习的周期内功耗估计，可为芯片热评估提供功耗输入",
+      "canonical_evidence": "基于机器学习的周期内功耗估计，可为芯片热评估提供功耗输入",
+      "llm_tldr_en": "PowerScope is the first ML-based framework for sub-clock-cycle power estimation from RTL traces, accelerating power analysis for PDN design and droop analysis.",
+      "llm_tldr_cn": "针对亚时钟周期分辨率的功耗估计需求，本文提出PowerScope，这是首个基于机器学习、直接从RTL仿真轨迹估计周期内功耗的框架。它避免了后布局门级功耗分析的高昂计算成本，在推理时无需版图信息。该框架可加速电源分配网络设计、动态电压跌落分析和预硅验证安全评估。功耗分布是热分析的重要输入，因此该方法也可支持芯片热评估流程。",
+      "llm_tldr": "针对亚时钟周期分辨率的功耗估计需求，本文提出PowerScope，这是首个基于机器学习、直接从RTL仿真轨迹估计周期内功耗的框架。它避免了后布局门级功耗分析的高昂计算成本，在推理时无需版图信息。该框架可加速电源分配网络设计、动态电压跌落分析和预硅验证安全评估。功耗分布是热分析的重要输入，因此该方法也可支持芯片热评估流程。",
+      "llm_tags": [
+        "query:thermal-gnn"
+      ],
+      "matched_query_tag": "query:thermal-gnn",
+      "matched_query_text": "thermal evaluation of integrated circuits using machine learning and simulation data",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2608.08742v1",
+      "source": "arxiv",
+      "title": "Bounds and constructions for constant/low-power error-correcting cooling codes",
+      "abstract": "The low-power error-correcting cooling (LPECC) codes and constant-power error-correcting cooling (CPECC) codes, introduced in [IEEE Trans. Inf. Theory, 64 (2018), 3062--3085; 66 (2020), 4804--4818], respectively, are two coding schemes designed to simultaneously control the peak temperature and average power consumption of on-chip buses while providing error-correction capability for transmitted information. This paper establishes new upper bounds for both $(n,1,w,w-2)$-CPECC codes and $(n,t,w,w-2)$-CPECC codes using graph-theoretic techniques, and constructs several new families of optimal CPECC codes using combinatorial configurations. Moreover, it completely resolves the conjecture concerning CPECC codes posed in [IEEE Trans. Inf. Theory, DOI: 10.1109/TIT.2026.3721101]. Finally, we derive a new upper bound for $(n,t,w,w-2)$-LPECC codes by probabilistic method, along with new optimal families, and establish the relationship between optimal $(n,t,w,w-2)$-LPECC codes and optimal $(n+1,t,w,w-2)$-CPECC codes.",
+      "authors": [
+        "Shuangqing Liu",
+        "Tingting Tong",
+        "Menglong Zhang",
+        "Binwei Zhao",
+        "Yuhao Zhao"
+      ],
+      "primary_category": "cs.IT",
+      "categories": [
+        "cs.IT",
+        "math.CO"
+      ],
+      "published": "2026-08-09T14:39:38+00:00",
+      "link": "https://arxiv.org/pdf/2608.08742v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "cooling codes controlling on-chip bus peak temperature and power",
+      "llm_evidence_cn": "控制片上总线峰值温度和功耗的冷却编码",
+      "llm_evidence": "控制片上总线峰值温度和功耗的冷却编码",
+      "canonical_evidence": "控制片上总线峰值温度和功耗的冷却编码",
+      "llm_tldr_en": "Presents upper bounds and constructions for low/constant-power error-correcting cooling codes that jointly manage peak temperature and average power on on-chip buses.",
+      "llm_tldr_cn": "本文研究低功耗/恒功率纠错冷却编码（LPECC/CPECC），这类编码专为片上总线设计，可在提供纠错能力的同时控制峰值温度和平均功耗。作者用图论技术建立新的上界，并利用组合构型构造多个新的最优CPECC码族，同时完整解决相关猜想。这些成果为热感知的片上互连设计提供了理论支撑。",
+      "llm_tldr": "本文研究低功耗/恒功率纠错冷却编码（LPECC/CPECC），这类编码专为片上总线设计，可在提供纠错能力的同时控制峰值温度和平均功耗。作者用图论技术建立新的上界，并利用组合构型构造多个新的最优CPECC码族，同时完整解决相关猜想。这些成果为热感知的片上互连设计提供了理论支撑。",
+      "llm_tags": [
+        "query:thermal-gnn"
+      ],
+      "matched_query_tag": "query:thermal-gnn",
+      "matched_query_text": "methods for managing heat dissipation in microprocessors and chips",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2608.08761v1",
+      "source": "arxiv",
+      "title": "Eco-SoC: A Sustainable VLSI Architecture for Energy-Proportional Artificial Intelligence",
+      "abstract": "In an era defined by escalating climate change and the pervasive deployment of edge intelligence, the environmental cost of semiconductor manufacturing and operation has reached a critical threshold. As Deep Learning (DL) accelerators dominate System-on-Chip (SoC) die area, achieving true sustainability requires a paradigm shift from static worst-case efficiency to dynamic energy-proportionality. This paper introduces Eco-SoC, a highly scalable VLSI architecture co-designed specifically for sustainable artificial intelligence. We propose a hardware-level Dynamic Precision-Scaling Logic (DPSL) framework that adaptively modulates bit-width precision based on real-time activation sparsity, successfully reducing switching activity by up to 42% on a commercial 7nm FinFET process node.   Furthermore, we transcend traditional Power-Performance-Area (PPA) metrics by providing a comprehensive Life Cycle Assessment (LCA) using the Architectural Carbon footprint Tool (ACT). Our synthesis demonstrates that Eco-SoC offsets its increased embodied carbon footprint (a marginal 4.8% area overhead) within 1.1 years of edge deployment. Finally, by introducing a thermal-aware power gating mechanism that mitigates localized hotspots, Eco-SoC doubles the projected Mean Time To Failure (MTTF) of the silicon, providing a tangible, scalable strategy for electronic waste (e-waste) mitigation in next-generation computing systems.",
+      "authors": [
+        "Jatin Chopra"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR",
+        "cs.AI"
+      ],
+      "published": "2026-08-09T15:21:07+00:00",
+      "link": "https://arxiv.org/pdf/2608.08761v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "energy-proportional VLSI architecture reduces switching activity to manage power/heat in AI chips",
+      "llm_evidence_cn": "通过降低开关活动实现能耗比例的VLSI架构，有助于芯片功耗与热管理",
+      "llm_evidence": "通过降低开关活动实现能耗比例的VLSI架构，有助于芯片功耗与热管理",
+      "canonical_evidence": "通过降低开关活动实现能耗比例的VLSI架构，有助于芯片功耗与热管理",
+      "llm_tldr_en": "Eco-SoC proposes a dynamic precision-scaling VLSI architecture that adapts bit-width based on activation sparsity to cut switching activity, achieving energy-proportional AI computing and reducing heat generation.",
+      "llm_tldr_cn": "针对深度学习加速器占据SoC芯片面积导致能耗过高的问题，本文提出Eco-SoC可持续VLSI架构，并设计硬件级动态精度缩放逻辑（DPSL），根据激活稀疏性实时调整位宽精度以降低开关活动。实验显示该方法能够显著减少功耗，实现能量比例计算，为面向AI的芯片热管理提供了架构级节能思路。",
+      "llm_tldr": "针对深度学习加速器占据SoC芯片面积导致能耗过高的问题，本文提出Eco-SoC可持续VLSI架构，并设计硬件级动态精度缩放逻辑（DPSL），根据激活稀疏性实时调整位宽精度以降低开关活动。实验显示该方法能够显著减少功耗，实现能量比例计算，为面向AI的芯片热管理提供了架构级节能思路。",
+      "llm_tags": [
+        "query:thermal-gnn"
+      ],
+      "matched_query_tag": "query:thermal-gnn",
+      "matched_query_text": "methods for managing heat dissipation in microprocessors and chips",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2608.09466v1",
+      "source": "arxiv",
+      "title": "Second order unfitted ghost-FEM for elliptic interface problems with applications to low-dimensional semiconductor devices",
+      "abstract": "We develop an unfitted ghost finite element method for elliptic interface problems with discontinuous diffusion coefficients and apply it to the electrostatic simulation of low-dimensional semiconductor devices. The proposed approach is based on a fixed Cartesian grid and represents the geometry by level-set functions, avoiding mesh generation and remeshing even in the presence of interfaces. A snapping-back-to-grid strategy is used to control the small-cut-cell issue, while interface conditions are weakly enforced by a symmetric Nitsche formulation. The method is first validated on benchmark elliptic interface problems with different geometries and coefficient jumps, showing second-order accuracy for the solution and first-order accuracy for its gradient.   As an application, we consider a graphene field-effect transistor described by a self-consistent drift-diffusion-Poisson model. The electrostatic potential is computed in a two-dimensional oxide/graphene/oxide structure, while charge transport in the graphene layer is modeled by one-dimensional bipolar drift-diffusion equations in the degenerate case and by including a field-dependent mobility model. The coupled nonlinear system is solved by a damped fixed-point iteration combined with a domain-decomposition treatment of the three-layer geometry. Numerical simulations reproduce transfer characteristics with a clear transition from an OFF state to an ON state and show the influence of the gate voltage on the two-dimensional electrostatic potential. The results also indicate that the effective thickness and discretization of the graphene layer affect the transverse potential profile, supporting the use of a full two-dimensional electrostatic description with explicit oxide/graphene interface conditions.",
+      "authors": [
+        "Clarissa Astuto",
+        "Giovanni Nastasi"
+      ],
+      "primary_category": "math.NA",
+      "categories": [
+        "math.NA",
+        "math-ph"
+      ],
+      "published": "2026-08-10T11:36:21+00:00",
+      "link": "https://arxiv.org/pdf/2608.09466v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "high-order unfitted FEM for elliptic interface problems transfers to thermal conduction simulation in heterogeneous 3D stacked chips",
+      "llm_evidence_cn": "高阶鬼有限元适用于异质三维堆叠芯片中的热传导界面问题求解",
+      "llm_evidence": "高阶鬼有限元适用于异质三维堆叠芯片中的热传导界面问题求解",
+      "canonical_evidence": "高阶鬼有限元适用于异质三维堆叠芯片中的热传导界面问题求解",
+      "llm_tldr_en": "Develops a second-order unfitted ghost finite element method for elliptic interface problems with discontinuous coefficients, validated on benchmarks and applied to semiconductor device electrostatic simulation; the method transfers to heterogeneous thermal simulation.",
+      "llm_tldr_cn": "针对异质半导体器件中界面间断系数带来的网格剖分与切割单元困难，论文提出一种基于水平集与尼切斯弱施加界面条件的二阶鬼有限元法。方法使用固定笛卡尔网格，通过回拉到网格策略抑制小切割单元问题，并在基准算例与低维器件静电模拟中验证了二阶精度。该数值框架同样适用于三维芯片堆叠中不同材料界面上的热传导模拟，为芯片级多物理场仿真提供了通用工具。",
+      "llm_tldr": "针对异质半导体器件中界面间断系数带来的网格剖分与切割单元困难，论文提出一种基于水平集与尼切斯弱施加界面条件的二阶鬼有限元法。方法使用固定笛卡尔网格，通过回拉到网格策略抑制小切割单元问题，并在基准算例与低维器件静电模拟中验证了二阶精度。该数值框架同样适用于三维芯片堆叠中不同材料界面上的热传导模拟，为芯片级多物理场仿真提供了通用工具。",
+      "llm_tags": [
+        "query:thermal-gnn"
+      ],
+      "matched_query_tag": "query:thermal-gnn",
+      "matched_query_text": "computer simulation of temperature fields in integrated circuits",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

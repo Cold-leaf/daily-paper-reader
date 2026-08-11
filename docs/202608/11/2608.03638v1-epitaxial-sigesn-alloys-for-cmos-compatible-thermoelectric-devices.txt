@@ -1,0 +1,343 @@
+Title: Epitaxial SiGeSn alloys for CMOS-compatible thermoelectric devices
+
+URL Source: https://arxiv.org/pdf/2608.03638v1
+
+Published Time: Wed, 05 Aug 2026 01:04:37 GMT
+
+Number of Pages: 24
+
+Markdown Content:
+# Epitaxial SiGeSn alloys for CMOS-compatible thermoelectric devices 
+
+## Patrizio Graziosi, † Damiano Marian, ∗,‡ Andrea Tomadin, ‡ Stefano Roddaro, ‡
+
+## Omar Concepción, ¶ Johnny Tiscare ˜no-Ramírez, ¶ Agnieszka Anna Corley-Wiciak, §,∥ Dan Buca, ¶ Giovanni Capellini, §,⊥ and Michele Virgilio ‡
+
+†CNR − ISMN, Via P. Gobetti 101, Bologna 40129, Italy 
+
+‡Dipartimento di Fisica, Università di Pisa, Largo Bruno Pontecorvo 3, Pisa 56127, Italy 
+
+¶Peter Gruenberg Institute 9 (PGI-9) and JARA-Fundamentals of Future Information Technologies, Forschungszentrum Juelich, Juelich 52428, Germany 
+
+§IHP - Leibniz Institute for High Performance Microelectronics, Frankfurt (Oder) 15236, Germany 
+
+∥European Synchrotron Radiation Facility 71 avenue des Martyrs, CS 40220, Grenoble Cedex 9 38043, France 
+
+⊥Dipartimento di Scienze, Università degli Studi Roma Tre, Viale G. Marconi 446, Roma 00146, Italy 
+
+E-mail: damiano.marian@unipi.it 
+
+Abstract 
+
+The integration of thermoelectric devices into mainstream microelectronic techno-logical platform could be a major breakthrough in various fields within the so-called 
+
+Green-IT realm. In this article, the thermoelectric properties of heteroepitaxial SiGeSn alloys, a novel CMOS compatible material system, are evaluated to assess their possible application in thermoelectric devices. To this purpose, starting from the experimentally 
+
+1arXiv:2608.03638v1 [cond-mat.mtrl-sci] 4 Aug 2026 low lattice thermal conductivity of SiGeSn/Ge/Si layers of about ∼1-2 W/m ·K assessed by means of 3-ω measurements, the figure of merits are calculated through the use of Boltzmann transport equation, taking into account the relevant inter-valley scattering processes, peculiar of this multi-valley material system. Values for the figure of merit 
+
+ZT exceeding 1 have been obtained for both p- and n- type material at operating tem-peratures within the 300—400 K range, i.e. at a typical On-Chip temperatures. In this interval, the predicted power factor also features very competitive values of the order of 20 μW/cm · K2. Our finding indicates that this new class of Si-based materials has ex-tremely good prospects for real-world applications, and can further stimulate scientific investigation in this ambit. 
+
+# Introduction 
+
+Thermoelectric (TE) devices provide a solution for direct energy conversion for applications and technologies that require a reliable source, rather than an efficient one [1]. Thermoelec-tric generators (TEG) are used to convert low-grade heat in energy to power systems and devices for a variety of applications [2] as e.g. in wearable health monitoring [3], automo-tive [4] and aerospace technologies [5], and manufacturing [6]. Despite these achievements, the diffusion of TEG remains limited in large consumer markets due to major drawbacks of TE technologies available to date [7]: i) low conversion efficiency -especially for room temper-ature operations-; ii) challenges in TEG miniaturization and integration in mass production manufacturing, leading to relatively high cost per device; iii) TEG generator operating at room temperature (RT) are usually based on toxic materials or materials of limited avail-ability [8]. The potential performance of a TE material is usually quantified by the dimensionless figure of merit [9] ZT = S2σT κ , where S is the Seebeck coefficient and σ and κ are the electrical and thermal conductivity, respectively. A 300 K value of ZT ≈ 1 is required for realizing a device with an efficiency of practical use (about 15 % of the Carnot limit). An 2ideal TE material should then feature a low κ, needed to preserve the T gradient across the device, while maintaining excellent electrical transport properties. However, there are well known constraints to the optimization of the material parameters. As a matter of fact, σ in semiconductors can be increased by leveraging on the doping concentration, but as dictated by the Wiedemann-Franz law, this also induces larger κ values, due to the simultaneous increase of the electronic contribution κe to the thermal conductivity, thus imposing a trade-off to the optimal carrier density [10]. Si, Ge, and their alloys are CMOS-compatible materials and have been used in high temperature TEG devices having a high ZT values peak at around 1200 K, see Fig. 1(a). However, their ZT dramatically drops at 300 K, also in nanostructurated devices, engineered in the past decades in an attempt to enhance the TE performance of the bulk material [11– 13]. For this reason, today SiGe alloys are employed only at elevated temperatures in niche applications, as e.g. for radioisotope thermoelectric generators in space missions. On the other hand, commonly used TE materials, such as Bi 2Te 3 and PbTe, exhibit high ZT values at room temperature (Fig. 1(a)) due to the their low thermal conductivity, but their toxicity and incompatibility with silicon-based microelectronics standards prevent their widespread use in real-world applications [14]. Consequently, in view of potential large-scale applications integrated with consumer electronics, TE materials should be based on an innovative, CMOS-compatible, and non-toxic material system, having thermal conductivity at 300 K suppressed by efficient phonon-phonon scattering processes, but still characterized by high charge carrier conductivity. Ge-rich SiGeSn ternary alloys have recently emerged as a transformative Group IV mate-rial system. As a matter of fact, the addition of Sn into the SiGe matrix introduces significant changes in the material’s electronic and thermal properties since Sn incorporation: i) dra-matically reduces the lattice thermal conductivity due to the high mass contrast with the Si and Ge ions; ii ) can induce a down-shift of the Γ conduction valley below the energy of the L-point minimum, thus realizing a direct bandgap semiconductor material as schematically 3depicted in Fig. 1(b). Consequently, in n-type systems, larger electron mobilities with re-spect to SiGe can be obtained. The rationale for this mobility enhancement is related to the proximity of the ∆-, L- and Γ-point band edges, typically laying within a ∼100 meV range in this multi-valley quasi-direct semiconductor. It follows that, alloying with Sn induces a significative increase of the carrier population which populates the Γ-valley, which features a lighter transport mass with respect to the L and ∆ ones [15]. Furthermore, the non-polar character of SiGeSn alloys contributes to reduce the thermally induced suppression of the electrical conductivity, due to the absence of Fröhlich interaction. The Si xGe 1−x−ySn y material system has come under the spotlight thanks to the recent advancements in the epitaxial growth of high-quality Ge-rich SiGeSn layers on Si-based Ge/Si virtual substrates, using tools and processes compatible with the standards of the Si-CMOS microelectronics industry [6]. In particular, the possibility of an extensive band gap engineering through composition has attracted the silicon photonics community [16]. As a matter of fact, the so-called “directness” in Ge-rich alloys, obtained by Sn incorporation as stated above, has a huge positive impact on the radiative recombination efficiency of the material, leading to the demonstration of optically pumped GeSn-based laser operating at room temperature [17] or cw- electrically pumped laser based on SiGeSn/GeSn multi quantum wells [18]. The directness is also exploited in advanced microelectronic devices such as Tunnel-FET where the direct band-gap increases the device performances thanks to more efficient tunneling rates of the Γ-valley electrons which, for momentum conservation reasons, do not require phonon assistance [19]. Finally, since the optimization of ZT usually requires high carrier densities, it is important to notice that, thanks to the aforementioned recent advances, doping of Ge-rich SiGeSn layers with active impurity concentrations exceeding 
+
+10 20 cm −3 has been achieved for both p-type and n-type systems [20]. It is clear that the unequivocal demonstration of high SiGeSn TE performances around 300 K could pave the way to a multifunctional and integrated platform, comprising elec-tronic, photonic, and TE devices, manufactured within the Si-CMOS standard, with all the 4500 750 1000 1250 
+
+Temperature (K) 
+
+0.20.40.60.81.01.2
+
+> ZT Bi 2Te 3
+> PbTe CoSb 3
+> SiGe
+
+500 750 1000 1250 
+
+Temperature (K) Sb 2Te 3
+
+> TAGS PbTe CeFe 4Sb 12
+> SiGe Yb 14 MnSb 11
+
+a) b)
+
+# kLX Γ
+
+## Energy SiGe SiGeSn k z kx ky LXΓΔΔFigure 1: a) ZT figure of merit as a function of temperature for different semiconductor n-type (left) and p-type (right) materials. b) Left: schematic conduction band structure of a Ge-rich SiGe alloy (blue dashed). Alloying with Sn induces the relative downshift of the 
+
+Γc band edge (solid curve) with respect to the ∆ and L ones. L, Γc and ∆ point conduction minima are typically found within a 100-200 meV energy range. Right: first Brillouin zone showing the position of these high symmetry points. inherent advantages granted by the microelectronic technology. This multifunctional toolbox would greatly contribute to the so-called green-IT objectives. In fact, due to its scalability, 5environmental friendliness, and low-cost, it can be employed in large-scale devices designed for energy-harvesting on-chip [21] or chip cooling [22], temperature-tunable photonic circuits for optical computation, sensing, and lab-on-chip architectures. In this context, given the very promising low lattice thermal conductivity κl observed in the last few years for GeSn [23–25], studies have emerged in the literature targeting the numerical prediction of κl also in Si xGe 1−x−ySn y alloys, in the entire [26] or for a selected sub-set [27] of the (x, y ) parameter space. These findings are very promising for TE applications since suggest a very robust suppression of κl with respect to SiGe and GeSn, with values as low as 1 W/m ·K. Here, we move a step further in this direction combining lattice thermal conductivity measurements with a comprehensive numerical investigation of the electronic transport properties of the Ge-rich Si xGe 1−x−ySn y heteroepitaxial alloys. In this way, we are able to assess the TE properties of the ternary material system at 300 and 400 K, in the entire portion of the (x, y ) parameter region experimentally accessible. Indeed, owing to the very low solid solubility of Sn in both Si and Ge, only tin content below ≈0.2 can be obtained without compromising on the electrical transport properties [28]. We first performed 3-ω experiments to measure the lattice conductivity of a Ge-rich Si xGe 1−x−ySn y sample set featuring different Sn concentrations. Subsequently, upon com-bining these data with literature values of κl, we achieved an estimation of lattice thermal conductivity across the entire (x, y ) parameter region. As for the electronic transport proper-ties and their contribution to the thermal conductivity, we relied on the Boltzmann transport equation, beyond the constant time relaxation approximation, as implemented in the ElecTra simulation suite [29, 30], where particular care has been devoted to include all the intervalley scattering processes, peculiar of this multivalley material system, as well as bipolar effects which are active at around 300 K due to the relatively small value of the band gap. After validating the ElecTra results against experimental mobility data for GeSn, we systemati-cally explore the alloy parameter space of the ternary material to optimize its ZT values at different temperatures. 6Our findings suggest that p- and n-type SiGeSn alloys can achieve ZT values greater than 1 in the 300 K to 400 K temperature range, a performance comparable to commercial TE materials. This significant result demonstrates the potential of SiGeSn to bridge the gap between high-temperature TE materials and room-temperature applications, offering a sustainable, non-toxic, and CMOS-compatible solution for next-generation thermoelectric devices. 
+
+# Methods and validation 
+
+## Electronic transport properties 
+
+To estimate the figure of merit ZT and the power factor PF for p- and n-type Si xGe 1−x−ySn y
+
+alloys, we assessed their charge transport properties and the electronic contribution to the thermal conductivity κe by means of numerical simulations based on the Boltzmann trans-port equation, which allowed us to explore the parameter space spanned by the Si and Sn concentration, the doping density, and the lattice temperature. Due to the quasi-direct char-acter of the SiGeSn material system, we have taken into account the carrier population in the different conduction valleys, which correspond to the minima at the Γc, L, and ∆ point of the Brillouin zone, as well as their interaction through inter-valley scattering events. For this purpose, we relayed on the ElecTra code [29, 30], a well-established simulation suite, developed by one of the Authors, which in the last few years has been extensively tested with group IV elemental materials and SiGe alloys. ElecTra offers the functionality of charge transport calculation beyond the constant re-laxation time approximation by considering i) the full energy/momentum/band dependence of the scattering rates, ii ) the distinction between intra- and inter-band transitions, and 
+
+iii ) the bipolar transport resulting from the joint contribution stemming from the valence and conduction carriers. Moreover, to increase the accuracy, calculations are performed in a full-band approach and using anisotropic scattering rates. The scattering mechanisms 7taken into account are the electron-phonon coupling with the acoustic and optical branches, the Coulomb interaction induced by charged donors/acceptors ions, and the alloy disorder potential. Due to the ternary and multivalley character of the investigated material system, partic-ular care has been devoted to upgrade the description of the alloy scattering, since literature models deal mainly with single valley and/or III-V semiconductors. To this aim, as first step, the square modulus of the alloy scattering matrix element for Si xGe 1−x−ySn y has been linearly decomposed, as outlined in Ref. [31], in terms of the binary SiGe and GeSn ones, weighted according to the Si:Sn ratio in the ternary material. Moreover, as outlined in Ref. [32] for the SiGe case, to evaluate each binary scattering matrix element, we have distinguished between intra- and inter-valley events, adopting specific coupling potentials whose values depend on the initial and final valley state. The alloy scattering potentials used in our calculations for SiGe are taken from the theoretical estimations obtained by means of tight-binding supercell calculations in Ref. [32], where also a validation procedure is discussed. Indeed, the Au-thors of Ref. [32] demonstrate that using their alloy scattering parameters, the experimental mobility of SiGe is successfully reproduced in the entire compositional range. For the case of GeSn, we relied on the theoretical values resulting from the supercell simulations based on the density functional theory reported in Ref. [15]. However, after the model calibra-tion procedure discussed hereafter, a rescaling factor has been applied to the set of GeSn alloy potentials for the conduction band. As for the electron-phonon coupling, the adopted phonon energies and scattering parameters are reported and discussed in the SI, where we also list the values for all the other material parameters used in our simulations. The aforementioned model calibration procedure has been performed using a set of high-quality p-and n-type GeSn layers, featuring a thickness between 250 and 300 nm and different Sn concentrations spanning the 5-15% interval. These samples were grown on 200 mm Si(100) wafers using an industry-compatible reduced-pressure chemical vapor deposition reactor. In order to enhance the crystal quality, a 300 nm thick Ge buffer layer was introduced to 8accommodate the significant lattice mismatch between Sn and Si. 0.00 0.05 0.10 0.15 
+
+xSn 
+
+250 500 750 1000 
+
+> μ [cm 2/V ·s] n- calc. p- calc. n- exp. p- exp
+
+0.0 0.1 0.2 0.3
+
+xSi 
+
+0.00 0.05 0.10 0.15 
+
+> xSn
+
+0.00 0.02 0.04 0.06 0.08 0.10 0.12 0.14 
+
+xSn/xSi 
+
+10 0
+
+10 1
+
+10 2
+
+10 3
+
+10 4
+
+> ∑l [W/m ·K]
+
+0.0 0.2 0.4
+
+xSn 
+
+10 0
+
+10 2
+
+> ∑l [W/m ·K] SiGeSn Eq. (2) MD GeSn [Eq. (1)] SiGeSn [Eq. (2)] SiGe [Eq. (1)] Exp. SiGeSn Exp. GeSn
+
+0.31.32.33.34.35.36.37.3
+
+> ∑l [W/m ·K]
+
+# a) b) c) 
+
+Figure 2: a) GeSn electron (blue) and hole (red) mobilities as a function of Sn content, mea-sured with Hall bar (empty symbols) and theoretically predicted by ElecTra (full symbols). For comparison we also reported the mobility of bulk Ge at the same p-type impurity concen-tration of our Ge sample (red star). b) Lattice thermal conductivity from 3-ω experiments for Ge 1−xSn x (blue points) and Si xGe 1−x−ySn y with x + y = 0 .15 (red points). Data are shown as a function of the Sn concentration together with the estimation based on Eq. (1) and Eq. (2). For comparison, κl of SiGe (green curve) as a function of the Si concentration is also reported. In the inset molecular dynamics (MD) theoretical conductivity data (red points) from Ref. [27] are compared with the estimation based on Eq. (2). c) Colour map of the lattice thermal conductivity of Si xGe 1−x−ySn y for Si and Sn contents in [0-0.3] and [0-0.16] respectively; black arrows represent the gradient field. N-type epilayers have been in-situ doped by co-deposition of Phosphorous, achieving car-rier densities ranging in the 2.4—3.8 ×10 19 cm −3, as probed by means of Hall measurements 9at 300 K. From Hall experiments, performed on nominally intrinsic samples, we also asses p-type carrier densities the varying in the 10 16 —10 18 cm −3 range, depending on the Sn con-tent. Details on the epitaxy and structural characterization of the samples can be found in Refs. [24, 25]. Carrier mobilities are shown in Fig. 2(a) as a function of the Sn concentration. In the p-type material, mobility vs Sn content does not exhibit a clear trend. As a matter of fact, in this case the scattered values of μ simply reflect the differences in the doping concen-trations, with a peak value around 1100 cm 2/V · s, obtained for the Ge 90 Sn 10 sample since thanks to its lowest carrier density (1.2 ×10 16 cm −3). Conversely, in the n-type sample set, we observe for Sn concentration in the 7-14 % interval a well-defined monotonic increase of 
+
+μ, from ∼ 230 to 465 cm 2/V · s, due to the quite homogeneous doping contents. This result is in semi-quantitative agreement with the theoretical predictions reported in Ref. [15], and has to be attributed to the enhancement of the carrier population in the Γc valley, triggered by the lowering of the Γc-L energy barrier. As a matter of fact, despite the increased alloy scattering rates, the much lower effective mass of the Γc electrons, with respect to the L ones, positively impacts mobility, which is expected to exceed the one of Ge when the Sn content is above 15% [15]. Using the potential values reported in Ref. [15] we obtained a nice agreement with the measured mobility for the p-type materials only, while our theoretical predictions for the electron mobility overestimated the experimental data. Therefore, to calibrate the model, the alloy scattering potentials predicted for the conduction band have been tuned to match the experimental data, achieving a quantitative consistency (see Fig. 2(a)) when a 0.7 scaling factor is applied. After this calibration procedure, we separately inspected the different channel contribu-tions which limit the carrier mobility. In the n-type material, up to 10% of Sn content, the alloy scattering is the dominant one, representing ∼ 60% of the total scattering rate and about the 90% of its lattice part. At larger Sn concentrations, the relative weight of the alloy scattering decreases in favor of the electron-phonon interaction due to band-structure effects 10 related to the energy separation between the Γc and L valley. For the p-type case, we find that at any composition the alloy scattering rate is comparable to the electron-phonon one. However, in the low Sn concentration regime their impact on the total mobility is modest, while it increases up to nearly 50% at the higher Sn concentrations. 
+
+## Lattice thermal conductivity of SiGeSn 
+
+Now, we focus on the assessment of the lattice thermal conductivity in the SiGeSn material system. To this aim, we have performed 3-ω experiments [33] on a set of Si xGe 1−x−ySn y
+
+layers with x ∈ [0 .07 − 0.12] . The investigated samples, grown on a Ge buffer in the same reactor presented above, feature a constant Ge content 1 − x − y = 0 .85 and thicknesses ranging in the 40 — 360 nm interval. Our estimates for κl as a function of the Sn content 
+
+y are shown as red points in Fig. 2(b) together with the GeSn lattice thermal conductivity measured in Ref. [25] for Sn contents in a similar range (blue points). As further discussed in the following, it is apparent from Fig. 2(b) that alloying Ge with both Si and Sn induces a rapid and stronger suppression of kl with respect to the GeSn binary system. Combining our 3-ω data with literature experimental [25] and theoretical [27] estimates, we were able through the fitting procedure detailed below to propose a phenomenological relation which describes the lattice thermal conductivity of the Si xGe 1−x−ySn y ternary system in the sub-set of the compositional parameter (x, y ) space defined by x ∈ [0 − 0.3] and 
+
+y ∈ [0 − 0.16] . The rationale underlying the choice of this parameter region is two-fold. On one side Sn rich alloys become thermodynamically unstable for Sn concentration greater than 
+
+∼ 0.16 . On the other side, TE properties of Ge-rich materials are expected to over-perform with respect to their Si-rich counterpart, due to the lower lattice thermal conductivity of Germanium. Furthermore, we prefer not to provide TE estimates at (x, y ) regions located too far from the currently available κl data. As a starting point, we modeled κl of the Si xGe 1−x and Ge 1−xSn x binary alloys in terms of the thermal conductivity of their elemental constituents and of a fitting parameter A,11 relying on the following equation [34]: 
+
+κSiGe/GeSn (x) = 
+
+ xκSi/Sn 
+
++ 1 − xκGe 
+
++ (1 − x)xASiGe /A GeSn 
+
+−1
+
+. (1) The functional form of the above relation for κl(x) corresponds to a U-shaped curve when x ∈ [0 , 1] . For SiGe alloys, following Ref. [34] we set in Eq. (1) κSi = 148 W/m ·K, 
+
+κGe = 60 W/m ·K and ASiGe = 2 .8 W/m ·K, which corresponds to the green curve shown in Fig. 2(b). For the GeSn case, after fixing κSn = 63 W/m ·K, we have fitted the data reported in Ref. [25], obtaining AGeSn = 0 .467 W/m ·K (blue curve in Fig. 2(b)). It is apparent from Fig. 2(b) that when alloying Ge, Sn is much more effective than Si in suppressing the lattice conductivity. Indeed, Eq. (1) indicates that already at 10% of Sn content, κGeSn drops at 5 W/m ·K, i.e. a factor of 4 lower than the κSiGe conductivity at the same Si content. Next, we describe the thermal conductivity of the ternary Si xGe 1−x−ySn y alloy relying on a phenomenological generalization of the above relation, defined for x + y ≤ 1:
+
+κSiGeSn (x, y ) = 
+
+ xκSi 
+
++ yκSn 
+
++ 1 − x − yκGe 
+
++ x(1 − x)
+
+ASiGe 
+
++ y(1 − y)
+
+AGeSn 
+
++ xy ASiGeSn 
+
+−1
+
+. (2) Eq. (2) reproduces Eq. (1), for the binary alloys SiGe and GeSn, i.e. when y = 0 and 
+
+x = 0 , respectively. In the above equation, we have introduced a term proportional to the product of the Si ( x) and Sn ( y) concentration, controlled by ASiGeSn which plays the role of a new fitting parameter. Our best estimate for ASiGeSn gives 0.016 W/m ·K. This value has been obtained simultaneously fitting with Eq. (2) the 3-ω measurements shown in Fig. 2(b) for x + y = 0 .15 and the κl theoretical estimations provided in Ref. [27] for x = y with 
+
+x ∈ [0 .1, 0.5] , which has been obtained by molecular dynamics (MD) simulations. The resulting κl, plotted as a function of the Sn content is shown as red curve in Fig. 2(b) for the x + y = 0 .15 case, while comparison of Eq. (2) with theoretical MD points from Ref. [27] at x = y is reported in the inset. Beside noticing the effectiveness of the adopted 12 fitting formula in describing κl of the ternary system in the Ge-rich domain, we stress again that the addition of Si induces, already for modest concentrations, a stronger suppression of the Ge thermal conductivity with respect to the GeSn material. As a matter of fact, typical κl values in Fig. 2(b) are around 2 W/m ·K i.e. a factor of 2.5 lower with respect to the GeSn ones reported in Ref. [25] for Sn content ≈10%. κl as a function of the Si and Sn concentrations with x ≤ 0.3 and y ≤ 0.16 estimated through Eq. (2) is shown in Fig. 2(c). In the plotted domain, we observe a bowl-shape behavior with strong gradients close to the domain boundaries, pointing approximately toward the main diagonal of the 
+
+(x, y ) plane, where κl reaches the lowest values, with an absolute minimum as low as 0.28 
+
+W/m ·K, obtained for Si 0.3Ge 0.54 Sn 0.16 .0.0 0.1 0.2 0.3
+
+> xSi
+> 0.00 0.05 0.10 0.15
+> xSn
+
+a) p-type 300 K    
+
+> 0.00.10.20.3
+> xSi
+> 0.00 0.05 0.10 0.15
+> xSn
+
+b) p-type 300 K    
+
+> 0.00.10.20.3
+> xSi
+> 0.00 0.05 0.10 0.15
+> xSn
+
+c) p-type 400 K    
+
+> 0.00.10.20.3
+> xSi
+> 0.00 0.05 0.10 0.15
+> xSn
+
+d) p-type 400 K 
+
+> 0.1 0.2 0.3 0.4 0.5 0.6 0.7
+> ZT
+> 0.1 0.2 0.2 0.2 0.3 0.3
+> κh [W/m ·K]
+> 0.2 0.4 0.6 0.8 1.0 1.2
+> ZT
+> 0.1 0.2 0.2 0.2 0.3 0.4 0.4 0.5
+> κh [W/m ·K]
+
+Figure 3: Color map of the ZT figure of merit, predicted for p-type SiGeSn at the optimal carrier concentration at 300 K (a) and 400 K (c). The corresponding hole contribution to the thermal conductivity κh is reported in panel (b) and (d). The black dashed curve in panels (a) and (c) evidences the lattice matching condition with the relaxed Ge buffer material. 13 TE performance and discussion 
+
+Combining the fit values of the lattice thermal conductivity with the electronic properties predicted by ElecTra, we obtained the ZT and PF figures of merit at 300 K and 400 K. Our ZT predictions for the p-type material at the optimal hole density are reported in Fig. 3(a) where the black dashed curve evidences the x:y ratio equal to 3.67. This value corresponds to a Si xGe 1−x−ySn y lattice constant matching the one of Ge, thus indicating the absence of biaxial deformation when a relaxed Ge buffer layer is introduced to accommodate the mismatch between the Si and SiGeSn lattice parameter. ZT increases at larger Sn and Si contents, since its qualitative behavior is controlled by κl(x, y ). As a matter of fact, differently from what holds for the conduction band, alloying with Si and Ge does not induce complex band-structure effects in the valence, which maintains its single valley character. It follows that the trend observed in Fig. 3(a) is triggered by the suppression of κl(x, y ),which governs also the functional form of the hole contribution κh(x, y ) (Fig. 3(b)) to the total thermal conductivity and of the optimal hole density popt (x, y ), plotted in the SI. In the explored domain popt varies in the 4 — 10 ×10 18 cm −3 interval, which corresponds to κh
+
+values in the 0.1 — 0.35 W/m ·K range. The lowest popt concentrations are expected in the Sn- and Si-rich region, where the strong suppression of κl poses an upper bound to κh when maximizing ZT .Spanning the (x, y ) parameter space, we find that ZT peaks for Si 0.3Ge 0.54 Sn 0.16 at 0.7, a value 6 times larger than the one calculated in Ref. [25] for the binary GeSn alloy at 0.15% Sn content. Remarkably, a modest increase of the lattice temperature triggers even larger ZT values as apparent from the bottom panels of Fig. 3. Indeed, having in mind energy harvesting applications in the field of microelectronics leveraging on this CMOS compatible material, we have calculated TE properties also at 400 K, a typical chip operation temperature, predicting in this case ZT values as high as 1.3 at a hole density of about 5×10 18 cm −3 for Sn and Si contents of 0.16 and 0.3, respectively. We now focus on the n-type material whose ZT figure of merit is shown in Fig. 4 as a 14 0.0 0.1 0.2 0.3
+
+> xSi
+> 0.00 0.05 0.10 0.15
+> xSn
+
+a) n-type 300 K    
+
+> 0.00.10.20.3
+> xSi
+> 0.00 0.05 0.10 0.15
+> xSn
+
+b) n-type 300 K    
+
+> 0.00.10.20.3
+> xSi
+> 0.00 0.05 0.10 0.15
+> xSn
+
+c) n-type 400 K    
+
+> 0.00.10.20.3
+> xSi
+> 0.00 0.05 0.10 0.15
+> xSn
+
+d) n-type 400 K 
+
+> 0.2 0.3 0.5 0.6 0.8 0.9 1.1 1.2
+> ZT
+> 0.2 0.5 0.8 1.0 1.2 1.5 1.8
+> κe [W/m ·K]
+> 0.2 0.5 0.8 1.0 1.2 1.5
+> ZT
+> 0.2 0.5 0.8 1.0 1.2 1.5 1.8
+> κe [W/m ·K]
+
+Figure 4: Color map of the ZT figure of merit, predicted for n-type SiGeSn at the optimal carrier concentration at 300 K (a) and 400 K (c). The corresponding electron contribution to the thermal conductivity κe is reported in panels (b) and (d). The black dashed curve in panels (a) and (c) evidences the lattice matching condition with the relaxed Ge buffer material. function of (x, y ) in the same subset of the alloy parameter space. Top and bottom panels refers to 300 and 400 K, respectively and as for the p-case, the right panels display the electronic contribution κe to the total thermal conductivity. The qualitative behavior of ZT 
+
+differs from the one discussed above, indicating that alloy induced band-structure effects in the conduction, play a relevant role, due to their non-trivial impact on the electronic con-ductivity. In particular we expect a complex functional dependence of the effective mobility, arising from the joint action of the content dependent alloy scattering rate and of the electron density of Γc carriers. As a matter of fact, as mentioned in the introduction, the conductivity mass of Γc electrons is much lighter than the one associated with the L valley and the ratio 15 between the two populations is greatly influenced by the Sn and Si content. As a result, we find that the largest ZT are still found at the highest Si concentration, however in this case their values do not increase monotonically with the Sn content. As a matter of fact, we observe in the color maps of Fig. 4a) and c) two regions of interest, one at high Sn content, and another one at high Si and lower Sn contents. The latter is of special interest since Si has infinite miscibility in Ge whereas Sn has limited solid-state miscibility in Si and Ge [28]. In particular, at the x Si concentration of 0.3 we predict a peak ZT equal to 1.2 (1.6) at 300 K (400 K), achieved for y Sn content of 0.16 while for y = 0.13 we get ZT = 0.85 (1.5). We also notice that for the n-type material the optimal doping densities are larger, covering the 5 — 7 ×10 19 cm −3 range (see SI), which however remains experimentally accessible [35]. In Fig. 5 we show 300 and 400 K data for the power factor PF, another figure of merit of great interest for thermoelectric applications. Remarkably, the predicted PFs align with the highest values (25/30 μW/cm · K2) observed in the temperature range of interest for not compatible CMOS material systems (see Refs. [36–38]). PF at this scale have been recently measured also in Si based devices, as discussed in Ref. [39] where a value of 11 μW/cm · K2
+
+is reported. However such high PF requires the nano-patterning of the active region in order to implement an electron energy filter. Finally, we focus on the special case of interest of SiGeSn alloys with a Si:Sn ratio of 3.67, since in this case the lattice parameter matches the one of Ge [40]. The ZT and PF values for this situation are reported in Fig. 6 where a monotonic behavior is observed for the hole based systems while the n-type material exhibits a more complex behavior due to its multi-valley character. This is particularly apparent in the 0.2-0.3 Si content region where the energy of the Γ valley drops down inducing a bump in the ZT and a clear non-monotonic trend in the PF. 16 0.0 0.1 0.2 0.3
+
+> xSi
+> 0.00 0.05 0.10 0.15
+> xSn
+
+a) p-type 300 K    
+
+> 0.00.10.20.3
+> xSi
+> 0.00 0.05 0.10 0.15
+> xSn
+
+b) n-type 300 K    
+
+> 0.00.10.20.3
+> xSi
+> 0.00 0.05 0.10 0.15
+> xSn
+
+c) p-type 400 K    
+
+> 0.00.10.20.3
+> xSi
+> 0.00 0.05 0.10 0.15
+> xSn
+
+d) n-type 400 K 
+
+> 10 12 14 16 18 20 22 PF [ μW/cm ·K2]
+> 10 20 30 40 50 60 70 PF [ μW/cm ·K2]
+> 12 14 16 18 20 22 24 26 PF [ μW/cm ·K2]
+> 10 20 30 40 50 60 70 PF [ μW/cm ·K2]
+
+Figure 5: Color map of the Power Factor PF at 300 K at the optimal carrier density for p-type (a) and n-type (b) SiGeSn alloys. Corresponding quantities calculated at 400 K are shown in panel (c) and (d). The black dashed curve evidences the lattice matching condition with the relaxed Ge buffer material. 
+
+# Conclusions 
+
+In this article, we studied the thermoelectric properties of the novel CMOS-compatible SiGeSn ternary alloy material system. To this aim we have combined lattice thermal con-ductivity 3-ω measurements, obtained from state-of-the-art SiGeSn heteroepitaxial layers deposited on Si wafers, with advanced numerical simulations of the carrier transport proper-ties of SiGeSn alloys, performed taking into account the complex interactions stemming from its multivalley energy band landscape. The developed full stack of methods and simulation tools has allowed us to numerically explore the experimentally accessible alloy parameter space, delimited by the thermodynamical stability constrains related to the very low solu-bility of Sn in the Ge and Si lattice. In n-type systems at the optimal carrier concentration 17 0.1 0.2 0.3
+
+> xSi
+> 0.00 0.25 0.50 0.75 1.00 1.25
+> ZT
+
+a)   
+
+> n-type 300K n-type 400K p-type 300K p-type 400K
+> 0.10.20.3
+> xSi
+> 7.510 .012 .515 .017 .520 .0
+> PF [ μW/cm ·K2]
+
+b) Figure 6: (a) ZT and (b) PF at the Si:Sn ratio of 3.67 as a function of the Si content at 300 and 400 K. The data are for p-type (red) and n-type (blue) alloys, as indicated in the legend. we find a ZT peak value at 300 (400) K of 1.2 (1.6), while the corresponding value for the p-type material is 0.7 (1.3). From Fig. 1(a) it is apparent that these performances are better or in par with those of conventional TE material systems in the same temperature range, typically based on toxic/rare atomic species, which furthermore are hard to impossible to integrate in mainstream electronics. On this basis our results clearly indicate SiGeSn as a truly promising material system candidate for achieving a new CMOS-compatible TE technology, able to operate efficiently at room temperature. We therefore envisage that a transition to a SiGeSn-based TE technol-ogy could qualitatively change the application prospects of thermoelectric devices by finally allowing them to be seamlessly integrated into consumer electronics. 
+
+# Supporting Information Available 
+
+• Supplementary Information: material parameters used in the simulations and optimal carrier densities. 18 Acknowledgement 
+
+M.V., D.M. and S.R. acknowledge support from Italian MUR grant PRIN 2022 PNRR In-tegrable Thz si-based quantum cascade operation, CUP I53D23006680001 funded by the European Union - NextGenerationEU. P.G. acknowledge the CINECA award under the ISCRA initiative, for the availability of high-performance computing resources and sup-port, and, acknowledges partial funding from the European Union–Next-Generation EU via the Ministry of University and Research of Italy, PRIN PNRR call, grant P20227P7WZ. G.C., D.B., O.C., J.T-R., A.C-W. acknowledge financial support from the German Research Foundation (DFG) under Projects No. 537127697 “Thermoelektrische Eigenschaften von SiGeSn-Mikrobauelementen”. 
+
+# References 
+
+(1) Champier, D. Thermoelectric generators: A review of applications. Energy Conversion and Management 2017 , 140 , 167–181. (2) Fernández-Yáñez, P.; Romero, V.; Armas, O. Thermal management of thermoelectric generators for waste energy recovery. Applied Thermal Engineering 2021 , 196 , 117291. (3) Zadan, M.; Wertz, A.; Shah, D.; Patel, D. K.; Zu, W.; Han, Y.; Gelorme, J.; Mea, H. J.; Yao, L.; Malakooti, M. H.; Ko, S. H.; Kazem, N.; Majidi, C. Stretchable Thermoelectric Generators for Self-Powered Wearable Health Monitoring. Advanced Functional Mate-rials 2024 , 34 , 2404861. (4) Quan, R.; Liu, D.; Li, W.; Feng, Z.; Chang, Y.; Wan, H. The potential role of automotive thermoelectric generator to improve the fuel economy of vehicle. Energy Conversion and Management 2024 , 308 , 118421. (5) Cataldo, R. L.; Bennett, G. L. In Radioisotopes ; Singh, N., Ed.; IntechOpen: Rijeka, 2011; Chapter 22. 19 (6) Kuroki, T.; Kajikawa, K.; Hasegawa, S.; Kunitomo, K.; Kurokawa, H.; Kato, K. Re-search and Development for Thermoelectric Generation Technology Using Waste Heat from Steelmaking Process. Materials Science and Engineering: B 2015 , 194 , 24–28. (7) Yan, Q.; Kanatzidis, M. G. High-performance thermoelectrics and challenges for prac-tical devices. Nature Materials 2022 , 21 , 503–513. (8) Cao, T.; Shi, X.-L.; Li, M.; Hu, B.; Chen, W.; Liu, W.-D.; Lyu, W.; MacLeod, J.; Chen, Z.-G. Advances in bismuth-telluride-based thermoelectric devices: Progress and challenges. eScience 2023 , 3, 100122. (9) Kim, H. S.; Liu, W.; Chen, G.; Chu, C.-W.; Ren, Z. Relationship between thermoelectric figure of merit and energy conversion efficiency. Proceedings of the National Academy of Sciences 2015 , 112 , 8205–8210. (10) Wang, H.; Yu, L.; Wang, D. Z.; Chen, G.; Ren, Z. Universal behavior of the thermo-electric figure of merit, zT, vs. quality factor: Towards maximizing zT. Materials Today Physics 2019 , 8, 115–123. (11) Dresselhaus, M. S.; Chen, G.; Tang, M. Y.; Yang, R.; Lee, H.; Wang, D.; Ren, Z.; Fleurial, J.-P.; Gogna, P. New Directions for Low-Dimensional Thermoelectric Materi-als. Advanced Materials 2007 , 19 , 1043–1053. (12) Li, D.; Wu, Y.; Fan, R.; Yang, P.; Majumdar, A. Thermal conductivity of Si/SiGe superlattice nanowires. Applied Physics Letters 2003 , 83 , 3186–3188. (13) Yu, B.; Wang, W.; Wang, S.; Wang, Y.; Wang, D.; Liu, W.; Wang, H.; Chen, G.; Ren, Z. Thermoelectric Figure of Merit of Disordered Layered WSe2. Nano Letters 2012 , 12 ,2077–2082. (14) Shi, H.; Wen, Y.; Bai, S.; Chang, C.; Su, L.; Gao, T.; Liu, S.; Liu, D.; Qin, B.; Qin, Y.; Liang, H.; Qian, X.; Hou, Z.; Gao, X.; Zhou, T.; Tan, Q.; Zhao, L.-D. Crystal symmetry 20 modification enables high-ranged in-plane thermoelectric performance in n-type SnSe crystals. Nature Communications 2025 , 16 .(15) Sewell, K.; Murphy-Armando, F. First-principles calculation of alloy scattering and 
+
+n-type mobility in strained Ge −Sn . Phys. Rev. Appl. 2025 , 23 , 014074. (16) Moutanabbir, O.; Assali, S.; Gong, X.; O’Reilly, E.; Broderick, C. A.; Marzban, B.; Witzens, J.; Du, W.; Yu, S.-Q.; Chelnokov, A.; Buca, D.; Nam, D. Monolithic infrared silicon photonics: The rise of (Si)GeSn semiconductors. Applied Physics Letters 2021 ,
+
+118 , 110502. (17) Buca, D.; Bjelajac, A.; Spirito, D.; Concepción, O.; Gromovyi, M.; Sakat, É.; Lafosse, X.; Ferlazzo, L.; von den Driesch, N.; Ikonić, Z.; Grützmacher, D.; Capellini, G.; Kurdi, M. E. Room Temperature Lasing in GeSn Microdisks Enabled by Strain Engi-neering. Advanced Optical Materials 2022 , 10 , 2101024. (18) Seidel, L.; Liu, T.; Concepción, O.; Marzban, B.; Kiyek, V.; Spirito, D.; Schwarz, D.; Benkhelifa, A.; Schulze, J.; Ikonić, Z.; Hartmann, J.-M.; Chelnokov, A.; Witzens, J.; Capellini, G.; Oehme, M.; Grützmacher, D.; Buca, D. Continuous-wave electrically pumped multi-quantum-well laser based on group-IV semiconductors. Nature Commu-nications 2024 , 15 , 54873. (19) Liu, C.-Y.; Tien, K.-Y.; Chiu, P.-Y.; Wu, Y.-J.; Chuang, Y.; Kao, H.-S.; Li, J.-Y. Room-Temperature Negative Differential Resistance and High Tunneling Current Density in GeSn Esaki Diodes. Advanced Materials 2022 , 34 , 2203888. (20) Frauenrath, M.; Concepción, O.; Gauthier, N.; Nolot, E.; Buca, D.; Hartmann, J.-M. Advances in In Situ Boron and Phosphorous Doping of SiGeSn. ECS Journal of Solid State Science and Technology 2023 , 12 , 064001. (21) Zhang, Y.; Lu, Y.; Mercier, P. P. Low-Power On-Chip Energy Harvesting: From Inter-face Circuits Perspective. IEEE Solid-State Circuits Magazine 2023 , 15 , 46–54. 21 (22) Chen, W.-Y.; Shi, X.-L.; Zou, J.; Chen, Z.-G. Thermoelectric coolers for on-chip thermal management: Materials, design, and optimization. Materials Science and Engineering: R: Reports 2022 , 151 , 100700. (23) Spirito, D.; von den Driesch, N.; Manganelli, C. L.; Zoellner, M. H.; Corley-Wiciak, A. A.; Ikonic, Z.; Stoica, T.; Grützmacher, D.; Buca, D.; Capellini, G. Ther-moelectric Efficiency of Epitaxial GeSn Alloys for Integrated Si-Based Applications: Assessing the Lattice Thermal Conductivity by Raman Thermometry. ACS Applied Energy Materials 2021 , 4, 7385–7392. (24) Concepción, O.; Søgaard, N. B.; Bae, J.-H.; Yamamoto, Y.; Tiedemann, A. T.; Ikonic, Z.; Capellini, G.; Zhao, Q.-T.; Grützmacher, D.; Buca, D. Isothermal Heteroepi-taxy of Ge1–xSnx Structures for Electronic and Photonic Applications. ACS Applied Electronic Materials 2023 , 5, 2268–2275. (25) Concepción, O.; Tiscareño-Ramírez, J.; Chimienti, A. A.; Classen, T.; Corley-Wiciak, A. A.; Tomadin, A.; Spirito, D.; Pisignano, D.; Graziosi, P.; Ikonic, Z.; Zhao, Q. T.; Grützmacher, D.; Capellini, G.; Roddaro, S.; Virgilio, M.; Buca, D. Room Temperature Lattice Thermal Conductivity of GeSn Alloys. ACS Applied Energy Ma-terials 2024 , 7, 4394–4401. (26) Khatami, S. N.; Aksamija, Z. Lattice Thermal Conductivity of the Binary and Ternary Group-IV Alloys Si–Sn, Ge–Sn, and Si–Ge–Sn. Physical Review Applied 2016 , 6,014015. (27) Lee, Y.; Hwang, G. S. Molecular Dynamics Investigation of the Thermal Conductivity of Ternary Silicon–Germanium–Tin Alloys. Journal of Physics D: Applied Physics 2017 ,
+
+50 , 494001. (28) Grützmacher, D.; Concepción, O.; Zhao, Q. T.; Buca, D. Si–Ge–Sn alloys grown by 22 chemical vapour deposition: a versatile material for photonics, electronics, and ther-moelectrics. Applied Physics A 2023 , 129 , 235. (29) Graziosi, P.; Li, Z.; Neophytou, N. ElecTra code: Full-band electronic transport prop-erties of materials. Comput. Phys. Commun. 2023 , 287 , 108670. (30) Graziosi, P. ElecTra v1.4. Available at: https://github.com/PatrizioGraziosi/ ELECTRA (accessed: 2024-10-29), 2023. (31) Littlejohn, M.; Hauser, J.; Glisson, T.; Ferry, D.; Harrison, J. Alloy scattering and high field transport in ternary and quaternary III–V semiconductors. Solid-State Electronics 
+
+1978 , 21 , 107–114. (32) Mehrotra, S. R.; Paul, A.; Klimeck, G. Atomistic approach to alloy scattering in Si1−xGex. Applied Physics Letters 2011 , 98 , 173503. (33) Cahill, D. G. Thermal Conductivity Measurement from 30 to 750 K: The 3 ω Method. 
+
+Review of Scientific Instruments 1990 , 61 , 802–808. (34) Wagner, M.; Span, G.; Holzer, S.; Palankovski, V.; Selberherr, S. Power Output Im-provement of Silicon-Germanium Thermoelectric Generators. 2006 , 3, 1151–1162. (35) Frauenrath, M.; Casiez, L.; Concepción Díaz, O.; Coudurier, N.; Gauthier, N.; N’hari, S.-M.; Nolot, E.; Rodriguez, P.; Buca, D.; Pauc, N.; Reboud, V.; Hartmann, J.-M. Advances in In-situ Boron and Phosphorous Doping of SiGeSn. ECS Transactions 
+
+2022 , 109 , 3. (36) Zhang, Y.; Xing, C.; Wang, D.; Genç, A.; Lee, S. H.; Chang, C.; Li, Z.; Zheng, L.; Lim, K. H.; Zhu, H.; Smriti, R. B.; Liu, Y.; Cheng, S.; Hong, M.; Fan, X.; Mao, Z.; Zhao, L.-D.; Cabot, A.; Zhu, T.; Poudel, B. Realizing high power factor and thermo-electric performance in band engineered AgSbTe2. 16 , 22. 23 (37) Xu, L.; Wang, X.; Wang, Y.; Gao, Z.; Ding, X.; Xiao, Y. Enhanced average power factor and ZT value in PbSe thermoelectric material with dual interstitial doping. 
+
+Energy Environ. Sci. 2024 , 17 , 2018–2027. (38) Rahman, J. U.; Nam, W. H.; Jung, Y.-J.; Won, J. H.; Oh, J.-M.; Van Du, N.; Rah-man, G.; García-Suárez, V. M.; He, R.; Nielsch, K.; Cho, J. Y.; Seo, W.-S.; Roh, J. W.; Kim, S.-i.; Lee, S.; Lee, K. H.; Kim, H. S.; Shin, W. H. Realizing High Thermoelectric Performance in n-Type Se-Free BiTe Materials by Spontaneous Incorporation of FeTe Nanoinclusions. ENERGY & ENVIRONMENTAL MATERIALS 2024 , 7, e12663. (39) Masci, A.; Dimaggio, E.; Neophytou, N.; Narducci, D.; Pennelli, G. Large increase of the thermoelectric power factor in multi-barrier nanodevices. Nano Energy 2024 , 132 ,110391. (40) Schwarz, D.; Kasper, E.; Bärwolf, F.; Costina, I.; Oehme, M. Determination of the indirect bandgap of lattice-matched SiGeSn on Ge. Materials Science in Semiconductor Processing 2024 , 180 , 108565. 24

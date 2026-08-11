@@ -1,0 +1,153 @@
+{
+  "date": "20260811",
+  "date_label": "",
+  "generated_at": "2026-08-11 20:30:42 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2608.04169v1",
+      "route": "202608/11/2608.04169v1-on-design-principles-for-efficient-heterogeneous-dram-pim-gpu-systems",
+      "title": "On Design Principles for Efficient Heterogeneous DRAM-PIM-GPU Systems",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "cim"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "面向DRAM-PIM-GPU异构系统的存内计算架构与能效设计原则",
+      "first_seen_at": "2026-08-11 20:30:42 UTC",
+      "updated_at": "2026-08-11 20:30:42 UTC"
+    },
+    {
+      "paper_id": "2608.08496v1",
+      "route": "202608/11/2608.08496v1-revolt-power-delivery-network-aware-voltage-droop-control-for-25d-pim-chiplet-architectures",
+      "title": "ReVolt: Power Delivery Network-Aware Voltage Droop Control for 2.5D PIM Chiplet Architectures",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "cim"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "利用LSTM代理模型对2.5D PIM小芯片架构进行电压跌落控制",
+      "first_seen_at": "2026-08-11 20:30:42 UTC",
+      "updated_at": "2026-08-11 20:30:42 UTC"
+    },
+    {
+      "paper_id": "2608.08534v1",
+      "route": "202608/11/2608.08534v1-high-thermal-conductivity-of-back-end-of-line-compatible-diamond-films",
+      "title": "High Thermal Conductivity of Back-End-of-Line Compatible Diamond Films",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "thermal-gnn"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "后端兼容金刚石薄膜直接面向芯片散热与片上热管理",
+      "first_seen_at": "2026-08-11 20:30:42 UTC",
+      "updated_at": "2026-08-11 20:30:42 UTC"
+    },
+    {
+      "paper_id": "2608.09508v1",
+      "route": "202608/11/2608.09508v1-200-mm-wafer-scale-monolithic-3d-integration-of-atomic-layer-deposited-oxide-semiconductors",
+      "title": "200 mm Wafer-Scale Monolithic 3D Integration of Atomic Layer-Deposited Oxide Semiconductors",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "cim"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "晶圆级单片三维集成并展示三层器件与四层3D存内计算加速器，贴合3D堆叠与存算一体主题",
+      "first_seen_at": "2026-08-11 20:30:42 UTC",
+      "updated_at": "2026-08-11 20:30:42 UTC"
+    },
+    {
+      "paper_id": "2608.03638v1",
+      "route": "202608/11/2608.03638v1-epitaxial-sigesn-alloys-for-cmos-compatible-thermoelectric-devices",
+      "title": "Epitaxial SiGeSn alloys for CMOS-compatible thermoelectric devices",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "thermal-gnn"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "CMOS兼容热电材料用于芯片热管理",
+      "first_seen_at": "2026-08-11 20:30:42 UTC",
+      "updated_at": "2026-08-11 20:30:42 UTC"
+    },
+    {
+      "paper_id": "2608.08742v1",
+      "route": "202608/11/2608.08742v1-bounds-and-constructions-for-constantlow-power-error-correcting-cooling-codes",
+      "title": "Bounds and constructions for constant/low-power error-correcting cooling codes",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "thermal-gnn"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "控制片上总线峰值温度和功耗的冷却编码",
+      "first_seen_at": "2026-08-11 20:30:42 UTC",
+      "updated_at": "2026-08-11 20:30:42 UTC"
+    },
+    {
+      "paper_id": "2608.05339v2",
+      "route": "202608/11/2608.05339v2-powerscope-ml-based-intra-cycle-power-estimation",
+      "title": "PowerScope: ML-based Intra-Cycle Power Estimation",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "thermal-gnn"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "基于机器学习的周期内功耗估计，可为芯片热评估提供功耗输入",
+      "first_seen_at": "2026-08-11 20:30:42 UTC",
+      "updated_at": "2026-08-11 20:30:42 UTC"
+    },
+    {
+      "paper_id": "2608.08761v1",
+      "route": "202608/11/2608.08761v1-eco-soc-a-sustainable-vlsi-architecture-for-energy-proportional-artificial-intelligence",
+      "title": "Eco-SoC: A Sustainable VLSI Architecture for Energy-Proportional Artificial Intelligence",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "thermal-gnn"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "通过降低开关活动实现能耗比例的VLSI架构，有助于芯片功耗与热管理",
+      "first_seen_at": "2026-08-11 20:30:42 UTC",
+      "updated_at": "2026-08-11 20:30:42 UTC"
+    },
+    {
+      "paper_id": "2608.09466v1",
+      "route": "202608/11/2608.09466v1-second-order-unfitted-ghost-fem-for-elliptic-interface-problems-with-applications-to-low-dimensional-semiconductor-devices",
+      "title": "Second order unfitted ghost-FEM for elliptic interface problems with applications to low-dimensional semiconductor devices",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "thermal-gnn"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "高阶鬼有限元适用于异质三维堆叠芯片中的热传导界面问题求解",
+      "first_seen_at": "2026-08-11 20:30:42 UTC",
+      "updated_at": "2026-08-11 20:30:42 UTC"
+    }
+  ]
+}

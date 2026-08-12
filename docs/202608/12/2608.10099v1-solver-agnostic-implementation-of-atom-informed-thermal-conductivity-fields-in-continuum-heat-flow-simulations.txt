@@ -1,0 +1,811 @@
+Title: Solver-Agnostic Implementation of Atom-Informed Thermal Conductivity Fields in Continuum Heat-Flow Simulations
+
+URL Source: https://arxiv.org/pdf/2608.10099v1
+
+Published Time: Wed, 12 Aug 2026 00:07:48 GMT
+
+Number of Pages: 16
+
+Markdown Content:
+## Solver-Agnostic Implementation of Atom-Informed Thermal Conductivity Fields in Continuum Heat-Flow Simulations 
+
+W. Downs, 1 C. Ugwumadu, 2, ∗ M. Ali, 1 and R. M. Tutchton 2
+
+> 1
+
+Department of Mechanical Engineering, Center for Advanced Materials Processing, Ohio University, Athens, OH, USA 
+
+> 2
+
+Quantum & Condensed Matter (T-4) Group, Los Alamos National Laboratory, Los Alamos, NM, USA 
+
+A recent work introduced the Simulator Collection for Atomic-to-Continuum Scales (SCACS) toolkit, a framework for improving finite element predictions of heat flow by mapping atom-resolved thermal conductivity into the stiffness matrix of the Galerkin finite element formulation [Ugwu-madu et al. , Phys. Rev. Materials 10, 053804 (2026)]. Here, we demonstrate that SCACS-derived conductivity fields are solver-independent and can be transferred to existing continuum simulation platforms. As a proof of concept, we map SCACS-derived conductivity fields from complex silicon structures onto finite element meshes in Abaqus ® and compare the resulting heat-flow solutions with that obtained using conventional uniform-conductivity assignment within Abaqus. Comparison of the two implementations shows that atom-informed conductivity fields can be incorporated into existing finite element workflows and improve realistic prediction and the accuracy of its solution. This work supports broader efforts to improve the predictive capability of continuum simulations for efficient materials design and property prediction. 
+
+I. INTRODUCTION 
+
+Continuum modeling remains one of the most practi-cal simulation approaches for connecting materials theory to engineering-scale experiments and device-level predic-tions. In heat-flow simulations, the accuracy of the con-tinuum solution depends strongly on the thermal conduc-tivity field assigned to the material. For a material with thermal conductivity tensor ←→
+
+K (x) and volumetric heat-generation rate f (x) at position x, steady-state energy balance requires [1] 
+
+∇T−→q (x) + f (x) = 0 , (1) with the heat-flux given by Fourier’s law, 
+
+−→q (x) = −←→
+
+K (x)∇T (x). (2) Thus, the quality of the predicted temperature and heat-flux fields depends directly on how accurately ←→
+
+K (x) rep-resents the underlying material. In many practical finite-element workflows, however, the conductivity is treated as a uniform, experimentally fitted, or otherwise simplified quantity [2–5]. This ap-proximation can obscure spatial variations, anisotropy, and microstructure-dependent transport pathways that are essential for realistic heat-flow prediction in hetero-geneous materials [6]. This limitation becomes especially important for complex materials where local structure strongly affects transport. Examples include materials for chip design, spacecraft and plasma-facing materials. In finite-element modeling, the material domain is dis-cretized into subvolumes Ω and boundary surfaces Γ, and the assigned element-wise properties enter directly into the matrix-vector form of the Galerkin heat-flow prob-lem [1, 6]. If the conductivity field is poorly resolved  
+
+> ∗cugwumadu@lanl.gov
+
+or contains artificial discontinuities, the resulting heat-flux can be inaccurate, leading to poor energy balance, mesh-dependent artifacts, or unstable solutions [7]. Aphysically informed and smoothly varying conductivity field is therefore needed to improve both the accuracy and robustness of continuum heat-flow simulations. We recently addressed this challenge by introducing the Simulator Collection for Atomic-to-Continuum Scales (SCACS) toolkit [6], a framework that coarse-grains atom-resolved, microstructure-aware thermal conductiv-ity into a continuum conductivity field. This field can be mapped directly into the finite-element stiffness matrix for heat flow calculations. In SCACS, conductive pathways are first learned from atomistic simulations using the site-projected thermal conductivity (SPTC) method [8–11] on system sizes with 
+
+∼ 10 3 atoms. A graph neural network is then used to extend these predictions to large atomic models con-taining ≳ 10 5 atoms, which are sufficiently large to serve as representative volume elements (RVE) for finite-element analysis [12–15]. The resulting atom-informed conductivity is mapped into the continuum volume using Gaussian broadening, producing an intrinsic conductiv-ity field without ad hoc fitting or manual assignment of matrix-element properties. Related atomic-to-continuum transfer ideas have also been used to predict mechanical stress–strain behavior in porous carbon foams through dimension-invariant scaling (fractals) [14, 16]. Following the development of SCACS, the next step is to demonstrate that SCACS-derived conductivity fields are solver-independent and can therefore be transferred to existing continuum modeling frameworks. In this work, we develop a protocol for transferring SCACS-based mesh information into Abaqus ® and solving the corresponding heat-flow problem within its finite-element environment. The caveat for the transferability of SCACS-derived fields into any solver is that the solver accepts point-cloud data, which is a widely used 3D ob-ject format [17]. arXiv:2608.10099v1 [cond-mat.mtrl-sci] 10 Aug 2026 2The contribution of this work is three-fold. First, we show that SCACS can be integrated into exist-ing continuum workflows, allowing users to retain their preferred finite-element platform while incorporating spatially-varying material fields. Second, we demonstrate that SCACS-derived conductivity fields improve heat-flow predictions compared with conventional approaches based on uniform or experimentally fitted conductiv-ity values. Third, we address how direct mapping of these microstructure-aware fields have the potential to improve the efficiency and physical consistency of the mesh-refinement process. We also provide all the struc-tural models and a python utility file developed in this work, as supporting materials [18]. 
+
+II. MODELS AND METHODS 
+
+This work focuses on transferring SCACS-derived con-ductivity fields into Abaqus-compatible meshes and ana-lyzing the resulting heat-flow solutions. Complete details of the SPTC method used within SCACS are provided in Ref. [8]. The coarse-graining procedure used to convert atom-resolved conductivity into finite-element conductiv-ity fields is described in Ref. [6]. SCACS outputs spatially resolved orthotropic thermal conductivity fields in .xdmf/.hdf5 format as point-cloud data. The extracted conductivity components are Kxx ,
+
+Kyy , and Kzz , corresponding to the x, y, and z direc-tions, respectively. A representation of the Kxx input format is shown in Table I. These nodal fields were ex-tracted using ParaView [19]. TABLE I: Representation of the Kxx component of the nodal field input.                     
+
+> Node xyzField value 100010.513 21.1794 0010.700 30.0002 1.1185 010.663 41.1797 1.1185 010.626 ...............
+
+The SCACS models considered here are obtained from Ref. [6], and denoted M 1, M 2, and M 3, corresponding to a twin-grain-boundary Si nanowire, an amorphous– crystalline Si interface, and a Si nanopillar, respectively. The mesh files for the models were first converted to an unstructured-grid format ( .vtu ). Meshio [20] was then used to convert the unstructured meshes into Abaqus in-put files ( .inp ). The SCACS point-cloud conductivity fields were mapped to Abaqus following the procedure outlined in Ref. [21]. For the presentation and the discussion of the results in this work, the green region in Fig. 1(a–c) high-lights the slice and surface considered for each model (i.e., the cyan region is omitted). Figure 2(a–c) illus-trates the SCACS-to-Abaqus mapping for models M 1, 
+
+FIG. 1: Geometrical representations of the models: (a) 
+
+M 1, (b) M 2, and (c) M 3. the green region show the slice considered in this work. The cyan region is omitted. 
+
+M 2, and M 3, respectively. A more detailed cross-section for M 3 is shown in Fig. S1 of the supplemental mate-rial. The columns show, from left to right, the atomic-scale RVE, SPTC atom-resolved thermal conductivity, and the SCACS coarse-grained finite-element conductiv-ity field mapped into Abaqus. All the continuum-scale models use DC3D8 hexahedral elements, with properties summarized in Table II. Further discussion of the imple-mentation of the mapping of the SCACS-based conduc-tivity field Abaqus is provided in Appendix A. TABLE II: Mesh information for the models. The unit of the isotropic (scalar) effective conductivity Keff is in Wm −1K−1.          
+
+> Model Elements Nodes Keff Description
+> M11,682,384 162,000 33.20 twin-grain-boundary Si nanowire
+> M25,417,280 511,584 13.80 amorphous–crystalline Si interface
+> M3462,372 504,621 27.98 Si nanopillar structure (4 pillars)
+
+After import, each mesh was translated in Abaqus 
+
+Assembly module to align the mesh coordinates with the SCACS conductivity-field coordinates. For the heat-flow calculations, Dirichlet boundary conditions were ap-plied by prescribing temperatures of 500 K and 300 K on the top and bottom faces, respectively. This matches the boundary-condition treatment used for SCACS na-tive solver calculations in Ref. [6]. Results obtained un-der natural (Neumann) boundary conditions will be pre-sented in a subsequent publication. Finite-element simulations were performed using the steady-state and transient heat-transfer step type in Abaqus. Density was set to ≈ 1.2 kg/m 3 and the specific heat was set to 700 J/kg ·K (for the transient calculation). The finite-element formulation for the heat-flow prob-lem is summarized in Appendix B. The direct solver and “Full Newton” solution technique were used [22]. The re-quested field outputs were coordinates (COORD), prede-fined field values (FV), heat-flux vector (HFL), and nodal temperature (NT). These solutions were used to compare the SCACS-derived conductivity fields to uniform-scalar-conductivity assignments within Abaqus. 3b: M2   
+
+> Atomic SPTC SCACS
+
+a: M1 
+
+c: M3   
+
+> Atomic SPTC SCACS
+> Normalized Conductivity [W/mK]
+
+FIG. 2: Multiscale representations of structures (a) M 1, (b) M 2, and (c) M 3. Columns show, from left to right, the atomic representative volume element, the SPTC atom-resolved conductivity, and the SCACS coarse-grained finite-element conductivity field mapped to Abaqus. The SCACS data-point files, the corresponding Abaqus input files, and the a python utility used for the conversion are provided as auxiliary data in Ref. [18] and the description of the files are provided Tables S1 (SCACS) and S2 (Abaqus) in Section S1 of the supple-mental material [23].  
+
+> III. RESULTS
+
+We evaluate heat transport using SCACS-derived, Abaqus-mapped finite-element RVEs that preserve the spatially resolved conductivity information obtained from the underlying atomic structures. In homogeniza-tion, an RVE is a finite microscale domain whose aver-aged response represents the macroscopic material be-havior. For periodic systems, the RVE is the repeat-ing “unit-cell”; for non-periodic systems, representative-ness is established by convergence of the effective prop-erties with increasing domain size [1, 15]. In Ref. [6], we showed that SCACS finite-element models constructed from atomistic data satisfy this RVE requirement. Here, these RVEs are used to compute effective con-ductivity tensors, ←→
+
+K eff , discussed in Appendix C. When a target or experimental conductivity kt is available, the local elementwise conductivity tensors are uniformly rescaled [Eq. (C6)], preserving the spatial variation and anisotropy encoded by the SCACS-derived field while matching the prescribed effective response. We compare the SCACS-derived anisotropic conduc-tivity with conventional uniform-conductivity assign-ments in Abaqus. The comparison focuses on rela-tive spatial and temporal variations in heat flow, rather than absolute steady-state differences between heteroge-neous SCACS-derived conductivity fields and homoge-neous single-scalar conductivity models. Accordingly, the results are shown as normalized fields for qualitative com-parison, while quantitative effective conductivities are re-ported in Figures S2, S3, and S4 for M 1, M 2, and M 3, respectively in the Supplemental Material [23]. The SCACS-derived isotropic effective conductivities, 
+
+Keff [Eq. (C8)], are listed in Table II and used are as the uniform conductivity values in the conventional Abaqus models. The effective conductivities are approx-imately 33 .2, 13 .8, and 28 Wm −1K−1 for M 1, M 2, and 
+
+M 3, respectively. These values are subtantially lower than that of single-crystalline silicon at room temper-ature, 125 ± 19 Wm −1K−1, which decreases markedly to 46 ± 7 Wm −1K−1 at 425 ◦C [24]. Nevertheless, the conductivity range obtained for M 1– M 3 is consis-tent with the reduced thermal conductivities expected in nanostructured silicon containing grain boundaries, poly-crystalline regions, amorphous phases, or surface- and geometry-induced structural reconstructions [25–29].  
+
+> A. Heat-flow response of the grain-boundary Si nanowire
+
+Figures 3 and S2 compare the thermal response of the grain-boundary Si nanowire, M 1, using SCACS-derived and uniform conductivity fields, shown in the upper and lower rows, respectively. The SCACS-derived field in Fig. 3(a) exhibits pronounced spatial heterogene-ity, with local conductivity values ranging from approx-imately 10 .1 to 49 .5 Wm −1K−1. Extended regions of 4With SCACS Without SCACS a b c d e f   
+
+> 𝑞(𝑡 !"% )𝑞(𝑡 $"% )𝑞(𝑡 %"% )𝑞 %𝑇 %𝐾 (
+> Conductivity [W/mK] Conductivity [W/mK]
+> Equilibrium Temp. [K] Equilibrium Temp. [K]
+> Normalized Heat Flux [W/m 2]
+
+FIG. 3: Analysis of the grain-boundary Si nanowire M 1. The colormaps show normalized values of (a) the isotropic conductivity field, K, and (b) the steady-state temperature field, T . Panels (c–e) show the transient heat-flux, qt, at different times: (c) t = 10%, (d) t = 40%, and (e) t = 70% of the convergence time. The steady-state heat-flux, q, is shown in (f). relatively high conductivity occur primarily through the interior and along one side of the nanowire, while lower-conductivity regions appear near portions of the oppos-ing surface and around structurally perturbed regions. These variations reflect the influence of the grain bound-ary and local atomic disorder on thermal transport [Fig. 2(a)]. By contrast, the uniform-conductivity model as-signs a single effective conductivity value throughout the domain and therefore contains no information about lo-cal transport pathways. The effect of this heterogeneity is not strongly appar-ent in the steady-state temperature field in Fig. 3(b). In both the SCACS-based and uniform models, the tem-perature varies primarily along the axial direction, pro-ducing nearly planar isothermal layers. As shown later for M 2 and M 3, however, this behavior is not universal. Despite having the same homogenized conductivity, the two models yield different internal transport patterns, as revealed by the heat-flux fields in Fig. 3(c–f). The transient heat-flux fields in Fig. 3(c–e) show how the atom-informed conductivity controls the develop-ment of heat-flow pathways. At t = 10% of the con-vergence time, the thermal disturbance remains concen-trated near the heated boundary. In the SCACS model, however, the advancing flux front is nonuniform and pen-etrates more rapidly through locally conductive regions. As the system evolves to t = 40%, distinct high-flux chan-nels emerge and extend farther along the nanowire. By 
+
+t = 70%, these pathways span most of the domain and approach the heterogeneous pattern observed at steady state. The transient response is therefore not simply an axially translating planar front; it is continually redi-rected by the underlying conductivity landscape. In contrast, the uniform-conductivity model produces horizontally layered flux fields at all three time snapshots. The flux front advances through the nanowire with lit-tle lateral variation because every element presents the same thermal resistance. This behavior is mathemati-cally consistent with the homogeneous material assign-ment but cannot represent the preferential pathways and local bottlenecks associated with the grain-boundary mi-crostructure. The difference between the two transient solutions also indicates that matching only Keff does not ensure an equivalent thermal timescale or local energy-transport response. At steady state [Fig. 3(f)], the uniform model ap-proaches an almost spatially constant normalized heat flux, whereas the SCACS-based model retains strongly nonuniform transport. The largest flux follows con-nected high-conductivity regions, while reduced flux oc-curs where the local conductivity is smaller or where the heat-flow path is redirected. This persistent spatial cor-relation between K and q is consistent with Fourier’s law [Eq. (2)], but it also demonstrates that the heat-flux pattern cannot be inferred from conductivity alone: the temperature gradient adapts to the heterogeneous field 5With SCACS Without SCACS         
+
+> abcdef
+> 𝑞(𝑡 !"% )𝑞(𝑡 $"% )𝑞(𝑡 %"% )𝑞 %𝑇 %𝐾 (
+> Normalized Heat Flux [W/m 2]
+> Steady-state Temp. [K] Steady-state Temp. [K] Conductivity [W/mK] Conductivity [W/mK]
+
+FIG. 4: Analysis of the amorphous-crystalline Si interface structure (M2). The colormaps show normalized values of (a) the isotropic conductivity field, K, and (b) the steady-state temperature field, T . Panels (c–e) show the transient heat-flux, qt, at different times: (c) t = 10%, (d) t = 40%, and (e) t = 70% of the convergence time. The steady-state heat-flux, q, is shown in (f). through the global finite-element solution.  
+
+> B. Heat-flow response of the amorphous–crystalline Si interface
+
+Figures 4 and S3 presents the heat-transport behav-ior of the amorphous–crystalline Si interface structure, 
+
+M 2, for the SCACS-based and conventional uniform-conductivity implementation in the upper and lower rows, respectively. The conductivity field in Fig. 4(a) is strongly heterogeneous, varying from approximately 1.5 to 8 .6 Wm −1K−1. The field contains extended high-conductivity regions near the lower (crystalline) portion of the structure and spatially irregular lower-conductivity domains in the upper and lateral (amorphous) regions [Fig. 2(b)]. In contrast, the homogeneous conductiv-ity model assigns the single effective conductivity value (Table II) throughout the domain and therefore cannot distinguish the amorphous, interfacial, and crystalline re-gions. The consequence of this material heterogeneity is vis-ible in the steady-state temperature fields in Fig. 4(b). The uniform model produces nearly planar isotherms and an approximately one-dimensional temperature gradient between the prescribed hot and cold boundaries. The SCACS-based temperature field is markedly different. Its isotherms are curved and spatially redistributed, particu-larly in the upper part of the model, as highlighted by the dashed region. This departure from a layered tempera-ture profile indicates that the local temperature gradient adapts to the spatial conductivity landscape. Regions with lower conductivity sustain larger temperature gra-dients, whereas more conductive regions permit heat to pass with a smaller local temperature drop. This behavior is physically intuitive as interfaces are not generally geometrically sharp and uniform thermal boundary, but instead, are finite regions with spatially varying transport properties inherited from the underly-ing atomic arrangement. The resulting temperature field therefore captures local thermal resistance and lateral re-distribution that would be removed by assigning a single effective conductivity to the full model. Although the ho-mogeneous model may reproduce an averaged end-to-end thermal response, it does not preserve the local temper-ature variations that are relevant to hot-spots, thermal stress, and degradation. The transient heat-flux fields in Fig. 4(c–e) provide further evidence of this distinction. At t = 10% of the convergence time, the heat flux in both models is con-centrated near the hot boundary. In the uniform model, the advancing thermal front remains approximately pla-nar and follows the imposed axial temperature gradient. In the SCACS model, the front is visibly distorted and progresses at different rates across the cross section. The flux penetrates more rapidly through connected higher-conductivity regions, while low-conductivity zones delay the downward propagation of heat. At t = 40%, the SCACS-derived heat-flux develops a complex network of preferential transport pathways. Regions of enhanced flux extend through portions of the structure, while neighboring low-flux areas persist, particularly near the lower and interfacial regions. By 
+
+t = 70%, the overall flux magnitude becomes more 6With SCACS Without SCACS         
+
+> abcde
+> 𝑞 "𝑞(𝑡 !"% )𝑞(𝑡 $"% )𝑞(𝑡 %"% )
+> Normalized Heat Flux [W/m 2]
+> Normalized Conductivity [W/mK]
+> 𝐾 𝑥𝑥 (𝑒) 𝐾 ** (𝑒)
+> 𝐾 ++ (𝑒) 𝐾 '(𝑒)
+
+FIG. 5: Analysis of the Si nanopillar structure ( M 3). Panel (a) shows the normalized elementwise directional conductivity fields, K(e) 
+
+> xx
+
+, K(e) 
+
+> yy
+
+, and K(e) 
+
+> zz
+
+, together with the corresponding isotropic conductivity field, K(e). Panels (b–d) show the normalized transient heat-flux field, qt, at (b) t = 10%, (c) t = 40%, and (d) t = 70% of the convergence time. Panel (e) shows the normalized steady-state heat-flux field, q. The upper and lower rows correspond to simulations performed with and without the SCACS-derived conductivity field, respectively. evenly distributed, but the spatial imprint of the het-erogeneous conductivity field remains visible. The tran-sient response therefore evolves through microstructure-dependent pathways rather than through the uniformly layered progression observed in the uniform-conductivity model. The contrast becomes particularly clear in the steady-state heat-flux field shown in Fig. 4(f). The SCACS-informed model retains substantial spatial variation, with higher flux following locally conductive regions and re-duced flux occurring in areas of greater thermal re-sistance. The uniform model instead predicts broad, smooth regions of nearly constant flux, with variations occurring mainly near boundaries and geometric corners. These localized features are primarily consequences of the imposed boundary conditions and finite geometry (edge effects) rather than of any internal material structure.  
+
+> C. Heat-flow response of the Si nanopillar structure
+
+Figures 5 and S4 show the Si nanopillar structure, M 3, modeled with SCACS-derived conductivity and the uni-form reference field. The normalized elementwise compo-nents K(e) 
+
+> xx
+
+, K(e) 
+
+> yy
+
+, K(e) 
+
+> zz
+
+, and K(e) are shown in Fig. 5(a). Variations among the directional components indicate lo-cal anisotropy, whereas the isotropic field captures only the overall spatial pattern. Conductivity is higher within selected regions of the pillars and base and lower near several surfaces and reconstructed areas, showing that a single conductivity value cannot adequately describe ei-ther region. The upper and lower rows in Fig. 5(b–e) correspond to the SCACS-based and homogeneous conductivity mod-els, respectively. The influence of this heterogeneous con-ductivity field is evident in the transient heat-flux distri-butions. At t = 10% of the convergence time [Fig. 5(b)], heat flow is concentrated near the thermally driven sur-faces. In the SCACS model, the flux is highly localized, with the largest values appearing near the tops of se-lected pillars and along conductive regions close to their sidewalls. The four pillars do not exhibit identical flux distributions, even though they belong to the same nomi-nal structure. This asymmetry reflects differences in their local conductivity fields as the thermal loading was uni-formly imposed. In contrast, the uniform-conductivity model produces similar flux magnitudes and distributions across pillars having comparable geometry. The heat flux is distributed more smoothly around the pillar surfaces and through the base because every finite element is assigned the same thermal resistance. Consequently, the homoge-neous model responds primarily to geometric variations, whereas the SCACS-informed model responds to both geometry and the atomic-level material heterogeneity. As the transient solution evolves to t = 40% and 
+
+t = 70% [Fig. 5(c,d)], heat penetrates farther into the pillars and the supporting base. In the SCACS calcu-lation, the initially localized regions develop into persis-tent preferential pathways. High-flux channels remain concentrated within specific portions of the pillars, par-ticularly in regions that coincide with enhanced direc-tional conductivity. Neighboring regions remain weakly conducting and carry considerably less heat. The spatial pattern therefore becomes established early in the tran-sient response and is retained as the system approaches equilibrium. The uniform-conductivity model evolves differently. Although its flux increases throughout the pillars and spreads into the base, the distributions remain compar-atively smooth and similar among equivalent geometric 7features. Local enhancements appear mainly near pillar– base junctions, edges, and curved surfaces, where the ge-ometry redirects the temperature gradient. At steady state [Fig. 5(e)], the SCACS model retains pronounced spatial variations in heat flux. The largest normalized flux occurs within connected regions extend-ing through selected pillars, while other parts of the same pillars carry substantially less heat. This result demon-strates that the pillars do not operate as uniformly con-ducting channels. Instead, their effective contribution to heat transport is controlled by internal pathways in-herited from the local atomic structure. The support-ing base similarly contains nonuniform transport regions that redistribute heat between the pillars and the exter-nal boundaries. The uniform-conductivity result lacks this internal se-lectivity. Its steady-state flux is governed predominantly by the dimensions, orientations, and connectivity of the pillars. While such a model may reproduce the overall effective thermal response, it predicts nearly equivalent transport through geometrically similar features and can-not identify which regions preferentially carry heat or act as local bottlenecks.  
+
+> IV. DISCUSSION
+
+The results for M 1, M 2, and M 3 establish three broader implications of implementing SCACS-derived conductivity fields in heat-flow problems. First, atom-istic transport information can be incorporated into any continuum solver (solver-agnostic). Second, the spatially heterogeneous conductivity produces thermal behavior that cannot be recovered from a single effective prop-erty. Third, direct field mapping provides a physically consistent basis for simulations of refined and geometri-cally complex structures. We address each of these points in the subsections below.  
+
+> A. Bridging Atomistic Information and Continuum Workflows
+
+A central result of this work is that SCACS-derived conductivity fields are not restricted to the native SCACS finite-element solver introduced in the foundational study in Ref. [6]. The conductivity information was trans-ferred into Abaqus as spatially varying directional fields and used within its standard heat-transfer framework. SCACS provides the conductivity field, while Abaqus performs the finite-element assembly, solution, and post-processing. Separating atom-informed property generation from the continuum solver allows SCACS fields to be in-tegrated into established engineering workflows with-out changing the user’s preferred platform. Using na-tive Abaqus capabilities for spatially varying orthotropic properties, the method was applied successfully to all three models and preserved their atomistically-derived heterogeneity in both transient and steady-state solu-tions. This establishes SCACS as a solver-agnostic material-field framework that can be used in any finite-element platform supporting spatially varying conductiv-ity tensors and material orientations. It is worth noting that the present implementation assumes that the principal conductivity directions re-main aligned with the global finite-element axes and that off-diagonal conductivity components are negligi-ble. More general systems may require local material rotations or fully populated conductivity tensors. Nev-ertheless, the current results establish the practical fea-sibility of transferring atom-derived anisotropic material information into any continuum solver.  
+
+> B. Improved Heat-Flow Prediction from Spatially-resolved Conductivity Fields
+
+The comparison with the uniform-conductivity mod-els confirms that matching the homogenized conductivity does not guarantee the same internal thermal response. In all three structures, the SCACS-based and uniform-conductivity models used the same geometry, boundary conditions, and effective conductivity. The differences in their solutions therefore arise from the spatial and direc-tional variations retained in the SCACS fields. For M 1, the steady-state temperature distributions re-main broadly similar because both models are dominated by the imposed axial temperature difference. The heat-flux fields, however, differ substantially. The SCACS model develops localized transport channels and low-flux regions associated with the grain boundary, surfaces, and local structural disorder, whereas the uniform model pro-duces a smoother and more layered response. This indi-cates that a similar macroscopic temperature field can conceal important differences in the internal transport pathways. The effect of heterogeneity is more apparent in M 2. The amorphous, interfacial, and crystalline regions are represented by a continuous spatial distribution of con-ductivity rather than by a single uniform property. This produces curved isotherms, distributed thermal resis-tance, and nonuniform transient heat-flow pathways. The uniform model cannot distinguish these structural regions and therefore predicts a smoother, nearly one-dimensional response. The M 3 nanopillar results further separate the effects of geometry from those of material heterogeneity. Both models capture geometric features such as pillar edges, surfaces, and pillar–base junctions. However, the uniform model treats geometrically similar regions as thermally equivalent. The SCACS-derived conductivity model re-veals internal variations within each pillar, asymmet-ric heat-flow behavior among the pillars, and persistent transport bottlenecks. Differences among the directional conductivity fields also show that the local response can-8not always be represented by a single isotropic value. These results demonstrate that effective conductivity alone is insufficient when local thermal behavior is im-portant. A uniform property may reproduce the over-all boundary-to-boundary response, but it suppresses lo-cal gradients, preferential pathways, and thermally re-sistive regions. Such information is relevant to hot-spot formation, thermal stress, interfacial degradation, and temperature-sensitive device performance. The results also show that the influence of heterogene-ity depends on the structure. In some systems, such as 
+
+M 1, it is more visible in the heat-flux field than in the temperature field. In others, such as M 2, it modifies both. The importance of spatially resolved conductiv-ity therefore depends on the microstructure, geometry, loading direction, and contrast within the conductivity field.  
+
+> C. Physically Consistent Field Mapping in Refined Meshes
+
+The SCACS-to-Abaqus procedure provides a system-atic alternative to manually assigning material properties after mesh generation. In a conventional workflow, refin-ing a mesh does not add new physical information when the same uniform conductivity is assigned to every ele-ment [1, 8]. It only represents the same homogeneous material using a larger number of elements. In the SCACS approach, the conductivity field is de-fined spatially from the underlying atomistic model and mapped onto the continuum mesh. Each region of the finite-element domain therefore retains conductivity in-formation associated with its local atomic environment. Grain boundaries, interfaces, surfaces, and the atomic conformations enter the continuum model through the material field rather than through manually selected par-titions or fitted property values. This consideration may bear importance for some structures than for others, for example, M 2 and M 3exhibit conductivity variations that do not coincide with simple geometric boundaries. The amorphous– crystalline interface is represented as a finite transition region rather than an idealized sharp boundary. Simi-larly, the nanopillars contain internal conductivity varia-tions that cannot be captured by assigning one property to the pillars and another to the base. The coarse-graining procedure also produces asmoothly varying field. This avoids abrupt element-to-element changes that may result from direct nearest-neighbor assignment or manual phase labeling. A smooth field better represents the gradual structural variations present in the atomic model and reduces the likelihood of numerical features caused solely by artificial material discontinuities.  
+
+> V. CONCLUSION AND OUTLOOK
+
+We demonstrated that SCACS-derived thermal con-ductivity fields can be transferred into Abaqus and used within a standard finite-element heat-transfer work-flow. Across the grain-boundary nanowire, amorphous– crystalline interface, and nanopillar structures, the mapped fields preserved the spatial heterogeneity and directional dependence inherited from the underlying atomistic models. The SCACS-informed models revealed localized heat-flow pathways, distributed interfacial resistance, anisotropic transport, and geometry-dependent bottle-necks that were absent from the homogeneous models. These differences were most evident in the transient and steady-state heat-flux fields and, for the amorphous– crystalline interface, in the temperature field. The re-sults establish SCACS as a solver-agnostic material-field framework for introducing atom-informed conductivity into existing engineering simulations. Future work will extend the present approach to fully populated (off-diagonal) conductivity tensors, spatially varying material orientations, and coupled thermal, elec-trical, and mechanical problems. Quantitative mesh-convergence and computational-cost studies are also needed to determine whether conductivity- or residual-based adaptive refinement can reduce the number of el-ements required for a given accuracy. Additional vali-dation against experiments and other continuum solvers will further establish the transferability and predictive value of the framework. Ultimately, this approach pro-vides a practical route for incorporating atomistic materi-als information into engineering-scale simulations for de-vice design, extreme-environment applications, and mul-tiscale materials prediction. 
+
+> ACKNOWLEDGMENTS
+
+This work is funded by the Laboratory Directed Re-search and Development (LDRD) program at Los Alamos National Laboratory through the Director’s Postdoc-toral Fellowship Program (Project No. 20240877PRD4) and the Exploratory Research (ER) program (Project No. 20240397ER). Los Alamos National Labora-tory is operated by Triad National Security, LLC, for the U.S. Department of Energy (DOE) National Nuclear Security Administration under Contract No. 89233218CNA000001. 
+
+> DATA AVAILABILITY
+
+The data that support the findings of this article are openly available [18]. The source code for SCACS will be available upon request subject to LANL and US export control policies. 9
+
+AUTHOR CONTRIBUTIONS 
+
+C.U. and R.M.T conceived the idea. W. D. and C.U. implemented the idea and prepared the manuscript. M.A and R.M.T revised the manuscript. 
+
+Appendix A: Protocol for mapping SCACS-based conductivity field to Abaqus 
+
+The spatially varying orthotropic conductivity was im-plemented using Abaqus predefined and analytic field variables. The atomistically derived conductivity field was defined by three principal conductivity components, 
+
+Kxx , K yy , and Kzz , evaluated throughout the finite ele-ment geometry. These values were mapped into Abaqus as three independent field variables, F1(r) → Kxx (r), 
+
+F2(r) → Kyy (r), and F3(r) → Kzz (r), where r denotes the spatial position in the finite element domain. The field variables provide the geometric and spatial map-ping of the conductivity values, while the field-dependent orthotropic conductivity definition maps those values to the diagonal terms of the conductivity tensor. At each integration point, Abaqus evaluates the lo-cal field-variable state, F(r) = {F1(r), F 2(r), F 3(r)} , and uses a field-dependent material definition to assign the conductivity components, K(F1, F 2, F 3). The local conductivity tensor is then assigned as 
+
+Klocal =
+
+
+
+Kxx 0 00 Kyy 00 0 Kzz 
+
+ , (A1) The local orthotropic axes were aligned with the global finite element coordinate system using an identity orien-tation matrix, R, so that the global conductivity tensor can be obtained as 
+
+Kglobal = RK local RT , (A2) hence, Kxx , K yy , and Kzz correspond directly to the global X, Y, and Z directions, respectively. The imple-mentation in Abaqus is summarized as follows: 
+
+Algorithm 1 Workflow for mapping SCACS-derived conductivity fields in Abaqus  
+
+> 1:
+
+Import SCACS point-cloud data with spatial coordinates 
+
+r = xi, y i, z i, and principal conductivity components 
+
+K(r) = [ Kxx (r), K yy (r), K zz (r)].  
+
+> 2:
+
+Extract the spatial conductivity Kαα (r); α ∈ { x, y, z }
+
+into Abaqus field variables: F1(r) = Kxx (r), F 2(r) =
+
+Kyy (r), and F3(r) = Kzz (r).  
+
+> 3:
+
+Define the field-dependent orthotropic conductivity table such that [ Kxx , K yy , K zz ] = K(F1, F 2, F 3).  
+
+> 4:
+
+Assign the orthotropic material definition to the finite el-ement domain.  
+
+> 5:
+
+Preserve the local-to-global conductivity mapping using Eq. (A2).  
+
+> 6:
+
+Apply the boundary conditions and thermal loading, and evaluate the heat-flux and temperature. 
+
+Appendix B: The Finite Element Equation 
+
+From the continuity and constitutive relations for the heat-flow problem in Equations (1) and (2), respectively, we define the computational domain Ω ⊂ R3, and the boundary ∂Ω = Γ D ˙∪ ΓN ˙∪ ΓR, where Γ D , Γ N , and Γ R
+
+correspond to Dirichlet, Neumann, and Robin bound-aries, respectively. The prescribed boundary conditions with a volumetric source f (x) are 
+
+∇T ←→
+
+K (x)∇T  = f (x) in Ω , (B1) 
+
+T = eT on Γ D , (B2) 
+
+qn = eq on Γ N , (B3) 
+
+h (T − T∞) = −qn on Γ R, (B4) where eT is the prescribed temperature, h is the heat transfer or radiation coefficient, T∞ is the ambient tem-perature, eq is a specified heat-flux value, and 
+
+qn = nT ←→
+
+K (x)∇T , (B5) with n the outward unit normal on the surface boundary. The weak formulation of Eq. (B1) is given as [1] 
+
+Z
+
+> Ω
+
+∇vT ←→
+
+K (x)∇T  dΩ + 
+
+Z
+
+> ΓR
+
+h v T dΓ = −
+
+Z
+
+> Ω
+
+v f (x) dΩ + 
+
+Z
+
+> ΓN
+
+v eq dΓ + 
+
+Z
+
+> ΓR
+
+h T ∞ v dΓ .
+
+(B6) valid for all test functions v ∈ V := {v ∈ H1(Ω) | v =0 on Γ D }, where H1(Ω) is the Sobolev space of square-integrable functions with square-integrable gradients [30]. The finite element solution follows the standard Galerkin approach [1] where on each element e, we ap-proximate the temperature field as 
+
+T ≈ T h = X
+
+> b∈I e
+
+Nb Tb, (B7) where Nb are C0 shape functions [1], Tb are the nodal temperatures and Ie is the set of node indices. The cor-responding test function on e is taken as v = Na, so that the elementwise heat-flow equation becomes 
+
+X
+
+> b∈I e
+
+"Z
+
+> Ωe
+
+−→
+
+G T
+
+> a
+
+←→
+
+K (e) −→
+
+G b dΩ + 
+
+Z
+
+> ΓeR
+
+h N a Nb dΓ 
+
+#
+
+Tb
+
+= −
+
+Z
+
+> Ωe
+
+Na f dΩ + 
+
+Z
+
+> ΓeN
+
+Na eq dΓ + 
+
+Z
+
+> ΓeR
+
+h T ∞ Na dΓ ,
+
+(B8) for all a ∈ Ie, where −→
+
+G a = ∇Na, and ←→
+
+K (e) is the SCACS-defined anisotropic conductivity tensor on e in the element domain Ω e. Thus, each element has its own conductivity tensor, and its directional components are 
+
+K(e) 
+
+> xx
+
+, K(e) 
+
+> yy
+
+, and K(e) 
+
+> zz
+
+. A description of these quantities and their dimensions are provided in Table S3 of the Sup-plemental Material [23]. 10 
+
+Appendix C: Homogenization and Obtaining the Effective Conductivity 
+
+For an RVE of length Dα in the loading direction 
+
+α ∈ { x, y, z }, we solves a steady-state two-face Dirich-let problem. Temperatures TL and TR are prescribed on the left and right (opposing) boundary faces normal to ˆα, and no internal heat source is applied, f (x) = 0. The applied temperature difference is ∆T = TR − TL. (C1) The effective conductivity along α is first computed from the boundary fluxes as 
+
+Keff  
+
+> αα
+
+= |Q|
+
+ADα
+
+|∆T | , (C2) where 
+
+|Q| = |QL| + |QR|
+
+2 , A = AL + AR
+
+2 . (C3) Here, QL and QR are the total normal heat-fluxes through the left and right driven boundaries, and AL
+
+and AR are the corresponding boundary-face areas. For a driven boundary γ ∈ { L, R },
+
+Qγ =
+
+Z
+
+> γ
+
+qn dγ, (C4) where qn is defined in Eq. (B5). Using these elementwise tensors, the volume-averaged effective conductivity in direction α is computed as 
+
+Kvol  
+
+> α
+
+= Dα
+
+∆T |Ω|
+
+> ne
+
+X
+
+> e=1
+
+Z
+
+> Ωe
+
+←→
+
+K (e)∇T
+
+
+
+· ˆα dΩ . (C5) where Ω is the full RVE domain, |Ω| is its volume, Ω e
+
+is the domain of element e, ne is the total number of finite elements, and ˆ α is the unit vector in the loading direction. The quantity Kvol  
+
+> α
+
+is a single scalar effective conductivity for the full RVE in direction α, not an ele-mentwise quantity. If a target, or experimental, bulk conductivity kt is specified, each element conductivity tensor is uniformly rescaled as 
+
+←→
+
+K (e)s,α = kt
+
+Kvol 
+
+> α
+
+←→
+
+K (e), (C6) where e = 1 , . . . , n e. Subsequent finite-element solves then use the scaled tensor ←→
+
+K (e)s,α for direction α. Because the heat equation is linear in the conductivity tensor, this scaling changes the magnitude of the effective re-sponse while preserving the relative spatial variation and anisotropy of the original SCACS-derived conductivity field. The final homogenized conductivity in the loading di-rection is therefore the single RVE-level value 
+
+Keff  
+
+> αα
+
+= ←→
+
+K (e)s,α ≈ kt, (C7) up to discretization error. Repeating the procedure for 
+
+α = x, y, z gives the directional effective conductivities: 
+
+Keff  
+
+> xx
+
+, K eff  
+
+> yy
+
+, K eff  
+
+> zz
+
+, thus, giving a diagonal effective tensor, 
+
+←→
+
+K eff , and the isotropic (scalar) effective conductivity is then 
+
+Keff = Keff  
+
+> xx
+
++ Keff  
+
+> yy
+
++ Keff 
+
+> zz
+
+3 . (C8) 
+
+[1] O. C. Zienkiewicz, R. L. Taylor, and J. Z. Zhu, The finite element method: Its Basis and Fundamentals , 6th ed. (Elsevier Butterworth-Heinemann, 2005). [2] M. Kami´ nski and P. Ostrowski, Composite Structures 
+
+261 , 113555 (2021). [3] D. Basaula, M. Daeipour, L. Kuna, J. Mangeri, B. Feygelson, and S. Nakhmanson, Acta Materialia 228 ,117743 (2022). [4] T. Meng, C. Peng, R. Wang, and Z. Cai, Materials Chem-istry and Physics 333 , 130392 (2025). [5] Y. Yang, M. Yan, Z. Zhang, D. Hao, X. Chen, and W. Chen, Finite Elements in Analysis and Design 251 ,104413 (2025). [6] C. Ugwumadu, D. A. Drabold, and R. M. Tutchton, Phys. Rev. Mater. 10 , 053804 (2026). [7] J. M. Powers, Journal of Heat Transfer 126 , 670 (2004). [8] C. Ugwumadu, A. Gautam, Y. G. Lee, and D. A. Drabold, physica status solidi (b) , 2500316 (2025). [9] A. Gautam, Y. G. Lee, C. Ugwumadu, K. Nepal, S. Nakhmanson, and D. A. Drabold, physica status solidi (RRL) – Rapid Research Letters 19 , 2400306 (2025). [10] K. Nepal, A. Gautam, R. Hussein, K. Konstantinou, S. Elliott, C. Ugwumadu, and D. Drabold, Solid State Sciences 173 , 108182 (2026). [11] C. Ugwumadu, D. A. Drabold, and R. M. Tutchton, phys-ica status solidi (b) 262 , 2500109 (2025). [12] Z. Cheng, H. Wang, and G.-R. Liu, Engineering Fracture Mechanics 258 , 108050 (2021). [13] J. Ochs and J. Wackerfuß, Proceedings in Applied Math-ematics and Mechanics 26 , e70097 (2026). [14] C. Ugwumadu, W. Downs, C. O’Brien, R. Thapa, R. Ol-son, B. Wisner, M. Ali, J. Trembly, Y. Al-Majali, and D. Drabold, Carbon 229 , 119506 (2024). 11 
+
+[15] M. G. Geers, V. G. Kouznetsova, and W. Brekelmans, Journal of computational and applied mathematics 234 ,2175 (2010). [16] C. Ugwumadu, R. Thapa, K. Nepal, A. Gautam, Y. Al-Majali, J. Trembly, and D. A. Drabold, Journal of Chem-ical Theory and Computation 20 , 1753 (2024). [17] S. Liu, M. Zhang, P. Kadam, and C.-C. J. Kuo, in 3D Point Cloud Analysis: Traditional, Deep Learning, and Explainable Machine Learning Methods (Springer, 2021) pp. 15–52. [18] W. Downs, C. Ugwumadu, M. Ali, and R. M. Tutch-ton, Zenodo https://doi.org/10.5281/zenodo.21780760 (2026). [19] J. Ahrens, B. Geveci, and C. Law, in Visualization Hand-book (Elesvier, 2005) ISBN 978-0123875822. [20] N. Schl¨ omer, meshio: Tools for mesh files. [21] Abaqus/CAE User’s Guide: 58.7.1 Creating mapped fields from point cloud data, http://130.149.89.49: 2080/v2016/books/usi/default.htm?startat= pt06ch58s06hlb01.html .[22] Abaqus 2024 Documentation , Dassault Syst` emes SIMU-LIA Corp. (2024), heat-transfer step settings; solu-tionTechnique = FULL-NEWTON; matrixSolver = DI-RECT. [23] See Supplemental Material at [URL will be inserted by publisher] for additional details for this work. [24] R. G. Morris and J. G. Hust, Phys. Rev. 124 , 1426 (1961). [25] E. Isotta, S. Jiang, R. Bueno-Villoro, R. Nagahiro, K. Maeda, D. A. Mattlat, A. R. Odufisan, A. Zevalkink, J. Shiomi, S. Zhang, C. Scheu, G. J. Snyder, and O. Balo-gun, Advanced Functional Materials 34 , 2405413 (2024). [26] A. Ben Amor, D. Djomani, M. Fakhfakh, S. Dilhaire, L. Vincent, and S. Grauby, Nanotechnology 30 , 375704 (2019). [27] H. Takeuchi, R. Yokogawa, K. Takahashi, K. Ko-mori, T. Morimoto, Y. Yamashita, N. Sawamoto, and A. Ogura, Japanese Journal of Applied Physics 59 ,075501 (2020). [28] F. B. Juangsa, Y. Muroya, M. Ryu, J. Morikawa, and T. Nozaki, Applied Physics Letters 110 , 253105 (2017). [29] B. L. Davis and M. I. Hussein, Phys. Rev. Lett. 112 ,055505 (2014). [30] R. A. Adams and J. J. Fournier, Sobolev spaces , Vol. 140 of Pure and Applied Mathematics (Elsevier, 2003) Chap. 1. Supplemental Material for 
+
+# ‘Solver-Agnostic Implementation of Atom-Informed Thermal Conductivity Fields in Continuum Heat-Flow Simulations’ 
+
+## W. Downs 1, C. Ugwumadu *2 , M. Ali 1, and R. M. Tutchton 2
+
+> 1
+
+Department of Mechanical Engineering, Center for Advanced Materials Processing, Ohio University, Athens, OH, USA 
+
+> 2
+
+Quantum & Condensed Matter (T-4) Group, Los Alamos National Laboratory, Los Alamos, NM, USA 
+
+Abstract 
+
+A recent work introduced the Simulator Collection for Atomic-to-Continuum Scales (SCACS) toolkit, a framework for improving finite element predictions of heat flow by mapping atom-resolved thermal conductiv-ity into the stiffness matrix of the Galerkin finite element formulation [Ugwumadu et al. , Phys. Rev. Materials 10, 053804 (2026)]. Here, we demonstrate that SCACS-derived conductivity fields are solver-independent and can be transferred to existing continuum simulation platforms. As a proof of concept, we map SCACS-derived conductivity fields from complex silicon structures onto finite element meshes in Abaqus ® and compare the resulting heat-flow solutions with those obtained using the native SCACS solver. The agreement between the two implementations shows that atomistically informed conductivity fields can be incorporated into ex-isting finite element workflows without loss of accuracy. This work supports broader efforts to improve the predictive capability of continuum simulations for efficient materials design and property prediction. 
+
+# S1 Data availability and description 
+
+The SCACS data-point files and the converted Abaqus input files for the models investigated in this work are provided in Ref. S1 . The description of the files are provided in Table S1 and Table S2 for the SCACS and Abaqus data, respectively. Although the files can be opened using any text editor, visualization, rendering, and post-processing of the SCACS files are best implemented in Paraview S2 , while the Abaqus models require the Abaqus ® computer-aided engineering (CAE) software. 
+
+> *cugwumadu@lanl.gov
+
+S1 Table S1: Description of SCACS data-point files 
+
+SCACS / Filename Description 
+
+M1.xdmf(.h5) twin-grain-boundary Si nanowire 
+
+M2.xdmf(.h5) amorphous–crystalline Si interface 
+
+M3.xdmf(.h5) Si nanopillar structure (4 pillars) 
+
+Table S2: Description of Abaqus input files Model ABAQUS / Filename Solution Type Conductivity Elements Nodes 
+
+M1
+
+M1 Dirichlet SS Aniso.inp Steady State Anisotropic 1,682,384 162,000 
+
+M1 Dirichlet Transient Aniso.inp Transient Anisotropic 
+
+M1 Dirichlet SS Iso.inp Steady State Isotropic 
+
+M1 Dirichlet Transient Iso.inp Transient Isotropic 
+
+M2
+
+M2 Dirichlet SS Aniso.inp Steady State Anisotropic 5,417,280 511,584 
+
+M2 Dirichlet Transient Aniso.inp Transient Anisotropic 
+
+M2 Dirichlet SS Iso.inp Steady State Isotropic 
+
+M2 Dirichlet Transient Iso.inp Transient Isotropic 
+
+M3
+
+M3 Dirichlet SS Aniso.inp Steady State Anisotropic 462,372 504,621 
+
+M3 Dirichlet Transient Aniso.inp Transient Anisotropic 
+
+M3 Dirichlet SS Iso.inp Steady State Isotropic 
+
+M3 Dirichlet Transient Iso.inp Transient Isotropic 
+
+## S1.1 ParaView-to-Abaqus Data-Conversion Utility 
+
+A Python utility, Paraview to Abaqus.py , provided in the SCACS/ folder, converts SCACS point-data ex-ported from ParaView (Table S1) into the Abaqus input files (Table S2). The utility accepts data in comma-separated value ( .csv ) or text ( .txt ) format and automatically identifies comma-, tab-, or whitespace-delimited input. The script also supports visualization of the processed nodal fields using PyVista and conversion of an associated Visualization Toolkit unstructured-grid file ( .vtu ) to the Abaqus input-file format ( .inp ) using MeshIO. The SCACS input file contain the nodal identifiers, spatial coordinates, and components of the thermal-conductivity field. The ParaView column names are mapped to the simplified notation 
+
+{Point ID , 0, 1, 2} −→ { ID , X, Y, Z} , (S1) where X, Y, and Z denote the nodal coordinates. Similarly, the exported conductivity fields 
+
+{k xx used , k yy used , k zz used } −→ { k xx , k yy , k zz } (S2) S2 are interpreted as the diagonal components kxx , kyy , and kzz of the thermal-conductivity tensor. An optional scalar conductivity field, denoted by k used , that indicate the conductivity of the loading may also be included. 
+
+# S2 Description of the notations 
+
+Table S3 summarizes the notation and corresponding dimensions for the thermal-conductivity fields and finite-element quantities used in the main text. 
+
+Table S3: Notation for thermal-conductivity quantities and finite-element matrices. Quantity Notation Dimension Temperature field a T (−→x ,t) Scalar field Temperature DOF vector b −→
+
+T =
+
+
+
+T1 T2 · · · TNn
+
+T
+
+Nn × 1 vector Temperature gradient ∇T =
+
+      
+
+> ∂T
+> ∂x
+> ∂T
+> ∂y
+> ∂T
+> ∂z
+
+T
+
+3 × 1 vector Heat-flux vector −→q =
+
+
+
+qx qy qz
+
+T
+
+3 × 1 vector Element conductivity tensor c ←→
+
+K (e) =
+
+
+
+K(e) 
+
+> xx
+
+K(e) 
+
+> xy
+
+K(e)
+
+> xz
+
+K(e) 
+
+> yx
+
+K(e) 
+
+> yy
+
+K(e)
+
+> yz
+
+K(e) 
+
+> zx
+
+K(e) 
+
+> zy
+
+K(e)
+
+> zz
+
+
+
+3 × 3 tensor Elementwise conductivity components K(e) 
+
+> xx
+
+, K(e) 
+
+> yy
+
+, K(e) 
+
+> zz
+
+Scalar values Elementwise Kxx field d −→
+
+K xx =
+
+n
+
+K(e)
+
+> xx
+
+one 
+
+> e=1
+
+=
+
+
+
+K(1) 
+
+> xx
+
+· · · K(ne)
+
+> xx
+
+T
+
+ne × 1 vector Element FE matrix e ←→
+
+K e 
+
+> FE
+
+ne × ne matrix Element FE matrix entry f Kei j =
+
+Z
+
+> Ωe
+
+(∇Ni)T ←→
+
+K (e)∇Nj dΩ Scalar Global FE matrix g ←→
+
+K FE = A ne
+
+> e=1
+
+h←→
+
+K e
+
+> FE
+
+i
+
+Nn × Nn matrix Discretized FE system ←→
+
+K FE 
+
+−→
+
+T = −→
+
+F Matrix-vector equation Load/source vector −→
+
+F =
+
+
+
+F1 F2 · · · FNn
+
+T
+
+Nn × 1 vector  
+
+> a
+
+Temperature at spatial position −→x and time t. 
+
+> b
+
+Vector of nodal temperature degrees of freedom, where Nn is the number of global nodes or temperature unknowns.  
+
+> c
+
+Conductivity tensor assigned to finite element e. This is the mapped per-element SCACS-derived tensor.  
+
+> d
+
+Collection of the K11 values over all mesh elements, where ne is the total number of finite elements.  
+
+> e
+
+Element-level FE conductivity, or stiffness, matrix obtained from the element conductivity tensor and basis-function gradients.  
+
+> f
+
+Scalar entry of the element FE matrix coupling local basis functions Ni and Nj over element domain Ωe. 
+
+> g
+
+Assembled global finite-element conductivity, or stiffness, matrix. Here, A ne
+
+> e=1
+
+[·] denotes assembly over all ne finite elements. 
+
+S3 S3 Supporting Figures 
+
+Figure S1 shows the cross-section for slice considered for M3. Figures S2, S3, and S4 reproduce the analy-ses of M1, M2, and M3 presented in the main text. Here, the colormaps show the actual field values rather than the normalized values used in the main figures. The qualitative trends and physical interpretation remain unchanged. 
+
+Figure S1: Cross-section of the slice used for M3 in this work. With SCACS Without SCACS         
+
+> abcdef
+> 𝑞(𝑡 !"% )𝑞(𝑡 $"% )𝑞(𝑡 %"% )𝑞 %𝑇 %𝐾 (
+
+Figure S2: Analysis of the grain-boundary Si nanowire M1. The colormaps show the values of (a) the isotropic conductivity field, ¯ K, and (b) the steady-state temperature field, ¯ T . Panels (c–e) show the transient heat-flux, qt , at different times: (c) 
+
+t = 10%, (d) t = 40%, and (e) t = 70% of the convergence time. The steady-state heat-flux, ¯ q, is shown in (f). 
+
+S4 SCACS Without SCACS         
+
+> abcdef
+> 𝑞(𝑡 !"% )𝑞(𝑡 $"% )𝑞(𝑡 %"% )𝑞 %𝑇 %𝐾 (
+
+Figure S3: Analysis of the amorphous-crystalline Si interface structure (M2). The colormaps show the values of (a) the isotropic conductivity field, ¯ K, and (b) the steady-state temperature field, ¯ T . Panels (c–e) show the transient heat-flux, qt , at different times: (c) t = 10%, (d) t = 40%, and (e) t = 70% of the convergence time. The steady-state heat-flux, ¯ q, is shown in (f). With SCACS Without SCACS         
+
+> abcdef
+> 𝑞 "𝑇 "𝐾 %𝑞(𝑡 !"% )𝑞(𝑡 $"% )𝑞(𝑡 %"% )
+
+Figure S4: Analysis of the Si nanopillar structure ( M3). Panel (a) shows the elementwise directional conductivity fields, 
+
+K(e) 
+
+> xx
+
+, K(e) 
+
+> yy
+
+, and K(e) 
+
+> zz
+
+, together with the corresponding isotropic conductivity field, ¯K(e). Panels (b–d) show the transient heat-flux field, qt , at (b) t = 10%, (c) t = 40%, and (d) t = 70% of the convergence time. Panel (e) shows the steady-state heat-flux field, ¯ q. The upper and lower rows correspond to simulations performed with and without the SCACS-derived conductivity field, respectively. 
+
+# Supplemental references 
+
+S1. W. Downs, C. Ugwumadu, M. Ali, and R. M. Tutchton, Zenodo https://doi.org/10.5281/zenodo.21780760 (2026). S2. J. Ahrens, B. Geveci, and C. Law, in Visualization Handbook (Elesvier, 2005) ISBN 978-0123875822. S5

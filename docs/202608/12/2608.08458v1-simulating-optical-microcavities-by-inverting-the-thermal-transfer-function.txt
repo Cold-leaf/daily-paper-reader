@@ -1,0 +1,874 @@
+Title: Simulating optical microcavities by inverting the thermal transfer function
+
+URL Source: https://arxiv.org/pdf/2608.08458v1
+
+Published Time: Tue, 11 Aug 2026 01:19:43 GMT
+
+Number of Pages: 24
+
+Markdown Content:
+# Simulating optical microcavities by inverting the thermal transfer function 
+
+## SUDIPTA NAYAK 
+
+Centre for Nano Science and Engineering, Indian Institute of Science, Bengaluru 560012, India 
+
+> *nayaks@anl.gov
+
+Abstract: I present a reduced-order approach for incorporating distributed thermal dynamics into nonlinear optical-microcavity simulations without repeatedly solving the time-dependent heat equation. A harmonic finite-element heat solve is used to obtain the thermal transfer function, which is introduced into the time domain through either a rational approximation or an impulse-response convolution. The method is validated against heat-equation-coupled finite-element simulations for prescribed TE 1-mode heating and for nonlinear silicon microcavity dynamics. For the feed-forward TE 1 tests up to 100 MHz and simplified cavity dynamics, the error remains below 4%. The reduced models reproduce the local self-pulsation dynamics, although long-time phase alignment is sensitive to the spatial definition of the thermal transfer function and to impulse-response truncation. These results establish a physics-based route for retaining multi-timescale thermal memory while substantially reducing the cost of coupled optical–thermal simulations. 
+
+1. Introduction 
+
+Thermal and free-carrier effects strongly influence the nonlinear dynamics of silicon optical microcavities. These effects are commonly modeled using coupled equations for the intracavity optical field, free-carrier density, and temperature [1,2]. In many reduced-order cavity models, the thermal response is approximated by a single first-order equation with one effective thermal time constant [1–3]. Although useful, this approximation can fail when several thermal modes [4, 5] contribute appreciably to the cavity response. This limitation is particularly relevant for spatially extended optical structures, in which a high density of thermal modes can contribute to the effective temperature [6, 7]. Borghi et al. [3] demonstrated the limitations of the conventional first-order model for certain cavity configurations and proposed a phenomenological second-order equation that more accurately captures the observed dynamics. A more general description treats the cavity temperature as a distributed thermal response driven by optical absorption. Here, finite-element simulations of the harmonic heat equation are used to extract the cavity thermal transfer function. This response is then incorporated into time-domain simulations using either a rational approximation or an impulse-response convolution. Both approaches retain the multi-timescale thermal response while avoiding solution of the full heat equation during each nonlinear cavity simulation. The method is validated against full finite-element time-domain simulations for constant-power excitation, sinusoidal heating, and nonlinear self-pulsation in a silicon microcavity. Both simplified and detailed carrier models are considered. The reduced models reproduce the principal cavity dynamics while reducing the repeated thermal calculation to either a finite set of internal states or a discrete convolution. I identify two practical requirements for accuracy: the reduced model must use the thermal transfer function associated with the same spatially weighted temperature as the transient model, and the impulse response must retain sufficient thermal memory when nonlinear feedback is present. arXiv:2608.08458v1 [physics.optics] 9 Aug 2026 2. Thermal Transfer Function Model 
+
+The temperature dynamics of the cavity are governed by the heat equation 
+
+𝜌 (r)𝑐 𝑝 (r) 𝜕 Δ𝑇 (r, 𝑡 )
+
+𝜕𝑡 = ∇ · [ 𝜅 (r)∇ Δ𝑇 (r, 𝑡 )] + 𝑄 (r, 𝑡 ), (1) where 𝜌 , 𝑐 𝑝 , and 𝜅 are the density, heat capacity, and thermal conductivity, respectively, and 
+
+𝑄 (r, 𝑡 ) is the absorbed-power density. For a fixed optical mode profile, the heat source can be written as 
+
+𝑄 (r, 𝑡 ) = 𝑋 (r)𝑃 abs (𝑡 ), (2) where 𝑋 (r) is the normalized spatial heating profile and 𝑃 abs (𝑡 ) is the absorbed optical power. For nonmagnetic dielectric waveguides, I approximate the heating profile using the normalized optical energy density, 
+
+𝑋 (r) = 𝜖 (r)| E(r)| 2
+
+∫
+
+> Ω
+
+𝜖 (r)| E(r)| 2 𝑑 3r
+
+. (3) Fourier transforming Eq. (1) gives the harmonic thermal problem 
+
+[𝑖𝜔𝐶 (r) − ∇ · 𝜅 (r)∇] 𝐻 (r, 𝜔 ) = 𝑋 (r), (4) where 𝐶 (r) = 𝜌 (r)𝑐 𝑝 (r) and 𝐻 (r, 𝜔 ) is the spatial thermal transfer function. The harmonic temperature response is then e𝑇 (r, 𝜔 ) = 𝐻 (r, 𝜔 ) e𝑃 abs (𝜔 ). (5) The scalar temperature relevant to the optical resonance shift is the optically weighted effective temperature [2], 
+
+𝑇 eff (𝑡 ) =
+
+∫
+
+> Si
+
+Δ𝑇 (r, 𝑡 ) 𝑛 2Si |E(r)| 2 𝑑 3r
+
+∫
+
+> all
+
+𝜀 (r)| E(r)| 2 𝑑 3r
+
+. (6) The corresponding effective thermal transfer function, 𝐻 eff (𝜔 ), is obtained by applying the same optical weighting to 𝐻 (r, 𝜔 ).
+
+e𝑃 abs (𝜔 )𝐻 eff (𝜔 ) =
+
+∫
+
+> Si
+
+e𝑇 (r, 𝜔 ) 𝑛 2Si |E(r)| 2 𝑑 3r
+
+∫
+
+> all
+
+𝜀 (r)| E(r)| 2 𝑑 3r
+
+. (7) Using a unit harmonic source sets e𝑃 abs (𝜔 ) = 1. The resulting frequency-domain transfer function provides the starting point for the reduced-order time-domain models described below. I also consider a point-sampled thermal response evaluated at the centroid of the optical overlap integral, r𝑐 , defined by 
+
+r𝑐 =
+
+∫
+
+> Si
+
+r 𝑛 2Si |E(r)| 2 𝑑 3r
+
+∫
+
+> Si
+
+𝑛 2Si |E(r)| 2 𝑑 3r
+
+. (8) 3. Reduced-Order Thermal Models 
+
+3.1. Rational-Approximation Method 
+
+In the first approach, the effective thermal transfer function is approximated by a stable pole expansion, 
+
+𝐻 th (𝑠 ) ≈ 
+
+> 𝑁 𝑝
+
+∑︁ 
+
+> 𝑘 =1
+
+𝑐 𝑘 
+
+𝑠 + 𝜆 𝑘 
+
+, 𝜆 𝑘 > 0. (9) This representation converts the distributed thermal memory into a finite set of first-order state equations, 
+
+𝑑𝑧 𝑘 
+
+𝑑𝑡 = −𝜆 𝑘 𝑧 𝑘 + 𝑐 𝑘 𝑃 abs (𝑡 ), 𝑇 eff (𝑡 ) =
+
+> 𝑁 𝑝
+
+∑︁ 
+
+> 𝑘 =1
+
+𝑧 𝑘 (𝑡 ). (10) The rational approximation can therefore be coupled directly to the optical and carrier-rate equations and integrated using standard stiff ODE solvers. For a steady initial absorbed power 𝑃 abs ,0, the thermal states are initialized as 
+
+𝑧 𝑘 (0) = 𝑐 𝑘 
+
+𝜆 𝑘 
+
+𝑃 abs ,0. (11) 
+
+3.2. Impulse-Response Method 
+
+In the second approach, the harmonic thermal transfer function is transformed into a causal impulse response ℎth (𝑡 ). The effective temperature is then computed by convolving the absorbed-power history with this response, 
+
+𝑇 eff (𝑡 ) =
+
+∫ 𝑡 
+
+> 0
+
+ℎth (𝑡 − 𝑡 ′)𝑃 abs (𝑡 ′) 𝑑𝑡 ′. (12) On a discrete simulation grid, this becomes 
+
+𝑇 eff [𝑛 ] =
+
+> 𝑀
+
+∑︁ 
+
+> 𝑚 =0
+
+𝐾 [𝑚 ]𝑃 abs [𝑛 − 𝑚 ], (13) where 𝐾 [𝑚 ] is the finite convolution kernel obtained from the sampled impulse response. This method avoids a rational-fitting step and provides a direct time-domain representation of the finite-element thermal response. In practice, the kernel must be truncated to a finite memory length; the effect of this truncation is examined in Sec. 7. It should be noted that equation 12 assumes that the initial temperature is 0 and there is no absorbed power history before 𝑡 = 0. 4. Modal TE 1 Heating   
+
+> (a) (b)
+> (c) (d)
+
+Fig. 1. Validation of the impulse-response method for sinusoidal TE 1-mode heating. The heat source is taken as 𝑄 (r, 𝑡 ) = 𝑋 TE1 (r) sin (𝜔𝑡 ). The centroid-sampled thermal transfer function is inverted to generate the convolution result, whereas the COMSOL transient reference is the globally weighted effective temperature. (a) TE 1 heating profile and waveguide geometry. (b) Amplitude of the centroid thermal transfer function. (c) Time-domain comparison between the COMSOL transient solution and the impulse-response convolution at 100 MHz. (d) Phase of the centroid thermal transfer function. Table 1. Percentage temperature root-mean-square error (RMSE) between the globally weighted transient simulation and the centroid-based impulse-response convolution for 
+
+𝑄 (r, 𝑡 ) = 𝑋 TE1 (r) sin (𝜔𝑡 ).
+
+Frequency RMSE 𝑇 (%) Frequency RMSE 𝑇 (%) 100 Hz 3.223 1 MHz 0.223 1 kHz 3.223 10 MHz 1.248 10 kHz 3.093 100 MHz 3.377 100 kHz 1.288 1 GHz 12.108 For the SOI rib waveguide (air/Si/SiO 2) with a 1 𝜇 m × 0.4 𝜇 m core, a 150 nm-high Si base on SiO 2, and a ring radius of 50 𝜇 m, the TE 1 mode was used to define the optical absorption profile. The harmonic heat equation was solved using the energy-density distribution obtained from the TE 1 mode. The resulting thermal-response amplitude and phase sampled at the waveguide centroid are shown in Figs. 1b and 1d, respectively. To test whether this centroid transfer function can approximate the globally weighted thermal response, I invert it to obtain an impulse response and compare the resulting temperature with a full transient heat simulation. The native time discretization produced by the inverse fast Fourier transform is used, and the impulse response is truncated at 15 𝜇 s based on convergence of its tail. The transient heat equation solved for this comparison is 
+
+𝜌𝑐 𝑝 
+
+𝜕𝑇 (r, 𝑡 )
+
+𝜕𝑡 = ∇ · [ 𝜅 ∇𝑇 (r, 𝑡 )] + 𝑋 TE1 (r) sin (𝜔𝑡 ), (14) with the same TE 1-derived energy-density profile. The source represents a signed harmonic heating perturbation about equilibrium. The time-domain comparison at 100 MHz is shown in Fig. 1c. The transient reference is the globally evaluated effective temperature, whereas the convolution uses the transfer function evaluated at the centroid. The two methods agree closely up to 100 MHz. Beyond this, differences emerge in both amplitude and phase, as shown in Table 1. For this table and subsequent comparisons, the temperature RMSE is defined as RMSE 𝑇 , % = 100 √︃ 
+
+> 1
+> 𝑁
+
+Í𝑁 𝑖 =1
+
+ 𝑇 TTF ,𝑖 − 𝑇 COMSOL ,𝑖 
+
+2√︃ 
+
+> 1
+> 𝑁
+
+Í𝑁 𝑖 =1 𝑇 2COMSOL ,𝑖 
+
+.
+
+The larger error at 1 GHz indicates the limit of the present centroid-based impulse model. The most likely sources of deviation are the difference between the point-sampled centroid response and the optically weighted global temperature, together with the finite 15 𝜇 s impulse-response window. This feed-forward test shows that a centroid-sampled thermal transfer function can approximate the globally weighted response over a broad frequency range. However, the approximation becomes less accurate as the spatial thermal field develops stronger high-frequency structure. It therefore does not imply that the centroid transfer function can replace the optically weighted effective transfer function in nonlinear cavity simulations. That distinction is examined in Sec. 6. 
+
+5. Cavity Simulations 
+
+For the parameters and dimensions provided by Borghi et al. [3], the reduced-order models were compared with COMSOL time-domain simulations using identical optical and free-carrier equations; the complete equations are provided in the Supplementary Information. This comparison uses the detailed cavity model, including the density-dependent Shockley–Read–Hall lifetime and separate free-carrier- dispersion contributions. The only difference among the three simulations is the thermal block: COMSOL solves Eq. (1) directly, whereas the reduced models use either the rational approximation or the impulse-response representation of 𝐻 th (𝜔 ). Unlike the TE 1 feed-forward test, the absorbed power is determined self-consistently by the cavity state, so small differences in the thermal response can be amplified by nonlinear feedback. At early times, all three methods agree closely, as shown in Fig. 2a. As self-pulsation persists, small differences in oscillation period accumulate and progressively displace the time traces [Fig. 2b]. This behavior is captured more clearly by the period sequence in Fig. 2c. The reduced models therefore reproduce the local self-pulsation dynamics, but exact long-time phase alignment is sensitive to the thermal representation. Both approaches avoid repeated solution of the heat equation, with the rational approximation providing the shorter reduced-model runtime. In both reduced models, 𝑃 abs depends on 𝑇 eff through the detuning, so the thermal response is coupled self-consistently rather than evaluated as a post-processing step. Agreement with COMSOL was assessed using 𝑇 eff (𝑡 ), 𝑁 (𝑡 ), 𝑈 (𝑡 ), and the maximum-to-maximum self-pulsation period. Because the optical and carrier equations are held fixed, differences from COMSOL primarily quantify the error introduced by replacing the full heat equation with either the rational approximation or the truncated impulse-response representation. Thus, the reduced-order models reproduce the local COMSOL waveform even when detailed optical and carrier dynamics are retained. The main long-time discrepancy is accumulated (a) (b)     
+
+> (c)
+> Fig. 2. Comparison of the detailed reduced-order cavity simulations with the COMSOL time-domain reference. Panels (a) and (b) show the normalized intracavity energy
+> 𝑈 =|𝑎 |2over early and late time windows, respectively. Panel (c) compares the extracted maximum-to-maximum self-pulsation period.
+
+timing drift within the nonlinear limit cycle. For the simulations in Fig 2c while the COMSOL simulation takes a few days, the rational approximation takes 190.85s, and the impulse method takes 913s. To separate this nonlinear sensitivity from the basic accuracy of the thermal replacement, I also simulate the simplified cavity dynamics described in the Supplementary Information for several input powers, simulation windows, and modulation frequencies. These cases use a constant carrier lifetime and one effective linear free-carrier-dispersion term, 
+
+𝜏 fc = 40 ns , 𝜎 eff = −9.5 × 10 −27 m3.
+
+Their input powers and cold-cavity detunings differ from those of the detailed comparison in Fig. 2; absolute oscillation periods across these operating conditions should therefore not be compared directly. The corresponding temperature errors are listed in Table 2. For these simplified cases, the rational approximation agrees closely with COMSOL over the tested input and modulation conditions. 
+
+6. Sensitivity to TTF 
+
+This sensitivity study uses the same simplified constant-lifetime, single-FCD cavity model and the same rational-approximation procedure as the Table 2 comparisons. Within each comparison, the 12 dBm optical input, cold-cavity detuning, and carrier parameters are held fixed. Only the thermal transfer function is changed from the centroid-sampled response 𝐻 (r𝑐 , 𝜔 ) to the globally weighted effective response 𝐻 eff (𝜔 ).Table 2. Percentage temperature RMSE for different optical input and modulation conditions. LC denotes a limit-cycle case, C a constant-input case without self-pulsation, and M a modulated-input case. 
+
+Input condition RMSE 𝑇 (%) Input condition RMSE 𝑇 (%) 12 dBm (LC) 0.211 12 dBm (LC), 274 𝜇 s window 2.184 11 dBm (LC) 0.289 10 dBm (LC) 0.548 5 dBm (C) 0.003 4 dBm (C) 0.003 2 dBm ± 100% at 1 GHz (M) 1.900 4 dBm ± 12 .5% at 100 MHz (M) 0.886 4 dBm ± 12 .5% at 100 kHz (M) 0.538 4 dBm ± 12 .5% at 100 Hz (M) 0.438   
+
+> (a) (b)
+> (c) (d)
+
+Fig. 3. Sensitivity of the nonlinear cavity dynamics to the spatial definition of the thermal transfer function. Panels (a) and (b) compare the amplitude and phase of the centroid response 𝐻 (r𝑐 , 𝜔 ) and the optically weighted effective response 𝐻 eff (𝜔 ).Panels (c) and (d) compare the COMSOL temperature with the rational-approximation simulations obtained using the centroid and effective transfer functions, respectively. The accumulated timing disparity in Fig. 3 can be traced to differences between the centroid-sampled and optically weighted thermal transfer functions. In the nonlinear feedback regime, even modest high-frequency differences alter the heating trajectory and the oscillation period [Figs. 3c and 3d]. By contrast, the TE 1 feed-forward study showed that the centroid response can approximate the global effective temperature when the absorbed power is prescribed. For strongly coupled nonlinear simulations, however, the transfer function must be derived using the same optical weighting as the effective temperature in the cavity model. The centroid approximation remains useful for point-probe calculations or when its response has been shown to approximate the relevant weighted temperature over the required bandwidth. 
+
+7. Convergence of Impulse Response 
+
+An important practical parameter in the impulse-response method is the time beyond which the impulse is neglected. Although the response is largest near the origin, its tail contains the long-timescale thermal memory of the structure. Truncating this tail reduces memory and computation time but can alter nonlinear feedback. A 15 𝜇 s kernel was sufficient for the feed-forward TE 1 simulations in Sec. 4; the self-pulsating cavity requires a longer window. The convergence study in Fig. 4 uses the simplified cavity model with 𝜏 fc = 40 ns and 
+
+𝜎 eff = −9.5 × 10 −27 m3, together with the exported 12 dBm input trace, zero cold-cavity detuning, and a 900 𝜇 s simulation window. These conditions differ from the detailed model and operating point used in Fig. 2, so their absolute self-pulsation periods are not expected to coincide. Following Eq. 13, the reference convolution is written as 
+
+𝑇 eff [𝑛 ] = 
+
+> 𝑀 ref −1
+
+∑︁ 
+
+> 𝑚 =0
+
+𝐾 [𝑚 ]𝑃 abs [𝑛 − 𝑚 ].
+
+Here 𝑀 ref is the number of samples in a long reference kernel, chosen to contain the relevant thermal memory. For a reference duration 𝑇 ref and time step Δ𝑡 , 𝑀 ref = ⌊𝑇 ref /Δ𝑡 ⌋. A trial duration 𝑇 c retains 𝑀 c = ⌊𝑇 c/Δ𝑡 ⌋ samples, with indices 0 ≤ 𝑚 < 𝑀 c; the omitted tail therefore begins at 𝑚 = 𝑀 c. The kernel weight 𝐾 𝑚 includes the appropriate time-step factor. The absolute and signed omitted-tail metrics are 
+
+𝜂 abs (𝑇 c) =
+
+Í𝑀 ref −1 
+
+> 𝑚 =𝑀 c
+
+|𝐾 𝑚 |
+
+Í𝑀 ref −1 
+
+> 𝑚 =0
+
+|𝐾 𝑚 | , (15) 
+
+𝜂 sgn (𝑇 c) =
+
+Í𝑀 ref −1 
+
+> 𝑚 =𝑀 c
+
+𝐾 𝑚 
+
+Í𝑀 ref −1 
+
+> 𝑚 =0
+
+𝐾 𝑚 
+
+. (16) Here, 𝜂 abs measures the total magnitude of the discarded thermal memory, whereas 𝜂 sgn measures its net signed contribution. The absolute sum provides an upper bound because the discarded temperature is 
+
+Δ𝑇 tail [𝑛 ] = 
+
+> 𝑀 ref −1
+
+∑︁ 
+
+> 𝑚 =𝑀 c
+
+𝐾 𝑚 𝑃 abs [𝑛 − 𝑚 ].
+
+If 𝑃 max is an upper bound on the absorbed power over the time history, then 
+
+|Δ𝑇 tail [𝑛 ]| ≤ 𝑃 max  
+
+> 𝑀 ref −1
+
+∑︁ 
+
+> 𝑚 =𝑀 c
+
+|𝐾 𝑚 |.(a) (b) 
+
+Fig. 4. Convergence of the impulse-response window. (a) Identification of the critical truncation time (red) using a 5 × 10 −3 omitted-tail criterion; gray lines indicate the tested truncation times. (b) Maximum-to-maximum oscillation period versus oscillation number for the COMSOL reference and impulse-response simulations with different truncation times. 
+
+Therefore, 𝜂 abs provides a conservative measure of the remaining kernel weight. The cut-off was chosen as the smallest 𝑇 c for which both 𝜂 abs and 𝜂 sgn were below 5 × 10 −3, giv-ing 𝑇 crit = 180 𝜇 s. Nonlinear simulations were then performed with truncation times 
+
+{0.6, 0.8, 1.0, 1.25 , 1.5, 1.75 }𝑇 crit ; the longest window was therefore 315 𝜇 s. Because the cavity is self-pulsating, convergence was evaluated using the maximum-to-maximum period as a function of oscillation number. The results show that a relatively long impulse window is required before the period converges. This memory requirement is the principal computational limitation of the impulse-response method. The rational approximation is faster because it replaces the stored power history with a finite set of first-order thermal states. 
+
+8. Conclusion 
+
+I have demonstrated that a harmonic thermal transfer function can replace the time-dependent heat equation in nonlinear optical-microcavity simulations. Both the rational approximation and impulse-response convolution retain the distributed, multi-timescale thermal response and reproduce the principal dynamics of the full finite-element model. The rational approximation provides the greater computational reduction, whereas the impulse-response method avoids fitting and follows directly from the sampled transfer function. The comparisons also identify the conditions under which the reduction is reliable. The transfer function must correspond to the same spatially weighted temperature used in the optical model, particularly when nonlinear feedback amplifies small thermal discrepancies. For impulse-response simulations, the retained time window must also include enough of the thermal tail to preserve the self-pulsation period. Subject to these conditions, transfer-function-based thermal models provide a practical alternative to repeated transient finite-element simulations. More generally, the same construction can be applied to linear, time-invariant PDEs whose source separates into fixed spatial and time-dependent factors, as in Eq. (2). 
+
+References     
+
+> 1. W. H. Pernice, M. Li, and H. X. Tang, “Time-domain measurement of optical transport in silicon micro-ring resonators,” Opt. express 18 , 18438–18452 (2010). 2. T. J. Johnson, M. Borselli, and O. Painter, “Self-induced optical modulation of the transmission through a high-q silicon microdisk resonator,” Opt. express 14 , 817–831 (2006).
+
+3. M. Borghi, D. Bazzanella, M. Mancinelli, and L. Pavesi, “On the modeling of thermal and free carrier nonlinearities in silicon-on-insulator microring resonators,” Opt. Express 29 , 4363–4377 (2021). 4. S. A. Chandorkar, R. N. Candler, A. Duwel, et al. , “Multimode thermoelastic dissipation,” J. applied physics 105 
+
+(2009). 5. V. I. Pavlov, N. M. Kondratiev, A. E. Shitikov, and V. E. Lobanov, “Microresonator effective thermal parameters definition via thermal modes decomposition,” in Photonics, vol. 10 (MDPI, 2023), p. 1131. 6. H. Straube, O. Breitenstein, and J.-M. Wagner, “Thermal wave propagation in thin films on substrate: The time-harmonic thermal transfer function,” physica status solidi (b) 248 , 2128–2141 (2011). 7. W. Arendt, R. Nittka, W. Peter, and F. Steiner, “Weyl’s law: Spectral properties of the laplacian in mathematics and physics,” Math. analysis evolution, information, complexity pp. 1–71 (2009). Simulating optical microcavities by inverting the thermal transfer function: Supplementary Information 
+
+## SUDIPTA NAYAK 
+
+> 1
+
+Centre for Nano Science and Engineering, Indian Institute of Science, Bengaluru 560012, India 
+
+> nayaks@anl.gov
+
+1. Introduction 
+
+This Supplementary Information provides the model definitions, numerical procedures, and additional time-domain comparisons supporting the main text. The results use three related but distinct dynamical configurations. First, the TE 1 feed-forward study tests whether a thermal transfer function sampled at the optical centroid can approximate the globally evaluated effective temperature. Second, the principal nonlinear-cavity comparison uses the detailed carrier model, including density-dependent Shockley–Read–Hall recombination and separate free-carrier-dispersion contributions. Third, the input-power sweep, the thermal-transfer-function sensitivity study, and the impulse-kernel truncation study use the simplified Borghi-based cavity dynamics, with a constant carrier lifetime and a single effective free-carrier-dispersion term. These configurations also use different optical powers and cold-cavity detunings. Consequently, their absolute temperatures and self-pulsation periods should not be compared as though they were generated at a common operating point. The sections below identify the model and operating-case assignment for each figure, provide the input definitions used for Table 2 of the main text, and describe the convergence analysis for the truncated impulse-response model. 
+
+2. Modal TE 1 Heating 
+
+The harmonic heat-equation solution used in the finite-element solver can be interpreted as the spatial profile of the complex thermal transfer function. Following Eqs. (1)–(5) of the main text, a unit harmonic heat source with spatial profile 𝑋 TE1 (r) (𝑄 (r, 𝑡 ) = 𝑋 TE1 (r) sin (𝜔𝑡 )) gives 
+
+e𝑇 (r, 𝜔 ), such that e𝑇 (r, 𝜔 ) = 𝐻 (r, 𝜔 ). Thus, for every modulation frequency, the FEA solution is not a single scalar response but a complex spatial TTF profile. Figure 1 shows the TE 1 mode profile used to construct 𝑋 TE1 (r), followed by the real and imaginary parts of 𝐻 (r, 𝜔 ) at 10 GHz. At this high frequency, the reduced thermal diffusion length allows spatial features of the optical heating profile and the material boundaries to remain visible in both quadratures of the thermal response. (a) (b) (c)          
+
+> Fig. 1. Spatial thermal-transfer-function fields for TE 1-mode heating. (a) TE 1optical mode profile used to define the normalized heat-source distribution 𝑋 TE1 (r).(b) Real part and (c) imaginary part of the spatial thermal transfer function 𝐻 (r, 𝜔 )at
+> 𝑓 =10 GHz. The finite spatial structure visible in the TTF reflects the short thermal diffusion length at high modulation frequency.
+
+To reproduce the time-domain thermal dynamics, the spatial TTF was sampled at the centroid 
+
+r𝑐 defined in Eq. (8) of the main text. The resulting scalar transfer function 𝐻 (r𝑐 , 𝜔 ) was inverted to obtain a causal impulse response. The temperature was then computed using the discrete convolution form of Eq. (13), 
+
+𝑇 (r𝑐 , 𝑛 ) =
+
+> 𝑀
+
+∑︁ 
+
+> 𝑚 =0
+
+𝐾 [𝑚 ]𝑃 abs [𝑛 − 𝑚 ], (1) where 𝐾 [𝑚 ] includes the impulse-response sample and the time-step factor. The inverse Fourier transform was performed directly on the native frequency grid of the sampled TTF, with conjugate completion used to obtain a real time-domain kernel. No adjustable fitting parameter was used in the time-domain comparison. The TE 1 kernel was truncated at 15 𝜇 s, chosen from convergence of the impulse tail. The full transient reference was generated by solving the time-dependent heat equation with the same TE 1-derived source 𝑋 TE1 (r) sin (𝜔𝑡 ). Its output was the globally evaluated effective temperature obtained using the optical weighting defined in the main text. The convolution result, in contrast, was generated from the point-sampled centroid TTF. Therefore, this comparison tests the combined centroid approximation and impulse-response inversion, rather than the inversion error alone. The time traces used to generate the RMSE values in Table 1 of the main text are shown in Fig. 2. The percentage temperature RMSE was evaluated as RMSE 𝑇 , % = 100 √︃ 𝑁 −1 Í𝑁 𝑖 =1
+
+ 𝑇 TTF ,𝑖 − 𝑇 FEA ,𝑖 
+
+2√︃ 
+
+𝑁 −1 Í𝑁 𝑖 =1 𝑇 2FEA ,𝑖 
+
+. (2) The agreement remains good up to 100 MHz. The increased deviation at 1 GHz is consistent with the stronger spatial structure of the high-frequency TTF and the use of a centroid-sampled scalar response. 
+
+3. Cavity Simulation 
+
+This section describes the reduced-order model used to simulate the nonlinear microring response in Fig. 2 of the main text. This is the detailed cavity model: it includes density-dependent carrier recombination and separate free-carrier-dispersion contributions. The optical power and cold-cavity detuning are those of the corresponding detailed COMSOL simulation and differ from the operating conditions used for the simplified comparisons in Table 2 and Figs. 3–4 of (a) 10 kHz, RMSE 𝑇 = 3.093% (b) 1 MHz, RMSE 𝑇 = 0.223%      
+
+> (c) 100 MHz, RMSE 𝑇 =3.377% (d) 1 GHz, RMSE 𝑇 =12 .108%
+
+Fig. 2. Time-domain traces used to generate the TE 1 RMSE values reported in Table 1 of the main text. Each panel compares the globally evaluated effective temperature from the full transient FEA simulation with the temperature obtained by convolution using the impulse response derived from the centroid-sampled thermal transfer function. The deviation therefore includes the effect of replacing the global optical weighting by a pointwise centroid approximation. 
+
+the main text. The model combines a fast optical cavity field, a free-carrier-rate equation, and either a rational thermal-transfer-function model or an impulse-response thermal model. The optical field is assumed to reach steady state much faster than the carrier and thermal variables. Therefore, in the fast-field limit, the complex cavity field 
+
+𝑎 (𝑡 ) = 𝑎 𝑟 (𝑡 ) + 𝑖𝑎 𝑖 (𝑡 )
+
+is obtained algebraically at each time step rather than by integrating a separate optical-field equation. The real and imaginary field quadratures, 𝑎 𝑟 and 𝑎 𝑖 , satisfy 
+
+𝛾𝑎 𝑟 + Δ𝑎 𝑖 −√︁ 2𝛾 𝑒 𝑝 in = 0,
+
+−Δ𝑎 𝑟 + 𝛾𝑎 𝑖 = 0.
+
+Here 𝑝 in is the input optical wave amplitude in the coupled-mode normalization used in the simulations, 𝛾 𝑒 is the coupling rate to each bus waveguide, 𝛾 is the total cavity field decay rate, and Δ is the instantaneous detuning between the laser and the thermally and carrier-shifted cavity resonance. The intracavity energy-like variable is defined as 
+
+𝑈 (𝑡 ) = |𝑎 (𝑡 )| 2 = 𝑎 2 
+
+> 𝑟
+
+(𝑡 ) + 𝑎 2 
+
+> 𝑖
+
+(𝑡 ).The total cavity loss rate includes coupling, intrinsic loss, free-carrier absorption, and two-photon absorption: 
+
+𝛾 = 2𝛾 𝑒 + 𝛾 𝑖 + 𝜂 FCA 𝑁 + 𝜂 TPA 𝑈. 
+
+Here 𝛾 𝑖 is the intrinsic cavity loss rate, 𝑁 (𝑡 ) is the effective free-carrier density, 𝜂 FCA is the free-carrier-absorption loss coefficient, and 𝜂 TPA is the two-photon-absorption loss coefficient. The factor 2 𝛾 𝑒 accounts for the two bus-waveguide coupling channels. The absorbed optical power that drives the thermal model is written as 
+
+𝑃 abs = 2 ( 𝑓 𝑖 𝛾 𝑖 + 𝜂 FCA 𝑁 + 𝜂 TPA 𝑈 ) 𝑈. 
+
+The coefficient 𝑓 𝑖 specifies the fraction of intrinsic optical loss that is converted into heat. In the simulations reported here, 𝑓 𝑖 = 1, so all intrinsic loss is assumed to contribute to local heating. The prefactor of 2 converts the field decay-rate convention into an energy-loss rate. The optical detuning includes the cold-cavity detuning, thermo-optic feedback, and free-carrier-dispersion feedback: 
+
+Δ = 2𝜋 Δ𝜈 0 + 𝜔 0
+
+
+
+− 1
+
+𝑛 Si 
+
+𝑑𝑛 𝑑𝑇 𝑇 eff − 𝜎 1 𝑁 + 𝜎 2 𝑁 0.8
+
+𝑛 Si 
+
+
+
+.
+
+Here Δ𝜈 0 is the laser detuning from the cold-cavity resonance in Hz, 𝜔 0 is the cold-cavity angular resonance frequency, 𝑛 Si is the refractive index of silicon, 𝑑𝑛 /𝑑𝑇 is the thermo-optic coefficient, and 𝑇 eff (𝑡 ) is the effective temperature rise sensed by the optical mode. The coefficients 𝜎 1 and 
+
+𝜎 2 describe the linear and sublinear free-carrier-dispersion contributions, respectively. 
+
+3.1. Free-carrier rate equation and SRH lifetime model 
+
+The free-carrier density evolves according to 
+
+𝑑𝑁 𝑑𝑡 = 𝑔 TPA 𝑈 2 − 𝑁 𝜏 fc (𝑁 ) ,
+
+where 𝑔 TPA is the two-photon-absorption carrier-generation coefficient and 𝜏 fc (𝑁 ) is the density-dependent effective free-carrier lifetime. The lifetime was modeled using the Shockley–Read–Hall expression used by Borghi et al. for silicon-on-insulator microring resonators [1]. In that model, recombination is assumed to be dominated by trap-assisted recombination at the Si/SiO 2 interface, and the instantaneous free-carrier lifetime is written as 
+
+𝜏 fc (𝑁 ) = 𝑁 𝑅 (𝑁 ) = 𝜏 0
+
+1 + 𝑎 SRH 𝑁 
+
+1 + 𝑏 SRH 𝑁 .
+
+Here 𝑅 (𝑁 ) is the recombination rate, 𝜏 0 is the low-injection free-carrier lifetime, and 𝑎 SRH and 
+
+𝑏 SRH are coefficients determined by the equilibrium carrier densities and by the electron and hole trap-assisted recombination lifetimes. Following the notation of Borghi et al. , these coefficients are 
+
+𝑎 SRH = 𝜏 𝑝 + 𝜏 𝑛 
+
+𝜏 𝑝 (𝑛 1 + 𝑛 0) + 𝜏 𝑛 ( 𝑝 1 + 𝑝 0) ,𝑏 SRH = 1
+
+𝑛 0 + 𝑝 0
+
+,
+
+and 
+
+𝜏 0 = 𝜏 𝑝 
+
+𝑛 0 + 𝑛 1
+
+𝑛 0 + 𝑝 0
+
++ 𝜏 𝑛 
+
+𝑝 0 + 𝑝 1
+
+𝑛 0 + 𝑝 0
+
+.In these expressions, 𝜏 𝑛 and 𝜏 𝑝 are the characteristic electron and hole recombination lifetimes, 
+
+𝑛 0 and 𝑝 0 are the equilibrium electron and hole densities, and 𝑛 1 and 𝑝 1 are the carrier densities obtained when the Fermi level coincides with the trap energy level 𝐸 𝑡 . They are defined as 
+
+𝑛 1 = 𝑛 𝑖 exp 
+
+ 𝐸 𝑡 − 𝐸 𝑖 
+
+𝑘 𝐵 𝑇 0
+
+
+
+,𝑝 1 = 𝑛 𝑖 exp 
+
+
+
+− 𝐸 𝑡 − 𝐸 𝑖 
+
+𝑘 𝐵 𝑇 0
+
+
+
+,
+
+where 𝑛 𝑖 is the intrinsic carrier concentration, 𝐸 𝑖 is the intrinsic Fermi level, 𝑘 𝐵 is Boltzmann’s constant, and 𝑇 0 is the equilibrium temperature. For a p-type silicon waveguide, the equilibrium electron density was taken as 
+
+𝑛 0 = 𝑛 2
+
+> 𝑖
+
+𝑝 0
+
+.
+
+This density-dependent lifetime model allows the recombination rate to vary with the instantaneous carrier population, instead of assuming a constant carrier lifetime. The main constants used in the nonlinear cavity simulations are listed in Table 1. Unless otherwise stated, the same constants were used in the COMSOL-matched reduced model and in the thermal-transfer-function simulations. 
+
+Table 1. Model constants used in the nonlinear cavity simulations. Parameter Value Meaning 
+
+𝜔 0/2𝜋 192 .88 THz Optical resonance frequency 
+
+𝛾 𝑒 43 .0 × 10 9 s−1 Coupling rate per bus 
+
+𝛾 𝑖 5.5 × 10 9 s−1 Intrinsic loss rate 
+
+𝑛 Si 3.485 Silicon refractive index 
+
+𝑛 𝑔 4.4 Group index 
+
+𝑑𝑛 /𝑑𝑇 1.86 × 10 −4 K−1 Thermo-optic coefficient 
+
+𝜎 1 −1.07 × 10 −27 m3 Linear FCD coefficient 
+
+𝜎 2 −1.63 × 10 −22 m2.4 Sublinear FCD coefficient 
+
+𝜎 FCA 1.5 × 10 −21 m2 FCA cross-section 
+
+𝜂 FCA 𝑐 0𝜎 FCA /𝑛 𝑔 FCA loss coefficient 
+
+𝜂 TPA 5.56 × 10 21 TPA loss coefficient 
+
+𝑔 TPA 9.88 × 10 57 TPA carrier-generation coefficient 
+
+𝜏 𝑛 35 .0 ns SRH electron lifetime 
+
+𝜏 𝑝 22 .5 ns SRH hole lifetime 
+
+𝑁 (0) 10 8 m−3 Initial carrier density 
+
+The SRH parameters used to evaluate 𝜏 fc (𝑁 ) are listed in Table 2. Carrier densities reported in cm −3 were converted to m −3 in the numerical implementation so that they are consistent with the carrier-density variable 𝑁 .Table 2. Parameters used in the Shockley–Read–Hall free-carrier lifetime model. Parameter Value Meaning 
+
+𝜏 𝑛 35 .0 ns Characteristic electron lifetime 
+
+𝜏 𝑝 22 .5 ns Characteristic hole lifetime 
+
+𝑛 𝑖 5 × 10 11 cm −3 Intrinsic carrier concentration 
+
+𝑝 0 10 15 cm −3 Equilibrium hole concentration 
+
+𝑛 0 𝑛 2 
+
+> 𝑖
+
+/𝑝 0 Equilibrium electron concentration 
+
+𝐸 𝑔 1.12 eV Silicon bandgap 
+
+𝐸 𝑖 0.56 eV Intrinsic Fermi level 
+
+𝐸 𝑡 0.66 eV Trap energy level 
+
+𝑇 0 293 .15 K Equilibrium temperature 
+
+𝑘 𝐵 8.61 × 10 −5 eV K −1 Boltzmann constant 
+
+𝑛 1 𝑛 𝑖 exp [( 𝐸 𝑡 − 𝐸 𝑖 )/( 𝑘 𝐵 𝑇 0)] Electron density for 𝐸 𝐹 = 𝐸 𝑡 
+
+𝑝 1 𝑛 𝑖 exp [−( 𝐸 𝑡 − 𝐸 𝑖 )/( 𝑘 𝐵 𝑇 0)] Hole density for 𝐸 𝐹 = 𝐸 𝑡 
+
+𝑎 SRH 
+
+𝜏 𝑝 + 𝜏 𝑛 
+
+𝜏 𝑝 (𝑛 1 + 𝑛 0) + 𝜏 𝑛 ( 𝑝 1 + 𝑝 0) SRH numerator coefficient 
+
+𝑏 SRH 
+
+1
+
+𝑛 0 + 𝑝 0
+
+SRH denominator coefficient 
+
+𝜏 0 𝜏 𝑝 
+
+𝑛 0 + 𝑛 1
+
+𝑛 0 + 𝑝 0
+
++ 𝜏 𝑛 
+
+𝑝 0 + 𝑝 1
+
+𝑛 0 + 𝑝 0
+
+Low-injection lifetime 
+
+3.2. Rational thermal-transfer-function model 
+
+The thermal dynamics were first represented by fitting the thermal transfer function 𝐻 th (𝑠 ), which maps absorbed power to effective temperature rise, using a passive pole expansion: 
+
+𝐻 th (𝑠 ) ≃ 
+
+> 𝑁 𝑝
+
+∑︁ 
+
+> 𝑘 =1
+
+𝑐 𝑘 
+
+𝑠 + 𝜆 𝑘 
+
+, 𝜆 𝑘 > 0.
+
+Here 𝑠 is the Laplace variable, 𝑁 𝑝 is the number of thermal poles, 𝜆 𝑘 is the decay rate of the 𝑘 -th thermal pole, and 𝑐 𝑘 is the corresponding residue. The positivity of 𝜆 𝑘 ensures that each pole is stable. Introducing a thermal state 𝑧 𝑘 (𝑡 ) for each pole gives 
+
+𝑑𝑧 𝑘 
+
+𝑑𝑡 = −𝜆 𝑘 𝑧 𝑘 + 𝑐 𝑘 𝑃 abs (𝑡 ),
+
+with the effective temperature given by 
+
+𝑇 eff (𝑡 ) =
+
+> 𝑁 𝑝
+
+∑︁ 
+
+> 𝑘 =1
+
+𝑧 𝑘 (𝑡 ).
+
+The coupled reduced-order state is therefore 
+
+𝑁, 𝑧 1, 𝑧 2, . . . , 𝑧 𝑁 𝑝 
+
+ .
+
+The carrier density 𝑁 (𝑡 ) accounts for free-carrier absorption and free-carrier dispersion, while the thermal states 𝑧 𝑘 (𝑡 ) account for the distributed thermal memory of the device. The pole expansion used 𝑁 𝑝 = 48 logarithmically spaced poles between 20 Hz and 10 10 Hz. The fit was performed up to 10 10 Hz, and the DC value was extrapolated from the first eight low-frequency points. Positive residues were enforced so that the fitted thermal response remained passive. Relative weighting was used in the fit to avoid overemphasizing only the low-frequency magnitude of the thermal response. 
+
+3.3. Impulse-response thermal model 
+
+As an alternative to the pole expansion, the thermal transfer function 𝐻 th (𝜔 ) was transformed into a causal impulse response ℎth (𝑡 ). In this representation, the effective temperature is computed by convolution with the absorbed-power history: 
+
+𝑇 eff (𝑡 ) =
+
+∫ 𝑡 
+
+> 0
+
+ℎth (𝑡 − 𝑡 ′)𝑃 abs (𝑡 ′) 𝑑𝑡 ′.
+
+Here 𝑡 ′ is the integration variable representing previous times. On the discrete simulation grid, this convolution is written as 
+
+𝑇 eff [𝑛 ] =
+
+> 𝑀
+
+∑︁ 
+
+> 𝑚 =0
+
+𝐾 [𝑚 ]𝑃 abs [𝑛 − 𝑚 ],
+
+where 𝑛 is the current time index, 𝑚 is the history index, 𝐾 [𝑚 ] is the discrete thermal kernel, and 𝑀 is the number of retained kernel samples. A first-order-hold discretization was used to construct the finite kernel. The reference kernel length was 500 𝜇 s, and candidate truncation times from 30 𝜇 s to 250 𝜇 s were tested. The critical truncation time was selected by requiring both the signed and absolute omitted-tail errors to be below 5 × 10 −3. The final simulations used 1 .75 times this critical truncation time. To remove same-sample thermal feedback in the discrete update, the 𝐾 [0] contribution was shifted to the next time sample. This preserves the total kernel sum while imposing a one-time-step delay on that contribution. 
+
+3.4. Numerical implementation 
+
+The numerical parameters used in the reduced-order simulations are summarized in Table 3. In the rational-pole model, the coupled carrier–thermal system was integrated using the Radau method. Radau was chosen because the problem is stiff: the thermal pole expansion spans many decades in frequency, while the carrier dynamics and nonlinear cavity feedback can evolve on nanosecond time scales. Explicit integration would therefore require extremely small time steps for stability. The implicit Radau method provides a high-order stiff integration scheme, while the maximum step size was restricted to match the COMSOL comparison grid. The impulse-response simulation used a TR-BDF2 update for the coupled carrier–thermal-history step. TR-BDF2 combines a trapezoidal-rule stage with a backward-differentiation stage, giving good stability for stiff nonlinear systems while retaining second-order accuracy. In this work, the stage parameter was chosen as 
+
+𝛾 TRBDF2 = 2 − √2.
+
+The unknowns 𝑁 and 𝑇 eff were solved implicitly at each stage because the absorbed power depends on the instantaneous cavity detuning, carrier density, and temperature through the nonlinear relations for 𝛾 , Δ, 𝑈 , and 𝑃 abs .
+
+3.5. Assignment of models to the main-text results 
+
+The main-text figures do not all represent the same optical operating point. Their model assignments are summarized in Table 4. In particular, the different self-pulsation periods in Table 3. Numerical parameters used in the reduced-order simulations. Parameter Value Purpose 
+
+𝑁 𝑝 48 Number of thermal poles Pole range 20 Hz–10 10 Hz Rational-fit bandwidth 
+
+𝐹 fit ,max 10 10 Hz Maximum fitted frequency 
+
+𝑁 DC 8 Points used for DC extrapolation Solver Radau Stiff implicit ODE solver Relative tolerance 10 −7 ODE accuracy control Absolute tolerance 10 −9 ODE accuracy control Maximum step 0.5 ns Time-step restriction 
+
+𝑁 scale 10 22 m−3 Carrier state scaling 
+
+𝑇 scale 25 K Thermal state scaling FOH reference length 500 𝜇 s Impulse-tail reference FOH candidate range 30–250 𝜇 s Truncation search range Tail-error target 5 × 10 −3 Kernel truncation criterion FOH multiplier 1.75 Final truncation factor TR-BDF2 parameter 2 − √2 Implicit FOH update 
+
+Figs. 2 and 4 of the main text arise from differences in input power, cold-cavity detuning, and carrier dynamics; they are not two simulations of an identical operating condition. 
+
+4. Simulation cases used for Table 2 
+
+Table 2 of the main paper summarizes the agreement between the COMSOL transient simulations and the reduced-order rational pole-fit model for different optical input conditions. These cases use the simplified cavity dynamics employed by Borghi et al. [1], rather than the detailed model used for Fig. 2 of the main text. The optical-field equations, loss terms, and absorbed-power definition remain unchanged, but the carrier lifetime is taken to be constant and free-carrier dispersion is represented by a single effective term: 
+
+𝑑𝑁 𝑑𝑡 = 𝑔 TPA 𝑈 2 − 𝑁 𝜏 fc 
+
+,
+
+Δ = 2𝜋 Δ𝜈 0 + 𝜔 0
+
+
+
+− 1
+
+𝑛 Si 
+
+𝑑𝑛 𝑑𝑇 𝑇 eff − 𝜎 eff 𝑁 𝑛 Si 
+
+
+
+.
+
+The separate carrier contributions and density-dependent SRH lifetime introduced in Sec. 3 are therefore not used in these simplified cases. The optical input amplitude and cold-cavity detuning are set independently for each case, as specified by the corresponding COMSOL model and by the input definitions below. All Table 2 simulations used the same thermal transfer function, and the same stable rational pole-fit representation of 𝐻 th . The fitted thermal model used 𝑁 𝑝 = 48 poles over the range 20 Hz–10 10 Hz, with positive residues, relative weighting, and DC extrapolation from the first eight low-frequency points. The coupled carrier–thermal system was integrated using the Radau solver with the same state scaling used in Sec. 3. Table 4. Model and operating-condition assignment for the main-text results. Main-text result Dynamical model Thermal model and operating condition Figure 1 Feed-forward TE 1 heating; no cavity feedback Centroid-sampled impulse response com-pared with the globally weighted transient temperature Figure 2 Detailed cavity dynamics with SRH lifetime and separate FCD contribu-tions Rational pole fit and FOH impulse model; power and detuning taken from the detailed COMSOL case Table 2 Simplified Borghi-based dynamics with constant lifetime and one effec-tive FCD term Rational pole fit; input power is varied according to the cases listed in Table 5 Figure 3 and Sec. 6 Same simplified dynamics and ratio-nal pole fit as the Table 2 compar-isons Centroid and globally weighted TTFs com-pared at the same simplified cavity oper-ating condition; the displayed transient uses the 12 dBm case Figure 4 Simplified dynamics with constant lifetime and one effective FCD term FOH impulse kernels of different du-rations; 12 dBm exported input trace, 
+
+Δ𝜈 0 = 0, and a 900 𝜇 s simulation win-dow 
+
+The sensitivity comparison in Sec. 6 and Fig. 3 of the main text uses this same simplified cavity model and the same rational pole-fit procedure. Within that comparison, 𝑝 in (𝑡 ), Δ𝜈 0,and all carrier parameters are held fixed; only the thermal transfer function is changed from the centroid-sampled response 𝐻 (r𝑐 , 𝜔 ) to the globally weighted response 𝐻 eff (𝜔 ). The displayed transient corresponds to the 12 dBm case. The input-power dependence in Table 2 is produced by varying 𝑝 in (𝑡 ) as specified below. The different entries in Table 2 differ in the optical input waveform and, where applicable, the simulation window. Two types of input were used. In the COMSOL-driven cases, the input field amplitude 𝑝 in (𝑡 ) was read directly from the COMSOL transient export and interpolated onto the ODE solver grid. The corresponding optical input power was defined as 
+
+𝑃 in (𝑡 ) = 𝑝 2in (𝑡 ).
+
+For these cases, the reported mean power and modulation depth were computed from the exported input trace: 
+
+𝑃 in = ⟨𝑃 in (𝑡 )⟩ ,𝑃 amp = 𝑃 max − 𝑃 min 
+
+2 ,𝑃 dBm = 10 log 10 
+
+𝑃 in 
+
+1 mW 
+
+!
+
+,
+
+and 
+
+𝑚 % = 100 𝑃 amp 
+
+𝑃 in 
+
+.
+
+Thus the modulation is reported as 
+
+𝑃 dBm ± 𝑚 %.In the analytically modulated cases, the COMSOL report function P in (𝑡 ) defined the optical input power in watts. The reduced model then used 
+
+𝑝 in (𝑡 ) =√︁ Pin (𝑡 ).
+
+The imposed power modulation was 
+
+𝑃 in (𝑡 ) = 𝑃 in 
+
+
+
+1 + 𝑚 sin 
+
+
+
+2𝜋 𝑡 𝑇 mod 
+
+ 
+
+,
+
+where 𝑇 mod is the modulation period and 𝑚 is the fractional modulation amplitude. The reference 5 dBm power was 
+
+𝑃 5dBm = 10 −310 5/10 W = 3.162 mW .
+
+The input cases are summarized in Table 5. 
+
+Table 5. Input definitions for the validation cases reported in Table 2 of the main paper. LC denotes a limit-cycle case, C a constant-input case without self-pulsation, and M a modulated-input case. Main-text case Input definition Mean power Modulation am-plitude 12 dBm (LC) COMSOL 𝑝 in (𝑡 ) From exported trace From exported trace 11 dBm (LC) COMSOL 𝑝 in (𝑡 ) From exported trace From exported trace 10 dBm (LC) COMSOL 𝑝 in (𝑡 ) From exported trace From exported trace 5 dBm (C) COMSOL 𝑝 in (𝑡 ) From exported trace From exported trace 4 dBm (C) COMSOL 𝑝 in (𝑡 ) From exported trace From exported trace 12 dBm (LC), 274 𝜇 s window COMSOL 𝑝 in (𝑡 ) From exported trace From exported trace 2 dBm ± 100% at 1 GHz (M) Analytical 𝑃 in (𝑡 ) 1.99 dBm ±100% 4 dBm ± 12 .5% at 100 MHz (M) Analytical 𝑃 in (𝑡 ) 4.03 dBm ±12 .5% 4 dBm ± 12 .5% at 100 kHz (M) Analytical 𝑃 in (𝑡 ) 4.03 dBm ±12 .5% 4 dBm ± 12 .5% at 100 Hz (M) Analytical 𝑃 in (𝑡 ) 4.03 dBm ±12 .5% 
+
+For the 1 ns modulation case, the imposed input power was 
+
+𝑃 in (𝑡 ) = 0.5𝑃 5dBm 
+
+h
+
+1 + sin 
+
+
+
+2𝜋 𝑡 
+
+1 ns 
+
+i 
+
+.(a) 2 dBm ± 100% at 1 GHz (M); the unrounded mean power is 1 .99 dBm.        
+
+> (b) 4 dBm ±12 .5% at 100 MHz (M); the unrounded mean power is 4 .03 dBm.
+> (c) 4 dBm ±12 .5% at 100 kHz (M); the unrounded mean power is 4 .03 dBm.
+> (d) 4 dBm ±12 .5% at 100 Hz (M); the unrounded mean power is 4 .03 dBm.
+> (e) Constant-input 12 dBm limit-cycle case (LC). (f) Constant-input 4 dBm case (C).
+
+Fig. 3. Representative comparisons between COMSOL transient simulations and the reduced-order rational pole-fit model for the cases summarized in Table 2 of the main paper. Panels (a)–(d) show the modulated-input cases, specified by their mean optical input power and relative power modulation amplitude. Panels (e) and (f) show constant-input simulations at 12 dBm and 4 dBm, respectively. In each panel, the reduced-order model is compared directly against the COMSOL reference for the corresponding transient response. 
+
+Therefore, the mean power was 0 .5𝑃 5dBm , corresponding to 1 .99 dBm, and the modulation amplitude was ±100%. For the 10 ns, 10 𝜇 s, and 10 ms modulation cases, the imposed input power was 
+
+𝑃 in (𝑡 ) = 0.8𝑃 5dBm 
+
+
+
+1 + 0.125 sin 
+
+
+
+2𝜋 𝑡 𝑇 mod 
+
+ 
+
+.
+
+Therefore, the mean power was 0 .8𝑃 5dBm , corresponding to 4 .03 dBm, and the modulation amplitude was ±12 .5%. For each case, the reduced-model outputs were evaluated on the same time grid as the COMSOL transient export. The model generated 𝑇 eff , 𝑁 , 𝑎 𝑟 , 𝑎 𝑖 , and 𝑈 ; Table 2 of the main text reports the percentage RMSE of 𝑇 eff , computed as RMSE % = 100 √︃ 
+
+(𝑥 model − 𝑥 COMSOL )2 √︃ 
+
+𝑥 2COMSOL 
+
+.
+
+Figure 3 provides representative temperature traces and their comparison with the corresponding COMSOL simulations. 
+
+5. Impulse-kernel truncation and convergence analysis 
+
+The convergence study corresponding to Fig. 4 of the main text used the simplified cavity dynamics described in Sec. 4, not the detailed SRH model used for Fig. 2. It used the exported 12 dBm input trace, zero cold-cavity detuning, and a 900 𝜇 s simulation window. These differences in power, detuning, and carrier dynamics account for the different absolute self-pulsation periods in Figs. 2 and 4 of the main text. The convergence outputs for the impulse-response model were generated from a single long-duration reference kernel. Before inversion, the sampled thermal transfer function was sorted by frequency and its zero-frequency value was estimated from the first eight low-frequency points. Specifically, the real part was extrapolated linearly as a function of 𝑓 2, while the imaginary part was constrained to vanish at DC. The transfer function was then interpolated onto a uniform frequency grid using piecewise-cubic Hermite interpolation. A cosine taper was applied over the upper portion of the frequency range to suppress ringing caused by an abrupt spectral cutoff. Because the inverse discrete Fourier transform represents a periodic time record, the frequency spacing was chosen so that the corresponding time window was at least 
+
+𝑇 IFFT ≥ max (3𝑇 ref , 𝑇 ref + 300 𝜇 s) ,
+
+where 𝑇 ref = 500 𝜇 s is the reference-kernel duration. This guard interval prevents the unresolved impulse-response tail from wrapping around into the beginning of the reconstructed kernel. The maximum reconstructed frequency was 5 GHz. The fine-grid impulse response was converted to the transient-simulation grid using a first-order-hold representation of the absorbed power. For a coarse time step Δ𝑡 , the FOH kernel coefficient at delay 𝑟 Δ𝑡 was calculated by projecting the fine impulse response onto the triangular basis 
+
+Λ𝑟 (𝜏 ) = max 
+
+
+
+1 − |𝜏 − 𝑟 Δ𝑡 |
+
+Δ𝑡 , 0
+
+
+
+.
+
+Thus, if ℎ𝑞 denotes the discrete fine-grid impulse-response weight at 𝜏 𝑞 , the coarse coefficient is 
+
+𝐾 ref [𝑟 ] =∑︁ 
+
+> 𝑞
+
+ℎ𝑞 Λ𝑟 (𝜏 𝑞 ).
+
+The zero-delay coefficient was transferred to the first delayed coefficient, 
+
+𝐾 ref [1] ← 𝐾 ref [1] + 𝐾 ref [0], 𝐾 ref [0] ← 0,thereby removing same-sample thermal feedback and imposing a one-time-step delay on this coefficient. This operation preserves the total kernel sum and hence its DC thermal gain. To quantify the error introduced by finite kernel duration, the 500 𝜇 s reference kernel was divided into retained and omitted portions at each candidate cutoff 𝑇 𝑐 . If 𝑀 𝑐 is the number of samples retained at that cutoff, the signed and absolute omitted-tail measures were defined in Eqs. (15) and (16) of the main text. The signed metric measures the remaining error in the integrated, or DC, thermal response, whereas the absolute metric prevents cancellation between positive and negative portions of the omitted tail. Candidate cutoffs between 30 𝜇 s and 250 𝜇 s, in increments of 10 𝜇 s, were evaluated. The critical truncation 𝑇 crit was defined as the first candidate satisfying 
+
+𝜖 signed ≤ 5 × 10 −3, 𝜖 abs ≤ 5 × 10 −3.
+
+This criterion gave 𝑇 crit = 180 𝜇 s. The longest kernel used in the nonlinear comparisons was therefore 1 .75 𝑇 crit = 315 𝜇 s. To verify that the kernel-tail criterion also produced converged nonlinear dynamics, simulations were performed using truncation times 
+
+𝑇 𝑐 = {0.6, 0.8, 1.0, 1.25 , 1.5, 1.75 } 𝑇 crit .
+
+All cases used the same time grid, physical parameters, initial conditions, and input waveform. The simulation interval was 900 𝜇 s, and the time step was taken from the COMSOL transient export. The exported input-field amplitude was linearly interpolated onto this grid; if the reduced-model simulation extended beyond the available COMSOL trace, its final input value was held constant. For each accepted time step, the newly calculated absorbed power was stored in the thermal memory by multiplying it by the retained kernel: 
+
+𝑇 eff [𝑛 ] =
+
+> 𝑀
+
+∑︁ 
+
+> 𝑚 =0
+
+𝐾 [𝑚 ]𝑃 abs [𝑛 − 𝑚 ].
+
+Thus, every absorbed-power sample contributes to the temperature at later times, with 𝐾 [𝑚 ]
+
+specifying how much of that contribution remains after 𝑚 time steps. TR-BDF2 also evaluates the system at an intermediate time, 
+
+𝑡 𝑛 +𝛾 = 𝑡 𝑛 + 𝛾 Δ𝑡, 𝛾 = 2 − √2.
+
+Because this intermediate time lies between two kernel samples, the required kernel value was obtained by linear interpolation between the neighboring values of 𝐾 [𝑚 ]. This provides the thermal history at the intermediate TR-BDF2 stage without introducing a separate, finer time grid. Since the same-sample coefficient was set to 𝐾 [0] = 0, the temperature at each stage depends only on previously accepted absorbed-power values and not on an instantaneous same-sample thermal response. Carrier density and effective temperature were then solved simultaneously at both implicit stages, accounting for the instantaneous dependence of absorbed power on the nonlinear cavity state. The resulting outputs were the effective-temperature rise 𝑇 eff (𝑡 ), carrier density 𝑁 (𝑡 ), and absorbed power 𝑃 abs (𝑡 ) for each truncation. Where available, the COMSOL transient was included in the temperature and carrier-density plots as an independent reference over its exported time interval. The omitted-tail plot was generated from the reverse cumulative signed and absolute sums of the reference kernel, with the threshold levels and tested truncation times marked explicitly. Self-pulsation periods were obtained from consecutive maxima of 𝑇 eff (𝑡 ). A peak was retained if its prominence exceeded 25% of the full temperature excursion, and adjacent peaks were required to be separated by at least 5 𝜇 s. If the detected peak times are 𝑡 pk  
+
+> 𝑗
+
+, the period assigned to oscillation 𝑗 is 
+
+𝜏 𝑗 = 𝑡 pk  
+
+> 𝑗 +1
+
+− 𝑡 pk  
+
+> 𝑗
+
+.
+
+Plotting 𝜏 𝑗 against oscillation number reveals both the transient evolution of the self-pulsation period and its sensitivity to kernel truncation. Finally, the thermal-history implementation was checked by independently recomputing the discrete convolution, 
+
+𝑇 check [𝑛 ] =∑︁ 
+
+> 𝑚
+
+𝐾 [𝑚 ]𝑃 abs [𝑛 − 𝑚 ],
+
+and comparing it with the temperature obtained during the incremental TR-BDF2 calculation. Maximum and RMS values of 𝑇 eff − 𝑇 check , together with the implicit carrier and thermal equation residuals, were used to verify numerical consistency of each simulation. 
+
+References

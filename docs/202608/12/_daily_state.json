@@ -1,0 +1,105 @@
+{
+  "date": "20260812",
+  "date_label": "",
+  "generated_at": "2026-08-12 20:52:06 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2608.09508v1",
+      "route": "202608/12/2608.09508v1-200-mm-wafer-scale-monolithic-3d-integration-of-atomic-layer-deposited-oxide-semiconductors",
+      "title": "200 mm Wafer-Scale Monolithic 3D Integration of Atomic Layer-Deposited Oxide Semiconductors",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "cim"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "存算一体架构与三维单片集成，四层3D存算加速器",
+      "first_seen_at": "2026-08-12 20:52:06 UTC",
+      "updated_at": "2026-08-12 20:52:06 UTC"
+    },
+    {
+      "paper_id": "2608.10099v1",
+      "route": "202608/12/2608.10099v1-solver-agnostic-implementation-of-atom-informed-thermal-conductivity-fields-in-continuum-heat-flow-simulations",
+      "title": "Solver-Agnostic Implementation of Atom-Informed Thermal Conductivity Fields in Continuum Heat-Flow Simulations",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "thermal-gnn"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "将原子尺度的热导率映射到连续介质有限元热流仿真，直接可用于集成电路温度场模拟",
+      "first_seen_at": "2026-08-12 20:52:06 UTC",
+      "updated_at": "2026-08-12 20:52:06 UTC"
+    },
+    {
+      "paper_id": "2608.04856v1",
+      "route": "202608/12/2608.04856v1-high-speed-time-series-prediction-using-compact-memristor-circuits-with-adjustable-dynamics",
+      "title": "High-speed time-series prediction using compact memristor circuits with adjustable dynamics",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "cim"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "利用忆阻器电路作为存储内计算层进行时间序列预测，契合存算一体架构",
+      "first_seen_at": "2026-08-12 20:52:06 UTC",
+      "updated_at": "2026-08-12 20:52:06 UTC"
+    },
+    {
+      "paper_id": "2608.08496v1",
+      "route": "202608/12/2608.08496v1-revolt-power-delivery-network-aware-voltage-droop-control-for-25d-pim-chiplet-architectures",
+      "title": "ReVolt: Power Delivery Network-Aware Voltage Droop Control for 2.5D PIM Chiplet Architectures",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "cim"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "基于PIM的2.5D芯粒架构，使用LSTM供电网络代理控制电压跌落，与存算一体和3D集成主题相关。",
+      "first_seen_at": "2026-08-12 20:52:06 UTC",
+      "updated_at": "2026-08-12 20:52:06 UTC"
+    },
+    {
+      "paper_id": "2608.06870v1",
+      "route": "202608/12/2608.06870v1-g-power-architecture-level-gpu-power-modeling-with-aggregated-knowledge-foundations-from-known-gpus",
+      "title": "G-Power: Architecture-level GPU Power Modeling with Aggregated Knowledge Foundations from Known GPUs",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "thermal-gnn"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "架构级GPU功耗建模，功耗是发热的直接来源，支持热管理",
+      "first_seen_at": "2026-08-12 20:52:06 UTC",
+      "updated_at": "2026-08-12 20:52:06 UTC"
+    },
+    {
+      "paper_id": "2608.08458v1",
+      "route": "202608/12/2608.08458v1-simulating-optical-microcavities-by-inverting-the-thermal-transfer-function",
+      "title": "Simulating optical microcavities by inverting the thermal transfer function",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "thermal-gnn"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "利用热传递函数的降阶热仿真方法，可迁移至芯片温度场模拟",
+      "first_seen_at": "2026-08-12 20:52:06 UTC",
+      "updated_at": "2026-08-12 20:52:06 UTC"
+    }
+  ]
+}

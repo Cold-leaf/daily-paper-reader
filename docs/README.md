@@ -41,17 +41,17 @@
 <section class="dpr-home-dashboard-card dpr-home-report-card">
   <div class="dpr-home-dashboard-header">
     <div>
-      <span class="dpr-home-dashboard-kicker">2026-08-12</span>
+      <span class="dpr-home-dashboard-kicker">2026-08-13</span>
       <h3 class="dpr-home-dashboard-title">今日汇总</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">共 6 篇</strong>
+    <strong class="dpr-home-dashboard-count">共 5 篇</strong>
   </div>
   <dl class="dpr-home-dashboard-stats">
     <div class="dpr-home-dashboard-stat"><dt>累计更新</dt><dd>1 次</dd></div>
     <div class="dpr-home-dashboard-stat"><dt>精读</dt><dd>2</dd></div>
-    <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>4</dd></div>
+    <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>3</dd></div>
   </dl>
-  <p class="dpr-home-dashboard-body">最近更新：2026-08-12 20:52:06 UTC<br>状态：成功</p>
+  <p class="dpr-home-dashboard-body">最近更新：2026-08-13 20:49:41 UTC<br>状态：成功</p>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-brief-card">
   <div class="dpr-home-dashboard-header">
@@ -62,7 +62,7 @@
     <strong class="dpr-home-dashboard-count">AI</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<p>今日精读聚焦原子层沉积氧化物半导体的200mm晶圆级单片3D集成（9.0分），并探讨了原子级热导率场在连续热仿真中的实现。速读则覆盖忆阻器时间序列预测、2.5D PIM芯片电压降控制及GPU功耗建模。建议优先关注单片3D集成与热管理方向，后续可深入器件级性能与架构协同优化。</p>
+<p>今日精读5篇论文，聚焦原子层沉积氧化物半导体3D集成与2.5D PIM芯片电压控制，另有忆阻器预测、扩散模型及3D NAND存内计算等速读。最值得关注的是200mm晶圆级单片3D集成工艺（9.0分）和ReVolt电压跌落控制方案（8.0分）。若想入门，可优先从氧化物半导体3D集成和存内计算方向跟进，了解器件与架构协同优化趋势。</p>
   </div>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-deep-card">
@@ -74,9 +74,9 @@
     <strong class="dpr-home-dashboard-count">2 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="200 mm Wafer-Scale Monolithic 3D Integration of Atomic Layer-Deposited Oxide Semiconductors">200 mm Wafer-Scale Monolithic 3D Integration of Atomic Layer-Deposited Oxide Semiconductors</span></li><li><span class="dpr-home-dashboard-paper-title" title="Solver-Agnostic Implementation of Atom-Informed Thermal Conductivity Fields in Continuum Heat-Flow Simulations">Solver-Agnostic Implementation of Atom-Informed Thermal Conductivity Fields in Continuum Heat-Flow Simulations</span></li></ul>
+<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="200 mm Wafer-Scale Monolithic 3D Integration of Atomic Layer-Deposited Oxide Semiconductors">200 mm Wafer-Scale Monolithic 3D Integration of Atomic Layer-Deposited Oxide Semiconductors</span></li><li><span class="dpr-home-dashboard-paper-title" title="ReVolt: Power Delivery Network-Aware Voltage Droop Control for 2.5D PIM Chiplet Architectures">ReVolt: Power Delivery Network-Aware Voltage Droop Control for 2.5D PIM Chiplet Architectures</span></li></ul>
   </div>
-  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">cim <strong>1</strong></span><span class="dpr-home-dashboard-tag">thermal-gnn <strong>1</strong></span></div>
+  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">cim <strong>2</strong></span></div>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-skim-card">
   <div class="dpr-home-dashboard-header">
@@ -84,12 +84,12 @@
       <span class="dpr-home-dashboard-kicker">今日累计</span>
       <h3 class="dpr-home-dashboard-title">速读推荐</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">4 篇</strong>
+    <strong class="dpr-home-dashboard-count">3 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="High-speed time-series prediction using compact memristor circuits with adjustable dynamics">High-speed time-series prediction using compact memristor circuits with adjustable dynamics</span></li><li><span class="dpr-home-dashboard-paper-title" title="ReVolt: Power Delivery Network-Aware Voltage Droop Control for 2.5D PIM Chiplet Architectures">ReVolt: Power Delivery Network-Aware Voltage Droop Control for 2.5D PIM Chiplet Architectures</span></li><li><span class="dpr-home-dashboard-paper-title" title="G-Power: Architecture-level GPU Power Modeling with Aggregated Knowledge Foundations from Known GPUs">G-Power: Architecture-level GPU Power Modeling with Aggregated Knowledge Foundations from Known GPUs</span></li></ul>
+<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="High-speed time-series prediction using compact memristor circuits with adjustable dynamics">High-speed time-series prediction using compact memristor circuits with adjustable dynamics</span></li><li><span class="dpr-home-dashboard-paper-title" title="Physics-informed Diffusion Generative Model for Time-Series Data Synthesis in Dynamic Systems">Physics-informed Diffusion Generative Model for Time-Series Data Synthesis in Dynamic Systems</span></li><li><span class="dpr-home-dashboard-paper-title" title="NITRO: High-Performance 3D NAND Flash-Based In-Storage Computing with Enhanced Activation Dataflow">NITRO: High-Performance 3D NAND Flash-Based In-Storage Computing with Enhanced Activation Dataflow</span></li></ul>
   </div>
-  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">cim <strong>2</strong></span><span class="dpr-home-dashboard-tag">thermal-gnn <strong>2</strong></span></div>
+  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">cim <strong>2</strong></span><span class="dpr-home-dashboard-tag">thermal-gnn <strong>1</strong></span></div>
 </section>
 </div>
 

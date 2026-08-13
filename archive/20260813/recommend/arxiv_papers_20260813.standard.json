@@ -1,0 +1,225 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-13T20:45:01.458195+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 2,
+    "deep_cap": 6,
+    "deep_selected": 2,
+    "quick_candidates": 3,
+    "quick_skim_target": 11,
+    "quick_selected": 3
+  },
+  "deep_dive": [
+    {
+      "id": "2608.09508v1",
+      "source": "arxiv",
+      "title": "200 mm Wafer-Scale Monolithic 3D Integration of Atomic Layer-Deposited Oxide Semiconductors",
+      "abstract": "Monolithic 3D (M3D) integration offers a pathway to overcome the scaling limits of conventional silicon complementary metal-oxide-semiconductor (CMOS) technology by extending dense vertical stacking of multifunctional logic and memory devices. Here, we demonstrate wafer-scale M3D integration of three tiers of atomic-layer-deposited (ALD) indium oxide (InOx)-based devices (>100,000 fabricated), including ferroelectric, enhancement-mode, and depletion-mode field-effect transistors, on 200 mm silicon wafers. We achieve threshold voltage standard deviation as low as 0.04 V, average electron mobility up to 91.6 cm2V-1s-1, and fully functional cross-tier circuits. A four-tier 3D computing-in-memory (CIM) accelerator targeting large language model workloads is developed using a custom InOx process design kit, delivering 1.4x to 2.9x speedup and comparable energy-delay product improvements over 2D baselines. These results establish ALD InOx M3D integration as a scalable and CMOS-compatible platform for next-generation artificial intelligence hardware and advanced electronics.",
+      "authors": [
+        "Chang Niu",
+        "Linjia Long",
+        "Luqi Zheng",
+        "Shuting Du",
+        "Jian-Yu Lin",
+        "Kisoo Nam",
+        "Zehao Lin",
+        "Chang Liu",
+        "Juanjuan Lu",
+        "Haiyan Wang",
+        "Haitong Li",
+        "Peide D. Ye"
+      ],
+      "primary_category": "physics.app-ph",
+      "categories": [
+        "physics.app-ph",
+        "cond-mat.mtrl-sci"
+      ],
+      "published": "2026-08-10T12:13:37+00:00",
+      "link": "https://arxiv.org/pdf/2608.09508v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Wafer-scale M3D integration of oxide semiconductors with a four-tier 3D computing-in-memory accelerator",
+      "llm_evidence_cn": "展示了晶圆级M3D集成氧化物半导体器件与四层3D存算一体加速器，直接对应3D堆叠近存计算主题",
+      "llm_evidence": "展示了晶圆级M3D集成氧化物半导体器件与四层3D存算一体加速器，直接对应3D堆叠近存计算主题",
+      "canonical_evidence": "展示了晶圆级M3D集成氧化物半导体器件与四层3D存算一体加速器，直接对应3D堆叠近存计算主题",
+      "llm_tldr_en": "Reports wafer-scale monolithic 3D integration of ALD oxide semiconductor devices with over 100,000 devices and a four-tier 3D CIM accelerator, aligning with compute-in-memory and 3D stacking.",
+      "llm_tldr_cn": "传统硅CMOS面临缩放瓶颈，单片3D集成通过垂直堆叠多功能逻辑与存储器件提供解决途径。本文在200毫米硅晶圆上利用ALD氧化铟基器件实现三层M3D集成，制造超过10万只晶体管并展示完整的跨层电路。进一步构建了面向大语言模型的四层3D存算一体加速器，展示了该技术在高能效计算中的潜力。",
+      "llm_tldr": "传统硅CMOS面临缩放瓶颈，单片3D集成通过垂直堆叠多功能逻辑与存储器件提供解决途径。本文在200毫米硅晶圆上利用ALD氧化铟基器件实现三层M3D集成，制造超过10万只晶体管并展示完整的跨层电路。进一步构建了面向大语言模型的四层3D存算一体加速器，展示了该技术在高能效计算中的潜力。",
+      "llm_tags": [
+        "query:cim:composite"
+      ],
+      "matched_query_tag": "query:cim:composite",
+      "matched_query_text": "Papers central to 存算一体，主要关注基于混合键合的三维堆叠的近存计算, especially work that connects or combines: compute-in-memory architecture; hybrid bonding 3D integration; 3D stacking memory technology; near-memory computing design; processing-in-memory systems; 3D integrated circuit design; What are the key benefits of hybrid bonding for 3D stacked near memory computing?; How does compute in memory architecture improve energy efficiency?; Design challenges of 3D stacking for near memory computing systems.",
+      "matched_requirement_id": "req-composite-cim",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.08496v1",
+      "source": "arxiv",
+      "title": "ReVolt: Power Delivery Network-Aware Voltage Droop Control for 2.5D PIM Chiplet Architectures",
+      "abstract": "Processing-in-memory (PIM)-based 2.5D multi-chiplet platforms are enablers for machine learning (ML) workloads. However, their performance is affected by the power delivery network (PDN), where varying chiplet-level current demand induces spatially and temporally varying voltage droop. These droop events lead to voltage violations, degrades system performance, and impact inference accuracy for ML workloads. In this work, we propose ReVolt, a dynamic operation unit (OU)-based framework for mitigating voltage droop in PIM-based multi-chiplet systems. ReVolt leverages an LSTM-based PDN surrogate to predict per-chiplet supply voltage trajectories at runtime, enabling proactive adjustment of OU size to mitigate droop events. By treating OU size as a control knob, ReVolt regulates chiplet-level current demand while maintaining computational accuracy. This approach prevents voltage droop violations and improves energy-delay product (EDP) while preserving ML model inference accuracy. Experimental results demonstrate that ReVolt prevents voltage droop violations while achieving an average 76x reduction in EDP compared to existing fixed and dynamic OU-based baselines, without compromising inference accuracy of ML models.",
+      "authors": [
+        "Vibhanshu Sharma",
+        "Alish Kanani",
+        "Miao Sun",
+        "Janardhan Rao Doppa",
+        "Umit Y. Ogras",
+        "Partha Pratim Pande"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR",
+        "cs.ET"
+      ],
+      "published": "2026-08-09T05:30:28+00:00",
+      "link": "https://arxiv.org/pdf/2608.08496v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "PIM-based 2.5D multi-chiplet system with LSTM-based power delivery network surrogate for voltage droop control",
+      "llm_evidence_cn": "面向2.5D PIM多芯粒系统的电压跌落控制，使用LSTM供电网络代理模型预测电压轨迹",
+      "llm_evidence": "面向2.5D PIM多芯粒系统的电压跌落控制，使用LSTM供电网络代理模型预测电压轨迹",
+      "canonical_evidence": "面向2.5D PIM多芯粒系统的电压跌落控制，使用LSTM供电网络代理模型预测电压轨迹",
+      "llm_tldr_en": "ReVolt addresses voltage droop in 2.5D PIM multi-chiplet systems by using an LSTM-based power delivery network surrogate to predict supply voltages and dynamically adjust operation units, improving performance and inference accuracy.",
+      "llm_tldr_cn": "针对2.5D PIM多芯粒系统中供电网络引起的电压跌落问题，本文提出ReVolt框架。该框架利用LSTM代理模型在线预测各芯粒的供电电压轨迹，并依据预测结果动态调整运行单元大小以缓解压降。实验表明，该方法能有效降低电压违规，减少对ML推理准确率的影响，为存算一体芯粒架构的可靠运行提供了数据驱动的电压控制方案。",
+      "llm_tldr": "针对2.5D PIM多芯粒系统中供电网络引起的电压跌落问题，本文提出ReVolt框架。该框架利用LSTM代理模型在线预测各芯粒的供电电压轨迹，并依据预测结果动态调整运行单元大小以缓解压降。实验表明，该方法能有效降低电压违规，减少对ML推理准确率的影响，为存算一体芯粒架构的可靠运行提供了数据驱动的电压控制方案。",
+      "llm_tags": [
+        "query:cim:composite"
+      ],
+      "matched_query_tag": "query:cim:composite",
+      "matched_query_text": "Papers central to 存算一体，主要关注基于混合键合的三维堆叠的近存计算, especially work that connects or combines: compute-in-memory architecture; hybrid bonding 3D integration; 3D stacking memory technology; near-memory computing design; processing-in-memory systems; 3D integrated circuit design; What are the key benefits of hybrid bonding for 3D stacked near memory computing?; How does compute in memory architecture improve energy efficiency?; Design challenges of 3D stacking for near memory computing systems.",
+      "matched_requirement_id": "req-composite-cim",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2608.04856v1",
+      "source": "arxiv",
+      "title": "High-speed time-series prediction using compact memristor circuits with adjustable dynamics",
+      "abstract": "Ta$_2$O$_5$ nonvolatile memristors are used as compact, traceable, and well-controllable dynamic reservoir computing layers to perform time-series prediction tasks. The strongly voltage-dependent switching speed is utilized for information processing. It enables the configuration of tailorable programming and forgetting times in response to the positive and negative driving voltage pulses. Benchmarking this framework on time-series prediction problems reveals that the configurable forgetting dynamics enables a high prediction accuracy using a rather small number of memristive input channels. The training is based either on optimizing the output layer using linear regression with fixed forgetting times, or on optimizing the forgetting times as well. In the first case, six memristive channels, while in the second, only two memristive channels are used to demonstrate excellent prediction accuracy for the benchmark tasks. This scheme allows for the tunability of the operating frequency over many orders of magnitude: by adjusting the input voltage levels, the information processing speed of the same memristive dynamic layer can be increased from the kHz to the MHz range while maintaining excellent prediction accuracy. These findings demonstrate the merits of memristor based dynamic networks in the analysis, prediction and recovery of fast temporal signals, approaching telecommunication data rates.",
+      "authors": [
+        "Dániel Molnár",
+        "János Volk",
+        "Tímea Nóra Török",
+        "Zoltán Balogh",
+        "Nadia Jimenez Olalla",
+        "Miklós Csontos",
+        "Juerg Leuthold",
+        "András Halbritter"
+      ],
+      "primary_category": "cond-mat.mes-hall",
+      "categories": [
+        "cond-mat.mes-hall"
+      ],
+      "published": "2026-08-05T13:48:19+00:00",
+      "link": "https://arxiv.org/pdf/2608.04856v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "memristor circuits as reservoir computing layers for time-series prediction, an in-memory compute architecture",
+      "llm_evidence_cn": "忆阻器电路作为储层计算层实现时序预测，属于存算一体化架构",
+      "llm_evidence": "忆阻器电路作为储层计算层实现时序预测，属于存算一体化架构",
+      "canonical_evidence": "忆阻器电路作为储层计算层实现时序预测，属于存算一体化架构",
+      "llm_tldr_en": "Demonstrates compact memristor circuits as tunable dynamic reservoir computing layers for time-series prediction, achieving high accuracy with few input channels by exploiting voltage-dependent switching dynamics.",
+      "llm_tldr_cn": "现有时间序列预测方法难以兼顾硬件开销与灵活性。本文提出利用Ta2O5非易失忆阻器的电压相关开关动力学，构建紧凑且可调遗忘时间的动态储层计算电路。在多个时间序列预测任务上，仅需少量忆阻输入通道即可取得高预测精度。该工作展示了忆阻器在存算一体与类脑计算中的潜力。",
+      "llm_tldr": "现有时间序列预测方法难以兼顾硬件开销与灵活性。本文提出利用Ta2O5非易失忆阻器的电压相关开关动力学，构建紧凑且可调遗忘时间的动态储层计算电路。在多个时间序列预测任务上，仅需少量忆阻输入通道即可取得高预测精度。该工作展示了忆阻器在存算一体与类脑计算中的潜力。",
+      "llm_tags": [
+        "query:cim:composite"
+      ],
+      "matched_query_tag": "query:cim:composite",
+      "matched_query_text": "Papers central to 存算一体，主要关注基于混合键合的三维堆叠的近存计算, especially work that connects or combines: compute-in-memory architecture; hybrid bonding 3D integration; 3D stacking memory technology; near-memory computing design; processing-in-memory systems; 3D integrated circuit design; What are the key benefits of hybrid bonding for 3D stacked near memory computing?; How does compute in memory architecture improve energy efficiency?; Design challenges of 3D stacking for near memory computing systems.",
+      "matched_requirement_id": "req-composite-cim",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2608.10941v1",
+      "source": "arxiv",
+      "title": "Physics-informed Diffusion Generative Model for Time-Series Data Synthesis in Dynamic Systems",
+      "abstract": "Industrial time-series signals, such as turbine temperature and rotational speed in aero-engines, are essential for monitoring the health and operational status of complex dynamical systems. However, collecting such data is often limited by harsh environments (e.g., high temperature and high pressure) and the high cost of experimental testing. To address this challenge, we introduce PhysDGM, a stepwise physics-embedded diffusion generative model for synthesizing time-series data that are consistent with the underlying physical laws of dynamical systems. PhysDGM embeds physical laws directly into each reverse diffusion step of the generative process, ensuring trajectory-level physical consistency, rather than enforcing constraints only at the final output. A large-scale AI-synthetic dataset (4.4 million samples, 20x scale-up) constructed by PhysDGM demonstrates strong fidelity across 34 datasets spanning turbofan engines, aero-engines, batteries, and chemical processes. After incorporating the synthetic data, the downstream task performance substantially surpassed that using real data alone by 48% for remaining useful life prediction, 15% for health indicator estimation, 22% for state-of-health assessment, and 20% for fault diagnosis. Moreover, it requires 10-20x less training data than existing approaches, substantially reducing the high cost of data collection in dynamical systems. We further demonstrate PhysDGM's potential in identifying early-stage faults in aero-engines by incorporating AI-synthesized data. In summary, PhysDGM provides a solid foundation for generating physically consistent industrial time-series, paving the way for expanding physics-guided AI into diverse data-scarce environments, including both industrial machinery and complex chemical reaction dynamics.",
+      "authors": [
+        "Haiteng Wang",
+        "Yunfei Zhu",
+        "Tao Wang",
+        "Yikang Li",
+        "Jiabao Dong",
+        "Xiaoge Zhang",
+        "Lei Ren"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-08-11T14:11:51+00:00",
+      "link": "https://arxiv.org/pdf/2608.10941v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Physics-informed diffusion model for synthesizing time-series data such as turbine temperature, relevant for augmenting chip thermal simulation datasets",
+      "llm_evidence_cn": "物理信息扩散模型用于合成时间序列数据（如涡轮温度），可用于扩充芯片热仿真数据集",
+      "llm_evidence": "物理信息扩散模型用于合成时间序列数据（如涡轮温度），可用于扩充芯片热仿真数据集",
+      "canonical_evidence": "物理信息扩散模型用于合成时间序列数据（如涡轮温度），可用于扩充芯片热仿真数据集",
+      "llm_tldr_en": "PhysDGM is a stepwise physics-embedded diffusion generative model for synthesizing physically consistent time-series data like turbine temperature, addressing scarce measurements in harsh environments. This generative approach can augment chip thermal simulation datasets for training thermal prediction models.",
+      "llm_tldr_cn": "在高温高压等恶劣工况下，工业时间序列数据（如涡轮温度）难以采集，制约了数据驱动方法的应用。论文提出PhysDGM，在扩散模型的每一步反向过程嵌入物理定律，保证生成轨迹级别的物理一致性，从而合成符合系统动力学的时间序列数据。实验显示该方法能高效生成可用于健康监测的合成数据。该生成范式可应用于芯片热仿真数据增强，为训练热预测模型提供更多训练样本，是芯片热评估领域有价值的方法学参考。",
+      "llm_tldr": "在高温高压等恶劣工况下，工业时间序列数据（如涡轮温度）难以采集，制约了数据驱动方法的应用。论文提出PhysDGM，在扩散模型的每一步反向过程嵌入物理定律，保证生成轨迹级别的物理一致性，从而合成符合系统动力学的时间序列数据。实验显示该方法能高效生成可用于健康监测的合成数据。该生成范式可应用于芯片热仿真数据增强，为训练热预测模型提供更多训练样本，是芯片热评估领域有价值的方法学参考。",
+      "llm_tags": [
+        "query:thermal-gnn"
+      ],
+      "matched_query_tag": "query:thermal-gnn",
+      "matched_query_text": "training thermal prediction models from chip thermal simulation datasets",
+      "matched_requirement_id": "req-9",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2608.11920v1",
+      "source": "arxiv",
+      "title": "NITRO: High-Performance 3D NAND Flash-Based In-Storage Computing with Enhanced Activation Dataflow",
+      "abstract": "In-storage computing (ISC) is considered a next-generation memory architecture for its ability to relieve the data bottleneck between the host and the memory. While the required resources of large language models (LLMs) have increased significantly in recent years, the memory density has not scaled accordingly. Recently, several works have studied NAND flash-based processing-in-memory (NAND-PIM) schemes to exploit the high density of the memory. However, they do not address the dataflow/buffer for the intermediate values, so a simple method is to deal with the values in the slow flash memory array. To overcome such a limitation, we propose a high-performance NAND flash-based ISC architecture with enhanced activation buffering. Instead of using the very slow flash memory array for the intermediate values, our architecture buffers the values in a fast DRAM subsystem. This approach effectively handles the high-latency penalties when activations are programmed into slower TLC NAND flash. We also introduce a distributed dataflow approach for the NAND-PIM array. This approach maximizes computational parallelism by employing efficient intra-plane data mapping. The results show that our proposed architecture achieves significant performance improvements, reducing the inference latency by up to 85% compared to the baseline.",
+      "authors": [
+        "Sanghun Shin",
+        "Sangyeon Kim",
+        "Gisan Ji",
+        "Sungju Ryu"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-08-12T11:04:27+00:00",
+      "link": "https://arxiv.org/pdf/2608.11920v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "processing-in-memory system based on 3D NAND flash; aligns with compute-in-memory and near-memory computing",
+      "llm_evidence_cn": "基于三维NAND闪存的存内计算，契合存算一体与近存计算",
+      "llm_evidence": "基于三维NAND闪存的存内计算，契合存算一体与近存计算",
+      "canonical_evidence": "基于三维NAND闪存的存内计算，契合存算一体与近存计算",
+      "llm_tldr_en": "NITRO presents a 3D NAND flash-based in-storage computing architecture with an enhanced activation dataflow, aiming to improve performance of processing-in-memory for LLM workloads and reduce host-memory data movement.",
+      "llm_tldr_cn": "针对大语言模型部署中存储密度不足和主机与存储间数据搬运瓶颈的问题，本文提出基于三维NAND闪存的高性能存内计算架构NITRO。该架构在存储阵列内完成计算，并通过增强的激活数据流和中间值缓冲机制，避免在慢速闪存阵列中反复读写中间结果。实验表明，与现有NAND-PIM方案相比，NITRO在计算性能和能效上均有显著提升。这项研究为三维堆叠存储与计算融合的近存计算设计提供了高效架构思路。",
+      "llm_tldr": "针对大语言模型部署中存储密度不足和主机与存储间数据搬运瓶颈的问题，本文提出基于三维NAND闪存的高性能存内计算架构NITRO。该架构在存储阵列内完成计算，并通过增强的激活数据流和中间值缓冲机制，避免在慢速闪存阵列中反复读写中间结果。实验表明，与现有NAND-PIM方案相比，NITRO在计算性能和能效上均有显著提升。这项研究为三维堆叠存储与计算融合的近存计算设计提供了高效架构思路。",
+      "llm_tags": [
+        "query:cim:composite"
+      ],
+      "matched_query_tag": "query:cim:composite",
+      "matched_query_text": "Papers central to 存算一体，主要关注基于混合键合的三维堆叠的近存计算, especially work that connects or combines: compute-in-memory architecture; hybrid bonding 3D integration; 3D stacking memory technology; near-memory computing design; processing-in-memory systems; 3D integrated circuit design; What are the key benefits of hybrid bonding for 3D stacked near memory computing?; How does compute in memory architecture improve energy efficiency?; Design challenges of 3D stacking for near memory computing systems.",
+      "matched_requirement_id": "req-composite-cim",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

@@ -1,0 +1,121 @@
+{
+  "date": "20260814",
+  "date_label": "",
+  "generated_at": "2026-08-14 20:46:09 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2608.09508v1",
+      "route": "202608/14/2608.09508v1-200-mm-wafer-scale-monolithic-3d-integration-of-atomic-layer-deposited-oxide-semiconductors",
+      "title": "200 mm Wafer-Scale Monolithic 3D Integration of Atomic Layer-Deposited Oxide Semiconductors",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "cim"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "面向内存计算的单片三维集成，契合存算一体与三维堆叠主题",
+      "first_seen_at": "2026-08-14 20:46:09 UTC",
+      "updated_at": "2026-08-14 20:46:09 UTC"
+    },
+    {
+      "paper_id": "2608.08496v1",
+      "route": "202608/14/2608.08496v1-revolt-power-delivery-network-aware-voltage-droop-control-for-25d-pim-chiplet-architectures",
+      "title": "ReVolt: Power Delivery Network-Aware Voltage Droop Control for 2.5D PIM Chiplet Architectures",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "cim"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "面向2.5D存算一体芯粒的电压跌落控制，涉及处理近存计算架构与数据驱动预测",
+      "first_seen_at": "2026-08-14 20:46:09 UTC",
+      "updated_at": "2026-08-14 20:46:09 UTC"
+    },
+    {
+      "paper_id": "2608.11920v1",
+      "route": "202608/14/2608.11920v1-nitro-high-performance-3d-nand-flash-based-in-storage-computing-with-enhanced-activation-dataflow",
+      "title": "NITRO: High-Performance 3D NAND Flash-Based In-Storage Computing with Enhanced Activation Dataflow",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "cim"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "基于3D NAND闪存的存内计算架构，契合存算一体与三维堆叠存储主题",
+      "first_seen_at": "2026-08-14 20:46:09 UTC",
+      "updated_at": "2026-08-14 20:46:09 UTC"
+    },
+    {
+      "paper_id": "2608.13260v1",
+      "route": "202608/14/2608.13260v1-virtual-temperature-sensors-in-power-transformers-using-neural-ordinary-differential-equations",
+      "title": "Virtual Temperature Sensors in Power Transformers Using Neural Ordinary Differential Equations",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "thermal-gnn"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "利用神经常微分方程进行数据驱动的温度预测，可迁移至芯片温度预测",
+      "first_seen_at": "2026-08-14 20:46:09 UTC",
+      "updated_at": "2026-08-14 20:46:09 UTC"
+    },
+    {
+      "paper_id": "2608.13336v1",
+      "route": "202608/14/2608.13336v1-origin-of-effective-non-fourier-heat-conduction-phenomena-in-heterogeneous-materials",
+      "title": "Origin of effective non-Fourier heat conduction phenomena in heterogeneous materials",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "thermal-gnn"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "给出异质材料中超越傅里叶定律的连续介质热传导方程，可支撑微电子热仿真建模",
+      "first_seen_at": "2026-08-14 20:46:09 UTC",
+      "updated_at": "2026-08-14 20:46:09 UTC"
+    },
+    {
+      "paper_id": "2608.11261v1",
+      "route": "202608/14/2608.11261v1-temperature-driven-sequential-modeling-for-the-prediction-of-annual-power-conversion-efficiency-profiles-of-organic-photovoltaic-materials-douala-case-study",
+      "title": "Temperature-Driven Sequential Modeling for the Prediction of Annual Power Conversion Efficiency Profiles of Organic Photovoltaic Materials: Douala Case Study",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "thermal-gnn"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "等变图神经网络代理预测温度相关性能，方法可迁移至芯片热预测。",
+      "first_seen_at": "2026-08-14 20:46:09 UTC",
+      "updated_at": "2026-08-14 20:46:09 UTC"
+    },
+    {
+      "paper_id": "2608.13143v1",
+      "route": "202608/14/2608.13143v1-probsplat-efficient-probabilistic-hardware-for-gaussian-splatting-in-3d-scene-reconstruction",
+      "title": "ProbSplat: Efficient Probabilistic Hardware for Gaussian Splatting in 3D Scene Reconstruction",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "cim"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "受存算一体启发的概率计算硬件架构，可编程浮栅存储高斯参数",
+      "first_seen_at": "2026-08-14 20:46:09 UTC",
+      "updated_at": "2026-08-14 20:46:09 UTC"
+    }
+  ]
+}

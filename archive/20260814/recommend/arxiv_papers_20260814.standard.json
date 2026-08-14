@@ -1,0 +1,297 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-14T20:42:51.024908+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 3,
+    "deep_cap": 6,
+    "deep_selected": 3,
+    "quick_candidates": 4,
+    "quick_skim_target": 11,
+    "quick_selected": 4
+  },
+  "deep_dive": [
+    {
+      "id": "2608.09508v1",
+      "source": "arxiv",
+      "title": "200 mm Wafer-Scale Monolithic 3D Integration of Atomic Layer-Deposited Oxide Semiconductors",
+      "abstract": "Monolithic 3D (M3D) integration offers a pathway to overcome the scaling limits of conventional silicon complementary metal-oxide-semiconductor (CMOS) technology by extending dense vertical stacking of multifunctional logic and memory devices. Here, we demonstrate wafer-scale M3D integration of three tiers of atomic-layer-deposited (ALD) indium oxide (InOx)-based devices (>100,000 fabricated), including ferroelectric, enhancement-mode, and depletion-mode field-effect transistors, on 200 mm silicon wafers. We achieve threshold voltage standard deviation as low as 0.04 V, average electron mobility up to 91.6 cm2V-1s-1, and fully functional cross-tier circuits. A four-tier 3D computing-in-memory (CIM) accelerator targeting large language model workloads is developed using a custom InOx process design kit, delivering 1.4x to 2.9x speedup and comparable energy-delay product improvements over 2D baselines. These results establish ALD InOx M3D integration as a scalable and CMOS-compatible platform for next-generation artificial intelligence hardware and advanced electronics.",
+      "authors": [
+        "Chang Niu",
+        "Linjia Long",
+        "Luqi Zheng",
+        "Shuting Du",
+        "Jian-Yu Lin",
+        "Kisoo Nam",
+        "Zehao Lin",
+        "Chang Liu",
+        "Juanjuan Lu",
+        "Haiyan Wang",
+        "Haitong Li",
+        "Peide D. Ye"
+      ],
+      "primary_category": "physics.app-ph",
+      "categories": [
+        "physics.app-ph",
+        "cond-mat.mtrl-sci"
+      ],
+      "published": "2026-08-10T12:13:37+00:00",
+      "link": "https://arxiv.org/pdf/2608.09508v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "monolithic 3D integration of computing-in-memory accelerator; near-memory/3D stacked CIM",
+      "llm_evidence_cn": "面向内存计算的单片三维集成，契合存算一体与三维堆叠主题",
+      "llm_evidence": "面向内存计算的单片三维集成，契合存算一体与三维堆叠主题",
+      "canonical_evidence": "面向内存计算的单片三维集成，契合存算一体与三维堆叠主题",
+      "llm_tldr_en": "Demonstrates wafer-scale monolithic 3D integration of ALD oxide semiconductor devices across three tiers, including a four-tier 3D computing-in-memory accelerator for large language models, achieving low threshold variation and full cross-tier circuit functionality.",
+      "llm_tldr_cn": "传统2D芯片面临扩展瓶颈，该工作利用原子层沉积氧化物半导体在200毫米晶圆上实现了三层的单片三维集成，制造了超十万个器件，并展示四层三维存算一体加速器。器件阈值电压波动低至0.04 V，平均迁移率达91.6平方厘米每伏秒，跨层电路功能完整。这为高密度三维堆叠逻辑与存储提供了可行路径，对存算一体和近存计算的硬件实现具有重要意义。",
+      "llm_tldr": "传统2D芯片面临扩展瓶颈，该工作利用原子层沉积氧化物半导体在200毫米晶圆上实现了三层的单片三维集成，制造了超十万个器件，并展示四层三维存算一体加速器。器件阈值电压波动低至0.04 V，平均迁移率达91.6平方厘米每伏秒，跨层电路功能完整。这为高密度三维堆叠逻辑与存储提供了可行路径，对存算一体和近存计算的硬件实现具有重要意义。",
+      "llm_tags": [
+        "query:cim:composite"
+      ],
+      "matched_query_tag": "query:cim:composite",
+      "matched_query_text": "Papers central to 存算一体，主要关注基于混合键合的三维堆叠的近存计算, especially work that connects or combines: compute-in-memory architecture; hybrid bonding 3D integration; 3D stacking memory technology; near-memory computing design; processing-in-memory systems; 3D integrated circuit design; What are the key benefits of hybrid bonding for 3D stacked near memory computing?; How does compute in memory architecture improve energy efficiency?; Design challenges of 3D stacking for near memory computing systems.",
+      "matched_requirement_id": "req-composite-cim",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.08496v1",
+      "source": "arxiv",
+      "title": "ReVolt: Power Delivery Network-Aware Voltage Droop Control for 2.5D PIM Chiplet Architectures",
+      "abstract": "Processing-in-memory (PIM)-based 2.5D multi-chiplet platforms are enablers for machine learning (ML) workloads. However, their performance is affected by the power delivery network (PDN), where varying chiplet-level current demand induces spatially and temporally varying voltage droop. These droop events lead to voltage violations, degrades system performance, and impact inference accuracy for ML workloads. In this work, we propose ReVolt, a dynamic operation unit (OU)-based framework for mitigating voltage droop in PIM-based multi-chiplet systems. ReVolt leverages an LSTM-based PDN surrogate to predict per-chiplet supply voltage trajectories at runtime, enabling proactive adjustment of OU size to mitigate droop events. By treating OU size as a control knob, ReVolt regulates chiplet-level current demand while maintaining computational accuracy. This approach prevents voltage droop violations and improves energy-delay product (EDP) while preserving ML model inference accuracy. Experimental results demonstrate that ReVolt prevents voltage droop violations while achieving an average 76x reduction in EDP compared to existing fixed and dynamic OU-based baselines, without compromising inference accuracy of ML models.",
+      "authors": [
+        "Vibhanshu Sharma",
+        "Alish Kanani",
+        "Miao Sun",
+        "Janardhan Rao Doppa",
+        "Umit Y. Ogras",
+        "Partha Pratim Pande"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR",
+        "cs.ET"
+      ],
+      "published": "2026-08-09T05:30:28+00:00",
+      "link": "https://arxiv.org/pdf/2608.08496v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "2.5D PIM multi-chiplet platform with voltage droop control and LSTM-based PDN surrogate, directly related to processing-in-memory systems",
+      "llm_evidence_cn": "面向2.5D存算一体芯粒的电压跌落控制，涉及处理近存计算架构与数据驱动预测",
+      "llm_evidence": "面向2.5D存算一体芯粒的电压跌落控制，涉及处理近存计算架构与数据驱动预测",
+      "canonical_evidence": "面向2.5D存算一体芯粒的电压跌落控制，涉及处理近存计算架构与数据驱动预测",
+      "llm_tldr_en": "ReVolt tackles voltage droop in 2.5D PIM multi-chiplet platforms with an LSTM-based PDN surrogate that predicts per-chiplet supply voltage, enabling proactive operation-unit sizing to maintain inference accuracy.",
+      "llm_tldr_cn": "针对2.5D存算一体多芯粒平台中电压跌落导致性能下降的问题，ReVolt提出一种基于LSTM供电网络代理模型的动态操作单元控制框架。该模型可运行时预测每个芯粒的供电电压轨迹，并在跌落发生前主动调整操作单元尺寸以抑制纹波。实验表明该方法有效降低电压违规，保障机器学习推理精度，为存算一体芯粒系统的电源管理提供了智能控制思路。",
+      "llm_tldr": "针对2.5D存算一体多芯粒平台中电压跌落导致性能下降的问题，ReVolt提出一种基于LSTM供电网络代理模型的动态操作单元控制框架。该模型可运行时预测每个芯粒的供电电压轨迹，并在跌落发生前主动调整操作单元尺寸以抑制纹波。实验表明该方法有效降低电压违规，保障机器学习推理精度，为存算一体芯粒系统的电源管理提供了智能控制思路。",
+      "llm_tags": [
+        "query:cim:composite"
+      ],
+      "matched_query_tag": "query:cim:composite",
+      "matched_query_text": "Papers central to 存算一体，主要关注基于混合键合的三维堆叠的近存计算, especially work that connects or combines: compute-in-memory architecture; hybrid bonding 3D integration; 3D stacking memory technology; near-memory computing design; processing-in-memory systems; 3D integrated circuit design; What are the key benefits of hybrid bonding for 3D stacked near memory computing?; How does compute in memory architecture improve energy efficiency?; Design challenges of 3D stacking for near memory computing systems.",
+      "matched_requirement_id": "req-composite-cim",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.11920v1",
+      "source": "arxiv",
+      "title": "NITRO: High-Performance 3D NAND Flash-Based In-Storage Computing with Enhanced Activation Dataflow",
+      "abstract": "In-storage computing (ISC) is considered a next-generation memory architecture for its ability to relieve the data bottleneck between the host and the memory. While the required resources of large language models (LLMs) have increased significantly in recent years, the memory density has not scaled accordingly. Recently, several works have studied NAND flash-based processing-in-memory (NAND-PIM) schemes to exploit the high density of the memory. However, they do not address the dataflow/buffer for the intermediate values, so a simple method is to deal with the values in the slow flash memory array. To overcome such a limitation, we propose a high-performance NAND flash-based ISC architecture with enhanced activation buffering. Instead of using the very slow flash memory array for the intermediate values, our architecture buffers the values in a fast DRAM subsystem. This approach effectively handles the high-latency penalties when activations are programmed into slower TLC NAND flash. We also introduce a distributed dataflow approach for the NAND-PIM array. This approach maximizes computational parallelism by employing efficient intra-plane data mapping. The results show that our proposed architecture achieves significant performance improvements, reducing the inference latency by up to 85% compared to the baseline.",
+      "authors": [
+        "Sanghun Shin",
+        "Sangyeon Kim",
+        "Gisan Ji",
+        "Sungju Ryu"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-08-12T11:04:27+00:00",
+      "link": "https://arxiv.org/pdf/2608.11920v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "3D NAND flash-based in-storage computing architecture, matching the compute-in-memory and 3D stacking memory theme",
+      "llm_evidence_cn": "基于3D NAND闪存的存内计算架构，契合存算一体与三维堆叠存储主题",
+      "llm_evidence": "基于3D NAND闪存的存内计算架构，契合存算一体与三维堆叠存储主题",
+      "canonical_evidence": "基于3D NAND闪存的存内计算架构，契合存算一体与三维堆叠存储主题",
+      "llm_tldr_en": "NITRO addresses the dataflow/buffer bottleneck of NAND-PIM by introducing an enhanced activation buffer, enabling high-throughput in-storage computing for LLM workloads.",
+      "llm_tldr_cn": "针对大规模语言模型的内存容量与算力瓶颈，NITRO提出一种基于3D NAND闪存的高性能存内计算（ISC）架构。该架构通过增强激活数据流和缓冲区设计，避免中间值回读慢速闪存，显著降低主机与存储间的数据搬运开销。实验表明其在存储内高效执行神经网络计算，为三维堆叠存储与近存计算融合提供了可行方案。",
+      "llm_tldr": "针对大规模语言模型的内存容量与算力瓶颈，NITRO提出一种基于3D NAND闪存的高性能存内计算（ISC）架构。该架构通过增强激活数据流和缓冲区设计，避免中间值回读慢速闪存，显著降低主机与存储间的数据搬运开销。实验表明其在存储内高效执行神经网络计算，为三维堆叠存储与近存计算融合提供了可行方案。",
+      "llm_tags": [
+        "query:cim:composite"
+      ],
+      "matched_query_tag": "query:cim:composite",
+      "matched_query_text": "Papers central to 存算一体，主要关注基于混合键合的三维堆叠的近存计算, especially work that connects or combines: compute-in-memory architecture; hybrid bonding 3D integration; 3D stacking memory technology; near-memory computing design; processing-in-memory systems; 3D integrated circuit design; What are the key benefits of hybrid bonding for 3D stacked near memory computing?; How does compute in memory architecture improve energy efficiency?; Design challenges of 3D stacking for near memory computing systems.",
+      "matched_requirement_id": "req-composite-cim",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2608.13260v1",
+      "source": "arxiv",
+      "title": "Virtual Temperature Sensors in Power Transformers Using Neural Ordinary Differential Equations",
+      "abstract": "Accurate modeling and forecasting of power transformer thermal behavior are critical for reliability, asset lifetime, and optimized power system operation. Numerical approaches such as finite element methods (FEM) and computational fluid dynamics (CFD) offer high fidelity but are computationally expensive, require complex mesh generation, and are often impractical for real-time or large-scale applications, particularly when transformer geometries are unknown. Lumped-parameter thermal models are more practical but depend on transformer-specific thermal constants and may fail to capture dynamic responses under varying operating and environmental conditions. Purely data-driven machine learning methods, including artificial neural networks, convolutional neural networks, and long short-term memory (LSTM) networks, have shown success in forecasting transformer temperatures but typically require large volumes of high-quality training data and may produce physically inconsistent or uninterpretable results. This paper develops a physics-aware Neural Ordinary Differential Equation (Neural ODE) framework for forecasting transformer thermal behavior from real-world time-series data. Neural ODEs model system dynamics in continuous time, providing smooth trajectory prediction and a natural representation of continuously evolving thermal dynamics. A key contribution is the integration of simplified heat-transfer equations directly into the Neural ODE formulation. The model is evaluated across datasets from fifteen transformers in different regions of Norway with varying designs and cooling mechanisms. The results demonstrate that the developed Neural ODE framework provides a standardized, physics-aware, and robust forecasting approach for heterogeneous transformer units.",
+      "authors": [
+        "Berk Hadzhamolla",
+        "Alexander Johannes Stasik",
+        "Signe Riemer-Sørensen"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-08-13T13:59:32+00:00",
+      "link": "https://arxiv.org/pdf/2608.13260v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "data-driven thermal prediction using neural ODEs, transferable to chip temperature modeling",
+      "llm_evidence_cn": "利用神经常微分方程进行数据驱动的温度预测，可迁移至芯片温度预测",
+      "llm_evidence": "利用神经常微分方程进行数据驱动的温度预测，可迁移至芯片温度预测",
+      "canonical_evidence": "利用神经常微分方程进行数据驱动的温度预测，可迁移至芯片温度预测",
+      "llm_tldr_en": "Proposes neural ODE-based virtual temperature sensors for power transformers, combining mechanistic constraints with data-driven forecasting, avoiding expensive FEM/CFD and geometry-specific lumped models.",
+      "llm_tldr_cn": "针对电力变压器热行为建模难题，论文提出基于神经常微分方程的虚拟温度传感器。该方法利用数据驱动方式学习变压器瞬态热响应，同时保持物理一致性，克服了有限元/CFD计算昂贵和集总参数模型依赖特定热常数的问题。在动态负载与环境变化下估计精度优于传统纯数据驱动模型，为难以布置传感器的场景提供低成本温度监测方案，也为芯片等器件的数据驱动热预测提供了可借鉴范式。",
+      "llm_tldr": "针对电力变压器热行为建模难题，论文提出基于神经常微分方程的虚拟温度传感器。该方法利用数据驱动方式学习变压器瞬态热响应，同时保持物理一致性，克服了有限元/CFD计算昂贵和集总参数模型依赖特定热常数的问题。在动态负载与环境变化下估计精度优于传统纯数据驱动模型，为难以布置传感器的场景提供低成本温度监测方案，也为芯片等器件的数据驱动热预测提供了可借鉴范式。",
+      "llm_tags": [
+        "query:thermal-gnn"
+      ],
+      "matched_query_tag": "query:thermal-gnn",
+      "matched_query_text": "data-driven prediction of chip operating temperature",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2608.11261v1",
+      "source": "arxiv",
+      "title": "Temperature-Driven Sequential Modeling for the Prediction of Annual Power Conversion Efficiency Profiles of Organic Photovoltaic Materials: Douala Case Study",
+      "abstract": "Organic photovoltaic (OPV) materials are promising candidates for distributed solar energy in tropical regions, yet existing virtual screening tools report static power conversion efficiency (PCE) values at standard testing conditions (STC) that fail to capture the temperature-driven performance degradation experienced under real deployment conditions. Here we introduce a Climate-Native computational framework that forecasts the annual PCE profile of OPV donor molecules under geographically realistic operating conditions. The framework combines GFN2-xTB molecular dynamics with an equivariant graph neural network surrogate ($268$ Neyman-stratified CEP molecules; $120,600$ training geometries; $\\sim 1050\\times$ speedup over explicit quantum chemistry) and sequential deep learning models trained on annual time series anchored in NASA POWER climate data for Douala, Cameroon, and validated by zero-shot transfer to Yaoundé and Maroua. Applied to $\\sim 30,000$ molecules from the Harvard Clean Energy Project (CEP) and validated against $350$ HOPV15 experimental device measurements, the framework demonstrates that sequential models trained on full molecular dynamics trajectories outperform time-averaged baselines ($35\\%$-$48\\%$ relative MAE improvement over static baselines), confirming that thermal conformational dynamics carry information beyond mean geometry. We further introduce a seasonal stability score that reranks OPV candidates by performance consistency under tropical conditions, identifying molecules whose deployment suitability differs substantially from their static PCE ranking.",
+      "authors": [
+        "Steve Cabrel Teguia Kouam",
+        "Rockefeller Rockefeller",
+        "Raoult Dabou Teukam",
+        "Jean-Pierre Tchapet Njafa",
+        "Patrick Sorrel Mvoto Kongo",
+        "Jean-Pierre Nguenang",
+        "Serge Guy Nana Engo"
+      ],
+      "primary_category": "cond-mat.mtrl-sci",
+      "categories": [
+        "cond-mat.mtrl-sci",
+        "cs.LG",
+        "physics.chem-ph"
+      ],
+      "published": "2026-08-09T16:24:18+00:00",
+      "link": "https://arxiv.org/pdf/2608.11261v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Equivariant graph neural network surrogate for temperature-driven prediction; transferable to chip thermal GNN modeling.",
+      "llm_evidence_cn": "等变图神经网络代理预测温度相关性能，方法可迁移至芯片热预测。",
+      "llm_evidence": "等变图神经网络代理预测温度相关性能，方法可迁移至芯片热预测。",
+      "canonical_evidence": "等变图神经网络代理预测温度相关性能，方法可迁移至芯片热预测。",
+      "llm_tldr_en": "A climate-native framework combining molecular dynamics and an equivariant GNN surrogate predicts temperature-driven annual efficiency profiles of OPV materials; a transferable GNN thermal surrogate approach.",
+      "llm_tldr_cn": "有机光伏虚拟筛选通常只报告标准条件下的效率，无法刻画温度驱动的真实性能衰减。论文提出气候原生框架，将GFN2-xTB分子动力学与等变图神经网络代理模型结合，预测杜阿拉等地理真实条件中OPV给体分子的年度PCE曲线。该模型基于268个Neyman分层分子进行训练，能捕捉温度对效率的动态影响。这项工作展示了数据驱动的GNN代理在温度相关性能预测中的潜力。",
+      "llm_tldr": "有机光伏虚拟筛选通常只报告标准条件下的效率，无法刻画温度驱动的真实性能衰减。论文提出气候原生框架，将GFN2-xTB分子动力学与等变图神经网络代理模型结合，预测杜阿拉等地理真实条件中OPV给体分子的年度PCE曲线。该模型基于268个Neyman分层分子进行训练，能捕捉温度对效率的动态影响。这项工作展示了数据驱动的GNN代理在温度相关性能预测中的潜力。",
+      "llm_tags": [
+        "query:thermal-gnn"
+      ],
+      "matched_query_tag": "query:thermal-gnn",
+      "matched_query_text": "graph neural network based thermal modeling for 3D chip packages",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2608.13336v1",
+      "source": "arxiv",
+      "title": "Origin of effective non-Fourier heat conduction phenomena in heterogeneous materials",
+      "abstract": "Phenomenological models of non-Fourier heat conduction often lack a strict microstructural foundation, leading to ambiguities when modeling complex heterogeneous materials. In this study, we derive a continuum heat equation beyond Fourier's law using spatial volume averaging for a two-component system. We analytically prove that the experimentally observed static and dynamic thermal diffusivity arise directly from the distinct material properties, concluding that heterogeneous media are inherently over-diffusive. The resulting heat equation is thermodynamically compatible, and the microstructural origin allows the calculation of non-Fourier transport coefficients. Furthermore, we demonstrate that finite-sample boundaries introduce higher-order spatial non-localities, thereby explaining the size dependence of over-diffusion. We validate the model against experimental data across metal and carbon foams, rocks, and metal-organic frameworks.",
+      "authors": [
+        "Róbert Kovács"
+      ],
+      "primary_category": "physics.app-ph",
+      "categories": [
+        "physics.app-ph",
+        "cond-mat.mtrl-sci"
+      ],
+      "published": "2026-08-13T15:06:21+00:00",
+      "link": "https://arxiv.org/pdf/2608.13336v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "microstructure-based continuum heat conduction model for heterogeneous materials, enabling accurate thermal simulation in microelectronics",
+      "llm_evidence_cn": "给出异质材料中超越傅里叶定律的连续介质热传导方程，可支撑微电子热仿真建模",
+      "llm_evidence": "给出异质材料中超越傅里叶定律的连续介质热传导方程，可支撑微电子热仿真建模",
+      "canonical_evidence": "给出异质材料中超越傅里叶定律的连续介质热传导方程，可支撑微电子热仿真建模",
+      "llm_tldr_en": "Derives a microstructure-based continuum heat equation beyond Fourier's law for two-component systems, analytically explaining over-diffusive thermal diffusivity and enabling thermodynamic modeling of heterogeneous materials.",
+      "llm_tldr_cn": "针对异质材料非傅里叶热传导现象缺乏微观基础的问题，论文通过空间体积平均方法推导出超越傅里叶定律的连续介质热传导方程。理论分析证明材料组分差异可导致静态与动态热扩散率的非傅里叶行为，并给出热动力学相容的输运系数。有限边界还会引入高阶效应，为复合材料的准确热模拟提供了理论基础，对芯片三维封装中的异质材料热建模具有参考价值。",
+      "llm_tldr": "针对异质材料非傅里叶热传导现象缺乏微观基础的问题，论文通过空间体积平均方法推导出超越傅里叶定律的连续介质热传导方程。理论分析证明材料组分差异可导致静态与动态热扩散率的非傅里叶行为，并给出热动力学相容的输运系数。有限边界还会引入高阶效应，为复合材料的准确热模拟提供了理论基础，对芯片三维封装中的异质材料热建模具有参考价值。",
+      "llm_tags": [
+        "query:thermal-gnn"
+      ],
+      "matched_query_tag": "query:thermal-gnn",
+      "matched_query_text": "thermal modeling and simulation of three-dimensional stacked chips",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2608.13143v1",
+      "source": "arxiv",
+      "title": "ProbSplat: Efficient Probabilistic Hardware for Gaussian Splatting in 3D Scene Reconstruction",
+      "abstract": "This paper presents ProbSplat, a Compute-in-Memory (CIM)-inspired architecture based on programmable and energy efficient floating-gate inverter columns for probabilistic computing. Improving upon our prior work, ProbSplat programs and stores both means and variances of Gaussian mixture components, and evaluates log-likelihood for gaussian splatting during scene reconstruction with high energy efficiency, suitable for robotics and augmented/virtual reality (AR/VR) at the edge. Our proposed scheme enables independent control of both mean and variance via deterministic adjustment of floating-gate MOSFET threshold voltages, increasing the fidelity of hardware to program probability distributions. The design is simulated in 180nm CMOS on 1.8 V at 50 MHz and achieves mean-variance independence with <2.4% deviation during 3-D Gaussian mixture modeling. Compared to conventional digital implementations, ProbSplat significantly reduces compute complexity, memory footprint, and power consumption. The scalable framework consumes 18pJ energy per log-likelihood inference with 4-bit precision while operating for 500 mixture functions in a 3-D GMM. Scene reconstruction with ProbSplat's characteristics gave satisfactory fidelity of 21.99 PSNR (dB) at 8-bit precision.",
+      "authors": [
+        "Siddarth Gottumukkula",
+        "M P Samartha",
+        "Vedant Pahariya",
+        "Priyanshi Jain",
+        "Amit Ranjan Trivedi",
+        "Priyesh Shukla"
+      ],
+      "primary_category": "cs.ET",
+      "categories": [
+        "cs.ET"
+      ],
+      "published": "2026-08-13T12:16:37+00:00",
+      "link": "https://arxiv.org/pdf/2608.13143v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "compute-in-memory-inspired hardware with programmable floating-gate columns for probabilistic computing",
+      "llm_evidence_cn": "受存算一体启发的概率计算硬件架构，可编程浮栅存储高斯参数",
+      "llm_evidence": "受存算一体启发的概率计算硬件架构，可编程浮栅存储高斯参数",
+      "canonical_evidence": "受存算一体启发的概率计算硬件架构，可编程浮栅存储高斯参数",
+      "llm_tldr_en": "ProbSplat is a CIM-inspired hardware architecture using floating-gate inverter columns to program mean/variance and evaluate log-likelihood for Gaussian splatting, achieving high energy efficiency for edge 3D reconstruction.",
+      "llm_tldr_cn": "ProbSplat面向3D场景重建中的高斯泼溅计算，提出一种受存算一体启发的浮栅逆变器列架构。该架构可编程存储高斯分量的均值和方差，并通过确定性地调节浮栅MOSFET阈值电压，在硬件上精确实现概率分布计算。仿真表明其在满足重建精度的同时显著提升了能效，适合机器人、AR/VR等边缘设备。这一设计展示了存算一体理念在高能效概率计算中的应用潜力。",
+      "llm_tldr": "ProbSplat面向3D场景重建中的高斯泼溅计算，提出一种受存算一体启发的浮栅逆变器列架构。该架构可编程存储高斯分量的均值和方差，并通过确定性地调节浮栅MOSFET阈值电压，在硬件上精确实现概率分布计算。仿真表明其在满足重建精度的同时显著提升了能效，适合机器人、AR/VR等边缘设备。这一设计展示了存算一体理念在高能效概率计算中的应用潜力。",
+      "llm_tags": [
+        "query:cim:composite"
+      ],
+      "matched_query_tag": "query:cim:composite",
+      "matched_query_text": "Papers central to 存算一体，主要关注基于混合键合的三维堆叠的近存计算, especially work that connects or combines: compute-in-memory architecture; hybrid bonding 3D integration; 3D stacking memory technology; near-memory computing design; processing-in-memory systems; 3D integrated circuit design; What are the key benefits of hybrid bonding for 3D stacked near memory computing?; How does compute in memory architecture improve energy efficiency?; Design challenges of 3D stacking for near memory computing systems.",
+      "matched_requirement_id": "req-composite-cim",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

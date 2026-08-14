@@ -1,0 +1,1301 @@
+Title: Origin of effective non-Fourier heat conduction phenomena in heterogeneous materials
+
+URL Source: https://arxiv.org/pdf/2608.13336v1
+
+Published Time: Fri, 14 Aug 2026 01:07:29 GMT
+
+Number of Pages: 27
+
+Markdown Content:
+# Origin of effective non-Fourier heat conduction phenomena in heterogeneous materials 
+
+R´ obert Kov´ acs 1,2 1Department of Energy Engineering, Faculty of Mechanical Engineering, Budapest University of Technology and Economics, M˝ uegyetem rkp. 3., H-1111 Budapest, Hungary 
+
+> 2
+
+Department of Theoretical Physics, Wigner Research Centre for Physics, Institute for Particle and Nuclear Physics, Budapest, Hungary August 14, 2026 
+
+Abstract 
+
+Phenomenological models of non-Fourier heat conduction often lack a strict microstruc-tural foundation, leading to ambiguities when modeling complex heterogeneous materials. In this study, we derive a continuum heat equation beyond Fourier’s law using spatial vol-ume averaging for a two-component system. We analytically prove that the experimentally observed static and dynamic thermal diffusivity arise directly from the distinct material properties, concluding that heterogeneous media are inherently over-diffusive. The resulting heat equation is thermodynamically compatible, and the microstructural origin allows the calculation of non-Fourier transport coefficients. Furthermore, we demonstrate that finite-sample boundaries introduce higher-order spatial non-localities, thereby explaining the size dependence of over-diffusion. We validate the model against experimental data across metal and carbon foams, rocks, and metal-organic frameworks. 
+
+# 1 Introduction 
+
+Although Fourier’s law of heat conduction is one of the most well-known and successful models in continuum physics, its limitations become pronounced in advanced engineering materials [1]. While non-Fourier phenomena, such as phonon hydrodynamics and second sound, were histori-cally observed only in high-purity crystals at cryogenic temperatures [2, 3], recent experimental advances have revealed a so-called over-diffusive deviation at room temperature in macroscop-ically sized, highly heterogeneous materials [4, 5]. Materials with complex internal structures, such as metal foams, open-cell carbon foams, composites, and porous rocks, exhibit notable deviations from classical diffusion during transient processes [6]. Although heat transport may locally obey Fourier’s law at the microscopic pore scale, the distinct thermophysical properties of the constituents, complex interfacial phenomena, and the complex geometrical arrangement can induce macroscopically observable temporal memory and spatial non-locality. In order to rigorously describe these macroscopic effects without relying on the phenomeno-logical use of internal variables [7, 8], we aim to derive an effective evolution equation that models the macroscopic behavior of heterogeneous materials and explains the experimental data gathered. The volume averaging method can be widely utilized for heterogeneous materials to determine their effective (or apparent) transport properties [9, 10, 11]. This is a mathematical upscaling technique that transitions microscopic, pore-level differential equations into a con-tinuous macroscopic representation based on the given microscopic structure. The application of this method fundamentally relies on the separation of length scales, i.e., distinguishing the 1arXiv:2608.13336v1 [physics.app-ph] 13 Aug 2026 microscopic characteristic length from the macroscopic scale of the material structure. The upscaling procedure utilizes spatial smoothing theorems, which separate a local field into an intrinsic macroscopic average and a microscopic spatial fluctuation ( T = ⟨T ⟩ + ˜T ). Overall, a closure problem is formulated to map the microscopic fluctuations to macroscopic driving forces via periodic boundary value problems, enabling the deterministic calculation of effective transport tensors and volumetric heat transfer coefficients. When heterogeneous media are subjected to rapid thermal transients, the assumption of local thermal equilibrium may no longer hold, especially for complexly structured materials. While numerous non-equilibrium irreversible thermodynamic frameworks have been developed in recent decades – such as extended irreversible thermodynamics [12, 13], rational extended thermodynamics [2], GENERIC [14, 15], and internal variables [16, 17] – the local thermal non-equilibrium (LTNE) framework [18, 19, 20, 21] can also be a valid approach to derive heat equations beyond Fourier. The LTNE approach yields a 2-temperature (2T) model in which the balance equations of internal energy for the individual components are coupled [21, 22]; for instance, the one-dimensional (macroscopic) internal energy balance for phase α is given by 
+
+εα(ρc )α
+
+∂T α
+
+∂t = kα
+
+∂2Tα
+
+∂x 2 − H(Tα − Tβ ), (1) where Tα and Tβ are the intrinsic phase temperatures, kα is the thermal conductivity, and H is the interfacial heat transfer coefficient. In regard to the specific heat c, we note that cv = cp = c
+
+as thermal expansion is neglected, hence we assume that there is no difference between the isochoric and isobaric specific heat for each phase. Additionally, ρ is the mass density, and 
+
+∂t (or ∂x) denotes the corresponding partial derivative with respect to time ( t) or space ( x). Furthermore, εα denotes the volume ratio of phase α. The coupled internal energy balance for phase β follows symmetrically as 
+
+εβ (ρc )β
+
+∂T β
+
+∂t = kβ
+
+∂2Tβ
+
+∂x 2 + H(Tα − Tβ ). (2) Although such a 2T approach can capture complex behavior, and its T -representation (i.e., rearranging the entire system of evolution equations to one of the temperatures) resembles non-Fourier equations, in a one-dimensional form, 
+
+τ ∂2Tα
+
+∂t 2 + ∂T α
+
+∂t = Λ ∂2Tα
+
+∂x 2 + l2 ∂3Tα
+
+∂t∂x 2 − ξ ∂4Tα
+
+∂x 4 , (3) with strictly positive macroscopic transport parameters of τ , Λ, l, and ξ, the 2T model is strictly specified for heterogeneous materials as it can model diffusion only despite exhibiting wave-like relaxation behavior mathematically. Its parameters are defined by 
+
+τ = CαCβ
+
+H(Cα + Cβ ) , Λ = Cαaα + Cβ aβ
+
+Cα + Cβ
+
+, l2 = τ (aα + aβ ), ξ = τ a αaβ , (4) in which Ci = εiρici, and a denotes the thermal diffusivity, ai = ki/C i for i = {α, β }. In the present paper, we combine the volume averaging method with the 2T approach in or-der to achieve a particular type of coupling between the components of the heterogeneous solid. However, when formulating such generalized heat equations, ensuring their thermody-namic compatibility is essential. Phenomenological approaches, such as Tzou’s dual-phase-lag model [23], which relies on arbitrary Taylor-series expansions of the phase-lagged relation 
+
+q(x, t + τq) = −k∇T (x, t + τT ), has been proven to violate the Clausius-Duhem inequality [24, 25, 26, 27], although it can formally reconstruct the T -representation of various heat equa-tions beyond Fourier [28]. However, the constructive use of the second law of thermodynamics can guarantee stability, and thus the existence of a stable equilibrium [29]. 2This manuscript details the derivation of a macroscopic heat conduction equation, which is – surprisingly – expressed as a combination of Jeffreys and non-local heat equations, partially resembling the well-known Guyer–Krumhansl equation [30]. However, it is crucial to emphasize that any resemblance cannot be directly translated to either phonon hydrodynamics of rational extended thermodynamics or kinetic theory approaches, because the present framework exclu-sively uses continuum thermodynamics. The primary novelty of this work lies in demonstrating how the microscale coupling of different heat transfer channels obeying Fourier’s law can macro-scopically lead to an effective non-Fourier heat equation. The paper begins with the upscaling of the continuum, deriving the effective macroscopic transport equation for general two-component heterogeneous media. It is followed by an investigation of thermodynamic compatibility using the Clausius-Duhem inequality to reveal constraints that ensure positive entropy production. Finally, we study the reduction of this generalized system to highlight the role of static and dynamic timescales, defining the theoretical basis of the over-diffusive regime in which the dy-namic timescale is larger than the static (Fourier) timescale. We compare our findings to recent experiments performed on various foams, rocks, and metal-organic frameworks. Additionally, we provide a brief overview of biological applications, showing how blood perfusion can modify the dynamics of heterogeneous material structures. 
+
+# 2 The role of the representative volume element 
+
+In order to systematically upscale the microscopic behavior of a heterogeneous material, we impose only minimal assumptions. We consider a heterogeneous two-phase material consisting of rigid, stationary domains, denoted as phase α and phase β, corresponding to a solid matrix and a saturating fluid, respectively. Furthermore, the macroscopic medium is isotropic, with a periodically repeating microstructure and uniformly distributed pores. The foundation of this continuum approach relies on the separation of length scales following Gray [31], which is mathematically expressed through the inequality 
+
+l ≪ L ≪ Lmac . (5) In this spatial hierarchy, l denotes the characteristic microscopic length scale, such as the average pore diameter or grain size. The parameter L represents the characteristic length scale of the representative volume element (RVE), which defines a theoretical averaging window that is sufficiently large to capture a statistically representative sample of the complex microstructure, yet small enough to be treated as a localized differential point within the macroscopic continuum, usually interpreted as a mesoscale. Finally, Lmac corresponds to the macroscopic length scale. This scale separation and averaging ensure that an effective, homogenized continuum description exists independently of the specific complex structural topology of individual microscopic pores. 
+
+Figure 1: The schematics of various length scales in a heterogeneous material, based on [10]. 32.1 Microscopic governing equations 
+
+At the microscopic scale within the pore domain, we assume classical heat conduction driven by Fourier’s law. For phases α and β, the local balance of internal energy has the form (ρc )α
+
+∂T αm
+
+∂t = −∇ · qαm = ∇ · (kαm∇Tαm) = kαm∆Tαm, (6) (ρc )β
+
+∂T βm
+
+∂t = −∇ · qβm = ∇ · (kβm∇Tβm) = kβm∆Tβm, (7) in which ∆ denotes the Laplacian, ∇· is the divergence, and ∇ stands for the gradient. Further-more, the subscript m denotes a microscopic variable to distinguish it from its upscaled contin-uum (macroscopic) counterpart. The thermal conductivity and the volumetric heat capacity of the respective phase are treated as constants. At the microscopic interface Aαβ separating the two phases, the standard continuity conditions for temperature and normal heat flux are applied to ensure energy conservation. 
+
+2.2 The volume averaging framework 
+
+We employ spatial volume averaging over the representative volume element (RVE). We define two primary averaging operators for any given microscopic variable ψαm defined in phase α.The first one is evaluated over the total volume of the RVE, V , where Vα represents the volume occupied by phase α, is defined as 
+
+⟨ψαm⟩ = 1
+
+V
+
+Z
+
+> Vα
+
+ψαm dV, (8) whereas the intrinsic volume average, evaluated solely over the spatial domain actually occupied by phase α, is given by 
+
+⟨ψαm⟩α = 1
+
+Vα
+
+Z
+
+> Vα
+
+ψαm dV. (9) These two mathematical representations are linked by the phase volume fraction, defined as 
+
+εα = Vα/V , which yields the identity 
+
+⟨ψαm⟩ = εα⟨ψαm⟩α. (10) For the upscaling, it is necessary to commute the volume integration with spatial differential operators. This is achieved via the spatial averaging theorem [32], which, for the spatial gradient of a variable, leads to 
+
+⟨∇ ψαm⟩ = ∇⟨ ψαm⟩ + 1
+
+V
+
+Z
+
+> Aαβ
+
+nαβ ψαm dA, (11) where nαβ is the outward-pointing unit normal vector oriented from phase α into phase β.The resulting surface integral represents the energy exchange occurring directly at the phase interface. In order to resolve the integration of microscopic variables across the boundary of the RVE, we introduce Gray’s spatial decomposition [31], which splits the microscopic variable into a macroscopic average Tα ≡ ⟨ Tαm⟩α and a local, microscopic spatial deviation ˜Tαm via the relation 
+
+Tαm = Tα + ˜Tαm. (12) After substituting this decomposition into the surface integral of the spatial averaging theorem, the macroscopic intrinsic temperature Tα acts as a constant with respect to the local, sub-RVE 4pore-scale integration by definition. Therefore, it can be taken out of the interfacial surface integral, leading to 1
+
+V
+
+Z
+
+> Aαβ
+
+nαβ Tαm dA = Tα
+
+"
+
+1
+
+V
+
+Z
+
+> Aαβ
+
+nαβ dA
+
+#
+
++ 1
+
+V
+
+Z
+
+> Aαβ
+
+nαβ ˜Tαm dA. (13) According to the spatial averaging theorem, the interfacial surface integral of the normal vector over the closed phase interface is directly linked to the spatial gradient of the volume fraction according to 1
+
+V
+
+Z
+
+> Aαβ
+
+nαβ dA = −∇ εα. (14) Consequently, the term containing the macroscopic temperature Tα vanishes identically only under the condition that −∇ εα = 0; in other words, we restrict ourselves to heterogeneous materials that possess a spatially uniform porosity at the macroscopic scale. Under this as-sumption, the scaling between the microscopic and the macroscopic parts is solely determined by the spatial deviation fields ˜Tαm.
+
+# 3 Transition from microscale to macroscale 
+
+3.1 Macroscopic energy balance for the mixture temperature 
+
+It is necessary to formally derive the effective energy balance equation for the mixture temper-ature T . Let us recall the balances of the internal energy component-wise, 
+
+Cα
+
+∂T α
+
+∂t = −∇ · qα − qint , (15) 
+
+Cβ
+
+∂T β
+
+∂t = −∇ · qβ + qint , (16) and add Eq. (16) to Eq. (15), 
+
+Cα
+
+∂T α
+
+∂t + Cβ
+
+∂T β
+
+∂t = −∇ · (qα + qβ ). (17) We now recall the definition of the heat capacity-weighted macroscopic mixture temperature T =(CαTα + Cβ Tβ )/C eff , and recognizing that the total macroscopic heat flux is the superposition of the phase fluxes, Eq. (17) reduces to 
+
+Ceff 
+
+∂T ∂t = −∇ · q. (18) This derivation confirms that the standard form of the continuum energy balance is preserved for the macroscopic mixture temperature T .In classical Local Thermal Non-Equilibrium (LTNE) models, the interfacial heat exchange is traditionally assumed to be driven solely by the local temperature difference at the macroscopic point x, yielding 
+
+qint (x, t ) = H (Tα(x, t ) − Tβ (x, t )) . (19) However, this local formulation relies on the separation of length scales ( L ≪ Lmac ). In highly heterogeneous materials (e.g., syntactic metal foams [33, 34]), the required RVE size L can be large, often approaching the continuum scale Lmac . Because the thermal exchange occurs over a spatially distributed interfacial area Aαβ , the lack of scale separation means that the 5temperature gradients ( ∇Tα, ∇Tβ ) can vary significantly across the RVE. Consequently, the local heat exchange might need a non-local extension. To rigorously capture the finite-size boundary constraints, we must account for the spatial distribution of the temperature field within the RVE. Assuming that the macroscopic tem-perature fields are sufficiently smooth over the RVE, expanding the local intrinsic temperature difference, δT (x + y, t ) = Tα(x + y, t ) − Tβ (x + y, t ) with y denoting the local microscale position vector, using a Taylor series approximation up to the second-order yields 
+
+δT (x + y, t ) ≈ δT (x, t ) + y · ∇ [δT (x, t )] + 12 (y ⊗ y) : ∇ ⊗ ∇ [δT (x, t )] . (20) The total heat exchange within the RVE is proportional to the integral of this distributed temperature difference over the interface Aαβ . When we perform the spatial averaging of Equa-tion (20) over a statistically isotropic structure, the linear asymmetric term integrates to zero (⟨y⟩Aαβ = 0). Conversely, the second-order term ⟨y ⊗ y⟩Aαβ does not vanish; for an isotropic medium, the dyadic product y ⊗ y evaluates to a strictly positive scalar constant multiplied by the identity tensor, expressed as l2nl I; hence I : ∇ ⊗ ∇ = Tr( ∇ ⊗ ∇ ) = ∆. Here, lnl is a non-local length scale, which can depend on the characteristic pore size. Consequently, the integration yields a non-local interfacial heat exchange term defined by 
+
+qint = H (Tα − Tβ ) + l2nl ∆( Tα − Tβ ) . (21) Let us now recall the evolution equations for the macroscopic intrinsic phase temperatures, also including the interaction between the two phases, 
+
+Cα
+
+∂T α
+
+∂t = −∇ · qα − qint , (22) 
+
+Cβ
+
+∂T β
+
+∂t = −∇ · qβ + qint . (23) At the microscopic level, the heat fluxes within the individual phases are governed by classical Fourier’s law, expressed as qαm = −kαm∇Tαm and qβm = −kβm∇Tβm. The total effective macroscopic heat flux q passing through the representative volume element is defined as the superposition of the volume averages of these microscopic point fluxes, expressed as 
+
+q = ⟨qαm⟩ + ⟨qβm⟩. (24) Focusing first on the phase α and assuming a constant microscopic thermal conductivity kαm,the volume average evaluates to 
+
+⟨qαm⟩ = −kα⟨∇ Tαm⟩ (25) In order to evaluate this averaged spatial gradient, we must apply the spatial averaging theorem to commute the volume integration and the gradient operator, leading to 
+
+⟨∇ Tαm⟩ = εα∇Tα + 1
+
+V
+
+Z
+
+> Aαβ
+
+nαβ Tαm dA, (26) where Tα = ⟨Tαm⟩α is the macroscopic intrinsic volume average of the phase temperature. Utilizing Gray’s spatial decomposition again ( Tαm = Tα + ˜Tαm), we substitute it directly into the surface integral. Since the macroscopic field Tα acts as a constant with respect to the microscopic integration, the term containing Tα vanishes due to the spatially uniform porosity expressed earlier. It simplifies the averaged gradient to 
+
+⟨∇ Tαm⟩ = εα∇Tα + 1
+
+V
+
+Z
+
+> Aαβ
+
+nαβ ˜Tαm dA. (27) 6In order to interpret and evaluate the remaining surface integral in Equation (27), we need to ap-ply the so-called geometrical vector field b, describing the shape of the microscale heterogeneity, and how its existence in the material distorts the homogeneous temperature field, following [10], and leading to ˜Tαm = bα · ∇ Tα. In other words, the vector field b maps the local microscopic temperature variation to the macroscopic temperature gradient, thereby achieving upscaling. Substituting this geometric closure relation back into the surface integral yields the closed-form macroscopic flux, 
+
+⟨qαm⟩ = −
+
+"
+
+kαm εαI + 1
+
+V
+
+Z
+
+> Aαβ
+
+nαβ bα dA
+
+!# | {z }
+
+> kα
+
+·∇ Tα = −kα · ∇ Tα. (28) The tensorial quantity within the square brackets represents the geometrically effective macro-scopic conductivity tensor, kα. However, assuming a statistically isotropic microstructure where the geometric effects vanish such that the tensor kα simplifies to a scalar kα, the macroscopic flux carried by the phase reduces to ⟨qαm⟩ = −kα∇Tα. Applying an identical spatial averag-ing and structural closure procedure to the phase β yields the corresponding macroscopic flux, 
+
+⟨qβm⟩ = −kβ ∇Tβ . Superposing these phases, the total macroscopic heat flux reads as 
+
+q = −
+
+
+
+kα∇Tα + kβ ∇Tβ
+
+
+
+. (29) 
+
+3.2 Deriving the effective macroscopic heat equation 
+
+In order to obtain a macroscopically effective model without containing any of the phase tem-peratures and separate phase equations, we need to introduce the macroscopic temperature 
+
+T ,
+
+T = CαTα + Cβ Tβ
+
+Ceff 
+
+, Ceff = Cα + Cβ , (30) in which Ceff is the total effective heat capacity. It is worth exploiting the temperature difference again, δT = Tα − Tβ , and its use leads to 
+
+Tα = T + Cβ
+
+Ceff 
+
+δT, Tβ = T − Cα
+
+Ceff 
+
+δT. (31) Substituting these relations back into the total heat flux given in Equation (29) yields an ex-pression for the macroscopic heat flux taking the form 
+
+q = −kα∇
+
+
+
+T + Cβ
+
+Ceff 
+
+δT 
+
+
+
+− kβ ∇
+
+
+
+T − Cα
+
+Ceff 
+
+δT 
+
+
+
+= −keff ∇T − k12 ∇(δT ). (32) Here, the homogeneous steady-state conductivity is defined as keff = kα + kβ ; this is our static thermal conductivity, commonly used in the Fourier equation. Furthermore, we have identified the coefficient k12 = kαCβ −kβ Cα 
+
+> Ceff
+
+as a cross-conductivity factor originating from the geometric and physical transport asymmetry existing between the two constituents. To eliminate the temperature difference δT from Eq. (32), we need an independent evolution equation that describes its dynamics. We can exploit the energy balance equations, i.e., dividing Eq. (22) by Cα, and dividing Eq. (23) by Cβ , and subtracting the latter from the former yields 
+
+∂(δT )
+
+∂t = kα
+
+Cα
+
+∆Tα − kβ
+
+Cβ
+
+∆Tβ −
+
+ 1
+
+Cα
+
++ 1
+
+Cβ
+
+
+
+qint . (33) 7Now, we can use the relations from Eq. (31) to eliminate the phase temperatures on the right-hand side, yielding 
+
+kα
+
+Cα
+
+∆Tα − kβ
+
+Cβ
+
+∆Tβ =
+
+ kα
+
+Cα
+
+− kβ
+
+Cβ
+
+
+
+∆T +
+
+ kαCβ
+
+CαCeff 
+
++ kβ Cα
+
+Cβ Ceff 
+
+
+
+∆( δT ). (34) Simultaneously, we can substitute the definition of the non-local interfacial heat exchange qint 
+
+from Eq. (21) into the exchange term in Eq. (33), leading to 
+
+ 1
+
+Cα
+
++ 1
+
+Cβ
+
+
+
+qint = γδT + γl 2nl ∆( δT ). (35) with γ = H
+
+ 1 
+
+> Cα
+
++ 1
+
+> Cβ
+
+
+
+. Now, we can exploit the Eqs. (34) and (35) by substituting them back into the evolution equation (33), 
+
+∂(δT )
+
+∂t =
+
+ kα
+
+Cα
+
+− kβ
+
+Cβ
+
+
+
+∆T +
+
+ kαCβ
+
+CαCeff 
+
++ kβ Cα
+
+Cβ Ceff 
+
+
+
+∆( δT ) − γδT + γl 2nl ∆( δT ) . (36) Let us define the following coefficients for simplicity, 
+
+A = kα
+
+Cα
+
+− kβ
+
+Cβ
+
+, B = kαCβ
+
+CαCeff 
+
++ kβ Cα
+
+Cβ Ceff 
+
+, B∗ = B − γl 2nl . (37) and after rearrangement, we obtain 
+
+∂(δT )
+
+∂t + γδT − B∗∆( δT ) = A∆T, (38) the evolution equation of the temperature difference. Let us take the partial time derivative of Eq. (32), 
+
+∂q
+
+∂t = −keff 
+
+∂(∇T )
+
+∂t − k12 ∇
+
+ ∂(δT )
+
+∂t 
+
+
+
+, (39) and eliminate the time derivative of the temperature difference δT , by substituting the evolution equation (38) directly, 
+
+∂q
+
+∂t = −keff 
+
+∂(∇T )
+
+∂t − k12 ∇ (A∆T − γδT + B∗∆( δT )) . (40) After applying the gradient operator on the bracket term, 
+
+∂q
+
+∂t = −keff 
+
+∂(∇T )
+
+∂t − k12 A∇(∆ T ) + γk 12 ∇(δT ) − B∗∆ ( k12 ∇(δT )) , (41) and recalling that k12 ∇(δT ) = −q − keff ∇T is given by Eq. (32), we obtain 
+
+∂q
+
+∂t = −keff 
+
+∂(∇T )
+
+∂t − k12 A∇(∆ T ) + γ(−q − keff ∇T ) − B∗∆( −q − keff ∇T ). (42) We can now rearrange the equation in a way to reconstruct the common mathematical structure of non-Fourier heat equations, and introduce the macroscopic heat flux relaxation time as τq =1/γ ,
+
+τq
+
+∂q
+
+∂t + q = −keff ∇T − τqkeff 
+
+∂(∇T )
+
+∂t + τq (keff B∗ − k12 A) ∇(∆ T ) + τqB∗∆q. (43) 83.3 Emergence of the second timescale 
+
+Although Eq. (43) is notably similar to the Jeffreys heat equation, or to the Guyer–Krumhansl heat equation, there is a major difference, hidden in B∗. In the constitutive equation of the Guyer–Krumhansl model, 
+
+τq
+
+∂q
+
+∂t + q = −kphonon ∇T + l2(∆ q + 2 ∇(∇ · q)) , (44) the q field has a non-zero rotation due to its phonon hydrodynamic background. The coefficient 
+
+l particularly describes the phonon mean free path, defining a typical length scale. In our case, since we assumed that each constituent obeys Fourier’s law and the porosity is uniform in the isotropic medium, the macroscopic heat flux field is irrotational ( ∇ × q = 0); consequently, the vector Laplacian reduces to the gradient of the divergence, ∆ q = ∇(∇ · q). Furthermore, lnl can be treated as a continuum counterpart of l describing an intrinsic length scale characteristic of the conducting medium. In comparison with the Jeffreys heat equation, 
+
+τq
+
+∂q
+
+∂t + q = −k∇T − kτ T
+
+∂(∇T )
+
+∂t , (45) however, there is a timescale independent of τq; τT introduces an additional dynamics beyond Fourier’s law. Overall, in the following, our aim is to recover this second timescale and make the intrinsic length scale more apparent in Eq. (43). For this reason, we utilize the macroscopic internal energy balance, that is, 
+
+Ceff 
+
+∂T ∂t = −∇ · q. (46) Exploiting the irrotational property of q, it allows us to transform the spatial non-locality entirely to the time derivative of the temperature gradient, ∆q = ∇
+
+
+
+−Ceff 
+
+∂T ∂t 
+
+
+
+= −Ceff 
+
+∂(∇T )
+
+∂t . (47) Instead of splitting the non-local effects, we substitute this identity into the τqB∗∆q term, resulting in 
+
+τqB∗∆q = −τqB∗Ceff 
+
+∂(∇T )
+
+∂t . (48) We note that the non-local contribution within B∗ would lead to a −l2nl ∆q on the right-hand side, and that negative sign completely prevents the recovery of the GK equation. Substituting Eq. (48) back into Eq. (43), we obtain a form without the Laplacian of the heat flux, yielding 
+
+τq
+
+∂q
+
+∂t + q = −keff ∇T − (keff τq + τqB∗Ceff ) ∂(∇T )
+
+∂t + τq(keff B∗ − k12 A)∇(∆ T ). (49) We can now expand the coefficient of the mixed derivative to define the gradient relaxation time. Recalling that B∗ = B − γl 2nl and γ = 1 /τ q, the coefficient expands as 
+
+keff τq + τqB∗Ceff = keff τq + τqBC eff − l2nl Ceff 
+
+= τq
+
+
+
+kα + kβ + kαCβ
+
+Cα
+
++ kβ Cα
+
+Cβ
+
+
+
+− l2nl Ceff 
+
+= τq
+
+ Ceff (kαCβ + kβ Cα)
+
+CαCβ
+
+
+
+− l2nl Ceff . (50) 9Since the heat flux relaxation time is defined as τq = CαCβ 
+
+> HC eff
+
+, the coefficient reduces to 
+
+keff τT = kαCβ + kβ Cα
+
+H − l2nl Ceff ⇒ τT = kαCβ + kβ Cα
+
+Hk eff 
+
+− l2nl Ceff 
+
+keff 
+
+= τq
+
+
+
+1 + B∗Ceff 
+
+keff 
+
+
+
+. (51) Here, τT is the mathematically independent gradient relaxation time, characterizing the addi-tional timescale beyond Fourier. It is important to highlight that the non-local effect decreases 
+
+τT , and thus stands as a strong physical limit to preserve the thermodynamic admissibility of the macroscopic equation ( τT > 0) by 
+
+l2nl ≤ kαCβ + kβ Cα
+
+HC eff 
+
+. (52) In order to simplify the notations, we also introduce D = τq(keff B∗ − k12 A), and that coefficient can be simplified after a straightforward algebraic manipulation, 
+
+D = kαkβ
+
+H − keff l2nl , (53) and thus we arrive at the final form of the effective macroscopic non-Fourier heat equation, 
+
+τq
+
+∂q
+
+∂t + q = −keff ∇T − keff τT
+
+∂(∇T )
+
+∂t + D∇ (∆ T ). (54) Interestingly, the heterogeneous structure with two heat conduction channels leads directly to a non-Fourier heat equation after upscaling to a macroscopic length scale. This effective model successfully reconstructs a Jeffreys-type equation with an additional term. However, it is impor-tant to note that this macroscopic effective model cannot recall the Guyer–Krumhansl equation, as it lacks a positive ∆ q term on the right-hand side. The GK equation originates from phonon hydrodynamics, where the heat flux possesses a rotational component, and the non-local Lapla-cian term is directly connected to the phonon mean free path. 
+
+# 4 Notes on thermodynamic admissibility 
+
+In phenomenological irreversible thermodynamic theories, the thermodynamic admissibility of non-Fourier heat conduction is enforced by postulating a generalized macroscopic entropy func-tion s(q, T ). The coefficients of the resulting transport equations are subsequently constrained to ensure positive macroscopic entropy production ( σmacro ≥ 0). Unlike phenomenological ap-proaches, within the LTNE volume averaging framework, thermodynamic admissibility is not postulated; it is a consequence of the underlying microstructural evolution equations. However, the discovered ∇∆T term necessitates deeper insight into thermodynamic compatibility. In or-der to demonstrate that the derived macroscopic Jeffreys-type equation satisfies the second law of thermodynamics, we formulate the Clausius–Duhem inequality directly from the phase-level entropy balances. 
+
+4.1 Phase-level entropy production 
+
+Assuming classical Fourier conduction within the stationary microscopic phases, the local en-tropy production is unconditionally non-negative. Upon volume averaging, the total macroscopic specific entropy production rate ( σmacro ) is the sum of the entropy generated by heat conduction within each phase, and the thermal resistance at the microscopic interface, 
+
+σmacro = qα · ∇ 
+
+ 1
+
+Tα
+
+
+
++ qβ · ∇ 
+
+ 1
+
+Tβ
+
+
+
++ qint 
+
+ 1
+
+Tβ
+
+− 1
+
+Tα
+
+
+
+≥ 0. (55) 10 For linear transport processes near equilibrium, we can apply linearization ∇(1 /T i) ≈ −∇ Ti/T 20 ,where T0 is a constant reference temperature. By utilizing local algebraic interfacial exchange (qint ≈ H(Tα − Tβ )) and substituting the Fourier law ( qα = −kα∇Tα and qβ = −kβ ∇Tβ ), we obtain a strictly positive quadratic form, 
+
+T 20 σmacro = kα(∇Tα)2 + kβ (∇Tβ )2 + H(Tα − Tβ )2 ≥ 0. (56) In order to evaluate the thermodynamic constraints introduced by the non-local term in qint ,we apply the identity ( Tα − Tβ )∆( Tα − Tβ ) = ∇ · [( Tα − Tβ )∇(Tα − Tβ )] − (∇(Tα − Tβ )) 2. The divergence term represents an extra entropy flux originating from the microstructural interface. Extracting the dissipative components provides the entropy production, 
+
+T 20 σeff  
+
+> macro
+
+= kα(∇Tα)2 + kβ (∇Tβ )2 + H(Tα − Tβ )2 − Hl 2nl (∇(Tα − Tβ )) 2 ≥ 0. (57) Notably, while the local exchange ( H) generates entropy, the non-local term ( −Hl 2nl ) acts con-versely, decreasing the local entropy production. Consequently, this necessitates a strict upper bound on the non-local length scale lnl to ensure that the thermodynamic continuum remains asymptotically stable. 
+
+4.2 Determining the upper bound of lnl 
+
+Based on the elimination of phase temperatures in Section 3, it is worth rewriting the entropy production using the variables of T and δT . Let us realize that Eq. (57) can be rewritten in a matrix form, 
+
+T 20 σeff  
+
+> macro
+
+= ∇T ∇(δT ) keff k12 
+
+k12 kint − Hl 2nl 
+
+| {z }
+
+> M
+
+ ∇T
+
+∇(δT )
+
+
+
++ H(δT )2 ≥ 0, (58) using the following coefficients, 
+
+keff = kα + kβ , k12 = kαCβ − kβ Cα
+
+Ceff 
+
+, kint = kαC2 
+
+> β
+
++ kβ C2
+
+> α
+
+C2eff 
+
+, (59) with the variables of ∇T and δT . To ensure the positive definite entropy production, the conductivity matrix M must be positive definite. Because keff > 0, Sylvester’s criterion requires the determinant of the matrix to be positive definite, det( M) = keff (kint − Hl 2nl ) − k212 > 0. (60) Evaluating the determinant, we can observe the separation of the local and non-local contribu-tions, det( M) = ( keff kint − k212 ) − keff Hl 2nl . (61) The term ( keff kint − k212 ) reduces to kαkβ . Therefore, the non-local determinant is simplified to det( M) = kαkβ − keff Hl 2nl > 0. (62) Recall that the macroscopic non-local coefficient of the higher-order spatial behavior reduces to D = kαkβ 
+
+> H
+
+−keff l2nl . After rearranging Eq. (62), one immediately observes that the determinant of the conductivity matrix M is proportional to the macroscopic spatial non-local coefficient, det( M) = H
+
+ kαkβ
+
+H − keff l2nl 
+
+
+
+= HD > 0. (63) The condition det( M) > 0 ensures a thermodynamic upper limit on the length scale, 0 < l 2nl < kαkβ
+
+keff H ⇒ lnl <
+
+s
+
+kαkβ
+
+keff H , (64) which is, interestingly, a stricter constraint than requiring τT > 0 by Eq. (52). 11 5 Model reduction 
+
+Let us investigate the one-dimensional version of the extended Jeffreys heat equation in order to study the order of magnitude of each term, particularly the third-order derivative in 
+
+τq
+
+∂q ∂t + q = −keff 
+
+∂T ∂x − keff τT
+
+∂2T∂t∂x + D ∂3T∂x 3 . (65) Based on the typical parameters for porous rocks in a heat pulse experiment (temperature rise δT mac ≈ 4 K, sample thickness L ≈ 2.5 mm), we establish the following reference quantities based on [4, 35] and the known origin of the macroscopic transport parameters derived in Sec. 3, 
+
+• effective volumetric heat capacity: Ceff ≈ 2 × 10 6 J/(m 3K); 
+
+• Fourier (static) thermal conductivity: keff ≈ 2 W/(m K); 
+
+• Fourier (static) diffusivity: aeff = keff /C eff ≈ 10 −6 m2/s; 
+
+• heat flux relaxation time: τq ≈ 0.5 s; 
+
+• dynamic-to-static conductivity ratio: kdyn /k stat ≈ 1.4 = ⇒ τT ≈ 0.7 s; 
+
+• maximum spatial non-locality coefficient: Dmax ≈ 0.49 × 10 −6 W m /K (assuming aα ≈ aβ
+
+to maximize the product). In such an experiment, the transport process can be divided into two distinct time intervals, each requiring a different characteristic scale for accurate order-of-magnitude estimates. 
+
+5.1 Early transient behavior 
+
+During the steep rise of the heat pulse ( t ≈ τq = 0 .5 s), the characteristic spatial scale is not the total sample thickness. Instead, we must use the thermal penetration depth, denoted as xc. At early times ( t ≤ τq), the thermal front has not yet traversed the entire sample length L. The region of steep temperature gradients is strictly limited to a thin layer near the excitation boundary. The spatial extent of this region is governed by the dynamic thermal penetration depth, xc = √adyn τq, i.e., using the dynamic thermal conductivity [35]. If we were to use the sample thickness L to approximate the spatial derivatives, we would artificially distort the temperature gradients ( ∂xT , and especially ∂xxx T ). This would lead to a significant underestimation of the higher-order spatial derivatives. Using the appropriate early-timescales: 
+
+• characteristic time: tc = τq = 0 .5 s; 
+
+• characteristic length: xc = √adyn τq ≈ 0.84 × 10 −3 m; 
+
+• characteristic heat flux: qc ≈ keff δT mac /x c ≈ 9520 W/m 2.Evaluating the terms of the generalized Jeffreys equation yields the results presented in Table 1. The third-order spatial derivative D∂xxx T represents approximately 25-35% of the leading transport terms. Interestingly, such a third-order term is completely hidden in both extended irreversible thermodynamics and in the internal variable theory. Consequently, this estimate suggests that the re-evaluation of the existing experiments would be preferable in order to confirm the magnitude of D or the omission of such a term. 12 Table 1: Order of magnitude of the terms during the early transient ( t ≈ 0.5 s). Term Scaling Magnitude (W/m 2)Heat flux rate ( τq∂tq) τq · (qc/t c) ∼ 9520 Heat flux ( q) qc ∼ 9520 Fourier gradient ( keff ∂xT ) keff · (δT mac /x c) ∼ 9520 Mixed derivative ( keff τT ∂xt T ) keff τT · (δT mac /(xctc)) ∼ 13330 Spatial third-order ( D∂xxx T ) Dmax · (δT mac /x 3 
+
+> c
+
+) ∼ 3310 
+
+5.2 Late transient behavior 
+
+As time progresses much beyond the relaxation time ( t ≫ τq), the heat pulse broadens and penetrates the entire sample, and the system approaches thermal equilibrium. In this regime, the physical boundaries of the sample dictate the transport scales: 
+
+• characteristic length: xc = L ≈ 2.5 × 10 −3 m; 
+
+• characteristic time: tc = L2/a eff ≈ 6.25 s; 
+
+• characteristic heat flux: qc ≈ keff δT mac /L ≈ 3200 W/m 2;Evaluating the terms for the late transient yields the results presented in Table 2. During diffusion and the subsequent cooling phase, classical Fourier transport completely dominates energy transfer. The non-local spatial term D∂xxx T notably decreases to less than 4% of the primary terms, indicating that it can be neglected in the long-time asymptotic analysis. Table 2: Order of magnitude of the terms during the late transient ( t ≫ τq). Term Scaling Magnitude (W/m 2)Heat flux rate ( τq∂tq) τq · (qc/t c) ∼ 256 Heat flux ( q) qc ∼ 3200 Fourier gradient ( keff ∂xT ) keff · (δT mac /x c) ∼ 3200 Mixed derivative ( keff τT ∂xt T ) keff τT · (δT mac /(xctc)) ∼ 358 Spatial third-order ( D∂xxx T ) Dmax · (δT mac /x 3 
+
+> c
+
+) ∼ 125 
+
+# 6 Comparison with the 2T model 
+
+It is necessary to compare the derived macroscopic effective model with the classical two-temperature (2T) model. Both models attempt to capture deviations in the thermal response due to microstructural heterogeneity. Despite their mathematical similarities, there are essential differences as well. Beginning with their similarities and studying the T -representation of both models. We assume local heat exchange ( qint = H(Tα − Tβ )), which neglects finite-boundary non-localities 13 (lnl = 0), and thus the macroscopic evolution equations of the 2T model are 
+
+Cα
+
+∂T α
+
+∂t = kα∆Tα − H(Tα − Tβ ), (66) 
+
+Cβ
+
+∂T β
+
+∂t = kβ ∆Tβ + H(Tα − Tβ ). (67) By applying the macroscopic mixture temperature T = ( CαTα + Cβ Tβ )/C eff , and eliminating both phase temperatures, the system reduces to 
+
+CαCβ
+
+HC eff 
+
+∂2T∂t 2 + ∂T ∂t = keff 
+
+Ceff 
+
+∆T + kαCβ + kβ Cα
+
+HC eff 
+
+∂(∆ T )
+
+∂t − kαkβ
+
+HC eff 
+
+∆2T, (68) which is the T -representation of the 2T model. In order to have a direct comparison, we take the divergence of the macroscopic effective flux equation (Eq. 54) and substitute the macroscopic energy balance ( ∇ · q = −Ceff ∂T ∂t ), yielding 
+
+τq
+
+∂2T∂t 2 + ∂T ∂t = aeff ∆T + τT aeff 
+
+∂(∆ T )
+
+∂t − D
+
+Ceff 
+
+∆2T. (69) Comparing Eq. (68) and Eq. (69) demonstrates that the classical 2T model is structurally analogous to the derived effective non-Fourier model, taking the form of a generalized Jeffreys equation with an additional spatial derivative. However, there are crucial differences as well. It holds for both models that eliminating any (macroscopic) field variables is unfavorable, as it hides the model’s thermodynamic structure. Consequently, it is remarkably difficult to handle non-homogeneous initial states or complex boundary conditions using the T -representation. The separate use of the evolution equations for q and T reveals the major difference in the origin of timescales. In the 2T model, the static and dynamic timescales are hidden, especially on the constitutive level. Treating Tα and Tβ as separate field variables, it is not clear which one, and in what way, determines the static and dynamic timescales. In the case of the present generalized Jeffreys equation, the ratio of τT /τ q uniquely determines the contribution of constituents to both timescales. Although both models lead to the same ratio of the static and dynamic timescales due to their identical T -representation, the solution methods and the definitions for initial and boundary conditions can significantly differ due to the evolution equation of q. In the 2T model, one can define separate initial and boundary conditions for each phase, but this leads to significant uncertainties. For example, when a heat pulse is applied to a metal foam, it is physically ambiguous how to partition the incoming boundary heat flux mathematically between the solid matrix and the fluid phases in the 2T model. Because the generalized Jeffreys equation models the effective continuum heat flux directly, it avoids this phase-partitioning ambiguity due to the upscaling of the heterogeneous microstructure. Additionally, by separating the length scales, further non-local extensions are possible. In the volume-averaged model, recognizing that thermal exchange occurs over a spatially distributed interface introduces the non-local length scale lnl . However, we note that despite the mathemat-ical structure of the generalized Jeffreys equation, it is also not able to model wave propagation – analogously to the 2T model. 
+
+# 7 The ratio of timescales and the emergence of scale dependence 
+
+To quantify the deviation from classical Fourier conduction, we define the over-diffusion coeffi-cient, R, as 
+
+R = τT
+
+τq
+
+, (70) 14 similarly to the paper [36]. In classical Fourier theory, these timescales are presumed identical (τT = τq), implying a resonance condition of R = 1. We note that τT = τq = 0 is often considered during the model reduction, but in this case, these coefficients cannot be zero, and the appearance of additional timescales is more natural in this way. We can substitute the definitions for both relaxation times, revealing the component-wise contribution, 
+
+R =   
+
+> kαCβ+kβCα
+> Hk eff
+
+− l2nl Ceff 
+
+> keff
+> CαCβ
+> HC eff
+
+= (kαCβ + kβ Cα)Ceff 
+
+keff CαCβ
+
+− l2nl HC 2eff 
+
+keff CαCβ
+
+. (71) By expanding the first term, we isolate the scale-independent, localized contribution ( R∗) from the finite-boundary non-local contribution, 
+
+R = 1 + kαC2 
+
+> β
+
++ kβ C2
+
+> α
+
+CαCβ keff 
+
+| {z }
+
+> R∗
+
+− l2nl HC 2eff 
+
+keff CαCβ
+
+. (72) Recalling the definition of the interaction conductivity kint = ( kαC2 
+
+> β
+
++ kβ C2
+
+> α
+
+)/C 2eff introduced during the entropy production analysis, the over-diffusion coefficient reduces to 
+
+R = 1 + C2eff 
+
+CαCβ keff 
+
+ kint − Hl 2nl 
+
+ . (73) 
+
+7.1 Recovering Fourier resonance 
+
+Equation (73) provides insight regarding the origin of over-diffusion in heterogeneous media. If the macroscopic boundaries are assumed infinite or the interfacial exchange is local ( lnl =0), the ratio reduces to R∗. Because the thermophysical properties are strictly positive, the additive term is positive ( kint > 0 ⇒ R ∗ > 1). Therefore, the model is inevitably over-diffusive, explaining why this region is exclusively observed in our experiments, as in [4, 6]. However, it is central to highlight that this does not mean that over-diffusion can be easily observed in any heterogeneous material. The over-diffusion coefficient characterizes only the material timescales, but direct observation of over-diffusion also requires an appropriate set of boundary conditions [28]. Furthermore, for very fast excitations (i.e., on the dynamic timescale), only the dynamic thermal conductivity keff R is dominant. It underlines again that both components of the heterogeneous material are needed for over-diffusion and for the realization of the dynamic timescale. This is not that apparent in the 2T model. However, the inclusion of the non-local length scale lnl might effectively lead to Fourier resonance ( R = 1), but only under the strict condition that the non-local interfacial thermal exchange exactly balances the internal phase properties, 
+
+R = 1 ⇐⇒ l2nl = kint 
+
+H . (74) This is a purely mathematical requirement rather than a universally applicable condition for real heterogeneous materials; therefore, we do not further exploit the non-local coefficient. In most real materials with highly distinct phases (e.g., metal foams, porous rocks), the asymmetry dominates, resulting in the experimentally observed over-diffusive regime ( τT > τ q). 
+
+7.2 Emergence of the apparent scale-dependence Rapp (Lsample )
+
+In order to reveal any scale dependence, we must assume that the sample becomes comparable to the RVE length scale, and thus might fall into the sub-RVE domain. The sample is bounded by a finite thickness, L ≈ Lsample < L mac , with heat propagating along the x-axis. Following the analytical solution of the Jeffreys heat equation from [35] to obtain the transient temperature 15 field T (x, t ) within adiabatic boundaries after the heat pulse, T (x, t ) is described by a Fourier series of exponentially decaying spatial eigenmodes. Because higher-order modes decay rapidly, the dynamic thermal response right after the heat pulse is dominated by the first eigenmode, 
+
+T (x, t ) − T∞ ≈ A1 exp 
+
+
+
+− tτ1
+
+
+
+cos 
+
+ πx Lsample 
+
+
+
+. (75) Applying the Laplacian leads to ∆T ≈ − π2
+
+L2sample 
+
+(T − T∞), (76) and repeating it again, it suggests the scaling ∆2T ≈ − π2
+
+L2sample 
+
+∆T. (77) Substituting this modal mapping into the T -representation of the generalized Jeffreys equation, 
+
+τq
+
+∂2T∂t 2 + ∂T ∂t = aeff + D
+
+Ceff 
+
+π2
+
+L2sample 
+
+!| {z }
+
+> aapp
+
+∆T + τq
+
+ τT aeff 
+
+τq
+
+| {z }
+
+> adyn,app
+
+∂(∆ T )
+
+∂t , (78) in which we replaced the fourth-order spatial derivative by Eq. (77). The apparent gradi-ent relaxation time becomes τT, app = τT (aeff /a app ), and this could be the origin of observing size-dependent behavior for rocks in [4]. Consequently, the apparent over-diffusive coefficient measured in finite sub-RVE samples, Rapp (Lsample ) = τT, app /τ q reads 
+
+Rapp (Lsample ) = R
+
+ aeff 
+
+aeff + D
+
+> Ceff
+> π2
+> L2sample
+
+ = R
+
+"
+
+1 + Dπ2
+
+keff L2sample 
+
+#−1
+
+, (79) in which the correction term can be further expressed using Eq. (53) (with lnl = 0) and keff =
+
+kα + kβ , yielding 
+
+Rapp (Lsample ) = R
+
+"
+
+1 + Dπ2
+
+keff L2sample 
+
+#−1
+
+= R
+
+"
+
+1 + kαkβ
+
+Hπ2
+
+(kα + kβ )L2sample 
+
+#−1
+
+. (80) The volumetric heat transfer coefficient is usually very large, on the order of 10 6 W/(m 3 K); thus, the correction term is most relevant for thin samples. 
+
+# 8 Experimental validations 
+
+In recent years, we have conducted numerous heat conduction experiments on various foams, metal-organic frameworks, and rocks [36, 5, 4, 6, 37]. The tested samples are often highly heterogeneous, including high porosity and multi-component structures on various length scales. Figure 2 provides a brief overview of the variety of materials tested. Most of these heterogeneous materials exhibited non-Fourier behavior at length scales of 1–3 mm. Although the thickness is strictly limited by the flash apparatus, this limitation enabled the observation of multiple timescales [28]. In the following, we study typical heterogeneous materials using the present framework. 16 Figure 2: Typical heterogeneous structure exhibiting effective non-Fourier behavior. A) Metal foam, investigated by Lunev et al. [38, 39]. B) Rock sample from [4]. C) Metal-organic framework from [37]. D) Highly porous carbon foam from [5]. The figure is taken from [28], and L denotes the sample thickness. 
+
+Case 1: Air-filled aluminum foam 
+
+Beginning with an open-cell aluminum foam, and we assign α = s for the solid, and β = f for the fluid phase, i.e., εs = 0 .10, εf = 0 .90, pore diameter dp = 0 .002 m. We utilize Lemlich’s approximation for a statistically isotropic Kelvin cell [40, 41], where one-third of the solid aligns with any arbitrary one-dimensional macroscopic gradient, yielding the effective phase conduc-tivities: ks = 13 εsks,m and kf = 13 εf kf,m , where subscript m denotes the microscopic material property. Assuming standard thermophysical constants for aluminum ( ks,m = 200 W /(m K), 
+
+ρscs = 2 .43 · 10 6 J/(m 3 K)) and stagnant air ( kf,m = 0 .026 W /(m K), ρf cf = 1206 J /(m 3 K)), we obtain the effective capacities for the solid Cs = εsρscps = 243 kJ /(m 3 K), and the fluid phase, Cf = εf ρf cpf = 1085 J /(m 3 K). The conductivities are ks = 6 .667 W /(m K) and 
+
+kf = 0 .008 W /(m K). In order to estimate the volumetric exchange coefficient, we follow the studies of [42, 43]. We can assume that H = avh, where the specific surface area is approximated as av ≈ 14 /d p
+
+(with a pore diameter dp ≈ 0.002 m), and the heat transfer coefficient is h = N u · kf,m /d p (with 
+
+N u ≈ 6.0), resulting in 
+
+Hair = 84 kf,m 
+
+d2
+
+> p
+
+= 546 kW /(m 3 K) . (81) After using the definitions for τq and keff , we find τq ≈ 2.0 ms, and the static thermal conductivity is keff = 6 .675 W /(m K). Assuming the absence of non-local heat transfer ( lnl = 0, hence 
+
+R = R∗), the over-diffusion coefficient becomes R ≈ 1.27. This can be considered as a moderate over-diffusion coefficient, since the high porosity of the metal foam significantly decreases its effective thermal conductivity. To investigate the macroscopic boundary effects, we evaluate the size-dependent apparent over-diffusion coefficient Rapp (Lsample ) for finite samples. Because the fluid phase (air) has a low thermal conductivity, the product kskf is remarkably small, resulting in a low maximum spatial non-locality coefficient of D ≈ 9.5 · 10 −8 W m /K. Consequently, the higher-order spatial correction Dπ2
+
+> keff L2sample
+
+exerts a noticeable influence only for very thin samples. Table 3 summarizes 
+
+Rapp for typical macroscopic lengths, demonstrating that the non-local boundary effect becomes essentially negligible for Lsample ≥ 5 mm. 17 Table 3: Apparent over-diffusion coefficient Rapp for an air-filled aluminum foam at various macroscopic sample thicknesses. 
+
+Lsample (mm) Rapp 
+
+2 1.22 5 1.26 20 1.27 100 1.27 
+
+Case 2: Water-filled aluminum foam 
+
+For innovative heat exchanger designs [44, 45], it can be relevant if the cells are filled with water. Assuming the same aluminum matrix, but now with water ( kf,m = 0 .6 W /(m K), ρf cf =4.18 · 10 6 J/(m 3 K)) notably changes the thermal asymmetry. The fluid heat capacity increases to Cf = 3 .762 · 10 6 J/(m 3 K), and the effective fluid conductivity becomes kf = 0 .18 W /(m K). The higher fluid conductivity significantly amplifies the pore-scale thermal exchange, yielding 
+
+Hwater = 12 .6 · 10 6W/(m 3 K), and resulting in τq ≈ 18 .1 ms. The static thermal conductivity increases slightly to keff = 6 .847 W /(m K). However, evaluating the over-diffusion coefficient reveals R ≈ 16 .1, thanks to the much higher fluid heat capacity. Experiments in this direction have not yet been performed to the author’s knowledge, but this scale-dependent behavior could be a central structural property in heat exchangers, especially in heat storage systems with significant transients. On the other hand, since τq is about 20 ms, this timescale is completely negligible in usual industrial heat exchangers, but can be interesting for special applications, e.g., in the space industry. To evaluate the macroscopic boundary effects, we analyze the size-dependent apparent over-diffusion coefficient, Rapp (Lsample ). Interestingly, based on the geometric relations, the fluid’s microscopic thermal conductivity cancels out when calculating the spatial non-locality coeffi-cient. As a result, D is identical to the air-filled case at ≈ 9.5 · 10 −8 W m /K. Because keff only increases marginally with water, the magnitude of the higher-order spatial correction is very similar, primarily restricting the over-diffusion coefficient in samples thinner than 5 mm. Table 4 illustrates this scaling, demonstrating how the finite boundary effects suppress Rapp before it converges to its large bulk value. Table 4: Apparent over-diffusion coefficient Rapp for a water-filled aluminum foam at various macroscopic sample thicknesses. 
+
+Lsample (mm) Rapp 
+
+2 15.5 5 16.0 20 16.1 100 16.1 
+
+Case 3: Air-filled carbon foam 
+
+Carbon foams exhibit high solid-phase thermal conductivity but relatively low density com-pared to metals (see the sample’s details in [5]). Assuming a volume fraction of εs = 0 .20, and a graphitic carbon structure, resulting in Cs = 308 kJ /(m 3 K), ks = 10 W /(m K), and 18 Cf = 960 J /(m 3 K), kf = 0 .02 W /(m K). Therefore, the static thermal conductivity is keff =10 .02 W /(m K), and the over-diffusion coefficient is R = 1 .64, which aligns with typical values from experimental observations. In order to evaluate the finite boundary effects, we assume the same pore geometry as in the first case, retaining the volumetric heat transfer coefficient for air at H = 546 kW /(m 3 K). Be-cause the effective solid and fluid conductivities are higher than in the air-filled aluminum foam, their product yields a notably higher spatial non-locality coefficient, D ≈ 3.66 · 10 −7 W m /K. As a result, the higher-order spatial correction Dπ2
+
+> keff L2sample
+
+plays a stronger role here. Table 5 presents the apparent over-diffusion coefficient Rapp (Lsample ), revealing a substantial drop in the over-diffusion behavior for samples thinner than 5 mm. Table 5: Apparent over-diffusion coefficient Rapp for an air-filled carbon foam at various macro-scopic sample thicknesses. 
+
+Lsample (mm) Rapp 
+
+2 1.51 5 1.62 20 1.64 100 1.64 
+
+Case 4: Water-saturated limestone 
+
+Although rock thermal properties can significantly vary, we use Cs = 1 .8 · 10 6 J/(m 3 K), ks =2 W /(m K), Cf = 836 kJ /(m 3 K), kf = 0 .12 W /(m K), and assuming εf = 0 .20 to test the developed theoretical background. The static conductivity is keff = 2 .12 W /(m K). Although water has high heat capacity, the asymmetry is not that significant compared to Case 2, and thus we obtain R ≈ 1.56, which is in complete agreement with [4]. In order to investigate the macroscopic size-dependence, we must establish a realistic vol-umetric heat transfer coefficient for the porous rock. Referencing the typical macroscopic re-laxation time of τq ≈ 0.5 s observed in transient heat pulse experiments [4, 35], we can de-duce an effective H ≈ 1.14 · 10 6 W/(m 3 K). This yields a spatial non-locality coefficient of 
+
+D = kskf /H ≈ 2.1 · 10 −7 W m /K. For this natural heterogeneous material, the boundary ef-fects severely dampen the over-diffusive response in very thin samples, as shown in Table 6. At Lsample = 2 mm, the apparent over-diffusion coefficient drops substantially to roughly 1 .25, demonstrating why non-Fourier behavior might be heavily suppressed or appear highly scale-dependent in micro-scale geological samples. However, in a heat pulse experiment, a small amount of heat is typically used to keep the heat conduction process linear; therefore, smaller samples are required. As we can observe, smaller samples can notably reduce the over-diffusion effects. 
+
+Case 5: Metal-organic frameworks (MOFs) with reduced graphene oxide (RGO) 
+
+Metal-organic frameworks (MOFs) are characterized by nanometer-scale pores and poor thermal conductivity [46, 47, 48], which limit their industrial application in gas storage, where heat conduction can be important [37]. To improve their thermal properties, highly conductive secondary components, such as reduced graphene oxide (RGO), are mechanically mixed and compressed into the MOF matrix [37]. Recent heat pulse experiments conducted on compressed HKUST-1-RGO pellets (thicknesses between 0.68 and 1.15 mm) revealed interesting insights regarding the origin of non-Fourier behavior in these composites [37]. 19 Table 6: Apparent over-diffusion coefficient Rapp for a water-saturated limestone at various macroscopic sample thicknesses. 
+
+Lsample (mm) Rapp 
+
+2 1.25 5 1.50 20 1.56 100 1.56 Notably, pure MOF pellets (0 mass% RGO) exhibited classical diffusive behavior; the non-Fourier over-diffusive behavior, necessitating a two-timescale generalized heat equation, only emerged in the composites containing RGO [37]. Consequently, the effective two-phase contin-uum causing the deviation from Fourier’s law is not the solid-air interaction, but rather the thermal interaction between the MOF matrix (phase α) and the RGO additive (phase β). We assign an effective macroscopic volumetric heat capacity for the MOF matrix as Cα ≈
+
+2.5 · 10 6 J/(m 3 K). Because the MOF matrix retains its nanometer-scale porosity filled with trapped air, its effective phase conductivity is severely restricted to kα ≈ 0.07 W /(m K) [37]. For the dispersed RGO phase, we approximate Cβ ≈ 1.0 · 10 6 J/(m 3 K). Although individual RGO particles possess exceptionally high intrinsic thermal conductivity, their effective macroscopic contribution to the phase conductivity ( kβ ) remains restricted. This is because the RGO forms a multilayer structure rather than a continuous high-conducting material due to the presence of significant thermal resistance within the pellet [37]. Therefore, we estimate an effective value of kβ ≈ 0.35 W /(m K), introducing a higher, yet notably bounded, conductivity contribution into the mixture. This yields an effective heat capacity Ceff = 3 .5 · 10 6 J/(m 3 K) and a static thermal conductivity keff = 0 .42 W /(m K). The estimated thermal diffusivity is approximately 
+
+aeff ≈ 1.20 · 10 −7 m2/s, which aligns with the magnitude of the experimental Fourier evaluations [37]. Despite this agreement, we note again that the studied MOF structure is highly complex; no separate (component-wise) measurements were performed; thus, these are mere estimates. In the heat pulse experiments, the observed heat flux relaxation time for the RGO composites was consistently found to be τq ≈ 0.45 s [37]. By recalling the definition of the relaxation time 
+
+τq = CαCβ /(HC eff ), we can determine the volumetric heat transfer coefficient between the MOF matrix and the RGO, yielding H ≈ 1.59 · 10 6 W/(m 3 K). Because the samples are compressed pellets, this interfacial thermal coupling can be physically realistic. Evaluating the intrinsic, scale-independent over-diffusion coefficient for this structural con-figuration yields a value of R ≈ 3.15. However, it is essential to highlight the size-dependence observed in the sub-RVE experimental samples. For a sample thickness of Lsample ≈ 0.7 mm, the spatial non-locality coefficient is D = kαkβ /H ≈ 1.54 · 10 −8 W m /K, and by applying Eq. (79), the apparent over-diffusion coefficient drops substantially from its intrinsic value, yielding Rapp ≈ 1.81. Table 7 illustrates this significant scale dependence, confirming that small macroscopic samples inherently suppress the full realization of the over-diffusive regime. 
+
+# 9 Extensions of the LTNE Framework 
+
+9.1 Application to biological heat transfer 
+
+Classical bio-heat transfer is usually modeled using the Pennes heat equation [49], which treats living tissue as a homogenized single-temperature continuum and models blood perfusion as an isotropic heat source. In other words, the Pennes heat equation uses Fourier’s law and introduces various heat sources in order to include biological effects (e.g., blood perfusion in this case) 20 Table 7: Apparent over-diffusion coefficient Rapp for a compressed metal-organic frame-work/RGO pellet at various macroscopic sample thicknesses. 
+
+Lsample (mm) Rapp 
+
+0.7 1.81 1.0 2.31 2.0 2.89 10.0 3.14 100.0 3.15 mathematically. This approach assumes local thermal equilibrium between the capillary network and the surrounding cellular matrix. However, during rapid, high-energy medical interventions [50, 51, 52], the localized heating rate can be immense. Under significant transients, the blood network and the solid tissue can thermally decouple, behaving analogously to a two-temperature microscopic system. We model the biological tissue as a two-phase porous structure: 
+
+• Solid phase ( α): the extravascular tissue matrix, with volume fraction εα.
+
+• Fluid phase ( β): the intravascular blood flowing through the capillary network, with vol-ume fraction εβ (where εα + εβ = 1). Applying the spatial averaging theorem to the phase energy balances, we recover the coupled macroscopic equations: 
+
+Cα
+
+∂T α
+
+∂t = ∇ · (kα∇Tα) − H(Tα − Tβ ) + qmet , (82) 
+
+Cβ
+
+∂T β
+
+∂t + Cβ uβ · ∇ Tβ = ∇ · (kβ ∇Tβ ) + H(Tα − Tβ ) − Wβ (Tβ − Tart ), (83) where qmet is metabolic heat generation, uβ is the macroscopic directional blood velocity, Wβ =
+
+ωβ (ρc )β in which ωβ is the scalar blood perfusion rate, and Tart is the arterial temperature. In subsequent calculations, we neglect macroscopic advection ( uβ = 0) for simplicity, but we note that this can be an oversimplification in numerous situations. In order to recover the modified over-diffusion coefficient, we need to eliminate the individual phase temperatures and obtain the continuum behavior for the macroscopic mixture temperature 
+
+T = ( CαTα + Cβ Tβ )/C eff . After some algebra, we obtain the generalized macroscopic differential equation, 
+
+CαCβ
+
+H∂2T∂t 2 + C∗
+
+> app
+
+∂T ∂t = k∗
+
+> app
+
+∆T + Cαkβ + Cβ kα
+
+H∂∆T∂t − kαkβ
+
+H ∆∆ T − Wβ (T − Tart ) + Seff ,
+
+(84) where the apparent macroscopic volumetric capacity C∗ 
+
+> app
+
+and static conductivity k∗ 
+
+> app
+
+are de-fined as: 
+
+C∗ 
+
+> app
+
+= Ceff + Wβ
+
+H Cα, k∗ 
+
+> app
+
+= keff + Wβ
+
+H kα, (85) and the generalized effective source term Seff , which accounts for the temporal and spatial variations of the metabolic heat generation and the arterial temperature, reads 
+
+Seff = C∗
+
+> app
+
+Ceff 
+
+qmet + CαCβ
+
+HC eff 
+
+ ∂q met 
+
+∂t + Wβ
+
+∂T art 
+
+∂t 
+
+
+
+− 1
+
+HC eff 
+
+(Cαkβ ∆qmet + Cβ kαWβ ∆Tart ) . (86) 21 For constant qmet , Eq. (86) greatly simplifies. We can identify the modified macroscopic trans-port parameters based on Equation (84), τ ∗ 
+
+> q
+
+= CαCβ /(HC ∗
+
+> app
+
+) and τ T ∗ = ( Cαkβ +Cβ kα)/(Hk ∗
+
+> app
+
+). We can evaluate the ratio ( τ ∗ 
+
+> T
+
+/τ ∗ 
+
+> q
+
+) to express the difference between the static and dynamic ther-mal behavior, hence we obtain a perfusion-augmented over-diffusion coefficient in the form, 
+
+Rbio (Wβ ) = 
+
+ Cαkβ + Cβ kα
+
+CαCβ
+
+  HC eff + Wβ Cα
+
+Hk eff + Wβ kα
+
+
+
+. (87) 
+
+9.1.1 Clinical implications of over-diffusive tissue 
+
+The mathematical proof that living tissue is fundamentally over-diffusive, meaning Rbio > 1, carries critical consequences for surgical planning. Classical Pennes and Fourier models can systematically fail to predict the early transient thermal penetration during high-energy proce-dures. As a first example, we consider cancellous bone and spinal radiofrequency ablation. Ra-diofrequency ablation is routinely used to destroy metastatic tumors within vertebrae [53, 54]. The clinical challenge is ensuring the destruction zone concentrates on the tumor without the thermal front affecting the posterior vertebral wall, which causes irreversible necrosis to the spinal cord. Cancellous bone consists of a solid matrix of calcified trabeculae (phase α) with a volume fraction of εα = 0 .20, and a fluid phase of highly vascularized bone marrow (phase 
+
+β) with εβ = 0 .80. The solid trabeculae possess relatively high thermal conductivity, leading to an effective phase conductivity of kα = 0 .13 W /(m K), with a low effective volumetric ca-pacity of Cα = 5 .0 · 10 5 J/(m 3 K). The vascular marrow has an effective phase conductivity, 
+
+kβ = 0 .21 W /(m K), but a much larger effective heat capacity of Cβ = 3 .0 · 10 6 J/(m 3 K). The static thermal conductivity of the bone is keff = 0 .34 W /(m K). Assuming localized behavior without strong perfusion effects ( Wβ ≈ 0), evaluating the biological over-diffusion coefficient results in 
+
+Rspine = 1 + kαC2 
+
+> β
+
++ kβ C2
+
+> α
+
+CαCβ keff 
+
+≈ 3.40 . (88) Because Rspine ≈ 3.40, the initial thermal response propagates through the calcified trabeculae more than three times faster than classical Fourier theory predicts. The affected area can be even larger if Wβ̸ = 0, increasing Rspine . On the other hand, it can increase the effective heat transfer coefficient H, thereby leading to non-trivial outcomes. As a second example, we investigate the dermis and cutaneous laser surgery. In dermatology, ultra-short pulsed lasers aim for selective photothermolysis, destroying a target before heat diffuses into surrounding healthy skin. The dermis features a relatively large thermal inertia solid matrix of collagen and elastin (phase α) with εα = 0 .95, including a micro-vascular capillary plexus (phase β) with εβ = 0 .05. The solid dermis has parameters Cα = 3 .42 · 10 6 J/(m 3 K) and kα = 0 .35 W /(m K). The micro-vascular plexus has Cβ = 2 .1 · 10 5 J/(m 3 K) and kβ =0.10 W /(m K). The static effective conductivity is keff = 0 .45 W /(m K). Evaluating the over-diffusion coefficient, 
+
+Rskin = 1 + kαC2 
+
+> β
+
++ kβ C2
+
+> α
+
+CαCβ keff 
+
+≈ 4.67 , (89) which shows notable dynamic behavior. If the pulse duration approaches the relaxation time, the significant dynamic conductivity dominates, leading to a rapid non-Fourier thermal transient that affects the dermal matrix, potentially causing collateral thermal damage, and demonstrating that the generalized Jeffreys model can be relevant for optimizing laser pulse durations and other biological applications. By defining Rbio and the augmented properties analytically based on the local vascular volume fraction taken from medical perfusion scans, one could estimate a more precise non-Fourier thermal behavior and avoid unnecessary tissue necrosis. 22 9.2 The role of thermal radiation in over-diffusion 
+
+In highly porous, high-temperature heterogeneous media, such as open-cell carbon and metal foams, heat transport is governed by the simultaneous presence of solid and fluid conduction, as well as thermal radiation, across pore cavities. So far, we have neglected radiation in transient analyses, but its inclusion can be essential for accurately capturing the over-diffusive regime where R > 1. At the microscale, thermal radiation acts as an ultrafast parallel heat transfer channel, thermally connecting opposite pore walls. To incorporate this into the macroscopic continuum framework without solving complex integro-differential radiative transfer equations, radiation across a pore of characteristic size lpore is linearized into an equivalent radiative heat transfer coefficient, 
+
+hrad = 4 σϵ eff ¯T 3, (90) where σ = 5 .67 ·10 −8 W/(m 2 K4) is the Stefan-Boltzmann constant, ϵeff is the effective cavity wall emissivity, and ¯T is the mean absolute temperature. Radiative exchange can notably increase the total volumetric interfacial heat transfer coefficient that governs the heat flux relaxation time. The total volumetric exchange is H = Hcond + Hrad , where Hrad ≈ hrad /l pore represents the volumetric radiative exchange rate. Because radiation introduces an immediate parallel mechanism for energy transfer across pores, the augmented H directly decreases the relaxation time, 
+
+τq = CαCβ
+
+(Hcond + Hrad )Ceff 
+
+. (91) We note that H does not directly modify the over-diffusion coefficient R, thus the radiation effects do not affect the ratio of the static and dynamic behavior. However, the increased volu-metric exchange plays a profound role in the apparent, scale-dependent over-diffusion coefficient 
+
+Rapp observed in finite samples. By increasing H, radiation can notably reduce the spatial non-locality coefficient, defined as D = kαkβ /H . This decrease suppresses the finite-boundary correction term, thereby driving the apparent over-diffusion coefficient Rapp much closer to its theoretical maximum. Furthermore, thermal radiation also acts as a spatial parallel transport mechanism, which di-rectly augments the effective macroscopic static conductivity of the fluid pore phase kβ . Because the solid matrix possesses a much larger thermal capacity than the gas-filled pores ( Cα ≫ Cβ ), any radiative augmentation to kβ significantly influences the kβ C2 
+
+> α
+
+term in the numerator of the intrinsic over-diffusion coefficient. Consequently, both the intrinsic theoretical limit R and the apparent Rapp can show a pronounced relative increase. This radiation-mechanism enhance-ment can explain why highly porous carbon foams exhibit sharp initial transient overshoots that conduction-only models fail to resolve [5]. 
+
+# 10 Discussion and Summary 
+
+The rigorous upscaling of the present LTNE framework bridges the gap between microstructural geometry and macroscopic phenomenological heat conduction. By applying spatial volume aver-aging to a heterogeneous two-phase continuum, we have mathematically proven that non-Fourier thermal behavior is not only a phenomenological assumption but a direct consequence of thermal asymmetries between the constituents. The derivation yields a generalized Jeffreys-type heat equation. Consequently, any heterogeneous material modeled via this framework inherently falls into the over-diffusive regime ( R > 1). Furthermore, the model satisfies the Clausius-Duhem inequality, thereby providing an upper bound on the emergence of the non-local spatial term and ensuring positive entropy production. Furthermore, the present derivation has a non-trivial consequence. Most experiments on heterogeneous materials are evaluated using the continuum version of the Guyer–Krumhansl 23 heat equation [36, 4, 6]. Such a model consists of the same mathematical operators; however, it is derived within the internal variable framework [29] and is free from the constraints of phonon hydrodynamics. However, we have proved that under particular conditions, the Guyer– Krumhansl and Jeffreys heat equations can be equivalent in the sense that both equations model the same temperature history and distribution [35]. These conditions restrict the volumetric heat sources; the heat flux must be curl-free, and all transport parameters must be constant, besides ensuring the same homogeneous equilibrium for the initial state and applying the same boundary conditions. Consequently, in the light of the present derivation, only these particular conditions enabled the use of the Guyer–Krumhansl model in the earlier experiments. We have demonstrated that higher-order spatial non-localities are sensitive to macroscopic boundary constraints in finite-thickness samples, suppressing the apparent over-diffusion in sub-RVE flash experiments. By comparing the structural thermal properties with numerous exper-imental results, the model provides a robust alternative to two-temperature formulations and explains why scale-dependent thermal behavior is frequently observed in thin porous media and composites. Looking forward, the clinical implications of this over-diffusive heat conduction framework are profound for advanced biological and medical applications. Classical bio-heat models, such as the Pennes equation, assume instantaneous thermal equilibrium, which can fail to accu-rately predict transient thermal penetration during high-energy, short-duration interventions. In procedures such as radiofrequency spinal ablation, the non-Fourier thermal transients can propagate significantly faster than classical diffusion predicts. Implementing the perfusion-augmented structural multiplier ( Rbio ) in surgical models may enable more accurate mapping of these thermal transients, thereby minimizing collateral damage and optimizing targeted thermal therapies. 
+
+# 11 Acknowledgement 
+
+The research reported in this paper is part of project no. TKP-6-6/PALY-2021, implemented with the support provided by the Ministry of Culture and Innovation of Hungary from the Na-tional Research, Development and Innovation Fund, financed under the TKP2021-NVA funding scheme. The research carried out at BME has been also supported by the grant National Research, Development and Innovation Office-NKFIH STARTING24 149487 and by the Sus-tainable Development and Technologies National Programme of the Hungarian Academy of Sciences (FFT NP FTA). This paper was supported by the J´ anos Bolyai Research Scholarship of the Hungarian Academy of Sciences, Hungary. 
+
+# References 
+
+[1] S. Yang, J. Wang, G. Dai, F. Yang, and J. Huang. Controlling macroscopic heat transfer with thermal metamaterials: theory, experiment and application. Physics Reports , 908:1– 65, 2021. [2] I. M¨ uller and T. Ruggeri. Rational Extended Thermodynamics . Springer, 1998. [3] H. E. Jackson and C. T. Walker. Thermal conductivity, second sound and phonon-phonon interactions in NaF. Physical Review B , 3(4):1428–1439, 1971. [4] A. Feh´ er, N. Luk´ acs, L. Somlai, T. Fodor, M. Sz¨ ucs, T. F¨ ul¨ op, P. V´ an, and R. Kov´ acs. Size effects and beyond-Fourier heat conduction in room-temperature experiments. Journal of Non-Equilibrium Thermodynamics , 46:403–411, 2021. 24 [5] A. Feh´ er, R. Kov´ acs, ´A. Sud´ ar, and G. G. Barnaf¨ old. Challenges in the thermal modeling of highly porous carbon foams. Journal of Thermal Analysis and Calorimetry , 149:3605–3616, 2024. [6] A. Feh´ er, J. Mar´ oti, D. Tak´ acs, I. Orbulov, and R. Kov´ acs. Thermal and mechanical properties of alsi7mg matrix syntactic foams reinforced by Al2O3 or SiC particles in matrix. 
+
+International Journal of Heat and Mass Transfer , 226:125446, 2024. [7] A. Berezovski, J. Engelbrecht, and G. A. Maugin. Thermoelasticity with dual internal variables. Journal of Thermal Stresses , 34(5-6):413–430, 2011. [8] P. V´ an, A. Berezovski, and J. Engelbrecht. Internal variables and dynamic degrees of freedom. Journal of Non-Equilibrium Thermodynamics , 33(3):235–254, 2008. [9] M. Quintard and S. Whitaker. Two-phase flow in heterogeneous porous media: The method of large-scale averaging. Transport in Porous Media , 3(4):357–413, 1988. [10] M. Quintard and S. Whitaker. Transport in ordered and disordered porous media: volume-averaged equations, closure problems, and comparison with experiment. Chemical Engi-neering Science , 48(14):2537–2564, 1993. [11] M. Quintard and S. Whitaker. Transport in ordered and disordered porous media II: Generalized volume averaging. Transport in Porous Media , 14(2):179–206, 1994. [12] V. A. Cimmelli, D. Jou, T. Ruggeri, and P. V´ an. Entropy principle and recent results in non-equilibrium theories. Entropy , 16(3):1756–1807, 2014. [13] G. Lebon, D. Jou, and M. Grmela. Extended Reversible and Irreversible Thermodynamics: A Hamiltonian Approach with Application to Heat Waves. Journal of Non-Equilibrium Thermodynamics , 42(2):153–168, 2017. [14] M. Pavelka, V. Klika, and M. Grmela. Multiscale thermo-dynamics: introduction to GENERIC . Walter de Gruyter GmbH & Co KG, 2018. [15] M. Grmela. GENERIC guide to the multiscale dynamics and thermodynamics. Journal of Physics Communications , 2(3):032001, 2018. [16] B. D. Coleman and M. E. Gurtin. Thermodynamics with internal state variables. The Journal of Chemical Physics , 47(2):597–613, 1967. [17] A. Berezovski and P. V´ an. Internal Variables in Thermoelasticity . Springer, 2017. [18] F. Duval, F. Fichot, and M. Quintard. A local thermal non-equilibrium model for two-phase flows with phase-change in porous media. International Journal of Heat and Mass Transfer ,47(3):613–639, 2004. [19] S. Pati, A. Borah, M. P. Boruah, and P. R. Randive. Critical review on local thermal equilibrium and local thermal non-equilibrium approaches for the analysis of forced convec-tive flow through porous media. International communications in heat and mass Transfer ,132:105889, 2022. [20] A. Gandomkar and K. E. Gray. Local thermal non-equilibrium in porous media with heat conduction. International Journal of Heat and Mass Transfer , 124:1212–1216, 2018. [21] S. L. Sobolev. Local non-equilibrium transport models. Physics-Uspekhi , 40(10):1043–1053, 1997. 25 [22] S. L. Sobolev. Nonlocal two-temperature model: Application to heat transport in metals irradiated by ultrashort laser pulses. International Journal of Heat and Mass Transfer ,94:138–144, 2016. [23] D. Y. Tzou. A unified field approach for heat conduction from macro- to micro-scales. 
+
+Journal of Heat Transfer , 117(1):8–16, 1995. [24] M. Fabrizio and F. Franchi. Delayed thermal models: stability and thermodynamics. Jour-nal of Thermal Stresses , 37(2):160–173, 2014. [25] M. Fabrizio and B. Lazzari. Stability and second law of thermodynamics in dual-phase-lag heat conduction. International Journal of Heat and Mass Transfer , 74:484–489, 2014. [26] R. Quintanilla and R. Racke. Qualitative aspects in dual-phase-lag heat conduction. Pro-ceedings of the Royal Society of London A: Mathematical, Physical and Engineering Sci-ences , 463(2079):659–674, 2007. [27] S. Chirit ¸˘ a, M. Ciarletta, and V. Tibullo. On the thermomechanical consistency of the time differential dual-phase-lag models of heat conduction. International Journal of Heat and Mass Transfer , 114:277–285, 2017. [28] R. Kov´ acs. Heat equations beyond Fourier: From heat waves to thermal metamaterials. 
+
+Physics Reports , 1048:1–75, 2024. [29] P. V´ an and T. F¨ ul¨ op. Universality in heat conduction theory – weakly nonlocal thermody-namics. Annalen der Physik (Berlin) , 524(8):470–478, 2012. [30] R. A. Guyer and J. A. Krumhansl. Solution of the linearized phonon Boltzmann equation. 
+
+Physical Review , 148(2):766–778, 1966. [31] W. G. Gray. A derivation of the equations for multi-phase transport. Chemical Engineering Science , 30(2):229–233, 1975. [32] S. P. Neuman. Theoretical derivation of Darcy’s law. Acta Mechanica , 25(3):153–170, 1977. [33] J. E. Mar´ oti and I. N. Orbulov. Characteristic compressive properties of AlSi7Mg matrix syntactic foams reinforced by Al2O3 or SiC particles in the matrix. Materials Science and Engineering: A , 869:144817, 2023. [34] D. K´ aroly, J. E. Mar´ oti, J. Lolbert-Szab´ o, A. Kem´ eny, and I. N. Orbulov. Production of syntactic metal foams reinforced in the matrix material. In IOP Conference Series: Materials Science and Engineering , volume 1246, page 012014. IOP Publishing, 2022. [35] A. Feh´ er and R. Kov´ acs. On the dynamic thermal conductivity and diffusivity observed in heat pulse experiments. Journal of Non-Equilibrium Thermodynamics , 49:161–170, 2024. [36] S. Both, B. Cz´ el, T. F¨ ul¨ op, Gy. Gr´ of, ´A. Gyenis, R. Kov´ acs, P. V´ an, and J. Verh´ as. Deviation from the Fourier law in room-temperature heat pulse experiments. Journal of Non-Equilibrium Thermodynamics , 41(1):41–48, 2016. [37] M. G´ al, S. K. S. Andrade, A. Feh´ er, A. Farkas, J. Madar´ asz, L. Horv´ ath, P. Gordon, R. Kov´ acs, and K. L´ aszl´ o. Thermal diffusity in copper benzene-1, 3, 5-tricarboxylate– reduced graphite oxide mechanical composites. Journal of Thermal Analysis and Calorime-try , pages 1–13, 2024. [38] A. Lunev, A. Lauerer, V. Zborovskii, and F. L´ eonard. Digital twin of a laser flash experiment helps to assess the thermal performance of metal foams. International Journal of Thermal Sciences , 181:107743, 2022. 26 [39] A. Lauerer and A. Lunev. Experimental evidence of gas-mediated heat transfer in porous solids measured by the flash method. International Journal of Thermal Sciences ,184:107948, 2023. [40] R. Lemlich. A theory for the limiting conductivity of polyhedral foam at low density. 
+
+Journal of Colloid and Interface Science , 64(1):107–110, 1978. [41] S. Krishnan, S. V. Garimella, and J. Y. Murthy. Simulation of thermal transport in open-cell metal foams: effect of periodic unit-cell structure. ASME Journal of Heat and Mass Transfer , 130:024503, 2008. [42] T. J. Lu, H. A. Stone, and M. F. Ashby. Heat transfer in open-cell metal foams. Acta Materialia , 46(10):3619–3635, 1998. [43] V. V. Calmidi and R. L. Mahajan. Forced convection in high porosity metal foams. ASME Journal of Heat and Mass Transfer , 122(3):557–565, 2000. [44] X.-H. Han, Q. Wang, Y.-G. Park, C. T’Joen, A. Sommers, and A. Jacobi. A review of metal foam and metal matrix composites for heat exchangers and heat sinks. Heat Transfer Engineering , 33(12):991–1009, 2012. [45] K. Boomsma, D. Poulikakos, and F. Zwick. Metal foams as compact high performance heat exchangers. Mechanics of Materials , 35(12):1161–1176, 2003. [46] S. L. James. Metal-organic frameworks. Chemical Society Reviews , 32(5):276–288, 2003. [47] A. Dom´ an, J. Madar´ asz, Gy. S´ afr´ an, Y. Wang, and K. L´ aszl´ o. Copper benzene-1, 3, 5-tricarboxylate (HKUST-1)–graphene oxide pellets for methane adsorption. Microporous and Mesoporous Materials , 316:110948, 2021. [48] X.-W. Liu, T.-J. Sun, J.-L. Hu, and S.-D. Wang. Composites of metal–organic frameworks and carbon-based materials: preparations, functionalities and applications. Journal of Materials Chemistry A , 4(10):3584–3616, 2016. [49] H. H. Pennes. Analysis of tissue and arterial blood temperatures in the resting human forearm. Journal of Applied Physiology , 1(2):93–122, 1948. [50] M. Kutz. Biomedical Engineering and Design Handbook . McGraw-Hill, New York, USA, 2 edition, 2009. [51] S. Becker and A. Kuznetsov. Heat Transfer and Fluid Flow in Biological Processes . Aca-demic Press, 2014. [52] P. Hooshmand, A. Moradi, and B. Khezry. Bioheat transfer analysis of biological tissues induced by laser irradiation. International Journal of Thermal Sciences , 90:214–223, 2015. [53] D. E. Dupuy, R. Hong, B. Oliver, and S. N. Goldberg. Radiofrequency ablation of spinal tumors: temperature distribution in the spinal canal. American Journal of Roentgenology ,175(5):1263–1266, 2000. [54] S. Masala, M. Roselli, F. Massari, R. Fiori, A. Ursone, E. Fossile, A. Laudisi, and G. Si-monetti. Radiofrequency heat ablation and vertebroplasty in the treatment of neoplastic vertebral body fractures. Anticancer Research , 24(5B):3129–3134, 2004. 27

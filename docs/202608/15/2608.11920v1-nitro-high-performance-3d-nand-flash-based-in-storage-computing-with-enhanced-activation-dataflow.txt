@@ -1,0 +1,2251 @@
+1
+NITRO: High-Performance 3D NAND Flash-Based
+In-Storage Computing with Enhanced Activation
+Dataflow
+Sanghun Shin
+†,*, Sangyeon Kim
+†,*, Graduate Student Member, IEEE, Gisan Ji
+†, and Sungju Ryu
+‡,§, Member, IEEE
+†Department of Electronic Engineering, Sogang University, Seoul, Republic of Korea
+‡Department of System Semiconductor Engineering, Sogang University, Seoul, Republic of Korea
+†{sanghun, sangyeonkim, gisanji}@sogang.ac.kr, ‡sungju@sogang.ac.kr
+Abstract—In-storage computing (ISC) is considered a next-
+generation memory architecture for its ability to relieve the data
+bottleneck between the host and the memory. While the required
+resources of large language models (LLMs) have increased
+significantly in recent years, the memory density has not scaled
+accordingly. Recently, several works have studied NAND flash-
+based processing-in-memory (NAND-PIM) schemes to exploit the
+high density of the memory. However, they do not address the
+dataflow/buffer for the intermediate values, so a simple method is
+to deal with the values in the slow flash memory array. To over-
+come such a limitation, we propose a high-performance NAND
+flash-based ISC architecture with enhanced activation buffering.
+Instead of using the very slow flash memory array for the
+intermediate values, our architecture buffers the values in a fast
+DRAM subsystem. This approach effectively handles the high-
+latency penalties when activations are programmed into slower
+TLC NAND flash. We also introduce a distributed dataflow
+approach for the NAND-PIM array. This approach maximizes
+computational parallelism by employing efficient intra-plane
+data mapping. The results show that our proposed architecture
+achieves significant performance improvements, reducing the
+inference latency by up to 99.7% compared to the baseline.
+Index Terms—3D NAND flash memory, in-storage computing,
+large language models, DRAM buffering, pSLC buffering.
+I. INTRODUCTION
+Transformer-based LLMs have revolutionized a wide spec-
+trum of AI applications from language understanding to code
+synthesis within just a few years. The rapid scaling of model
+parameters enabled these models to learn from vast datasets
+and show impressive capabilities [2]. However, as the model
+parameters grow exponentially, the memory resources and
+memory bandwidth play a critical role on LLM performance.
+In particular, frequent data movements between processor and
+memory lead to a significant memory bottleneck, resulting in
+increased inference latency and underutilization of powerful
+compute resources.
+To handle the memory bottleneck problem, PIM has been
+considered a promising solution. The PIM architecture inte-
+This work is an extended version of a paper accepted for publication
+in the Proceedings of the DATE 2026 [1]. Compared to the conference
+version, this manuscript provides a more comprehensive description of the
+technical background, detailed explanations of the proposed architecture, and
+an extended evaluation including throughput results, an additional S-FLASH
+baseline, and area analysis. Details are summarized in Appendix A.
+*Equal contribution.
+§Corresponding Author.
+grates the computation logic inside the memory units, enabling
+more efficient bandwidth utilization and reduced latency.
+While previous DRAM, SRAM, and ReRAM-based PIM
+approaches offer benefits [3], [4], the large size of LLMs
+necessitates exploring memory technologies with better den-
+sity and scalability. 3D NAND flash-based SSD emerges
+as a potential candidate thanks to its exceptional storage
+density, non-volatility, and low cost per bit. This has motivated
+exploration of NAND flash-based computation through two
+main paradigms: in-storage computing (ISC) and processing-
+in-memory (PIM). Modern SSDs enable ISC through their
+high internal bandwidth between the controller and concur-
+rently operated flash chips, or by inserting specific processors.
+Several recent works have applied ISC to parts of the DNN
+workflow. Cambricon-LLM [5] introduced a hybrid architec-
+ture by connecting the NPU directly to the NAND flash chip,
+leveraging flash for weight storage and on-die processing
+tasks. However, these ISC-based approaches often rely on
+SSD controller resources or, as in Cambricon-LLM, require
+an external processing unit for acceleration.
+Alternatively, NAND-PIM performs computations directly
+inside the NAND flash memory array. The analog current-sum
+method has been widely used to perform matrix-vector multi-
+plication (MVM) by leveraging the crossbar array structure of
+the NAND array [6]–[8]. For example, 3D-FPIM [7] designed
+a quantization-aware conversion and low-power decoder to
+mitigate accuracy loss and WL energy overhead, respectively.
+S-Flash [8] optimized energy efficiency by exploiting bit-level
+sparsity in activations and weights, allowing more current
+accumulation within analog-to-digital converters (ADC) level
+constraints. While these analog PIM methods demonstrate po-
+tential for efficient MVM execution, they often focus primarily
+on the MVM kernel itself. They also employ simplified designs
+(e.g., small array sizes, single-level cell (SLC) type) instead of
+real-world commercial flash memory configuration and lack a
+comprehensive strategy for managing the complex dataflows
+required for LLM inference. Therefore, efficiently handling the
+large size of intermediate activation data generated between
+MVM computations remains a challenge unaddressed by prior
+analog NAND-PIM works.
+In this work, we propose NITRO: a novel 3D NAND
+flash-based ISC architecture with analog PIM methodology
+for Transformer LLM acceleration. NITRO overcomes the
+arXiv:2608.11920v1  [cs.AR]  12 Aug 2026
+
+
+2
+limitations of previous approaches by introducing an optimized
+dataflow strategy that efficiently manages intermediate results
+inside the SSD subsystem.
+Our contributions can be summarized as follows:
+1) We analyze the workflow of LLMs and identify the pos-
+sibilities of performance improvements over the previous
+NAND-PIM by buffering intermediate activation data in
+DRAM to reduce the read/write latency when using slow
+flash memory array.
+2) We present the optimized dataflow scheme to leverage
+the multi-plane parallelism of NAND flash dies.
+3) Based on the contributions above, we propose a NITRO
+ISC architecture.
+The following sections are organized as follows. Section II
+briefly explains the background of 3D NAND-PIM. Section III
+introduces the proposed methodology. Section IV describes the
+experimental setup and presents the results. Finally, Section V
+concludes the paper.
+II. PRELIMINARIES
+A. 3D NAND Flash
+Scalability and cost-effectiveness have made the 3D NAND
+flash a widely used memory architecture in high-density
+storage devices. Fig. 1a shows its die-level hierarchy. Multiple
+independent planes (often 2-4) form a single die, where each
+plane is equipped with its own NAND flash array, row/column
+decoders, and data registers, enabling concurrent access across
+planes. Each plane is partitioned into hundreds of blocks, each
+block consisting of numerous NAND strings (Fig. 1b). Each
+string comprises a vertical stack of memory cells connected
+in series between the bitline selector (BLS) transistor and the
+ground select line (GSL) transistor. Strings in the same column
+share a bitline (BL), while cells at the same vertical level
+across multiple strings share a wordline (WL). A group of
+cells connected to the same WL forms a page, the fundamental
+unit for read and program operations, often ranging from
+4 to 16 KB in size. To maximize bit density, modern 3D
+NAND devices employ a multi-level cell technology, such
+as triple-level cell (TLC) using the charge trap flash (CTF)
+cell structure [9]. Unlike SLC, which stores one bit using two
+different threshold voltage states (VT ), TLC cells can hold
+three bits per cell. It is operated precisely by programming
+and distinguishing among eight distinct VT levels inside the
+cell’s operating window (Fig. 1c).
+Reading data from the TLC NAND flash block involves a
+sequence of voltage operations. First, the target block with
+specific page is selected by activating its BLS and GSL. The
+row decoder applies the read reference voltage (Vread) to
+the target WL. Concurrently, unselected WLs in the same
+block receive a pass voltage (Vpass), higher than the high-
+est programmed VT state (Fig. 1c). The Vpass ensures that
+unselected cells act as a pass transistor regardless of their
+VT level. For the target cell in a selected page, the VT level
+determines whether it acts as a pass transistor or turns off
+at the applied Vread. The current determined by the target
+cell in the selected string flows through the connected BL,
+…
+…
+…
+…
+BL
+BL
+BLSn
+SSL0
+WL63
+Vpass à
+GSL
+CSL
+Block n-1
+Page
+WL1
+Vpass à
+WL0
+Vpass à
+Die
+(a)
+(b)
+Cache Register
+Plane 1
+Block n
+Block 1 
+Row Decoder
+Cache Register
+Data Register
+Plane 0
+Column Decoder
+NAND Flash
+Array
+Block 2 
+Column Decoder
+Data Register
+BL
+WL
+…
+Page Buffer
+BL
+BL
+BLS0
+BLSn
+WL63
+Vread à
+GSL
+CSL
+Block n
+WL1
+Vpass à
+WL0
+Vpass à
+…
+…
+String
+(c)
+Distribution
+1
+1
+1
+1
+1
+0
+1
+0
+0
+0
+0
+0
+0
+1
+0
+0
+1
+1
+0
+0
+1
+1
+0
+1
+Vr0
+Vr1
+Vr2
+Vr3
+Vr4
+Vr5
+Vr6
+Vpass
+VT [V]
+Page
+…
+…
+Fig. 1. Illustration of 3D NAND flash memory: (a) Die-level and (b) plane-
+level architectures. (c) Voltage distribution of TLC.
+…
+…
+…
+…
+BL0
+BL
+BLSn
+SSL0
+WL63
+Vread à
+WL1
+Vpass à
+WL0
+Vpass à
+GSL
+CSL
+Block
+Data Register
+Cache Register
+BL BL BL BL BL BL
+WL63
+Vread à
+ADC
+Block n-1
+0
+0
+0
+1
+0
+0
+1
+0
+0
+0
+0
+0
+0
+0
+0
+1
+0
+1
+1
+0
+1
+0
+0
+1
+0
+0
+1
+0
+0
+1
+0
+0
+1
+0
+0
+0
+(a)
+(b)
+Integrator & Load Cap
+∫
+∫
+Even BL
+Odd BL
+BL
+BL
+BLS0
+BLSn
+GSL
+CSL
+Block n
+WL63
+Vread à
+WL1
+Vpass à
+WL0
+Vpass à
+…
+…
+…
+…
+…
+…
+BLS0
+à
+0
+1
+1
+0
+…
+A(1, i)
+…
+BLSn
+à
+0
+0
+1
+0
+…
+A(1, n)
+Block n
+Fig. 2.
+The matrix-vector multiplication mechanism in 3D NAND flash
+memory.
+where it discharges the load capacitor located inside the sense
+amplifier [10]. Then it is decoded by the sense amplifier logic.
+Multiple read operations are required to identify the three bits
+stored in a TLC cell. The row decoder sequentially applies
+different Vread, corresponding to the reference voltages (Vr0 -
+Vr6) shown in Fig. 1c. By identifying the cell’s conductance at
+different Vread levels, the sense amplifier and latching circuit
+decode the specific VT state and its corresponding 3-bit data
+(’111’ to ’000’).
+B. 3D NAND Flash-Based MVM
+Previous studies [6]–[8], [11] have implemented MVM
+operations on 3D NAND flash memory arrays (Fig. 2a).
+Weights (W) are stored in memory cells by programming
+their corresponding VT levels, where each level dictates cell’s
+conductance [11]. Activation (A) values, encoded as bit-wise
+voltage pulses, are applied to specific NAND strings via their
+BLSs. Fig. 2b illustrates MVM operation (O = A×W) inside
+the NAND array. To compute a dot product, a WL containing
+target weights is selected and biased with appropriate Vread.
+Vpass is applied to unselected WLs, turning their cells into
+pass transistors. Based on the A data bits, corresponding BLSs
+are activated. This connects each associated NAND string to
+its respective BL. Current through the activated NAND string,
+proportional to the conductance of the selected cell, performs
+analog multiplication between the input and the weight. Ac-
+cumulated current from NAND strings onto a connected BL
+generates an analog value representing an output (O) value.
+For signed weight matrices, paired BLs are used [11]. Positive
+weights are programmed into cells on even BLs, and negative
+
+
+3
+Row Decoder
+Row Decoder
+SSD 
+Controller
+DRAM
+MEM
+NAND 
+Flash
+SSD 
+Controller
+NAND 
+Flash
+①
+Baseline 
+Proposed 
+②
+Baseline 
+Proposed 
+Activation DRAM Buffering 
+QKT Attention
+QKV 
+Linear
+O
+Linear
+t
+PV Attention
+FFN
+Linear
+QKT PV
+QKV 
+Linear
+O
+Linear
+t
+FFN
+Linear
+Distributed Dataflow
+PSUM
+Parallelism
+Multi-Plane
+Parallelism
+Multi-Head
+Parallelism
+H1
+H2
+H3
+H4
+H5
+H6
+H1
+H2
+H3
+H4
+Row Decoder
+Weight
+Plane 0
+Plane 1
+W(2,1)
+W(n,n)
+W(2,2)
+W(2,n)
+W(n,1)
+Multiple Input Iteration
+k > m
+A(1,n)
+Iter
+#0
+#m+1
+#0
+#k
+TLC NAND PIM
+Row Decoder
+Weight
+PE
+Read Only
+Page Buffer
+TLC NAND PIM
+TLC NAND PIM
+DRAM PIM
+PIM
+MEM
+DRAM
+W(1,1) W(1,2)
+W(1,n)
+A(1,n)
+0
+#m+1
+W(1,1)
+W(2,1)
+W(n,1)
+Weight
+W(1,2)
+W(1,n)
+…
+W(n,2)
+(a)
+(b)
+Activation
+Output
+Row Decoder
+Activation 1
+PE
+Program
+Page Buffer
+Activation 2
+Output
+Read
+Activation 1
+Row Decoder
+Weight
+PE
+Read Only
+Page Buffer
+Activation
+Output
+Activation 1
+Very Slow
+~ 20 – 100μs
+Very Slow
+~ 200 – 1,000μs
+Fast
+~ 50 – 100ns
+Fast
+~ 50 – 100ns
+Row Decoder
+W(1,1)
+W(2,1)
+W(n,1)
+W(1,n)
+W(2,n)
+W(n,n)
+O(1,n)
+A(1,1)
+A(1,2)
+…
+A(1,n)
+O(1,1)
+Program & PIM & Read
+Write & PIM & Read
+I / O
+TLC
+DRAM
+Read
+Program
+Read
+Write
+Latency
+PE
+Activation 1
+Write
+Activation 2
+Read
+Output
+Reduced Latency
+Activation
+A(1,1)A(1,2)
+A(1,n)
+A(m,1)A(m,2)
+A(m,n)
+Output
+O(1,2)
+O(1,n)
+O(1,1)
+O(m,2)
+O(m,n)
+O(m,1)
+…
+#k
+…
+…
+Row Decoder
+0
+A(1,2)
+A(1,2)
+0
+A(1,1)
+Linear
+@ TLC
+Attention
+@ TLC
+Attention
+@ DRAM
+Fig. 3.
+Overview of our contribution: (a) Activation DRAM buffering and (b) distributed dataflow.
+weight’s magnitudes into cells on odd BLs. During MVM,
+both even and odd BLs independently accumulate current
+from their respective activated cells. The current from even
+BL charges a load capacitor, while the current from odd BL
+discharges it. The resulting capacitor voltage is then digitized
+by ADCs. This analog-current summation method leverages
+3D NAND flash array’s massive parallelism to concurrently
+process multiple multiply-accumulate (MAC) operations.
+III. PROPOSED ARCHITECTURE
+A. Overview
+This section details the proposed NITRO architecture in-
+cluding heterogeneous PIM capabilities inside the SSD to
+efficiently process Transformer-based models. Fig. 3 provides
+an overview, comparing the baseline with our approach.
+Executing Transformer-based models solely on conventional
+NAND-PIM is challenging due to the slow latency character-
+istics of NAND flash. As illustrated in the baseline scenario
+of Fig. 3a, if generated intermediate activations program-
+ming into NAND array for subsequent processing, the slow
+program latency of the NAND flash creates a bottleneck.
+Consequently, this latency negatively impacts overall inference
+speed. Meanwhile, DRAM has a latency of read and write
+several orders of magnitude faster than the NAND flash [12].
+But, previous NAND-PIMs typically focus on MVM using
+NAND flash array only. To improve the workflow, we integrate
+processing capabilities into both the NAND and DRAM. In
+this case, we store the weights in the NAND flash array and
+perform the MVM in the same way as conventional NAND-
+PIM architectures. Considering that the write operation of the
+NAND flash is much slower than the read operation, writing
+output values in the NAND may significantly degrade the
+throughput. Therefore, we select the DRAM as the storage
+of the activations instead of the NAND flash array to increase
+the overall inference speed. Afterwards, matrix computations
+between activation values at the attention layers are performed
+by adopting the conventional DRAM-PIM approach. We of-
+fload specific Transformer blocks, particularly those involving
+frequent read/write operations on intermediate activation data,
+to DRAM-PIM. This process significantly reduces the overall
+inference latency compared to the NAND-only approach.
+Furthermore, we also explain the additional limitations of
+previous works [7], [8] in utilizing the NAND-PIM array.
+These earlier methods often targeted simpler DNN, showing
+inefficiency when the dimensions of mapping weights do not
+align well with the large physical dimensions of NAND flash
+arrays. Consequently, naive mappings can lead to suboptimal
+resource usage. As illustrated in the baseline of Fig. 3b, such
+approaches often require multiple sequential iterations for the
+computation of even a single row of an output matrix, thereby
+increasing the latency of MVM. To maximize the computa-
+tional throughput of the NAND-PIM, NITRO enhances the
+data mapping scheme inside the NAND flash array. This
+includes leveraging parallel accumulation of partitioned array
+during linear block computations and enabling concurrent
+processing of multiple heads in attention blocks. Addition-
+ally, NITRO distributes weight data across the NAND-PIM
+planes to effectively exploit multi-plane parallelism to increase
+throughput. By combining latency reduction through DRAM-
+PIM and throughput enhancement by optimized dataflow in
+NAND flash array, NITRO reduces the inference latency inside
+the storage devices.
+B. Activation DRAM buffering
+Executing entire Transformer blocks only in the TLC
+NAND-PIM can create a huge bottleneck, mostly from the
+attention blocks. These blocks often require the multiplica-
+tion of two intermediate activation matrices (e.g., QKT ). To
+process this multiplication using NAND-PIM, one activation
+matrix (KT ) must first be programmed into NAND cells.
+Since TLC NAND exhibits a few hundred microseconds of
+program time, a critical performance bottleneck is created.
+This could disrupt the pipeline process of Transformer blocks
+and increase the idle time of other NAND-PIM. For instance,
+after generating Q0 and K0 from A0, the system must wait
+for programming KT
+0 before Q0KT
+0 computation can begin
+(Fig. 4). Further processing of A1 is also stalled due to re-
+source contention, increasing the overall inference latency. To
+address this critical latency issue, NITRO adopts a hybrid PIM
+architecture, offloading intermediate activation data to DRAM
+and attention block computation to DRAM-PIM. Intermediate
+activations such as K0 generated from a preceding layer are
+rapidly written to the DRAM buffer. These activations are then
+transposed to be written in DRAM-PIM with low latency. The
+attention computation of Q0KT
+0 can also achieve low latency
+from the fast DRAM side, since KT
+0 is read from the DRAM
+
+
+4
+Q2 K2 V2 Prog
+Idle
+WQKV
+BLS Decoder
+PE
+NAND PIM 0 
+K0T
+BLS Decoder
+PE
+Page Buffer
+NAND PIM 1
+①
+Program
+NAND PIM 1
+K0 Prog
+DIN
+Q0K0 PIM
+DIN
+A0 PIM
+A1 PIM
+NAND PIM 0 
+Q0
+DIN
+Q0 K0 V0
+Proposed
+Baseline
+Idle
+Idle
+BLS Decoder
+Array
+DIN
+DOUT
+DIN
+DOUT
+DOUT
+A2 PIM
+DIN
+Page Buffer
+K0 Output
+Q0
+A0
+A1
+NAND Plane
+Buffer
+Row Decoder
+NAND Plane
+Page 
+Buffer
+V0 Output
+Q0 Output
+①
+Program
+②
+Read
+Q0 K0 V0 Prog
+K0
+Q0
+Q1 K1 V1 Prog
+Q0 K0 Read
+Q1 K1 Read
+K1
+Q1
+Idle
+Q1 K1 V1
+Idle
+DOUT
+A3 PIM
+DIN
+K1 Prog
+Prog
+Ideal
+DRAM PIM 1
+Prog
+DIN
+Q0K0 PIM
+DIN
+A0 PIM
+A1 PIM
+NAND PIM 0 
+Q0
+DIN
+Q0 K0 V0
+I
+I/O
+Array
+DIN
+DOUT
+DIN
+DOUT
+DOUT
+A2 PIM
+DIN
+DRAM Plane
+Buffer
+Prog
+K0
+Q0
+Prog
+Read
+Read
+K1
+Q1
+Q1 K1 V1
+DOUT
+A3 PIM
+DIN
+Prog
+I
+Q0K0 PIM
+Q0
+Read
+Q2 K2 V2
+Less Idle Time
+Reduced Latency
+②
+K0T
+I/O
+PE
+DRAM PIM 1
+①
+Write
+②
+Read
+③
+WQKV
+BLS Decoder
+PE
+NAND PIM 0 
+Page Buffer
+K0 Output
+A0
+A1
+Row Decoder
+DRAM Bank
+S/A
+I/O
+V0 Output
+Q0 Output
+①
+Program
+②
+Read
+Fig. 4.
+Comparison between the baseline and the proposed activation DRAM buffering.
+Softmax
+O linear 
+FFN linear 
+X
+QKT
+Q
+K
+V
+Q linear
+Buffer MEM
+PIM Program
+K linear
+V linear
+SV
+PIM Program
+P
+S
+A
+Z
+O
+Buffer MEM
+Buffer MEM
+Buffer MEM
+Buffer MEM
+Buffer MEM
+Buffer MEM
+Baseline
+PIM @ TLC
+Buffer @ TLC
+Softmax
+O linear 
+X
+QKT
+Q
+K
+V
+Q linear
+Buffer MEM
+PIM Write
+K linear
+V linear
+SV
+PIM Write
+P
+S
+A
+Z
+Buffer MEM
+Buffer MEM
+Buffer MEM
+Buffer MEM
+Buffer MEM
+Proposed
+FFN linear 
+O
+Buffer MEM
+PIM @ (DRAM or pSLC)
+Buffer @ (DRAM or pSLC)
+Fig. 5.
+Activation DRAM buffering using heterogeneous TLC and DRAM
+memory types for various Transformer layers.
+array to be computed with Q0 inside the processing unit. This
+could effectively reduce the latency compared to the NAND
+programming steps.
+As shown in Fig. 5, based on the data access characteristics,
+we map the various computational blocks of Transformer
+layers to the most suitable PIM subsystem. Linear blocks
+involve large matrix-matrix multiplication (MMM) between
+input activations and trained static weights. Therefore, we
+assign them to the TLC NAND-PIM array. No programming
+of weight data is required during inference, and the high
+density of TLC NAND flash is suitable for storing large
+weight matrices. Conversely, attention blocks heavily rely
+on activation-activation multiplications, which suffer from
+the programming bottleneck in NAND flash. To mitigate
+the programming latency, they are offloaded to DRAM-PIM
+instead of NAND-PIM. Between the Transformer blocks, the
+intermediate activation data is stored inside the DRAM buffer
+to be processed in a subsequent block.
+For DRAM-less SSD configuration, the buffering of inter-
+mediate data and attention computation can instead be mapped
+to NAND blocks operating in a faster pseudo-SLC (pSLC)
+mode. However, while pSLC programming is faster than TLC,
+it remains slower than DRAM, thereby creating unavoidable
+latency during attention computations. We performed the ex-
+periments for both pSLC and DRAM cases, which will be
+discussed in the later Section IV.
+C. Distributed Dataflow
+1) Linear Blocks: For Transformer-based models to process
+MVM between activation and weights effectively on NAND
+array, we first placed weights on a single WL layer without
+modifying the footprint of the tensors on the array. For in-
+stance, a single query weight matrix in LLaMa-2 13B requires
+approximately 5120 rows and 15360 columns (described in
+Section III-D), which can be placed in the layer of 3D NAND
+flash array. To maximize throughput using the plane-level
+parallelism of 3D NAND flash, we employ several data par-
+titioning strategies. First, the weight matrix (W) is vertically
+partitioned into W0 and W1 after the transpose operation and
+distributed across multiple planes as illustrated in Fig. 6a. This
+arrangement matches the NAND-PIM architecture, where cur-
+rent accumulation occurs along the BLs. We can also consider
+horizontal partitioning, but it would underutilize resources, as
+blocks without relevant weight data would remain idle, and
+additional operations to sum partial outputs is required. Hence,
+vertical partitioning is optimal when the weight matrix’s row
+dimension fits inside the NAND array’s WL dimension. It
+allows each output row to be computed via MVM inside the
+planes, with simple concatenation of partial output matrices
+(O00, O01, O10, O11). If the size of the weight matrix is larger
+than the row size of the NAND array, horizontal partitioning
+is needed to maximize utilization of the array resource.
+Second, during the prefill stage of inference, the activation
+matrices contain multiple rows corresponding to the input
+tokens. We also have partitioned A horizontally into A0 and
+A1. As shown in Fig. 6a, A0 is multiplied with W0 and W1
+in planes 0 and 1, respectively. A1 is concurrently multiplied
+with W0 and W1 in planes 2 and 3, respectively. This allows
+parallel processing of tokens, effectively reducing the number
+of MVM iterations and latency compared to processing A row-
+by-row. During the decode stage, where A is often a single
+vector, this horizontal partitioning is not applied. However, the
+input vector is broadcast to planes 0 and 1 to generate partial
+outputs O00 and O01, respectively. This multi-plane parallel
+computation significantly accelerates linear block execution
+compared to non-parallel approaches.
+2) Attention Blocks: Attention blocks compute relevance
+scores via multi-head attention [13]. The implementation de-
+pends on the target hardware. In systems with DRAM-PIM,
+as shown in Fig. 6b (left), the multiple banks inside the
+DRAM can be operated in parallel. Different attention heads
+are distributed across separate DRAM banks. Each bank’s
+process unit computes the head-wise attention operation (e.g.,
+
+
+5
+Activation
+Weight_0.T
+BLS Decoder
+PE
+pSLC PIM
+0
+0
+0
+KH1T
+0
+0
+KH2T
+0
+0
+KH3T
+0
+0
+…
+KHiT
+0
+0
+0
+0
+0
+0
+KHi+1T
+...
+KHnT
+0
+0
+0
+0
+VHn-1
+…
+0
+VH3
+0
+VH1
+VHn
+0
+VH4
+0
+VH2
+0
+Bank 0
+DRAM PIM
+QHn
+0
+0
+#0
+#n/i
+PHn
+Page Buffer
+#0
+#n/i
+QH1
+QH2
+QH3
+QHi
+0
+Iter
+Attention Block   @ DRAM or pSLC
+Linear Block   @ TLC
+Output
+A0
+A1
+W0
+W1
+O00
+O10
+O01
+O11
+BLS Decoder
+PE
+Page Buffer
+Plane 0 
+A0   Row 0
+A0   Row 1
+A0   Row m
+…
+0
+0
+0
+…
+A(0,0)
+A(0,1)
+A(0,n)
+…
+Cycle
+7     2 1 0
+…
+Iter
+#0
+#1
+#m
+O00 Row 0
+A(0,0)
+W0
+Weight_1
+W0
+A(0,i)
+…
+O00 Row 1
+O00 Row n 
+BLS Decoder
+PE
+Page Buffer
+A0
+W1
+Plane 1
+O01
+0
+W(1,0)
+W(0,0)
+W(n,0)
+…
+0
+(a)
+(b)
+PH1
+PH2
+PHi
+PH3
+#0
+#1
+#m
+BLS Decoder
+PE
+Page Buffer
+A1
+W0
+Plane 2
+O10
+0
+BLS Decoder
+PE
+Page Buffer
+A1
+W1
+Plane 3
+O11
+0
+…
+…
+…
+…
+…
+Buffer & Global Adder
+BL Block 0
+…
+Bank 0
+Bank 7
+Die 0
+Channel A
+Bank 1
+Buffer & Global Adder
+…
+Bank 7
+BL Block
+0
+BL Block 
+15
+Adder 
+Tree
+…
+Bank 1
+BL Block
+0
+BL Block 
+15
+Adder 
+Tree
+…
+…
+Die 1
+KH1T
+Byte 0
+KH1T
+Byte 1
+MAC
+MAC
+QH1
+Byte 0
+QH1
+Byte 1
+BL Block 15
+KH1T
+Byte 30
+KH1T
+Byte 31
+MAC
+MAC
+QH1
+Byte 30
+QH1
+Byte 31
+Adder Tree
+W(1,i)
+W(0,i)
+W(n,i)
+…
+0
+Fig. 6. Distributed dataflow for (a) linear blocks and (b) attention blocks.
+NAND Flash  (4 Planes)
+DQ
+[7:0]
+Status Register
+Column Decoder
+Row Decoder
+I/O 
+Control
+Command Register
+Address Register
+Control
+Logic
+<<1
++
+Processing Element
+DRAM PIM
+SSD
+Controller
+NAND Flash 
+Controller
+DRAM
+Controller
+PCIe Interface
+Memory
+Bank 
+PU
+NAND Flash
+PIM
+(a)
+(b)
++
++
+<<3
+<<6
+Data Register
+Cache Register
+I/O
+PE
+ADC (Integrator)
+ADC
+BLS Decoder
+BL
+0
+0
+0
+1
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+1
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+1
+0
+1
+0
+0
+0
+5
+-9
+…
+…
+…
+…
+…
+…
+Fig. 7. Top-level architecture of NITRO.
+QKT ) in a vector-by-vector manner, leveraging the bank-level
+parallelism.
+In the case of DRAM-less SSDs, multi-head attention
+operations are mapped to the NAND array operating in a
+faster pSLC mode. Fig. 6b (right) illustrates the mapping
+strategy for computing QKT and SV in pSLC NAND flash
+array. Multi-head key matrices (KHT
+1 , KHT
+2 , ..., KHT
+n )
+are distributed across different BL groups using a diagonal
+placement scheme. Multi-head query matrices (QH1, QH2,
+..., QHn) are input row-by-row via the BLS decoder and
+subsequently multiplied with their relevant key matrices. Only
+a subset of heads (e.g., heads 0 −i) can be processed in a
+single iteration. This is because if the current on a BL is
+accumulated from two or more different heads, the output
+cannot be guaranteed. Meanwhile, score·V (SV ) computation
+requires different mapping challenges compared to the QKT
+computation. Typically, in Transformer-based models, the to-
+ken size is much larger than the vector size of each attention
+head. In the QKT computation, the dot product operations are
+performed in the vector-size-direction, so a single dot product
+chunk is small. As a result, thanks to the small chunk size,
+we can simultaneously deal with a large number of attention
+heads in a NAND-PIM array. On the other hand, in the SV
+computation, the dot products are computed in the token-size-
+direction. Therefore, the number of value heads (V H) that can
+be processed concurrently in a single iteration is limited (e.g.,
+2 heads). This requires more iterations to complete the full
+attention output calculation.
+D. NITRO Architecture
+Fig. 7 illustrates the overall NITRO architecture, capable of
+ISC inside an SSD. Fig. 7a shows the internal architecture,
+similar to a conventional SSD. The architecture includes a
+NAND flash subsystem and a DRAM subsystem managed by
+an SSD controller. In NITRO, the DRAM subsystem manages
+multiple functions from storing logical-to-physical mapping
+tables to buffering intermediate data and also executing com-
+putation tasks like attention block or activation functions using
+dedicated PIM banks. To support these functionalities, we
+adopted a combination of the McDRAM [14], an LPDDR4-
+based PIM developed by a DRAM manufacturer, and an
+LPDDR4 SDRAM [15], which is a DRAM type commonly
+used inside SSD [16].
+The detailed explanation of NAND-
+PIM is shown in Fig. 7b. NAND flash die contains four inde-
+pendent planes, each equipped with standard components such
+as row/column decoders and data/cache registers. NITRO also
+integrates specialized hardware to enable PIM computations.
+This includes a BLS decoder for NAND string activation based
+on input data, ADCs equipped with integrators and capacitors
+for digitizing analog computation outputs, and processing
+elements (PE) for digitally accumulating PIM results. Addi-
+tionally, to support conventional NAND flash read/program
+operations, a bypass path directly connecting the BLs to the
+data register is also included.
+A simple explanation of computation with NITRO archi-
+tecture for 8-bit weights is as follows. Before execution of
+LLM inference, weight matrices quantized to INT8 format
+are programmed into TLC NAND flash cell array. NITRO
+employs a sign-and-magnitude representation for weights. The
+7-bit magnitude of each data value is first padded with two
+leading zeros to form a 9-bit representation. This 9-bit value is
+then split into three parts and stored across multiple physical
+NAND cells in a page-wise direction. Positive weight data are
+programmed into cells on even BLs, while negative weight
+data are stored on corresponding odd BLs. During MVM
+operation, the input activation vector, often represented in
+2’s complement format, is processed bit-serially. The BLS
+decoders activate the NAND string according to the input bit
+and selectively connect NAND strings to BLs. The current
+proportional to the selected cell’s conductance flows through
+the activated NAND string. Analog computation occurs via
+differential sensing using paired BLs. Current from the even
+BL charges an integrator’s load capacitor, while current from
+the odd BL discharges it. This differential voltage is then
+digitized by ADCs. The digitized partial result, corresponding
+to the MSB, CSB, and LSB weights, are then fed into pro-
+cessing elements (PE). The PE performs two key operations.
+First, for each input bit, it reconstructs the full partial product
+by shifting and summing the digitized components. Second,
+it accumulates these partial products across all bits of the
+
+
+6
+0.266
+0.003
+0.270
+0.004
+0.175
+0.003
+0.211
+0.003
+0.305
+0.004
+0.309
+0.003
+0.727
+0.029
+0.729
+0.028
+0.693
+0.032
+0.707
+0.030
+0.742
+0.028
+0.743
+0.027
+0.225
+0.068
+0.224
+0.074
+0.149
+0.061
+0.180
+0.065
+0.261
+0.067
+0.261
+0.083
+0.447
+0.448
+0.450
+0.460
+0.432
+0.451
+0
+0.2
+0.4
+0.6
+0.8
+1
+BL
+BL + AB
+BL + AB + DD
+BL
+BL + AB
+BL + AB + DD
+BL
+BL + AB
+BL + AB + DD
+BL
+BL + AB
+BL + AB + DD
+BL
+BL + AB
+BL + AB + DD
+BL
+BL + AB
+BL + AB + DD
+BL
+BL + AB
+BL + AB + DD
+BL
+BL + AB
+BL + AB + DD
+BL
+BL + AB
+BL + AB + DD
+BL
+BL + AB
+BL + AB + DD
+BL
+BL + AB
+BL + AB + DD
+BL
+BL + AB
+BL + AB + DD
+BL
+BL + AB
+BL + AB + DD
+BL
+BL + AB
+BL + AB + DD
+BL
+BL + AB
+BL + AB + DD
+BL
+BL + AB
+BL + AB + DD
+BL
+BL + AB
+BL + AB + DD
+BL
+BL + AB
+BL + AB + DD
+BL
+BL + DD
+BL
+BL + DD
+BL
+BL + DD
+BL
+BL + DD
+BL
+BL + DD
+BL
+BL + DD
+Llama-2
+7B
+Llama-2
+13B
+OPT
+1.3B
+OPT
+2.7B
+OPT
+6.7B
+OPT
+13B
+Llama-2
+7B
+Llama-2
+13B
+OPT
+1.3B
+OPT
+2.7B
+OPT
+6.7B
+OPT
+13B
+Llama-2
+7B
+Llama-2
+13B
+OPT
+1.3B
+OPT
+2.7B
+OPT
+6.7B
+OPT
+13B
+Llama-2
+7B
+Llama-2
+13B
+OPT
+1.3B
+OPT
+2.7B
+OPT
+6.7B
+OPT
+13B
+DRAM
+pSLC
+DRAM
+pSLC
+( )
+(b)
+Normalized Latency
+Q, K, V Linear
+QKT Attention
+SV Attention
+O Linear
+FC1 Linear
+FC2 Linear
+Communication
+(a)
+(b)
+DRAM
+pSLC
+DRAM
+pSLC
+Fig. 8. Normalized inference latency of (a) linear at TLC, attention at DRAM/pSLC with baseline as 3D-FPIM, (b) linear at TLC, attention at DRAM/pSLC
+with baseline as S-FLASH. BL: Baseline. AB: Activation buffering. DD: Distributed dataflow.
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+3.8
+3.7
+5.7
+4.7
+3.3
+3.2
+1.4
+1.4
+1.4
+1.4
+1.3
+1.3
+291.5
+284.3
+289.5
+295.7
+253.8
+306.7
+35.0
+36.1
+31.6
+33.0
+36.2
+37.4
+0
+70
+140
+210
+280
+350
+Llama-2
+7B
+Llama-2
+13B
+OPT
+1.3B
+OPT
+2.7B
+OPT
+6.7B
+OPT
+13B
+Llama-2
+7B
+Llama-2
+13B
+OPT
+1.3B
+OPT
+2.7B
+OPT
+6.7B
+OPT
+13B
+DRAM
+pSLC
+(a)
+Normalized 
+Throughput
+BL
+BL + IB
+BL + IB + DD
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+4.4
+4.5
+6.7
+5.5
+3.8
+3.8
+2.2
+2.2
+2.2
+2.2
+2.3
+2.2
+14.8
+13.5
+16.3
+15.3
+14.8
+12.1
+0
+4
+8
+12
+16
+20
+Llama-2
+7B
+Llama-2
+13B
+OPT
+1.3B
+OPT
+2.7B
+OPT
+6.7B
+OPT
+13B
+Llama-2
+7B
+Llama-2
+13B
+OPT
+1.3B
+OPT
+2.7B
+OPT
+6.7B
+OPT
+13B
+DRAM
+pSLC
+Normalized 
+Throughput
+(a)
+DRAM
+pSLC
+(b)
+DRAM
+pSLC
+Fig. 9.
+Normalized inference throughput of (a) linear at TLC, attention
+at DRAM/pSLC with baseline as 3D-FPIM, (b) linear at TLC, attention
+at DRAM/pSLC with baseline as S-FLASH. BL: Baseline. AB: Activation
+buffering. DD: Distributed dataflow.
+input vector. To achieve this, the accumulated sum from the
+previous input bit is added to the current bit’s partial product.
+This intermediate sum is then shifted by one bit to align with
+the next input bit’s partial product. The final MVM result,
+potentially up to 16-bits, is wider than a conventional output.
+Therefore, it is split into two 8-bit portions and stored across
+the data and cache registers. This output is then ready for
+transfer via the I/O interface. Overall, the NITRO architecture
+delivers a PIM-compatible ISC SSD solution by integrating
+computational logic into both the DRAM and NAND flash die,
+enabling the acceleration of data-intensive workloads inside
+the storage system.
+IV. EXPERIMENTAL RESULTS
+A. Experimental Setup
+Circuit-level Simulation: To calculate the latency of NI-
+TRO architecture, a NVSIM [17]-based modified simulator
+3D-FPIM [7] was used. The simulator supports emulation of
+the behavior of a 3D NAND flash die and 3D NAND-PIM. The
+timing parameters and hardware configurations for TLC and
+pSLC mode NAND flash were based on 256Gb TLC devices
+[18]. The digital circuit of the processing element for NAND-
+PIM was synthesized using Synopsys Design Compiler in
+28nm node, and then it was scaled to 7nm using [19] to reflect
+recent technology node. Parameters related to DRAM-PIM
+were adopted from existing LPDDR4 DRAM-PIM like Mc-
+DRAM [14] and specifications of Micron’s LPDDR4 SDRAM
+[15]. Using these circuit-level and architectural parameters, we
+developed in-house simulator.
+Baseline: We evaluated the NITRO architecture against
+two representative NAND-PIM baseline approaches that use
+the analog current-sum method: (i) 3D-FPIM [7] and (ii) S-
+FLASH [8]. For the 3D-FPIM baseline, large weight matrices
+of the Transformer models are partitioned into fixed-size 128
+× 128 sub-matrices. Where partition size of 512 × 128 is
+used for S-FLASH baseline, following the specification of
+each prior work. Note that previous works did not considered
+the case of placing weight matrices into NAND flash arrays
+larger than the weight matrices. In both baseline models,
+these sub-matrices are sequentially programmed onto the rows
+(WLs) of a conventional NAND flash array (with a 16KB page
+size), row-by-row until the page is filled. The sequential tiling
+process is conceptually illustrated in the baseline dataflow of
+Fig. 3b. Furthermore, S-FLASH operates under the constraint
+of using low-resolution ADC-like sense amplifiers (SAs). The
+limited resolution restricts the number of NAND strings that
+participate in the MVM operation without exceeding the SA’s
+sensing range or precision. This limitation often leads to
+additional processing iterations, even within a single weight
+tile, as only subset of the MAC operation can be performed
+per ADC cycle. We have analyzed three cases: the baseline
+approach (BL), NITRO with activation buffering in DRAM
+or pSLC (BL+AB), and fully optimized NITRO architecture
+with both activation buffering and distributed dataflow in
+NAND-PIM (BL + AB + DD). For the BL + AB and
+BL+AB +DD cases, we considered both DRAM and pSLC
+for the activation buffering and attention block computation.
+Linear blocks are processed in TLC mode of NAND-PIM
+in both scenarios. Note that the BL + AB configuration is
+omitted for S-FLASH baseline when attention block is mapped
+to pSLC, as S-FLASH operates on the SLC NAND-PIM.
+Workloads: To evaluate the latency and throughput of the
+NITRO architecture, we selected several widely used decoder-
+only Transformer models for benchmarks. Specifically, we
+used LLaMa-2 [20] with two parameter size types (7B and
+13B) and OPT [2] with four parameter size models (1.3B,
+2.7B, 6.7B, and 13B). This selection enables assessment of
+NITRO’s performance under diverse computational demands.
+In particular, it allows analysis of the relationship between
+various weight matrix dimensions and the physical resource
+constraints (e.g., number of rows or columns) of a NAND-PIM
+plane. If the weight matrix dimensions exceed the capacity of
+an individual plane, partitioning to different WLs are required.
+This can potentially increase computational iterations and
+influence overall system performance. All model evaluations
+employed an 8-bit post-training quantization scheme. How-
+ever, the proposed MVM operation can be adapted to other
+weight precisions, such as INT4 or INT16, by appropriately
+modifying the mapping of weights across TLC cells and the
+
+
+7
+0.253
+0.011
+0.254
+0.011
+0.171
+0.012
+0.206
+0.012
+0.294
+0.013
+0.294
+0.010
+0.044
+0.043
+0.049
+0.047
+0.043
+0.042
+0.229
+0.265
+0.228
+0.288
+0.150
+0.243
+0.182
+0.258
+0.264
+0.264
+0.265
+0.323
+0.578
+0.580
+0.556
+0.589
+0.563
+0.600
+0
+0.2
+0.4
+0.6
+0.8
+1
+BL
+BL + AB
+BL + AB + DD
+BL
+BL + AB
+BL + AB + DD
+BL
+BL + AB
+BL + AB + DD
+BL
+BL + AB
+BL + AB + DD
+BL
+BL + AB
+BL + AB + DD
+BL
+BL + AB
+BL + AB + DD
+BL
+BL + AB
+BL + AB + DD
+BL
+BL + AB
+BL + AB + DD
+BL
+BL + AB
+BL + AB + DD
+BL
+BL + AB
+BL + AB + DD
+BL
+BL + AB
+BL + AB + DD
+BL
+BL + AB
+BL + AB + DD
+BL
+BL + AB
+BL + AB + DD
+BL
+BL + AB
+BL + AB + DD
+BL
+BL + AB
+BL + AB + DD
+BL
+BL + AB
+BL + AB + DD
+BL
+BL + AB
+BL + AB + DD
+BL
+BL + AB
+BL + AB + DD
+BL
+BL + DD
+BL
+BL + DD
+BL
+BL + DD
+BL
+BL + DD
+BL
+BL + DD
+BL
+BL + DD
+Llama-2
+7B
+Llama-2
+13B
+OPT
+1.3B
+OPT
+2.7B
+OPT
+6.7B
+OPT
+13B
+Llama-2
+7B
+Llama-2
+13B
+OPT
+1.3B
+OPT
+2.7B
+OPT
+6.7B
+OPT
+13B
+Llama-2
+7B
+Llama-2
+13B
+OPT
+1.3B
+OPT
+2.7B
+OPT
+6.7B
+OPT
+13B
+Llama-2
+7B
+Llama-2
+13B
+OPT
+1.3B
+OPT
+2.7B
+OPT
+6.7B
+OPT
+13B
+DRAM
+pSLC
+DRAM
+pSLC
+( )
+(b)
+Normalized 
+Energy Consumption
+Q, K, V Linear
+QKT Attention
+SV Attention
+O Linear
+FC1 Linear
+FC2 Linear
+Communication
+DRAM
+pSLC
+DRAM
+pSLC
+(a)
+(b)
+1.000
+1.000
+1.000
+1.000
+1.000
+1.000
+Fig. 10. Normalized inference energy consumption of (a) linear at TLC, attention at DRAM/pSLC with baseline as 3D-FPIM, (b) linear at TLC, attention
+at DRAM/pSLC with baseline as S-FLASH. BL: Baseline. AB: Activation buffering. DD: Distributed dataflow.
+number of ADC and PE. Following the 3D-FPIM method [7],
+we also adopted analog current-sum method for MAC oper-
+ations in NITRO’s NAND-PIM. We assume that the inherent
+NAND cell variations are comparable to those characterized in
+previous NAND flash study [11], ensuring our computational
+accuracy remains at levels consistent with previous baselines.
+Therefore, we omitted the accuracy evaluation in this paper.
+B. Performance
+Fig. 8 shows the normalized inference latency of the pro-
+posed NITRO architecture compared against the 3D-FPIM
+(Fig. 8a) and S-FLASH (Fig. 8b) baselines. Using DRAM
+for activation buffering substantially reduces latency, with an
+average speedup of 4.07× against the 3D-FPIM baseline.
+This improvement is due to the elimination of high-latency
+TLC NAND programming operations, which are required
+for buffering intermediate activations in the attention stages
+(QKT , SV ) and dominate baseline latency. As shown in
+Fig. 8a, using pSLC NAND for this purpose is less effective
+than DRAM. While pSLC cell operations are faster, the page-
+wise multi-bit data layout (at least 7 pairs of BLs per byte)
+increases ADC multiplexing latency, canceling out the cell-
+level speed gain. This implies that DRAM is more suitable
+for activation buffering.
+Applying the distributed dataflow
+methodology provides further improvement in latency. When
+combined with attention in DRAM-PIM scenario, the fully
+optimized NITRO architecture achieves final normalized la-
+tencies of approximately 0.003 and 0.069 relative to 3D-FPIM
+baseline and S-FLASH baseline, respectively. The additional
+speedup is achieved from optimizing the linear block execution
+within TLC NAND-PIM through efficient weight mapping
+and exploiting multi-plane parallelism. The improvement with
+distributed dataflow also benefits in the attention at pSLC con-
+figuration, reducing final normalized latencies approximately
+0.29 and 0.448 against 3D-FPIM and S-FLASH, respectively.
+Similar to latency reduction, the proposed NITRO archi-
+tecture shows an improvement in inference throughput. Fig.
+9a and Fig. 9b show the normalized throughput compared
+to 3D-FPIM and S-FLASH, respectively. Enabling activation
+buffering, especially with DRAM, provides an increase in
+throughput by mitigating the read/program bottleneck and
+slow PIM computations in baseline approaches. The fastest
+throughput is attained by full NITRO configuration. NITRO
+shows a high concurrency by effectively parallelizing com-
+putations inside TLC NAND for linear blocks and leveraging
+optimized data distribution across multiple planes. As a result,
+NITRO with attention at DRAM-PIM improves throughput by
+approximately 287x and 14.5x over 3D-FPIM baseline and S-
+FLASH baseline, respectively. This throughput improvement
+highlights NITRO’s effectiveness in exploiting available par-
+allelism inside the NAND-PIM.
+C. Energy Consumption
+We furthermore compared the inference energy consump-
+tion of NITRO with two baselines. As shown in Fig. 10, the
+baseline energy consumption is dominated by the attention
+stages (QKT , SV ). This is due to repeated energy-intensive
+read and program operations across the NAND cell array if the
+intermediate activations need to be programmed back to the
+TLC array. NITRO’s strategy of offloading attention blocks
+to low-power DRAM reduces the energy consumption thanks
+to the faster read/write cycle and lower active power of the
+DRAM. Combined with distributed dataflow for linear block
+computations in TLC array, the overall normalized energy
+consumption is reduced by approximately 98.9% compared
+to the baseline (Fig. 10a). When considering pSLC NAND
+for attention block execution instead of DRAM (Fig. 10a),
+the energy consumption shows a minor increase (less than
+1%) over the TLC-only baseline. While pSLC offers faster
+read/program operations, its page-wise data layout for multi-
+bit values can increase concurrent utilization of ADCs and
+PEs. This can increase peripheral energy, partially degrading
+pSLC gains. However, the distributed dataflow (BL + AB +
+DD) optimizes peripheral utilization and reduces energy even
+in pSLC scenario.
+The characteristics of S-FLASH approach, such as lim-
+ited accumulation groups and separate MSB/LSB weight
+placement, can cause weights to be distributed across more
+WLs. This potentially increases MVM iterations, leading to
+an increase in energy consumption. Despite this, NITRO’s
+comprehensive optimization (BL + AB + DD) still achieves
+an average energy consumption reduction of approximately
+72.6% compared to the S-FLASH baseline (Fig. 10b). In
+summary, NITRO architecture effectively reduces energy con-
+sumption using low-power DRAM for the attention layer and
+optimizing dataflow within NAND-PIM for the linear layer.
+D. Area
+Table I shows the area breakdown of NAND-PIM and
+DRAM-PIM of the NITRO architecture. To accurately digitize
+the potentially wide range of accumulated analog current
+sums resulting from MVM operations, 16-bit SAR-ADCs were
+modeled, based on previous work [22]. To achieve a balance
+between area cost and digitization throughput, one ADC is
+
+
+8
+TABLE I
+AREA BREAKDOWN
+NAND-PIM Plane Configuration
+Component
+Area [mm2]
+Cell Array
+27.32
+ADC
+17.51
+Shift & Accum.
+1.46
+Others
+0.37
+Total
+46.66
+DRAM-PIM Bank Configuration [14]
+Component
+Area [mm2]
+Cell Arraya
+5.22
+MAC Unit
+0.33
+Others
+1.53
+Total
+7.08
+aAssume area of cell array to be 60% of total area [21].
+allocated for every six BLs in TLC mode. The area of Others
+category, including decoders and load capacitors, is calculated
+using the 3D-FPIM simulator [7]. The area of DRAM-PIM
+was estimated based on the McDRAM architecture [14].
+Overall, NITRO requires a large area for high-resolution
+ADCs in the NAND flash peripheral circuit. This tradeoff
+in area enables significant latency reductions by performing
+parallel computations directly inside the memory arrays and
+minimizing heavy data movements.
+V. CONCLUSION
+We introduced NITRO, a high-performance NAND flash-
+based ISC architecture. Conventional NAND-only PIM ap-
+proaches face a performance bottleneck due to the slow laten-
+cies when handling intermediate data. NITRO mitigates this
+by strategically offloading intermediate activation buffering
+and attention block computations to fast DRAM, while con-
+currently executing weight-intensive linear blocks efficiently
+inside the NAND-PIM using a distributed dataflow method-
+ology that maximizes intra-plane and multi-plane parallelism.
+Our evaluation results across various LLMs demonstrate that
+NITRO reduces inference latency by up to 99.7% and ap-
+proximately 93.1% compared to the 3D-FPIM and S-FLASH
+baselines, respectively, while improving inference throughput
+by approximately 287× and 14.5×, respectively.
+APPENDIX A
+MAJOR EXTENSIONS OVER THE CONFERENCE VERSION
+Compared to the conference version accepted for publica-
+tion in DATE 2026, several major updates and extensions have
+been added to the extended submission:
+1) Compared to the conference version, this extended paper
+includes a detailed background on 3D NAND flash
+memory. Specifically, Fig. 1 was added to illustrate the
+die-level and plane-level architectures and the voltage
+distribution of triple-level cells (TLC), and Section II-A
+provides an in-depth explanation of cell organization,
+the bitline/wordline structure, and the multi-bit read
+sequence using reference voltages Vr0–Vr6.
+2) Compared to the conference version, this extended paper
+provides a detailed explanation of the 3D NAND flash-
+based matrix-vector multiplication (MVM) mechanism.
+Specifically, Fig. 2 was added, and Section II-B de-
+scribes how weights are stored in cells, how activations
+are encoded as bit-wise voltage pulses, and how the
+analog current-sum method with paired bitlines and
+ADCs realizes signed MVM operations.
+3) Compared to the conference version, this extended paper
+introduces a dedicated Overview subsection for the
+proposed architecture. Specifically, Fig. 3 was added,
+and Section III-A contrasts the baseline NAND-PIM
+with NITRO at the system level and motivates both the
+activation DRAM buffering and the distributed dataflow
+strategies.
+4) Compared to the conference version, this extended paper
+provides a more detailed explanation of the activation
+DRAM buffering scheme. Specifically, Figs. 4 and 5
+were added, and Section III-B elaborates how interme-
+diate activations such as K matrices are offloaded to
+DRAM-PIM to avoid TLC NAND programming stalls,
+and how Transformer layers are mapped to TLC NAND-
+PIM (linear blocks) and DRAM-PIM (attention blocks).
+The pSLC alternative for DRAM-less SSD configura-
+tions is further elaborated in this extended version.
+5) Compared to the conference version, this extended pa-
+per further expands the distributed dataflow discussion.
+Specifically, Fig. 6 was added, and Section III-C sep-
+arates the description into Linear Blocks and Attention
+Blocks, elaborating weight/activation partitioning, multi-
+plane parallelism, DRAM-bank-level head distribution,
+and pSLC diagonal placement.
+6) Compared to the conference version, this extended paper
+provides a comprehensive description of the NITRO
+hardware architecture. Specifically, Fig. 7 was added,
+and Section III-D details the top-level NITRO SSD
+architecture including the BLS decoder, ADCs with
+integrators, processing elements (PE) for digital accu-
+mulation, and the bypass path for conventional NAND
+read/program operations. The 8-bit weight computation
+flow with sign-and-magnitude representation across mul-
+tiple physical NAND cells is also explained.
+7) Compared to the conference version, this extended paper
+includes additional experimental evaluations. Specifi-
+cally, Fig. 9 (inference throughput) was added to report
+normalized inference throughput in addition to the la-
+tency and energy results. Moreover, S-FLASH [8] was
+newly included as a second baseline alongside 3D-FPIM
+[7], enabling a broader comparison with representa-
+tive NAND flash-based PIM approaches. The LLaMa-
+2 (7B/13B) and OPT (1.3B/2.7B/6.7B/13B) workloads
+used in the conference version were retained and further
+analyzed with the added throughput metric and the
+additional S-FLASH baseline, as discussed in Section
+IV.
+8) Compared to the conference version, this extended paper
+expands the brief area discussion into a dedicated Area
+subsection. Specifically, Table I was added, and Section
+
+
+9
+IV-D provides component-level area breakdowns for
+NAND-PIM and DRAM-PIM, clarifying the cost and
+allocation of 16-bit SAR-ADCs and the DRAM-PIM
+area estimation.
+REFERENCES
+[1] S. Shin, G. Ji, and S. Ryu, “NITRO: 3D NAND flash-based in-
+storage LLM computing with enhanced activation dataflow,” in Design,
+Automation & Test in Europe Conference (DATE), 2026.
+[2] S. Zhang, S. Roller, N. Goyal, M. Artetxe, M. Chen, S. Chen, C. Dewan,
+M. Diab, X. Li, X. V. Lin et al., “Opt: Open pre-trained transformer
+language models,” arXiv preprint arXiv:2205.01068, 2022.
+[3] S. Lee, S.-h. Kang, J. Lee, H. Kim, E. Lee, S. Seo, H. Yoon, S. Lee,
+K. Lim, H. Shin et al., “Hardware architecture and software stack
+for pim based on commercial dram technology: Industrial product,” in
+2021 ACM/IEEE 48th Annual International Symposium on Computer
+Architecture (ISCA).
+IEEE, 2021, pp. 43–56.
+[4] S. Liu, C. Mu, H. Jiang, Y. Wang, J. Zhang, F. Lin, K. Zhou, Q. Liu,
+and C. Chen, “Hardsea: Hybrid analog-reram clustering and digital-sram
+in-memory computing accelerator for dynamic sparse self-attention in
+transformer,” IEEE Transactions on Very Large Scale Integration (VLSI)
+Systems, vol. 32, no. 2, pp. 269–282, 2023.
+[5] Z. Yu, S. Liang, T. Ma, Y. Cai, Z. Nan, D. Huang, X. Song, Y. Hao,
+J. Zhang, T. Zhi et al., “Cambricon-llm: A chiplet-based hybrid archi-
+tecture for on-device inference of 70b llm,” in 2024 57th IEEE/ACM
+International Symposium on Microarchitecture (MICRO).
+IEEE, 2024,
+pp. 1474–1488.
+[6] H.-T. Lue, P.-K. Hsu, M.-L. Wei, T.-H. Yeh, P.-Y. Du, W.-C. Chen, K.-
+C. Wang, and C.-Y. Lu, “Optimal design methods to transform 3d nand
+flash into a high-density, high-bandwidth and low-power nonvolatile
+computing in memory (nvcim) accelerator for deep-learning neural
+networks (dnn),” in 2019 IEEE International Electron Devices Meeting
+(IEDM).
+IEEE, 2019, pp. 38–1.
+[7] H. Lee, M. Kim, D. Min, J. Kim, J. Back, H. Yoo, J.-H. Lee, and
+J. Kim, “3d-fpim: An extreme energy-efficient dnn acceleration system
+using 3d nand flash-based in-situ pim unit,” in 2022 55th IEEE/ACM
+International Symposium on Microarchitecture (MICRO).
+IEEE, 2022,
+pp. 1359–1376.
+[8] M. Kang, H. Kim, H. Shin, J. Sim, K. Kim, and L.-S. Kim, “S-flash:
+A nand flash-based deep neural network accelerator exploiting bit-level
+sparsity,” IEEE Transactions on Computers, vol. 71, no. 6, pp. 1291–
+1304, 2021.
+[9] S. Tehrani, J. Pak, M. Randolph, Y. Sun, S. Haddad, E. Maayan, and
+Y. Betser, “Advancement in charge-trap flash memory technology,” in
+2013 5th IEEE International Memory Workshop. IEEE, 2013, pp. 9–12.
+[10] J. Park, R. Azizi, G. F. Oliveira, M. Sadrosadati, R. Nadig, D. Novo,
+J. G´omez-Luna, M. Kim, and O. Mutlu, “Flash-cosmos: In-flash bulk
+bitwise operations using inherent computation capability of nand flash
+memory,” in 2022 55th IEEE/ACM International Symposium on Mi-
+croarchitecture (MICRO).
+IEEE, 2022, pp. 937–955.
+[11] S.-T. Lee and J.-H. Lee, “Neuromorphic computing using nand flash
+memory architecture with pulse width modulation scheme,” Frontiers in
+Neuroscience, vol. 14, p. 571292, 2020.
+[12] K. Sudan, A. Badam, and D. Nellans, “Nand-flash: Fast storage or slow
+memory?” in Non-Volatile Memory Workshop.
+Citeseer, 2012, pp. 1–2.
+[13] A. Vaswani, N. Shazeer, N. Parmar, J. Uszkoreit, L. Jones, A. N. Gomez,
+Ł. Kaiser, and I. Polosukhin, “Attention is all you need,” Advances in
+neural information processing systems, vol. 30, 2017.
+[14] H. Shin, D. Kim, E. Park, S. Park, Y. Park, and S. Yoo, “Mcdram:
+Low latency and energy-efficient matrix computations in dram,” IEEE
+Transactions on Computer-Aided Design of Integrated Circuits and
+Systems, vol. 37, no. 11, pp. 2613–2622, 2018.
+[15] LPDDR4X/LPDDR4 SDRAM, Micron Corporation, 2022, rev. D 3/2023
+EN. [Online]. Available: https://www.micron.com/
+[16] S. Sutardja, “1.2 the future of ic design innovation,” in 2015 IEEE In-
+ternational Solid-State Circuits Conference-(ISSCC) Digest of Technical
+Papers.
+IEEE, 2015, pp. 1–6.
+[17] X. Dong, C. Xu, Y. Xie, and N. P. Jouppi, “Nvsim: A circuit-level
+performance, energy, and area model for emerging nonvolatile memory,”
+IEEE Transactions on Computer-Aided Design of Integrated Circuits
+and Systems, vol. 31, no. 7, pp. 994–1007, 2012.
+[18] Gen2 256Gb TLC 3D NAND Flash, YMTC Corporation, 2019, client
+Rev. 0.2. [Online]. Available: https://www.ymtc.com
+[19] A. Stillmaker and B. Baas, “Scaling equations for the accurate prediction
+of cmos device performance from 180 nm to 7 nm,” Integration, vol. 58,
+pp. 74–81, 2017.
+[20] H. Touvron, L. Martin, K. Stone, P. Albert, A. Almahairi, Y. Babaei,
+N. Bashlykov, S. Batra, P. Bhargava, S. Bhosale et al., “Llama
+2: Open foundation and fine-tuned chat models,” arXiv preprint
+arXiv:2307.09288, 2023.
+[21] N. Chatterjee, M. O’Connor, D. Lee, D. R. Johnson, S. W. Keckler,
+M. Rhu, and W. J. Dally, “Architecting an energy-efficient dram system
+for gpus,” in 2017 IEEE International Symposium on High Performance
+Computer Architecture (HPCA).
+IEEE, 2017, pp. 73–84.
+[22] Y.-H. Chung, C.-H. Tien, and Q.-F. Zeng, “A 16-bit calibration-free
+sar adc with binary-window and capacitor-swapping dac switching
+schemes,” IEEE Transactions on Circuits and Systems I: Regular Papers,
+vol. 69, no. 1, pp. 88–99, 2021.

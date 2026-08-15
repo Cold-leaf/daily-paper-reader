@@ -1,0 +1,69 @@
+{
+  "label": "2026-08-15",
+  "date": "2026-08-15",
+  "generated_at": "2026-08-15T20:31:34",
+  "count": 4,
+  "papers": [
+    {
+      "paper_id": "202608/15/2608.09508v1-200-mm-wafer-scale-monolithic-3d-integration-of-atomic-layer-deposited-oxide-semiconductors",
+      "section": "deep",
+      "title_en": "200 mm Wafer-Scale Monolithic 3D Integration of Atomic Layer-Deposited Oxide Semiconductors",
+      "authors": "Chang Niu, Linjia Long, Luqi Zheng, Shuting Du, Jian-Yu Lin, Kisoo Nam, Zehao Lin, Chang Liu, Juanjuan Lu, Haiyan Wang, Haitong Li, Peide D. Ye",
+      "date": "2026-08-10",
+      "pdf": "https://arxiv.org/pdf/2608.09508v1",
+      "score": "9.0",
+      "evidence": "氧化物半导体晶圆级单片三维集成，并构建四层3D存内计算加速器",
+      "tldr": "随着硅基CMOS缩放面临极限，单片三维集成成为延续密度提升的关键路径。本文在200毫米晶圆上实现了基于原子层沉积氧化铟的三层M3D集成，制造超十万个器件，包含铁电、增强型和耗尽型晶体管，阈值电压波动低至0.04V，电子迁移率高达91.6 cm2/Vs，并验证了跨层电路功能。进一步开发四层存算一体加速器，针对大语言模型负载较2D方案带来1.4至2.9倍加速和相当的能效提升，证明该平台可扩展且与CMOS兼容，为下一代AI硬件奠定基础。",
+      "tags": "query:cim",
+      "abstract_en": "Monolithic 3D (M3D) integration offers a pathway to overcome the scaling limits of conventional silicon complementary metal-oxide-semiconductor (CMOS) technology by extending dense vertical stacking of multifunctional logic and memory devices. Here, we demonstrate wafer-scale M3D integration of three tiers of atomic-layer-deposited (ALD) indium oxide (InOx)-based devices (>100,000 fabricated), including ferroelectric, enhancement-mode, and depletion-mode field-effect transistors, on 200 mm silicon wafers. We achieve threshold voltage standard deviation as low as 0.04 V, average electron mobility up to 91.6 cm2V-1s-1, and fully functional cross-tier circuits. A four-tier 3D computing-in-memory (CIM) accelerator targeting large language model workloads is developed using a custom InOx process design kit, delivering 1.4x to 2.9x speedup and comparable energy-delay product improvements over 2D baselines. These results establish ALD InOx M3D integration as a scalable and CMOS-compatible platform for next-generation artificial intelligence hardware and advanced electronics.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/15/2608.11920v1-nitro-high-performance-3d-nand-flash-based-in-storage-computing-with-enhanced-activation-dataflow",
+      "section": "deep",
+      "title_en": "NITRO: High-Performance 3D NAND Flash-Based In-Storage Computing with Enhanced Activation Dataflow",
+      "authors": "Sanghun Shin, Sangyeon Kim, Gisan Ji, Sungju Ryu",
+      "date": "2026-08-12",
+      "pdf": "https://arxiv.org/pdf/2608.11920v1",
+      "score": "8.0",
+      "evidence": "面向大语言模型的3D NAND闪存存内计算架构",
+      "tldr": "大型语言模型资源需求激增，存储密度不足，而现有NAND闪存PIM方案未做中间值数据流优化，激活值直接经慢速TLC闪存处理导致高延迟。本文提出NITRO架构，利用快速DRAM缓冲中间激活，并引入分布式数据流与平面内映射，最大化计算并行性。实验表明推理延迟较基线降低85%，为NAND-PIM系统提供了高效数据流优化方案。",
+      "tags": "query:cim",
+      "abstract_en": "In-storage computing (ISC) is considered a next-generation memory architecture for its ability to relieve the data bottleneck between the host and the memory. While the required resources of large language models (LLMs) have increased significantly in recent years, the memory density has not scaled accordingly. Recently, several works have studied NAND flash-based processing-in-memory (NAND-PIM) schemes to exploit the high density of the memory. However, they do not address the dataflow/buffer for the intermediate values, so a simple method is to deal with the values in the slow flash memory array. To overcome such a limitation, we propose a high-performance NAND flash-based ISC architecture with enhanced activation buffering. Instead of using the very slow flash memory array for the intermediate values, our architecture buffers the values in a fast DRAM subsystem. This approach effectively handles the high-latency penalties when activations are programmed into slower TLC NAND flash. We also introduce a distributed dataflow approach for the NAND-PIM array. This approach maximizes computational parallelism by employing efficient intra-plane data mapping. The results show that our proposed architecture achieves significant performance improvements, reducing the inference latency by up to 85% compared to the baseline.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/15/2608.08496v1-revolt-power-delivery-network-aware-voltage-droop-control-for-25d-pim-chiplet-architectures",
+      "section": "quick",
+      "title_en": "ReVolt: Power Delivery Network-Aware Voltage Droop Control for 2.5D PIM Chiplet Architectures",
+      "authors": "Vibhanshu Sharma, Alish Kanani, Miao Sun, Janardhan Rao Doppa, Umit Y. Ogras, Partha Pratim Pande",
+      "date": "2026-08-09",
+      "pdf": "https://arxiv.org/pdf/2608.08496v1",
+      "score": "7.0",
+      "evidence": "面向2.5D PIM小芯片架构的LSTM供电网络代理与电压降控制，属于存算一体/近存计算设计相关研究。",
+      "tldr": "PIM 2.5D多芯粒架构中，电流需求时空变化引发电压降，损害性能与ML精度。提出ReVolt框架，利用LSTM代理实时预测各芯粒供电轨迹，以操作单元规模为控制旋钮动态调节电流需求，主动抑制电压违规。相比基线EDP平均降低76倍且不损精度，显著提升能效与可靠性。",
+      "tags": "query:cim",
+      "abstract_en": "Processing-in-memory (PIM)-based 2.5D multi-chiplet platforms are enablers for machine learning (ML) workloads. However, their performance is affected by the power delivery network (PDN), where varying chiplet-level current demand induces spatially and temporally varying voltage droop. These droop events lead to voltage violations, degrades system performance, and impact inference accuracy for ML workloads. In this work, we propose ReVolt, a dynamic operation unit (OU)-based framework for mitigating voltage droop in PIM-based multi-chiplet systems. ReVolt leverages an LSTM-based PDN surrogate to predict per-chiplet supply voltage trajectories at runtime, enabling proactive adjustment of OU size to mitigate droop events. By treating OU size as a control knob, ReVolt regulates chiplet-level current demand while maintaining computational accuracy. This approach prevents voltage droop violations and improves energy-delay product (EDP) while preserving ML model inference accuracy. Experimental results demonstrate that ReVolt prevents voltage droop violations while achieving an average 76x reduction in EDP compared to existing fixed and dynamic OU-based baselines, without compromising inference accuracy of ML models.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/15/2608.12937v1-transparent-boundary-conditions-for-the-heat-equation-on-metric-graphs",
+      "section": "quick",
+      "title_en": "Transparent Boundary Conditions for the Heat Equation on Metric Graphs",
+      "authors": "Jasur Matrasulov, Jambul Yusupov, Matthias Ehrhardt",
+      "date": "2026-08-13",
+      "pdf": "https://arxiv.org/pdf/2608.12937v1",
+      "score": "6.0",
+      "evidence": "度量图热方程的透明边界条件；为分支网络中的热流提供了有限差分模拟框架，可迁移至集成电路互连结构的热模拟。",
+      "tldr": "分支准一维网络（如度量星图）上的热传导在顶点处常因条件不透明产生热回流。本文将透明边界条件（TBCs）与度量图上的PDE理论结合，在连接点导出精确顶点条件，即扩散系数求和规则，从数学上消除跨分支的热反射。采用Crank-Nicolson有限差分法进行数值验证，模拟显示温度场光滑演化，无阻碍传播。该工作为低维结构中热扩散的可控调节提供了新的数学框架，对热管理优化有实用价值。",
+      "tags": "query:thermal-gnn",
+      "abstract_en": "We study transparent boundary conditions (TBCs) for the time-dependent heat equation in a branching, quasi-one-dimensional domain modeled as a metric star graph. By combining the classical concept of TBCs with the theory of partial differential equations (PDEs) on networks, we derive an exact vertex condition that ensures unobstructed thermal flow across junctions. Specifically,we derive a sum rule for the diffusion coefficients that eliminates thermal backflow at the vertex.We demonstrate the validity of this analytical model numerically using a Crank-Nicolson finite-difference method, which confirms smooth, unobstructed heat propagation through the network.These results provide a practical mathematical framework for tunable control and optimization of thermal diffusion in low-dimensional structures. In particular, combining the well-known concept of the TBCs and theory for PDE on metric graphs, we propose a mathematical model providing a control tool for thermal diffusion in networks.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

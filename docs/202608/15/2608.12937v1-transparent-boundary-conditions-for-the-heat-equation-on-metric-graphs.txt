@@ -1,0 +1,1061 @@
+Transparent Boundary Conditions for the Heat Equation on Metric Graphs
+Jasur Matrasulov,1 Jambul Yusupov,2 and Matthias Ehrhardt3
+1Department of Electronics and Radio Engineering,
+Tashkent University of Information Technologies,
+Amir Temur Str. 108, Tashkent 100084, Uzbekistan
+2Kimyo International University in Tashkent, Shota Rustaveli Str. 156, Tashkent 100121, Uzbekistan
+3Applied and Computational Mathematics, University of Wuppertal, Gaußstrasse 20, 42119 Wuppertal, Germany
+(Dated:)
+We study transparent boundary conditions (TBCs) for the time-dependent heat equation in a
+branching, quasi-one-dimensional domain modeled as a metric star graph. By combining the classical
+concept of TBCs with the theory of partial diﬀerential equations (PDEs) on networks, we derive
+an exact vertex condition that ensures unobstructed thermal ﬂow across junctions.
+Speciﬁcally,
+we derive a sum rule for the diﬀusion coeﬃcients that eliminates thermal backﬂow at the vertex.
+We demonstrate the validity of this analytical model numerically using a Crank-Nicolson ﬁnite-
+diﬀerence method, which conﬁrms smooth, unobstructed heat propagation through the network.
+These results provide a practical mathematical framework for tunable control and optimization of
+thermal diﬀusion in low-dimensional structures. In particular, combining the well-known concept
+of the TBCs and theory for PDE on metric graphs, we propose a mathematical model providing a
+control tool for thermal diﬀusion in networks.
+I.
+INTRODUCTION
+Tunable heat transport in low-dimensional structures
+is of great importance for many areas of modern physics
+and emerging technologies. Applications spanning nano-
+technology, advanced electronics, thermoelectric energy
+harvesting, and microﬂuidics require precise control over
+thermal dissipation, containment, and propagation. In
+nanoelectronics, for instance, the rapid scaling of elec-
+tronic components has intensiﬁed the challenge of mana-
+ging highly localized thermal hotspots.
+In nanostruc-
+tured carbon materials, such as graphene-based transis-
+tors, carbon nanotubes, and complex device intercon-
+nects, eﬃcient heat removal is essential for maintaining
+device integrity, ensuring operational stability, and pre-
+venting severe thermal degradation.
+As structural di-
+mensions shrink below the phonon mean free path, tra-
+ditional Fourier law descriptions break down, necessitat-
+ing sophisticated mathematical and physical frameworks
+to model non-Fourier ballistic-diﬀusive transport along
+these low-dimensional pathways.
+The optimization of thermoelectric energy conversion
+platforms relies on tailoring thermal behaviors at the
+nanoscale.
+The eﬃciency of thermoelectric generation
+is governed by the dimensionless ﬁgure of merit, which
+requires a delicate decoupling of electronic and thermal
+transport pathways [1–5]. To maximize this eﬃciency,
+one must suppress lattice thermal conductivity via struc-
+tured material interfaces, localized boundary scattering,
+and potential barriers without simultaneously hindering
+electrical conductivity. Low-dimensional branched archi-
+tectures, quantum wire networks, and superlattices of-
+fer highly tunable environments where phone engineering
+can minimize unwanted heat propagation [6].
+Beyond solid-state devices, local temperature control
+plays a foundational role in microﬂuidics and lab-on-a-
+chip platforms. In these systems, precise thermal mana-
+gement within microscopic networks and channels is in-
+dispensable for stabilizing rapid chemical reactions, en-
+abling highly accurate nucleic acid ampliﬁcation, and
+driving thermophoresis, the directed motion of particles
+induced by thermal gradients. Eﬀective heat removal and
+routing are critical for managing the thermal output gen-
+erated by active micro-pumping elements and integrated
+micro-sensors embedded in localized polymer networks.
+A key engineering challenge across these diverse ﬁelds
+is to minimize thermal energy losses during directional
+heat transfer and to completely eliminate unwanted back-
+ﬂow or reﬂections at structural interfaces, junctions, and
+material boundaries.
+Over the past few decades, par-
+tial diﬀerential equations (PDEs) deﬁned on quasi-one-
+dimensional branched domains, commonly referred to as
+metric graphs or networks, have emerged as a powerful
+mathematical tool for modeling wave propagation and
+diﬀusion processes [7–20]. While wave dynamics, quan-
+tum waveguides (such as the Schr¨odinger equation), and
+relativistic particle transport on metric graphs have been
+extensively analyzed over recent decades [21, 22], model-
+ing and controlling thermal diﬀusion on these intercon-
+nected network topologies remains a highly active and
+challenging frontier.
+When solving the heat equation numerically on un-
+bounded, semi-inﬁnite, or exceedingly large domains,
+a major computational bottleneck is limiting the spa-
+tial domain without introducing non-physical, artiﬁcial
+boundary reﬂections. For standard 1D domains, trans-
+parent boundary conditions (TBCs) eﬀectively resolve
+this issue by allowing thermal proﬁles to exit the com-
+putational window seamlessly as if diﬀusing into an in-
+ﬁnite environment [23].
+However, extending this well-
+established TBC framework to complex, interconnected
+networks presents unique mathematical challenges, par-
+ticularly regarding how the thermal ﬂux splits at a graph
+vertex.
+arXiv:2608.12937v1  [math-ph]  13 Aug 2026
+
+
+2
+In this paper, we address this issue by combining the
+TBC approach with PDE analysis on metric graphs. To
+do so, we formulate a mathematical model that describes
+the behavior of thermal diﬀusion across a junction. Im-
+portantly, we derive an explicit analytical constraint on
+the network’s material properties, speciﬁcally expressed
+as an exact sum rule for the diﬀusion coeﬃcients, to en-
+sure completely unobstructed heat transmission from an
+incoming channel to outgoing branches.
+This work is organized as follows: Section II brieﬂy
+reviews the classical formulation of TBCs for the time-
+dependent heat equation on a real line using the Laplace
+transform. Section III extends this approach to a star
+graph topology and derives the continuity and Kirchhoﬀ-
+type vertex conditions necessary for transparent trans-
+mission. Section IV details the numerical implementa-
+tion of our model using a Crank-Nicolson (CN) ﬁnite-
+diﬀerence method (FDM) and visualizes the resulting re-
+ﬂectionless heat propagation. Finally, Section V oﬀers a
+brief summary and concluding remarks.
+II.
+TBC FOR THE HEAT EQUATION ON A
+LINE
+The one-dimensional heat equation governs the tem-
+poral evolution of a temperature proﬁle u(x, t). When
+simulating this process on a truncated or bounded spa-
+tial domain, an ideal TBC ensures that the temperature
+proﬁle does not “notice” the artiﬁcial boundary. In other
+words, the solution restricted to the computational do-
+main must be identical to the solution obtained if the
+domain extended across the entire real line R.
+To illustrate the classical derivation [24–26], consider
+the heat equation on the real line:
+∂u
+∂t = κ2 ∂2u
+∂x2 ,
+−∞< x < ∞, t > 0,
+(1)
+where κ2 denotes the thermal diﬀusivity constant. For a
+Gaussian initial temperature proﬁle of the form
+u(x, 0) = u0 exp
+
+−(x −x0)2
+2σ2
+
+,
+(2)
+where u0 is the initial peak temperature, x0 speciﬁes the
+center of the proﬁle, and σ characterizes its width, the
+solution to Eq. (1) can be written as
+u(x, t) =
+1
+p
+2π (σ2 + 2κ2t)
+exp
+
+−
+(x −x0)2
+2 (σ2 + 2κ2t)
+
+.
+(3)
+where C1 and C2 are constants determined by the phys-
+ical boundary conditions.
+The problem of construct-
+ing exact, approximate, and local transparent or ar-
+tiﬁcial boundary conditions for the heat equation and
+related parabolic problems on unbounded domains has
+been widely studied [27–33]. Following the classical ap-
+proach established in [24–26], we outline the derivation
+of a TBC at an artiﬁcial boundary located at x = 0 for
+a semi-inﬁnite (’interior’) computational domain x < 0.
+Our objective is to derive a relation between the Diri-
+chlet data u(0, t) and the Neumann data (thermal ﬂux)
+∂u
+∂x
+
+x=0. Assuming a quiescent initial state u(x, 0) = 0,
+for x > 0, we apply the Laplace transform with respect
+to time
+ˆu(x, s) = Lu(x, t) =
+Z ∞
+0
+u(x, t) e−st dt,
+which transforms the PDE (1) into a second-order ordi-
+nary diﬀerential equation (ODE) in the spatial variable
+deﬁned on the exterior domain x > 0:
+d2ˆu
+dx2 −s
+κ2 ˆu = 0,
+x > 0.
+(4)
+Choosing the physical (bounded) solution as x →∞
+yields:
+ˆu(x, s) = ˆu(0, s) e−
+√s
+κ x.
+(5)
+Diﬀerentiating (5) with respect to x and evaluating the
+result at x = 0 provides the explicit ﬂux relationship:
+dˆu
+dx(0, s) = −
+√s
+κ ˆu(0, s).
+(6)
+Applying the inverse Laplace transform to (6), where
+the multiplier √s maps to a Riemann-Liouville fractional
+derivative of order 1/2 in the time domain, we obtain the
+TBC for a thermal proﬁle on the exterior domain x ≥0:
+∂u
+∂x
+
+x=0
+= −
+1
+κ√π
+Z t
+0
+1
+√
+t −λ
+∂u(0, λ)
+∂λ
+dλ.
+(7)
+We note that conversely, if we consider a thermal proﬁle
+diﬀusing inside or outside the domain x ≤0, the sign of
+the spatial derivative is reversed due to the outward unit
+normal vector pointing in the positive x-direction:
+∂u
+∂x
+
+x=0
+= +
+1
+κ√π
+Z t
+0
+1
+√
+t −λ
+∂u(0, λ)
+∂λ
+dλ.
+(8)
+This non-local in time, mildly singular, convolution-type
+boundary operator (7) serves as the foundational building
+block for analyzing network junctions, which we extend
+to a star graph topology in the next section.
+III.
+EXTENSION TO A STAR GRAPH
+The design of TBCs for evolution equations on met-
+ric graphs implies their imposing at the graph vertices
+(nodes), as so-called ’branching conditions’. The latter
+allows to consider graphs or networks with “transparent”
+vertices, or “transparent graphs”. From the viewpoint
+of (signal, energy, heat, etc.)
+transport, such a trans-
+parency implies minimization of the losses during the
+
+
+3
+transfer. Within such an approach, for the heat equa-
+tion on graphs, the TBC concept can be an eﬀective tool
+for controlling of thermal diﬀusion in networks. Below
+we demonstrate this approach for simplest graph topo-
+logy, star graph, although extensions of this approach for
+other (arbitrary) topology is straight forward.
+Consider a simple metric star graph consisting of three
+semi-inﬁnite bonds bj, j = 1, 2, 3, where b1 ∼(−∞, 0],
+and b2,3 ∼[0, +∞).
+On each individual bond bj, the
+temporal evolution of the temperature proﬁle uj(x, t) is
+governed by the localized heat equation:
+∂uj
+∂t = κ2
+j
+∂2uj
+∂x2 ,
+x ∈bj, t > 0,
+(9)
+where κ2
+j represents the thermal diﬀusivity of bond bj.
+At the central junction (x = 0), the sub-problems are
+coupled using the standard continuity condition
+u1(0, t) = u2(0, t) = u3(0, t),
+(10)
+together with the Kirchhoﬀ-type ﬂux balance rule
+κ2
+1
+∂u1
+∂x
+
+x=0 = κ2
+2
+∂u2
+∂x
+
+x=0 + κ2
+3
+∂u3
+∂x
+
+x=0.
+(11)
+To analyze the diﬀusion process across the junction,
+we decouple the network into an “interior” problem on
+the incoming branch b1 and “exterior” problems on the
+outgoing branches b2,3.
+The interior problem on b1 ∼
+(−∞, 0] is formulated as
+∂u1
+∂t = κ2
+1
+∂2u1
+∂x2 ,
+x < 0,
+(12)
+subject to a non-zero initial thermal distribution
+u1(x, 0) = f I
+1 (x),
+x < 0,
+(13)
+and a Dirichlet-to-Neumann (DtN) operator T acting at
+the vertex x = 0:
+(T u1)(0, t) = ∂u1
+∂x (0, t).
+(14)
+Correspondingly, the “exterior” problems on the out-
+going semi-inﬁnite bonds b2,3 ∼[0, +∞) take the form
+∂u2,3
+∂t
+= κ2
+2,3
+∂2u2,3
+∂x2 ,
+x > 0,
+(15)
+under a quiescent initial condition for both bonds
+u2,3(x, 0) = 0,
+x > 0,
+(16)
+with the corresponding vertex boundary values at x = 0:
+u2,3(0, t) = g2,3(t),
+∂u2,3
+∂x (0, t) = (T u2,3)(0, t). (17)
+To solve the exterior problem analytically, we apply
+the Laplace transform
+˜u2,3(x, s) =
+Z ∞
+0
+u2,3(x, t) e−st dt,
+(18)
+which yields the second-order ODEs on the bonds b2, b3:
+s ˜u2,3(x, s) −κ2
+2,3
+∂2˜u2,3
+∂x2 (x, s) = 0.
+(19)
+The general solution to (19) can be written as a linear
+combination of exponentials (the fundamental solutions):
+˜u2,3(x, s) = A2,3e
+r
+s
+κ2
+2,3
+x
++ B2,3e
+−
+r
+s
+κ2
+2,3
+x
+.
+(20)
+Imposing the physical restriction that the exterior so-
+lutions must remain bounded, i.e. ˜u2,3 ∈L2(0, +∞), re-
+quires the coeﬃcients of the growing exponentials to van-
+ish (A2,3 = 0). This reduces the solution on the outgoing
+branches to:
+˜u2,3(x, s) = B2,3 e
+−
+r
+s
+κ2
+2,3
+x
+.
+(21)
+Evaluating (21) at the interface x = 0 using (17) matches
+the integration constants to the boundary data
+B2,3 = ˜u2,3(0, s) = ˜g2,3(s).
+(22)
+From Eqs. (21) and (22) we obtain
+˜u2,3(x, s) = ˜g2,3(s) e
+−
+r
+s
+κ2
+2,3
+x
+,
+(23)
+and diﬀerentiating (23) with respect to x provides the
+formal ﬂux relations in the Laplace domain
+∂˜u2,3(x, s)
+∂x
+= −
+r s
+κ2
+2,3
+˜g2,3(s) e
+−
+r
+s
+κ2
+2,3
+x
+= −
+r s
+κ2
+2,3
+˜u2,3(x, s).
+(24)
+Applying the continuity condition (10) at x = 0, we link
+the exterior solutions to the incoming branch state
+˜u2,3(0, s) = ˜u1(0, s).
+(25)
+Evaluating the spatial derivatives at x = 0 via Eqs. (24)
+and (25) yields
+∂˜u2,3
+∂x (0, s) = −
+r s
+κ2
+2,3
+˜u2,3(0, s) = −
+r s
+κ2
+2,3
+˜u1(0, s).
+(26)
+Next, substituting these exterior derivatives into the
+Kirchhoﬀrule (11) and (26), we ﬁnd the coupled ﬂux
+relation for the interior domain
+∂˜u1
+∂x (0, s) = κ2
+2
+κ2
+1
+∂˜u2
+∂x (0, s) + κ2
+3
+κ2
+1
+∂˜u3
+∂x (0, s)
+= κ2 + κ3
+κ2
+1
+√s ˜u1(0, s).
+(27)
+Applying the inverse Laplace transform to (27), we reveal
+the TBC for the branching interface vertex
+∂u1
+∂x (0, t) = κ2 + κ3
+κ2
+1
+√π
+Z t
+0
+1
+√t −τ
+∂u1
+∂τ (0, τ) dτ.
+(28)
+
+
+4
+FIG. 1: Evolution of the temperature proﬁle on the star
+graph in the reﬂectionless regime corresponding to the
+sum rule κ1 = κ2 + κ3 = 0.169, with κ2 = 0.089, and
+κ3 = 0.08. The left, middle, and right columns show the
+temperature distributions on bonds 1, 2, and 3.
+By comparing (28) to the classical continuous TBC (8),
+a structural alignment emerges. If the network’s para-
+meters satisfy the algebraic constraint
+κ1 = κ2 + κ3,
+(29)
+the boundary expression simpliﬁes completely to match
+the unbounded continuum,
+ensuring perfect,
+unob-
+structed transmission across the network vertex.
+IV.
+NUMERICAL RESULTS
+Here, we present the details and results of numeri-
+cally solving the heat equation on a metric star graph.
+Unlike the standard treatment of unbounded domains,
+our approach does not require discretizing a nonlocal
+convolution-type TBC at an external boundary. Instead,
+we truncate the computational domains of the outgo-
+ing branches far enough from the vertex.
+The exact
+transparent transmission behavior across the junction is
+captured by enforcing the continuity and Kirchhoﬀ-type
+rules given by (10) and (11) directly at the vertex node.
+For each individual bond, bj, the localized heat equation
+(9) for uj is discretized using the unconditionally stable
+FIG. 2: Evolution of the temperature proﬁle on the star
+graph when the sum rule (29) is broken, i.e. when
+κ1̸ = κ2 + κ3, with κ1 = 0.35, κ2 = 0.089, and
+κ3 = 0.08. The left, middle, and right columns show the
+temperature distributions on bonds 1, 2, and 3.
+Crank-Nicolson (CN) FDM
+un+1
+j,i
+−un
+j,i
+∆t
+=
+κ2
+j
+2(∆x)2
+
+(un+1
+j,i+1 −2un+1
+j,i
++ un+1
+j,i−1)
+(30)
++ (un
+j,i+1 −2un
+j,i + un
+j,i−1)
+
+,
+with the pointwise approximation un
+j,i ≈uj(xi, tn), tn =
+n∆t, xi = (i−J)∆x for bond 1 and xi = i∆x for bonds 2
+and 3, where i = 0, 1, . . ., J. By introducing the localized
+parabolic mesh ratio
+λj = κ2
+j
+∆t
+(∆x)2 ,
+(31)
+the CN scheme (30) can be rewritten as a tridiagonal
+system for the interior spatial nodes of each bond:
+−λj
+2 un+1
+j,i−1 + (1 + λj) un+1
+j,i
+−λj
+2 un+1
+j,i+1
+= λj
+2 un
+j,i−1 + (1 −λj) un
+j,i + λj
+2 un
+i+1.
+(32)
+At the central junction, the Crank-Nicolson schemes
+on the three bonds are coupled through the continuity
+and Kirchhoﬀconditions. Since the vertex corresponds
+to xJ = 0 on bond 1 and x1 = 0 on bonds 2 and 3, the
+spatial derivatives in the Kirchhoﬀcondition are approx-
+
+
+5
+-10
+-5
+0
+x1
+0
+0.5
+u1(x, t)
+t = 0
+Numerical
+Analytical
+-10
+-5
+0
+x1
+0
+0.5
+u1(x, t)
+t = 15
+-10
+-5
+0
+x1
+0
+0.5
+u1(x, t)
+t = 30
+-10
+-5
+0
+x1
+0
+0.5
+u1(x, t)
+t = 60
+FIG. 3: Comparison of the numerical and analytical
+temperature proﬁles on bond 1, x1 ∈[−L, 0], at t = 0,
+15, 30, and 60, when the sum rule κ1 = κ2 + κ3 = 0, 169
+is satisﬁed, with κ2 = 0.089, and κ3 = 0.08. The solid
+black curves represent the numerical CN solution, and
+the dashed red curves show the analytical Gaussian
+solution on the real line.
+imated by one-sided ﬁnite diﬀerences as
+κ2
+1
+un+1
+1,J −un+1
+1,J−1
+∆x
+−κ2
+2
+un+1
+2,2 −un+1
+2,1
+∆x
+−κ2
+3
+un+1
+3,2 −un+1
+3,1
+∆x
+= 0.
+(33)
+The continuity condition is imposed as
+un+1
+1,J = un+1
+2,1 = un+1
+3,1 .
+(34)
+These conditions replace the ﬁnite-diﬀerence equations
+at the vertex nodes, coupling the three bondwise Crank-
+Nicolson systems into a single sparse linear system at
+each time step. The resulting system is solved using an
+LU factorization of the coeﬃcient matrix.
+To validate the analytical reﬂectionless condition, we
+selected a spatial step size of ∆x = 0.05 and a time step
+of ∆t = 0.005. The diﬀusion parameters are taken as
+κ1 = 0.169, κ2 = 0.089, and κ3 = 0.08, so that the sum
+rule κ1 = κ2 + κ3 is satisﬁed. The initial temperature
+proﬁle is chosen as a Gaussian pulse entirely localized on
+the incoming bond b1, while the outgoing bonds b2 and
+b3 are initially at a quiescent state:
+u1(x, 0) = e−(x+2)2/0.2,
+u2(x, 0) = 0,
+u3(x, 0) = 0.
+The temporal evolution of the temperature proﬁle is
+illustrated in Figure 1, under the regime where the alge-
+braic sum rule (29) is strictly satisﬁed. As observed in
+the numerical snapshots, the incoming thermal distribu-
+tion is split and transmitted through the vertex without
+-10
+-5
+0
+x1
+0
+0.5
+u1(x, t)
+t = 0
+Numerical
+Analytical
+-10
+-5
+0
+x1
+0
+0.5
+u1(x, t)
+t = 15
+-10
+-5
+0
+x1
+0
+0.5
+u1(x, t)
+t = 30
+-10
+-5
+0
+x1
+0
+0.5
+u1(x, t)
+t = 60
+FIG. 4: Comparison of the numerical and analytical
+temperature proﬁles on bond 1, x1 ∈[−L, 0], at t = 0,
+15, 30, and 60, when the sum rule κ1 = κ2 + κ3 is
+violated κ3 = 0.35 κ2 = 0.089, and κ3 = 0.08. The solid
+black curves denote the numerical CN solution, and the
+dashed red curves correspond to the analytical Gaussian
+solution on the real line with κ1 = 0.35.
+0.1
+0.169
+0.2
+0.25
+0.3
+κ1
+0
+0.05
+0.1
+0.15
+0.2
+0.25
+0.3
+R(κ1)
+FIG. 5: The backﬂow rate, R from Eq. (35), as a
+function of κ1 for ﬁxed values of κ2 = 0.089, κ3 = 0.08.
+any visible backﬂow or numerical artifacts at the junc-
+tion.
+This excellent agreement between the analytical
+prediction and the numerical results conﬁrms that sat-
+isfying the sum rule (29) eﬀectively establishes an exact
+transparent junction for thermal networks.
+Figure 2 presents plots of the temperature proﬁle when
+the sum rule in (29) is violated for heat conductance val-
+ues κ1 = 0.35, while κ2 = 0.089 and κ3 = 0.08. Un-
+like the plots in Figure 1, where the temperature proﬁle
+spreads without obstruction, the plot in Figure 2 exhibits
+a slight slowing of the spreading process, indicative of a
+certain backﬂow.
+
+
+6
+0
+100
+200
+300
+400
+500
+Time
+-4
+-3
+-2
+-1
+0
+1
+2
+3
+4
+qj(t)
+×10−3
+q1
+q2
+q3
+qtot
+FIG. 6: Time evolution of the heat ﬂux at the vertex of
+the star graph in the reﬂectionless regime corresponding
+to the sum rule (29), κ1 = κ2 + κ3 = 0.169 with
+κ2 = 0.089, and κ3 = 0.08. The blue, red, and yellow
+curves represent the heat ﬂuxes on bonds 1, 2, and 3,
+respectively, while the dashed black curve denotes the
+total heat ﬂux.
+Figures 3 and 4 compare the numerically computed
+temperature proﬁles on the ﬁrst bond with the corre-
+sponding analytical solution on the whole real line, for
+the cases in which the sum rule is satisﬁed and violated,
+respectively.
+When κ1 = κ2 + κ3, the vertex condi-
+tions are expected to be transparent to the incoming heat
+pulse. Consequently, the solution on the ﬁrst bond should
+coincide with the free-space analytical solution. The ex-
+cellent agreement observed throughout the evolution con-
+ﬁrms this transparency of the vertex. In contrast, when
+the sum rule is violated, the numerical and analytical
+proﬁles agree initially, but a noticeable deviation devel-
+ops as the heat pulse approaches and passes through the
+vertex. The numerical proﬁle exhibits a slight slowing
+of the spreading, indicating the presence of backﬂow in-
+duced by the junction. This deviation demonstrates that,
+in the absence of the sum rule, the vertex is no longer
+transparent and aﬀects the heat propagation along the
+ﬁrst bond.
+To further verify this observation, Figure 5 shows the
+backﬂow rate, deﬁned by
+R(κ1) =
+Q1
+Q1 + Q2 + Q3
+,
+(35)
+where
+Qj(t) =
+Z t
+0
+qj(0, τ) dτ,
+and the partial heat ﬂuxes qj(xj, t) are given by
+qj(xj, t) = −κ2
+j
+∂uj(xj, t)
+∂xj
+.
+(36)
+The quantity R(κ1) is plotted as a function of κ1, while
+κ2 and κ3 are held constant. As can be seen in the ﬁg-
+ure, R(κ1) reaches its minimum at the value of κ1 for
+0
+100
+200
+300
+400
+500
+Time
+-4
+-3
+-2
+-1
+0
+1
+2
+3
+4
+qj(t)
+×10−3
+q1
+q2
+q3
+qtot
+FIG. 7: Time evolution of the heat ﬂux at the vertex of
+the star graph when the sum rule (29) is broken,
+κ1̸ = κ2 + κ3, with κ3 = 0.35 κ2 = 0.089, and κ3 = 0.08.
+The blue, red, and yellow curves represent the heat
+ﬂuxes on bonds 1, 2, and 3, respectively, whereas the
+dashed black curve shows the sum of the heat ﬂuxes
+over all three bonds.
+which the sum rule in Eq. (29) is satisﬁed.
+Further-
+more, the minimum value is very close to zero, approx-
+imately 10−3, indicating that the backﬂow is eﬀectively
+suppressed when the sum rule is satisﬁed.
+Additionally, Figure 6 presents the time evolution of
+the heat ﬂuxes at the graph vertex along each bond when
+the sum rule is satisﬁed. The incoming ﬂux along bond 1
+is balanced by the outgoing ﬂuxes along bonds 2 and 3.
+As expected, the total ﬂux at the vertex remains approx-
+imately zero throughout the evolution.
+However, this
+balance does not result from the sum rule. Rather, it fol-
+lows directly from the Kirchhoﬀﬂux-conservation bound-
+ary condition imposed at the vertex, and therefore holds
+irrespective of whether the sum rule is satisﬁed.
+When the sum rule is violated, the corresponding ver-
+tex heat ﬂuxes are shown in Figure 7.
+Again, the to-
+tal ﬂux remains approximately zero, as required by the
+imposed Kirchhoﬀcondition. Nevertheless, the individ-
+ual ﬂuxes are redistributed diﬀerently among the three
+bonds, reﬂecting the loss of transparency at the vertex.
+Thus, violating the sum rule does not imply a violation of
+heat-ﬂux conservation. Instead, it alters the transmission
+properties of the vertex and leads to the non-transparent
+behavior observed in Figures 2 and 4.
+V.
+SUMMARY AND DISCUSSION
+In this work, we presented a new mathematical model
+for tunable thermal diﬀusion, ensuring lack of thermal
+backﬂow across a branching junction within a network
+structure. We successfully simulated the behavior of a
+time-dependent heat equation on a three-bond star graph
+topology by combining the principles of TBCs with PDEs
+deﬁned on metric graphs.
+Our core analytical ﬁnding
+
+
+7
+is the derivation of an explicit algebraic constraint on
+the network’s physical properties, expressed as a sim-
+ple sum rule for diﬀusion coeﬃcients: κ1 = κ2 + κ3.
+When this parameter relation is satisﬁed, the non-local
+convolution-type boundary operator at the junction sim-
+pliﬁes to perfectly match an unbounded domain. This
+eliminates thermal backﬂow and ensures that the heat
+ﬂux splits seamlessly from the incoming channel into the
+outgoing branches, generating no artiﬁcial reﬂections at
+the network nodes.
+To validate our analytical model, we implemented an
+unconditionally stable Crank-Nicolson FDM to solve the
+heat equation on a network. Instead of requiring a com-
+plex, explicit discretization of a non-local TBC opera-
+tor at an external boundary, our approach elegantly re-
+stricts discretization to local heat equations on the bonds.
+This approach enforces exact transparent transmission
+via standard continuity and Kirchhoﬀ-type ﬂux balance
+rules at the vertex.
+Numerical results conﬁrmed the
+smooth propagation of an initially localized thermal pulse
+through the junction and the absence of thermal back-
+ﬂow.
+These ﬁndings have several signiﬁcant implications and
+open up avenues for future research. In the ﬁelds of nan-
+otechnology and microﬂuidics, minimizing thermal en-
+ergy losses and preventing unwanted back diﬀusion at
+structural interfaces is essential for optimizing and de-
+signing highly eﬃcient thermoelectric devices and nano-
+structured carbon materials [2, 4]. From a control sys-
+tems perspective, the derived sum rule oﬀers a simple de-
+sign constraint for material engineering, allowing for pre-
+dictable, optimized thermal routing in low-dimensional
+structures. Additionally, although this methodology was
+demonstrated on a basic star graph, it can be applied
+to more complex network architectures, such as closed
+loops, tree-like structures, and multi-junction polymer
+or circuit models [2, 4]. This extension builds on existing
+TBC frameworks for advanced metric graph topologies
+[15] and bridges an important gap in modeling diﬀusion.
+ACKNOWLEDGEMENTS
+JM thanks the German Academic Exchange Service
+(DAAD) for providing a scholarship under the pro-
+gramme “Research Grants in Germany, 2026” (Pro-
+gramme ID No. 57812126), which supported his short-
+term research stay at the University of Wuppertal. This
+work is partially supported by a grant from the Innova-
+tion Development Agency of the Republic of Uzbekistan
+(Ref. No. F-2021-440).
+[1] A.A. Balandin, Thermal properties of graphene and
+nanostructured
+carbon
+materials.
+Nature
+Materials,
+10(8), 569–581 (2011).
+[2] D.G. Cahill, W.K. Ford, K.E. Goodson, et al., Nanoscale
+thermal transport. Journal of Applied Physics, 93(2),
+793–818 (2003).
+[3] F. Chouly and P. Klein, Wave-heat coupling in one-
+dimensional unbounded domains:
+Artiﬁcial boundary
+conditions and an optimized Schwarz method. Numer-
+ical Algorithms, 90, 631–668 (2022).
+[4] A. Dhar, Heat transport in low-dimensional systems. Ad-
+vances in Physics, 57(5), 457–537 (2008).
+[5] S. Lepri (ed.), Thermal Transport in Low Dimensions:
+From Statistical Physics to Nanoscale Heat Transfer. Lec-
+ture Notes in Physics, Vol. 921, Springer International
+Publishing, Switzerland (2016).
+[6] J. Matrasulov, J.R. Yusupov, and A.A. Saidov, Fast for-
+ward evolution in heat equation: Tunable heat transport
+in adiabatic regime. Nanosystems: Physics, Chemistry,
+Mathematics, 14(4), 421–427 (2023).
+[7] T. Kottos and U. Smilansky, Periodic orbit theory and
+spectral statistics for quantum graphs. Annals of Physics,
+274, 76–124 (1999).
+[8] O. Hul,
+S. Bauch,
+P. Pako´nski,
+N. Savytskyy, K.
+˙Zyczkowski, and L. Sirko, Experimental simulation of
+quantum graphs by microwave networks. Physical Review
+E, 69, 056205 (2004).
+[9] P. Kuchment, Quantum graphs: I. Some basic structures.
+Waves in Random Media, 14, S107–S128 (2004).
+[10] S. Gnutzmann and U. Smilansky, Quantum graphs: Ap-
+plications to quantum chaos and universal spectral statis-
+tics. Advances in Physics, 55, 527–625 (2006).
+[11] P.
+Exner
+and
+H.
+Kovaˇr´ık,
+Quantum
+Waveguides.
+Springer, Cham (2015).
+[12] P. Exner, P. ˇSeba, and P. ˇSˇtov´ıˇcek, Quantum interference
+on graphs controlled by an external electric ﬁeld. Journal
+of Physics A: Mathematical and General, 21, 4009–4019
+(1988).
+[13] V. Kostrykin and R. Schrader, Kirchhoﬀ’s rule for quan-
+tum wires. Journal of Physics A: Mathematical and Gen-
+eral, 32, 595–630 (1999).
+[14] D. Noja, D.E. Pelinovsky, and G. Shaikhova, Bifurca-
+tions and stability of standing waves in the nonlinear
+Schr¨odinger equation on the tadpole graph. Nonlinear-
+ity, 28, 2343–2378 (2015).
+[15] R. Adami, C. Cacciapuoti, D. Finco, and D. Noja, Stable
+standing waves for a NLS on star graphs as local mini-
+mizers of the constrained energy. Journal of Diﬀerential
+Equations, 260, 7397–7415 (2016).
+[16] A. Kairzhan and D.E. Pelinovsky, Spectral stability of
+shifted states on star graphs. Journal of Physics A: Math-
+ematical and Theoretical, 51, 095203 (2018).
+[17] D. Babajanov, H. Matyoqubov, and D. Matrasulov,
+Charged solitons in branched conducting polymers. The
+Journal of Chemical Physics, 149, 164908 (2018).
+[18] J.R. Yusupov, Kh.Sh. Matyokubov, K.K. Sabirov, and
+D.U. Matrasulov, Exciton dynamics in branched con-
+ducting polymers:
+Quantum graphs based approach.
+Chemical Physics, 537, 110861 (2020).
+[19] D. Matrasulov, K. Sabirov, D. Babajanov, and H. Su-
+santo, Branched Josephson junctions: Current carrying
+solitons in external magnetic ﬁelds. EPL, 130, 67002
+
+
+8
+(2020).
+[20] K.K. Sabirov, M.E. Akramov, R.Sh. Otajonov, and D.U.
+Matrasulov, Soliton generation in optical ﬁber networks.
+Chaos, Solitons & Fractals, 133, 109636 (2020).
+[21] J.R. Yusupov, K.K. Sabirov, Q.U. Asadov, M. Ehrhardt,
+and D.U. Matrasulov, Dirac particles in transparent
+quantum graphs: Tunable transport of relativistic quasi-
+particles in branched structures. Physical Review E, 101,
+062208 (2020).
+[22] J.R. Yusupov, K.K. Sabirov, M. Ehrhardt, and D.U. Ma-
+trasulov, Transparent quantum graphs. Physics Letters
+A, 383, 2382–2388 (2019).
+[23] X. Antoine, A. Arnold, C. Besse, M. Ehrhardt, and
+A. Sch¨adle,
+A review of transparent and artiﬁcial
+boundary conditions techniques for linear and nonlin-
+ear Schr¨odinger equations. Communications in Compu-
+tational Physics, 4(4), 729–796 (2008).
+[24] M. Ehrhardt, Discrete Artiﬁcial Boundary Conditions.
+Ph.D. Dissertation, Technische Universit¨at Berlin, Berlin
+(2001).
+[25] M. Ehrhardt, Discrete transparent boundary conditions
+for parabolic equations. Proceedings of the GAMM
+96 Conference, ZAMM, 77, Supplement 2, S543–S544
+(1997).
+[26] H. Han and Z. Huang, A class of artiﬁcial boundary
+conditions for the heat equation in unbounded domains.
+Computers & Mathematics with Applications, 43, 889–
+900 (2002).
+[27] H. Han and Z. Huang, Exact and approximating bound-
+ary conditions for the parabolic problems on unbounded
+domains. Computers & Mathematics with Applications,
+44, 655–666 (2002).
+[28] X. Wu and Z.-Z. Sun, Convergence of diﬀerence scheme
+for heat equation in unbounded domains using artiﬁcial
+boundary conditions. Applied Numerical Mathematics,
+50, 261–277 (2004).
+[29] C. Zheng, Approximation, stability and fast evalua-
+tion of exact artiﬁcial boundary condition for the one-
+dimensional heat equation. Journal of Computational
+Mathematics, 25(6), 730–745 (2007).
+[30] A. Ditkowski and A. Suhov, Near-ﬁeld inﬁnity-simulating
+boundary conditions for the heat equation. Proceedings
+of the National Academy of Sciences, 105, 10646–10648
+(2008).
+[31] X. Wu and J. Zhang, High-order local absorbing bound-
+ary conditions for heat equation in unbounded domains.
+Journal of Computational Mathematics, 29(1), 74–90
+(2011).
+[32] A.Y. Suhov and A. Ditkowski, Artiﬁcial boundary condi-
+tions for the simulation of the heat equation in an inﬁnite
+domain. SIAM Journal on Scientiﬁc Computing, 33(4),
+1765–1784 (2011).
+[33] A. Zisowsky and M. Ehrhardt, Discrete transparent
+boundary conditions for parabolic systems. Mathematical
+and Computer Modelling, 43(3–4), 294–309 (2006).

@@ -1,0 +1,807 @@
+1 
+ 
+200 mm Wafer-Scale Monolithic 3D Integration of Atomic 
+Layer-Deposited Oxide Semiconductors  
+ 
+Chang Niu1,2,†, Linjia Long1,2,†, Luqi Zheng1,2, Shuting Du1,2, Jian-Yu Lin1,2, Kisoo 
+Nam1,2, Zehao Lin1,2, Chang Liu3, Juanjuan Lu3, Haiyan Wang3, Haitong Li1,2 and Peide 
+D. Ye1,2,* 
+ 
+ 
+1Elmore Family School of Electrical and Computer Engineering, Purdue University, 
+West Lafayette, IN 47907, United States. 
+2Birck Nanotechnology Center, Purdue University, West Lafayette, IN 47907, United 
+States. 
+3School of Materials Science and Engineering, Purdue University, West Lafayette, 
+Indiana 47907, United States. 
+ 
+ 
+†These authors contributed equally to this work: Chang Niu, Linjia Long 
+*Correspondence and requests for materials should be addressed to P. D. Y. 
+(yep@purdue.edu) 
+ 
+ 
+
+
+2 
+ 
+Abstract 
+Monolithic 3D (M3D) integration offers a pathway to overcome the scaling 
+limits of conventional silicon complementary metal-oxide-semiconductor (CMOS) 
+technology by extending dense vertical stacking of multifunctional logic and memory 
+devices. Here, we demonstrate wafer-scale M3D integration of three tiers of atomic-
+layer-deposited (ALD) indium oxide (InOx)-based devices (>100,000 fabricated), 
+including ferroelectric, enhancement-mode, and depletion-mode field-effect 
+transistors, on 200 mm silicon wafers. We achieve threshold voltage standard 
+deviation as low as 0.04 V, average electron mobility up to 91.6 cm2V-1s-1, and fully 
+functional cross-tier circuits. A four-tier 3D computing-in-memory (CIM) accelerator 
+targeting large language model workloads is developed using a custom InOx process 
+design kit, delivering 1.4× to 2.9× speedup and comparable energy-delay product 
+improvements over 2D baselines. These results establish ALD InOx M3D integration 
+as a scalable and CMOS-compatible platform for next-generation artificial 
+intelligence hardware and advanced electronics. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+3 
+ 
+Heterogeneous integration of novel materials and devices is crucial for sustaining 
+transistor scaling in the modern semiconductor industry and for advancing the CMOS+X 
+paradigm with expanded functionalities.1–5 This integration can mostly be achieved 
+through wafer bonding or other transfer techniques; however, these methods are often 
+limited by the feature size, cost, and success rate. An alternative approach is monolithic 
+3D (M3D) integration6–10, which requires back-end-of-line (BEOL)-compatible 
+processes.11–15 To preserve the functionality of underlying layers, the thermal budget must 
+remain below 400 °C.16–19 This poses a challenge, as the direct growth or monolithic 
+integration of many novel materials—such as III-V compounds or Ge—typically requires 
+high-temperature epitaxial processes. Atomic layer deposited (ALD) amorphous oxide 
+semiconductors20–24 offer a promising solution for M3D integration. Nanometer-thin InOx 
+layers can be uniformly and conformally deposited on various substrates and complex 
+structures using a low-temperature process (~225 °C), making them fully BEOL-
+compatible. The ALD InOx-based thin-film transistors (TFTs) shows excellent 
+performance, including ultra-high on-current25, high bias stability26, low off-current27, and 
+ultra-low contact resistance28,29. 
+In addition to their potential for logic applications, integrating ferroelectric materials 
+with InOx enables ferroelectric field-effect transistors (Fe-FETs) to exhibit promising 
+characteristics such as a wide memory window (MW), strong retention, and high 
+endurance.30 With the rising demand for computational power, emerging paradigms such 
+as computing-in-memory and neuromorphic computing require compact integration of 
+multiple functional transistors. M3D integration of vertically stacked, multi-tier 
+architectures combining nonvolatile memory technologies like Fe-FETs with logic devices 
+offers a highly promising route toward energy-efficient, high-performance computing 
+systems. Furthermore, scaling up to 200 mm or 300 mm silicon wafers represents a critical 
+milestone in evaluating this ALD oxide semiconductor technique as a viable option for 
+
+
+4 
+ 
+future manufacturing, alongside other novel channel materials.16,31–33 For large-scale 
+production, it is essential to evaluate device performance, yield, and uniformity. Statistical 
+analysis of wafer-scale transistors is crucial for assessing both material and process quality, 
+bringing ALD oxide semiconductors one step closer to real-world applications. 
+In this work, we fabricated and systematically characterized 200 mm wafer-scale, 
+monolithically integrated, multi-tier ALD InOx-based Fe-FETs and FETs, achieving high 
+uniformity, yield, and device performance. Statistical analysis was conducted across a 
+three-tier stack comprising Fe-FETs, enhancement-mode (E-mode) transistors, and 
+depletion-mode (D-mode) transistors. Furthermore, by interconnecting multifunctional 
+devices across different tiers, we demonstrate multi-level ferroelectric nonvolatile memory 
+(MLFe-NVMs), inverters, and embedded dynamic random-access memory (eDRAMs). 
+This oxide semiconductor-based M3D platform is further validated through a computing-
+in-memory (CIM) accelerator tailored for large language models (LLMs), demonstrating 
+substantial gains in performance and energy efficiency. These results highlight ALD InOx 
+as a scalable and versatile foundation for next-generation 3D integrated semiconductor 
+systems. 
+Atomic layer deposited oxide semiconductors on 200 mm wafers 
+The schematic structure of M3D integrated multi-tier devices based on ALD InOx is 
+shown in Figure 1. By leveraging the vertical (out-of-plane) dimension, this architecture 
+enables further semiconductor scaling and heterogeneous integration of diverse 
+functionalities. A 200 mm Si wafer incorporating three vertically stacked tiers of ALD 
+InOx devices was fabricated, comprising over 100,000 devices across 52 dies. The BEOL-
+compatible fabrication process, detailed in Method, was used to sequentially integrate Tier 
+1 Fe-FETs, Tier 2 E-mode FETs, and Tier 3 D-mode FETs. Ferroelectric HfZrO2 (HZO) 
+was employed as gate dielectric for Fe-FETs at Tier 1. High-angle annular dark-field 
+scanning transmission electron microscopy (HAADF-STEM) image and energy dispersive 
+
+
+5 
+ 
+x-ray spectroscopy (EDS) elemental mappings at the gate metal region (Fig. 1d), clearly 
+shows the vertically stacked device layers, including three InOx channels, ferroelectric 
+HZO, Al2O3 isolation, and HfO2 dielectric and capping layers. A line-scan along the out-
+of-plane direction (Fig. S1) confirms the nanometer-scale uniformity of the individual 
+layers and the presence of sharp, well-defined interfaces.  
+The transfer and output characteristics of short-channel (Lch = 100 nm) and long-
+channel (Lch = 1 μm) ALD InOx FETs are shown in Fig. 2. The devices exhibit excellent 
+transistor behavior, including negligible hysteresis, an on/off current ratio exceeding 10 
+orders of magnitude, a low subthreshold swing (SS = 70 mV/dec), and good saturation in 
+long-channel devices. Short-channel devices demonstrate high drive current, reaching 
+1000 μA/μm at Lch = 100 nm. The channel length scaling behavior (Figs. 2c and 2d) 
+indicates consistent on-conductance and minor Vth roll-off, with small device variation. To 
+comprehensively evaluate device performance and uniformity across wafers, five 200 mm 
+InOx test wafers were fabricated, each incorporating variations in film thickness and gate 
+dielectric configurations (as shown in Fig. S2). A statistical analysis of over 700 devices 
+per condition at Lch = 5 μm across 200 mm wafers is presented in Fig. 2e, highlighting 
+threshold voltage dependence on InOx film thickness due to surface electron accumulation. 
+Thicker films exhibit higher Vth variability (standard deviation σVth = 0.18 V for Tch = 3.5 
+nm), while thinner films improve uniformity (σVth = 0.04 V for Tch = 1.8 nm), attributed to 
+reduced thickness fluctuation across the wafer (Fig. S3). Thermal treatment provides an 
+effective tuning knob: oxygen annealing is shown to enhance device performance and shift 
+Vth (Fig. 2f). Extracted parameters (Vth, SS, and mobility) across different InOx thicknesses 
+and annealing conditions are summarized in Fig. 2g. Devices annealed at 300 °C 
+demonstrate improved performance, achieving an average field-effect mobility of 91.6 
+cm2V-1s-1. The 200 mm wafer-scale ALD InOx FETs exhibit excellent uniformity, as 
+evidenced by the consistent output characteristics of 137 devices shown in Fig. S4, 
+
+
+6 
+ 
+demonstrating their suitability for large-scale fabrication in semiconductor technology. 
+Building upon these optimizations, wafer-scale ALD InOx FE-FETs were fabricated by 
+incorporating ferroelectric HZO directly with InOx. The high thermal stability and 
+appropriate interfacial strain provided by InOx facilitate ferroelectric crystallization in 
+HZO, 
+enabling 
+interfacial-layer-free 
+Fe-FETs. 
+Polarization-voltage 
+(P-V) 
+characterizations of the Fe-FET gate stacks, together with a remanent polarization (Pr) map 
+extracted from metal-ferroelectric-semiconductor-metal (Pt-HZO-InOx-Ni) capacitors 
+across 52 dies, confirm uniform ferroelectric performance across the 200 mm wafer (Figs. 
+2h and 2i). 
+With excellent device performance and low variability, along with the ability to tune 
+threshold voltage and enhance device stability through annealing, film thickness control, 
+and surface capping, we are now positioned to implement vertical multi-tier integration of 
+ALD InOx-based M3D devices on 200 mm wafers. As shown in Fig. 3, The M3D 
+integration begins with Fe-FETs in Tier 1. The transfer characterization of over 300 Fe-
+FETs measured on the 200 mm multi-tier wafer under forward and reverse sweeps, reveals 
+a large MW and consistent performance. The devices exhibit a clear distinction between 
+memory states ‘0’ and ‘1’, with no overlap in their distributions. Histograms of the 
+threshold voltages for forward sweeps (average Vth = 0.76 V), reverse sweeps (average Vth 
+= -1.42 V), and the memory window (average MW = 2.18 V, standard deviation σ = 0.24 
+V), demonstrate tight distributions. The color mapping of the MW extracted from 52 dies 
+across the 200 mm wafer, confirms excellent wafer-scale uniformity. The second-tier ALD 
+InOx E-mode FETs were fabricated directly on top of the Tier 1 Fe-FETs using BEOL-
+compatible processes, separated by a 17 nm isolation dielectric layer. The transfer 
+characteristics of over 300 devices measured at different drain voltages (Vds = 0.05 V and 
+1 V) presented in both linear and logarithmic scales, are shown in Fig. 3d. The histograms 
+in Fig. 3e reveal a tight threshold voltage distribution with minimal variation (average Vth 
+
+
+7 
+ 
+= 0.09 V, standard deviation σ = 0.11 V), high electron mobility (average μ = 63.5 cm2V-
+1s-1), and low subthreshold swing (average SS = 0.124 V/dec). A Vth map across the 200 
+mm wafer confirms the excellent yield and uniform electrical characteristics of the Tier 2 
+E-mode FETs. The third-tier ALD InOx D-mode FETs were fabricated using a similar 
+BEOL-compatible process, with a thicker InOx layer to shift the threshold voltage. 
+Electrical characterization and the corresponding statistical distributions of the Tier 3 D-
+mode FETs across the 200 mm wafer are presented in Figs. 3g-3i. The increased film 
+thickness resulted in enhanced performance, including a higher electron mobility of 82.0 
+cm2V-1s-1. Compared to Tier 2 devices, the D-mode FETs also exhibited reduced variation, 
+with an average Vth = -1.18 V and a standard deviation σ = 0.07 V. The devices fabricated 
+on the top tiers exhibit no performance degradation compared to those on the lower tiers, 
+indicating a robust and reliable integration process. Notably, the vertical stacking of multi-
+tier devices is not limited to three tiers; additional layers can be integrated through repeated 
+processing steps. The thermal stability of the InOx BEOL material platform is further 
+supported by the non-degraded electrical performance of Fe-FETs, E-mode FETs, D-mode 
+FETs, and integrated circuits during capping and post-fabrication annealing, including 
+preserved/improved transfer characteristics, SS, Vt, µ, and bias stability as shown in Figs. 
+S5-S10. In this work, we successfully demonstrated three-tier M3D integration on 200 mm 
+wafers, confirming that lower-tier devices remain fully functional after the fabrication of 
+upper tiers. This validates the scalability of the approach and its potential for further 
+vertical expansion. 
+Benchmarking against recent BEOL-compatible channel platforms34-54 (Table S1 
+and Fig. S11) shows that our InOx technology occupies a particularly favorable device-
+level operating regime. In addition to high mobility, the platform combines wafer-scale 
+process compatibility, low-temperature integration, and suitability for continued multi-tier 
+stacking, distinguishing it from alternative oxide and 2D material approaches. These results 
+
+
+8 
+ 
+indicate that InOx provides not only competitive transistor performance, but also a more 
+practical foundation for dense monolithic 3D integration. 
+Cross tier integrated circuits and memory  
+Compared to traditional planar circuit architectures, M3D vertically stacked multi-
+tier logic and memory structures offer significant advantages in area efficiency and design 
+flexibility, enabling integration of multiple functionalities within a compact footprint.5 In 
+our work, distinct device types are vertically integrated across three tiers: Fe-FETs in Tier 
+1, E-mode FETs in Tier 2, and D-mode FETs in Tier 3, as illustrated in Fig. 4. This multi-
+tier configuration enables the realization of multifunctional logic and memory architecture. 
+Specifically, E-mode FETs in Tier 2 are used as access transistors for the Tier 1 Fe-FETs 
+to construct multi-level ferroelectric non-volatile memories (MLFe-NVMs). As shown in 
+Fig. S12, multi-level operation is achieved by storing different voltages at the storage node 
+(VSN), facilitated by the ultra-low leakage current of the wide bandgap oxide 
+semiconductors and the stable non-volatile polarization states of the Fe-FETs. This enables 
+the introduction of an additional dimension of data storage. Distinct readout current levels 
+(Irbl) corresponding to different storage voltages, modulated by the applied write voltage at 
+different ferroelectric polarization states (down and up), are demonstrated in Figs. 4b and 
+4c. These distinct current levels allow for expanded multi-level memory operation without 
+overlapping between logic states. We attribute the retention fluctuation mainly to non-ideal 
+parasitic capacitance and layout-dependent coupling in the current proof-of-concept 
+routing scheme, rather than to an intrinsic limitation of the cross-tier structure. By 
+combining n levels of voltage storage at the node and m polarization-induced states in Fe-
+FET, the MLFe-NVM architecture supports up to n × m storage levels. This 
+multidimensional storage approach supports high-density, low-power memory with 
+integrated functionality in advanced 3D electronic systems. 
+
+
+9 
+ 
+Furthermore, cross-tier inverters are demonstrated by integrating Tier 2 E-mode 
+FETs with Tier 3 D-mode FETs. Voltage transfer characteristics and voltage gain of the 
+zero-Vgs-load cross-tier inverters are shown in Figs. 4d-4g. These inverters exhibit full rail-
+to-rail swing (from VDD to 0) and a high voltage gain of 23 V/V at VDD = 3 V. The butterfly 
+curve reveals a large noise margin of 65%, confirming robust inverter operation. The 
+voltage transfer characteristics of 52 cross-tier inverters measured across 200 mm wafers, 
+demonstrate excellent electrical uniformity. The distributions of voltage gain and switching 
+threshold (midpoint voltage) show low variation, with a standard deviation σ = 0.15 V, as 
+detailed in Fig. S13. Using the same Tier 2 and Tier 3 devices, cross-tier two-transistors 
+zero-capacitor (2T0C) eDRAM cells are implemented, in which the storage node (SN) is 
+formed by connecting the Tier 3 gate and the Tier 2 drain. The key enablers for high-
+performance 2T0C eDRAMs are the ultra-low off-state current of the access transistor and 
+high bias stability under both positive and negative bias stress (PBS and NBS). The PBS 
+results of the ALD InOx multi-tier FETs exhibit measurement-limited off-currents and 
+negligible Vth shift under stress (VS = 3 V, equivalent to 5.0 MV/cm for 1000s), even under 
+challenging high-field conditions for high-k dielectrics. The extracted Vth shifts for PBS 
+and NBS are only 10.8 mV and -60.3 mV, respectively, as plotted in Figs. 4h and 4i, 
+demonstrating exceptional bias stability. Read currents corresponding to the ‘0’ and ‘1’ 
+memory states at a read voltage of 1 V are shown for the 2T0C eDRAM in Figs. 4j and 4k. 
+A large memory window with on/off current ratio exceeding 8 orders of magnitude is 
+achieved, highlighting the excellent performance of the cross-tier eDRAM. Furthermore, 
+52 cross-tier eDRAM cells measured across the 200 mm wafer exhibit consistent 
+performance and high uniformity. Together, these results demonstrate fully functional 
+cross-tier logic (inverters) and memory (MLFe-NVMs and 2T0C eDRAMs) integrated on 
+200 mm wafers, making a significant milestone toward practical monolithic 3D integration 
+based on ALD-grown InOx semiconductors. 
+
+
+10 
+ 
+Indium oxide multi tier computing in memory accelerator 
+To explore the potential applications and advantages of our 3D multifunctional logic 
+and memory platform, we present a case study featuring a real 3D digital computing-in-
+memory (CIM) accelerator designed for LLM applications. This design utilizes a custom-
+developed oxide semiconductor process design kit (PDK) with NMOS-only logic gates 
+based on our platform (Fig. S14). The 3D multi-tier architecture, illustrated in Fig. 5, 
+consists of four vertically stacked tiers integrating analog/mixed-signal circuitry, logic, and 
+both non-volatile and volatile memory, all interconnected via inter-layer vias (ILVs) to 
+realize a true 3D logic-on-memory architecture. The 3D-IC design flow is depicted in Fig. 
+5b. The entire design is initially partitioned into multiple tiers according to system-level 
+specifications, with each tier represented by a register-transfer level (RTL) digital-top 
+description. The partitioned design is synthesized and hierarchically mapped onto logic 
+gates constructed from our InOx E-mode and D-mode FETs, generating netlists for each 
+tier. Subsequently, a tier-wise physical design methodology is adopted. Each tier’s physical 
+design takes as input both its own netlist and an abstract plus ILV location file from the 
+preceding tier. A standard 2D physical design flow—including floor planning, analog 
+macro placement, standard cell placement, clock tree synthesis, routing, and post-route 
+optimization—is performed for each tier. An example of digital shift & adder 
+implementation with our PDK is shown in Fig. S15. The final output for each tier consists 
+of its GDS file along with an updated abstract and ILV location file, which are passed on 
+to the next tier in the design sequence. 
+The InOx multi-tier 3D CIM macro is shown in Fig. 5c. Tier-1 comprises a 4Mb non-
+volatile ferroelectric memory bank utilizing Fe-NVM array to store all static weights of the 
+LLM model. The second tier integrates analog/digital peripheral circuits supporting the Fe-
+NVM array in Tier-1, including word line (WL) drivers for programming and sense 
+amplifiers for data readout. Tier-2 also incorporates digital CIM logic, such as adder trees, 
+
+
+11 
+ 
+shift-and-add logic, local controllers, and register-based input/output buffers for enabling 
+FeFET-based non-volatile computing-in-memory (nvCIM). Tier-3 integrates a 2Mb 2T 
+gain-cell eDRAM macro, comprising both the 2T array and corresponding peripheral 
+circuits, to support dynamic computation in the LLM model. Benefiting from the ultra-
+long retention time of the 2T cell, the design achieves a refresh-free eDRAM macro 
+implementation. Tier-4 is the top tier of the design, containing digital CIM logic interfacing 
+with Tier-3 eDRAM and a top-level cross-tier controller for orchestrating computation and 
+data movement across all four tiers. The complete design consists of approximately 1.2 
+million logic gates and is implemented using a custom-developed oxide semiconductor 
+PDK, scaled to the 40 nm technology node. The final merged 3D-IC GDS layout is 
+illustrated in Fig. 5d. 
+As shown in Fig. 5e, the backbone operation of the Transformer-based LLM (Fig. 
+S16) can be categorized into static and dynamic classes based on the nature of matrix-
+vector multiplication (MVM). In the multi-head attention mechanism, the Q, K, and V 
+projections are static, as they originate from the pre-trained backbone, making them well-
+suited for non-volatile nvCIM in Fe-NVM. In contrast, the computation of the attention 
+scores Q × KT and A′ × V is dynamic, rendering it more suitable for CIM in dynamic 
+eDRAM. Leveraging the monolithic integration of Fe-NVM and eDRAM in the 3D CIM 
+macro and scaling up our 3D CIM macros, we propose an end-to-end LLM accelerator 
+design, as illustrated in Fig. 5f. This architecture integrates 3D CIM macros, a softmax unit, 
+accumulators, a global buffer, and a network-on-chip (NoC). The LLM accelerator is 
+evaluated using our in-house framework55, which performs comprehensive model-to-chip 
+mapping by processing detailed model parameters, chip configuration settings, and 
+calibrated M3D technology libraries (Fig. S17). The framework systematically compiles 
+model layers into static and dynamic operations, optimizes operation scheduling and 
+dataflows through exploration of diverse mapping schemes, guided by the architectural 
+
+
+12 
+ 
+characteristics of the 3D CIM macro. Performance metrics of the accelerator—including 
+energy consumption, speedup, and energy-delay product (EDP) improvements—are 
+evaluated for inference workloads across state-of-the-art LLM models such as BERT, 
+GPT-2, and DeiT (as shown in Fig. 5g).56–59 Compared to a conventional 2D design, the 
+proposed M3D architecture achieves a 1.4× to 2.9× speedup and comparable EDP benefits 
+for GPT-2 and BERT-small models, respectively, demonstrating system-level performance 
+enhancements enabled by the M3D design and technology platform. The 2D baseline is 
+defined as a planar OS-FET implementation under the same footprint constraint and 
+NVM/eDRAM composition ratio, using the same workload mapping strategy and model 
+configurations. This formulation captures the impact of M3D integration in terms of 
+effective resource density and data movement. Benchmarking against state-of-the-art 
+systems (Table S2), including 2D-material-based processors,60 CNT-based processors,47 
+and recent 3D memory-centric architectures,61,62 highlights the key system-level advance 
+of this work: the combination of enhanced integration capability and broader workload 
+support. 
+Conclusions 
+M3D integration overcomes the limitations of traditional two-dimensional 
+architectures by enabling the vertical stacking of transistors with diverse functionalities on 
+separate tiers, tightly interconnected to form compact, multifunctional systems. We 
+demonstrated a wafer-scale M3D platform based on ALD-grown InOx devices, achieving 
+vertically stacked and BEOL-compatible integration of ferroelectric, E-mode, and D-mode 
+FETs on 200 mm silicon wafers. The fabricated devices exhibit excellent electrical 
+performance, high uniformity, and robust cross-tier functionality, enabling the realization 
+of multifunctional logic and memory systems in a compact 3D structure. By leveraging 
+this platform, we implemented a full-stack CIM accelerator tailored for LLM workloads, 
+showcasing the integration of non-volatile and volatile memory with digital and analog 
+
+
+13 
+ 
+logic across four vertically interconnected tiers. System-level evaluations highlight 
+significant performance and energy-efficiency gains over conventional 2D architectures. 
+Further scaling will require systematic design of the three-dimensional stack, tighter 
+control of oxide-semiconductor processing to tailor device characteristics, and careful 
+management of parasitic coupling and heat transport, which cannot be inferred directly 
+from two-dimensional circuits. Larger hardware demonstrations are also needed to validate 
+the projected computing-in-memory performance and energy efficiency. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+14 
+ 
+Figures 
+ 
+Fig. 1. Multi-tier ALD InOx integration on 200 mm wafers. a, Schematic illustration of 
+the M3D integration of ALD InOx-based devices, including ferroelectric, E-mode, and D-
+mode FETs across three tiers. b, Optical image of a 200 mm silicon wafer with integrated 
+multi-tier ALD InOx devices. c, Fabrication process flow for the wafer-scale M3D 
+integration, showing the sequential stacking of three transistor tiers using BEOL-
+compatible processes. d, HAADF-STEM image and corresponding EDS elemental maps 
+of the device cross-section, confirming the vertically stacked architecture and spatial 
+distribution of the integrated materials. 
+
+
+15 
+ 
+ 
+Fig. 2. Process-dependent electrical performance of ALD InOx on 200 mm wafers. a-
+b, Transfer and output characteristics of InOx FETs, showing high on-current (1000 μA/μm) 
+in short-channel devices and excellent saturation behavior in long channel devices. c-d, 
+Channel length dependence of the transfer characteristics, demonstrating the scalability of 
+InOx FETs. The sample sizes were n = 19, 19, 21, 20, 19, 20, 18, 16, 20, 20, and 18, 
+respectively. Centre symbols indicate mean values. e, Statistical analysis of device 
+characteristics for varying InOx thicknesses across 200 mm wafers. f, Statistical analysis 
+of device characteristics under different annealing temperatures. g, Extracted device 
+parameters (threshold voltage, subthreshold slope, and mobility) from 200 mm wafers. The 
+
+
+16 
+ 
+sample sizes were n = 1601, 1606, 1596, 1601, 1600, and 753, respectively. Centre symbols 
+indicate mean values. h, Polarization-voltage (P-V) loop of metal-semiconductor-
+ferroelectric-metal capacitors on 200 mm wafers. i, Color map of remanent polarization 
+across a 200 mm wafer, confirming spatial uniformity. 
+ 
+Fig. 3. Device characterizations of multi-tier ALD InOx transistors on a 200 mm wafer. 
+a-c, Electrical performance of Tier 1 Fe-FETs: transfer characteristics (a), statistical 
+distributions of extracted parameters (b), and spatial color map of threshold voltages across 
+the wafer (c). d-f, Electrical performance of Tier 2 E-mode FETs: transfer characteristics 
+(d), extracted device statistics (e), and threshold voltage mapping across the wafer (f). g-i, 
+
+
+17 
+ 
+Electrical performance of Tier 3 D-mode FETs: transfer characteristics (g), extracted 
+device statistics (h), and threshold voltage mapping across the wafer (i). 
+ 
+Fig. 4. Cross-tier multifunctional vertical integrated logic and memory on a 200 mm 
+wafer. a, Schematic illustration of cross-tier logic and memory integration, including Fe-
+NVMs, inverters, and 2T0C eDRAM. b-c, Multi-level operation of a Fe-NVM cell under 
+opposite ferroelectric polarization states (up and down). d-g, Electrical performance of 
+cross-tier inverters: voltage transfer characteristics (d), voltage gain (e), butterfly curve 
+
+
+18 
+ 
+showing the noise margins as shaded regions (f), and uniform transfer characteristics of 52 
+inverters across the 200 mm wafer (g). h-k, Device performance of cross-tier 2T0C 
+eDRAM cells: bias stability under positive (h) and negative (i) stress conditions, retention 
+characteristics showing large on/off ratio (j). and consistent readout current levels across 
+52 cells measured over the 200 mm wafer (k). 
+ 
+Fig. 5. InOx-based 3D multi-tier computing-in-memory (CIM) LLM accelerator 
+design and benchmarking. a, Schematic of the proposed multi-tier 3D CIM macro, 
+featuring four tiers with scalability for additional stacking. b, Customized 3D-IC design 
+flow from RTL to GDS using PDK based on our InOx-based oxide semiconductor platform. 
+
+
+19 
+ 
+c, Physical implementation of the multi-tier CIM macro, integrating non-volatile and 
+dynamic memory, analog peripherals, digital compute, and control logic across vertical 
+tiers. d, Final merged layout of the complete multi-tier 3D CIM macro. e, Partitioning of 
+Transformer model computation into static (non-volatile memory) and dynamic (eDRAM-
+based) operations. f, Top 3D LLM accelerator architecture with multiple 3D CIM macros 
+interconnected via network on chip. g, System-level benchmarking results showing energy, 
+delay, and energy-delay product comparisons between 3D and 2D architectures across 
+various LLM models. 
+ 
+Methods  
+Atomic-Layer-Deposition (ALD) and device fabrication. Full fabrication process flow 
+is shown in Fig. 1c. The device fabrication process began with 200 mm Si wafers with 1.5 
+μm SiO2, followed by a standard cleaning process, including ultrasonic rinsing with toluene, 
+acetone, and isopropyl alcohol to remove possible organic particles and dirty materials. A 
+10 nm layer of Al2O3 is deposited using plasma-enhanced atomic layer deposition (PE-
+ALD) at 200 °C. A standard lift-off process was then applied for the 40 nm Ni or Pt bottom 
+gate for FETs and Fe-FETs. Next, a 6 nm HfO2 dielectric or 15 nm HfZrO2 (HZO) 
+ferroelectric layer was deposited by PE-ALD at 200 °C, using [(CH3)2N]4Hf (TDMAHf) 
+and [(CH3)2N]4Zr (TDMAZr) as Hf and Zr precursors. Subsequently, 1-3 nm In2O3 was 
+deposited by ALD at 225 °C using (CH3)3In (TMIn) and H2O as In and O precursors. The 
+TMIn precursor was heated to 60 °C to provide sufficient vapor pressure. Film thickness 
+was accurately controlled by the number of ALD cycles. Channel isolation was done by 
+dry etching the In2O3 layer using Ar plasma. A 40 nm Ni layer was deposited as 
+source/drain contacts. The devices were then annealed at various temperatures (190 to 
+300 °C) in an O2 atmosphere. For ferroelectric layer activation, a 400 °C N2 annealing was 
+conducted. A 7 nm HfO2 capping layer was deposited by PE-ALD at 150 °C, followed by 
+
+
+20 
+ 
+a 10 nm PE-ALD Al2O3 insulating layer at 200 °C. Multi-tier structures were realized by 
+repeating the fabrication steps. Three-tier oxide semiconductor Fe-FETs and FETs were 
+successfully demonstrated on 200 mm Si wafers. Notably, the entire fabrication process is 
+compatible with back-end-of-line (BEOL) integration, with a maximum thermal budget of 
+400 °C. In the present M3D device demonstration, the layout has not yet been optimized 
+to minimize parasitic capacitance and coupling, both of which can be further reduced in 
+future designs.  
+Wafer-scale electrical measurements and statistical methods. The fabricated multi-tier 
+200 mm wafer was characterized using a FormFactor PAV200 200 mm semi-automated 
+probe station at 25 °C in N2 environment at ambient pressure. The electrical 
+characterization of transistors, inverters, and memories was measured with the Keysight 
+B1500A Semiconductor Device Parameter Analyzer. The polarization vs. voltage loops 
+were measured using Radiant Premier II Ferroelectric Tester. Unless otherwise stated, the 
+characterized devices had a channel length of 5 µm. 
+The subthreshold swing was extracted from the inverse slope of the transfer characteristic 
+around a normalized drain current of 10-4 µA/µm. The threshold voltage was extracted 
+using the constant-current method at a normalized drain current of 10-3 µA/µm. The field-
+effect mobility was extracted in the linear regime using the maximum-transconductance 
+method. All device parameters were extracted from transfer characteristics measured at Vds 
+= 0.05 V. Threshold voltage shifts in the bias stability tests were determined using the 
+linear-extrapolation method. 
+Box plots show the 25th–75th percentiles, with centre lines indicating the medians and 
+centre symbols indicating the means. Whiskers extend to the most extreme data points 
+within 1.5 × the interquartile range (IQR), where the IQR is the difference between the 75th 
+and 25th percentiles. For the transfer characteristic overlays in Fig. 2, devices classified as 
+outliers were excluded from the displayed curves to facilitate visualization of process-
+
+
+21 
+ 
+dependent device behaviour. Gaussian curves were generated using the sample means and 
+standard deviations. Exact sample sizes are provided in the corresponding figure legends. 
+High resolution scanning transmission electron microscopy (HR-STEM). TEM, 
+selected area diffraction, energy dispersive x-ray spectroscopy (EDS) elemental mappings, 
+and HAADF-STEM analysis were performed with an FEI Talos F200X operated at 200 
+kV. Samples were prepared by focused ion beam (FIB) lift-out using a Helios G4 UX dual-
+beam system. 
+Oxide-semiconductor process design kit (OS-PDK). A custom oxide-semiconductor 
+process design kit was developed based on the measured electrical characteristics of the 
+InOx enhancement-mode and depletion-mode transistors. Parameterized Verilog-A 
+transistor models were created for device- and circuit-level simulation in Cadence Virtuoso. 
+An NMOS-only standard-cell library was constructed using enhancement-mode transistors 
+as pull-down switching devices and depletion-mode transistors as active loads. The logic 
+functions and transient responses of the standard cells were verified through transistor-
+level simulations. The OS-PDK includes Liberty-format (LIB) files describing the logic, 
+timing, and power characteristics of the standard cells, library exchange format (LEF) files 
+containing their physical abstracts, technology files (TechLEF) defining the routing layers 
+and inter-layer via (ILV) design rules, and GDS files containing the complete standard-cell 
+layouts. 
+Circuit and physical design flow. The memory arrays and analog or mixed-signal 
+peripheral circuits were designed and simulated in Cadence Virtuoso using the custom 
+Verilog-A transistor models. The digital computing and control modules were described in 
+Verilog HDL and functionally verified using Questa. Logic synthesis was performed using 
+Cadence Genus, where the RTL designs were hierarchically mapped to the custom InOx 
+standard-cell library. The synthesized netlists were then implemented in Cadence Innovus 
+using a tier-by-tier 3D physical design flow. For each tier, the physical design process 
+
+
+22 
+ 
+included floorplanning, analog macro placement, standard-cell placement, clock-tree 
+synthesis, routing, and post-route optimization. In addition to its own synthesized netlist, 
+each tier used the physical abstract and ILV location file generated from the preceding tier 
+as design inputs. After physical implementation, an updated abstract file and ILV location 
+file were exported together with the GDS layout and passed to the subsequent tier. This 
+sequential flow maintained the alignment of the inter-layer vias and ensured consistent 
+cross-tier connectivity. Finally, the layouts of all tiers were vertically aligned and merged 
+to generate the complete 3D-IC GDS database. 
+System simulation and benchmarking. System-level evaluation was performed using our 
+model-to-chip mapping framework. The framework takes the model topology and 
+parameters, chip configuration, and calibrated InOₓ technology libraries as inputs. Circuit-
+level characteristics were obtained from simulations of the memory arrays, peripheral 
+circuits, and standard cells using the custom oxide-semiconductor PDK. For each workload, 
+model-layer computations were partitioned into static and dynamic matrix–vector 
+multiplication operations. These operations were mapped to the FeFET- and eDRAM-
+based CIM resources, respectively, within the 3D macro. Network-on-chip traffic patterns 
+were simulated using the router microarchitecture and trace-driven traffic injection, and 
+the associated communication costs were evaluated based on physical-design 
+considerations. By integrating the technology-library parameters with layer-wise execution 
+traces, the end-to-end latency, energy consumption, and energy–delay product were 
+estimated. Each inference workload was evaluated using identical model configurations 
+for the 3D architecture and its 2D baseline. The 2D baseline was a planar oxide-
+semiconductor implementation constrained to the same chip footprint, FeFET/eDRAM 
+composition ratio, and workload-mapping strategy as the 3D design. 
+ 
+ 
+
+
+23 
+ 
+Acknowledgements  
+P.D.Y. and H.L. were supported in part by the U.S. National Science Foundation under 
+Award No. 2425498 with industry partners as specified in the Future of Semiconductors 
+(FuSe2) program. P.D.Y. was also supported by Semiconductor Research Corporation 
+Global Research Program and Samsung Electronics, Inc. C. L., J. L. and H.W. 
+acknowledge the support from the U.S. National Science Foundation for the microscopy 
+work (DMR-2016453 and DMREF-2323752). We acknowledge Cadence for Innovus 3D-
+IC license support. 
+ 
+Author Contributions 
+P.D.Y. supervised the project. C.N. designed the experiments. C.N., L.L., Z.L., and J.-Y. 
+L. fabricated the devices. L.Z., S. D., and H.L. conducted the circuit-level simulation. C.L., 
+J.L. and H.W. carried out the TEM/STEM measurements and image analysis. C.N., L.L., 
+J.-Y.L. and K.N. performed the electrical measurements and analyzed the data. P.D.Y. and 
+C.N. wrote the manuscript and all the authors commented on it.  
+ 
+Competing Interests 
+The authors declare no competing interests. 
+ 
+Supporting Information  
+Additional details for 200 mm ALD InOx test wafers, statistical distribution of device 
+parameters, statistical analysis of the output characteristics, working principle of MLFe-
+NVM, ALD InOx PDK, and circuit design for LLMs can be found in supplementary 
+information. 
+
+
+24 
+ 
+Corresponding Author 
+* Peide D. Ye (E-mail: yep@purdue.edu) 
+ 
+References 
+1. 
+Wong, S. et al. Monolithic 3D integrated circuits. in International Symposium on 
+VLSI 
+Technology, 
+Systems, 
+and 
+Applications, 
+(2007). 
+doi:10.1109/VTSA.2007.378923. 
+2. 
+Wan, W. et al. A compute-in-memory chip based on resistive random-access memory. 
+Nature 608, 504–512 (2022). 
+3. 
+Zheng, L. & Li, H. CMOS+X Technologies for Neuro-Vector-Symbolic Computing. 
+in 
+Device 
+Research 
+Conference 
+- 
+Conference 
+Digest, 
+DRC 
+(2024). 
+doi:10.1109/DRC61706.2024.10605469. 
+4. 
+Xiang, C. et al. 3D integration enables ultralow-noise isolator-free lasers in silicon 
+photonics. Nature 620, 78–85 (2023). 
+5. 
+Datta, S. et al. Amorphous Oxide Semiconductors for Monolithic 3D Integrated 
+Circuits. in IEEE Symposium on VLSI Technology and Circuits (2024). 
+doi:10.1109/VLSITechnologyandCir46783.2024.10631324. 
+6. 
+Bishop, M. D., Wong, H. S. P., Mitra, S. & Shulaker, M. M. Monolithic 3-D 
+Integration. IEEE Micro 39, 16–27 (2019). 
+7. 
+Jayachandran, D. et al. Three-dimensional integration of two-dimensional field-
+effect transistors. Nature 625, 276–281 (2024). 
+8. 
+Ghosh, S. et al. Monolithic and heterogeneous three-dimensional integration of two-
+dimensional materials with high-density vias. Nat. Electron. 7, 892–903 (2024). 
+9. 
+Kim, K.S. et al. Growth-based monolithic 3D integration of single-crystal 2D 
+semiconductors. Nature 636, 615–621 (2024). 
+10. Lu, D. et al. Monolithic three-dimensional tier-by-tier integration via van der Waals 
+lamination. Nature 630, 340–345 (2024). 
+
+
+25 
+ 
+11. Niu, C. et al. First Demonstration of BEOL Wafer-Scale All-ALD Channel CFETs 
+Using IGZO and Te for Monolithic 3D Integration. in IEEE International Electron 
+Devices Meeting (IEDM) 1–4 (2024). doi:10.1109/IEDM50854.2024.10873541. 
+12. Sun, Y. et al. BEOL Three-Dimensional Stackable Oxide Semiconductor CMOS 
+Inverter with a High Voltage Gain of 233 at Cryogenic Temperatures. Nano Lett. 
+(2024) doi:10.1021/acs.nanolett.4c04701. 
+13. Datta, S. et al. Back-End-of-Line Compatible Transistors for Monolithic 3-D 
+Integration. IEEE micro 39, 8-15 (2019). 
+14. Salahuddin, S., Ni, K. & Datta, S. The era of hyper-scaling in electronics. Nat. 
+Electron. 1, 442–450 (2018). 
+15. Li, S. et al. Nanometer-thin indium tin oxide for advanced high-performance 
+electronics. Nat. Mater. 18, 1091–1097 (2019). 
+16. Zhu, J. et al. Low-thermal-budget synthesis of monolayer molybdenum disulfide for 
+silicon back-end-of-line integration on a 200 mm platform. Nat. Nanotechnol. 18, 
+456–463 (2023). 
+17. Yuvaraja, S. et al. Three-dimensional integrated metal-oxide transistors. Nat. 
+Electron. 7, 768–776 (2024). 
+18. Han, K., Kang, Y., Chen, X., Chen, Y. & Gong, X. Indium-Tin-Oxide Thin-Film 
+Transistors with High Field-Effect Mobility (129.5 cm2/V⋅s) and Low Thermal 
+Budget (150 °C). IEEE Electron Device Letters 44, 1999–2002 (2023). 
+19. Gong, X. et al. Reconfigurable 3D stacked oxide semiconductor devices for hybrid 
+in-memory computing. Preprint at https://doi.org/10.21203/rs.3.rs-5138544/v1 
+(2024). 
+20. Si, M. et al. Why In2O3 Can Make 0.7 nm Atomic Layer Thin Transistors. Nano Lett. 
+21, 500–506 (2021). 
+21. Si, M. et al. Scaled indium oxide transistors fabricated using atomic layer deposition. 
+Nat. Electron. 5, 164–170 (2022). 
+22. Li, Q. et al. First Demonstration of Sequential Integration for Stacked Gate-All-
+Around a-IGZO Nanosheet Transistors with Record Id = 2.05 mA/µm, gm = 1.13 
+mS/µm and Ultralow SS = 66 mV/dec. in IEEE International Electron Devices 
+Meeting (IEDM) (2023). doi:10.1109/IEDM45741.2023.10413891. 
+
+
+26 
+ 
+23. Lee, J. et al. BEOL-Compatible Non-Volatile Capacitive Synapse with ALD W-
+Doped In2O3 Semiconductor Layer. in IEEE International Electron Devices Meeting 
+(IEDM) (2024). doi:10.1109/IEDM50854.2024.10873481. 
+24. Liu, S. et al. Edge Continual Training and Inference with RRAM-Gain Cell Memory 
+Integrated on Si CMOS. in IEEE International Electron Devices Meeting (IEDM) 
+(2024). doi:10.1109/IEDM50854.2024.10873546. 
+25. Lin, Z. et al. Nanometer-Thick Oxide Semiconductor Transistor with Ultra-High 
+Drain Current. ACS Nano 16, 21536–21545 (2022). 
+26. Zhang, Z. et al. Ultrahigh Bias Stability of ALD In2O3 FETs Enabled by High 
+Temperature O2 Annealing. in IEEE Symposium on VLSI Technology and Circuits, 
+(2023). 
+27. Matsuda, S. et al. 30-nm-channel-length c-axis aligned crystalline In-Ga-Zn-O 
+transistors with low off-state leakage current and steep subthreshold characteristics. 
+in IEEE Symposium on VLSI Technology and Circuits, T216–T217 (2015). 
+28. Niu, C. et al. Record-Low Metal to Semiconductor Contact Resistance in Atomic-
+Layer-Deposited In2O3 TFTs Reaching the Quantum Limit. in IEEE International 
+Electron Devices Meeting (IEDM) (2023). doi:10.1109/IEDM45741.2023.10413708. 
+29. Niu, C. et al. Surface Accumulation Induced Negative Schottky Barrier and Ultralow 
+Contact Resistance in Atomic-Layer-Deposited In2O3 Thin-Film Transistors. IEEE 
+Trans Electron Devices 71, 3403–3410 (2024). 
+30. Lin, Z. et al. High-Peformance BEOL-Compatible Atomic-Layer-Deposited In2O3 
+Fe-FETs Enabled by Channel Length Scaling down to 7 nm: Achieving Performance 
+Enhancement with Large Memory Window of 2.2 V, Long Retention > 10 years and 
+High Endurance > 108 Cycles. in IEEE International Electron Devices Meeting 
+(IEDM), 17.4.1-17.4.4 (2021). 
+31. Huyghebaert, C. et al. 2D materials: Roadmap to CMOS integration. in IEEE 
+International Electron Devices Meeting (IEDM), 22.1.1-22.1.4 (2018). 
+32. Samavedam, S. B. et al. Future logic scaling: Towards atomic channels and 
+deconstructed chips. in IEEE International Electron Devices Meeting (IEDM), 1.1.1-
+1.1.10 (2020). 
+
+
+27 
+ 
+33. Shi, Y. et al. Superior electrostatic control in uniform monolayer MoS2 scaled 
+transistors via in-situ surface smoothening. in IEEE International Electron Devices 
+Meeting (IEDM) 37.1.1-37.1.4 (2021). 
+34. Chiang, K.H. et al. Integration of 0.75 V VDD oxide-semiconductor 1T1C memory 
+with advanced logic for an ultra-low-power low-latency cache solution. in IEEE 
+Symposium on VLSI Technology and Circuits, (2025). 
+35. Zhao, Y. et al. Revealing the Partially Coherent Nature of Transport in IGZO. arXiv 
+preprint, arXiv:2512.21945 (2025). 
+36. Liu, A. et al. Selenium-alloyed tellurium oxide for amorphous p-channel 
+transistors. Nature 629, 798–802 (2024).  
+37. Kwon, J. et al. 200-mm-wafer-scale integration of polycrystalline molybdenum 
+disulfide transistors. Nat. Electron. 7, 356–364 (2024). 
+38. Schram, T. et al. Integration and electrical evaluation of WS2 and MoS2 FETs in a 
+300 mm pilot line. Discover Electronics, 3, 15 (2026). 
+39. Dorow, C.J. et al. Exploring manufacturability of novel 2D channel materials: 300 
+mm wafer-scale 2D NMOS & PMOS using MoS2, WS2, & WSe2. in IEEE 
+International Electron Devices Meeting (IEDM), (2023). 
+40. Mitard, J. et al. sub-40mV sigma VTH IGZO nFETs in 300mm fab. Electrochemical 
+Society Transactions prime, 98, 205-217 (2020). 
+41. Asselberghs, I. et al. Wafer-scale integration of double gated WS2-transistors in 
+300mm Si CMOS fab. in IEEE International Electron Devices Meeting (IEDM), 40-
+2 (2020). 
+42. Qin, B. et al. Two-dimensional indium selenide wafers for integrated electronics 
+Science, 389, 299-302 (2025). 
+43. Lee, J. et al. Monolithic 3D integration of dual-gated ALD oxide-channel non-
+volatile capacitive memory on 40nm Si CMOS for digital compute-in-memory. in 
+IEEE International Electron Devices Meeting (IEDM), (2025). 
+44. Kang, JH. et al. Monolithic 3D integration of 2D materials-based electronics towards 
+ultimate edge computing solutions. Nat. Mater. 22, 1470–1477 (2023). 
+45. Pendurthi, R. et al. Monolithic three-dimensional integration of complementary two-
+dimensional field-effect transistors. Nat. Nanotechnol. 19, 970–977 (2024).  
+
+
+28 
+ 
+46. Liu, C. et al. A full-featured 2D flash chip enabled by system integration. Nature 646, 
+1081–1088 (2025). 
+47. Hills, G. et al. Modern microprocessor built from complementary carbon nanotube 
+transistors. Nature 572, 595–602 (2019). 
+48. Wang, Q. et al. Wafer-scale highly oriented monolayer MoS2 with large domain 
+sizes. Nano letters, 20, 7193-7199 (2020). 
+49. Li, T. et al. Epitaxial growth of wafer-scale molybdenum disulfide semiconductor 
+single crystals on sapphire. Nat. Nanotechnol. 16, 1201–1207 (2021). 
+50. Lin, Z. et al. Enhancement of In2O3 Field-Effect Mobility Up To 152 cm2V-1s-1 Using 
+HZO-Based Higher-k Linear Dielectric. in IEEE Symposium on VLSI Technology 
+and Circuits, (2024). 
+51. Si, M. et al.  Enhancement-mode atomic-layer-deposited In2O3 transistors with 
+maximum drain current of 2.2 A/mm at drain voltage of 0.7 V by low-temperature 
+annealing and stability in hydrogen environment. IEEE Transactions on Electron 
+Devices, 68, 1075-1080 (2021). 
+52. Li, S. et al. Nanometre-thin indium tin oxide for advanced high-performance 
+electronics. Nat. Mater. 18, 1091–1097 (2019).  
+53. Zhang, J. et al. Effects of Gallium on Electron Transport and Bias Stability in 
+Ultrascaled Amorphous InGaO Transistors. IEEE Transactions on Electron Devices, 
+72, 4156-4162 (2025). 
+54. Park, H. et al. Extreme EOT Scaling in Tungsten-Doped In2O3 MOSFETs for 
+Enhanced Stability and Drive Current. IEEE Transactions on Electron Devices, 72, 
+7136-7144 (2025). 
+55. Du, S. et al. 3D-CIMlet: A Chiplet Co-Design Framework for Heterogeneous In-
+Memory Acceleration of Edge LLM Inference and Continual Learning. in IEEE 
+Design Automation Conference (2025). 
+56. Vaswani, A. et al. Attention is All you Need. Advances in neural information 
+processing systems 30 (2017). 
+57. Devlin, J., Chang, M.-W., Lee, K. & Toutanova, K. Bert: Pre-training of deep 
+bidirectional transformers for language understanding. in Proceedings of the 2019 
+conference of the North American chapter of the association for computational 
+linguistics: human language technologies 1, 4171-4186 (2019). 
+
+
+29 
+ 
+58. Radford, A. et al. Language models are unsupervised multitask learners. OpenAI 
+blog 1, 8 (2019). 
+59. Touvron, H. et al. Training data-efficient image transformers & distillation through 
+attention. In International conference on machine learning 10347-10357 (2021). 
+60. Ao, M. et al. A RISC-V 32-bit microprocessor based on two-dimensional 
+semiconductors. Nature 640, 654–661 (2025). 
+61. Yakubo, Y. et al.  Crystalline oxide semiconductor-based 3D bank memory system 
+for endpoint artificial intelligence with multiple neural networks facilitating context 
+switching and power gating. in IEEE International Solid-State Circuits Conference 
+(ISSCC), (2023). 
+62. Liu, S. et al. Edge continual training and inference with RRAM-gain cell memory 
+integrated on Si CMOS. in IEEE International Electron Devices Meeting (IEDM), 
+(2024). 
+ 

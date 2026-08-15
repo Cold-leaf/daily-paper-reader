@@ -1,0 +1,73 @@
+{
+  "date": "20260815",
+  "date_label": "",
+  "generated_at": "2026-08-15 20:31:31 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2608.09508v1",
+      "route": "202608/15/2608.09508v1-200-mm-wafer-scale-monolithic-3d-integration-of-atomic-layer-deposited-oxide-semiconductors",
+      "title": "200 mm Wafer-Scale Monolithic 3D Integration of Atomic Layer-Deposited Oxide Semiconductors",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "cim"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "氧化物半导体晶圆级单片三维集成，并构建四层3D存内计算加速器",
+      "first_seen_at": "2026-08-15 20:31:31 UTC",
+      "updated_at": "2026-08-15 20:31:31 UTC"
+    },
+    {
+      "paper_id": "2608.11920v1",
+      "route": "202608/15/2608.11920v1-nitro-high-performance-3d-nand-flash-based-in-storage-computing-with-enhanced-activation-dataflow",
+      "title": "NITRO: High-Performance 3D NAND Flash-Based In-Storage Computing with Enhanced Activation Dataflow",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "cim"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "面向大语言模型的3D NAND闪存存内计算架构",
+      "first_seen_at": "2026-08-15 20:31:31 UTC",
+      "updated_at": "2026-08-15 20:31:31 UTC"
+    },
+    {
+      "paper_id": "2608.08496v1",
+      "route": "202608/15/2608.08496v1-revolt-power-delivery-network-aware-voltage-droop-control-for-25d-pim-chiplet-architectures",
+      "title": "ReVolt: Power Delivery Network-Aware Voltage Droop Control for 2.5D PIM Chiplet Architectures",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "cim"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "面向2.5D PIM小芯片架构的LSTM供电网络代理与电压降控制，属于存算一体/近存计算设计相关研究。",
+      "first_seen_at": "2026-08-15 20:31:31 UTC",
+      "updated_at": "2026-08-15 20:31:31 UTC"
+    },
+    {
+      "paper_id": "2608.12937v1",
+      "route": "202608/15/2608.12937v1-transparent-boundary-conditions-for-the-heat-equation-on-metric-graphs",
+      "title": "Transparent Boundary Conditions for the Heat Equation on Metric Graphs",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "thermal-gnn"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "度量图热方程的透明边界条件；为分支网络中的热流提供了有限差分模拟框架，可迁移至集成电路互连结构的热模拟。",
+      "first_seen_at": "2026-08-15 20:31:31 UTC",
+      "updated_at": "2026-08-15 20:31:31 UTC"
+    }
+  ]
+}

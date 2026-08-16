@@ -1,0 +1,947 @@
+Title: Improving Fast Charging Safety With Core Temperature Estimation Via Kolmogorov-Arnold Network
+
+URL Source: https://arxiv.org/pdf/2608.12638v1
+
+Published Time: Fri, 14 Aug 2026 00:18:41 GMT
+
+Number of Pages: 14
+
+Markdown Content:
+# Improving Fast Charging Safety With Core Temperature Estimation Via Kolmogorov-Arnold Network 
+
+A P REPRINT 
+
+Faysal Ahamed 1 and Tanushree Roy 11Department of Mechanical and Aerospace Engineering, Texas Tech University, Lubbock, TX 79409, US. Emails: fahamed@ttu.edu, tanushree.roy@ttu.edu .August 14, 2026 
+
+## ABSTRACT 
+
+Fast charging of Lithium-ion batteries can lead to a significant temperature rise, which can cause serious risks to battery safety and lifetime. To ensure safe battery operation, thermal constraints must be enforced during the fast charging process. However, the core temperature of the battery cannot be directly measured in practice, which makes real-time safety enforcement challenging. This paper proposes a framework that incorporates core temperature estimates from Kolmogorov-Arnold Network within robust control barrier function (KAN-rCBF) constraints for battery fast-charging. The algorithm utilizes measurements from battery surface temperature, coolant temperature, coolant power, and charging current to solve a quadratic programming problem under safety constraints. We prescribe analytical safety guarantees for this optimal charging policy under KAN estimation errors and model uncertainty. Simulation results show that the proposed method maintains a safe battery temperature while achieving charging times comparable to the state-of-the-art method, where the latter fails to guarantee the same level of thermal safety. 
+
+## 1 Introduction 
+
+Lithium-ion batteries are central to our energy future, as they can be recharged and can store a significant amount of energy efficiently. However, in many applications, including electric vehicles, the primary challenge has shifted from energy storage capacity to charging performance. Specifically, the focus is on achieving rapid and safe charging while preventing thermal runaway and material degradation. To tackle this problem, researchers have introduced different strategies, which can be broadly divided into three groups: heuristic, data-driven, and model-based methods. 
+
+1.1 Literature 
+
+Recent studies have explored heuristic approaches like multi-stage constant current (MSCC), constant power (CP), and pulse charging (PC) to improve the speed of charging and safety of lithium-ion batteries. For instance, Taguchi-optimized MSCC protocols have been explored in multiple studies for battery fast charging [1–3]. Similarly, [4] proposed a Dandelion optimizer to design an optimal MSCC approach that also reduced charge time without overheat-ing the batteries. An expansion force-based adaptive MSCC scheme was introduced in [5], which achieved nearly 50% faster charging without capacity loss. In addition, [6] tested three pulse charging modes: charge-charge (C-C), charge-rest (C-R), and charge-discharge (C-D) on Lithium iron phosphate cathode (LFP) and Nickel–manganese–cobalt oxide cathode (NMC) cells to show that the C-D mode reduces charging time and lowers resistance, and extends cycle life relative to CC-CV. [7] showed that pulse current charging significantly extends the cycle life of graphite and NMC532 electrodes by promoting uniform Li-ion distribution and by improving stabilization of electrode interfaces. Addition-ally, [8] showed that improvement in efficiency, battery life, and thermal regulation in MSCC are heavily dependent on the design of charging stages. Altogether, heuristic strategies improve speed and safety compared to CC-CV, but they are limited, as the fixed rules fail to adapt to changing conditions. arXiv:2608.12638v1 [eess.SY] 12 Aug 2026 In recent years, data-driven methods have also been explored to improve fast charging capabilities beyond heuristic rules. For instance, deep reinforcement learning with electrothermal modeling has been used in [9] to decrease the charging time compared to CC-CV and ensure safe voltage and temperature limits. Similarly, [10] designed a health-constrained predictive charging controller using deep learning networks for fast charging while maintaining the desired temperature. In addition, [11] proposed an adaptive reinforcement learning-based fast charging framework that reduces charging time under voltage and thermal constraints, and showed that this method can balance fast charging with improved health and safety. Finally, [12] used a deep reinforcement learning framework to optimize MSCC charging with safety constraints. Model-based control uses the physics-based dynamics of the batteries to ensure safer and more reliable fast charg-ing. [13] implemented a nonlinear double-capacitor battery model in an explicit model predictive control (MPC) framework for lithium-ion cells to ensure fast, health-aware charging with low computational cost. Similarly, [14] proposed a quadratic battery model and validated its performance against high-fidelity models in an MPC framework for safe fast charging under thermal, voltage, and safety constraints. Alternatively, [15] combined a computationally-efficient ensemble transform Kalman filter with a proportional-integral controller to ensure safety and efficiency in fast charging. In addition, [16] combined Bayesian optimization and model predictive control to achieve faster charging than the standard model predictive control with voltage and temperature limits. Moreover, analytical design criteria for battery charging controllers have been derived using Lyapunov and barrier function theory to keep the battery thermal systems stable and within safe operating limits using lumped thermal models [17, 18] and heat equations [19]. [20] proposes a control barrier function (CBF) framework for safe battery charging and discharging under SoC, terminal voltage, and surface temperature constraints by splitting the CBF problem into cascaded electrical and thermal sub-systems, which results in sequential Quadratic Program (QP) problems that improve computational efficiency while maintaining safety constraints. 
+
+1.2 Research gap 
+
+Despite the recent advances, several challenges remain in guaranteeing the safety of battery fast-charging control. Heuristic fast-charging strategies determine charging profiles using predefined rules or offline optimization and rely on fixed charging patterns. Therefore, these methods have limited ability to adapt to internal battery state variations during real-time operation. On the other hand, data-driven approaches can learn accurate charging protocols more effectively from operational battery data and enable faster policy evaluation. However, purely data-driven methods often lack interpretability and analytical guarantees of performance under system uncertainty. In contrast, model-based fast-charging policies leverage physics-based battery models, which enhance the interpretability of the resulting control decisions and often incorporate safety constraints that can be enforced with analytical guarantees. Now, to improve the efficacy of the model-based control, battery state estimation (such as core temperature) is essential for unmeasured states. But model-based estimations are considerably slower than machine-learning-based predictions, which can be obtained via a forward pass of the network [21]. This model-based estimation bottleneck is especially crucial when the estimates are used within an optimization framework, such as MPC or CBF, which are themselves computationally expensive. Therefore, a key research gap remains in developing an interpretable fast-charging framework that leverages the com-putational efficiency and accuracy of machine learning based estimation and the robust analytical performance guar-antees of model-based control theory. 
+
+1.3 Need for Kolmogorov-Arnold network (KAN) 
+
+Accurate estimation of battery temperature requires models that can capture the nonlinear relationship between oper-ating conditions and thermal behavior. Machine learning methods are often used for this purpose because they can learn these relationships directly from data. Among these methods, traditional neural networks such as multi-layer perceptrons (MLP, LSTM, RNN) are widely used [22]. However, these models are often extremely large and are used as black-box systems, as it is difficult to understand how each input variable affects the output through the large model structure. Model-based thermal estimation methods rely on accurate battery models and parameter identifica-tion. However, variations in thermal parameters and operating conditions can affect estimation accuracy and make real-time implementation more difficult [23]. To address these limitations, this work employs the Kolmogorov-Arnold network (KAN). Unlike conventional neu-ral networks that learn linear combinations of weights with fixed nonlinear activation, KAN models learn nonlinear activation functions along the edges of the network to be summed up at the nodes [24]. This structure provides two main advantages. First, KAN can represent complex nonlinear relationships with fewer parameters, which results in a computationally efficient and compact model structure. Second, because the learned functions admit symbolic repre-sentations, the compact model allows a tractable and interpretable functional mapping from the battery input variables to the estimated core temperature. [25] showed that KAN-based thermal models provide accurate temperature estima-tion with smaller model structures and faster estimation time relative to the best-performing neural networks and faster estimation compared to model-based implementation. Moreover, KAN has been used for estimation of state-of-charge (SoC) [26], state-of-health (SoH) [27–30], capacity degradation [31], diagnostics of battery thermal anomalies [32], and remaining useful life (RUL) [33] of lithium-ion batteries. This highlights KAN’s potential use for safety-critical applications, such as battery fast charging, as well as its implementability on physical battery management systems with limited computational resources. In addition, the KAN approximation theorem provides a theoretical bound for KAN estimation error, which has been leveraged to derive the analytical safety guarantees for our proposed safety framework. Therefore, the combination of interpretability, computational efficiency, and provable approximation ca-pability of KAN allows accurate estimation of the battery core temperature in this work. Our primary contributions of this paper are as follows. 1. We integrated a KAN-based core temperature estimator within the control barrier function framework to develop a fast charging strategy that maintains safe battery temperature. 2. We obtain a charging policy that optimally satisfies the barrier function constraints on battery temperatures, voltage, and state-of-charge (SoC) of the battery while remaining close to the high C-rate reference. 3. We derive the analytical conditions that guarantee the performance of our fast charging policy under model uncertainty and KAN estimation error. The rest of the paper is organized as follows. Section 2 presents the preliminaries, i.e., KAN, lumped parameter thermal model, and estimating core temperature using KAN. In Section 3, control barrier function for fast charging, model development, and KAN-rCBF charging optimization conditions are described. Next, we present our simulation results in Section 4. Finally, in Section 5 we conclude our work. 
+
+Notation: The Cm-norm of a function g(x) on the interval I is given by ∥g∥Cm = max |Ψ|⩽m sup x∈I DΨg(x) ,where DΨ is the partial derivative operator for multi-index Ψ. For a scalar quantity a, |a| denotes its absolute value. Given a function h(x) and a vector v(x), the Lie derivative of h along v is defined as Lv h(x) := ∇h(x)⊤v(x).A continuous function α : [0 , a ) → [0 , ∞) is called a class-K function when it is strictly increasing and satisfies 
+
+α(0) = 0 . A function α : ( −b, a ) → R, where a, b > 0, is called an extended class-K function if it is continuous, strictly increasing, and satisfies α(0) = 0 .
+
+## 2 Preliminaries 
+
+This section introduces the key components used in this work. First, KAN is briefly described and the Kolmogorov-Arnold approximation theorem is introduced. Next, the electro-thermal battery model and the core temperature esti-mation approach based on the KAN model are presented. 
+
+2.1 KAN structure 
+
+The Kolmogorov–Arnold representation theorem states that for any multivariate continuous function on a bounded domain, there exists a finite collection of continuous univariate functions, which through additive composition can represent the former [24]. By leveraging learning techniques, the KAN can approximate univariate continuous func-tions to represent nonlinear multivariate functional relationships, thereby harnessing the theorem’s representational power. Each KAN layer has input nodes and output nodes. Each input node passes through a learnable (univariate) activation function, which is then added to produce the value of an output node. The output nodes of one KAN layer become the input for the next KAN layer, forming a multi-layer model. Mathematically, if a KAN has M layers, then each layer is denoted by n for n ∈ { 1 . . . M }. Subsequently, each layer 
+
+n can have βn number of input nodes and β number of output nodes. The outputs of layer n become the inputs of the next layer (n + 1) . The value of the p-th input node in layer n is written as zn,p , ∀p ∈ { 1 . . . β n}, and the value of the c-th output node in the next layer is written as zn+1 ,c , ∀c ∈ { 1 . . . β n+1 }. The inputs zn,p pass through activation functions θn,c,p , are then added to obtain the value of output nodes zn+1 ,c . In compact matrix notation, we can write zn+1 =
+
+
+
+θn, 1,1(·) . . . θn, 1,β n (·)
+
+... . . . ...
+
+θn,β n+1 ,1(·) . . . θn,β n+1 ,β n (·)
+
+| {z }
+
+> Θn
+
+zn, (1) where z n+1 =
+
+
+
+zn+1 ,1
+
+...
+
+zn+1 ,β n+1 
+
+ and z n =
+
+
+
+zn, 1
+
+...
+
+zn,β n ,
+
+ (2) and Θn is the matrix activation function that learns the intrinsic non-linear structure in data and captures the relation-ship between the input variables and the output variable. Specifically, an M -deep KAN model with j input variables denoted by z i = [ zi, 1 . . . z i,j ] and a single output variable denoted by z o represent the functional relationship between zi and z o represented by, z o = (Θ M ◦ ΘM −1 ◦ · · · ◦ Θ1)zi. These activation functions Θn at each layer n are repre-sented as the composition of basis functions and learnable B-spline functions of k−th order over G grid points. The loss function for our KAN model consists of prediction errors, activation function entropy, and their l1 regularization. Furthermore, we will use the following Kolmogorov–Arnold approximation theorem to derive analytical conditions to ensure the performance of the integrated KAN-rCBF. 
+
+Theorem 1 (Kolmogorov–Arnold Approximation Theorem) . Let a multi-variate function h(z) for z = ( z1, ..., z j )
+
+be written as a composition of k + 1 times differentiable univariate activation functions Θj , ∀j ∈ { 1, . . . , M } i.e. 
+
+h(z) =  ΘM ◦ ΘM −1 ◦ · · · ◦ Θ1
+
+(z). Let an M -layer KAN-network is learned with G grid points and k-th order B-splines to represent this function and is denoted by  ΘGM ◦ ΘGM −1 ◦ · · · ◦ ΘG
+
+> 1
+
+(z). The error in approximation for the KAN-network is then given by: 
+
+h −  ΘGM ◦ ΘGM −1 ◦ · · · ◦ ΘG
+
+> 1
+
+ 
+
+> Cm
+
+⩽ MG−(k+1 −m), (3) 
+
+∀m ∈ { 1, . . . , k } and the constant M depends on the function h and its smoothness. 
+
+Essentially, Theorem 1 expresses the error bound in estimating a function h using the multi-layer KAN in terms of its structure. 
+
+2.2 Estimating core temperature using KAN 
+
+The electro-thermal battery dynamics [17] can be written in terms of battery states x = [ SoC , T c, T s, T ∞]T as 
+
+˙x = f (x) + g(x)U + ν(t), V = Vo(SoC ) − uR 0, (4) where the battery dynamics f (x) = 0, − Tc−Ts 
+
+> RcCc
+
+, − Ts−Tc 
+
+> RcCs
+
+− Ts−T∞ 
+
+> RsCs
+
+, − T∞−Ts
+
+> RsC∞
+
+T ; function g(x) = [ g1(x), g 2, g 3]T
+
+with g1(x) = − 1 
+
+> Cbat
+
+, − ETc 
+
+> Cc
+
+, 0, 0T , g2 = 0, R0 
+
+> Cc
+
+, 0, 0T , and g3 =
+
+h
+
+0, 0, 0, − 1
+
+> C∞
+
+iT
+
+. Here, Tc, T s, and T∞ are the core, surface, and environment temperatures, respectively. The input vector U = [ u, u 2, ˙Qc]T , where u is the control input current, which is negative while charging and positive while discharging, and ˙Qc is the cooling power. The model uncertainties are represented by ν(t) = [ νSoC (t), ν c(t), ν s(t), ν ∞(t)] T , where the elements represent uncertainty in the SoC, core, surface, and ambient temperature dynamics. Cbat is the battery capacity, R0 is the ohmic resistance, and 
+
+Rc, and Cc are the thermal resistance and capacitance of the cell core, respectively. Rs, C s describe the resistance and capacitance related to heat transfer at the surface. C∞ is the heat capacity of the cooling system. E is the entropic heat coefficient. The output equation is for the battery terminal voltage V , which uses the SoC-dependent open-circuit voltage Vo(SoC ).From (4), we can observe that there exists a function h such that Tc = h(I, ˙Qc, T s, T ∞). Moreover, I, ˙Qc, Ts, and 
+
+T∞ are readily measurable and are thus used as input features for our KAN-based core temperature model to estimate the core temperature bTc. Mathematically, the KAN core temperature estimator learns the following map: 
+
+bTc = (Θ GM −1 ◦ · · · ◦ ΘG
+
+> 1
+
+(I, ˙Qc, T s, T ∞). (5) To train this KAN-based thermal model, we considered a 2.3Ah A 123 cylindrical LiF eP O 4 − LiC 6 battery cell parameters [25] to generate the data from the lumped thermal model (4) using both constant and dynamic current Network width [4 , 1, 1] Training Epochs 70 
+
+G 2 Batch size 214 
+
+k 3 Grid update stop 50 
+
+Regularization 0.00005 Optimizer L-BFGS 
+
+l1 penalty 0.14 Entropy penalty 0.17 
+
+Table 1: Model structure and hyperparameters for the KAN used for core temperature estimation. profiles. A small Gaussian noise term 5 × 10 −4ξ, where ξ ∼ N (0 , 1) , is added to the thermal dynamics to represent model uncertainty. The specific hyperparameter of our trained KAN structure is shown in Table 1. The KAN estimation error bound (3) and the electro-thermal model (4) discussed in this section will be subsequently used to derive the robust control barrier function constraints in the next section. 
+
+## 3 Integration of KAN and Robust CBF 
+
+In this section, we will describe how the KAN-rCBF algorithm can be implemented to generate safe fast charging protocols using the KAN-estimated core temperature bTc and the measurements data of surface temperature Ts, coolant temperature T∞, current I, and coolant power ˙Qc. The scheme overview in Fig. 1 shows how the measured battery data is used to obtain the core temperature estimate from KAN and is subsequently sent to the KAN-rCBF policy optimizer along with the KAN estimate to obtain the optimal safe charging policy. 
+
+Figure 1: Overview of the CBF safety-constrained fast charging with KAN core temperature estimation bTc using 
+
+Ts, T ∞, I and ˙Qc.Before we present the KAN-rCBF charging optimization strategy, we will first state the assumptions in our framework and also define the relevant mathematical preliminaries. Assumption 1 (Bounded system uncertainties) . The uncertainties νSoC (t), ν c(t), ν s(t), ν ∞(t) and ˙νs(t) in the battery model (4) are bounded for all t ⩾ 0. That is, there exist known positive constants νSoC , ν c, ν c, ν ∞ and dν s such that 
+
+∀t,
+
+|νSoC (t)| ⩽ νSoC , |νc(t)| ⩽ νc, |νs(t)| ⩽ νs,
+
+|ν∞(t)| ⩽ ν∞, | ˙νs(t)| ⩽ dν s.
+
+Definition 1 (Safe set) . For a system with states x and input U , a safe set for the system can be defined in terms of a barrier function B(x) that is continuously differentiable in x as, 
+
+S = {x : B(x) ⩾ 0}, (6) 
+
+where B(x) > 0 represents safe operating conditions, while B(x) = 0 denotes the safety boundary. 
+
+Definition 2 (Forward invariance) . A set S is a forward invariant for the system (4) if a starting solution x(0) ∈ S 
+
+remains in S for all time t ⩾ 0.
+
+A battery is considered to charge safely when its state of charge (SoC), terminal voltage V , core temperature Tc,and surface temperature Ts does not exceed the maximum allowable state of charge SoC, terminal voltage V , core temperature T c, and surface temperature T s, respectively. Using these limits we define continuously differentiable barrier functions as 
+
+B1(x, u ) = V − V = V − Vo(SoC ) + uR o, (7) 
+
+B2(x) = SoC − SoC , (8) 
+
+B3(x) = T c − Tc, (9) 
+
+B4(x) = T s − Ts, (10) to obtain the safe set for the fast charging control as 
+
+S = {x : B1(x, u ) ⩾ 0, B 2(x) ⩾ 0, B 3(x) ⩾ 0, B 4(x) ⩾ 0}. (11) The next theorem prescribes the conditions on the barrier functions Bi(x), ∀i ∈ { 2, 3, 4} defined in (8)-(10) such that the safe set (11) is forward invariant. Alternatively, it prescribes the condition that the control input u must satisfy to ensure any battery state that starts in the safe set will remain within the safe set for all time t ⩾ 0 [34]. We note here that B1(x, u ) depends explicitly on the input (i.e. it has relative degree r = 0 ). Therefore, any input satisfying 
+
+B1(x, u ) ⩾ 0 is sufficient to guarantee forward invariance of S, with no further conditions required. 
+
+Theorem 2 (Constraints for rCBF ) . Consider a system ˙x = f (x) + g(x)U + ν(t) as in (4) and some safe set defined in (6) , then a function B(x) will be a barrier function for r ⩾ 1 for the system if ∀r ⩾ 1
+
+Lrf B(x) + Lg Lr−1 
+
+> f
+
+B(x)U + ∆ r (x, t ) ⩾ −Kαη(x). (12) 
+
+where the uncertainty term is defined as ∆r (x, t ) = Pr−1 
+
+> k=0
+
+Lν(k) Lr−1−kf B(x), the barrier state vector η(x) = [B(x), L f B(x), . . . , L r−1 
+
+> f
+
+B(x)] T and the elements in Kα ∈ Rr are such that main minors of the determinant of the corresponding Hurwitz matrix constructed from Kα are positive. The proof is provided in the Appendix A.1. If such a barrier function exists, then the safety of the set (6) is forward invariant. 
+
+To obtain a control policy u that matches a desired policy udes under the rCBF conditions (12), we will solve the following optimization problem 
+
+U ∗ = arg min  
+
+> U
+
+∥U − Udes ∥2, ∀t ⩾ 0. (13) For fast charging, we want the control policy to be as close to the highest C-rate current Iref as possible. In terms of the battery dynamics, we can rewrite the rCBF constraints (12) in terms of the charging current u as 
+
+Lrf B(x) + Lg1 Lr−1 
+
+> f
+
+B(x)u + Lg2 Lr−1 
+
+> f
+
+B(x)u2 + Lg3 Lr−1 
+
+> f
+
+B(x) ˙Qc + ∆ r (x, t ) ⩾ −Kαη(x). (14) For applying rCBF constraints (14) to our battery system, we first determine the relative degree of each barrier function 
+
+Bi with respect to the control input u. Using the electro-thermal model (4), we can readily derive that the voltage, SoC, core temperature, and surface temperature barrier functions have relative degrees 0, 1, 1, and 2, respectively. We will now present the analytical safety guarantees of our KAN-rCBF method in Proposition 1. A1 = 1 
+
+> RcCc
+
+A2 = E 
+
+> Cc
+
+A3 = R0
+
+> Cc
+
+A4 = 1  
+
+> R2
+> cCcCs
+
++ 1 
+
+> R2
+> cC2
+> s
+
++ 1
+
+> RcRsC2
+> s
+
+− α4
+
+> RcCs
+
+A5 = −A4 − 1
+
+> RcRsC2
+> s
+
+− 1 
+
+> R2
+> sC2
+> s
+
+− 1  
+
+> R2
+> sCsCbat
+
++ α4 
+
+> RsCs
+
+− α3
+
+A6 = 1
+
+> RcRsC2
+> s
+
++ 1 
+
+> R2
+> sC2
+> s
+
++ 1  
+
+> R2
+> sCsCbat
+
+− α4 
+
+> RsCs
+
+A7 = α3T s
+
+A8 = E 
+
+> RcCcCs
+
+A9 = − Rs 
+
+> RcCcCs
+
+A10 = 1
+
+> RsCsCbat
+
+∆4 = −
+
+ 1
+
+> RcCs
+
+
+
+νc − 1 
+
+> RcCs
+
++ 1 
+
+> RsCs
+
+−α4 νs −
+
+ 1
+
+> RsCs
+
+
+
+ν∞ −dν s
+
+Table 2: Constants for Proposition 1. 
+
+Proposition 1 (KAN-rCBF charging optimization condition) . Consider the electro-thermal battery system in (4) ,whose states are the state of charge SoC, core temperature Tc, surface temperature Ts, and bTc is the estimated core temperature using the KAN-based thermal model (5) . Let the safe set S be defined as in (11) . If the charging control input u is computed as the solution of the following quadratic optimization problem 
+
+usaf e = arg min  
+
+> u∈U
+
+|| u − Iref || 2, (15) 
+
+s.t. V − Vo(SoC ) + R0u ⩾ 0, (16)  
+
+> uCbat
+
++ α1(SoC − SoC ) − νSoC ⩾ 0, (17) 
+
+Hc( bTc, T s, u ) + νc ⩾ − E 
+
+> Cc
+
+uMG−k−1 (18) 
+
+Hs(Tc, T s, T ∞, ˙Qc, u ) + ∆ 4 ⩾ 0 (19) 
+
+U = {u ∈ R : Iref ⩽ u ⩽ 0}, (20) 
+
+where Hc( bTc, T s, u ) = −A1Ts + A2 bTcu − A3u2 + A1T c and Hs(Tc, T s, T ∞, ˙Qc, u ) = A4Tc + A5Ts + A6T∞ +
+
+A7 + A8Tcu + A9u2 + A10 ˙Qc, the constants Am, ∀m ∈ { 1, . . . , 10 }, and ∆4 are given in Table 2, then states of the battery will remain in safe set S for all time t ⩾ 0.Proof. The proof is presented in Appendix A.2. ■
+
+Algorithm 1 KAN-rCBF Fast Charging Current Optimization Algorithm 
+
+Input: Time t, Initial current u(0) , coolant power ˙Qc, coolant temperature T∞(t), surface temperature Ts(t), KAN 
+
+model (5) , Am, ∀m ∈ { 1, . . . , 10 }
+
+Output: Optimized current u. 
+
+> 1
+
+for t ⩾ 0 do  
+
+> 2
+
+Forward-pass through KAN (5) to get bTc u(t + 1) ← rCBF( u(t), ˙Qc, T ∞(t), T s(t), bTc(t)) 
+
+> 3
+
+Function rCBF( u(t), ˙Qc, T ∞(t), T s(t)): 
+
+> 4
+
+Compute usaf e using (15) – (20) return usaf e 
+
+## 4 Simulation results 
+
+This section presents simulation results that evaluate the proposed KAN-rCBF framework and compare it with the recent state-of-the-art surface temperature constrained CBF (S-CBF) method [20]. To evaluate the effectiveness of the proposed KAN-rCBF strategy and baseline, optimizations are solved for a desired reference Iref = 23 A (i.e. 10C) fast-charging scenario. The implementation of Algorithm 1 is based on the safety constraints developed in Proposition 1. These safety constraints are enforced throughout the charging process, with 0 ⩽ Vt ⩽ V t = 3 .6V ,
+
+Tc, T s ⩽ T = 323 K, and 0 ⩽ SoC ⩽ 1. The CBF parameters are chosen as α1 = 0 .05 , α2 = 0 .0246 , α3 = 0 .05 , and α4 = 0 .6, providing a reasonable balance between responsiveness and robustness. In the simulations, the uncertainty bounds are selected as νc = 0 .0005 , νs = 0 .0005 , ν∞ = 0 .0005 , and dν s = 0 .1. These uncertainty bounds are incorporated into the CBF constraints through worst-case margins, ensuring that the safety requirements are satisfied during operation. All computations have been conducted on a Dell Precision 3660 workstation equipped with an Intel Core i7-13700 CPU (16 cores, 24 threads), 32 GB RAM, and an NVIDIA RTX A2000 GPU with 12 GB VRAM. GPU acceleration was enabled using NVIDIA driver 573.44 with CUDA 12.8, and the implementation was developed in Python 3.13.5 using the PyTorch ecosystem. The optimal charging current was computed using the Sequential Least Squares Programming (SLSQP) algorithm from the SciPy optimization library. In this work, SoC is generated from the battery model through current counting and thus the uncertainty νSoC = 0 . However, if the SoC is estimated, this uncertainty can be incorporated using a similar strategy as used for the rest of the states. Before presenting the results for KAN-rCBF, we will present the accuracy of the KAN core temperature estimator. 
+
+Performance of KAN: The estimated temperature bTc obtained from KAN and the true temperature Tc are shown in Fig. 2. The lower plot in Fig. 2 shows the error in the KAN estimate and its upper bound is used within our KAN-rCBF constraints. The error shows that the estimator closely tracks the true temperature during the charging process, and it achieves a root mean square error (RMSE) of 0.0417 K. The estimation error stays within the analytical bound from Proposition 1 throughout the operating range. This shows that the theoretical guarantee is reflected in practice and that the added correction term captures the uncertainty effectively. This result also shows that the estimated temperature is reliable for use in our proposed KAN-rCBF charging strategy. 
+
+Figure 2: The upper plot compares the true core temperature Tc and the estimated temperature bTc. The lower plot shows the estimation error Tc − bTc.
+
+Performance of Baseline: The S-CBF methodology enforces safety constraints on terminal voltage, battery temper-ature, and state of charge (SoC) through a cascade structure [20]. Nevertheless, there are a few shortcomings of this method. (i) Most important among them is the lack of a core temperature constraint, which makes it vulnerable to internal overheating, since the battery core can reach a higher temperature than the surface [35]. (ii) The framework assumes perfect knowledge of the battery states and does not consider model uncertainty, which reduces its robust-ness for real-world applications. (iii) The model used for deriving the S-CBF constraints also neglects the reversible heat source term E. This simplification enables the use of a cascade CBF structure to separate electrical and thermal safety constraints into sequential QP problems with linear constraints. We have assessed that such a simplification is unnecessary and can also lead to poorer thermal management. Specifically, both the cascade CBF and the standard single-step CBF formulations were tested for our method, and they showed similar results in terms of charging behav-ior and satisfaction of the safety constraints. Fig. 3 shows the simulation results under the 10 C fast-charging reference and includes the S-CBF optimal charging current, terminal voltage, state-of-charge (SoC), surface temperature Ts,and core temperature Tc (from top to bottom). Since the S-CBF approach does not directly have control over the core temperature, the core temperature reaches about 327 .97 K in this case, which is nearly 5K above the safe temperature limit. This shows that surface temperature alone does not indicate the internal thermal condition of the battery. In addition, the S-CBF strategy fails to remain below the safe surface temperature limit, as Ts reaches a maximum of 323 .11 K. This occurs because the algorithm is not robust to model uncertainty. Overall, this S-CBF control approach does not consistently ensure thermal safety. 
+
+Performance of KAN-rCBF: Fig. 3 also shows that the optimal fast charging policy obtained from the proposed KAN-rCBF strategy can satisfy the thermal constraints for the battery. Even in the presence of system uncertainty, the core temperature of the battery attains a maximum of 323 K, whereas the surface temperature remains within safe limits, with a maximum temperature of around 319 .06 K. We observe the major difference between S-CBF and KAN-rCBF starting around 171.60 seconds when the charging current for KAN-rCBF is reduced as the core temperature approaches its safety limit. In contrast, S-CBF continues to charge at a higher C-rate as it only monitors the surface temperature. This results in a slightly longer time of 784 .54 seconds to fully charge the battery using KAN-rCBF, compared to 712 .96 seconds for the S-CBF strategy. This charging time difference of approximately 1.2 minute is a necessary trade-off to maintain safe internal temperatures. 
+
+Figure 3: Performance comparison of baseline S-CBF [20] and proposed KAN-rCBF charging algorithm, where the latter achieves improved safety in temperature regulation while maintaining comparable charging time. 
+
+## 5 Conclusion And Future Work 
+
+This work develops a robust battery safety control framework that considers model uncertainty and uses KAN for core temperature estimation to explicitly include a core temperature constraint within the CBF framework. Analytical guarantees are also developed to ensure safety in the presence of KAN estimation errors and model uncertainty. The results show that it provides a reliable estimate of the core temperature for control and safety purposes. A comparison with a state-of-the-art surface temperature constrained CBF charging method was used as a representative example. We showed that relying only on surface temperature constraints can allow the internal temperature to exceed safe levels, with the core temperature reaching about 327 .97 K and the surface temperature about 323 .11 K. By constraining the core temperature with the proposed noise-aware model, both the core and surface temperatures were maintained within safe limits, with the core temperature remaining near 323 K. This improved safety required a moderate increase in charging time, approximately 1.2 minutes. The increase in charging time reflects the prioritization of thermal safety. References 
+
+[1] Thanh Tu Vo, Xiaopeng Chen, Weixiang Shen, and Ajay Kapoor. New charging strategy for lithium-ion batteries based on the integration of taguchi method and state of charge estimation. Journal of Power Sources , 273:413– 422, 2015. [2] Li Jiang, Yong Li, Yuduo Huang, Jiaqi Yu, Xuebo Qiao, Yixiao Wang, Chun Huang, and Yijia Cao. Optimization of multi-stage constant current charging pattern based on taguchi method for Li-ion battery. Applied Energy ,259:114148, 2020. [3] Muhammad Usman Tahir, Ariya Sangwongwanich, Daniel-Ioan Stroe, and Frede Blaabjerg. Multi-objective optimization for multi-stage constant current charging for Li-ion batteries. Journal of Energy Storage , 86:111313, 2024. [4] Seongik Han. Optimal charging current protocol with multi-stage constant current using dandelion optimizer for time-domain modeled lithium-ion batteries. Applied Sciences , 14(23):11320, 2024. [5] Yudong Shen, Xueyuan Wang, Yuguang Li, Zhichao Zhang, Zhengde Tao, Yanan Hou, XueZhe Wei, and Haifeng Dai. Expansion force-based adaptive multistage constant current fast charging with lithium plating detection for lithium-ion batteries. Advanced Science , page e04580, 2025. [6] Jiahao Liu and Xia Wang. Experimental study of the effect of different pulse charging patterns on lithium-ion battery charging. Journal of Power Sources , 610:234700, 2024. [7] Jia Guo, Yaolin Xu, Moritz Exner, Xinrong Huang, Yongchun Li, Yanchen Liu, Hui Wang, Julia Kowal, Qi Zhang, Peter Kjær Kristensen, et al. Unravelling the mechanism of pulse current charging for enhancing the stability of commercial lini0. 5mn0. 3co0. 2o2/graphite lithium-ion batteries. Advanced energy materials ,14(22):2400190, 2024. [8] Muhammad Usman Tahir, Ariya Sangwongwanich, Daniel-Ioan Stroe, and Frede Blaabjerg. Overview of multi-stage charging strategies for Li-ion batteries. Journal of Energy Chemistry , 84:228–241, 2023. [9] Zhi Zhang, Taijun Guo, Yefeng Liu, Xinfu Pang, and Zedong Zheng. Fast-charging optimization method for lithium-ion battery packs based on deep deterministic policy gradient algorithm. Batteries , 11(5):199, 2025. [10] Ahmed Shokry, Mehdi Abou El Qassime, Antonio Espuna, and Eric Moulines. Health-aware optimal charging of lithium-ion batteries using deep-neural networks-based explicit constrained model predictive control. Computers & Chemical Engineering , 199:109096, 2025. [11] Khairy Sayed, Mahmoud Aref, Mishari Metab Almalki, and Mahmoud A Mossa. Optimizing fast charging protocols for lithium-ion batteries using reinforcement learning: Balancing speed, efficiency, and longevity. 
+
+Results in Engineering , 25:104302, 2025. [12] Kyungjin Yu, Adekanmi Miracle Adeyinka, Song-Yul Choe, and Wooju Lee. Optimized multi-stage con-stant current fast charging protocol suppressing lithium plating for lithium-ion batteries using reduced order electrochemical-thermal-life model. Journal of Power Sources , 626:235759, 2025. [13] Ning Tian, Huazhen Fang, and Yebin Wang. Real-time optimal lithium-ion battery charging based on explicit model predictive control. IEEE Transactions on Industrial Informatics , 17(2):1318–1330, 2020. [14] Alexander Bills, Mauro Salazar, Dong Zhang, and Venkatasubramanian Viswanathan. A model predictive control scheme for fast charging via accurate quadratic battery models. In 2022 American Control Conference (ACC) ,pages 1794–1800. IEEE, 2022. [15] Yang Li, D Mahinda Vilathgamuwa, Evelina Wikner, Zhongbao Wei, Xinan Zhang, Torbj¨ orn Thiringer, Torsten Wik, and Changfu Zou. Electrochemical model-based fast charging: Physical constraint-triggered pi control. 
+
+IEEE Transactions on Energy Conversion , 36(4):3208–3220, 2021. [16] Sebastian Hirt, Andreas H¨ ohl, Johannes Pohlodek, Joachim Schaeffer, Maik Pfefferkorn, Richard D Braatz, and Rolf Findeisen. Safe learning-based optimization of model predictive control: Application to battery fast-charging. In 2025 American Control Conference (ACC) , pages 2817–2822. IEEE, 2025. [17] Shashank Dhananjay Vyas, Tanushree Roy, and Satadru Dey. Thermal fault-tolerance in lithium-ion battery cells: a barrier function based input-to-state safety framework. In 2022 IEEE Conference on Control Technology and Applications (CCTA) , pages 1178–1183. IEEE, 2022. [18] Shashank Dhananjay Vyas, Tanushree Roy, and Satadru Dey. An input-to-state safety approach toward thermal fault-tolerant battery cells. IEEE Transactions on Control Systems Technology , 32(5):1647–1658, 2024. [19] Tanushree Roy, Ashley Knichel, and Satadru Dey. An Input-to-State Safety Approach Toward Safe Control Of A Class Of Parabolic PDEs Under Disturbances. IEEE Transactions on Control Systems Technology , 2024. [20] Shuang Feng, Ricardo de Castro, and Iman Ebrahimi. Safe battery control using cascade-control-barrier func-tions. IEEE Transactions on Control Systems Technology , 2024. [21] Yan Ma, Yanfang Cui, Hongyuan Mou, Jinwu Gao, and Hong Chen. Core temperature estimation of lithium-ion battery for evs using kalman filter. Applied Thermal Engineering , 168:114816, 2020. [22] Ian Goodfellow, Yoshua Bengio, Aaron Courville, and Yoshua Bengio. Deep learning , volume 1. MIT press Cambridge, 2016. [23] Ti Dong, Yiwei Wang, Wenjiong Cao, Weijiang Zhang, and Fangming Jiang. Analysis of lithium-ion battery ther-mal models inaccuracy caused by physical properties uncertainty. Applied Thermal Engineering , 198:117513, 2021. [24] Ziming Liu, Yixuan Wang, Sachin Vaidya, Fabian Ruehle, James Halverson, Marin Soljaˇ ci´ c, Thomas Y Hou, and Max Tegmark. KAN: Kolmogorov-arnold networks. arXiv preprint arXiv:2404.19756 , 2024. [25] Soumyoraj Mallick, Faysal Ahamed, Sanchita Ghosh, and Tanushree Roy. KAN-Therm: A lightweight battery thermal model using Kolmogorov-Arnold network. arXiv preprint arXiv:2509.09145 , 2025. [26] Mohd Herwan Sulaiman, Zuriani Mustaffa, Amir Izzani Mohamed, Ahmad Salihin Samsudin, and Muhammad Ikram Mohd Rashid. Battery State Of Charge Estimation For Electric Vehicle Using Kolmogorov-Arnold net-works. Energy , 311:133417, 2024. [27] Yangke Cui and Yongzheng Feng. Enhanced State Of Health Prediction For Lithium-ion Batteries Using A Hybrid Convolutional–Kolmogorov–Arnold Network. International Journal of Electrochemical Science ,20(6):101008, 2025. [28] Liyuan Shao, Yong Zhang, Xiujuan Zheng, Rui Yang, and Wei Zhou. SOH Estimation Of Lithium-ion Batteries Subject To Partly Missing Data: A Kolmogorov–Arnold–Linformer Model. Neurocomputing , 638:130181, 2025. [29] Han Liu, Yiming Wang, Jiaju Wang, Ao Zhang, and Haiqiang Yang. SOH Prediction Of Battery Packs Using Dynamic Graph Convolution Combined With KAN-Driven Methods. In 2025 4th International Conference on Green Energy and Power Systems (ICGEPS) , pages 129–134. IEEE, 2025. [30] Sanchita Ghosh and Tanushree Roy. Explainable functional relation discovery for battery state-of-health using kolmogorov-arnold network. arXiv preprint arXiv:2604.00400 , 2026. [31] Yanli Yang, Zihao Liu, and Bin Han. Capacity Degradation Prediction Of On-road Vehicle Battery Packs By Combining Kolmogorov-Arnold With Squeeze-and-excitation Networks. Measurement Science and Technology ,2025. [32] Sanchita Ghosh and Tanushree Roy. KAN-Koopman based rapid detection of battery thermal anomalies with diagnostics guarantees. arXiv preprint arXiv:2602.21155 , 2026. [33] Jialong He, Zhenbiao Ma, Yan Liu, Chi Ma, and Wanfu Gao. Remaining Useful Life Prediction Of Lithium-ion Battery Based On Improved Gated Recurrent Unit-generalized Cauchy Process. Journal of Energy Storage ,126:117086, 2025. [34] Aaron D Ames, Xiangru Xu, Jessy W Grizzle, and Paulo Tabuada. Control barrier function based quadratic programs for safety critical systems. IEEE Transactions on Automatic Control , 62(8):3861–3876, 2016. [35] Shen Li, Anisha N Patel, Cheng Zhang, Tazdin Amietszajew, Niall Kirkaldy, Gregory J Offer, and Monica Mari-nescu. Internal temperature estimation for lithium-ion batteries through distributed equivalent circuit network model. Journal of Power Sources , 611:234701, 2024. 
+
+## A Proofs 
+
+A.1 Proof of the HOCBF Condition 
+
+Proof. Consider the system ˙x = f (x) + g(x)U + ν(t) as in (4). Let B(x) be a barrier function. Its first derivative along the system dynamics is 
+
+˙B(x) = Lf B(x) + Lg B(x)U + Lν B(x). (21) If the control input does not appear in ˙B, then Lg B(x) = 0 . Differentiating once more yields 
+
+B(2) (x) = L2 
+
+> f
+
+B(x) + Lg Lf B(x) U + Lν Lf B(x) + L ˙ν B(x), (22) where the uncertainty term follows from ddt (Lν B) = L ˙ν B, since ν(t) depends only on time. Since the input is also absent from B(2) , so, Lg Lf B(x) = 0 .By induction, the input is absent from all derivatives up to order r − 1 if 
+
+Lg Ljf B(x) = 0 , j = 0 , 1, . . . , r − 2, (23) The input U appears for the first time in the r-th derivative through Lg Lr−1 
+
+> f
+
+B(x)U , with Lg Lr−1 
+
+> f
+
+B(x)̸ = 0 . Hence, 
+
+B(x) has relative degree r.Next, consider the uncertainty contribution. For any j and k,
+
+Lν(k) Ljf B(x) = ∂L jf B(x)
+
+∂x ν(k)(t). (24) Since ν(t) depends only on time, differentiation only increases the order of the uncertainty: 
+
+ddt 
+
+ Lν(k) Ljf B(x) = Lν(k+1) Ljf B(x). (25) Therefore, repeated differentiation produces the sequence 
+
+Lν Lr−1 
+
+> f
+
+B, L ˙ν Lr−2 
+
+> f
+
+B, . . . , Lν(r−1) B. (26) Thus, the r-th derivative of B(x) can be written as 
+
+B(r)(x, U ) = Lrf B(x) + Lg Lr−1 
+
+> f
+
+B(x)U + ∆ r (x, t ), (27) where 
+
+∆r (x, t ) = 
+
+> r−1
+
+X
+
+> k=0
+
+Lν(k) Lr−1−kf B(x). (28) Define the barrier-state vector 
+
+η(x) = B(x) ˙B(x) · · · B(r−1) (x)⊤ . (29) Then 
+
+˙η = F η + Gμ, μ = B(r)(x, U ), (30) where 
+
+F =
+
+
+
+0 1 0 · · · 00 0 1 · · · 0
+
+... ... ... . . . ...
+
+0 0 0 · · · 10 0 0 · · · 0
+
+ , G =
+
+
+
+00
+
+...
+
+01
+
+ . (31) Choose Kα = [ α1 α2 · · · αr ] such that F − GK α is Hurwitz. The higher-order barrier condition is imposed as 
+
+B(r)(x, U ) ⩾ −Kαη(x). (32) Substituting B(r)(x, U ) gives 
+
+Lrf B(x) + Lg Lr−1 
+
+> f
+
+B(x)U + ∆ r (x, t ) ⩾ −Kαη(x). (33) Assume now that ∆r (x, t ) ⩾ −∆r . Then 
+
+Lrf B(x)+ Lg Lr−1 
+
+> f
+
+B(x)U + ∆ r (x, t ) ⩾
+
+Lrf B(x) + Lg Lr−1 
+
+> f
+
+B(x)U − ∆r . (34) Therefore, if 
+
+Lrf B(x) + Lg Lr−1 
+
+> f
+
+B(x)U − ∆r ⩾ −Kαη(x), (35) it follows that 
+
+Lrf B(x) + Lg Lr−1 
+
+> f
+
+B(x)U + ∆ r (x, t ) ⩾ −Kαη(x). (36) This shows that the robust HOCBF condition (35) is sufficient to guarantee the desired HOCBF inequality. ■A.2 Proof of Proposition 
+
+To establish forward invariance of the safe set S, we will show that each of the barrier functions Bi, ∀i ∈ { 1, 2, 3, 4}
+
+(7)-(10) satisfy the rCBF conditions. 
+
+Voltage constraint: Since the control input u appears explicitly in B1(x, u ), the relative degree of B1(x, u ) is 0.Hence, using (7) the rCBF condition B1(x, u ) ⩾ 0 yields our first rCBF constraint (16). 
+
+SoC constraint: The gradient of the safety function (8) with respect to the state vector x is given by ∇B2(x) = [−1, 0, 0, 0] T , which shows that ˙B2(x) depends only on the SoC dynamics. We derive the following Lie derivatives to determine the relative degree of B2:
+
+Lf B2(x) = ∇BT 
+
+> 2
+
+(x)f = 0 , (37) 
+
+Lg1 B2(x) = ( −1) 
+
+
+
+− 1
+
+> Cbat
+
+
+
+= 1 
+
+> Cbat
+
+, (38) 
+
+Lg2 B2(x) = Lg3 B2(x) = 0 , L ν B(x) = −νSoC . (39) Non-zero Lg1 B2(x) in (38) shows that the relative degree is 1 and then the rCBF condition for SoC barrier function 
+
+B2 (8) is given by 
+
+Lf B2(x) + Lg1 B2(x)u + Lg2 B2(x)u2 + Lg3 B2(x) ˙Qc + Lν B2(x) + α1(B2(x)) ⩾ 0 (40) where α1 > 0. Substituting (37)-(39) in (40), we obtain  
+
+> uCbat
+
++ α1(SoC − SoC ) − νSoC ⩾ 0 (41) We note that −νSoC ⩾ −νSoC . Therefore, if our second rCBF constraint (17) is satisfied, then (41) will be guaranteed to be satisfied. 
+
+Core temperature constraint: The barrier function (9) is used to enforce the safety requirement so that the core temperature Tc does not exceed the upper bound T c. Similarly, we can derive that its relative degree is 1 and it satisfies the robust CBF condition (14) 
+
+Lf B3(x) + Lg1 B3(x)u + Lg2 B3(x)u2 + Lg3 B3(x) ˙Qc + Lν B3(x) + α2B3(x) ⩾ 0, (42) where α2 > 0. From (9), ∇B3(x) = [0 , −1, 0, 0] T . to produce the terms in (42) 
+
+Lf B3(x) = − Ts−Tc 
+
+> RcCc
+
+, L g1 B3(x) = ETc 
+
+> Cc
+
+, L g2 B3(x) = − R0 
+
+> Cc
+
+,Lg3 B3(x) = 0 , L ν B3(x) = −νc. (43) Evaluating (42) then yields 
+
+− Ts−Tc 
+
+> RcCc
+
++ ETc 
+
+> Cc
+
+u − R0 
+
+> Cc
+
+u2 − νc + α2(T c − Tc) ⩾ 0. (44) Now, rearranging (44) and replacing the constants from Table 2, we obtain 
+
+A1(−Ts + Tc) + A2Tcu − A3u2 − νc + α2(T c − Tc) ⩾ 0. (45) The above condition depends on the core temperature state Tc, which is not available and thus must be replaced by its KAN estimate bTc. We replace Tc = bTc + e in all three terms of (45), where e = ( Tc − bTc) is the KAN estimation error. This yields 
+
+−A1Ts+A1 bTc + A2 bTcu − A3u2 − νc + α2(T c − bTc) ⩾ α2e − (A1 + A2u)e (46) Choosing the α2 = A1 > 0 in (46) results in 
+
+Hc( bTc, T s, u )− νc ⩾ − E 
+
+> Cc
+
+ue, (47) where H( bTc, T s, u ) = −A1Ts + A2 bTcu − A3u2 + A1T c. Next, we will again note that −νc ⩾ −νc. This implies that if H( bTc, T s, u ) − νc ⩾ − E 
+
+> Cc
+
+ue, then (47) will be true. Now, using the bound from the Kolmogorov-Arnold approximation theorem (3), we can write −| e| ⩾ −M G−k−1 to obtain constraint (18). Surface temperature constraint: Similarly, the gradient of the barrier function (10) is ∇B4(x) = [0 , 0, −1, 0] T .
+
+Using the system dynamics (4), we can derive Lg1 B4(x) = Lg2 B4(x) = Lg3 B4(x) = 0 . Additionally, Lν B4(x) = 
+
+∇B4(x)ν(t) = −νs(t), which implies that ∇Lν B4(x) = 0 and thus its contribution will not be propagated to the next derivative of B4. Now, we calculate 
+
+Lf B4(x) = ∇B4(x)f (x) = Ts−Tc 
+
+> RcCs
+
++ Ts−T∞ 
+
+> RsCs
+
+, (48) and its the gradient 
+
+∇(Lf B4) = 0 − 1 
+
+> RcCs
+> 1
+> RcCs
+
++ 1 
+
+> RsCs
+
+− 1
+
+> RsCs
+
+ , (49) to obtain the terms with input for ¨B4:
+
+Lg1 Lf B4 = ETc 
+
+> RcCcCs
+
+, Lg2 Lf B4 = − Rs 
+
+> RcCcCs
+
+,Lg3 Lf B4 = 1 
+
+> RsCsCbat
+
+(50) Since the terms in (50) are non-zero, it shows that the relative for B4 dynamics is 2, and the rCBF constraint (12) then becomes 
+
+L2 
+
+> f
+
+B4(x) + Lg1 Lf B4(x)u + Lg2 Lf B4u2 + Lg3 Lf B4(x) ˙Qc + Lν Lf B4(x) + α4 (Lf B4(x) − νs(t)) + α3B4(x) ⩾ 0,
+
+(51) where α3, α 4 > 0 are chosen such that the polynomial λ2 + α4λ + α3 is Hurwitz. We will now calculate the remaining terms in (51) to obtain: 
+
+L2 
+
+> f
+
+B4(x) = Tc−Ts  
+
+> R2
+> cCsCc
+
+−
+
+ 1 
+
+> RcCs
+
++ 1
+
+> RsCs
+
+  Ts−Tc 
+
+> RcCs
+
++ Ts−T∞
+
+> RsCs
+
+
+
++ T∞−Ts  
+
+> R2
+> sCsCbat
+
+, (52) 
+
+Lν Lf B4(x) = − νc(t) 
+
+> RcCs
+
++
+
+ 1 
+
+> RcCs
+
++ 1
+
+> RsCs
+
+
+
+νs(t)− ν∞(t) 
+
+> RsCs
+
+. (53) Substituting (50), (52), (53) in (51)   
+
+> Tc−Ts
+> R2
+> cCsCc
+
+−
+
+ 1 
+
+> RcCs
+
++ 1
+
+> RsCs
+
+  Ts−Tc 
+
+> RcCs
+
++Ts−T∞
+
+> RsCs
+
+
+
++ T∞−Ts  
+
+> R2
+> sCsCbat
+
++ αT c 
+
+> RcCsCc
+
+u − Rs 
+
+> RcCsCc
+
+u2 + 1
+
+> RsCsCbat
+
+˙Qc − νc(t)
+
+> RcCs
+
++
+
+ 1 
+
+> RcCs
+
++ 1
+
+> RsCs
+
+
+
+νs(t) − ν∞(t) 
+
+> RsCs
+
+− ˙νs(t) + α4
+
+ Ts−Tc 
+
+> RcCs
+
++ Ts−T∞ 
+
+> RsCs
+
+− νs(t)
+
+
+
++ α3(T s − Ts) ⩾ 0. (54) Since Lν B4(x) = −νs(t), its time derivative contributes an additional term 
+
+> ddt
+
+ Lν B4(x) = − ˙νs(t). (55) Now, defining the nominal part 
+
+Hs(Tc, T s, T ∞, ˙Qc, u ) = A4Tc + A5Ts + A6T∞
+
++ A7 + A8Tcu + A9u2 + A10 ˙Qc, (56) where the constants Am, ∀m ∈ { 4, . . . , 10 } are defined in Table 2. So, the constraint is 
+
+Hs(Tc, T s, T ∞, ˙Qc, u )− νc(t)
+
+> RcCs
+
++
+
+ 1 
+
+> RcCs
+
++ 1
+
+> RsCs
+
+
+
+νs(t)− ν∞(t) 
+
+> RsCs
+
+− ˙νs(t) ⩾ 0 (57) We note that the uncertainty terms are bounded below by 
+
+− νc(t) 
+
+> RcCs
+
+⩾ − νc 
+
+> RcCs
+
+, (58) 
+
+ 1 
+
+> RcCs
+
++ 1 
+
+> RsCs
+
+−α4
+
+
+
+νs(t) ⩾ − 1 
+
+> RcCs
+
++ 1 
+
+> RsCs
+
+−α4 νs, (59) 
+
+−ν∞(t) 
+
+> RsCs
+
+⩾ − ν∞ 
+
+> RsCs
+
+, (60) 
+
+− ˙νs(t) ⩾ −dν s. (61) Therefore, a worst-case robust constraint is 
+
+Hs(Tc, T s, T ∞, ˙Qc, u )− νc 
+
+> RcCs
+
+− 1 
+
+> RcCs
+
++ 1 
+
+> RsCs
+
+− α4 νs − ν∞ 
+
+> RsCs
+
+− dν s ⩾ 0. (62) Let ∆4 = νc 
+
+> RcCs
+
++ 1 
+
+> RcCs
+
++ 1 
+
+> RsCs
+
+− α4 νs + ν∞ 
+
+> RsCs
+
++ dν s denote the worst-case disturbance margin. So, (62) becomes 
+
+Hs(Tc, T s, T ∞, ˙Qc, u ) − ∆4 ⩾ 0 (63) Finally, using Theorem 2, we can assert that any optimal solution of u (15) that satisfies the constraints (16)-(19) for the barrier functions Bi conditions, in turn, guarantees the forward invariance of the battery safety set (11). This completes our proof.

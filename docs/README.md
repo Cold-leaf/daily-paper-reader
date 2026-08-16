@@ -41,17 +41,17 @@
 <section class="dpr-home-dashboard-card dpr-home-report-card">
   <div class="dpr-home-dashboard-header">
     <div>
-      <span class="dpr-home-dashboard-kicker">2026-08-15</span>
+      <span class="dpr-home-dashboard-kicker">2026-08-16</span>
       <h3 class="dpr-home-dashboard-title">今日汇总</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">共 4 篇</strong>
+    <strong class="dpr-home-dashboard-count">共 5 篇</strong>
   </div>
   <dl class="dpr-home-dashboard-stats">
     <div class="dpr-home-dashboard-stat"><dt>累计更新</dt><dd>1 次</dd></div>
-    <div class="dpr-home-dashboard-stat"><dt>精读</dt><dd>2</dd></div>
+    <div class="dpr-home-dashboard-stat"><dt>精读</dt><dd>3</dd></div>
     <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>2</dd></div>
   </dl>
-  <p class="dpr-home-dashboard-body">最近更新：2026-08-15 20:31:31 UTC<br>状态：成功</p>
+  <p class="dpr-home-dashboard-body">最近更新：2026-08-16 20:32:35 UTC<br>状态：成功</p>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-brief-card">
   <div class="dpr-home-dashboard-header">
@@ -62,7 +62,7 @@
     <strong class="dpr-home-dashboard-count">AI</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<p>今日精读2篇、速读2篇，聚焦3D集成与存内计算前沿。最值得关注的是氧化物半导体晶圆级单片3D集成（9.0分）与3D NAND存内计算架构NITRO（8.0分）。建议普通读者优先了解这两项技术如何突破芯片算力与存储墙。</p>
+<p>聚焦突破：今日精读覆盖原子层沉积氧化物半导体3D集成与2.5D PIM芯片电压管理。最值得关注的是9.0分的200mm晶圆级单片3D集成技术，及8.0分的ReVolt电压降控制方案。建议普通读者优先了解原子层沉积在下一代高性能计算中的集成潜力。</p>
   </div>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-deep-card">
@@ -71,12 +71,12 @@
       <span class="dpr-home-dashboard-kicker">今日累计</span>
       <h3 class="dpr-home-dashboard-title">精读推荐</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">2 篇</strong>
+    <strong class="dpr-home-dashboard-count">3 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="200 mm Wafer-Scale Monolithic 3D Integration of Atomic Layer-Deposited Oxide Semiconductors">200 mm Wafer-Scale Monolithic 3D Integration of Atomic Layer-Deposited Oxide Semiconductors</span></li><li><span class="dpr-home-dashboard-paper-title" title="NITRO: High-Performance 3D NAND Flash-Based In-Storage Computing with Enhanced Activation Dataflow">NITRO: High-Performance 3D NAND Flash-Based In-Storage Computing with Enhanced Activation Dataflow</span></li></ul>
+<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="200 mm Wafer-Scale Monolithic 3D Integration of Atomic Layer-Deposited Oxide Semiconductors">200 mm Wafer-Scale Monolithic 3D Integration of Atomic Layer-Deposited Oxide Semiconductors</span></li><li><span class="dpr-home-dashboard-paper-title" title="ReVolt: Power Delivery Network-Aware Voltage Droop Control for 2.5D PIM Chiplet Architectures">ReVolt: Power Delivery Network-Aware Voltage Droop Control for 2.5D PIM Chiplet Architectures</span></li><li><span class="dpr-home-dashboard-paper-title" title="NITRO: High-Performance 3D NAND Flash-Based In-Storage Computing with Enhanced Activation Dataflow">NITRO: High-Performance 3D NAND Flash-Based In-Storage Computing with Enhanced Activation Dataflow</span></li></ul>
   </div>
-  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">cim <strong>2</strong></span></div>
+  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">cim <strong>3</strong></span></div>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-skim-card">
   <div class="dpr-home-dashboard-header">
@@ -87,7 +87,7 @@
     <strong class="dpr-home-dashboard-count">2 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="ReVolt: Power Delivery Network-Aware Voltage Droop Control for 2.5D PIM Chiplet Architectures">ReVolt: Power Delivery Network-Aware Voltage Droop Control for 2.5D PIM Chiplet Architectures</span></li><li><span class="dpr-home-dashboard-paper-title" title="Transparent Boundary Conditions for the Heat Equation on Metric Graphs">Transparent Boundary Conditions for the Heat Equation on Metric Graphs</span></li></ul>
+<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="ProbSplat: Efficient Probabilistic Hardware for Gaussian Splatting in 3D Scene Reconstruction">ProbSplat: Efficient Probabilistic Hardware for Gaussian Splatting in 3D Scene Reconstruction</span></li><li><span class="dpr-home-dashboard-paper-title" title="Improving Fast Charging Safety With Core Temperature Estimation Via Kolmogorov-Arnold Network">Improving Fast Charging Safety With Core Temperature Estimation Via Kolmogorov-Arnold Network</span></li></ul>
   </div>
   <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">cim <strong>1</strong></span><span class="dpr-home-dashboard-tag">thermal-gnn <strong>1</strong></span></div>
 </section>

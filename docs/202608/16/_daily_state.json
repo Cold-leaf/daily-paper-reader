@@ -1,0 +1,89 @@
+{
+  "date": "20260816",
+  "date_label": "",
+  "generated_at": "2026-08-16 20:32:35 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2608.09508v1",
+      "route": "202608/16/2608.09508v1-200-mm-wafer-scale-monolithic-3d-integration-of-atomic-layer-deposited-oxide-semiconductors",
+      "title": "200 mm Wafer-Scale Monolithic 3D Integration of Atomic Layer-Deposited Oxide Semiconductors",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "cim"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "单片三维集成，四层三维存算一体加速器；三维堆叠逻辑与存储器件",
+      "first_seen_at": "2026-08-16 20:32:35 UTC",
+      "updated_at": "2026-08-16 20:32:35 UTC"
+    },
+    {
+      "paper_id": "2608.08496v1",
+      "route": "202608/16/2608.08496v1-revolt-power-delivery-network-aware-voltage-droop-control-for-25d-pim-chiplet-architectures",
+      "title": "ReVolt: Power Delivery Network-Aware Voltage Droop Control for 2.5D PIM Chiplet Architectures",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "cim"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "2.5D PIM芯粒架构与电压跌落控制，贴近存算一体和近存计算主题",
+      "first_seen_at": "2026-08-16 20:32:35 UTC",
+      "updated_at": "2026-08-16 20:32:35 UTC"
+    },
+    {
+      "paper_id": "2608.11920v1",
+      "route": "202608/16/2608.11920v1-nitro-high-performance-3d-nand-flash-based-in-storage-computing-with-enhanced-activation-dataflow",
+      "title": "NITRO: High-Performance 3D NAND Flash-Based In-Storage Computing with Enhanced Activation Dataflow",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "cim"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "基于3D NAND的存内计算，处理存储和三维堆叠内存",
+      "first_seen_at": "2026-08-16 20:32:35 UTC",
+      "updated_at": "2026-08-16 20:32:35 UTC"
+    },
+    {
+      "paper_id": "2608.13143v1",
+      "route": "202608/16/2608.13143v1-probsplat-efficient-probabilistic-hardware-for-gaussian-splatting-in-3d-scene-reconstruction",
+      "title": "ProbSplat: Efficient Probabilistic Hardware for Gaussian Splatting in 3D Scene Reconstruction",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "cim"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "提出基于浮栅逆变器列的存内计算（CIM）架构，面向概率计算，直接涉及存算一体架构与能效。",
+      "first_seen_at": "2026-08-16 20:32:35 UTC",
+      "updated_at": "2026-08-16 20:32:35 UTC"
+    },
+    {
+      "paper_id": "2608.12638v1",
+      "route": "202608/16/2608.12638v1-improving-fast-charging-safety-with-core-temperature-estimation-via-kolmogorov-arnold-network",
+      "title": "Improving Fast Charging Safety With Core Temperature Estimation Via Kolmogorov-Arnold Network",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "thermal-gnn"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "基于神经网络从表面温度与冷却液温度估计电池内核温度，其数据驱动预测思路可迁移到芯片温度预测",
+      "first_seen_at": "2026-08-16 20:32:35 UTC",
+      "updated_at": "2026-08-16 20:32:35 UTC"
+    }
+  ]
+}

@@ -1,0 +1,181 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-17T20:27:53.336592+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 3,
+    "deep_cap": 6,
+    "deep_selected": 3,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [
+    {
+      "id": "2608.09508v1",
+      "source": "arxiv",
+      "title": "200 mm Wafer-Scale Monolithic 3D Integration of Atomic Layer-Deposited Oxide Semiconductors",
+      "abstract": "Monolithic 3D (M3D) integration offers a pathway to overcome the scaling limits of conventional silicon complementary metal-oxide-semiconductor (CMOS) technology by extending dense vertical stacking of multifunctional logic and memory devices. Here, we demonstrate wafer-scale M3D integration of three tiers of atomic-layer-deposited (ALD) indium oxide (InOx)-based devices (>100,000 fabricated), including ferroelectric, enhancement-mode, and depletion-mode field-effect transistors, on 200 mm silicon wafers. We achieve threshold voltage standard deviation as low as 0.04 V, average electron mobility up to 91.6 cm2V-1s-1, and fully functional cross-tier circuits. A four-tier 3D computing-in-memory (CIM) accelerator targeting large language model workloads is developed using a custom InOx process design kit, delivering 1.4x to 2.9x speedup and comparable energy-delay product improvements over 2D baselines. These results establish ALD InOx M3D integration as a scalable and CMOS-compatible platform for next-generation artificial intelligence hardware and advanced electronics.",
+      "authors": [
+        "Chang Niu",
+        "Linjia Long",
+        "Luqi Zheng",
+        "Shuting Du",
+        "Jian-Yu Lin",
+        "Kisoo Nam",
+        "Zehao Lin",
+        "Chang Liu",
+        "Juanjuan Lu",
+        "Haiyan Wang",
+        "Haitong Li",
+        "Peide D. Ye"
+      ],
+      "primary_category": "physics.app-ph",
+      "categories": [
+        "physics.app-ph",
+        "cond-mat.mtrl-sci"
+      ],
+      "published": "2026-08-10T12:13:37+00:00",
+      "link": "https://arxiv.org/pdf/2608.09508v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Monolithic 3D integration of three tiers of oxide devices and four-tier computing-in-memory accelerator",
+      "llm_evidence_cn": "氧化物半导体三层单片3D集成与四层存算一体加速器",
+      "llm_evidence": "氧化物半导体三层单片3D集成与四层存算一体加速器",
+      "canonical_evidence": "氧化物半导体三层单片3D集成与四层存算一体加速器",
+      "llm_tldr_en": "To overcome silicon CMOS scaling limits, the paper demonstrates wafer-scale monolithic 3D integration of ALD InOx devices, including a four-tier 3D CIM accelerator, with low threshold voltage variation and high mobility.",
+      "llm_tldr_cn": "针对硅CMOS微缩瓶颈，论文探索了基于原子层沉积氧化物半导体的单片3D集成技术。作者在200毫米晶圆上制造了包含铁电、增强型与耗尽型晶体管的三层器件，并构建了四层3D存算一体加速器。实验测得阈值电压标准差低至0.04V、平均电子迁移率高达91.6 cm²/Vs，跨层电路功能完整。这项工作展示了氧化物半导体3D集成在近存计算与存算一体应用中的巨大潜力。",
+      "llm_tldr": "针对硅CMOS微缩瓶颈，论文探索了基于原子层沉积氧化物半导体的单片3D集成技术。作者在200毫米晶圆上制造了包含铁电、增强型与耗尽型晶体管的三层器件，并构建了四层3D存算一体加速器。实验测得阈值电压标准差低至0.04V、平均电子迁移率高达91.6 cm²/Vs，跨层电路功能完整。这项工作展示了氧化物半导体3D集成在近存计算与存算一体应用中的巨大潜力。",
+      "llm_tags": [
+        "query:cim:composite"
+      ],
+      "matched_query_tag": "query:cim:composite",
+      "matched_query_text": "Papers central to 存算一体，主要关注基于混合键合的三维堆叠的近存计算, especially work that connects or combines: compute-in-memory architecture; hybrid bonding 3D integration; 3D stacking memory technology; near-memory computing design; processing-in-memory systems; 3D integrated circuit design; What are the key benefits of hybrid bonding for 3D stacked near memory computing?; How does compute in memory architecture improve energy efficiency?; Design challenges of 3D stacking for near memory computing systems.",
+      "matched_requirement_id": "req-composite-cim",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.08496v1",
+      "source": "arxiv",
+      "title": "ReVolt: Power Delivery Network-Aware Voltage Droop Control for 2.5D PIM Chiplet Architectures",
+      "abstract": "Processing-in-memory (PIM)-based 2.5D multi-chiplet platforms are enablers for machine learning (ML) workloads. However, their performance is affected by the power delivery network (PDN), where varying chiplet-level current demand induces spatially and temporally varying voltage droop. These droop events lead to voltage violations, degrades system performance, and impact inference accuracy for ML workloads. In this work, we propose ReVolt, a dynamic operation unit (OU)-based framework for mitigating voltage droop in PIM-based multi-chiplet systems. ReVolt leverages an LSTM-based PDN surrogate to predict per-chiplet supply voltage trajectories at runtime, enabling proactive adjustment of OU size to mitigate droop events. By treating OU size as a control knob, ReVolt regulates chiplet-level current demand while maintaining computational accuracy. This approach prevents voltage droop violations and improves energy-delay product (EDP) while preserving ML model inference accuracy. Experimental results demonstrate that ReVolt prevents voltage droop violations while achieving an average 76x reduction in EDP compared to existing fixed and dynamic OU-based baselines, without compromising inference accuracy of ML models.",
+      "authors": [
+        "Vibhanshu Sharma",
+        "Alish Kanani",
+        "Miao Sun",
+        "Janardhan Rao Doppa",
+        "Umit Y. Ogras",
+        "Partha Pratim Pande"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR",
+        "cs.ET"
+      ],
+      "published": "2026-08-09T05:30:28+00:00",
+      "link": "https://arxiv.org/pdf/2608.08496v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "PIM-based 2.5D multi-chiplet architecture with energy-efficiency and power delivery optimization.",
+      "llm_evidence_cn": "基于PIM的2.5D多芯粒架构，面向能效和供电稳定性优化。",
+      "llm_evidence": "基于PIM的2.5D多芯粒架构，面向能效和供电稳定性优化。",
+      "canonical_evidence": "基于PIM的2.5D多芯粒架构，面向能效和供电稳定性优化。",
+      "llm_tldr_en": "Proposes ReVolt, an LSTM-based PDN surrogate for proactive voltage droop mitigation in PIM-based 2.5D multi-chiplet systems, improving performance and inference accuracy.",
+      "llm_tldr_cn": "针对PIM多芯粒系统受供电网络电压跌落影响性能和ML推理精度的问题，提出ReVolt框架，利用LSTM代理模型预测每芯粒电压轨迹，并动态调整操作单元大小以缓解跌落。实验表明该框架能有效抑制电压违规，提升系统性能与推理准确性。该工作为存算一体多芯粒系统的供电感知调度提供了新思路，与基于混合键合的三维堆叠近存计算能效优化密切相关。",
+      "llm_tldr": "针对PIM多芯粒系统受供电网络电压跌落影响性能和ML推理精度的问题，提出ReVolt框架，利用LSTM代理模型预测每芯粒电压轨迹，并动态调整操作单元大小以缓解跌落。实验表明该框架能有效抑制电压违规，提升系统性能与推理准确性。该工作为存算一体多芯粒系统的供电感知调度提供了新思路，与基于混合键合的三维堆叠近存计算能效优化密切相关。",
+      "llm_tags": [
+        "query:cim:composite"
+      ],
+      "matched_query_tag": "query:cim:composite",
+      "matched_query_text": "Papers central to 存算一体，主要关注基于混合键合的三维堆叠的近存计算, especially work that connects or combines: compute-in-memory architecture; hybrid bonding 3D integration; 3D stacking memory technology; near-memory computing design; processing-in-memory systems; 3D integrated circuit design; What are the key benefits of hybrid bonding for 3D stacked near memory computing?; How does compute in memory architecture improve energy efficiency?; Design challenges of 3D stacking for near memory computing systems.",
+      "matched_requirement_id": "req-composite-cim",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.11920v1",
+      "source": "arxiv",
+      "title": "NITRO: High-Performance 3D NAND Flash-Based In-Storage Computing with Enhanced Activation Dataflow",
+      "abstract": "In-storage computing (ISC) is considered a next-generation memory architecture for its ability to relieve the data bottleneck between the host and the memory. While the required resources of large language models (LLMs) have increased significantly in recent years, the memory density has not scaled accordingly. Recently, several works have studied NAND flash-based processing-in-memory (NAND-PIM) schemes to exploit the high density of the memory. However, they do not address the dataflow/buffer for the intermediate values, so a simple method is to deal with the values in the slow flash memory array. To overcome such a limitation, we propose a high-performance NAND flash-based ISC architecture with enhanced activation buffering. Instead of using the very slow flash memory array for the intermediate values, our architecture buffers the values in a fast DRAM subsystem. This approach effectively handles the high-latency penalties when activations are programmed into slower TLC NAND flash. We also introduce a distributed dataflow approach for the NAND-PIM array. This approach maximizes computational parallelism by employing efficient intra-plane data mapping. The results show that our proposed architecture achieves significant performance improvements, reducing the inference latency by up to 85% compared to the baseline.",
+      "authors": [
+        "Sanghun Shin",
+        "Sangyeon Kim",
+        "Gisan Ji",
+        "Sungju Ryu"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-08-12T11:04:27+00:00",
+      "link": "https://arxiv.org/pdf/2608.11920v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Processing-in-memory architecture for NAND flash, relevant to compute-in-memory theme",
+      "llm_evidence_cn": "面向NAND闪存的存内计算架构，与存算一体主题相关",
+      "llm_evidence": "面向NAND闪存的存内计算架构，与存算一体主题相关",
+      "canonical_evidence": "面向NAND闪存的存内计算架构，与存算一体主题相关",
+      "llm_tldr_en": "Proposes NITRO, a high-performance NAND flash-based in-storage computing architecture with enhanced activation dataflow to avoid slow flash access for intermediate values, improving LLM inference efficiency.",
+      "llm_tldr_cn": "本文针对NAND闪存存内计算中中间值数据流瓶颈的问题，提出NITRO架构，通过增强激活数据流来避免反复访问慢速闪存。该设计面向大规模语言模型推理，展示了高性能存算一体的潜力。实验表明它能在存储内高效完成计算，减少主机与存储器间的数据搬运。",
+      "llm_tldr": "本文针对NAND闪存存内计算中中间值数据流瓶颈的问题，提出NITRO架构，通过增强激活数据流来避免反复访问慢速闪存。该设计面向大规模语言模型推理，展示了高性能存算一体的潜力。实验表明它能在存储内高效完成计算，减少主机与存储器间的数据搬运。",
+      "llm_tags": [
+        "query:cim:composite"
+      ],
+      "matched_query_tag": "query:cim:composite",
+      "matched_query_text": "Papers central to 存算一体，主要关注基于混合键合的三维堆叠的近存计算, especially work that connects or combines: compute-in-memory architecture; hybrid bonding 3D integration; 3D stacking memory technology; near-memory computing design; processing-in-memory systems; 3D integrated circuit design; What are the key benefits of hybrid bonding for 3D stacked near memory computing?; How does compute in memory architecture improve energy efficiency?; Design challenges of 3D stacking for near memory computing systems.",
+      "matched_requirement_id": "req-composite-cim",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2608.13143v1",
+      "source": "arxiv",
+      "title": "ProbSplat: Efficient Probabilistic Hardware for Gaussian Splatting in 3D Scene Reconstruction",
+      "abstract": "This paper presents ProbSplat, a Compute-in-Memory (CIM)-inspired architecture based on programmable and energy efficient floating-gate inverter columns for probabilistic computing. Improving upon our prior work, ProbSplat programs and stores both means and variances of Gaussian mixture components, and evaluates log-likelihood for gaussian splatting during scene reconstruction with high energy efficiency, suitable for robotics and augmented/virtual reality (AR/VR) at the edge. Our proposed scheme enables independent control of both mean and variance via deterministic adjustment of floating-gate MOSFET threshold voltages, increasing the fidelity of hardware to program probability distributions. The design is simulated in 180nm CMOS on 1.8 V at 50 MHz and achieves mean-variance independence with <2.4% deviation during 3-D Gaussian mixture modeling. Compared to conventional digital implementations, ProbSplat significantly reduces compute complexity, memory footprint, and power consumption. The scalable framework consumes 18pJ energy per log-likelihood inference with 4-bit precision while operating for 500 mixture functions in a 3-D GMM. Scene reconstruction with ProbSplat's characteristics gave satisfactory fidelity of 21.99 PSNR (dB) at 8-bit precision.",
+      "authors": [
+        "Siddarth Gottumukkula",
+        "M P Samartha",
+        "Vedant Pahariya",
+        "Priyanshi Jain",
+        "Amit Ranjan Trivedi",
+        "Priyesh Shukla"
+      ],
+      "primary_category": "cs.ET",
+      "categories": [
+        "cs.ET"
+      ],
+      "published": "2026-08-13T12:16:37+00:00",
+      "link": "https://arxiv.org/pdf/2608.13143v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Compute-in-memory-inspired hardware with floating-gate inverter columns for energy-efficient probabilistic computing",
+      "llm_evidence_cn": "基于浮栅逆变器列的存内计算启发硬件，面向高能效概率计算",
+      "llm_evidence": "基于浮栅逆变器列的存内计算启发硬件，面向高能效概率计算",
+      "canonical_evidence": "基于浮栅逆变器列的存内计算启发硬件，面向高能效概率计算",
+      "llm_tldr_en": "A CIM-inspired probabilistic hardware using floating-gate inverter columns for Gaussian splatting, achieving energy-efficient log-likelihood evaluation for 3D scene reconstruction.",
+      "llm_tldr_cn": "针对高斯泼溅三维场景重建中计算量大、能效低的问题，提出一种受存内计算启发的概率计算硬件ProbSplat，基于可编程浮栅反相器列同时存储高斯分量的均值和方差，并高效评估对数似然。通过浮栅MOSFET阈值电压的确定性调整独立控制均值与方差，提高了硬件对概率分布的保真度。在180nm CMOS工艺下的仿真表明，该设计具备高能效，适用于边缘机器人及增强/虚拟现实场景。",
+      "llm_tldr": "针对高斯泼溅三维场景重建中计算量大、能效低的问题，提出一种受存内计算启发的概率计算硬件ProbSplat，基于可编程浮栅反相器列同时存储高斯分量的均值和方差，并高效评估对数似然。通过浮栅MOSFET阈值电压的确定性调整独立控制均值与方差，提高了硬件对概率分布的保真度。在180nm CMOS工艺下的仿真表明，该设计具备高能效，适用于边缘机器人及增强/虚拟现实场景。",
+      "llm_tags": [
+        "query:cim:composite"
+      ],
+      "matched_query_tag": "query:cim:composite",
+      "matched_query_text": "Papers central to 存算一体，主要关注基于混合键合的三维堆叠的近存计算, especially work that connects or combines: compute-in-memory architecture; hybrid bonding 3D integration; 3D stacking memory technology; near-memory computing design; processing-in-memory systems; 3D integrated circuit design; What are the key benefits of hybrid bonding for 3D stacked near memory computing?; How does compute in memory architecture improve energy efficiency?; Design challenges of 3D stacking for near memory computing systems.",
+      "matched_requirement_id": "req-composite-cim",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

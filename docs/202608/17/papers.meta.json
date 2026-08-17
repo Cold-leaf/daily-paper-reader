@@ -1,0 +1,69 @@
+{
+  "label": "2026-08-17",
+  "date": "2026-08-17",
+  "generated_at": "2026-08-17T20:30:35",
+  "count": 4,
+  "papers": [
+    {
+      "paper_id": "202608/17/2608.09508v1-200-mm-wafer-scale-monolithic-3d-integration-of-atomic-layer-deposited-oxide-semiconductors",
+      "section": "deep",
+      "title_en": "200 mm Wafer-Scale Monolithic 3D Integration of Atomic Layer-Deposited Oxide Semiconductors",
+      "authors": "Chang Niu, Linjia Long, Luqi Zheng, Shuting Du, Jian-Yu Lin, Kisoo Nam, Zehao Lin, Chang Liu, Juanjuan Lu, Haiyan Wang, Haitong Li, Peide D. Ye",
+      "date": "2026-08-10",
+      "pdf": "https://arxiv.org/pdf/2608.09508v1",
+      "score": "9.0",
+      "evidence": "氧化物半导体三层单片3D集成与四层存算一体加速器",
+      "tldr": "针对硅CMOS缩放瓶颈，提出基于ALD氧化铟(InOx)的晶圆级单片3D集成方案。在200mm晶圆上实现三层超十万器件，阈值电压标准差仅0.04V，电子迁移率达91.6cm²/Vs。基于定制PDK开发四层3D存算一体加速器，面向大语言模型负载，较2D基线加速1.4-2.9倍。该平台可扩展且CMOS兼容，为AI硬件提供可行路径。",
+      "tags": "query:cim",
+      "abstract_en": "Monolithic 3D (M3D) integration offers a pathway to overcome the scaling limits of conventional silicon complementary metal-oxide-semiconductor (CMOS) technology by extending dense vertical stacking of multifunctional logic and memory devices. Here, we demonstrate wafer-scale M3D integration of three tiers of atomic-layer-deposited (ALD) indium oxide (InOx)-based devices (>100,000 fabricated), including ferroelectric, enhancement-mode, and depletion-mode field-effect transistors, on 200 mm silicon wafers. We achieve threshold voltage standard deviation as low as 0.04 V, average electron mobility up to 91.6 cm2V-1s-1, and fully functional cross-tier circuits. A four-tier 3D computing-in-memory (CIM) accelerator targeting large language model workloads is developed using a custom InOx process design kit, delivering 1.4x to 2.9x speedup and comparable energy-delay product improvements over 2D baselines. These results establish ALD InOx M3D integration as a scalable and CMOS-compatible platform for next-generation artificial intelligence hardware and advanced electronics.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/17/2608.08496v1-revolt-power-delivery-network-aware-voltage-droop-control-for-25d-pim-chiplet-architectures",
+      "section": "deep",
+      "title_en": "ReVolt: Power Delivery Network-Aware Voltage Droop Control for 2.5D PIM Chiplet Architectures",
+      "authors": "Vibhanshu Sharma, Alish Kanani, Miao Sun, Janardhan Rao Doppa, Umit Y. Ogras, Partha Pratim Pande",
+      "date": "2026-08-09",
+      "pdf": "https://arxiv.org/pdf/2608.08496v1",
+      "score": "8.0",
+      "evidence": "基于PIM的2.5D多芯粒架构，面向能效和供电稳定性优化。",
+      "tldr": "针对PIM-based2.5D多芯粒系统因芯片级电流波动导致的电压降问题，我们提出ReVolt动态操作单元框架。该框架利用LSTM代理实时预测各芯粒电压轨迹，主动调节OU大小以抑制电压降违规。实验结果表明，与固定和动态OU基线相比，平均EDP降低76倍且不损失ML推断精度。这项工作为PDN感知的电压降控制提供了高效方案。",
+      "tags": "query:cim",
+      "abstract_en": "Processing-in-memory (PIM)-based 2.5D multi-chiplet platforms are enablers for machine learning (ML) workloads. However, their performance is affected by the power delivery network (PDN), where varying chiplet-level current demand induces spatially and temporally varying voltage droop. These droop events lead to voltage violations, degrades system performance, and impact inference accuracy for ML workloads. In this work, we propose ReVolt, a dynamic operation unit (OU)-based framework for mitigating voltage droop in PIM-based multi-chiplet systems. ReVolt leverages an LSTM-based PDN surrogate to predict per-chiplet supply voltage trajectories at runtime, enabling proactive adjustment of OU size to mitigate droop events. By treating OU size as a control knob, ReVolt regulates chiplet-level current demand while maintaining computational accuracy. This approach prevents voltage droop violations and improves energy-delay product (EDP) while preserving ML model inference accuracy. Experimental results demonstrate that ReVolt prevents voltage droop violations while achieving an average 76x reduction in EDP compared to existing fixed and dynamic OU-based baselines, without compromising inference accuracy of ML models.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/17/2608.11920v1-nitro-high-performance-3d-nand-flash-based-in-storage-computing-with-enhanced-activation-dataflow",
+      "section": "deep",
+      "title_en": "NITRO: High-Performance 3D NAND Flash-Based In-Storage Computing with Enhanced Activation Dataflow",
+      "authors": "Sanghun Shin, Sangyeon Kim, Gisan Ji, Sungju Ryu",
+      "date": "2026-08-12",
+      "pdf": "https://arxiv.org/pdf/2608.11920v1",
+      "score": "8.0",
+      "evidence": "面向NAND闪存的存内计算架构，与存算一体主题相关",
+      "tldr": "随着大语言模型规模急剧增长，内存密度未能同步扩展，导致数据瓶颈日益严重。现有基于NAND闪存的存内计算（PIM）方案虽能利用高密度存储，但未解决中间激活值的数据流与缓冲问题，简单方法只能沿用慢速TLC闪存数组，造成高延迟。为此提出NITRO架构：采用快速DRAM子系统缓冲中间激活值，避免对慢速TLC的编程惩罚；同时设计分布式数据流，通过高效平面内数据映射最大化NAND-PIM阵列的计算并行性。实验结果表明，相比基线方案，推理延迟最高可降低85%，为高性能存内计算提供了新路径。",
+      "tags": "query:cim",
+      "abstract_en": "In-storage computing (ISC) is considered a next-generation memory architecture for its ability to relieve the data bottleneck between the host and the memory. While the required resources of large language models (LLMs) have increased significantly in recent years, the memory density has not scaled accordingly. Recently, several works have studied NAND flash-based processing-in-memory (NAND-PIM) schemes to exploit the high density of the memory. However, they do not address the dataflow/buffer for the intermediate values, so a simple method is to deal with the values in the slow flash memory array. To overcome such a limitation, we propose a high-performance NAND flash-based ISC architecture with enhanced activation buffering. Instead of using the very slow flash memory array for the intermediate values, our architecture buffers the values in a fast DRAM subsystem. This approach effectively handles the high-latency penalties when activations are programmed into slower TLC NAND flash. We also introduce a distributed dataflow approach for the NAND-PIM array. This approach maximizes computational parallelism by employing efficient intra-plane data mapping. The results show that our proposed architecture achieves significant performance improvements, reducing the inference latency by up to 85% compared to the baseline.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/17/2608.13143v1-probsplat-efficient-probabilistic-hardware-for-gaussian-splatting-in-3d-scene-reconstruction",
+      "section": "quick",
+      "title_en": "ProbSplat: Efficient Probabilistic Hardware for Gaussian Splatting in 3D Scene Reconstruction",
+      "authors": "Siddarth Gottumukkula, M P Samartha, Vedant Pahariya, Priyanshi Jain, Amit Ranjan Trivedi, Priyesh Shukla",
+      "date": "2026-08-13",
+      "pdf": "https://arxiv.org/pdf/2608.13143v1",
+      "score": "7.0",
+      "evidence": "基于浮栅逆变器列的存内计算启发硬件，面向高能效概率计算",
+      "tldr": "ProbSplat面向3D场景重建中的高斯溅射任务，提出基于浮栅逆变器列的计算存储(CIM)架构。该架构通过浮栅MOSFET阈值电压独立调控均值和方差，将概率分布高保真地映射到硬件，并高效评估对数似然。仿真显示，4位精度下每次推理能耗18pJ，500个混合分量可工作，8位精度重建PSNR达21.99dB，较数字实现大幅降低计算和功耗。",
+      "tags": "query:cim",
+      "abstract_en": "This paper presents ProbSplat, a Compute-in-Memory (CIM)-inspired architecture based on programmable and energy efficient floating-gate inverter columns for probabilistic computing. Improving upon our prior work, ProbSplat programs and stores both means and variances of Gaussian mixture components, and evaluates log-likelihood for gaussian splatting during scene reconstruction with high energy efficiency, suitable for robotics and augmented/virtual reality (AR/VR) at the edge. Our proposed scheme enables independent control of both mean and variance via deterministic adjustment of floating-gate MOSFET threshold voltages, increasing the fidelity of hardware to program probability distributions. The design is simulated in 180nm CMOS on 1.8 V at 50 MHz and achieves mean-variance independence with <2.4% deviation during 3-D Gaussian mixture modeling. Compared to conventional digital implementations, ProbSplat significantly reduces compute complexity, memory footprint, and power consumption. The scalable framework consumes 18pJ energy per log-likelihood inference with 4-bit precision while operating for 500 mixture functions in a 3-D GMM. Scene reconstruction with ProbSplat's characteristics gave satisfactory fidelity of 21.99 PSNR (dB) at 8-bit precision.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

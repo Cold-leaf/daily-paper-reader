@@ -1,0 +1,73 @@
+{
+  "date": "20260817",
+  "date_label": "",
+  "generated_at": "2026-08-17 20:30:29 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2608.09508v1",
+      "route": "202608/17/2608.09508v1-200-mm-wafer-scale-monolithic-3d-integration-of-atomic-layer-deposited-oxide-semiconductors",
+      "title": "200 mm Wafer-Scale Monolithic 3D Integration of Atomic Layer-Deposited Oxide Semiconductors",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "cim"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "氧化物半导体三层单片3D集成与四层存算一体加速器",
+      "first_seen_at": "2026-08-17 20:30:29 UTC",
+      "updated_at": "2026-08-17 20:30:29 UTC"
+    },
+    {
+      "paper_id": "2608.08496v1",
+      "route": "202608/17/2608.08496v1-revolt-power-delivery-network-aware-voltage-droop-control-for-25d-pim-chiplet-architectures",
+      "title": "ReVolt: Power Delivery Network-Aware Voltage Droop Control for 2.5D PIM Chiplet Architectures",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "cim"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "基于PIM的2.5D多芯粒架构，面向能效和供电稳定性优化。",
+      "first_seen_at": "2026-08-17 20:30:29 UTC",
+      "updated_at": "2026-08-17 20:30:29 UTC"
+    },
+    {
+      "paper_id": "2608.11920v1",
+      "route": "202608/17/2608.11920v1-nitro-high-performance-3d-nand-flash-based-in-storage-computing-with-enhanced-activation-dataflow",
+      "title": "NITRO: High-Performance 3D NAND Flash-Based In-Storage Computing with Enhanced Activation Dataflow",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "cim"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "面向NAND闪存的存内计算架构，与存算一体主题相关",
+      "first_seen_at": "2026-08-17 20:30:29 UTC",
+      "updated_at": "2026-08-17 20:30:29 UTC"
+    },
+    {
+      "paper_id": "2608.13143v1",
+      "route": "202608/17/2608.13143v1-probsplat-efficient-probabilistic-hardware-for-gaussian-splatting-in-3d-scene-reconstruction",
+      "title": "ProbSplat: Efficient Probabilistic Hardware for Gaussian Splatting in 3D Scene Reconstruction",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "cim"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "基于浮栅逆变器列的存内计算启发硬件，面向高能效概率计算",
+      "first_seen_at": "2026-08-17 20:30:29 UTC",
+      "updated_at": "2026-08-17 20:30:29 UTC"
+    }
+  ]
+}

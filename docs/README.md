@@ -41,17 +41,17 @@
 <section class="dpr-home-dashboard-card dpr-home-report-card">
   <div class="dpr-home-dashboard-header">
     <div>
-      <span class="dpr-home-dashboard-kicker">2026-08-17</span>
+      <span class="dpr-home-dashboard-kicker">2026-08-18</span>
       <h3 class="dpr-home-dashboard-title">今日汇总</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">共 4 篇</strong>
+    <strong class="dpr-home-dashboard-count">共 5 篇</strong>
   </div>
   <dl class="dpr-home-dashboard-stats">
     <div class="dpr-home-dashboard-stat"><dt>累计更新</dt><dd>1 次</dd></div>
-    <div class="dpr-home-dashboard-stat"><dt>精读</dt><dd>3</dd></div>
+    <div class="dpr-home-dashboard-stat"><dt>精读</dt><dd>4</dd></div>
     <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>1</dd></div>
   </dl>
-  <p class="dpr-home-dashboard-body">最近更新：2026-08-17 20:30:29 UTC<br>状态：成功</p>
+  <p class="dpr-home-dashboard-body">最近更新：2026-08-18 20:49:11 UTC<br>状态：成功</p>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-brief-card">
   <div class="dpr-home-dashboard-header">
@@ -62,9 +62,7 @@
     <strong class="dpr-home-dashboard-count">AI</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<p>今日聚焦晶圆级3D集成与2.5D PIM架构，完成多篇精读及1篇速读。</p>
-<p>最值关注：200mm氧化物半导体单片3D集成获9.0高分，ReVolt电压跌落控制为PIM芯片设计提供新思路。</p>
-<p>建议普通读者优先了解ALD氧化物半导体的集成潜力，再关注可重构架构在能效与供电稳定性上的平衡。</p>
+<p>今日聚焦3D/3.5D芯片热管理，精读两篇满分论文，另速读一篇3D场景重建硬件加速。最值得关注的是冷却感知点云框架与自改进算子学习，分别从热预测和热优化提升芯片设计可靠性；若想入门，建议从Cooling-Aware Transformer框架看起，直观理解先进封装下的热分布建模。</p>
   </div>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-deep-card">
@@ -73,12 +71,12 @@
       <span class="dpr-home-dashboard-kicker">今日累计</span>
       <h3 class="dpr-home-dashboard-title">精读推荐</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">3 篇</strong>
+    <strong class="dpr-home-dashboard-count">4 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="200 mm Wafer-Scale Monolithic 3D Integration of Atomic Layer-Deposited Oxide Semiconductors">200 mm Wafer-Scale Monolithic 3D Integration of Atomic Layer-Deposited Oxide Semiconductors</span></li><li><span class="dpr-home-dashboard-paper-title" title="ReVolt: Power Delivery Network-Aware Voltage Droop Control for 2.5D PIM Chiplet Architectures">ReVolt: Power Delivery Network-Aware Voltage Droop Control for 2.5D PIM Chiplet Architectures</span></li><li><span class="dpr-home-dashboard-paper-title" title="NITRO: High-Performance 3D NAND Flash-Based In-Storage Computing with Enhanced Activation Dataflow">NITRO: High-Performance 3D NAND Flash-Based In-Storage Computing with Enhanced Activation Dataflow</span></li></ul>
+<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="COOL: A Cooling-Aware Point Transformer Framework for Thermal Prediction in Advanced 3D/3.5D IC Packaging">COOL: A Cooling-Aware Point Transformer Framework for Thermal Prediction in Advanced 3D/3.5D IC Packaging</span></li><li><span class="dpr-home-dashboard-paper-title" title="DeepOHeat-v2: Self-Improving Operator Learning for Fast and Trustworthy Thermal Optimization in 3D-IC Design">DeepOHeat-v2: Self-Improving Operator Learning for Fast and Trustworthy Thermal Optimization in 3D-IC Design</span></li><li><span class="dpr-home-dashboard-paper-title" title="200 mm Wafer-Scale Monolithic 3D Integration of Atomic Layer-Deposited Oxide Semiconductors">200 mm Wafer-Scale Monolithic 3D Integration of Atomic Layer-Deposited Oxide Semiconductors</span></li></ul>
   </div>
-  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">cim <strong>3</strong></span></div>
+  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">cim <strong>2</strong></span><span class="dpr-home-dashboard-tag">thermal-gnn <strong>2</strong></span></div>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-skim-card">
   <div class="dpr-home-dashboard-header">

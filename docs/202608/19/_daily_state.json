@@ -1,0 +1,73 @@
+{
+  "date": "20260819",
+  "date_label": "",
+  "generated_at": "2026-08-19 20:56:43 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2608.11920v1",
+      "route": "202608/19/2608.11920v1-nitro-high-performance-3d-nand-flash-based-in-storage-computing-with-enhanced-activation-dataflow",
+      "title": "NITRO: High-Performance 3D NAND Flash-Based In-Storage Computing with Enhanced Activation Dataflow",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "cim"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "基于3D NAND闪存的存内计算架构，面向近存计算与处理-存储一体化",
+      "first_seen_at": "2026-08-19 20:56:43 UTC",
+      "updated_at": "2026-08-19 20:56:43 UTC"
+    },
+    {
+      "paper_id": "2608.15609v1",
+      "route": "202608/19/2608.15609v1-graph-neural-network-prediction-of-temperature-dependent-hydrogen-diffusion-and-thermal-conductivity-tensors-of-tungsten-containing-helium-bubbles-and-grain-boundaries",
+      "title": "Graph neural network prediction of temperature-dependent hydrogen diffusion and thermal conductivity tensors of tungsten containing helium bubbles and grain boundaries",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "thermal-gnn"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "图神经网络代理模型预测温度相关的热导率张量",
+      "first_seen_at": "2026-08-19 20:56:43 UTC",
+      "updated_at": "2026-08-19 20:56:43 UTC"
+    },
+    {
+      "paper_id": "2608.13143v1",
+      "route": "202608/19/2608.13143v1-probsplat-efficient-probabilistic-hardware-for-gaussian-splatting-in-3d-scene-reconstruction",
+      "title": "ProbSplat: Efficient Probabilistic Hardware for Gaussian Splatting in 3D Scene Reconstruction",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "cim"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "面向概率计算的存内计算架构，与存算一体主题相关，但未涉及混合键合或三维堆叠",
+      "first_seen_at": "2026-08-19 20:56:43 UTC",
+      "updated_at": "2026-08-19 20:56:43 UTC"
+    },
+    {
+      "paper_id": "2608.14880v1",
+      "route": "202608/19/2608.14880v1-coherent-phonon-blocking-in-superlattices",
+      "title": "Coherent Phonon Blocking in Superlattices",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "thermal-gnn"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "预测多层超晶格声子透射与热阻，可迁移至三维堆叠芯片热建模",
+      "first_seen_at": "2026-08-19 20:56:43 UTC",
+      "updated_at": "2026-08-19 20:56:43 UTC"
+    }
+  ]
+}

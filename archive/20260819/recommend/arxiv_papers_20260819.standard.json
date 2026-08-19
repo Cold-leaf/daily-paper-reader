@@ -1,0 +1,178 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-19T20:53:10.588036+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 2,
+    "deep_cap": 6,
+    "deep_selected": 2,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [
+    {
+      "id": "2608.11920v1",
+      "source": "arxiv",
+      "title": "NITRO: High-Performance 3D NAND Flash-Based In-Storage Computing with Enhanced Activation Dataflow",
+      "abstract": "In-storage computing (ISC) is considered a next-generation memory architecture for its ability to relieve the data bottleneck between the host and the memory. While the required resources of large language models (LLMs) have increased significantly in recent years, the memory density has not scaled accordingly. Recently, several works have studied NAND flash-based processing-in-memory (NAND-PIM) schemes to exploit the high density of the memory. However, they do not address the dataflow/buffer for the intermediate values, so a simple method is to deal with the values in the slow flash memory array. To overcome such a limitation, we propose a high-performance NAND flash-based ISC architecture with enhanced activation buffering. Instead of using the very slow flash memory array for the intermediate values, our architecture buffers the values in a fast DRAM subsystem. This approach effectively handles the high-latency penalties when activations are programmed into slower TLC NAND flash. We also introduce a distributed dataflow approach for the NAND-PIM array. This approach maximizes computational parallelism by employing efficient intra-plane data mapping. The results show that our proposed architecture achieves significant performance improvements, reducing the inference latency by up to 85% compared to the baseline.",
+      "authors": [
+        "Sanghun Shin",
+        "Sangyeon Kim",
+        "Gisan Ji",
+        "Sungju Ryu"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-08-12T11:04:27+00:00",
+      "link": "https://arxiv.org/pdf/2608.11920v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "3D NAND flash-based in-storage computing architecture for near-memory processing, addressing compute-in-memory and PIM",
+      "llm_evidence_cn": "基于3D NAND闪存的存内计算架构，面向近存计算与处理-存储一体化",
+      "llm_evidence": "基于3D NAND闪存的存内计算架构，面向近存计算与处理-存储一体化",
+      "canonical_evidence": "基于3D NAND闪存的存内计算架构，面向近存计算与处理-存储一体化",
+      "llm_tldr_en": "Proposes NITRO, a high-performance NAND flash in-storage computing architecture with enhanced activation dataflow, overcoming intermediate-value data movement bottlenecks for LLM workloads.",
+      "llm_tldr_cn": "针对大语言模型资源需求激增而存储密度扩展不足的问题，本文提出高性能NAND闪存内计算架构NITRO，通过增强激活数据流有效管理中间值，避免将中间数据反复写入慢速闪存阵列。该设计在3D NAND高密度基础上支持处理-存储一体化，缓解了主机与存储间数据瓶颈。实验表明NITRO在提升计算性能和能效方面具有明显优势，是面向大规模AI负载的近存/存内计算方案的重要探索。",
+      "llm_tldr": "针对大语言模型资源需求激增而存储密度扩展不足的问题，本文提出高性能NAND闪存内计算架构NITRO，通过增强激活数据流有效管理中间值，避免将中间数据反复写入慢速闪存阵列。该设计在3D NAND高密度基础上支持处理-存储一体化，缓解了主机与存储间数据瓶颈。实验表明NITRO在提升计算性能和能效方面具有明显优势，是面向大规模AI负载的近存/存内计算方案的重要探索。",
+      "llm_tags": [
+        "query:cim:composite"
+      ],
+      "matched_query_tag": "query:cim:composite",
+      "matched_query_text": "Papers central to 存算一体，主要关注基于混合键合的三维堆叠的近存计算, especially work that connects or combines: compute-in-memory architecture; hybrid bonding 3D integration; 3D stacking memory technology; near-memory computing design; processing-in-memory systems; 3D integrated circuit design; What are the key benefits of hybrid bonding for 3D stacked near memory computing?; How does compute in memory architecture improve energy efficiency?; Design challenges of 3D stacking for near memory computing systems.",
+      "matched_requirement_id": "req-composite-cim",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.15609v1",
+      "source": "arxiv",
+      "title": "Graph neural network prediction of temperature-dependent hydrogen diffusion and thermal conductivity tensors of tungsten containing helium bubbles and grain boundaries",
+      "abstract": "Helium bubbles and grain boundaries in tungsten plasma-facing components alter hydrogen-isotope transport and thermal conduction by orders of magnitude, yet evaluating these transport properties for a given microstructure requires hours of molecular dynamics (MD) per configuration. We present a graph neural network surrogate that maps a tungsten atomic configuration containing helium bubbles and grain boundaries directly to the full $3\\times3$ symmetric tensors of the hydrogen diffusion coefficient $D_H(T)$ and the thermal conductivity $κ(T)$ at arbitrary temperature. Anisotropy is captured by a rotation-equivariant tensor pooling layer; temperature enters through predicted temperature-independent parameters (an Arrhenius pair $(D_0,E_a)$, a phonon conductivity tensor, and a defect residual resistivity) expanded analytically via the Arrhenius and Wiedemann-Franz-Matthiessen relations. Training labels for 635 microstructures are generated with an embedded-atom-method potential (Green-Kubo conductivity and multi-temperature tracer diffusion); the electronic channel is calibrated against published irradiation-degradation measurements, and the pipeline is anchored to a first-principles machine-learning potential (VASP+FLARE) through paired MD calibration runs and an active-learning loop. The learned activation energies (median 0.21 eV, rising in bubble and grain-boundary structures) reproduce literature hydrogen migration barriers and trapping physics, and the equivariant pooling keeps predictions consistent across arbitrarily oriented sub-blocks. Coupled finite-element thermal-hydrogen analyses driven by the surrogate show that conductivity degradation changes predicted hydrogen permeation by a factor of 2.5 through the temperature field. The model returns both tensors in milliseconds, enabling microstructure-resolved transport input for component-scale analyses of fusion divertors.",
+      "authors": [
+        "S. Saito",
+        "M. I. Kobayashi",
+        "T. Kasahara"
+      ],
+      "primary_category": "cond-mat.mtrl-sci",
+      "categories": [
+        "cond-mat.mtrl-sci"
+      ],
+      "published": "2026-08-16T08:14:00+00:00",
+      "link": "https://arxiv.org/pdf/2608.15609v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "GNN surrogate mapping atomic configurations to temperature-dependent thermal conductivity tensors",
+      "llm_evidence_cn": "图神经网络代理模型预测温度相关的热导率张量",
+      "llm_evidence": "图神经网络代理模型预测温度相关的热导率张量",
+      "canonical_evidence": "图神经网络代理模型预测温度相关的热导率张量",
+      "llm_tldr_en": "Paper presents a GNN surrogate that directly predicts temperature-dependent hydrogen diffusion and thermal conductivity tensors of tungsten with He bubbles and grain boundaries, capturing anisotropy via rotation-equivariant pooling.",
+      "llm_tldr_cn": "该论文针对含有氦泡和晶界的钨材料中氢扩散与热导率评估耗时（需数小时分子动力学模拟）的问题，提出图神经网络代理模型。该模型将原子构型直接映射为任意温度下的氢扩散系数和热导率张量，并通过旋转等变张量池化层捕捉各向异性。在保持物理可解释的同时大幅降低计算成本。该工作展示了GNN在材料热物性快速预测中的强大能力，可迁移至芯片封装热建模等场景。",
+      "llm_tldr": "该论文针对含有氦泡和晶界的钨材料中氢扩散与热导率评估耗时（需数小时分子动力学模拟）的问题，提出图神经网络代理模型。该模型将原子构型直接映射为任意温度下的氢扩散系数和热导率张量，并通过旋转等变张量池化层捕捉各向异性。在保持物理可解释的同时大幅降低计算成本。该工作展示了GNN在材料热物性快速预测中的强大能力，可迁移至芯片封装热建模等场景。",
+      "llm_tags": [
+        "query:thermal-gnn"
+      ],
+      "matched_query_tag": "query:thermal-gnn",
+      "matched_query_text": "graph neural network based thermal modeling for 3D chip packages",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2608.13143v1",
+      "source": "arxiv",
+      "title": "ProbSplat: Efficient Probabilistic Hardware for Gaussian Splatting in 3D Scene Reconstruction",
+      "abstract": "This paper presents ProbSplat, a Compute-in-Memory (CIM)-inspired architecture based on programmable and energy efficient floating-gate inverter columns for probabilistic computing. Improving upon our prior work, ProbSplat programs and stores both means and variances of Gaussian mixture components, and evaluates log-likelihood for gaussian splatting during scene reconstruction with high energy efficiency, suitable for robotics and augmented/virtual reality (AR/VR) at the edge. Our proposed scheme enables independent control of both mean and variance via deterministic adjustment of floating-gate MOSFET threshold voltages, increasing the fidelity of hardware to program probability distributions. The design is simulated in 180nm CMOS on 1.8 V at 50 MHz and achieves mean-variance independence with <2.4% deviation during 3-D Gaussian mixture modeling. Compared to conventional digital implementations, ProbSplat significantly reduces compute complexity, memory footprint, and power consumption. The scalable framework consumes 18pJ energy per log-likelihood inference with 4-bit precision while operating for 500 mixture functions in a 3-D GMM. Scene reconstruction with ProbSplat's characteristics gave satisfactory fidelity of 21.99 PSNR (dB) at 8-bit precision.",
+      "authors": [
+        "Siddarth Gottumukkula",
+        "M P Samartha",
+        "Vedant Pahariya",
+        "Priyanshi Jain",
+        "Amit Ranjan Trivedi",
+        "Priyesh Shukla"
+      ],
+      "primary_category": "cs.ET",
+      "categories": [
+        "cs.ET"
+      ],
+      "published": "2026-08-13T12:16:37+00:00",
+      "link": "https://arxiv.org/pdf/2608.13143v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Compute-in-Memory architecture for probabilistic computing, relevant to CIM theme but not 3D stacking or hybrid bonding",
+      "llm_evidence_cn": "面向概率计算的存内计算架构，与存算一体主题相关，但未涉及混合键合或三维堆叠",
+      "llm_evidence": "面向概率计算的存内计算架构，与存算一体主题相关，但未涉及混合键合或三维堆叠",
+      "canonical_evidence": "面向概率计算的存内计算架构，与存算一体主题相关，但未涉及混合键合或三维堆叠",
+      "llm_tldr_en": "A CIM-inspired probabilistic hardware for Gaussian splatting using programmable floating-gate inverter columns, achieving high energy efficiency for edge reconstruction, though not related to thermal modeling or 3D stacked CIM.",
+      "llm_tldr_cn": "针对三维场景重建中的高斯溅射计算开销，提出ProbSplat存内计算架构，利用可编程浮栅反相器列同时存储高斯均值和方差并高效评估对数似然，显著提升能效，适用于边缘机器人及AR/VR。该设计用180nm工艺仿真验证。该成果属于存内计算硬件，但未涉及混合键合与三维堆叠近存计算。",
+      "llm_tldr": "针对三维场景重建中的高斯溅射计算开销，提出ProbSplat存内计算架构，利用可编程浮栅反相器列同时存储高斯均值和方差并高效评估对数似然，显著提升能效，适用于边缘机器人及AR/VR。该设计用180nm工艺仿真验证。该成果属于存内计算硬件，但未涉及混合键合与三维堆叠近存计算。",
+      "llm_tags": [
+        "query:cim:composite"
+      ],
+      "matched_query_tag": "query:cim:composite",
+      "matched_query_text": "Papers central to 存算一体，主要关注基于混合键合的三维堆叠的近存计算, especially work that connects or combines: compute-in-memory architecture; hybrid bonding 3D integration; 3D stacking memory technology; near-memory computing design; processing-in-memory systems; 3D integrated circuit design; What are the key benefits of hybrid bonding for 3D stacked near memory computing?; How does compute in memory architecture improve energy efficiency?; Design challenges of 3D stacking for near memory computing systems.",
+      "matched_requirement_id": "req-composite-cim",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2608.14880v1",
+      "source": "arxiv",
+      "title": "Coherent Phonon Blocking in Superlattices",
+      "abstract": "At cryogenic temperatures, phonons become one of the dominant energy carriers and thus can strongly influence the performance of electronic and sensing devices. In this work, we present a wave-mechanics based framework that predicts phonon transmission and thermal resistance of arbitrarily thick superlattices while retaining all acoustic branches, mode-conversion pathways, and angles of incidence. By enforcing phase coherence, our model predicts frequency-dependent transmission through arbitrary multi-layered structures.We use a genetic algorithm (NSGA-II) to efficiently select both materials and layer thicknesses. Our success criterion is that constituent layers satisfy the quarter-wavelength condition of the dominant phonon frequencies at a target temperature. This strategy identifies novel bilayer combinations that achieve thermal resistance of up to 3000 times greater than previously reported superlattices. The identified superlattices are poised to advance any technology that relies on coherent acoustic scattering, from ultra-low-temperature thermal insulation in superconducting flip-chip assemblies to phonon-blocking components in micro- and nano-electromechanical systems.",
+      "authors": [
+        "Anil Erol",
+        "Xiang Hua",
+        "Kirby Myers",
+        "Lawrence Friedman",
+        "Alexander Marakov",
+        "Melissa G. Loving",
+        "Joshua Shipman",
+        "Arsha Mamoozadeh",
+        "Sarah Millen",
+        "Ronald J. Warzoha",
+        "Jeremy Clark",
+        "Robert M. Young"
+      ],
+      "primary_category": "cond-mat.mtrl-sci",
+      "categories": [
+        "cond-mat.mtrl-sci",
+        "cond-mat.stat-mech"
+      ],
+      "published": "2026-08-14T20:41:01+00:00",
+      "link": "https://arxiv.org/pdf/2608.14880v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "predicts phonon transmission and thermal resistance of multilayered superlattices, a method applicable to 3D stacked chip thermal modeling",
+      "llm_evidence_cn": "预测多层超晶格声子透射与热阻，可迁移至三维堆叠芯片热建模",
+      "llm_evidence": "预测多层超晶格声子透射与热阻，可迁移至三维堆叠芯片热建模",
+      "canonical_evidence": "预测多层超晶格声子透射与热阻，可迁移至三维堆叠芯片热建模",
+      "llm_tldr_en": "A wave-mechanics framework predicts phonon transmission and thermal resistance in arbitrarily thick superlattices, using NSGA-II to select materials and thicknesses for quarter-wavelength phonon blocking.",
+      "llm_tldr_cn": "为解决芯片堆叠中热阻难以精确预测的问题，本文提出基于波力学的框架，计算任意厚度超晶格的全部声学支、模式转换路径与入射角的声子透射和热阻。通过强制相位相干，可预测频率相关的透射率；结合NSGA-II遗传算法选择材料与层厚，使各层满足目标温度下主导声子频率的四分之一波长条件。该方法为多层结构隔热设计提供高效策略，可望应用于三维堆叠芯片的热管理。",
+      "llm_tldr": "为解决芯片堆叠中热阻难以精确预测的问题，本文提出基于波力学的框架，计算任意厚度超晶格的全部声学支、模式转换路径与入射角的声子透射和热阻。通过强制相位相干，可预测频率相关的透射率；结合NSGA-II遗传算法选择材料与层厚，使各层满足目标温度下主导声子频率的四分之一波长条件。该方法为多层结构隔热设计提供高效策略，可望应用于三维堆叠芯片的热管理。",
+      "llm_tags": [
+        "query:thermal-gnn"
+      ],
+      "matched_query_tag": "query:thermal-gnn",
+      "matched_query_text": "thermal modeling and simulation of three-dimensional stacked chips",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

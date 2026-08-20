@@ -1,0 +1,95 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-20T19:17:32.868815+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [
+    {
+      "id": "2608.11920v1",
+      "source": "arxiv",
+      "title": "NITRO: High-Performance 3D NAND Flash-Based In-Storage Computing with Enhanced Activation Dataflow",
+      "abstract": "In-storage computing (ISC) is considered a next-generation memory architecture for its ability to relieve the data bottleneck between the host and the memory. While the required resources of large language models (LLMs) have increased significantly in recent years, the memory density has not scaled accordingly. Recently, several works have studied NAND flash-based processing-in-memory (NAND-PIM) schemes to exploit the high density of the memory. However, they do not address the dataflow/buffer for the intermediate values, so a simple method is to deal with the values in the slow flash memory array. To overcome such a limitation, we propose a high-performance NAND flash-based ISC architecture with enhanced activation buffering. Instead of using the very slow flash memory array for the intermediate values, our architecture buffers the values in a fast DRAM subsystem. This approach effectively handles the high-latency penalties when activations are programmed into slower TLC NAND flash. We also introduce a distributed dataflow approach for the NAND-PIM array. This approach maximizes computational parallelism by employing efficient intra-plane data mapping. The results show that our proposed architecture achieves significant performance improvements, reducing the inference latency by up to 85% compared to the baseline.",
+      "authors": [
+        "Sanghun Shin",
+        "Sangyeon Kim",
+        "Gisan Ji",
+        "Sungju Ryu"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-08-12T11:04:27+00:00",
+      "link": "https://arxiv.org/pdf/2608.11920v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Proposes high-performance 3D NAND flash in-storage computing with enhanced activation dataflow, directly addressing processing-in-memory and 3D stacked memory themes.",
+      "llm_evidence_cn": "提出基于3D NAND闪存的高性能存储内计算架构，属于存算一体与3D堆叠存储范畴。",
+      "llm_evidence": "提出基于3D NAND闪存的高性能存储内计算架构，属于存算一体与3D堆叠存储范畴。",
+      "canonical_evidence": "提出基于3D NAND闪存的高性能存储内计算架构，属于存算一体与3D堆叠存储范畴。",
+      "llm_tldr_en": "NITRO is a high-performance 3D NAND flash-based in-storage computing architecture that adds an enhanced activation buffer and dataflow to handle intermediate values, reducing slow flash array access. It targets the memory density bottleneck for LLMs and advances processing-in-memory systems.",
+      "llm_tldr_cn": "面向大规模语言模型带来的内存带宽与容量瓶颈，NITRO提出一种基于3D NAND闪存的高性能存储内计算架构。针对已有的NAND-PIM方案未解决中间值数据流与缓冲的问题，设计了增强激活缓冲与数据流机制，避免对慢速闪存阵列的反复访问。实验表明该架构能显著提升存储内计算的性能，为近数据计算与三维堆叠存储集成提供了新思路。",
+      "llm_tldr": "面向大规模语言模型带来的内存带宽与容量瓶颈，NITRO提出一种基于3D NAND闪存的高性能存储内计算架构。针对已有的NAND-PIM方案未解决中间值数据流与缓冲的问题，设计了增强激活缓冲与数据流机制，避免对慢速闪存阵列的反复访问。实验表明该架构能显著提升存储内计算的性能，为近数据计算与三维堆叠存储集成提供了新思路。",
+      "llm_tags": [
+        "query:cim:composite"
+      ],
+      "matched_query_tag": "query:cim:composite",
+      "matched_query_text": "Papers central to 存算一体，主要关注基于混合键合的三维堆叠的近存计算, especially work that connects or combines: compute-in-memory architecture; hybrid bonding 3D integration; 3D stacking memory technology; near-memory computing design; processing-in-memory systems; 3D integrated circuit design; What are the key benefits of hybrid bonding for 3D stacked near memory computing?; How does compute in memory architecture improve energy efficiency?; Design challenges of 3D stacking for near memory computing systems.",
+      "matched_requirement_id": "req-composite-cim",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2608.13143v1",
+      "source": "arxiv",
+      "title": "ProbSplat: Efficient Probabilistic Hardware for Gaussian Splatting in 3D Scene Reconstruction",
+      "abstract": "This paper presents ProbSplat, a Compute-in-Memory (CIM)-inspired architecture based on programmable and energy efficient floating-gate inverter columns for probabilistic computing. Improving upon our prior work, ProbSplat programs and stores both means and variances of Gaussian mixture components, and evaluates log-likelihood for gaussian splatting during scene reconstruction with high energy efficiency, suitable for robotics and augmented/virtual reality (AR/VR) at the edge. Our proposed scheme enables independent control of both mean and variance via deterministic adjustment of floating-gate MOSFET threshold voltages, increasing the fidelity of hardware to program probability distributions. The design is simulated in 180nm CMOS on 1.8 V at 50 MHz and achieves mean-variance independence with <2.4% deviation during 3-D Gaussian mixture modeling. Compared to conventional digital implementations, ProbSplat significantly reduces compute complexity, memory footprint, and power consumption. The scalable framework consumes 18pJ energy per log-likelihood inference with 4-bit precision while operating for 500 mixture functions in a 3-D GMM. Scene reconstruction with ProbSplat's characteristics gave satisfactory fidelity of 21.99 PSNR (dB) at 8-bit precision.",
+      "authors": [
+        "Siddarth Gottumukkula",
+        "M P Samartha",
+        "Vedant Pahariya",
+        "Priyanshi Jain",
+        "Amit Ranjan Trivedi",
+        "Priyesh Shukla"
+      ],
+      "primary_category": "cs.ET",
+      "categories": [
+        "cs.ET"
+      ],
+      "published": "2026-08-13T12:16:37+00:00",
+      "link": "https://arxiv.org/pdf/2608.13143v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "compute-in-memory inspired architecture for energy-efficient probabilistic computing",
+      "llm_evidence_cn": "面向概率计算的存内计算启发架构",
+      "llm_evidence": "面向概率计算的存内计算启发架构",
+      "canonical_evidence": "面向概率计算的存内计算启发架构",
+      "llm_tldr_en": "Presents ProbSplat, a CIM-inspired floating-gate architecture that stores Gaussian parameters and computes log-likelihood in memory for energy-efficient 3D scene reconstruction, suitable for edge robotics/AR/VR.",
+      "llm_tldr_cn": "ProbSplat提出一种受存内计算启发的可编程浮栅反相器列架构，用于高斯溅射三维场景重建。它把高斯分量的均值和方差存储在浮栅单元中，并在存储阵列内直接计算对数似然，避免数据搬运，显著提升能效，适合机器人、AR/VR等边缘场景。通过调节浮栅MOSFET阈值电压独立控制均值与方差，提高硬件编程概率分布的精度。在180nm CMOS工艺下仿真验证了高能效。",
+      "llm_tldr": "ProbSplat提出一种受存内计算启发的可编程浮栅反相器列架构，用于高斯溅射三维场景重建。它把高斯分量的均值和方差存储在浮栅单元中，并在存储阵列内直接计算对数似然，避免数据搬运，显著提升能效，适合机器人、AR/VR等边缘场景。通过调节浮栅MOSFET阈值电压独立控制均值与方差，提高硬件编程概率分布的精度。在180nm CMOS工艺下仿真验证了高能效。",
+      "llm_tags": [
+        "query:cim:composite"
+      ],
+      "matched_query_tag": "query:cim:composite",
+      "matched_query_text": "Papers central to 存算一体，主要关注基于混合键合的三维堆叠的近存计算, especially work that connects or combines: compute-in-memory architecture; hybrid bonding 3D integration; 3D stacking memory technology; near-memory computing design; processing-in-memory systems; 3D integrated circuit design; What are the key benefits of hybrid bonding for 3D stacked near memory computing?; How does compute in memory architecture improve energy efficiency?; Design challenges of 3D stacking for near memory computing systems.",
+      "matched_requirement_id": "req-composite-cim",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

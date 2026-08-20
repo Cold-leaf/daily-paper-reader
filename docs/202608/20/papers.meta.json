@@ -1,0 +1,39 @@
+{
+  "label": "2026-08-20",
+  "date": "2026-08-20",
+  "generated_at": "2026-08-20T19:21:37",
+  "count": 2,
+  "papers": [
+    {
+      "paper_id": "202608/20/2608.11920v1-nitro-high-performance-3d-nand-flash-based-in-storage-computing-with-enhanced-activation-dataflow",
+      "section": "deep",
+      "title_en": "NITRO: High-Performance 3D NAND Flash-Based In-Storage Computing with Enhanced Activation Dataflow",
+      "authors": "Sanghun Shin, Sangyeon Kim, Gisan Ji, Sungju Ryu",
+      "date": "2026-08-12",
+      "pdf": "https://arxiv.org/pdf/2608.11920v1",
+      "score": "8.0",
+      "evidence": "提出基于3D NAND闪存的高性能存储内计算架构，属于存算一体与3D堆叠存储范畴。",
+      "tldr": "存储内计算是缓解主机与存储瓶颈的途径，但大语言模型需求激增与闪存密度限制，使中间激活值的缓冲成为关键难题。现有NAND-PIM方案将中间值写入慢速TLC闪存，造成高延迟。NITRO通过快速DRAM缓冲激活值，结合分布式数据流和平面内映射，最大化计算并行性。实验结果显示推理延迟最高降低85%，为闪存基计算提供了新方向。",
+      "tags": "query:cim",
+      "abstract_en": "In-storage computing (ISC) is considered a next-generation memory architecture for its ability to relieve the data bottleneck between the host and the memory. While the required resources of large language models (LLMs) have increased significantly in recent years, the memory density has not scaled accordingly. Recently, several works have studied NAND flash-based processing-in-memory (NAND-PIM) schemes to exploit the high density of the memory. However, they do not address the dataflow/buffer for the intermediate values, so a simple method is to deal with the values in the slow flash memory array. To overcome such a limitation, we propose a high-performance NAND flash-based ISC architecture with enhanced activation buffering. Instead of using the very slow flash memory array for the intermediate values, our architecture buffers the values in a fast DRAM subsystem. This approach effectively handles the high-latency penalties when activations are programmed into slower TLC NAND flash. We also introduce a distributed dataflow approach for the NAND-PIM array. This approach maximizes computational parallelism by employing efficient intra-plane data mapping. The results show that our proposed architecture achieves significant performance improvements, reducing the inference latency by up to 85% compared to the baseline.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/20/2608.13143v1-probsplat-efficient-probabilistic-hardware-for-gaussian-splatting-in-3d-scene-reconstruction",
+      "section": "quick",
+      "title_en": "ProbSplat: Efficient Probabilistic Hardware for Gaussian Splatting in 3D Scene Reconstruction",
+      "authors": "Siddarth Gottumukkula, M P Samartha, Vedant Pahariya, Priyanshi Jain, Amit Ranjan Trivedi, Priyesh Shukla",
+      "date": "2026-08-13",
+      "pdf": "https://arxiv.org/pdf/2608.13143v1",
+      "score": "7.0",
+      "evidence": "面向概率计算的存内计算启发架构",
+      "tldr": "三维场景重建中高斯溅射计算量大，边缘设备难以承受。提出基于浮栅反相器列的存内计算架构，通过调整浮栅晶体管阈值独立编程高斯混合模型分量的均值与方差，完成对数似然评估。在180nm工艺下仿真，4位精度下能耗18pJ/次，且均值-方差偏差小于2.4%，8位精度重建峰值信噪比达21.99dB。与数字实现相比，计算复杂度、内存占用和功耗显著降低，适合机器人及增强现实虚拟现实等边缘应用。",
+      "tags": "query:cim",
+      "abstract_en": "This paper presents ProbSplat, a Compute-in-Memory (CIM)-inspired architecture based on programmable and energy efficient floating-gate inverter columns for probabilistic computing. Improving upon our prior work, ProbSplat programs and stores both means and variances of Gaussian mixture components, and evaluates log-likelihood for gaussian splatting during scene reconstruction with high energy efficiency, suitable for robotics and augmented/virtual reality (AR/VR) at the edge. Our proposed scheme enables independent control of both mean and variance via deterministic adjustment of floating-gate MOSFET threshold voltages, increasing the fidelity of hardware to program probability distributions. The design is simulated in 180nm CMOS on 1.8 V at 50 MHz and achieves mean-variance independence with <2.4% deviation during 3-D Gaussian mixture modeling. Compared to conventional digital implementations, ProbSplat significantly reduces compute complexity, memory footprint, and power consumption. The scalable framework consumes 18pJ energy per log-likelihood inference with 4-bit precision while operating for 500 mixture functions in a 3-D GMM. Scene reconstruction with ProbSplat's characteristics gave satisfactory fidelity of 21.99 PSNR (dB) at 8-bit precision.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

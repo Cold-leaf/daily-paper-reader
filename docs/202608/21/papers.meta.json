@@ -1,0 +1,24 @@
+{
+  "label": "2026-08-21",
+  "date": "2026-08-21",
+  "generated_at": "2026-08-21T20:49:50",
+  "count": 1,
+  "papers": [
+    {
+      "paper_id": "202608/21/2608.13863v1-joint-optimization-of-memory-and-computing-frequency-for-energy-efficient-dnn-inference",
+      "section": "quick",
+      "title_en": "Joint Optimization of Memory and Computing Frequency for Energy-Efficient DNN Inference",
+      "authors": "Yunchu Han, Zhaojun Nan, Sheng Zhou, Zhisheng Niu",
+      "date": "2026-08-14",
+      "pdf": "https://arxiv.org/pdf/2608.13863v1",
+      "score": "6.0",
+      "evidence": "联合优化内存与计算频率以降低DNN推理能耗，频率调节是常见的芯片功耗与热管理手段",
+      "tldr": "针对移动端DNN推理能耗高的问题，现有工作多仅调节计算频率，忽视内存频率的影响。本文联合优化计算频率、内存频率与通信资源，在时延约束下最小化设备能耗。通过凸优化推导本地推理近优闭式解，并设计低复杂度启发式算法。实验表明，严格截止期下性能差距仅2.5%，能耗最多降低10.4%。",
+      "tags": "query:thermal-gnn",
+      "abstract_en": "Deep neural network (DNN) inference on mobile devices often incurs high latency and energy consumption due to limited computing and memory resources. To enable energy-efficient DNN inference, most existing studies focus on dynamic voltage and frequency scaling (DVFS) for adjusting the computing frequency, while the impact of memory frequency on the inference performance has been greatly overlooked. In this paper, we consider the impact of memory frequency and computing frequency on DNN inference time, and jointly optimize these two frequencies together with communication resources for energy-efficient DNN inference. Based on a realistic inference time model, we formulate an optimization problem to minimize the energy consumption of all mobile devices under the deadline constraint. For local inference, we derive a near-optimal closed-form solution via convex optimization, while an optimal closed-form solution for transmission power is obtained for edge inference with the given bandwidth. Furthermore, we propose a low-complexity heuristic algorithm to effectively solve the overall problem with polynomial time complexity. Simulation results based on measured data show that the proposed near-optimal solution for local inference can achieve optimal performance under strict deadline constraints, with a performance gap of up to 2.5% compared with the optimal solution. Meanwhile, our proposed algorithm significantly reduces the energy consumption of devices by up to 10.4% compared to other methods.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

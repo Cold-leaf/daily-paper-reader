@@ -1,6 +1,9 @@
 * <a class="dpr-sidebar-root-link" href="#/">首页</a>
 * <a class="dpr-sidebar-root-link dpr-sidebar-noactive-link" href="javascript:void(0)" data-dpr-hash="#/tutorial/README">使用教程</a>
 * Daily Papers
+  * 2026-08-21 <!--dpr-date:20260821-->
+    * 速读区
+      * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202608/21/2608.13863v1-joint-optimization-of-memory-and-computing-frequency-for-energy-efficient-dnn-inference" data-sidebar-item="{&quot;title&quot;: &quot;Joint Optimization of Memory and Computing Frequency for Energy-Efficient DNN Inference&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2608.13863v1-joint-optimization-of-memory-and-computing-frequency-for-energy-efficient-dnn-inference&quot;, &quot;score&quot;: &quot;6.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;thermal-gnn&quot;}], &quot;evidence&quot;: &quot;联合优化内存与计算频率以降低DNN推理能耗，频率调节是常见的芯片功耗与热管理手段&quot;}">Joint Optimization of Memory and Computing Frequency for Energy-Efficient DNN Inference</a>
   * 2026-08-20 <!--dpr-date:20260820-->
     * 精读区
       * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202608/20/2608.11920v1-nitro-high-performance-3d-nand-flash-based-in-storage-computing-with-enhanced-activation-dataflow" data-sidebar-item="{&quot;title&quot;: &quot;NITRO: High-Performance 3D NAND Flash-Based In-Storage Computing with Enhanced Activation Dataflow&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2608.11920v1-nitro-high-performance-3d-nand-flash-based-in-storage-computing-with-enhanced-activation-dataflow&quot;, &quot;score&quot;: &quot;8.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;cim&quot;}], &quot;evidence&quot;: &quot;提出基于3D NAND闪存的高性能存储内计算架构，属于存算一体与3D堆叠存储范畴。&quot;}">NITRO: High-Performance 3D NAND Flash-Based In-Storage Computing with Enhanced Activation Dataflow</a>

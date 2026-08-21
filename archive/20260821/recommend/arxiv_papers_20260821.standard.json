@@ -1,0 +1,55 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-21T20:49:25.200141+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2608.13863v1",
+      "source": "arxiv",
+      "title": "Joint Optimization of Memory and Computing Frequency for Energy-Efficient DNN Inference",
+      "abstract": "Deep neural network (DNN) inference on mobile devices often incurs high latency and energy consumption due to limited computing and memory resources. To enable energy-efficient DNN inference, most existing studies focus on dynamic voltage and frequency scaling (DVFS) for adjusting the computing frequency, while the impact of memory frequency on the inference performance has been greatly overlooked. In this paper, we consider the impact of memory frequency and computing frequency on DNN inference time, and jointly optimize these two frequencies together with communication resources for energy-efficient DNN inference. Based on a realistic inference time model, we formulate an optimization problem to minimize the energy consumption of all mobile devices under the deadline constraint. For local inference, we derive a near-optimal closed-form solution via convex optimization, while an optimal closed-form solution for transmission power is obtained for edge inference with the given bandwidth. Furthermore, we propose a low-complexity heuristic algorithm to effectively solve the overall problem with polynomial time complexity. Simulation results based on measured data show that the proposed near-optimal solution for local inference can achieve optimal performance under strict deadline constraints, with a performance gap of up to 2.5% compared with the optimal solution. Meanwhile, our proposed algorithm significantly reduces the energy consumption of devices by up to 10.4% compared to other methods.",
+      "authors": [
+        "Yunchu Han",
+        "Zhaojun Nan",
+        "Sheng Zhou",
+        "Zhisheng Niu"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-08-14T01:25:00+00:00",
+      "link": "https://arxiv.org/pdf/2608.13863v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "jointly optimizes memory and computing frequency for energy-efficient DNN inference; frequency scaling is a standard chip heat management technique",
+      "llm_evidence_cn": "联合优化内存与计算频率以降低DNN推理能耗，频率调节是常见的芯片功耗与热管理手段",
+      "llm_evidence": "联合优化内存与计算频率以降低DNN推理能耗，频率调节是常见的芯片功耗与热管理手段",
+      "canonical_evidence": "联合优化内存与计算频率以降低DNN推理能耗，频率调节是常见的芯片功耗与热管理手段",
+      "llm_tldr_en": "Proposes joint optimization of computing and memory frequencies plus communication resources to minimize DNN inference energy, using a realistic inference time model. This DVFS-style method is relevant to chip thermal management.",
+      "llm_tldr_cn": "针对DNN在移动设备上推理能耗高的问题，现有DVFS研究大多忽略内存频率的影响。该文提出联合优化计算频率、内存频率与通信资源，基于实测推理时间模型构建能耗最小化问题，从而显著降低推理能耗。这种频率调节方法可迁移到芯片热管理场景，为散热感知的功耗调度提供参考。",
+      "llm_tldr": "针对DNN在移动设备上推理能耗高的问题，现有DVFS研究大多忽略内存频率的影响。该文提出联合优化计算频率、内存频率与通信资源，基于实测推理时间模型构建能耗最小化问题，从而显著降低推理能耗。这种频率调节方法可迁移到芯片热管理场景，为散热感知的功耗调度提供参考。",
+      "llm_tags": [
+        "query:thermal-gnn"
+      ],
+      "matched_query_tag": "query:thermal-gnn",
+      "matched_query_text": "methods for managing heat dissipation in microprocessors and chips",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

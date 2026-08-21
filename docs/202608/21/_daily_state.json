@@ -1,0 +1,25 @@
+{
+  "date": "20260821",
+  "date_label": "",
+  "generated_at": "2026-08-21 20:49:47 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2608.13863v1",
+      "route": "202608/21/2608.13863v1-joint-optimization-of-memory-and-computing-frequency-for-energy-efficient-dnn-inference",
+      "title": "Joint Optimization of Memory and Computing Frequency for Energy-Efficient DNN Inference",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "thermal-gnn"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "联合优化内存与计算频率以降低DNN推理能耗，频率调节是常见的芯片功耗与热管理手段",
+      "first_seen_at": "2026-08-21 20:49:47 UTC",
+      "updated_at": "2026-08-21 20:49:47 UTC"
+    }
+  ]
+}

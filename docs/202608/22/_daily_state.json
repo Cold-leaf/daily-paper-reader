@@ -1,0 +1,73 @@
+{
+  "date": "20260822",
+  "date_label": "",
+  "generated_at": "2026-08-22 19:32:34 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2608.19644v1",
+      "route": "202608/22/2608.19644v1-when-guidance-goes-off-scale-recalibrating-diffusion-transformers-under-analog-compute-in-memory-nonidealities",
+      "title": "When Guidance Goes Off-Scale: Recalibrating Diffusion Transformers under Analog Compute-in-Memory Nonidealities",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "cim"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "面向扩散Transformer的模拟存内计算非理想性与能效问题",
+      "first_seen_at": "2026-08-22 19:32:34 UTC",
+      "updated_at": "2026-08-22 19:32:34 UTC"
+    },
+    {
+      "paper_id": "2608.17246v1",
+      "route": "202608/22/2608.17246v1-physics-informed-and-hybrid-machine-learning-in-additive-manufacturing-application-to-fused-filament-fabrication",
+      "title": "Physics-Informed and Hybrid Machine Learning in Additive Manufacturing: Application to Fused Filament Fabrication",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "thermal-gnn"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "融合物理仿真数据训练深度模型的混合机器学习方法，可迁移至芯片热预测",
+      "first_seen_at": "2026-08-22 19:32:34 UTC",
+      "updated_at": "2026-08-22 19:32:34 UTC"
+    },
+    {
+      "paper_id": "2608.19658v1",
+      "route": "202608/22/2608.19658v1-rationally-enriched-chebyshev-trunk-bases-for-deeponet-surrogates-of-high-pclet-entrance-transport",
+      "title": "Rationally Enriched Chebyshev Trunk Bases for DeepONet Surrogates of High Péclet Entrance Transport",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "thermal-gnn"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "面向高Péclet输运问题的DeepONet代理模型，可迁移至芯片温度场仿真",
+      "first_seen_at": "2026-08-22 19:32:34 UTC",
+      "updated_at": "2026-08-22 19:32:34 UTC"
+    },
+    {
+      "paper_id": "2608.13813v1",
+      "route": "202608/22/2608.13813v1-from-photothermal-transients-to-effective-transport-operators-an-operator-based-interpretation-of-ttg-dynamics",
+      "title": "From Photothermal Transients to Effective Transport Operators: An Operator-Based Interpretation of TTG Dynamics",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "thermal-gnn"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "基于算子的热输运正演模型，可用于微电子器件温度场仿真",
+      "first_seen_at": "2026-08-22 19:32:34 UTC",
+      "updated_at": "2026-08-22 19:32:34 UTC"
+    }
+  ]
+}

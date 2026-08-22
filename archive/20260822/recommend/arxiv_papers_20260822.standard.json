@@ -1,0 +1,164 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-22T19:28:35.107545+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 3,
+    "quick_skim_target": 11,
+    "quick_selected": 3
+  },
+  "deep_dive": [
+    {
+      "id": "2608.19644v1",
+      "source": "arxiv",
+      "title": "When Guidance Goes Off-Scale: Recalibrating Diffusion Transformers under Analog Compute-in-Memory Nonidealities",
+      "abstract": "Diffusion Transformers (DiTs) incur high memory traffic and energy costs because sampling repeatedly evaluates large denoisers dominated by linear operations. Analog compute-in-memory (CIM) can alleviate these costs by executing linear operations within weight-storing memory arrays. However, CIM nonidealities perturb effective weights, with errors accumulating along the state-dependent denoising trajectory; their interaction with classifier-free guidance (CFG) remains underexplored. In this paper, we characterize the impact of analog CIM nonidealities on DiT sampling. Although conditional and unconditional predictions can each remain close to their clean counterparts, their difference (the CFG residual) is disproportionately attenuated and rotated. Identifying this residual as a controllable failure channel, we propose a retraining-free, sampler-side recalibration that adjusts only the CFG scale for a given CIM condition. Trajectory-level analysis shows that moderate recalibration strengthens the target-oriented component preserved in the distorted residual, enabling earlier commitment to a prompt-consistent semantic region. In contrast, excessive guidance amplifies the full noisy residual and degrades quality, resulting in a finite, noise-dependent optimum. Extensive experiments on PixArt-Sigma, PixArt-alpha, and DiT-XL/2 show that the optimal guidance scale increases with CIM noise. Using 30,000 samples per condition, guidance recalibration consistently restores generation quality across simulated CIM mappings, closing at least 87% of the CIM-induced FID gap at a CIM noise level of 0.20. It reduces FID from 59.22 to 20.49 on PixArt-Sigma, 72.37 to 21.12 on PixArt-alpha, and 20.89 to 6.62 on DiT-XL/2.",
+      "authors": [
+        "Wenshuai Yao",
+        "Wenyong Zhou"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-08-20T05:21:48+00:00",
+      "link": "https://arxiv.org/pdf/2608.19644v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Compute-in-memory architecture and energy efficiency for diffusion transformers under CIM nonidealities",
+      "llm_evidence_cn": "面向扩散Transformer的模拟存内计算非理想性与能效问题",
+      "llm_evidence": "面向扩散Transformer的模拟存内计算非理想性与能效问题",
+      "canonical_evidence": "面向扩散Transformer的模拟存内计算非理想性与能效问题",
+      "llm_tldr_en": "Diffusion Transformers suffer high memory traffic and energy costs; analog compute-in-memory can reduce them but nonidealities perturb weights and interact with classifier-free guidance. This paper characterizes these errors and recalibrates the CFG residual, improving sampling reliability for energy-efficient CIM deployment.",
+      "llm_tldr_cn": "扩散Transformer采样反复执行线性运算，导致高内存访问与能耗，模拟存内计算可降低开销，但器件非理想性会扰动权重并沿去噪轨迹累积误差。论文系统刻画了模拟存内计算非理想性与无分类器引导的交互，发现条件与无条件预测之差被放大，并提出重校准策略修正CFG残差。实验表明该策略能提升采样质量，为存内计算在生成模型中的能效优化提供了关键校准方法。",
+      "llm_tldr": "扩散Transformer采样反复执行线性运算，导致高内存访问与能耗，模拟存内计算可降低开销，但器件非理想性会扰动权重并沿去噪轨迹累积误差。论文系统刻画了模拟存内计算非理想性与无分类器引导的交互，发现条件与无条件预测之差被放大，并提出重校准策略修正CFG残差。实验表明该策略能提升采样质量，为存内计算在生成模型中的能效优化提供了关键校准方法。",
+      "llm_tags": [
+        "query:cim:composite"
+      ],
+      "matched_query_tag": "query:cim:composite",
+      "matched_query_text": "Papers central to 存算一体，主要关注基于混合键合的三维堆叠的近存计算, especially work that connects or combines: compute-in-memory architecture; hybrid bonding 3D integration; 3D stacking memory technology; near-memory computing design; processing-in-memory systems; 3D integrated circuit design; What are the key benefits of hybrid bonding for 3D stacked near memory computing?; How does compute in memory architecture improve energy efficiency?; Design challenges of 3D stacking for near memory computing systems.",
+      "matched_requirement_id": "req-composite-cim",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2608.17246v1",
+      "source": "arxiv",
+      "title": "Physics-Informed and Hybrid Machine Learning in Additive Manufacturing: Application to Fused Filament Fabrication",
+      "abstract": "This article investigates several physics-informed and hybrid machine learning strategies that incorporate physics knowledge in experimental data-driven deep-learning models for predicting the bond quality and porosity of fused filament fabrication (FFF) parts. Three types of strategies are explored to incorporate physics constraints and multi-physics FFF simulation results into a deep neural network (DNN), thus ensuring consistency with physical laws: (1) incorporate physics constraints within the loss function of the DNN, (2) use physics model outputs as additional inputs to the DNN model, and (3) pre-train a DNN model with physics model input-output and then update it with experimental data. These strategies help to enforce a physically consistent relationship between bond quality and tensile strength, thus making porosity predictions physically meaningful. Eight different combinations of the above strategies are investigated. The results show how the combination of multiple strategies produces accurate machine learning models even with limited experimental data.",
+      "authors": [
+        "Berkcan Kapusuzoglu",
+        "Sankaran Mahadevan"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.CE",
+        "stat.CO"
+      ],
+      "published": "2026-08-18T01:02:59+00:00",
+      "link": "https://arxiv.org/pdf/2608.17246v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "physics-informed deep learning trained with multi-physics simulation data, transferable to thermal prediction",
+      "llm_evidence_cn": "融合物理仿真数据训练深度模型的混合机器学习方法，可迁移至芯片热预测",
+      "llm_evidence": "融合物理仿真数据训练深度模型的混合机器学习方法，可迁移至芯片热预测",
+      "canonical_evidence": "融合物理仿真数据训练深度模型的混合机器学习方法，可迁移至芯片热预测",
+      "llm_tldr_en": "This paper explores physics-informed and hybrid ML strategies that incorporate physics constraints and multi-physics simulation outputs into deep neural networks to predict bond quality and porosity in fused filament fabrication, showing improved consistency with physical laws.",
+      "llm_tldr_cn": "针对实验数据驱动的深度学习预测缺乏物理一致性的问题，本文研究了将物理约束和多物理场仿真结果融入深度神经网络的三种混合策略，包括损失函数约束、仿真输出作为附加输入以及先仿真预训练再实验微调。在熔丝制造（FFF）的粘结质量和孔隙率预测上验证了这些方法的有效性。该框架可迁移到芯片热仿真数据训练热预测模型，为数据驱动的芯片温度场预测提供方法支撑。",
+      "llm_tldr": "针对实验数据驱动的深度学习预测缺乏物理一致性的问题，本文研究了将物理约束和多物理场仿真结果融入深度神经网络的三种混合策略，包括损失函数约束、仿真输出作为附加输入以及先仿真预训练再实验微调。在熔丝制造（FFF）的粘结质量和孔隙率预测上验证了这些方法的有效性。该框架可迁移到芯片热仿真数据训练热预测模型，为数据驱动的芯片温度场预测提供方法支撑。",
+      "llm_tags": [
+        "query:thermal-gnn"
+      ],
+      "matched_query_tag": "query:thermal-gnn",
+      "matched_query_text": "training thermal prediction models from chip thermal simulation datasets",
+      "matched_requirement_id": "req-9",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2608.13813v1",
+      "source": "arxiv",
+      "title": "From Photothermal Transients to Effective Transport Operators: An Operator-Based Interpretation of TTG Dynamics",
+      "abstract": "Transient thermal grating (TTG) measurements probe thermal transport on submicrometer spatial and subnanosecond temporal scales, where departures from purely diffusive behavior have been reported in a variety of solid-state systems. Within the Mori-Zwanzig projection framework, such effects can be interpreted as manifestations of memory arising from microscopic degrees of freedom that remain unresolved at the observational scale. Motivated by this perspective, we formulate a forward model for TTG response in which heat transport is described by a linear evolution operator with memory. Microscopic transport processes are systematically coarse-grained into a non-Markovian transport operator, whose finite-memory form provides a general description of TTG dynamics, while diffusive and long-memory behaviors emerge as asymptotic limits of the same underlying framework. Within this formulation, the experimentally observed TTG transient is interpreted as the response of an effective transport operator rather than as a direct signature of a particular microscopic transport mechanism. The primary outcome of the inversion procedure is the determination of effective operator parameters, while microscopic transport mechanisms are inferred only through a subsequent, material-specific modeling step. The proposed Mori-Zwanzig inspired framework therefore establishes a systematic route from TTG measurements to effective transport operators and, subsequently, to coarse-grained descriptions of microscopic transport dynamics.",
+      "authors": [
+        "Slobodanka Galovic",
+        "Steva Jacimovski"
+      ],
+      "primary_category": "physics.app-ph",
+      "categories": [
+        "physics.app-ph"
+      ],
+      "published": "2026-08-13T22:53:12+00:00",
+      "link": "https://arxiv.org/pdf/2608.13813v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Operator-based thermal transport forward model for simulating temperature fields in microelectronics",
+      "llm_evidence_cn": "基于算子的热输运正演模型，可用于微电子器件温度场仿真",
+      "llm_evidence": "基于算子的热输运正演模型，可用于微电子器件温度场仿真",
+      "canonical_evidence": "基于算子的热输运正演模型，可用于微电子器件温度场仿真",
+      "llm_tldr_en": "This paper formulates a forward model for transient thermal grating response using a linear evolution operator with memory, coarse-graining heat transport into a non-Markovian operator. It provides an operator-based thermal simulation framework relevant to temperature-field simulation in integrated circuits.",
+      "llm_tldr_cn": "瞬态热光栅测量在微纳尺度显示偏离纯扩散的热输运行为，传统模型难以解释。论文在Mori-Zwanzig投影框架下提出用带记忆的线性演化算子描述热输运，并将微观过程粗粒化为非马尔可夫输运算子。该前向模型可解释非傅里叶热输运效应，为集成电路和微电子器件的温度场仿真提供了可迁移的算子级建模方法。",
+      "llm_tldr": "瞬态热光栅测量在微纳尺度显示偏离纯扩散的热输运行为，传统模型难以解释。论文在Mori-Zwanzig投影框架下提出用带记忆的线性演化算子描述热输运，并将微观过程粗粒化为非马尔可夫输运算子。该前向模型可解释非傅里叶热输运效应，为集成电路和微电子器件的温度场仿真提供了可迁移的算子级建模方法。",
+      "llm_tags": [
+        "query:thermal-gnn"
+      ],
+      "matched_query_tag": "query:thermal-gnn",
+      "matched_query_text": "computer simulation of temperature fields in integrated circuits",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2608.19658v1",
+      "source": "arxiv",
+      "title": "Rationally Enriched Chebyshev Trunk Bases for DeepONet Surrogates of High Péclet Entrance Transport",
+      "abstract": "This study demonstrates a rationally enriched Chebyshev (REC) trunk for deep operator network (DeepONet) surrogate models of singularly perturbed and high-Péclet transport problems whose solution profiles are characterized by thin localized boundary or wall layers. The REC trunk combines Chebyshev polynomial dictionary elements with rational dictionary elements constructed using the adaptive Antoulas-Anderson (AAA) algorithm. Over five independent training runs, the resulting REC-trunk DeepONet is evaluated against a vanilla DeepONet and a Chebyshev-trunk DeepONet whose prescribed dictionary consists only of Chebyshev polynomials across three problems whose singular perturbation parameters are diffusion-to-advection ratios: a singularly perturbed scalar boundary-value problem (BVP), the thermal entrance problem with a prescribed wall temperature, and the concentration entrance problem with an absorbing wall. Across the held-out test profiles, the REC-trunk DeepONet improves over the vanilla DeepONet and remains comparable to the Chebyshev-trunk DeepONet in predicting the scalar profile, with its clearest advantage over the Chebyshev-trunk DeepONet appearing when the perturbation parameter lies between $1.00\\times10^{-4}$ and $1.78\\times10^{-4}$, where it reduces the profile-error metrics by up to $19.5\\,\\%$ relative to the Chebyshev-trunk DeepONet. In predicting the wall-normal temperature and concentration profiles, the REC-trunk DeepONet reduces the profile-error metrics by up to $60.2\\,\\%$ and $32.2\\,\\%$ relative to the vanilla and Chebyshev-trunk DeepONets, respectively, while suppressing artificial near-wall oscillations as the Péclet or mass-transfer Péclet number ranges from $10^{2}$ to $10^{4}$.",
+      "authors": [
+        "Mingeun Choi",
+        "Satish Kumar"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "math.NA"
+      ],
+      "published": "2026-08-20T05:52:27+00:00",
+      "link": "https://arxiv.org/pdf/2608.19658v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "DeepONet surrogate with enriched Chebyshev-rational basis for advection-diffusion transport, transferable to temperature field simulation",
+      "llm_evidence_cn": "面向高Péclet输运问题的DeepONet代理模型，可迁移至芯片温度场仿真",
+      "llm_evidence": "面向高Péclet输运问题的DeepONet代理模型，可迁移至芯片温度场仿真",
+      "canonical_evidence": "面向高Péclet输运问题的DeepONet代理模型，可迁移至芯片温度场仿真",
+      "llm_tldr_en": "This paper develops a rationally enriched Chebyshev trunk for DeepONet surrogate models of singularly perturbed high-Peclet transport problems with thin boundary layers, improving accuracy over vanilla and Chebyshev-only trunks across advection-dominated regimes.",
+      "llm_tldr_cn": "针对高Péclet输运问题中边界层薄、解变化剧烈导致深度算子网络代理精度不足的问题，本文提出将切比雪夫多项式字典与基于AAA算法构造的有理字典相结合的有理富化切比雪夫干基（REC trunk）。在多个奇异摄动测试问题上，REC-trunk DeepONet相比普通DeepONet和纯切比雪夫干基DeepONet取得了更优精度。该方法为含尖锐温度梯度的芯片热场快速仿真提供了可借鉴的代理建模思路。",
+      "llm_tldr": "针对高Péclet输运问题中边界层薄、解变化剧烈导致深度算子网络代理精度不足的问题，本文提出将切比雪夫多项式字典与基于AAA算法构造的有理字典相结合的有理富化切比雪夫干基（REC trunk）。在多个奇异摄动测试问题上，REC-trunk DeepONet相比普通DeepONet和纯切比雪夫干基DeepONet取得了更优精度。该方法为含尖锐温度梯度的芯片热场快速仿真提供了可借鉴的代理建模思路。",
+      "llm_tags": [
+        "query:thermal-gnn"
+      ],
+      "matched_query_tag": "query:thermal-gnn",
+      "matched_query_text": "computer simulation of temperature fields in integrated circuits",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "label": "2026-08-22",
+  "date": "2026-08-22",
+  "generated_at": "2026-08-22T19:32:37",
+  "count": 4,
+  "papers": [
+    {
+      "paper_id": "202608/22/2608.19644v1-when-guidance-goes-off-scale-recalibrating-diffusion-transformers-under-analog-compute-in-memory-nonidealities",
+      "section": "deep",
+      "title_en": "When Guidance Goes Off-Scale: Recalibrating Diffusion Transformers under Analog Compute-in-Memory Nonidealities",
+      "authors": "Wenshuai Yao, Wenyong Zhou",
+      "date": "2026-08-20",
+      "pdf": "https://arxiv.org/pdf/2608.19644v1",
+      "score": "8.0",
+      "evidence": "面向扩散Transformer的模拟存内计算非理想性与能效问题",
+      "tldr": "扩散Transformer（DiT）在模拟存内计算（CIM）上执行采样时，非理想性导致有效权重扰动，且与Classifier-free Guidance（CFG）交互未被探索。本文发现这种扰动使CFG残差被不成比例地衰减和旋转，成为可控失效通道。为此提出无需重训练的采样端重校准，仅调整CFG尺度。在多种DiT模型上，该方法大幅提升生成质量，缩小至少87%的FID差距。",
+      "tags": "query:cim",
+      "abstract_en": "Diffusion Transformers (DiTs) incur high memory traffic and energy costs because sampling repeatedly evaluates large denoisers dominated by linear operations. Analog compute-in-memory (CIM) can alleviate these costs by executing linear operations within weight-storing memory arrays. However, CIM nonidealities perturb effective weights, with errors accumulating along the state-dependent denoising trajectory; their interaction with classifier-free guidance (CFG) remains underexplored. In this paper, we characterize the impact of analog CIM nonidealities on DiT sampling. Although conditional and unconditional predictions can each remain close to their clean counterparts, their difference (the CFG residual) is disproportionately attenuated and rotated. Identifying this residual as a controllable failure channel, we propose a retraining-free, sampler-side recalibration that adjusts only the CFG scale for a given CIM condition. Trajectory-level analysis shows that moderate recalibration strengthens the target-oriented component preserved in the distorted residual, enabling earlier commitment to a prompt-consistent semantic region. In contrast, excessive guidance amplifies the full noisy residual and degrades quality, resulting in a finite, noise-dependent optimum. Extensive experiments on PixArt-Sigma, PixArt-alpha, and DiT-XL/2 show that the optimal guidance scale increases with CIM noise. Using 30,000 samples per condition, guidance recalibration consistently restores generation quality across simulated CIM mappings, closing at least 87% of the CIM-induced FID gap at a CIM noise level of 0.20. It reduces FID from 59.22 to 20.49 on PixArt-Sigma, 72.37 to 21.12 on PixArt-alpha, and 20.89 to 6.62 on DiT-XL/2.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/22/2608.17246v1-physics-informed-and-hybrid-machine-learning-in-additive-manufacturing-application-to-fused-filament-fabrication",
+      "section": "quick",
+      "title_en": "Physics-Informed and Hybrid Machine Learning in Additive Manufacturing: Application to Fused Filament Fabrication",
+      "authors": "Berkcan Kapusuzoglu, Sankaran Mahadevan",
+      "date": "2026-08-18",
+      "pdf": "https://arxiv.org/pdf/2608.17246v1",
+      "score": "7.0",
+      "evidence": "融合物理仿真数据训练深度模型的混合机器学习方法，可迁移至芯片热预测",
+      "tldr": "熔融沉积成型增材制造中物理过程复杂且实验数据稀缺，纯数据驱动模型预测粘结质量与孔隙率易缺乏物理一致性。本文提出三种物理信息与混合机器学习策略：将物理约束纳入损失函数、将多物理仿真输出作为额外输入、以仿真数据预训练模型再用实验数据微调。系统比较八种策略组合，发现多重策略结合能在有限数据下实现准确预测，并保证粘结强度与拉伸强度的物理关系，为FFF过程建模提供高效可靠的机器学习方案。",
+      "tags": "query:thermal-gnn",
+      "abstract_en": "This article investigates several physics-informed and hybrid machine learning strategies that incorporate physics knowledge in experimental data-driven deep-learning models for predicting the bond quality and porosity of fused filament fabrication (FFF) parts. Three types of strategies are explored to incorporate physics constraints and multi-physics FFF simulation results into a deep neural network (DNN), thus ensuring consistency with physical laws: (1) incorporate physics constraints within the loss function of the DNN, (2) use physics model outputs as additional inputs to the DNN model, and (3) pre-train a DNN model with physics model input-output and then update it with experimental data. These strategies help to enforce a physically consistent relationship between bond quality and tensile strength, thus making porosity predictions physically meaningful. Eight different combinations of the above strategies are investigated. The results show how the combination of multiple strategies produces accurate machine learning models even with limited experimental data.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/22/2608.19658v1-rationally-enriched-chebyshev-trunk-bases-for-deeponet-surrogates-of-high-pclet-entrance-transport",
+      "section": "quick",
+      "title_en": "Rationally Enriched Chebyshev Trunk Bases for DeepONet Surrogates of High Péclet Entrance Transport",
+      "authors": "Mingeun Choi, Satish Kumar",
+      "date": "2026-08-20",
+      "pdf": "https://arxiv.org/pdf/2608.19658v1",
+      "score": "7.0",
+      "evidence": "面向高Péclet输运问题的DeepONet代理模型，可迁移至芯片温度场仿真",
+      "tldr": "针对高Péclet输运问题中薄边界层导致的DeepONet预测误差，提出理性富集切比雪夫（REC）trunk，将切比雪夫多项式与AAA算法构造的理性字典结合。在三个奇异摄动/热质入口问题上，REC-trunk相对vanilla DeepONet最高降低60.2%误差，并在特定参数区间比纯切比雪夫trunk降低19.5%误差，同时抑制近壁振荡。",
+      "tags": "query:thermal-gnn",
+      "abstract_en": "This study demonstrates a rationally enriched Chebyshev (REC) trunk for deep operator network (DeepONet) surrogate models of singularly perturbed and high-Péclet transport problems whose solution profiles are characterized by thin localized boundary or wall layers. The REC trunk combines Chebyshev polynomial dictionary elements with rational dictionary elements constructed using the adaptive Antoulas-Anderson (AAA) algorithm. Over five independent training runs, the resulting REC-trunk DeepONet is evaluated against a vanilla DeepONet and a Chebyshev-trunk DeepONet whose prescribed dictionary consists only of Chebyshev polynomials across three problems whose singular perturbation parameters are diffusion-to-advection ratios: a singularly perturbed scalar boundary-value problem (BVP), the thermal entrance problem with a prescribed wall temperature, and the concentration entrance problem with an absorbing wall. Across the held-out test profiles, the REC-trunk DeepONet improves over the vanilla DeepONet and remains comparable to the Chebyshev-trunk DeepONet in predicting the scalar profile, with its clearest advantage over the Chebyshev-trunk DeepONet appearing when the perturbation parameter lies between $1.00\\times10^{-4}$ and $1.78\\times10^{-4}$, where it reduces the profile-error metrics by up to $19.5\\,\\%$ relative to the Chebyshev-trunk DeepONet. In predicting the wall-normal temperature and concentration profiles, the REC-trunk DeepONet reduces the profile-error metrics by up to $60.2\\,\\%$ and $32.2\\,\\%$ relative to the vanilla and Chebyshev-trunk DeepONets, respectively, while suppressing artificial near-wall oscillations as the Péclet or mass-transfer Péclet number ranges from $10^{2}$ to $10^{4}$.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/22/2608.13813v1-from-photothermal-transients-to-effective-transport-operators-an-operator-based-interpretation-of-ttg-dynamics",
+      "section": "quick",
+      "title_en": "From Photothermal Transients to Effective Transport Operators: An Operator-Based Interpretation of TTG Dynamics",
+      "authors": "Slobodanka Galovic, Steva Jacimovski",
+      "date": "2026-08-13",
+      "pdf": "https://arxiv.org/pdf/2608.13813v1",
+      "score": "6.0",
+      "evidence": "基于算子的热输运正演模型，可用于微电子器件温度场仿真",
+      "tldr": "瞬态热光栅测量在亚微米/亚纳秒尺度观察到偏离扩散的热输运行为。本文在Mori-Zwanzig投影框架下，将微观过程粗粒化为具有记忆效应的非马尔可夫输运算符，建立TTG响应的正向模型。该模型统一描述扩散与长记忆极限，将实验瞬态解释为有效算符的响应，反演得到算符参数，再通过材料建模推断微观机制。提供从测量到有效算符再到微观动力学的系统路径。",
+      "tags": "query:thermal-gnn",
+      "abstract_en": "Transient thermal grating (TTG) measurements probe thermal transport on submicrometer spatial and subnanosecond temporal scales, where departures from purely diffusive behavior have been reported in a variety of solid-state systems. Within the Mori-Zwanzig projection framework, such effects can be interpreted as manifestations of memory arising from microscopic degrees of freedom that remain unresolved at the observational scale. Motivated by this perspective, we formulate a forward model for TTG response in which heat transport is described by a linear evolution operator with memory. Microscopic transport processes are systematically coarse-grained into a non-Markovian transport operator, whose finite-memory form provides a general description of TTG dynamics, while diffusive and long-memory behaviors emerge as asymptotic limits of the same underlying framework. Within this formulation, the experimentally observed TTG transient is interpreted as the response of an effective transport operator rather than as a direct signature of a particular microscopic transport mechanism. The primary outcome of the inversion procedure is the determination of effective operator parameters, while microscopic transport mechanisms are inferred only through a subsequent, material-specific modeling step. The proposed Mori-Zwanzig inspired framework therefore establishes a systematic route from TTG measurements to effective transport operators and, subsequently, to coarse-grained descriptions of microscopic transport dynamics.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,24 @@
+{
+  "label": "2026-08-23",
+  "date": "2026-08-23",
+  "generated_at": "2026-08-23T20:17:15",
+  "count": 1,
+  "papers": [
+    {
+      "paper_id": "202608/23/2608.19644v1-when-guidance-goes-off-scale-recalibrating-diffusion-transformers-under-analog-compute-in-memory-nonidealities",
+      "section": "deep",
+      "title_en": "When Guidance Goes Off-Scale: Recalibrating Diffusion Transformers under Analog Compute-in-Memory Nonidealities",
+      "authors": "Wenshuai Yao, Wenyong Zhou",
+      "date": "2026-08-20",
+      "pdf": "https://arxiv.org/pdf/2608.19644v1",
+      "score": "8.0",
+      "evidence": "面向扩散Transformer的模拟存内计算，处理CIM非理想效应与能效问题",
+      "tldr": "扩散Transformer在模拟存算一体（CIM）非理想条件下，条件与无条件预测各自的误差虽小，但两者的差（CFG残差）被不成比例地衰减和旋转，成为可控的失效通道。为此提出免训练的采样端重校准方法，仅调整CFG尺度，并在30,000样本测试中显著恢复生成质量，至少缩小87%的CIM诱导FID差距，验证了最优引导尺度随噪声增加而增大的规律。",
+      "tags": "query:cim",
+      "abstract_en": "Diffusion Transformers (DiTs) incur high memory traffic and energy costs because sampling repeatedly evaluates large denoisers dominated by linear operations. Analog compute-in-memory (CIM) can alleviate these costs by executing linear operations within weight-storing memory arrays. However, CIM nonidealities perturb effective weights, with errors accumulating along the state-dependent denoising trajectory; their interaction with classifier-free guidance (CFG) remains underexplored. In this paper, we characterize the impact of analog CIM nonidealities on DiT sampling. Although conditional and unconditional predictions can each remain close to their clean counterparts, their difference (the CFG residual) is disproportionately attenuated and rotated. Identifying this residual as a controllable failure channel, we propose a retraining-free, sampler-side recalibration that adjusts only the CFG scale for a given CIM condition. Trajectory-level analysis shows that moderate recalibration strengthens the target-oriented component preserved in the distorted residual, enabling earlier commitment to a prompt-consistent semantic region. In contrast, excessive guidance amplifies the full noisy residual and degrades quality, resulting in a finite, noise-dependent optimum. Extensive experiments on PixArt-Sigma, PixArt-alpha, and DiT-XL/2 show that the optimal guidance scale increases with CIM noise. Using 30,000 samples per condition, guidance recalibration consistently restores generation quality across simulated CIM mappings, closing at least 87% of the CIM-induced FID gap at a CIM noise level of 0.20. It reduces FID from 59.22 to 20.49 on PixArt-Sigma, 72.37 to 21.12 on PixArt-alpha, and 20.89 to 6.62 on DiT-XL/2.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

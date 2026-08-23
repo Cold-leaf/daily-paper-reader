@@ -1,0 +1,52 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-23T20:16:35.697007+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 0,
+    "quick_skim_target": 11,
+    "quick_selected": 0
+  },
+  "deep_dive": [
+    {
+      "id": "2608.19644v1",
+      "source": "arxiv",
+      "title": "When Guidance Goes Off-Scale: Recalibrating Diffusion Transformers under Analog Compute-in-Memory Nonidealities",
+      "abstract": "Diffusion Transformers (DiTs) incur high memory traffic and energy costs because sampling repeatedly evaluates large denoisers dominated by linear operations. Analog compute-in-memory (CIM) can alleviate these costs by executing linear operations within weight-storing memory arrays. However, CIM nonidealities perturb effective weights, with errors accumulating along the state-dependent denoising trajectory; their interaction with classifier-free guidance (CFG) remains underexplored. In this paper, we characterize the impact of analog CIM nonidealities on DiT sampling. Although conditional and unconditional predictions can each remain close to their clean counterparts, their difference (the CFG residual) is disproportionately attenuated and rotated. Identifying this residual as a controllable failure channel, we propose a retraining-free, sampler-side recalibration that adjusts only the CFG scale for a given CIM condition. Trajectory-level analysis shows that moderate recalibration strengthens the target-oriented component preserved in the distorted residual, enabling earlier commitment to a prompt-consistent semantic region. In contrast, excessive guidance amplifies the full noisy residual and degrades quality, resulting in a finite, noise-dependent optimum. Extensive experiments on PixArt-Sigma, PixArt-alpha, and DiT-XL/2 show that the optimal guidance scale increases with CIM noise. Using 30,000 samples per condition, guidance recalibration consistently restores generation quality across simulated CIM mappings, closing at least 87% of the CIM-induced FID gap at a CIM noise level of 0.20. It reduces FID from 59.22 to 20.49 on PixArt-Sigma, 72.37 to 21.12 on PixArt-alpha, and 20.89 to 6.62 on DiT-XL/2.",
+      "authors": [
+        "Wenshuai Yao",
+        "Wenyong Zhou"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-08-20T05:21:48+00:00",
+      "link": "https://arxiv.org/pdf/2608.19644v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Analog compute-in-memory for diffusion transformers, addressing CIM nonidealities and energy efficiency",
+      "llm_evidence_cn": "面向扩散Transformer的模拟存内计算，处理CIM非理想效应与能效问题",
+      "llm_evidence": "面向扩散Transformer的模拟存内计算，处理CIM非理想效应与能效问题",
+      "canonical_evidence": "面向扩散Transformer的模拟存内计算，处理CIM非理想效应与能效问题",
+      "llm_tldr_en": "DiTs incur high memory traffic and energy; analog CIM offloads linear ops but nonidealities corrupt classifier-free guidance. The paper characterizes these errors and proposes recalibration, improving sampling accuracy under analog nonidealities.",
+      "llm_tldr_cn": "扩散Transformer在采样阶段需反复执行大型去噪器中的线性运算，导致高内存访问与能耗；模拟存内计算虽能以权重存储阵列原位计算来缓解，但CIM非理想效应会扰动有效权重，并沿去噪轨迹累积误差。论文系统刻画了非理想性与分类器无引导的相互作用，发现引导残差会被明显破坏，进而提出重校准机制。实验显示重校准能有效恢复采样质量，为模拟存内计算上部署扩散Transformer提供了可行方案。",
+      "llm_tldr": "扩散Transformer在采样阶段需反复执行大型去噪器中的线性运算，导致高内存访问与能耗；模拟存内计算虽能以权重存储阵列原位计算来缓解，但CIM非理想效应会扰动有效权重，并沿去噪轨迹累积误差。论文系统刻画了非理想性与分类器无引导的相互作用，发现引导残差会被明显破坏，进而提出重校准机制。实验显示重校准能有效恢复采样质量，为模拟存内计算上部署扩散Transformer提供了可行方案。",
+      "llm_tags": [
+        "query:cim:composite"
+      ],
+      "matched_query_tag": "query:cim:composite",
+      "matched_query_text": "Papers central to 存算一体，主要关注基于混合键合的三维堆叠的近存计算, especially work that connects or combines: compute-in-memory architecture; hybrid bonding 3D integration; 3D stacking memory technology; near-memory computing design; processing-in-memory systems; 3D integrated circuit design; What are the key benefits of hybrid bonding for 3D stacked near memory computing?; How does compute in memory architecture improve energy efficiency?; Design challenges of 3D stacking for near memory computing systems.",
+      "matched_requirement_id": "req-composite-cim",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": []
+}

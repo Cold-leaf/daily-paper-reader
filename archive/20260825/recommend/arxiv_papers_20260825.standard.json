@@ -1,0 +1,210 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-25T20:45:41.881860+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 5,
+    "deep_cap": 6,
+    "deep_selected": 5,
+    "quick_candidates": 0,
+    "quick_skim_target": 11,
+    "quick_selected": 0
+  },
+  "deep_dive": [
+    {
+      "id": "2608.21887v1",
+      "source": "arxiv",
+      "title": "TherMapNet Attention-Guided Runtime Full-Chip Thermal Map Prediction from Performance Metrics",
+      "abstract": "Runtime thermal management of high-performance chips depends on fast and accurate full-chip thermal maps. Conventional simulators typically estimate power traces from performance metrics first, which adds overhead. This work proposes TherMapNet, an attention-guided thermal simulator that predicts full-chip thermal maps directly from performance metrics. A Transformer encoder captures temporal evolution by treating the time series of each metric as a token, improving modeling of dynamic workloads. A CNN then extracts fine-grained spatial features. For the CNN, a dual-branch channel-spatial attention convolution module (DACM) and a triplet loss are used to improve spatial learning and reconstruction accuracy. TherMapNet is applied to a multi-core CPU (AMD Ryzen 7 4800U) and a many-core GPU (NVIDIA GeForce RTX 4060). Experiments show that it outperforms prior thermal simulators, with RMSE below 0.26 C and inference under 2.4 ms on an NVIDIA GeForce RTX 3090 GPU. These results indicate that TherMapNet can support high-quality runtime thermal management of modern multi-core chips.",
+      "authors": [
+        "Qin Gu",
+        "Chaofang Ma",
+        "Mingyu Yang",
+        "Yipu Zhang",
+        "Jiliang Zhang",
+        "Wei Zhang",
+        "Lin Jiang"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR",
+        "cs.LG"
+      ],
+      "published": "2026-08-22T10:00:24+00:00",
+      "link": "https://arxiv.org/pdf/2608.21887v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "data-driven full-chip thermal map prediction from performance metrics using attention and CNN",
+      "llm_evidence_cn": "基于性能指标与注意力/卷积神经网络的数据驱动全芯片热图预测",
+      "llm_evidence": "基于性能指标与注意力/卷积神经网络的数据驱动全芯片热图预测",
+      "canonical_evidence": "基于性能指标与注意力/卷积神经网络的数据驱动全芯片热图预测",
+      "llm_tldr_en": "TherMapNet predicts full-chip thermal maps directly from runtime performance metrics using a Transformer encoder over per-metric time-series tokens and a CNN with dual-branch channel-spatial attention, avoiding conventional power-trace estimation overhead.",
+      "llm_tldr_cn": "针对高性能芯片运行时热管理需要快速准确热图、而传统模拟器需先从性能指标估计功率轨迹并带来额外开销的问题，该工作提出一种注意力引导的热图预测模型。该模型用变换器编码器将性能指标的时间序列视为令牌以刻画动态负载，再用带双分支通道-空间注意力卷积模块和三元组损失的卷积神经网络提取细粒度空间特征。实验显示该方法在动态工作负载下改善了热图重建精度，为芯片运行时热管理提供了高效的数据驱动方案。",
+      "llm_tldr": "针对高性能芯片运行时热管理需要快速准确热图、而传统模拟器需先从性能指标估计功率轨迹并带来额外开销的问题，该工作提出一种注意力引导的热图预测模型。该模型用变换器编码器将性能指标的时间序列视为令牌以刻画动态负载，再用带双分支通道-空间注意力卷积模块和三元组损失的卷积神经网络提取细粒度空间特征。实验显示该方法在动态工作负载下改善了热图重建精度，为芯片运行时热管理提供了高效的数据驱动方案。",
+      "llm_tags": [
+        "query:thermal-gnn"
+      ],
+      "matched_query_tag": "query:thermal-gnn",
+      "matched_query_text": "data-driven prediction of chip operating temperature",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.22613v1",
+      "source": "arxiv",
+      "title": "NOVA: Technology-Architecture Co-Design of Near-Memory Processing for Attention-SSM-MoE Hybrid LLM Inference",
+      "abstract": "The rapid evolution of hybrid large language models (LLMs), which interleave grouped-query-attention (GQA), state-space model (SSM), and Mixture-of-Experts (MoE) layers, introduces two fundamental challenges for near-memory processing (NMP) architectures. First, the Technology Wall: the conventional 6F^2 DRAM cell is approaching its physical scaling limits at 10nm-class nodes, making it difficult to meet the memory capacity demands of MoE models with hundreds of experts. Second, the Architecture Wall: existing NMP designs target narrow arithmetic intensity (Op/B) ranges and cannot efficiently support the heterogeneous compute characteristics of hybrid LLMs, spanning memory-bound SSM layers, compute-intensive GQA layers, and large Op/B variations across experts. We propose NOVA, a technology-architecture co-designed NMP system that overcomes both walls. On the technology side, NOVA combines a 4F^2 vertical channel transistor (VCT) DRAM cell with a peri-over-cell (POC) structure to achieve approximately 2x memory density at iso-area over conventional 6F^2-based DRAM, enabling continued scaling into sub-10nm nodes. On the architecture side, NOVA repurposes the POC peripheral-die (peri-die) to host processing units, forming a 2-tier NMP architecture: Tier-1 (peri-die NMP) for low-to-mid Op/B operations, and Tier-2 (base-die NMP) for mid-to-high Op/B operations. Parallel execution across tiers supports diverse compute patterns for hybrid LLMs, maximizing inference performance. Evaluated on state-of-the-art hybrid and MoE LLMs including Nemotron3-Nano, Nemotron3-Super, Falcon-H1R, and Qwen3, NOVA achieves on average 4.5x higher throughput, 69.8% lower end-to-end latency, and 5x better energy efficiency over a GPU baseline, with only 3.9% area overhead and no loss in memory capacity.",
+      "authors": [
+        "In-Jun Jung",
+        "Jaeha Min",
+        "Joo-Young Kim"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-08-23T21:38:46+00:00",
+      "link": "https://arxiv.org/pdf/2608.22613v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "near-memory processing co-design, memory scaling and heterogeneous compute",
+      "llm_evidence_cn": "近存处理协同设计，关注存储工艺缩放与异构计算，契合存算一体与3D堆叠近存计算主题",
+      "llm_evidence": "近存处理协同设计，关注存储工艺缩放与异构计算，契合存算一体与3D堆叠近存计算主题",
+      "canonical_evidence": "近存处理协同设计，关注存储工艺缩放与异构计算，契合存算一体与3D堆叠近存计算主题",
+      "llm_tldr_en": "For hybrid LLM inference, NOVA co-designs technology and architecture to overcome DRAM scaling walls and heterogeneous compute demands of near-memory processing, enabling efficient near-memory acceleration.",
+      "llm_tldr_cn": "论文针对注意力、SSM与MoE混合的大语言模型推理，指出现有近存处理架构同时面临DRAM物理缩放的技术墙和异构计算需求的架构墙。作者提出NOVA技术与架构协同设计，将存储工艺瓶颈与不同层级的计算模式纳入统一设计空间，以支持大容量内存需求并提升硬件利用率。该工作为三维堆叠近存计算及存算一体方案在先进大模型场景下的实现提供了系统级设计思路。",
+      "llm_tldr": "论文针对注意力、SSM与MoE混合的大语言模型推理，指出现有近存处理架构同时面临DRAM物理缩放的技术墙和异构计算需求的架构墙。作者提出NOVA技术与架构协同设计，将存储工艺瓶颈与不同层级的计算模式纳入统一设计空间，以支持大容量内存需求并提升硬件利用率。该工作为三维堆叠近存计算及存算一体方案在先进大模型场景下的实现提供了系统级设计思路。",
+      "llm_tags": [
+        "query:cim:composite"
+      ],
+      "matched_query_tag": "query:cim:composite",
+      "matched_query_text": "Papers central to 存算一体，主要关注基于混合键合的三维堆叠的近存计算, especially work that connects or combines: compute-in-memory architecture; hybrid bonding 3D integration; 3D stacking memory technology; near-memory computing design; processing-in-memory systems; 3D integrated circuit design; What are the key benefits of hybrid bonding for 3D stacked near memory computing?; How does compute in memory architecture improve energy efficiency?; Design challenges of 3D stacking for near memory computing systems.",
+      "matched_requirement_id": "req-composite-cim",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.22741v1",
+      "source": "arxiv",
+      "title": "A Process-Aware Hybrid Si/IGO Monolithic-3D 6T SRAM with BEOL Pass-Gates for the 2nm Node",
+      "abstract": "We propose a monolithic-3D (M3D) 6T SRAM at the 2nm node, integrating BEOL IGO pass-gates (PGs) with an all-silicon nanosheet latch, buried power rails (BPRs), and Ru interconnects. TCAD calibrated to a state-of-the-art double-gate IGO transistor with a tri-layer HfO$_2$/ZrO$_2$/HfO$_2$ (HZH) gate stack is combined with virtual fabrication and 3D parasitic extraction to realize the first process-aware layout of this topology. A novel neighbor-cell shared source/drain (S/D) bitline (BL) design enlarges the IGO contact area to mitigate contact resistance and restore PG drive without area penalty. The resulting cell achieves a 25\\% footprint reduction vs the high-performance (HP) 122 Si baseline while maintaining robust static noise margin (SNM) over a wide supply voltage range. At the 128$\\times$256 subarray-level, it reduces write delay by 42.2\\% and EDP by 9.7\\% compared to the high-density (HD) 111 Si baseline, owing to reduced cell parasitics and wordline (WL) loading from the smaller footprint.",
+      "authors": [
+        "Po-Chuan Wang",
+        "Dongwon Jang",
+        "Eknath Sarkar",
+        "Alexei Svizhenko",
+        "Md. Nahid Haque Shazon",
+        "Piyush Kumar",
+        "Suman Datta",
+        "Azad Naeemi"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR",
+        "cs.ET"
+      ],
+      "published": "2026-08-24T02:59:37+00:00",
+      "link": "https://arxiv.org/pdf/2608.22741v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Monolithic-3D SRAM design advances 3D stacking memory technology and 3D integrated circuit design",
+      "llm_evidence_cn": "单片三维SRAM设计推动三维堆叠存储技术与三维集成电路设计",
+      "llm_evidence": "单片三维SRAM设计推动三维堆叠存储技术与三维集成电路设计",
+      "canonical_evidence": "单片三维SRAM设计推动三维堆叠存储技术与三维集成电路设计",
+      "llm_tldr_en": "A process-aware monolithic-3D 6T SRAM at the 2nm node uses BEOL IGO pass-gates and a neighbor-cell shared bitline design to reduce footprint by 25% versus the Si baseline while maintaining robust static noise margins.",
+      "llm_tldr_cn": "面向2nm节点，提出一种集成后端IGO传输门与全硅纳米片锁存器的单片三维6T SRAM。结合TCAD校准、虚拟制造与三维寄生提取，通过邻居单元共享源漏位线设计增大接触面积，在无面积惩罚下恢复传输门驱动能力。该单元相较高性能硅基线实现25%面积缩减，同时保持稳健的静态噪声容限。该工作展示了单片三维集成在先进节点存储设计中的优势，可服务于三维堆叠存储与近存计算等应用。",
+      "llm_tldr": "面向2nm节点，提出一种集成后端IGO传输门与全硅纳米片锁存器的单片三维6T SRAM。结合TCAD校准、虚拟制造与三维寄生提取，通过邻居单元共享源漏位线设计增大接触面积，在无面积惩罚下恢复传输门驱动能力。该单元相较高性能硅基线实现25%面积缩减，同时保持稳健的静态噪声容限。该工作展示了单片三维集成在先进节点存储设计中的优势，可服务于三维堆叠存储与近存计算等应用。",
+      "llm_tags": [
+        "query:cim:composite"
+      ],
+      "matched_query_tag": "query:cim:composite",
+      "matched_query_text": "Papers central to 存算一体，主要关注基于混合键合的三维堆叠的近存计算, especially work that connects or combines: compute-in-memory architecture; hybrid bonding 3D integration; 3D stacking memory technology; near-memory computing design; processing-in-memory systems; 3D integrated circuit design; What are the key benefits of hybrid bonding for 3D stacked near memory computing?; How does compute in memory architecture improve energy efficiency?; Design challenges of 3D stacking for near memory computing systems.",
+      "matched_requirement_id": "req-composite-cim",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.22787v1",
+      "source": "arxiv",
+      "title": "Generative Design of Liquid-Cooling Channels for Thermal Management of 2.5D and 3D Integrated Advanced Packaging",
+      "abstract": "High power multi-chip packages require increasingly effective cooling as more heat is generated within a limited package area. This work presents a physics-guided generative design framework for liquid cooling channel topology optimization in a 2.7 kW multi-chip package containing two high power GPUs and one CPU. A conditional diffusion model generates symmetric channel layouts using maximum GPU temperature, GPU temperature spread, and pressure drop as performance targets. Generated designs are subjected to connectivity and dead-end-branch screening and are then evaluated using a calibrated reduced-order thermal-hydraulic model. Of 5,000 generated layouts, 2,220 contained a continuous inlet-to-outlet flow path and 229 satisfied the final topology-screening criteria. Multi-objective analysis identified G1016 as the thermally leading feasible design, with a predicted maximum GPU temperature of 70.30 °C, GPU temperature spread of 24.90 °C, and pressure drop of 89.72 kPa. Compared to a conventional reference topology, G1016 reduced the maximum GPU temperature, the temperature spread, and the pressure drop by 33.6%, 52.5%, and 72.8%, respectively. Independent three-dimensional conjugate heat-transfer simulation in OpenFOAM predicted a maximum GPU temperature of 66.70 °C and a pressure drop of 92.1 kPa, corresponding to ROM differences of approximately 8.6% in temperature rise and 2.6% in pressure drop. The results demonstrate that physics-guided generative design can efficiently discover non-conventional cooling channel architectures while limiting expensive full-order CFD to final validation.",
+      "authors": [
+        "Michael Acquah",
+        "Zheng Liu"
+      ],
+      "primary_category": "eess.SY",
+      "categories": [
+        "eess.SY"
+      ],
+      "published": "2026-08-24T04:18:00+00:00",
+      "link": "https://arxiv.org/pdf/2608.22787v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Generative design of liquid-cooling channels for thermal management of 2.5D/3D advanced packaging, directly addressing chip heat dissipation.",
+      "llm_evidence_cn": "利用生成式设计优化2.5D/3D先进封装液冷通道，直接应对芯片散热问题。",
+      "llm_evidence": "利用生成式设计优化2.5D/3D先进封装液冷通道，直接应对芯片散热问题。",
+      "canonical_evidence": "利用生成式设计优化2.5D/3D先进封装液冷通道，直接应对芯片散热问题。",
+      "llm_tldr_en": "This paper presents a physics-guided generative design framework using conditional diffusion models to optimize liquid-cooling channel topologies in a 2.7 kW multi-chip 2.5D/3D package, evaluated via a calibrated thermal-hydraulic model.",
+      "llm_tldr_cn": "高功率多芯片封装在有限面积内产生大量热量，对先进冷却设计提出挑战。该工作提出了一种物理引导的生成式设计框架，利用条件扩散模型为2.5D/3D先进封装中的液冷通道拓扑进行优化，并以最大GPU温度、温度分布和压降为性能目标。生成的5000个布局中筛选出2220个连通方案，并通过校准的降阶热-水力学模型进行评估。该框架为先进封装的热管理设计提供了新的自动化拓扑生成途径。",
+      "llm_tldr": "高功率多芯片封装在有限面积内产生大量热量，对先进冷却设计提出挑战。该工作提出了一种物理引导的生成式设计框架，利用条件扩散模型为2.5D/3D先进封装中的液冷通道拓扑进行优化，并以最大GPU温度、温度分布和压降为性能目标。生成的5000个布局中筛选出2220个连通方案，并通过校准的降阶热-水力学模型进行评估。该框架为先进封装的热管理设计提供了新的自动化拓扑生成途径。",
+      "llm_tags": [
+        "query:thermal-gnn"
+      ],
+      "matched_query_tag": "query:thermal-gnn",
+      "matched_query_text": "methods for managing heat dissipation in microprocessors and chips",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.23404v1",
+      "source": "arxiv",
+      "title": "VIPER: Architecture-Aware Performance Modeling for Processing-in-Memory Design-Space Exploration",
+      "abstract": "Processing-in-Memory (PIM) promises to reduce data movement overhead by executing computation in or near memory, but its realized application speedup remains highly design-dependent. Non-offloadable host execution, host-PIM transfers, limited PIM capacity, and device programming latency can limit end-to-end speedup, making fast early-stage design-space exploration (DSE) essential. However, existing PIM evaluation methods remain limited: circuit- and device-level tools cannot capture these end-to-end PIM performance factors, while cycle-accurate simulation is too slow for iterative DSE. To address this gap, we present VIPER, a unified, lightweight, and architecture-aware performance evaluation framework for PIM DSE. VIPER profiles host execution once and combines the measured host behavior with a PIM-aware analytical engine that sweeps PIM-side parameters across candidate designs. It supports both Processing Near Memory (PNM) and Processing Using Memory (PUM) under task-offloading and data-triggered execution by capturing host-PIM transfer, array access, in-memory computation, device programming latency, and capacity-induced partitioning, providing rapid architecture-aware performance estimates for iterative DSE without repeated cycle-accurate simulation. We validate VIPER against a commercial UPMEM system and more than 400 cycle-accurate gem5 configurations. VIPER predicts the UPMEM offloading decision and break-even region a priori, and, with a refined transfer model, captures the measured peak-and-rolloff behavior with 12\\% mean speedup error across the DPU sweep (6\\% up to the 256-DPU peak). Against gem5, VIPER achieves less than 10\\% error while reducing evaluation time from hours to under one minute. Case studies of UPMEM, ReRAM/FeFET crossbars, and IMCRYPTO show that architecture-aware DSE reveals key performance trade-offs that device-level evaluation misses.",
+      "authors": [
+        "Haoran Geng",
+        "Tomas Sousa Pereira",
+        "Xiaoyang Lu",
+        "Xian-He Sun",
+        "Michael Niemier",
+        "X. Sharon Hu"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-08-24T15:49:56+00:00",
+      "link": "https://arxiv.org/pdf/2608.23404v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Architecture-aware performance modeling for processing-in-memory design-space exploration, directly serving compute-in-memory/near-memory computing theme",
+      "llm_evidence_cn": "面向处理中存储(PIM)设计空间探索的架构感知性能建模，直接契合存算一体/近存计算主题",
+      "llm_evidence": "面向处理中存储(PIM)设计空间探索的架构感知性能建模，直接契合存算一体/近存计算主题",
+      "canonical_evidence": "面向处理中存储(PIM)设计空间探索的架构感知性能建模，直接契合存算一体/近存计算主题",
+      "llm_tldr_en": "VIPER is a unified, lightweight, architecture-aware performance evaluation framework for PIM DSE, capturing end-to-end factors like host-PIM transfers and capacity limits to replace slow cycle-accurate simulation.",
+      "llm_tldr_cn": "针对处理中存储(PIM)实际加速效果高度依赖设计参数、早期设计空间探索缺乏快速评估工具的问题，传统电路/器件级方法无法考虑端到端性能因素，而周期级仿真又太慢。为此提出VIPER，一个统一、轻量的架构感知PIM性能评估框架，能够刻画主机-内存数据传输、PIM容量限制、设备编程延迟等关键因素。实验表明VIPER可在设计空间探索中快速给出端到端性能估计，弥补了现有PIM评估工具的空白，为存算一体架构设计提供了实用方法。",
+      "llm_tldr": "针对处理中存储(PIM)实际加速效果高度依赖设计参数、早期设计空间探索缺乏快速评估工具的问题，传统电路/器件级方法无法考虑端到端性能因素，而周期级仿真又太慢。为此提出VIPER，一个统一、轻量的架构感知PIM性能评估框架，能够刻画主机-内存数据传输、PIM容量限制、设备编程延迟等关键因素。实验表明VIPER可在设计空间探索中快速给出端到端性能估计，弥补了现有PIM评估工具的空白，为存算一体架构设计提供了实用方法。",
+      "llm_tags": [
+        "query:cim:composite"
+      ],
+      "matched_query_tag": "query:cim:composite",
+      "matched_query_text": "Papers central to 存算一体，主要关注基于混合键合的三维堆叠的近存计算, especially work that connects or combines: compute-in-memory architecture; hybrid bonding 3D integration; 3D stacking memory technology; near-memory computing design; processing-in-memory systems; 3D integrated circuit design; What are the key benefits of hybrid bonding for 3D stacked near memory computing?; How does compute in memory architecture improve energy efficiency?; Design challenges of 3D stacking for near memory computing systems.",
+      "matched_requirement_id": "req-composite-cim",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": []
+}

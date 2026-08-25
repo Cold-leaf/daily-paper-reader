@@ -1,0 +1,590 @@
+Title: Generative Design of Liquid-Cooling Channels for Thermal Management of 2.5D and 3D Integrated Advanced Packaging
+
+URL Source: https://arxiv.org/pdf/2608.22787v1
+
+Published Time: Tue, 25 Aug 2026 02:00:34 GMT
+
+Number of Pages: 22
+
+Markdown Content:
+# GENERATIVE DESIGN OF LIQUID -C OOLING CHANNELS FOR 
+
+# THERMAL MANAGEMENT OF 2.5D AND 3D I NTEGRATED 
+
+# ADVANCED PACKAGING 
+
+Michael Acquah 
+
+Department of Computer and Information Science University of Michigan-Dearborn Dearborn, MI 48128 
+
+macquah@umich.edu 
+
+Zheng Liu 
+
+Department of Industrial and Manufacturing Systems Engineering University of Michigan-Dearborn Dearborn, MI 48128 
+
+zhengtl@umich.edu 
+
+August 25, 2026 
+
+## ABSTRACT 
+
+High power multi-chip packages require increasingly effective cooling as more heat is generated within a limited package area. This work presents a physics-guided generative design framework for liquid cooling channel topology optimization in a 2.7 kW multi-chip package containing two high power GPUs and one CPU. A conditional diffusion model generates symmetric channel layouts using maximum GPU temperature, GPU temperature spread, and pressure drop as performance targets. Generated designs are subjected to connectivity and dead-end-branch screening and are then evaluated using a calibrated reduced-order thermal-hydraulic model. Of 5,000 generated layouts, 2,220 contained a continuous inlet-to-outlet flow path and 229 satisfied the final topology-screening criteria. Multi-objective analysis identified G1016 as the thermally leading feasible design, with a predicted maximum GPU temperature of 70 .30 ◦C, GPU temperature spread of 24 .90 ◦C, and pressure drop of 89 .72 kPa . Compared to a conventional reference topology, G1016 reduced the maximum GPU temperature, the temperature spread, and the pressure drop by 33 .6% , 52 .5% , and 72 .8% ,respectively. Independent three-dimensional conjugate heat-transfer simulation in OpenFOAM predicted a maximum GPU temperature of 66 .70 ◦C and a pressure drop of 92 .1 kPa , corresponding to ROM differences of approximately 8.6% in temperature rise and 2.6% in pressure drop. The results demonstrate that physics-guided generative design can efficiently discover non-conventional cooling channel architectures while limiting expensive full-order CFD to final validation. 
+
+## 1 Introduction 
+
+The continued increase in power density of electronic packages has made thermal management a critical constraint in the design of advanced computing systems. As processors, graphics processing units, and heterogeneous chiplets are integrated within compact multi-chip packages, heat must be removed over smaller areas while maintaining acceptable junction temperatures, temperature uniformity, and system reliability. Conventional air-cooling solutions become increasingly limited under high heat-flux conditions because of their relatively low heat capacity and restricted ability to remove heat from densely packed components. Liquid cooling offers a more compact and effective alternative because arXiv:2608.22787v1 [eess.SY] 24 Aug 2026 A PREPRINT - A UGUST 25, 2026 the coolant can be routed close to the heat-generating devices, increasing convective heat removal while reducing the thermal resistance between the chip and the heat sink[1]. Microchannel and cold-plate cooling have therefore received significant attention for high-power electronic cooling. The foundational work of Tuckerman and Pease demonstrated the potential of integrated water-cooled microchannel heat sinks for very high heat-flux removal in silicon devices [2]. Subsequent studies investigated three-dimensional flow and heat transfer in microchannel heat sinks, showing that channel geometry, wall conduction, flow rate, and pressure drop strongly influence the resulting thermal performance [3, 4, 5, 6]. Reviews of single-phase microchannel cooling further established that compact liquid-cooled heat sinks can provide high heat-transfer coefficients, but often at the cost of increased hydraulic resistance and pumping power [7, 8, 9, 10].This trade-off between thermal performance and pressure loss remains central to the design of liquid-cooling channels for electronic packages. For multi-chip electronic packages, the cooling problem is more complex than removing heat from a single uniform source. Multiple heat-generating components may have different footprints, powers, and spatial locations, causing nonuniform heat spreading and localized hot spots. A simple straight-channel cold plate can be easy to manufac-ture and may provide low pressure drop, but it may not distribute coolant effectively over all chip regions. Flow maldistribution within parallel microchannel networks can further increase temperature nonuniformity, motivating geometric modifications that improve coolant distribution while introducing additional hydraulic trade-offs [11]. More advanced layouts, including branching, manifold, and multi-pass channel networks, can improve coolant distribution and local thermal coverage. Modifications to conventional straight-channel geometries have also been investigated as a means of improving thermal-hydraulic performance; for example, Xie et al. [12] demonstrated that wavy microchannel configurations can alter both heat-transfer performance and pressure-drop characteristics relative to straight channels. Recent embedded three-dimensional manifold microchannel architectures have further demonstrated the potential of distributed coolant delivery for high-power electronic devices, with thermal performance and pressure loss strongly dependent on manifold and channel layout [13]. Dede [14] demonstrated that multipass branching microchannel heat sinks can be designed for high heat-flux electronics cooling using optimization-based methods. Related experimental and numerical work on branching microchannel heat sinks showed that such designs can provide favorable thermal-fluid performance when properly configured [15]. However, manually designing these layouts is difficult because increasing the complexity of the channel expands the design space and introduces competing objectives, including maximum temperature, average temperature, pressure drop, pumping power and flow uniformity. Topology optimization has been widely explored as a systematic approach for designing fluid and thermal-fluid systems. Early work by Borrvall and Petersson [16] formulated topology optimization for Stokes flow, while Gersborg-Hansen et al. [17] extended such methods to channel-flow problems. Later studies incorporated more complex thermal-fluid effects, including coupled heat transfer and turbulent flow [18, 19]. In electronic cooling, topology optimization has been applied to generate non-intuitive cold-plate and heat-sink geometries that improve heat removal or temperature uniformity under hydraulic constraints. These approaches provide a rigorous optimization framework, but they can be computationally expensive and may require repeated solution of governing flow and energy equations. In addition, designs produced by continuous topology optimization often require post-processing before they can be converted into connected, manufacturable channel geometries. Recent advances in machine learning and generative modeling provide an opportunity to accelerate the design of cooling-channel layouts. Instead of evaluating every candidate design with high-fidelity computational fluid dynamics (CFD), surrogate models can be trained to approximate thermal or flow responses at a much lower computational cost. Convolutional neural networks have been used to approximate steady flow fields and other physics-governed spatial fields [20]. The U-Net architecture, originally developed for image-to-image prediction tasks, is especially attractive for field prediction because its encoder-decoder structure combines global context with spatial localization [21]. For cooling-channel design, a U-Net surrogate can map a channel-mask representation to a predicted temperature field, enabling rapid screening of many candidate geometries. Physics-informed and physics-guided learning approaches further motivate the integration of physical constraints with neural network-based prediction [22]. In parallel, diffusion-based generative models have become powerful tools for generating complex spatial patterns. Denoising diffusion probabilistic models generate samples by learning to reverse a gradual noising process [23], and score-based generative modeling provides a related continuous-time formulation using stochastic differential equations [24]. Although these models were initially developed for image generation, their ability to learn distributions over structured fields makes them useful for engineering design problems represented as images or masks. In the present work, cooling-channel layouts are represented as binary flow masks, allowing generative modeling to be applied to channel topology generation. However, engineering design requires more than visual plausibility. Generated channels must satisfy physical and geometric constraints, including inlet-to-outlet connectivity, minimum channel width, symmetry, and coolant coverage over heat-generating chip regions. 2A PREPRINT - A UGUST 25, 2026 This work presents a physics-guided generative design framework for liquid cooling channel topology design in a high power multi-chip electronic package. A conditional diffusion model is used to generate symmetric channel layouts, after which topology screening removes designs that do not provide a continuous inlet-to-outlet flow path or that contain excessive dead-end branching. The remaining feasible designs are evaluated using a calibrated thermal-hydraulic reduced-order model based on three performance objectives: maximum GPU temperature, Tmax ,GPU ; GPU temperature spread, ∆TGPU ; and pressure drop, ∆P . Multi-objective analysis is then used to characterize the trade-off between thermal performance and hydraulic resistance and to identify high-performing candidate topologies. The selected design is subsequently reconstructed and independently evaluated using three-dimensional conjugate heat-transfer simulations in OpenFOAM to assess the accuracy of the reduced-order thermal and hydraulic predictions. Overall, the proposed framework demonstrates that physics-guided generative design can discover non-conventional cooling-channel topologies that provide substantial improvements in both chip-level thermal performance and hydraulic resistance relative to a conventional reference design, while explicitly resolving the broader thermal-hydraulic trade-offs within the generated design space. 
+
+## 2 Thermal-Hydraulic Model 
+
+2.1 System Configuration and Design Objectives 
+
+The thermal management problem considered in this study consists of a high-power multi-chip electronic package containing two GPU heat sources and one CPU heat source beneath a liquid-cooled cold plate. The package configuration is representative of modern high-density accelerator architectures, such as the NVIDIA GB200 multi-chip module, and is arranged within a rectangular domain of dimensions Lx = 189 .5 mm and Ly = 270 .4 mm .For reduced-order evaluation, the planform domain is discretized using a Cartesian grid of Nx = Ny = 200 , giving spatial resolutions of ∆x = Lx/N x and ∆y = Ly /N y . The same physical dimensions and component footprints are retained when selected channel geometries are reconstructed for 3D CFD validation. The two GPUs are positioned symmetrically about the package centerline ( y = 130 mm ), with a 43 mm lateral separation between their adjacent inner edges. Each GPU has a footprint of 56 .7 × 52 .8 mm 2 and dissipates PGPU =1200 W . The CPU is centered laterally near the upper portion of the package ( y = 220 mm ) and has a footprint of 
+
+22 .8 × 30 .6 mm 2 with a heat dissipation of PCPU = 300 W . The total applied heat load is therefore 
+
+Qtotal = 2 PGPU + PCPU = 2700 W (1) with heat generation assumed to be spatially uniform within each chip footprint. Cooling is provided through a liquid channel network located above the heat-generating substrate. A single 25 .4 mm -wide inlet is positioned at the center of the lower boundary, with a corresponding outlet located at the center of the upper boundary. Single-phase liquid water enters at a fixed volumetric flow rate of ˙V = 5 L min −1 and an inlet temperature of Tin = 25 ◦C, with a channel depth of H = 1 mm . All candidate designs operate under identical operating conditions so that differences in thermal and hydraulic performance arise strictly from the channel topology. Each cooling-channel topology is represented by a binary planform mask, 
+
+ϕ(x, y ) = 
+
+1, (x, y ) ∈ Ωf ,
+
+0, (x, y ) /∈ Ωf
+
+(2) where Ωf denotes the fluid region. Generated layouts are constrained to use the prescribed inlet and outlet and to maintain left-right symmetry. A continuous inlet-to-outlet flow path is required before a design is retained for thermal-hydraulic evaluation. The design problem is formulated using three thermal-hydraulic objectives. The first objective is the maximum temperature over the two GPU regions, 
+
+Tmax ,GPU = max 
+
+> x∈ΩGPU
+
+T (x) (3) where ΩGPU = Ω GPU ,L ∪ ΩGPU ,R. This metric characterizes local hot-spot suppression. The second objective measures temperature nonuniformity across the GPU regions, defined as 
+
+∆TGPU = Tmax ,GPU − Tmin ,GPU (4) where Tmin ,GPU = min x∈ΩGPU T (x). A lower value of ∆TGPU indicates a more spatially uniform GPU temperature distribution. 3A PREPRINT - A UGUST 25, 2026 The third objective is the pressure drop between the inlet and outlet, 
+
+∆P = Pin − Pout (5) where Pin and Pout denote the inlet and outlet static pressures, respectively. Because the volumetric flow rate is held constant for all candidate designs, minimizing ∆P directly minimizes the required pumping power. The resulting design problem is expressed as the simultaneous multi-objective minimization: 
+
+min  
+
+> ϕ
+
+[Tmax ,GPU (ϕ), ∆TGPU (ϕ), ∆P (ϕ)] (6) subject to the prescribed package geometry, operating conditions, and topology-feasibility constraints. 
+
+2.2 Reduced-Order Model 
+
+Direct three-dimensional conjugate heat-transfer simulation of every generated channel topology is computationally expensive during large scale exploration. A reduced-order thermal-hydraulic model (ROM) was therefore developed to evaluate candidate designs while capturing the dominant physical mechanisms governing in-plane heat spreading, depth-averaged flow distribution, local convective heat transfer, progressive coolant warming, and hydraulic resistance. The model operates on the 200 × 200 Cartesian grid and evaluates only topologies satisfying through-flow connectivity. The ROM adopts a 2.5D formulation. In-plane heat conduction through the solid stack is represented on the two-dimensional planform, while the finite thickness of the copper and silicon layers is incorporated through equivalent in-plane conductance and through-thickness thermal resistance. Coolant motion within the 1 mm -deep channel is solved using a conservative depth-averaged pressure-potential approximation, yielding a spatially varying convective heat-transfer coefficient. Coolant warming is calculated via an energy balance along the connected flow path, and a calibrated hydraulic-loss model provides the total inlet-to-outlet pressure drop. 
+
+2.2.1 Equivalent Solid Conduction Model 
+
+The solid stack comprises a 4 mm copper cold-plate layer ( kCu = 400 W m −1K−1) and a 2 mm silicon device layer ( kSi = 150 W m −1K−1). An equivalent in-plane thermal conductivity is defined by preserving the total lateral conductance of the two layers: 
+
+keff = kCu tCu + kSi tSi 
+
+tCu + tSi 
+
+= 316 .7 W m −1K−1 (7) with a corresponding total effective thickness of teff = tCu + tSi = 6 mm .The steady planform temperature field is governed by 
+
+−∇ · (keff teff ∇Tp) + hc(x, y ) [ Tp(x, y ) − Tf (x, y )] = q′′ (x, y ) (8) where Tp is the effective plate temperature, hc(x, y ) is the local convective heat-transfer coefficient referenced to the planform area, Tf (x, y ) is the local coolant temperature, and q′′ (x, y ) is the prescribed chip heat-flux distribution. Adiabatic conditions are imposed along the outer domain boundaries: 
+
+n · ∇ Tp = 0 (9) Because the 2D conduction operator does not explicitly resolve the through-thickness temperature gradient within the stack, a series thermal resistance is applied over the heated chip footprints: 
+
+Rstack = tSi 
+
+kSi 
+
++ tCu 
+
+kCu 
+
+= 2 .33 × 10 −5 m2 K W −1 (10) The junction temperature field Tj (x, y ) evaluated for hot-spot metrics is given by 
+
+Tj (x, y ) = Tp(x, y ) + q′′ (x, y )Rstack (11) 
+
+2.2.2 Depth-Averaged Flow and Local Heat Transfer 
+
+For each candidate topology, only the connected fluid component spanning both the inlet and outlet is retained. A conservative depth-averaged pressure potential field p∗ is solved exclusively within this fluid domain: 
+
+∇2p∗ = 0 in Ω f (12) subject to Dirichlet boundary conditions p∗ = 1 at the inlet and p∗ = 0 at the outlet, with no-flux conditions along solid channel walls ( n · ∇ p∗ = 0 ). 4A PREPRINT - A UGUST 25, 2026 The unscaled depth-averaged velocity field u∗ = −∇ p∗ is scaled to strictly enforce the prescribed volumetric flow rate 
+
+˙V = 5 L min −1:
+
+u = SQ u∗, SQ = ˙V
+
+˙V ∗ (13) where ˙V ∗ is the integrated inlet flux of the normalized solution. The local channel width is estimated from the Euclidean wall-distance transform, w(x, y ) = 2 dw(x, y ), yielding a local hydraulic diameter for channel depth H = 1 mm :
+
+Dh(x, y ) = 2w(x, y )Hw(x, y ) + H (14) The local Reynolds number is Re (x, y ) = ρf |u(x, y )|Dh(x, y )/μ f . In the laminar regime, a fully developed Nusselt number N u lam = 5 .39 is assigned [25]. In the turbulent regime, the Gnielinski correlation is employed: 
+
+N u turb = (f / 8)( Re − 1000) P r 
+
+1 + 12 .7( f / 8) 1/2  P r 2/3 − 1 (15) with the Darcy friction factor f = [0 .79 ln( Re ) − 1.64] −2. A linear transition is applied between Re = 2000 and 
+
+Re = 4000 :
+
+N u = (1 − γ)N u lam + γN u turb , γ = clip 
+
+ Re − 2000 2000 , 0, 1
+
+
+
+(16) The local convective heat-transfer coefficient is calculated as 
+
+hc(x, y ) = Ch
+
+N u (x, y )kf
+
+Dh(x, y ) (17) where kf is the coolant thermal conductivity and Ch = 2 .6841 is a calibrated thermal enhancement factor. 
+
+2.2.3 Path-Dependent Coolant Warming 
+
+Coolant temperature is updated along the channel to account for stream-wise heat absorption. The normalized path progress variable s(x, y ) is defined as 
+
+s(x, y ) = df (x, y )
+
+df, max 
+
+, 0 ≤ s ≤ 1 (18) where df (x, y ) is the shortest path distance from the inlet through connected fluid cells and df, max is the maximum path length. For an absorbed heat rate ˙Qabs , the bulk coolant temperature rise is ∆Tf = ˙Qabs /( ˙ mc p), resulting in a local coolant temperature distribution: 
+
+Tf (x, y ) = Tin + s(x, y )∆ Tf (19) Coupling between the solid conduction and coolant advection is resolved iteratively. After each solve of Eq. (8), the absorbed heat is updated as 
+
+˙Qabs =
+
+Z
+
+> Ωf
+
+hc(x, y ) max [ Tp(x, y ) − Tf (x, y ), 0] dA (20) and Tf (x, y ) is refreshed using Eqs. (18)–(19). Four outer iterations are used to ensure stable thermal convergence. 
+
+2.2.4 Hydraulic Pressure-Drop Model 
+
+The pressure drop is evaluated using a 1D loss accumulation model. At each streamwise row j, the total fluid width is wj = Nf,j ∆x, where Nf,j is the row fluid cell count. The corresponding flow area, mean velocity, and hydraulic diameter are Aj = wj H, Vj = ˙ m/ (ρf Aj ), and Dh,j = 4 Aj /[2( wj + H)] , respectively. The Darcy friction factor is computed as 
+
+fj =
+
+
+
+64 
+
+Re j
+
+, Re j < 2300 ,
+
+0.316 Re −0.25  
+
+> j
+
+, Re j ≥ 2300 
+
+(21) 5A PREPRINT - A UGUST 25, 2026 Channel tortuosity is defined as τ = Lpath /L y , where Lpath is the maximum connected inlet-to-outlet path length. The frictional pressure loss is accumulated as 
+
+∆Pfric = X
+
+> j
+
+fj
+
+τ ∆yDh,j 
+
+ρf V 2
+
+> j
+
+2 (22) Sudden expansion and contraction losses between adjacent rows ( Kexp = [1 − (Aj−1/A j )] 2 for Aj > A j−1, and 
+
+Kcon = 12 [1 − (Aj /A j−1)] for Aj < A j−1) are accumulated as ∆Pminor = P 
+
+> j
+
+Kj ρf V 2ref ,j /2.The total ROM pressure drop is 
+
+∆PROM = Cp (∆ Pfric + ∆ Pminor ) (23) where Cp = 1 .89 is the hydraulic calibration coefficient. The complete parameter set used in the ROM is summarized in Table 1. Table 1: Principal parameters used in the reduced-order thermal-hydraulic model. Parameter Symbol Value Copper conductivity kCu 400 W m −1K−1
+
+Copper thickness tCu 4 mm 
+
+Silicon conductivity kSi 150 W m −1K−1
+
+Silicon thickness tSi 2 mm 
+
+Equivalent in-plane conductivity keff 316 .7 W m −1K−1
+
+Channel depth H 1 mm 
+
+Coolant density ρf 997 kg m −3
+
+Coolant specific heat cp 4181 J kg −1K−1
+
+Dynamic viscosity μf 8.9 × 10 −4 Pa s 
+
+Prandtl number P r 6.2
+
+Coolant conductivity kf 0.600 W m −1K−1
+
+Thermal calibration coefficient Ch 2.6841 
+
+Hydraulic calibration coefficient Cp 1.89 
+
+2.2.5 ROM Calibration 
+
+The reduced-order formulation contains deliberate simplifications relative to the three-dimensional conjugate heat-transfer model, including depth-averaged flow, two-dimensional heat spreading, correlation-based convection, and lumped hydraulic losses. Two global calibration coefficients are therefore retained in the final ROM: the thermal coefficient Ch, which scales the local Nusselt-number-based heat-transfer coefficient in Eq. (17), and the hydraulic coefficient Cp, which scales the accumulated frictional and minor pressure losses in Eq. (23). These coefficients are applied globally rather than being adjusted for individual generated topologies. The thermal calibration was performed using the conservative fluid-only depth-averaged flow solver described previously, in which the velocity field is restricted to the connected channel region and exact no-flow conditions are imposed at fluid–solid boundaries. A single shared heat-transfer multiplier was fitted across the thermal calibration cases, giving 
+
+Ch = 2 .6841 (24) The calibration accuracy was assessed using the predicted temperature rise above the coolant inlet temperature. For a reference temperature Tref , the relative temperature-rise error is defined as 
+
+ε∆T = |(TROM − Tin ) − (Tref − Tin )|
+
+Tref − Tin 
+
+× 100% (25) The fitted value of Ch produced a mean temperature-rise error of approximately 7.7% and a maximum error of approximately 12 .6% across the calibration cases. Following calibration, Ch and Cp are held fixed for all subsequent topology evaluations. No design-specific adjustment of either coefficient is performed during screening, multi-objective ranking, or final candidate assessment. The purpose of the ROM is therefore not to reproduce every local feature of the three-dimensional flow and temperature fields, but to provide a computationally efficient and physically consistent estimate of the relative thermal-hydraulic performance of large populations of candidate channel topologies. Independent high-fidelity CFD validation of the final selected design is presented subsequently to assess the predictive accuracy of the calibrated ROM outside the calibration procedure. 6A PREPRINT - A UGUST 25, 2026 
+
+2.3 Full-Order Conjugate Heat-Transfer Model 
+
+A three-dimensional conjugate heat-transfer (CHT) model was developed in OpenFOAM to provide an independent high-fidelity assessment of the final generated cooling channel topology. The two-dimensional channel mask selected from the generative design workflow was reconstructed as a three-dimensional fluid domain by extrusion through the prescribed 1 mm channel depth. The complete computational model consists of three coupled regions: the liquid-coolant region, a copper cold-plate region, and a heat-generating device layer representing the GPU and CPU regions. The three regions are solved simultaneously so that the fluid flow, convective heat transfer, solid conduction, and temperature continuity across the material interfaces are resolved directly. The full-order simulations were performed using OpenFOAM Foundation version 13 with a multi-region finite-volume formulation. The coolant is modeled as an incompressible Newtonian fluid with constant thermophysical properties. Because the generated topology contains strong contractions, expansions, and local recirculation regions, turbulence effects are represented using the Reynolds-averaged Navier–Stokes (RANS) equations with the k–ω shear-stress-transport (SST) model [26]. The solid copper and device regions are modeled using isotropic heat conduction with constant material properties. 
+
+2.3.1 Governing Equations 
+
+For steady incompressible flow, conservation of mass is expressed as 
+
+∇ · u = 0 (26) where u is the mean coolant velocity vector. The Reynolds-averaged momentum equation is written as 
+
+ρf (u · ∇ )u = −∇ p + ∇ · μeff 
+
+ ∇u + ∇uT  (27) where ρf is the coolant density, p is pressure, and 
+
+μeff = μf + μt (28) is the effective viscosity including the molecular viscosity μf and turbulent eddy viscosity μt predicted by the k–ω SST turbulence model. The steady fluid-energy equation is expressed as 
+
+ρf cp,f u · ∇ Tf = ∇ · (kf, eff ∇Tf ) (29) where Tf is the coolant temperature and kf, eff includes both molecular and turbulent thermal transport. Heat transfer in each solid region is governed by 
+
+∇ · (ks∇Ts) + q′′′ = 0 (30) where ks is the solid thermal conductivity and q′′′ is the volumetric heat generation term. In the copper cold plate, 
+
+q′′′ = 0 , whereas heat generation is applied within the GPU and CPU cell zones of the device layer. At every fluid–solid and solid–solid interface, continuity of temperature and normal heat flux is enforced: 
+
+T1 = T2 (31) and 
+
+−k1
+
+∂T 1
+
+∂n = −k2
+
+∂T 2
+
+∂n (32) These conditions couple coolant convection, copper heat spreading, and device-layer conduction without prescribing an empirical heat-transfer coefficient at the interface. 
+
+2.3.2 Boundary Conditions and Material Properties 
+
+The CFD model uses the same package geometry, heat loads, coolant flow rate, and inlet temperature as the reduced-order model so that the two approaches can be compared under matched operating conditions. Liquid water enters through the lower inlet at a volumetric flow rate of 
+
+˙V = 5 L min −1 (33) and a fixed temperature of 
+
+Tin = 25 ◦C = 298 .15 K (34) 7A PREPRINT - A UGUST 25, 2026 The corresponding inlet velocity is prescribed to produce the target mass flow rate. A reference pressure is imposed at the outlet, while the velocity satisfies the appropriate outflow condition. No-slip velocity conditions are imposed along all coolant channel walls. The outlet temperature uses an inlet–outlet formulation: a zero-gradient condition applies during outward flow, while 
+
+Tin = 298 .15 K is imposed if local reverse flow occurs. The outer channel walls are treated as adiabatic, 
+
+n · ∇ T = 0 (35) while the fluid–copper and copper–device interfaces use coupled temperature boundary conditions. External surfaces of the solid regions are also treated as adiabatic so that the applied chip power is removed through the liquid-cooling interface. The heat-generating device layer is divided into three cell zones corresponding to the two GPUs and the CPU. Mesh-independent total-power source terms are applied to these zones: 
+
+QGPU ,L = 1200 W QGPU ,R = 1200 W (36) and 
+
+QCPU = 300 W (37) The total heat-generation rate is therefore 
+
+Qtotal = 2700 W (38) Table 2: Thermophysical properties used in the full-order CHT model. Property Water Copper Silicon/device layer Density, ρ [kg m −3] 997 8960 2330 Specific heat, cp [J kg −1K−1] 4181 385 700 Thermal conductivity, k [W m −1K−1] 0.600 400 150 Dynamic viscosity, μ [Pa s ] 8.9 × 10 −4 – –Fluid and solid properties are assumed constant over the temperature range considered, and gravitational body forces are neglected. 
+
+2.3.3 Geometry Reconstruction and Mesh 
+
+The selected binary channel mask is converted into a three-dimensional coolant geometry while preserving the planform topology used by the reduced-order model. The coolant region is extruded through a channel depth of 1 mm and positioned above the copper cold plate. Separate volumetric meshes are generated for the fluid, copper, and heat generating device regions. The copper and device meshes retain the chip locations and thicknesses used in the reduced-order formulation. The three region meshes are connected using non-conformal mapped interfaces. The fluid-to-copper and copper-to-device interfaces are paired so that temperature and heat flux are transferred conservatively between adjacent regions. Mesh connectivity and interface coverage are checked before each simulation to ensure that no uncoupled interface faces remain. Mesh quality is evaluated using OpenFOAM’s standard mesh-quality diagnostics, including cell volume, non-orthogonality, skewness, aspect ratio, and region connectivity. The channel depth is discretized using multiple cells so that velocity and temperature gradients normal to the cooled surface can be resolved. 
+
+2.3.4 Numerical Solution and Convergence 
+
+The governing equations are discretized using the finite-volume method and solved in steady-state mode. Pressure– velocity coupling is handled using the PIMPLE framework operated with a single outer corrector, which reduces to a SIMPLE-type steady-state solution procedure. The fluid energy equation and the solid energy equations are solved simultaneously with the momentum and turbulence equations through the multi-region coupling procedure. Convergence is monitored using both algebraic residuals and physically conserved quantities. The residual tolerances employed in the final simulations are 
+
+RU ≤ 10 −5 Rh ≤ 10 −5 (39) 8A PREPRINT - A UGUST 25, 2026 
+
+Rp ≤ 10 −4 Rk ≤ 10 −4 Rω ≤ 10 −4 (40) for the fluid region, and 
+
+Re ≤ 10 −6 (41) for each solid region. Residual convergence alone is not used as the sole acceptance criterion. Mass conservation is monitored using the integrated inlet and outlet mass-flow rates, while energy conservation is assessed using the mixing-cup outlet temperature and the integrated heat flux through the coupled fluid–solid interface. The coolant-side energy balance is evaluated from 
+
+˙Qf = ˙ mc p (Tout ,mw − Tin ) (42) where Tout ,mw is the mass-flow-weighted outlet temperature. A solution is considered converged when the monitored temperatures and pressure drop become statistically stationary, inlet and outlet mass flow rates agree, the prescribed residual thresholds are satisfied, and the integrated coolant heat removal approaches the applied 2700 W heat load. The resulting converged fields are then post-processed to obtain Tmax ,GPU , ∆TGPU , ∆P , outlet temperature, and the overall energy balance. 
+
+2.4 Reduced-Order Model Validation 
+
+The reduced-order model was assessed against three-dimensional OpenFOAM conjugate heat-transfer simulations before being used for large-scale evaluation of generated channel topologies. Representative channel layouts exhibiting different flow-path characteristics were reconstructed from the same binary masks used by the ROM and simulated under matched geometric, thermal, and hydraulic operating conditions. In both models, the coolant flow rate was fixed at 5 L min −1, the inlet temperature was 25 ◦C, and the total applied heat load was 2700 W . The same chip footprints, material properties, and channel depth were retained so that differences between the two models could be attributed primarily to the reduced-order approximations. Validation focuses on the quantities most directly related to the design objectives: peak GPU temperature and inlet-to-outlet pressure drop. Temperature-field distributions are also examined qualitatively to determine whether the ROM reproduces the location and general spatial structure of the dominant hot regions. Because the ROM and CFD simulations use the same coolant inlet temperature, thermal error is evaluated using temperature rise above the inlet rather than absolute temperature. This avoids artificially reducing the relative error through the common temperature offset. For the maximum GPU temperature, the relative temperature-rise error is defined as 
+
+εTmax =
+
+ T ROM max ,GPU − Tin 
+
+ −  T CFD max ,GPU − Tin 
+
+
+
+T CFD max ,GPU − Tin 
+
+× 100% (43) The hydraulic prediction is evaluated using the relative pressure-drop error, 
+
+ε∆P = |∆PROM − ∆PCFD |
+
+∆PCFD 
+
+× 100% (44) For GPU temperature nonuniformity, the corresponding relative error is 
+
+ε∆T = ∆T ROM GPU − ∆T CFD GPU 
+
+∆T CFD GPU 
+
+× 100% (45) Figures such as Fig. 1 were used to compare the spatial temperature predictions of the reduced-order and full-order models. The ROM reproduces the principal hotspot locations and the overall temperature distribution across the representative channel topologies. In addition to the scalar quantities, the spatial thermal behavior of the ROM is examined against the corresponding CFD temperature distribution. Because the CFD model resolves the complete three-dimensional solid stack whereas the ROM predicts an equivalent 2.5D junction-temperature field, the comparison is performed on a consistent projected chip-level surface. A local temperature-difference field may be expressed as 
+
+ET (x, y ) = TROM (x, y ) − TCFD (x, y ) (46) where the sign of ET indicates whether the reduced-order formulation locally overpredicts or underpredicts the CFD temperature. 9A PREPRINT - A UGUST 25, 2026 
+
+Figure 1: Comparison of reduced-order model and CFD junction-temperature predictions for representative cases V1-V4. Each row corresponds to one channel topology. The first two columns show the ROM and CFD temperature fields using a common temperature scale, while the third column shows the signed local difference TROM − TCFD . The reported percentage error is evaluated using the maximum temperature rise above the 25 ◦C inlet temperature. The CFD reference solutions are accepted only after mass flow conservation, thermal convergence, and energy conservation are established. The coolant-side heat-removal rate is evaluated using the mass-flow-weighted outlet temperature, 
+
+˙Qf = ˙ mc p (Tout ,mw − Tin ) (47) and is compared with the prescribed total chip heat load. The use of the mass flow-weighted outlet temperature ensures consistency with the energy balance and avoids biases associated with a simple area-averaged outlet temperature. 10 A PREPRINT - A UGUST 25, 2026 The purpose of this validation stage is to establish that the calibrated ROM reproduces the dominant thermal and hydraulic behavior with sufficient accuracy for comparative design screening. The ROM is therefore used to evaluate the large generated design population, while the full 3D CHT model is reserved for selected high-fidelity checks. The final topology identified by the generative design and multi-objective ranking procedure is evaluated independently in Sec. 5.4, providing an additional out-of-sample assessment of the reduced-order predictions. 
+
+## 3 Dataset Generation and Conditional Diffusion Model 
+
+3.1 Physics-Guided Training Dataset 
+
+A physics-guided dataset was constructed to provide the conditional diffusion model with a diverse population of physically meaningful liquid cooling channel topologies. Each design is represented as a binary flow mask on the same 200 × 200 structured Cartesian grid used by the reduced-order thermal-hydraulic model. The channel indicator is defined as 
+
+ϕ(x, y ) = 
+
+1, (x, y ) ∈ Ωf
+
+0, (x, y ) ∈ Ωs
+
+(48) where Ωf and Ωs denote the fluid and solid regions, respectively. This image-based representation allows the channel design problem to be treated using generative image modeling while retaining a direct correspondence between the generated pixels and the physical coolant domain. The initial design library contains 5,000 channel layouts generated using stochastic geometric construction procedures that introduce variations in channel branching, flow-path placement, chip coverage, and overall fluid fraction. The generation procedure was designed to encourage coolant paths that originate from the prescribed bottom-center inlet, spread toward the heat-generating regions, and reconnect toward the top-center outlet. Because the package and thermal loading are symmetric about the vertical centerline, the training geometries were constructed to preserve left-right symmetry. Several physical and geometric constraints were imposed before a topology was admitted to the final conditional-training set. Each retained design was required to contain a continuous coolant path connecting the inlet and outlet, while disconnected fluid components were removed. Designs with excessively small channel features or unrealistic fluid fractions were excluded. Coolant coverage over the GPU and CPU footprints was also considered so that the training distribution favored layouts in which coolant reaches the principal heat-generating regions rather than bypassing them. Topology quality was additionally characterized using the dead-end branch ratio, 
+
+Fbranch = Ldead 
+
+Lskel 
+
+(49) where Ldead is the total skeleton length associated with dead-end branches and Lskel is the total channel-skeleton length. This descriptor was used during dataset preparation and model training to place greater emphasis on topologies containing clean through-flow pathways while retaining sufficient geometric diversity for generative learning. After topology preprocessing, 3,213 layouts were retained for the final three-objective conditional-diffusion dataset. Each retained topology was associated with the thermal-hydraulic quantities used in the final design problem: maximum GPU temperature, Tmax ,GPU ; GPU temperature spread, ∆TGPU ; and inlet-to-outlet pressure drop, ∆P . These quantities were obtained from the reduced-order thermal-hydraulic framework described in Sec. 2.2. For the generative model, the corresponding performance-conditioning vector is written as 
+
+c =
+
+h eTmax ,GPU , g∆T GPU , ^log(∆ P )
+
+i
+
+(50) where the tilde denotes normalization using statistics from the training set. A logarithmic transformation is applied to 
+
+∆P before normalization because the hydraulic values span a substantially wider numerical range than the temperature quantities. The resulting condition vector allows the generative model to learn relationships between channel geometry and the three thermal-hydraulic performance objectives. Because the final generator operates on a half-domain representation, each symmetric 200 × 200 training mask is reduced to a 200 × 100 half-domain image. The complete topology can subsequently be recovered by reflection about the package centerline. This reduces the generative search space and enforces the required geometric symmetry directly rather than relying on the neural network to learn symmetry from the data alone. 11 A PREPRINT - A UGUST 25, 2026 
+
+3.2 Conditional Diffusion Model 
+
+A conditional denoising diffusion model was developed to generate new cooling-channel topologies from specified thermal-hydraulic performance targets. Diffusion probabilistic models learn a data distribution by gradually corrupting training samples with Gaussian noise and training a neural network to reverse this process [23]. A U-Net architecture is employed as the noise-prediction network because its multiscale encoder-decoder structure is well suited to spatially structured image-generation tasks [21]. Let x0 denote a clean binary half-domain channel mask. During the forward diffusion process, Gaussian noise is progressively added according to 
+
+q(xt|xt−1) = N (√αtxt−1, (1 − αt)I) (51) where t denotes the diffusion time step and αt = 1 − βt, with βt controlling the prescribed noise schedule. Defining 
+
+¯αt =
+
+> t
+
+Y
+
+> s=1
+
+αs (52) a noisy sample can be generated directly from the clean topology as 
+
+xt = √¯αtx0 + √1 − ¯αtϵ, ϵ ∼ N (0, I) (53) As t increases, the original channel structure is progressively destroyed until the sample approaches Gaussian noise. 
+
+3.2.1 Conditional U-Net Denoiser 
+
+The reverse process is represented using a conditional U-Net noise predictor, 
+
+ϵθ = ϵθ (xt, t, c) (54) where θ denotes the trainable network parameters and c is the performance-conditioning vector defined in Eq. (50). The diffusion time step and the performance conditions are embedded into the residual blocks of the denoising network so that the reconstruction process is influenced by both the current noise level and the desired thermal-hydraulic behavior. The model is trained using the standard noise-prediction objective, 
+
+Ldiff = Ex0,t, ϵ
+
+h
+
+wi ∥ϵ − ϵθ (xt, t, c)∥22
+
+i
+
+(55) The topology-dependent sample weight wi is computed from the dead-end branch ratio as 
+
+wi = clip 
+
+
+
+exp 
+
+
+
+−3 Fbranch ,i 
+
+Flimit 
+
+
+
+, 0.25 , 1.0
+
+
+
+(56) where Fbranch ,i is the dead-end branch ratio of training sample i and Flimit is the prescribed branch-ratio reference value. Consequently, branch-free and low-branching topologies receive larger training weights, while designs containing greater dead-end branching retain a minimum weight of 0.25 rather than being completely excluded from training. Classifier-free conditioning is incorporated by randomly removing the performance condition during a portion of the training updates. A condition-presence indicator is therefore included internally in the conditioning embedding to distinguish conditional and unconditional samples. This enables the same network to estimate both conditional and unconditional noise during sampling. 
+
+3.2.2 Transfer Learning and Training Procedure 
+
+The final three-objective model was obtained using transfer learning from a previously converged conditional diffusion checkpoint. The earlier model was conditioned using maximum temperature and pressure-drop information. For the final formulation, the condition representation was extended to include GPU temperature spread, ∆TGPU , resulting in the three final physical targets Tmax ,GPU , ∆TGPU , and ∆P .Transfer learning was performed in two stages. First, the newly introduced temperature-spread conditioning pathway was trained while the previously learned topology-generation features were retained. The condition-embedding and associated residual-conditioning projections were subsequently fine-tuned so that the network could adapt to the complete three-objective conditioning space without destroying the geometric information learned during earlier training. The final conditional dataset was divided into 2,909 training samples and 304 validation samples. Training employed a linear variance schedule with βt increasing from 1 × 10 −4 to 2 × 10 −2 over 200 diffusion steps. Validation loss was monitored during transfer learning and the best-performing model checkpoint was retained for subsequent topology generation. 12 A PREPRINT - A UGUST 25, 2026 
+
+3.2.3 Half-Domain Generation and Symmetry Reconstruction 
+
+New channel designs are generated from Gaussian noise in the 200 × 100 half-domain rather than over the complete package. For a specified condition vector c, the sampling process begins with 
+
+xT ∼ N (0, I) (57) and progressively denoises the sample toward a channel-like topology. Classifier-free guidance is used during sampling to strengthen the influence of the prescribed performance conditions. The guided noise estimate is expressed as 
+
+ˆϵθ = ϵθ (xt, t, ∅) + scfg [ϵθ (xt, t, c) − ϵθ (xt, t, ∅)] (58) where ∅ denotes the unconditional input and scfg is the classifier-free guidance scale. A value of scfg = 2 .0 is used in the final generation procedure. To reduce the computational cost of reverse diffusion, deterministic denoising diffusion implicit model (DDIM) sampling is employed [23]. The original 200-step diffusion process is sampled using 50 DDIM reverse steps. Deterministic sampling provides reproducible channel generation for a given random initialization and conditioning vector while substantially reducing the number of denoising evaluations required relative to the full reverse process. After the reverse diffusion procedure, the continuous network output is converted to a binary half-domain channel mask through thresholding and geometric cleanup. Let the generated half-domain mask be ϕ1/2(x, y ). The complete channel topology is reconstructed as 
+
+ϕfull = ϕ1/2, M  ϕ1/2
+
+ (59) where M(·) represents reflection about the vertical package centerline. The required inlet and outlet regions are then imposed on the reconstructed mask. Consequently, left-right symmetry is satisfied exactly for every sampled topology. The conditional diffusion model is intended to efficiently explore the channel-topology design space rather than to replace physics-based feasibility assessment. Although performance conditioning and half-domain generation strongly constrain the generated distribution, they do not guarantee inlet-to-outlet connectivity or the absence of undesirable dead-end branches. All generated designs are therefore passed to the independent topology-screening and thermal-hydraulic evaluation framework described in Sec. 4. 
+
+## 4 Design Evaluation and Multi-Objective Selection Framework 
+
+The conditional diffusion model produces candidate channel topologies rapidly, but a generated binary mask is not automatically suitable for physical evaluation. In particular, generative sampling can produce disconnected flow regions or unnecessary dead-end branches that do not contribute to useful inlet-to-outlet coolant transport. A three-stage evaluation framework is therefore applied after generation. First, the sampled masks are screened using topology-based feasibility criteria. Second, all retained designs are evaluated using the calibrated reduced-order thermal-hydraulic model described in Sec. 2.2. Finally, the feasible population is compared using the three design objectives Tmax ,GPU ,
+
+∆TGPU , and ∆P to identify non-dominated high-performance candidates for full-order CFD validation. 
+
+4.1 Post-Generation Topology Screening 
+
+A total of 5,000 full-domain channel layouts were sampled from the trained conditional diffusion model. Although symmetry is satisfied by construction through the half-domain generation and reflection procedure described in Sec. 3.2.3, hydraulic connectivity is not guaranteed by the diffusion process. Each generated mask is therefore subjected to a deterministic topology-screening procedure before thermal-hydraulic evaluation. The first screening criterion requires a continuous fluid component connecting the prescribed inlet and outlet regions. Connected-component analysis is performed on each binary mask, and a topology is retained only if at least one fluid component intersects both ports. Designs without a continuous inlet-to-outlet pathway are rejected because they cannot support the required through-flow. Of the 5,000 generated layouts, 2,220 contained a continuous inlet-to-outlet path. The remaining 2,780 designs were rejected at this stage. The connected designs were subsequently evaluated for dead-end branching using the branch ratio introduced in Eq. (49), 
+
+Fbranch = Ldead 
+
+Lskel 
+
+(60) 13 A PREPRINT - A UGUST 25, 2026 
+
+Figure 2: Conditional diffusion framework for symmetric cooling-channel topology generation. The diffusion model operates in the 200 × 100 half-domain, Ω1/2. A clean half-domain sample x0 is progressively corrupted through the forward diffusion process to obtain noisy states xt and xT . During generation, deterministic DDIM sampling reverses this process using a conditional denoising U-Net guided by the target maximum GPU temperature, Tmax ,GPU ,GPU temperature spread, ∆TGPU , and logarithmic pressure drop, log(∆ P ). The diffusion time step and performance-condition vector are embedded within the U-Net, which predicts the noise ϵθ . The resulting half-domain topology ˆx0 is mirrored about the package centerline using M(·) to obtain the final symmetric 200 × 200 channel topology ϕfull .where Ldead is the total skeleton length belonging to branches that terminate without contributing to the primary through-flow network and Lskel is the total skeleton length of the channel topology. The final post-generation feasibility criterion is 
+
+Fbranch ≤ Fmax , Fmax = 0 .05 (61) This criterion removes highly branched layouts containing substantial stagnant or weakly useful channel regions while allowing small secondary branches that do not significantly alter the overall through-flow structure. Of the 2,220 connected designs, 1,991 exceeded the branch-ratio threshold and were rejected. The screening procedure therefore retained 229 feasible channel topologies, 
+
+5000 −→ 2220 −→ 229 (62) corresponding to a final retention rate of approximately 4.6% of the generated population. The retained masks were also checked for uniqueness before performance evaluation; all 229 feasible layouts were unique with no duplications. No thermal or pressure drop criterion is applied during this topology screening stage. Consequently, geometrically feasible designs are not removed simply because their thermal or hydraulic performance is unfavorable. Instead, these quantities are evaluated subsequently and treated explicitly as design objectives. 
+
+4.2 Reduced-Order Evaluation of Feasible Designs 
+
+Each of the 229 retained channel masks is evaluated using the same calibrated thermal-hydraulic ROM described in Sec. 2.2. Direct ROM evaluation is used so that all final candidate rankings are based on a single, physically consistent evaluation pathway. 14 A PREPRINT - A UGUST 25, 2026 For a channel topology ϕi, the ROM returns a temperature field Ti(x, y ) together with the pressure-drop estimate 
+
+∆Pi. The thermal performance of each design is evaluated specifically over the two GPU footprints because the GPUs represent the dominant thermal loads in the package. The first objective is the maximum GPU temperature, 
+
+Tmax ,GPU ,i = max 
+
+> (x,y )∈ΩGPU
+
+Ti(x, y ) (63) where ΩGPU denotes the union of the left and right GPU regions. The second objective measures temperature nonuniformity across the GPU regions, 
+
+∆TGPU ,i = max 
+
+> (x,y )∈ΩGPU
+
+Ti(x, y ) − min 
+
+> (x,y )∈ΩGPU
+
+Ti(x, y ) (64) Minimizing ∆TGPU discourages designs that reduce the peak temperature at the expense of strong spatial thermal gradients or uneven cooling between the high-power devices. The third objective is the inlet-to-outlet pressure drop, 
+
+∆Pi = Pin ,i − Pout ,i (65) as predicted by the calibrated hydraulic ROM. The final design problem can therefore be written in vector form as 
+
+min  
+
+> ϕi∈F
+
+f (ϕi) = [ Tmax ,GPU ,i , ∆TGPU ,i , ∆Pi] (66) where F denotes the set of topologically feasible generated designs satisfying the connectivity and branch-ratio constraints. All three objectives are minimized. The first objective suppresses the highest GPU junction temperature, the second promotes temperature uniformity, and the third limits hydraulic resistance. These objectives are retained independently rather than being combined immediately into a single weighted objective so that the thermal-hydraulic trade-offs present in the generated design population remain visible. 
+
+4.3 Multi-Objective Analysis and Candidate Selection 
+
+The ROM-evaluated candidate population is analyzed using Pareto dominance. For two feasible designs ϕa and ϕb,design ϕa is said to dominate ϕb if 
+
+fj (ϕa) ≤ fj (ϕb) ∀j ∈ { 1, 2, 3} (67) and 
+
+fk(ϕa) < f k(ϕb) for at least one k (68) A topology is therefore Pareto optimal if no other feasible generated design improves at least one of the three objectives without worsening another. The resulting non-dominated set represents the performance boundary of the generated design population and exposes the trade-offs between hotspot suppression, temperature uniformity, and hydraulic resistance. For visualization, the principal Pareto projection is presented in the Tmax ,GPU –∆P plane, while ∆TGPU is repre-sented using the marker color. This two-dimensional projection provides a clear representation of the dominant thermal-hydraulic trade-off while retaining information from the third objective. The underlying candidate assessment nevertheless considers all three metrics. Because the final application places particular emphasis on preventing excessive GPU junction temperature, the final candidate is selected from the feasible non-dominated population with priority given to the lowest Tmax ,GPU , while also requiring low ∆TGPU , acceptable hydraulic performance, and a physically clean connected topology. This decision rule avoids selecting a design solely through an arbitrary weighted sum of the three quantities. 
+
+## 5 Results and Discussion 
+
+5.1 Generated-Design Feasibility and Topology Screening 
+
+The trained conditional diffusion model was used to generate 5,000 new symmetric cooling-channel layouts. The generated population exhibited substantial geometric diversity, including differences in channel spreading, branching, flow-path width, and the manner in which the coolant was routed across the GPU and CPU regions. Because left-right symmetry was imposed through half-domain generation and mirroring, all sampled layouts satisfied the prescribed symmetry requirement by construction. 15 A PREPRINT - A UGUST 25, 2026 The principal limitation of the raw generated population was hydraulic connectivity. Of the 5,000 generated layouts, 2,220 contained a continuous coolant pathway connecting the prescribed inlet and outlet, corresponding to a connectivity rate of 44 .4% . The remaining 2,780 layouts were rejected because no complete inlet-to-outlet flow path was present. The connected layouts were further screened using the dead-end branch-ratio criterion, Fbranch ≤ 0.05 . Of the 2,220 connected designs, 1,991 exceeded the allowable branch ratio and were removed. A total of 229 designs therefore satisfied the complete post-generation topology-screening procedure, corresponding to 4.58% of the original generated population. All 229 retained masks were geometrically unique. These results indicate that the diffusion model is capable of generating a broad range of channel-like geometries, but generative sampling alone is insufficient to guarantee hydraulic feasibility. In particular, connectivity and excessive branching remain important failure modes. The deterministic physics-guided screening stage is therefore essential for preventing nonfunctional generated layouts from entering the thermal-hydraulic evaluation stage. 
+
+5.2 Thermal-Hydraulic Performance of the Feasible Design Population 
+
+The 229 topologically feasible channel designs were subsequently evaluated using the calibrated reduced-order thermal-hydraulic model. Considerable variation was observed across all three design objectives, demonstrating that topological changes strongly influence both thermal performance and hydraulic resistance. Across the feasible population, the predicted maximum GPU temperature ranged from 70 .30 ◦C to 105 .10 ◦C, with a mean value of 89 .64 ◦C and a standard deviation of 5.72 ◦C. The GPU temperature spread ranged from 24 .66 ◦C to 
+
+54 .34 ◦C, with a mean of 38 .05 ◦C and a standard deviation of 6.16 ◦C. The mean predicted pressure drop across the feasible population was approximately 84 .17 kPa .Figure 3 presents the feasible design population in the Tmax ,GPU –∆P objective plane, with ∆TGPU represented by marker color. The population does not collapse onto a single optimum; instead, different topologies occupy different regions of the thermal-hydraulic performance space. Designs with lower hydraulic resistance do not necessarily provide the lowest peak GPU temperature, while designs with strong hotspot suppression may require more restrictive coolant pathways. The Pareto front identifies channel layouts for which improvement in one of the displayed objectives cannot be achieved without deterioration in another. This behavior confirms that the generated design problem remains fundamentally multi-objective, even though some individual generated layouts substantially outperform conventional configurations. Among the 229 feasible layouts, G1016 achieved the lowest predicted maximum GPU temperature, 
+
+Tmax ,GPU = 70 .30 ◦C (69) The corresponding GPU temperature spread was 
+
+∆TGPU = 24 .90 ◦C (70) and the predicted pressure drop was 
+
+∆P = 89 .72 kPa (71) Although G1016 does not individually minimize all three objectives, it lies on the Tmax ,GPU –∆P Pareto front and provides the strongest peak-temperature performance of the feasible population while retaining low temperature nonuniformity and moderate hydraulic resistance. Its branch ratio, Fbranch = 0 .0306 , also remains below the prescribed post-generation limit of 0.05 . G1016 was therefore selected as the final topology for comparison against the conventional reference design and for independent full-order CFD validation. 
+
+5.3 Comparison With the Conventional Reference Design 
+
+The selected generated topology was compared with the conventional straight-channel reference design, denoted S1, under identical thermal loads, coolant conditions, material properties, and package dimensions. Figure 4 compares the ROM-predicted temperature distributions of the two designs. The conventional S1 topology produced a maximum GPU temperature of 105 .89 ◦C and a GPU temperature spread of 
+
+52 .40 ◦C. In comparison, G1016 reduced the maximum GPU temperature to 70 .30 ◦C and the temperature spread to 
+
+24 .90 ◦C. The resulting reductions are 
+
+105 .89 − 70 .30 105 .89 × 100 = 33 .6% (72) 16 A PREPRINT - A UGUST 25, 2026 
+
+Figure 3: Thermal-hydraulic performance of the 229 feasible generated channel layouts. Maximum GPU temperature is plotted against pressure drop, marker color represents GPU temperature spread, the solid line identifies the Pareto front in the displayed Tmax ,GPU –∆P projection, and G1016 denotes the selected design. for maximum GPU temperature and 
+
+52 .40 − 24 .90 52 .40 × 100 = 52 .5% (73) for GPU temperature spread. The generated topology also provided a substantial hydraulic improvement. The predicted pressure drop of the S1 reference design was 329 .40 kPa , whereas G1016 required only 89 .72 kPa . This corresponds to a pressure-drop reduction of 
+
+329 .40 − 89 .72 329 .40 × 100 = 72 .8% (74) The comparison is summarized in Table 3. The improvement in G1016 is not produced by a simple increase in coolant-channel area. Instead, the generated topology redistributes the available flow paths so that coolant is directed more effectively across the high-power GPU regions while avoiding the long, restrictive flow path characteristic of the conventional reference topology. The resulting geometry simultaneously improves heat removal and reduces hydraulic resistance. 17 A PREPRINT - A UGUST 25, 2026 
+
+Figure 4: ROM-predicted temperature distributions for (a) the conventional S1 reference topology and (b) the selected generated topology G1016 under identical operating conditions. Both temperature fields use the same color scale to enable direct comparison of the thermal distributions. Table 3: Thermal-hydraulic comparison between the conventional S1 reference topology and the selected generated design G1016. Metric S1 G1016 Reduction 
+
+# Tmax ,GPU [◦C] 105.89 70.30 33.6% 
+
+# ∆TGPU [◦C] 52.40 24.90 52.5% 
+
+# ∆P [kPa] 329.40 89.72 72.8% This result is particularly significant because thermal and hydraulic objectives are generally competing: increasing local coolant access can introduce additional flow resistance, while reducing resistance can encourage coolant bypass around the heat-generating regions. G1016 demonstrates that topology modification can instead improve both effects simultaneously relative to the conventional reference design. The broader generated population nevertheless retains the expected thermal-hydraulic trade-offs shown in Fig. 3; therefore, the simultaneous improvement observed for G1016 should be interpreted relative to the S1 baseline rather than as evidence that the underlying multi-objective trade-off has been eliminated. 
+
+5.4 Full-Order CFD Validation of the Selected Design 
+
+The selected G1016 topology was reconstructed in three dimensions and independently evaluated using the full-order OpenFOAM conjugate heat-transfer model described in Sec. 2.3.1. The ROM calibration coefficients were held fixed during this comparison; therefore, no design-specific recalibration was performed using the G1016 CFD solution. The CFD solution reached a stable thermal and hydraulic state and satisfied the prescribed mass- and energy-conservation checks. The integrated heat removal through the coolant interface was approximately 2699 .2 W for an applied chip power of 2700 W , corresponding to an energy imbalance below 0.1% . The mass-flow-weighted coolant outlet temperature was approximately 32 .79 ◦C.The full-order simulation predicted a maximum GPU temperature of 
+
+T CFD max ,GPU = 66 .70 ◦C (75) compared with the ROM prediction of 
+
+T ROM max ,GPU = 70 .30 ◦C (76) 18 A PREPRINT - A UGUST 25, 2026 
+
+Figure 5: Comparison of the selected G1016 topology using (a) the full-order CFD temperature field, (b) the reduced-order model prediction, and (c) the signed local temperature difference TROM − TCFD . The CFD and ROM temperature fields are displayed using identical temperature limits to allow direct comparison of the predicted thermal distributions. Because both calculations use an inlet coolant temperature of 25 ◦C, the relative error is evaluated using temperature rise above the inlet. The ROM and CFD temperature rises are therefore 45 .30 ◦C and 41 .70 ◦C, respectively, giving 
+
+εTmax = 45 .30 − 41 .70 41 .70 × 100 ≈ +8 .6% (77) The CFD solution produced a GPU temperature spread of approximately 29 .7◦C, compared with 24 .90 ◦C predicted by the ROM. The corresponding signed relative difference is approximately 
+
+ε∆T = 24 .90 − 29 .729 .7 × 100 ≈ − 16 .1% (78) The temperature-spread prediction therefore exhibits a larger discrepancy than the peak-temperature prediction. This is consistent with the greater sensitivity of ∆TGPU to local flow redistribution and 3D heat spreading, which are represented in simplified form by the reduced-order formulation. The CFD pressure drop was statistically stable at approximately 
+
+∆PCFD = 92 .1 ± 1.4 kPa (79) compared with the ROM prediction of 89 .72 kPa . The corresponding signed pressure-drop error is 
+
+ε∆P = 89 .72 − 92 .192 .1 × 100 ≈ − 2.6% (80) Figure 5 compares the full-order CFD temperature field with the corresponding reduced-order prediction and the local signed temperature difference. Both models reproduce the same dominant thermal structure, including the principal hot regions over the two GPU footprints and the substantially cooler CPU region. The ROM generally predicts a slightly higher peak temperature, while the largest local discrepancies occur within and downstream of the GPU cooling regions. Overall, the independent G1016 comparison shows that the calibrated ROM reproduces the two quantities most important for initial topology screening—peak GPU temperature and pressure drop—with errors of approximately 
+
+8.6% and 2.6% , respectively. The larger error in GPU temperature spread indicates that the ROM is less accurate in resolving detailed spatial temperature nonuniformity. Nevertheless, the agreement is sufficient for its intended role as a rapid comparative screening model, particularly because full 3D CFD is applied only after the design space has been reduced to a small number of promising candidates. 19 A PREPRINT - A UGUST 25, 2026 Table 4: Comparison of the reduced-order and full-order predictions for G1016. Metric ROM CFD Relative difference 
+
+# Tmax ,GPU [◦C] 70.30 66.70 +8 .6% a
+
+# ∆TGPU [◦C] 24.90 29 .7 −16 .1% ∆P [kPa] 89.72 92 .1 −2.6% 
+
+## aRelative error evaluated using temperature rise above Tin = 25 ◦C. 
+
+5.5 Limitations 
+
+The final feasibility rate of 4.58% highlights a primary limitation of the present generative approach. Although symmetry is imposed exactly through half-domain generation, inlet-to-outlet connectivity and low dead-end branching are not guaranteed directly by the diffusion process; the framework therefore relies on deterministic post-generation filtering. Incorporating connectivity constraints directly within the reverse-sampling procedure or using physics-informed guidance could raise the feasible yield substantially. The reduced-order representation employs depth-averaged flow, correlation-based convective heat transfer, path-dependent coolant warming, and equivalent in-plane solid conduction. While these approximations enable rapid population-scale evaluation, they cannot capture complex three-dimensional flow phenomena, particularly local recirculation and through-thickness heat spreading. The −16 .1% discrepancy in GPU temperature spread for G1016 is consistent with these simplifications, whereas peak temperature rise and pressure drop—which depend less on resolving detailed local gradients—agree to within +8 .6% and −2.6% , respectively. The ROM calibration coefficients are held fixed across the entire generated population. While this avoids topology-specific overfitting, it retains dependence on the geometric scales and operating envelope used during calibration. Applying the framework to substantially different flow rates, channel depths, coolant fluids, or package layouts would require recalibration and validation. Finally, the generative model operates on a two-dimensional planform with a uniform extrusion depth. Consequently, the study optimizes in-plane topology rather than local channel depth, cross-sectional profile, or three-dimensional manifold distribution. 
+
+## 6 Conclusions and Future Work 
+
+This work developed a generative design framework for liquid cooling channel design in a 2.7 kW multi-chip package. The framework combines conditional diffusion-based generation, topology screening, reduced-order thermal-hydraulic evaluation, multi-objective analysis, and final OpenFOAM validation. From 5,000 generated layouts, 229 satisfied the final feasibility criteria. The selected design, G1016, achieved Tmax ,GPU = 70 .30 ◦C, ∆TGPU = 24 .90 ◦C, and ∆P = 89 .72 kPa . Compared with the conventional S1 reference, G1016 reduced maximum GPU temperature by 33 .6% , GPU temperature spread by 
+
+52 .5% , and pressure drop by 72 .8% . Independent OpenFOAM validation predicted a maximum GPU temperature of 
+
+66 .70 ◦C and a pressure drop of 92 .1 kPa , showing good agreement with the reduced-order predictions for the primary thermal and hydraulic metrics. Overall, the results show that generative design can identify non-conventional cooling-channel layouts that outperform conventional designs while reducing the need for CFD-based trial-and-error. Future work will focus on improving topology feasibility during generation, extending the design space to three-dimensional channel geometries, and experimentally validating selected designs. 
+
+## References 
+
+[1] Jessica Gullbrand, Mark J Luckeroth, Mark E Sprenger, and Casey Winkel. Liquid cooling of compute system. 
+
+Journal of Electronic Packaging , 141(1):010802, 2019. [2] David B Tuckerman and Roger Fabian W Pease. High-performance heat sinking for vlsi. IEEE Electron device letters , 2(5):126–129, 1981. 20 A PREPRINT - A UGUST 25, 2026 [3] Weilin Qu and Issam Mudawar. Analysis of three-dimensional heat transfer in micro-channel heat sinks. Interna-tional Journal of heat and mass transfer , 45(19):3973–3985, 2002. [4] Weilin Qu and Issam Mudawar. Experimental and numerical study of pressure drop and heat transfer in a single-phase micro-channel heat sink. International journal of heat and mass transfer , 45(12):2549–2565, 2002. [5] CY Zhao and TJ Lu. Analysis of microchannel heat sinks for electronics cooling. International Journal of Heat and Mass Transfer , 45(24):4857–4869, 2002. [6] Xiaojin Wei and Yogendra Joshi. Stacked microchannel heat sinks for liquid cooling of microelectronic compo-nents. J. Electron. Packag. , 126(1):60–66, 2004. [7] Satish G Kandlikar and William J Grande. Evolution of microchannel flow passages–thermohydraulic performance and fabrication technology. Heat transfer engineering , 24(1):3–17, 2003. [8] Suresh V Garimella and Vishal Singhal. Single-phase flow and heat transport and pumping considerations in microchannel heat sinks. Heat transfer engineering , 25(1):15–25, 2004. [9] Gian Luca Morini. Single-phase convective heat transfer in microchannels: a review of experimental results. 
+
+International journal of thermal sciences , 43(7):631–651, 2004. [10] Masoud Asadi, Gongnan Xie, and Bengt Sunden. A review of heat transfer and pressure drop characteristics of single and two-phase microchannels. International Journal of Heat and Mass Transfer , 79:34–53, 2014. [11] Ritunesh Kumar, Gurjeet Singh, and Dariusz Mikielewicz. Numerical study on mitigation of flow maldistribution in parallel microchannel heat sink: channels variable width versus variable height approach. Journal of Electronic Packaging , 141(2):021009, 2019. [12] Gongnan Xie, Jian Liu, Weihong Zhang, and Bengt Sunden. Analysis of flow and thermal performance of a water-cooled transversal wavy microchannel heat sink for chip cooling. Journal of Electronic Packaging ,134(4):041010, 2012. [13] Yujui Lin, Tiwei Wei, Wyatt Jason Moy, Hao Chen, Man Prakash Gupta, Michael Degner, Mehdi Asheghi, H Alan Mantooth, and Kenneth E Goodson. Multi-level embedded three-dimensional manifold microchannel heat sink of aluminum nitride direct bonded copper for the high-power electronic module. Journal of electronic packaging ,146(1):011006, 2024. [14] Ercan M Dede. Optimization and design of a multipass branching microchannel heat sink for electronics cooling. 
+
+Journal of Electronic Packaging , 134(4):041001, 2012. [15] Ercan M Dede and Yan Liu. Experimental and numerical investigation of a multi-pass branching microchannel heat sink. Applied Thermal Engineering , 55(1-2):51–60, 2013. [16] Thomas Borrvall and Joakim Petersson. Topology optimization of fluids in stokes flow. International journal for numerical methods in fluids , 41(1):77–107, 2003. [17] Allan Gersborg-Hansen, Ole Sigmund, and Robert B Haber. Topology optimization of channel flow problems. 
+
+Structural and multidisciplinary optimization , 30(3):181–192, 2005. [18] Kentaro Yaji, Takayuki Yamada, Seiji Kubo, Kazuhiro Izui, and Shinji Nishiwaki. A topology optimization method for a coupled thermal–fluid problem using level set boundary expressions. International Journal of Heat and Mass Transfer , 81:878–888, 2015. [19] Cetin B Dilgen, Sumer B Dilgen, David R Fuhrman, Ole Sigmund, and Boyan S Lazarov. Topology optimization of turbulent flows. Computer Methods in Applied Mechanics and Engineering , 331:363–393, 2018. [20] Xiaoxiao Guo, Wei Li, and Francesco Iorio. Convolutional neural networks for steady flow approximation. In 
+
+Proceedings of the 22nd ACM SIGKDD international conference on knowledge discovery and data mining , pages 481–490, 2016. [21] Olaf Ronneberger, Philipp Fischer, and Thomas Brox. U-net: Convolutional networks for biomedical image segmentation. In International Conference on Medical image computing and computer-assisted intervention ,pages 234–241. Springer, 2015. [22] Maziar Raissi, Paris Perdikaris, and George E Karniadakis. Physics-informed neural networks: A deep learning framework for solving forward and inverse problems involving nonlinear partial differential equations. Journal of Computational physics , 378:686–707, 2019. [23] Jonathan Ho, Ajay Jain, and Pieter Abbeel. Denoising diffusion probabilistic models. Advances in neural information processing systems , 33:6840–6851, 2020. 21 A PREPRINT - A UGUST 25, 2026 [24] Yang Song, Jascha Sohl-Dickstein, Diederik P Kingma, Abhishek Kumar, Stefano Ermon, and Ben Poole. Score-based generative modeling through stochastic differential equations. arXiv preprint arXiv:2011.13456 ,2020. [25] Ramesh K Shah, Alexander Louis London, Thomas F Irvine, and James P Hartnett. Laminar flow forced convection in ducts , volume 1. Elsevier, 1978. [26] Florian R Menter. Two-equation eddy-viscosity turbulence models for engineering applications. AIAA journal ,32(8):1598–1605, 1994. 22

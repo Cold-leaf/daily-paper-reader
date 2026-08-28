@@ -1,0 +1,235 @@
+Title: Fast On-Chip Thermometry with TiN Kinetic Inductance Resonators in 22 nm Process Technology
+
+URL Source: https://arxiv.org/pdf/2608.27057v1
+
+Published Time: Fri, 28 Aug 2026 01:01:21 GMT
+
+Number of Pages: 8
+
+Markdown Content:
+# Fast On-Chip Thermometry with TiN Kinetic Inductance Resonators in 22 nm Process Technology 
+
+Johann Drayne, 1 George Ridgard, 1 Lorenzo Peri, 1 Frederic Schlattner, 1 Fabio Olivieri, 1 Mathieu de Kruijf, 1 Isaac Harris, 1 Grayson Noah, 1 James Kirkman, 1
+
+Alberto Gomez-Saiz, 1, 2 M. Fernando Gonzalez-Zalba, 1, 3, 4, ∗ and Thomas Swift 1, †
+
+> 1
+
+Quantum Motion, 9 Sterling Way, London, N7 9HJ, United Kingdom 
+
+> 2
+
+Department of Electrical and Electronic Engineering, Imperial College London, London SW7 2AZ, United Kingdom 
+
+> 3
+
+CIC nanoGUNE Consolider, Tolosa Hiribidea 76, E-20018 Donostia-San Sebastian, Spain 
+
+> 4
+
+IKERBASQUE, Basque Foundation for Science, E-48011 Bilbao, Spain 
+
+Understanding the temporal and spatial dependence of temperature is critical in high-performance cryogenic devices. Typical thermometry techniques struggle to simultaneously combine high band-width, sensitivity and on-chip integration, limiting their ability to measure fast intra-device thermal fluctuations. Here, we demonstrate a time-resolved thermometry platform based on TiN kinetic in-ductance resonators integrated in a 22 nm FDSOI chip. By tracking temperature-dependent shifts in the resonant frequency, we achieve sub-millikelvin temperature sensitivity down to temperatures of 
+
+100 mK . Time-resolved on-chip pulsed heating experiments as a function of distance reveal an onset delay, consistent with a quasi-ballistic heat propagation velocity of 3.9 ± 0.1 mm μs−1. We also show that elevated temperatures increase net thermal conductance, shortening thermal relaxation times across all spatial separations. This behaviour manifests in two distinct regimes: a substrate-limited regime at 100 mK , where cooling rates vary with heater distance, and a Kapitza boundary-limited regime at 400 mK , where thermal relaxation becomes more spatially uniform. These measurements demonstrate kinetic inductance thermometry’s ability to rapidly probe non-equilibrium temperature dynamics in cryogenic devices such as quantum processors. 
+
+I. INTRODUCTION 
+
+Most leading quantum computing platforms including semiconductor spin [1–3], superconducting [4, 5], pho-tonic [6] and trapped ion [7, 8] need to be operated at cryogenic temperatures and require complex high-frequency pulse sequences for control and readout. To fa-cilitate continued increases in the number of interaction-capable qubits, cryo-electronic circuits represent an at-tractive option to address the wiring bottleneck, par-ticularly when co-integrated directly on a qubit chip or via flip-chip bonding and interposers [9, 10]. However, thermal management in these architectures is challeng-ing. Integrated cryo-electronics can introduce signifi-cant power dissipation, while high-frequency readout and control pulses also contribute dynamic heating through the rapid charging and discharging of local gate elec-trodes [11]. At sub-Kelvin temperatures, reduced cool-ing power, lower thermal conductivities and suppressed heat capacities can lead to rapid local temperature spikes that degrade qubit performance. Understanding and mitigating these dynamic thermal effects requires inte-grated, high-frequency and sensitive thermometry capa-ble of mapping time- and distance-dependent heating dy-namics directly on-chip. State-of-the-art local thermometry in quantum pro-cessors often employs metal–superconductor junctions,   
+
+> ∗fernando@quantummotion.tech
+> †tom@quantummotion.tech
+
+which are difficult to integrate in semiconductor plat-forms and are sensitive to magnetic fields [12–14]. Pre-vious work has demonstrated multiple integrated ther-mometry techniques using devices native to commercial-grade CMOS manufacturing such as diode, supercon-ducting phase transition, gate resistance, Johnson noise thermometry and quantum dot thermometry [15–18], but these are mostly limited to sub-MHz operation. Com-paratively little literature exists on thermometry which is simultaneously CMOS-integrated, high-frequency and can be operated in the sub-Kelvin regime. Notable ex-ceptions include Champain et al. [19], who demonstrate radio-frequency readout of a quantum dot in a semicon-ductor qubit architecture and Lvov et al. [20] who report thermometry measurements using a transmon qubit. In this paper, we present a high-frequency thermome-try technique that exploits the temperature dependence of the kinetic inductance of TiN thin films [21, 22] avail-able in the 22FDX process [23]. Embedded into an LC parallel circuit, these inductors enable sub-mK tem-perature resolution with sub-microsecond dynamic re-sponse. By applying controlled short heat pulses from a local transistor heater and fitting single-exponential cooling curves, we map the system’s thermal response time τ across base fridge temperature ( TMXC ), heater power, maximum local temperature ( Tmax ) and heater-to-thermometer distance ( d). These measurements iso-late the dominant contributions of interface boundary resistance and spatial phonon scattering, providing in-sight into thermal dynamics at mK temperatures. arXiv:2608.27057v1 [quant-ph] 27 Aug 2026 2
+
+II. KINETIC INDUCTANCE THERMOMETERS 
+
+The experiment is conducted on a 3 mm × 3 mm 
+
+chip fabricated using the GlobalFoundries 22FDX pro-cess [24, 25]. A schematic of the chip is shown in Fig. 1(a), with three TiN thermometers and a transis-tor acting as a heater. The external signals of all struc-tures are directly connected to bond pads on the chip meaning no additional circuitry is needed to access them. The TiN film becomes superconducting below Tc ≈ 1.1 K 
+
+and exhibits a temperature-dependent kinetic inductance 
+
+Lk(T ). In the low-frequency limit ( ℏω ≪ 2∆ ), Lk(T )
+
+is derived from the imaginary component of the Mat-tis–Bardeen complex conductivity [26–28]: 
+
+Lk (T ) = ℏR□
+
+π∆ ( T ) tanh 
+
+ ∆( T )2kBT
+
+ lw , (1) where R□ is the normal-state sheet resistance, l is the strip length, w is the strip width and ∆( T ) is the temperature-dependent superconducting energy gap. Recalling that the gap closes near transition as ∆( T ) ∝p1 − T /T c, Eq. (1) captures the divergence of Lk(T ) as 
+
+T → Tc. While structural disorder in TiN films can in-troduce deviations from standard BCS theory [29], this expression still provides an qualitative description of the temperature dependence. The TiN film forms part of resonant LC circuit Fig. 1(b). The on-chip components (shaded region) con-sists of the kinetic inductance Lk (from the TiN film) in parallel with system resistance Rsys and parallel ca-pacitance Cp, which combines the on-chip resonator ca-pacitor and intrinsic inductor parasitic capacitance. Line coupling is established by an on-chip capacitor Cc2 in se-ries with an off-chip capacitor Cc1 , yielding an effective coupling capacitance Cc = ( C−1c1 + C−1c2 )−1 and a total circuit capacitance Ctotal = Cc + Cp = 407 fF for the 
+
+d = 0 .2 mm thermometer. As temperature rises, ther-mal Cooper-pair depairing increases Lk(T ), shifting the resonant frequency lower Fig. 1(c). Assuming kinetic in-ductance dominates over geometric inductance ( L ≈ Lk), 
+
+Lk is extracted directly from the resonant frequency fr:
+
+Lk = 1(2 πf r)2Ctotal 
+
+, (2) yielding Lk(0) = 131 nH for the thermometer located at 
+
+d = 0 .2 mm . Across the three TiN thermometers, in-tentional variations in coupling capacitance Cc alongside differences in baseline kinetic inductance ( 131 nH and 
+
+149 nH across polyresistor variants [23]) yield distinct base resonant frequencies, yet all thermometers main-tain identical qualitative thermal behaviour. As shown in Fig. 1(d), both Lk(T ) and fr(T ) exhibit an increas-ingly steep gradient with rising temperature, providing high sensitivity as T approaches Tc.Heater     
+
+> TiN
+> TiN
+> TiN
+> 0.2 mm
+> 1.6 mm
+> 2.5 mm 3 mm
+> d) c)
+> Lk
+> Cc
+> Rsys
+> a) b)
+> Cp
+> Cc12
+
+FIG. 1. Device layout and temperature-dependent re-sponse. (a) 22 nm FDSOI chip floorplan showing the ap-proximate positions of three TiN thermometers and a tran-sistor serving as a local heat source. Colour coding for the TiN ( 0.2 mm green, 1.6 mm pink, 2.5 mm purple) is main-tained throughout this work. (b) Equivalent resonant cir-cuit diagram. The shaded region indicates on-chip compo-nents: the TiN kinetic inductor Lk, system resistance Rsys ,parallel capacitance Cp (combining an on-chip resonator ca-pacitor and intrinsic inductor parasitic capacitance) and line coupling capacitor Cc2 . Total line coupling is established via 
+
+Cc2 in series with an off-chip capacitor Cc1 . (c) Tempera-ture dependence of the resonance in reflected microwave re-sponse magnitude ( S11 ) measured on the closest thermometer (d = 0 .2 mm , green). The resonant frequency decreases with increasing temperature. (d) Kinetic inductance as a func-tion of temperature for the d = 0 .2 mm thermometer. The dashed line indicates the critical temperature of the TiN thin film Tc = 1 .1 K . The inset shows the monotonic shift of the resonant frequency due to the temperature-dependent kinetic inductance. 
+
+Although atomic two-level systems (TLSs) in interfa-cial oxides can induce small non-monotonic frequency shifts at very low temperatures ( T ≪ Tc) [30–32], our measured frequency response remains strictly monotonic over the investigated temperature range ( T ≥ 100 mK ), confirming that Cooper-pair thermal depairing is the dominant physical mechanism. 
+
+III. THERMOMETER CALIBRATION & BENCHMARKING 
+
+To calibrate the TiN thermometer, we step the mix-ing chamber temperature in 25 mK increments, allow-ing 15 min for thermal equilibration at each stage before measuring the reflected microwave response ( S11 ) using a Vector Network Analyzer (VNA), Fig. 1(c). The res-onant frequency fr, extracted from the minimum of the magnitude response is converted to Lk using Eq. 2 and plotted as a function of temperature Fig. 1(d). The mix-ing chamber temperature TMXC is measured using a pre-calibrated RuOx thermometer. Fitting the data to Eq. 1 yields a critical temperature of Tc = 1 .1 K .To evaluate performance and enable direct compar-3ison with state-of-the-art cryogenic thermometry tech-niques, we calculate the bandwidth-normalised sensitiv-ity δT [15], defined as, 
+
+δT = 1
+
+√BW 
+
+σfr
+
+∂f r/∂T , (3) where σfr is the standard deviation of the resonant fre-quency, ∂f r/∂T is the temperature responsivity and BW 
+
+the effective measurement bandwidth. δT represents the minimum resolvable temperature change for a given mea-surement bandwidth. Benchmarking measurements are performed using a Qblox QRC module, which demodulates and digitises the in-phase ( I) and quadrature ( Q) components of the re-flected signal. In the resonant frequency tracking mode, I
+
+and Q are recorded across a 7 MHz frequency span cover-ing the resonator bandwidth, with a step size of 210 kHz 
+
+(33 measurement points) to reconstruct S11 (f ). With an integration time of 1 μs per point, this yields an effective measurement bandwidth of BW ≈ 30 kHz . Figure 2(a) shows the resonant frequency uncertainty σfr , computed as the standard deviation across 250 repeated measure-ments, alongside the responsivity ∂f r/∂T MXC , which are then used to calculate δT given in Fig. 2(b). The signifi-cant enhancement in sensitivity at elevated temperatures is driven by the divergence of kinetic inductance near Tc
+
+(reflected in a sharply increasing ∂f r/∂T MXC ), whereas the measurement noise σfr remains essentially flat. a)  b)           
+
+> FIG. 2. Thermometer Bandwidth-Normalised Sensi-tivity (BWNS). (a) Resonant frequency uncertainty ( σfr,light green) and temperature responsivity ( ∂f r/∂T MXC , dark green) as a function of mixing chamber temperature TMXC .(b) Bandwidth-normalised sensitivity δT versus TMXC .The order-of-magnitude enhancement in δT at higher tempera-tures is driven primarily by the sharp increase in temperature responsivity rather than a reduction in frequency measure-ment uncertainty.
+
+Temperature variations modify both the reactive re-sponse of the superconductor (shifting fr through Cooper pair depairing) and its dissipative response (altering the quality factor through quasiparticle generation (QP)), both of which are clearly visible in the shifting and broad-ening resonance curves in Fig. 1(c). An alternative read-out approach is to monitor the signal magnitude at a sin-gle fixed frequency, capturing both reactive and dissipa-tive mechanisms simultaneously to provide enhanced sen-sitivity at low temperatures ( T < 100 mK ) where ∂f r/∂T 
+
+saturates. Furthermore, because single-frequency acqui-sition requires only a single measurement point rather than the 33-point frequency sweep used to track fr, it could yield a factor of √33 ≈ 6 improvement in sensi-tivity ( δT ). However, resonant-frequency tracking offers a strictly monotonic temperature response, straightfor-ward physical interpretation, and superior operational stability. We therefore employ resonant-frequency track-ing for the remainder of this work.  
+
+> IV. TIME-RESOLVED THERMOMETRY
+
+The high sensitivity of the TiN thermometer enables measurements of the dynamic temperature response of the chip to localised heat dissipation. To investigate this response, we employ a fast-pulse heater setup. The heater consists of a transistor with source-drain bias, VSD 
+
+applied through the source contact and the drain contact connected to ground. A bias tee on the transistor gate (R = 1 MΩ and C = 0 .57 μF) enables simultaneous appli-cation of a DC offset voltage and high-frequency pulses. The heater power is calibrated by measuring the source current, IS as a function of VSD with the transistor gate fully turned on ( V DC G = 0 .98 V ). During dynamic heat-ing, VSD is set to achieve the target power, while the gate is DC-biased just below threshold at V DC G = 0 .2 V ,ensuring near-zero source current prior to pulse arrival. Square voltage pulses of amplitude V Pulse G = 0 .78 V ap-plied via a semi-rigid coaxial cable yield a net gate voltage of VG = V DC G + V Pulse G = 0 .98 V during pulse activation, driving the transistor into the fully turned-on state. An example measurement is shown in Fig. 3(a) for a heating pulse with power Pheat = 32 μW and duration 
+
+theat = 300 μs. The map in this figure is constructed by recording the in-phase ( I) and quadrature ( Q) sig-nals as a function of time, at a fixed RF frequency, re-peated across a range of RF frequencies. Fifty traces are averaged together at each frequency. A 10 ms delay be-tween heating pulses ensures full thermal relaxation back to baseline ( > 60 times the characteristic cooling time 
+
+τcooling discussed below). At each time step, the reso-nant frequency is extracted and converted to a temper-ature using a pre-calibrated frequency-temperature re-lation Fig. 1(d). The resulting time-resolved resonant frequency during the heating pulse is indicated by the markers in Fig. 3(a). The measurement is repeated for a range of heating powers and distances Fig. 3(b)-(d). While reconstructing fr(t) from the full frequency span ensures a monotonic mapping to temperature, analysing single-frequency IQ traces directly offers potential sen-sitivity improvements toward the single-tone limit. Ad-ditionally, frequency-domain multiplexing could enable simultaneous acquisition across multiple RF tones, sig-nificantly reducing total measurement time. To extract thermal timescales, the temperature re-sponse after the heater is turned off is fit using a single-exponential model, 4a) b)  
+
+> c) d)
+
+FIG. 3. Time-resolved temperature response under pulsed heating. (a) Example measurement showing the time-resolved resonant frequency shift during a single stepped heating pulse ( Pheat = 32 μW). Markers highlight the ex-tracted resonance as the TiN film warms and cools. (b–d)Calculated temperature response across varying heater pow-ers at heater distances of 0.2 mm (b), 1.6 mm (c) and 2.5 mm 
+
+(d) from the heat source. 
+
+T (t) = Tbase + ∆ T e −t/τ cooling , (4) where Tbase is the baseline temperature and ∆T is the temperature rise above baseline. The fitting window starts 26 μs after pulse termination and spans a 280 μs
+
+duration. Traces recorded across heater powers P are optimised simultaneously via a constrained global rou-tine enforcing monotonic scaling of ∆T (P ), with Tbase 
+
+anchored to the unheated pre-pulse baseline ( t ≤ 20 μs). To capture the primary thermal relaxation kinetics, we model the decay using a first-order lumped-element ap-proximation with an effective time constant τcooling =
+
+Ctotal /G total . Although temperature-dependent heat ca-pacities C(T ) and thermal conductances G(T ) strictly introduce non-linearities along the cooling trajectory, parametrising the transient with a single time constant provides a robust measure of the average relaxation rate across parameter space without introducing uncon-strained fitting parameters. Here, Ctotal and Gtotal rep-resent the integrated lumped heat capacity of the chip assembly and the net thermal conductance to the cold bath, respectively. These quantities can be expressed as the sum contri-bution from individual thermal elements. 
+
+τcooling = CSi ,ph + Cepoxy + Ce
+
+GSi ,ph + Gepoxy + GKR
+
+≈ c3T 3 + c1Tg3T 3 + g2T 2 , (5) 
+
+dτ cooling 
+
+dT = c3g2T 2 − c1(2 g3T + g2)
+
+T 2(g3T + g2)2 . (6) Here, cn and gn are temperature-independent coeffi-cients that parametrise the magnitude of the correspond-ing T n power-law contribution. The total heat capac-ity Ctotal combines three distinct sources: (C.i) 3D De-bye phonons in the crystalline silicon substrate ( CSi ,ph ∝
+
+T 3) [33], (C.ii) the silver epoxy layer ( Cepoxy ) which in-corporates both a cubic lattice phonon term ( T 3) and a linear two-level system (TLS) term (T ) stemming from structural disorder [34, 35], and (C.iii) free elec-trons in metallic circuit components ( Ce ∝ T ) [36, 37]. These metallic components – which include contiguous metal traces across the chip, interconnects and ground planes – provide parallel electronic conduction path-ways across the die, while acting as thermal reser-voirs that absorb energy during a heating pulse and re-lease it during cooling. The total thermal conductance 
+
+Gtotal is governed by three thermal resistances in series: (G.i) bulk phonon transport through the silicon sub-strate ( GSi ,ph ∝ T 3) [37, 38], (G.ii) acoustic boundary mismatch between substrate-epoxy and epoxy-sink inter-faces (Kapitza conductance, GKapitza ∝ T 3) [37, 39, 40] and (G.iii) phonon scattering within the amorphous sil-ver epoxy layer ( Gepoxy ∝ T 2) [34, 35, 37]. For thin epoxy layers ( depoxy < 100 μm) and sub-Kelvin temperatures, the substrate-sink resistance is typically dominated by the Kapitza resistance [37]. The printed circuit board (PCB) carrying the chip is tightly bolted to the mixing chamber plate of the dilution refrigerator and is therefore assumed to be well thermalised to the base temperature. Analysing the temperature dependence of τcooling across parameter space allows us to disentangle these competing contributions. The extracted cooling time τcooling reveals four distinct cooling behaviours Fig. 4: 
+
+a. Thermal conductance limits the cooling time. 
+
+Across all distances from the heater, τcooling decreases monotonically from 120 −150 μs at 100 mK down to 75 μs
+
+at 400 mK Fig. 4(a). The decrease in τcooling with increas-ing TMXC indicates that the temperature dependence of the cooling time is dominated by the increasing ther-mal conductance Gtotal , rather than the corresponding increase in total heat capacity Ctotal . To identify which terms give rise to the observed decrease in τcooling , we require dτ cooling /dT < 0. From Eq. (6), this inequality is fulfilled when: (i) linear heat capacities ( c1T , origi-nating from metallic interconnects and epoxy two-level systems) dominate over cubic lattice phonons ( c3T 3), or (ii) T 3 thermal conductance channels ( g3T 3, incorporat-ing bulk substrate transport GSi ,ph and interface Kapitza conductance GKapitza ) provide a sufficiently strong tem-perature dependence relative to the T 2 epoxy scattering term ( g2T 2). 
+
+b. Distance-dependent cooling at 100 mK . At this base temperatures, τcooling increases with distance, from 5b)                        
+
+> a)
+> FIG. 4. Thermal cooling times across parameter space. (a) Cooling time constant τcooling versus mixing chamber temperature TMXC for three heater distances ( d=0.2 mm ,1.6 mm ,2.5 mm ) from the heat source across varying heater powers. (b)τcooling versus peak pulse temperature
+> Tmax at TMXC = 100 mK (left) and 400 mK (right) across varying heater powers.
+
+apx. 105 −120 μs at 0.2 mm to apx. 140 −150 μs at 2.5 mm 
+
+as shown in Fig. 4(a). Large temperature gradients per-sist across the chip as bulk substrate thermal resistance dominates over Kapitza boundary resistance, creating a lateral transport bottleneck that increases the cooling time at larger distances. 
+
+c. Distance-independent cooling at 400 mK . In con-trast, at an elevated temperatures, τcooling is independent of distance ( d = 0 .2−2.5 mm ) and averages 75 μs across all applied powers Fig. 4(a). Here, substrate thermal conductance increases sufficiently that global Kapitza boundary resistance takes over as the primary thermal bottleneck, causing the chip to relax as a single isother-mal system. 
+
+d. Maximum temperature-dependent cooling. At 
+
+100 mK , τcooling increases with distance for a given max-imum temperature Tmax reached at pulse termination Fig. 4(b). Due to diffusive heat spreading, reaching an equivalent Tmax at larger distances requires injecting significantly more total energy into the chip. Dissipating this additional stored energy through the substrate-limited transport channel takes longer, increasing the cooling time. At 400 mK , higher overall thermal con-ductance dissipates this heat rapidly, rendering τcooling 
+
+independent of Tmax .Intrinsic superconducting relaxation processes could, in principle, contribute to the observed decay kinetics. Quasiparticle recombination exhibits an exponential tem-perature dependence, τqp ∝ exp(∆ /k BT ) [30, 31, 41, 42]. We do not observe a dominant exponential signature in 
+
+τcooling indicating either that the measured temperature window ( 100 −400 mK ) is too narrow or intrinsic super-conductor recovery is not the rate-limiting bottleneck. Furthermore, reported QP recombination times in TiN thin films are substantially faster ( < 100 μs) [43], than our measured recovery times ( ∼ 75 −150 μs). This fur-ther suggests that substrate thermal conductance and Kapitza interface resistance are the rate-limiting bottle-neck for thermal relaxation.  
+
+> V. PHONON PROPAGATION DYNAMICS
+
+The model used to fit data in Fig. 3(b) qualitatively describes the long-time thermal response but does not capture the initial dynamics immediately following the start of the heating pulse. A rapid temperature rise oc-curs during the first ∼ 1 μs before the system enters the slower equilibration regime described by Eq. 4. To resolve this initial response, we perform measurements with im-proved temporal resolution using an integration time of 
+
+40 ns .a)  b)             
+
+> FIG. 5. Time delay of system response to heating.
+> (a) Time-resolved temperature response following a single stepped heating pulse step (applied at t = 0 ), measured at three distances from the heat source. Dashed lines mark the onset of the delayed temperature rise following the heating pulse, identified as the cross-over from an initial linear seg-ment to exponential growth obtained from a bi-partite fit. Temperatures are normalised for clarity. ( b) Time delay ver-sus distance from the heater. A straight line to the coloured markers yields a velocity 1/m = 3 .9±0.1 mm μs−1and time offset c= 274 ±4 ns . The black marker (not included in the fit) denotes the delayed response due to a change in RF power.
+
+Figure 5(a) shows the normalised temperature re-sponse after a heating pulse begins. The onset of the delayed temperature rise marked by the dashed lines is identified using a bipartite fit consisting of an initial lin-ear baseline followed by exponential growth. The ex-tracted onset delay times scale linearly with thermometer distance from the heater Fig. 5(b). A linear fit yields a propagation velocity of 3.9±0.1 mm μs−1 and a temporal delay of t0 = 274 ± 4 ns . The linear dependence indicates propagation of a heat pulse with approximately constant velocity, consistent with quasi-ballistic heat transport, where v ≈ d/t [44]. The extracted velocity ( 3.9 mm μs−1)is lower than the fast longitudinal acoustic sound speed in bulk silicon ( 8.4−9.1 mm μs−1) [45]. This reduction is ex-pected where at sub-Kelvin temperatures thermal energy is predominantly carried by slower transverse acoustic 6phonon modes ( vTA = 4 .7−5.8 mm μs−1) [36]. Further-more, specular and diffuse boundary reflections off the top and bottom surfaces of the chip increase the effec-tive path length relative to the straight-line distance d,reducing the net propagation velocity. The temporal intercept t0 represents a delay prior to the distance-dependent phonon flight time. To disentangle systemic instrumentation latency from local device physics, we performed a direct RF loopback measurement, establishing a time of flight of t ≈ 180 ns 
+
+along the measurement lines and room-temperature electronics. Adding the internal ring-up time of the resonator ( tr ≈ 15 ns ) accounts for a combined RF total delay of 195 ns . To independently verify the intrinsic (zero distance) response time, we conducted a control experiment in which the resonance frequency was per-turbed directly by fast-gating the RF drive power. The resulting delay is shown as a black triangle in Fig. 5(b). Note this data point is not included in the linear fit but is in agreement with the intercept, confirming that the residual offset is shared by both thermal and electronic excitation pathways. Subtracting the known RF line propagation and resonator ring-up latencies isolates a residual delay of tqp ≈ 80 ns . We attribute this re-maining delay to quasiparticle generation dynamics and pair-breaking conversion efficiency within the thin-film superconductor, which dictates the temporal onset of the kinetic inductance shift [44].  
+
+> VI. OUTLOOK
+
+In summary, we demonstrate a time-resolved on-chip thermometry platform using TiN kinetic-inductance res-onators integrated with local transistor heaters fabri-cated in 22 nm FDSOI technology. By combining fast pulsed heating protocols with radiofrequency readout, we resolve sub-microsecond thermal dynamics, acoustic propagation delays and thermal relaxation kinetics at mK temperatures. These results offer a practical frame-work for mapping non-equilibrium heat transport in cryo-genic integrated circuits. Future work will focus on three key directions. First, testing modified chip-to-package bonding interfaces will allow us to test whether lower-ing the boundary Kapitza resistance directly reduces re-laxation timescales as predicted. Second, performing si-multaneous thermometry during active qubit operation (using thermometers already co-integrated on the quan-tum chip) will enable real-time tracking of local tem-perature transients, directly quantifying thermal cross-coupling and correlating temperature spikes with gate er-rors [11]. Finally, expanding to larger 2D arrays of multi-plexed thermometers will map anisotropic phonon prop-agation across the die and help isolate individual heat capacity and conductance contributions. Together, these capabilities offer the data needed to guide thermally ro-bust layouts for co-packaged cryo-CMOS and large-scale quantum processors.  
+
+> VII. ACKNOWLEDGEMENTS
+
+We thank Joe Finney, Alexander Waterworth and Jonathan Warren of Quantum Motion for their tech-nical support and thank Nigel Cave at Global Foundries for fruitful discussions. Quantum Technologies [EP/S021582/1]. M.F.G.Z. acknowledges a UKRI Future Leaders Fellowship [MR/V023284/1]. A.G.-S. acknowl-edges an Industrial Fellowship from the Royal Commis-sion for the Exhibition of 1851.  
+
+> VIII. AUTHOR CONTRIBUTIONS
+
+J. D., I. H. and T. S. acquired the data. J. D., T. S., G. R., L. P. and M. d. K. analysed the data. T. S. and M. F. G. Z. conceived the experiment. T. S., G. R., F. S. and G. N. supervised the work. F. O. designed the integrated circuits. J. K. designed and validated the wiring infras-tructure. J. K. validated the integrated circuits. A. G. S. conceived and designed the superconducting structures. All authors contributed to the writing of this manuscript.  
+
+> IX. COMPETING INTERESTS
+
+The authors declare no competing interests.             
+
+> [1] M. Veldhorst, H. Eenink, H. Yang, and A. Dzurak, Silicon cmos architecture for a spin-based quantum computer, Nature Communications 8(2017). [2] L. Petit, H. Eenink, M. Russ, W. Lawrie, N. Hendrickx, S. Philips, J. Clarke, L. Vandersypen, and M. Veldhorst, Universal quantum logic in hot silicon qubits, Nature
+> 580 , 355 (2020). [3] M. Gonzalez-Zalba, S. Franceschi, E. Charbon, T. Me-unier, M. Vinet, and A. Dzurak, Scaling silicon-based quantum computing using cmos technology, Nature Elec-tronics 4(2021). [4] J. C. Bardin, E. Jeffrey, E. Lucero, T. Huang, S. Das, D. T. Sank, O. Naaman, A. E. Megrant, R. Barends, T. White, M. Giustina, K. J. Satzinger, K. Arya, P. Roushan, B. Chiaro, J. Kelly, Z. Chen, B. Burkett, Y. Chen, A. Dunsworth, A. Fowler, B. Foxen, C. Gidney, R. Graff, P. Klimov, J. Mutus, M. J. McEwen, M. Nee-ley, C. J. Neill, C. Quintana, A. Vainsencher, H. Neven, and J. Martinis, Design and characterization of a 28-nm bulk-cmos cryogenic quantum controller dissipating less
+
+7
+
+than 2 mw at 3 k, IEEE Journal of Solid-State Circuits 
+
+54 , 3043 (2019). [5] R. Acharya, I. Aleiner, R. Allen, T. I. Andersen, M. Ans-mann, F. Arute, K. Arya, A. T. Asfaw, J. Atalaya, R. Babbush, D. Bacon, J. C. Bardin, J. M. V. Basso, A. Bengtsson, S. Boixo, G. Bortoli, A. Bourassa, J. Bo-vaird, L. Brill, M. Broughton, B. B. Buckley, D. A. Buell, T. Burger, B. Burkett, N. Bushnell, Y. Chen, Z. Chen, B. Chiaro, J. Z. Cogan, R. Collins, P. N. Conner, W. Courtney, A. L. Crook, B. Curtin, D. M. Debroy, A. D. T. Barba, S. Demura, A. Dunsworth, D. Eppens, C. Erickson, L. Faoro, E. Farhi, R. Fatemi, L. F. Burgos, E. Forati, A. G. Fowler, B. Foxen, W. Gi-ang, C. Gidney, D. Gilboa, M. Giustina, A. G. Dau, J. A. Gross, S. Habegger, M. C. Hamilton, M. P. Harri-gan, S. D. Harrington, O. Higgott, J. P. Hilton, M. J. Hoffmann, S. Hong, T. Huang, A. Huff, W. J. Hug-gins, L. B. Ioffe, S. V. Isakov, J. Iveland, E. Jeffrey, Z. Jiang, C. Jones, P. Juhás, D. Kafri, K. Kechedzhi, J. Kelly, T. Khattar, M. Khezri, M. Kieferov’a, S. Kim, A. Kitaev, P. V. Klimov, A. R. Klots, A. N. Korotkov, F. Kostritsa, J. M. Kreikebaum, D. Landhuis, P. Laptev, K. M. Lau, L. Laws, J. Lee, K. Lee, B. J. Lester, A. T. Lill, W. Liu, A. Locharla, E. Lucero, F. D. Mal-one, J. Marshall, O. Martin, J. R. McClean, T. Mc-Court, M. J. McEwen, A. Megrant, B. M. Costa, X. Mi, K. C. Miao, M. Mohseni, S. Montazeri, A. Morvan, E. Mount, W. Mruczkiewicz, O. Naaman, M. Neeley, C. J. Neill, A. Nersisyan, H. Neven, M. Newman, J. H. Ng, A. Nguyen, M. L. Nguyen, M. Y. Niu, T. E. O’Brien, A. Opremcak, J. Platt, A. Petukhov, R. Potter, L. P. Pryadko, C. Quintana, P. Roushan, N. C. Rubin, N. Saei, D. T. Sank, K. Sankaragomathi, K. J. Satzinger, H. F. Schurkus, C. Schuster, M. Shearn, A. Shorter, V. Shvarts, J. Skruzny, V. N. Smelyanskiy, W. C. Smith, G. Sterling, D. Strain, Y. Su, M. Szalay, A. Torres, G. Vidal, B. Vil-lalonga, C. V. Heidweiller, T. White, C. Xing, Z. J. Yao, P. Yeh, J. Yoo, G. Young, A. Zalcman, Y. Zhang, and N. Zhu, Suppressing quantum errors by scaling a surface code logical qubit, Nature 614 , 676 (2022). [6] M. Dong, G. Clark, A. J. Leenheer, M. Zimmermann, D. Dominguez, A. J. Menssen, D. Heim, G. Gilbert, D. Englund, and M. Eichenfield, High-speed pro-grammable photonic circuits in a cryogenically compat-ible, visible–near-infrared 200 mm CMOS architecture, Nature Photonics 16 , 59 (2022). [7] M. F. Brandl, M. W. van Mourik, L. Postler, A. Nolf, K. Lakhmanskiy, R. R. Paiva, S. Möller, N. Daniilidis, H. Häffner, V. Kaushal, T. Ruster, C. Warschburger, H. Kaufmann, U. G. Poschinger, F. Schmidt-Kaler, P. Schindler, T. Monz, and R. Blatt, Cryogenic setup for trapped ion quantum computing, Review of Scientific Instruments 87 , 113103 (2016). [8] G. Pagano, P. Hess, H. Kaplan, P. Richerme, P. Becker, A. Kyprianidis, J. Zhang, E. Birckelbaw, M. Hernandez, Y. Wu, and C. Monroe, Cryogenic trapped-ion system for large scale quantum simulation, Quantum Science and Technology 4 (2018). [9] F. Sebastiano, Fundamentals of cryo-cmos circuits and systems for quantum computing: Challenges and prospects in interfacing future quantum computers, IEEE Solid-State Circuits Magazine 17 , 61 (2025). [10] J. C. Brennan, J. Barbosa, C. Li, M. Ahmad, F. Imroze, C. Rose, W. Karar, M. Stanley, H. Heidari, N. M. Ridler, and M. Weides, Classical interfaces for controlling cryo-genic quantum computing technologies, APL Quantum 
+
+2, 041501 (2025). [11] B. Undseth, O. Pietx-Casas, E. Raymenants, M. Mehmandoost, M. T. Mądzik, S. G. J. Philips, S. L. de Snoo, D. J. Michalak, S. V. Amitonov, L. Try-puten, B. P. Wuetz, V. Fezzi, D. D. Esposti, A. Sammak, G. Scappucci, and L. M. K. Vandersypen, Hotter is easier: Unexpected temperature dependence of spin qubit frequencies, Phys. Rev. X 13 , 041015 (2023). [12] S. Gasparinetti, K. L. Viisanen, O.-P. Saira, T. Faivre, M. Arzeo, M. Meschke, and J. P. Pekola, Fast elec-tron thermometry for ultrasensitive calorimetric detec-tion, Phys. Rev. Appl. 3, 014007 (2015). [13] E. Gümüş, D. Majidi, D. Nikolić, P. Raif, B. Karimi, J. Peltonen, E. Scheer, J. P. Pekola, H. Courtois, W. Belzig, and C. Winkelmann, Calorimetry of a phase slip in a josephson junction, Nature Physics 19 , 196 (2022). [14] F. Giazotto, T. T. Heikkilä, A. Luukanen, A. M. Savin, and J. P. Pekola, Opportunities for mesoscopics in ther-mometry and refrigeration: Physics and applications, Rev. Mod. Phys. 78 , 217 (2006). [15] G. M. Noah, T. H. Swift, M. de Kruijf, A. Gomez-Saiz, J. J. L. Morton, and M. F. Gonzalez-Zalba, Cmos on-chip thermometry at deep cryogenic temperatures, Ap-plied Physics Reviews 11 , 021414 (2024). [16] M. de Kruijf, G. M. Noah, A. Gomez-Saiz, J. J. Morton, and M. F. Gonzalez-Zalba, Measurement of cryoelectron-ics heating using a local quantum dot thermometer in silicon, Chip 3, 100097 (2024). [17] T. Huizinga, M. Babaie, A. Vladimirescu, F. Sebas-tiano, et al. , Integrated cryo-cmos temperature sensors for quantum control ics, in 2022 IEEE 15th Workshop on Low Temperature Electronics (WOLTE) (IEEE, 2022) pp. 1–4. [18] G. Ridgard, M. Thompson, L. Schreckenberg, N. Desh-pande, A. Cabrera-Galicia, O. Bourgeois, V. Doebele, and J. Prance, Voltage noise thermometry in integrated circuits at millikelvin temperatures, Journal of Applied Physics 137 , 245901 (2025). [19] V. Champain, V. Schmitt, B. Bertrand, H. Niebojewski, R. Maurand, X. Jehl, C. Winkelmann, S. De Franceschi, and B. Brun, Real-time millikelvin thermometry in a semiconductor-qubit architecture, Phys. Rev. Appl. 21 ,064039 (2024). [20] D. S. Lvov, S. A. Lemziakov, E. Ankerhold, J. T. Pelto-nen, and J. P. Pekola, Thermometry based on a super-conducting qubit, Phys. Rev. Appl. 23 , 054079 (2025). [21] P. Day, H. Leduc, A. Goldin, T. Vayonakis, B. Mazin, S. Kumar, J. Gao, and J. Zmuidzinas, Antenna-coupled microwave kinetic inductance detectors, Nuclear Instru-ments and Methods in Physics Research Section A: Accel-erators, Spectrometers, Detectors and Associated Equip-ment 559 , 561 (2006), proceedings of the 11th Interna-tional Workshop on Low Temperature Detectors. [22] s. Doyle, Lumped element Kinetic Inductance Detectors ,Ph.D. thesis, Cardiff University (2016). [23] T. H. Swift, F. Olivieri, G. Aizpurua-Iraola, J. Kirk-man, G. M. Noah, M. de Kruijf, F. E. von Horstig, A. Gomez-Saiz, J. J. L. Morton, and M. F. Gonzalez-Zalba, A superinductor in a deep sub-micron integrated circuit (2025), arXiv:2507.13202 [quant-ph]. 8
+
+[24] R. Carter, J. Mazurier, L. Pirro, J.-U. Sachse, P. Baars, J. D. Faul, C. Grass, G. Grasshoff, P. Javorka, T. Kamm-ler, A. Preusse, S. Nielsen, T. Heller, J. Schmidt, H. Niebojewski, P.-Y. Chou, E. J. Smith, E. Erben, C. Metze, C. Bao, Y. Andee, I. Aydin, S. Morvan, J. P. Bernard, E. Bourjot, T. Feudel, D. L. Harame, R. Nel-luri, H.-J. Thees, L. M-Meskamp, J. Kluth, R. Mulfin-ger, M. Rashed, R. Taylor, C. Weintraub, J. Hoentschel, M. Vinet, J. K. Schaeffer, and B. Rice, 22nm fdsoi tech-nology for emerging mobile, internet-of-things, and rf ap-plications, in 2016 IEEE International Electron Devices Meeting (IEDM) (2016) pp. 2.2.1–2.2.4. [25] H. Wang, J. Bi, J. bu, H. Liu, F. Zhao, H. Cao, and C. Ai, Characteristics of 22 nm utbb-fdsoi technology with an ultra-wide temperature range, Semiconductor Science and Technology 37 (2022). [26] D. C. Mattis and J. Bardeen, Theory of the Anoma-lous Skin Effect in Normal and Superconducting Metals, Physical Review 111 , 412 (1958). [27] J. Gao, The Physics of Superconducting Microwave Res-onators , Ph.D. thesis, California Institute of Technology (2008). [28] A. J. Annunziata, D. F. Santavicca, L. Frunzio, G. Cate-lani, M. J. Rooks, A. Frydman, and D. E. Prober, Tunable superconducting nanoinductors, Nanotechnol-ogy 21 , 445202 (2010). [29] E. F. C. Driessen, P. C. J. J. Coumou, R. R. Tromp, P. J. de Visser, and T. M. Klapwijk, Strongly disordered tin and nbtins-wave superconductors probed by microwave electrodynamics, Physical Review Letters 109 , Art No., 107003 (2012). [30] J. Gao, M. Daal, A. Vayonakis, S. Kumar, J. Zmuidzinas, B. Sadoulet, B. A. Mazin, P. K. Day, and H. G. Leduc, Experimental evidence for a surface distribution of two-level systems in superconducting lithographed microwave resonators, Applied Physics Letters 92 , 152505 (2008). [31] P. Nicaise, Development of Microwave Kinetic Induc-tance Detectors for Visible and Near-IR Astronomy Ap-plications , Theses, GEPI - Observatoire de Paris PSL (2022). [32] M. C. de Ory, V. Rollano, D. Rodriguez, M. T. Magaz, D. Granados, and A. Gomez, Low loss hybrid nb/au superconducting resonators for quantum circuit appli-cations, Advanced Quantum Technologies 8, 2400699 (2025). [33] N. Ashcroft and N. Mermin, Solid State Physics , HRW in-ternational editions (Holt, Rinehart and Winston, 1976). [34] R. C. Zeller and R. O. Pohl, Thermal conductivity and specific heat of noncrystalline solids, Phys. Rev. B 4, 2029 (1971). [35] R. O. Pohl, X. Liu, and E. Thompson, Low-temperature thermal conductivity and acoustic attenuation in amor-phous solids, Rev. Mod. Phys. 74 , 991 (2002). [36] C. Kittel, Introduction to Solid State Physics , 8th ed. (John Wiley & Sons, 2004). [37] A. M. Savin, J. P. Pekola, D. V. Averin, and V. K. Semenov, Thermal budget of superconducting digital circuits at subkelvin temperatures, Journal of Applied Physics 99 , 084501 (2006). [38] F. Pobell, Matter and Methods at Low Temperatures 
+
+(Springer Berlin, Heidelberg, 1996). [39] W. A. Little, The transport of heat between dissimilar solids at low temperatures, Canadian Journal of Physics 
+
+37 , 334 (1959). [40] O. V. Lounasmaa and R. D. Parks, Experimental Prin-ciples and Methods Below 1K (Academic Press, 1974). [41] S. B. Kaplan, C. C. Chi, D. N. Langenberg, J. J. Chang, S. Jafarey, and D. J. Scalapino, Quasiparticle and phonon lifetimes in superconductors, Phys. Rev. B 14 , 4854 (1976). [42] P. J. de Visser, Quasiparticle Dynamics in Aluminium Superconducting Microwave Resonators , Ph.D. thesis, Delft University of Technology (2014). [43] P. C. J. J. Coumou, M. R. Zuiddam, E. F. C. Driessen, P. J. de Visser, J. J. A. Baselmans, and T. M. Klap-wijk, Microwave properties of superconducting atomic-layer deposited tin films, IEEE Transactions on Applied Superconductivity 23 , 7500404 (2013). [44] G. Moshel, O. Rabinowitz, E. Blumenthal, and S. Hacohen-Gourgy, Propagation velocity measurements of substrate phonon bursts using mkids for superconduct-ing circuits, Applied Physics Letters 125 , 222601 (2024). [45] H. J. McSkimin, Measurement of elastic constants at low temperatures by means of ultrasonic waves–data for sil-icon and germanium single crystals, and for fused silica, Journal of Applied Physics 24 , 988 (1953).

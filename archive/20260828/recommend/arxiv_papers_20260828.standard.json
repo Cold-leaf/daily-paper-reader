@@ -1,0 +1,358 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-28T04:00:08.462314+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 3,
+    "deep_cap": 6,
+    "deep_selected": 3,
+    "quick_candidates": 5,
+    "quick_skim_target": 11,
+    "quick_selected": 5
+  },
+  "deep_dive": [
+    {
+      "id": "2608.26811v1",
+      "source": "arxiv",
+      "title": "A review of simulation, measurement techniques, and development in chip thermal design",
+      "abstract": "As integrated circuits advance toward higher power densities, three-dimensional integration, and heterogeneous packaging, chip thermal management has become a key bottleneck limiting device performance, reliability, and lifetime. This article systematically reviews numerical simulation methods and experimental measurement techniques for chip thermal design, with particular emphasis on the technical challenges associated with multiscale and multiphysics coupling, thermal boundary resistance measurement, and high-heat-flux cooling. We first introduce macro- and device-scale thermal simulation methods, including equivalent thermal-circuit models, the finite element method, and computational fluid dynamics, and discuss the application of phonon transport theory and molecular dynamics at microscopic scales. We then examine the advantages and limitations of infrared thermography, thermoreflectance, Raman thermometry, and embedded sensors. Current limitations include the enormous computational cost, inaccurate multiscale coupling, expensive experimental facilities, and the physical limits of conventional cooling technologies. Finally, we discuss emerging directions, including AI-accelerated thermal simulation, embedded microchannel liquid cooling, two-phase cooling, advanced high-thermal-conductivity materials, and multiphysics co-design, with the aim of advancing chip thermal management toward greater efficiency and intelligence.",
+      "authors": [
+        "Junnian Zhou",
+        "Feng Zhou",
+        "Shengying Yue"
+      ],
+      "primary_category": "cond-mat.mtrl-sci",
+      "categories": [
+        "cond-mat.mtrl-sci"
+      ],
+      "published": "2026-08-27T08:49:06+00:00",
+      "link": "https://arxiv.org/pdf/2608.26811v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "comprehensive review of chip thermal simulation, measurement, and heat dissipation methods",
+      "llm_evidence_cn": "芯片热仿真、测量与散热方法的系统综述",
+      "llm_evidence": "芯片热仿真、测量与散热方法的系统综述",
+      "canonical_evidence": "芯片热仿真、测量与散热方法的系统综述",
+      "llm_tldr_en": "This review covers simulation methods (equivalent thermal circuits, FEM, CFD) and measurement techniques for chip thermal design, highlighting multiscale/multiphysics coupling, thermal boundary resistance, and high-heat-flux cooling challenges.",
+      "llm_tldr_cn": "随着功率密度提升和三维集成发展，芯片热管理成为制约性能和可靠性的关键瓶颈。本文系统回顾了芯片热设计的数值模拟方法与实验测量技术，涵盖等效热路模型、有限元法、计算流体动力学及热边界电阻测量等，并讨论了多尺度多物理场耦合与高热流密度冷却等挑战。该综述为芯片热仿真与热测量研究提供了全面参考，有助于指导高效散热方案的设计。",
+      "llm_tldr": "随着功率密度提升和三维集成发展，芯片热管理成为制约性能和可靠性的关键瓶颈。本文系统回顾了芯片热设计的数值模拟方法与实验测量技术，涵盖等效热路模型、有限元法、计算流体动力学及热边界电阻测量等，并讨论了多尺度多物理场耦合与高热流密度冷却等挑战。该综述为芯片热仿真与热测量研究提供了全面参考，有助于指导高效散热方案的设计。",
+      "llm_tags": [
+        "query:thermal-gnn"
+      ],
+      "matched_query_tag": "query:thermal-gnn",
+      "matched_query_text": "methods for managing heat dissipation in microprocessors and chips",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.23404v1",
+      "source": "arxiv",
+      "title": "VIPER: Architecture-Aware Performance Modeling for Processing-in-Memory Design-Space Exploration",
+      "abstract": "Processing-in-Memory (PIM) promises to reduce data movement overhead by executing computation in or near memory, but its realized application speedup remains highly design-dependent. Non-offloadable host execution, host-PIM transfers, limited PIM capacity, and device programming latency can limit end-to-end speedup, making fast early-stage design-space exploration (DSE) essential. However, existing PIM evaluation methods remain limited: circuit- and device-level tools cannot capture these end-to-end PIM performance factors, while cycle-accurate simulation is too slow for iterative DSE. To address this gap, we present VIPER, a unified, lightweight, and architecture-aware performance evaluation framework for PIM DSE. VIPER profiles host execution once and combines the measured host behavior with a PIM-aware analytical engine that sweeps PIM-side parameters across candidate designs. It supports both Processing Near Memory (PNM) and Processing Using Memory (PUM) under task-offloading and data-triggered execution by capturing host-PIM transfer, array access, in-memory computation, device programming latency, and capacity-induced partitioning, providing rapid architecture-aware performance estimates for iterative DSE without repeated cycle-accurate simulation. We validate VIPER against a commercial UPMEM system and more than 400 cycle-accurate gem5 configurations. VIPER predicts the UPMEM offloading decision and break-even region a priori, and, with a refined transfer model, captures the measured peak-and-rolloff behavior with 12\\% mean speedup error across the DPU sweep (6\\% up to the 256-DPU peak). Against gem5, VIPER achieves less than 10\\% error while reducing evaluation time from hours to under one minute. Case studies of UPMEM, ReRAM/FeFET crossbars, and IMCRYPTO show that architecture-aware DSE reveals key performance trade-offs that device-level evaluation misses.",
+      "authors": [
+        "Haoran Geng",
+        "Tomas Sousa Pereira",
+        "Xiaoyang Lu",
+        "Xian-He Sun",
+        "Michael Niemier",
+        "X. Sharon Hu"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-08-24T15:49:56+00:00",
+      "link": "https://arxiv.org/pdf/2608.23404v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Processing-in-Memory performance modeling for design-space exploration",
+      "llm_evidence_cn": "面向存内处理设计空间探索的性能建模",
+      "llm_evidence": "面向存内处理设计空间探索的性能建模",
+      "canonical_evidence": "面向存内处理设计空间探索的性能建模",
+      "llm_tldr_en": "VIPER presents a lightweight architecture-aware performance evaluation framework for Processing-in-Memory design-space exploration, capturing end-to-end factors like host execution, host-PIM transfers, and capacity limits for fast early-stage evaluation.",
+      "llm_tldr_cn": "处理内存(PIM)的性能高度依赖设计选择，现有电路级工具难以刻画端到端因素，周期精确仿真又过慢。本文提出VIPER，一种轻量级、架构感知的统一性能评估框架，对主机执行、主机与PIM间传输、容量限制等关键因素建模。VIPER支持快速的PIM设计空间探索，为近存与存内计算架构的早期评估提供了有效工具。",
+      "llm_tldr": "处理内存(PIM)的性能高度依赖设计选择，现有电路级工具难以刻画端到端因素，周期精确仿真又过慢。本文提出VIPER，一种轻量级、架构感知的统一性能评估框架，对主机执行、主机与PIM间传输、容量限制等关键因素建模。VIPER支持快速的PIM设计空间探索，为近存与存内计算架构的早期评估提供了有效工具。",
+      "llm_tags": [
+        "query:cim:composite"
+      ],
+      "matched_query_tag": "query:cim:composite",
+      "matched_query_text": "Papers central to 存算一体，主要关注基于混合键合的三维堆叠的近存计算, especially work that connects or combines: compute-in-memory architecture; hybrid bonding 3D integration; 3D stacking memory technology; near-memory computing design; processing-in-memory systems; 3D integrated circuit design; What are the key benefits of hybrid bonding for 3D stacked near memory computing?; How does compute in memory architecture improve energy efficiency?; Design challenges of 3D stacking for near memory computing systems.",
+      "matched_requirement_id": "req-composite-cim",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.25781v1",
+      "source": "arxiv",
+      "title": "Update Disturbance-Resilient Analog ReRAM Crossbar Arrays for In-Memory Deep Learning Accelerators",
+      "abstract": "Resistive memory (ReRAM) technologies with crossbar array architectures hold significant potential for analog AI accelerator hardware, enabling both in-memory inference and training. Recent developments have successfully demonstrated inference acceleration by offloading compute-heavy training workloads to off-chip digital processors. However, in-memory acceleration of training algorithms is crucial for more sustainable and power-efficient AI, but still in an early stage of research. This study addresses in-memory training acceleration using analog ReRAM arrays, focusing on a key challenge during fully parallel weight updates: disturbances of the weight values in cross-point devices. A ReRAM device solution is presented on 350 nm silicon technology, utilizing a resistive switching conductive metal oxide (CMO) formed on a nanoscale conductive filament within a HfOx layer. The devices not only exhibit 60 ns fast, non-volatile analog switching, but also demonstrates outstanding resilience to update disturbances, enduring over 100k pulses. The disturbance tolerance of the ReRAM is analyzed using COMSOL Multiphysics simulations, modeling the filament-induced thermoelectric energy concentration that results in a highly nonlinear device responses to input voltage amplitudes. Disturbance-free parallel weight mapping is also demonstrated on the back-end-of-line integrated ReRAM array chip. Finally, comprehensive hardware-aware neural network simulations validate the potential of our ReRAM for in-memory deep learning accelerators capable of fully parallel weight updates.",
+      "authors": [
+        "Wooseok Choi",
+        "Tommaso Stecconi",
+        "Donato Francesco Falcone",
+        "Matteo Galetta",
+        "Victoria Clerico",
+        "Elisa Zaccaria",
+        "Mamidala Saketh Ram",
+        "Antonio La Porta",
+        "Folkert Horst",
+        "Daniel Jubin",
+        "Matias Senger",
+        "Marilyne Sousa",
+        "Steffen Reidt",
+        "Ralph Heller",
+        "Bernabe Linares-Barranco",
+        "Valeria Bragaglia",
+        "Bert Jan Offrein"
+      ],
+      "primary_category": "cs.ET",
+      "categories": [
+        "cs.ET"
+      ],
+      "published": "2026-08-26T13:27:34+00:00",
+      "link": "https://arxiv.org/pdf/2608.25781v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "directly addresses compute-in-memory and processing-in-memory systems for AI accelerators",
+      "llm_evidence_cn": "直接面向AI加速器的存算一体与近存计算系统",
+      "llm_evidence": "直接面向AI加速器的存算一体与近存计算系统",
+      "canonical_evidence": "直接面向AI加速器的存算一体与近存计算系统",
+      "llm_tldr_en": "In-memory training is critical for sustainable AI but faces weight update disturbances in analog ReRAM crossbars. This paper presents a ReRAM device solution that is disturbance-resilient during fully parallel weight updates, advancing in-memory training acceleration toward power-efficient hardware.",
+      "llm_tldr_cn": "模拟ReRAM交叉阵列虽有望实现存内推理与训练，但全并行权重更新时的扰动问题严重制约存内训练发展。该研究聚焦这一关键挑战，提出一种抗更新扰动的ReRAM器件方案，在35纳米级阵列上验证了训练加速的可行性。该工作为可持续、低功耗AI硬件提供了一条重要路径，推进了存算一体架构在深度学习训练中的实用化。",
+      "llm_tldr": "模拟ReRAM交叉阵列虽有望实现存内推理与训练，但全并行权重更新时的扰动问题严重制约存内训练发展。该研究聚焦这一关键挑战，提出一种抗更新扰动的ReRAM器件方案，在35纳米级阵列上验证了训练加速的可行性。该工作为可持续、低功耗AI硬件提供了一条重要路径，推进了存算一体架构在深度学习训练中的实用化。",
+      "llm_tags": [
+        "query:cim:composite"
+      ],
+      "matched_query_tag": "query:cim:composite",
+      "matched_query_text": "Papers central to 存算一体，主要关注基于混合键合的三维堆叠的近存计算, especially work that connects or combines: compute-in-memory architecture; hybrid bonding 3D integration; 3D stacking memory technology; near-memory computing design; processing-in-memory systems; 3D integrated circuit design; What are the key benefits of hybrid bonding for 3D stacked near memory computing?; How does compute in memory architecture improve energy efficiency?; Design challenges of 3D stacking for near memory computing systems.",
+      "matched_requirement_id": "req-composite-cim",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2608.22613v1",
+      "source": "arxiv",
+      "title": "NOVA: Technology-Architecture Co-Design of Near-Memory Processing for Attention-SSM-MoE Hybrid LLM Inference",
+      "abstract": "The rapid evolution of hybrid large language models (LLMs), which interleave grouped-query-attention (GQA), state-space model (SSM), and Mixture-of-Experts (MoE) layers, introduces two fundamental challenges for near-memory processing (NMP) architectures. First, the Technology Wall: the conventional 6F^2 DRAM cell is approaching its physical scaling limits at 10nm-class nodes, making it difficult to meet the memory capacity demands of MoE models with hundreds of experts. Second, the Architecture Wall: existing NMP designs target narrow arithmetic intensity (Op/B) ranges and cannot efficiently support the heterogeneous compute characteristics of hybrid LLMs, spanning memory-bound SSM layers, compute-intensive GQA layers, and large Op/B variations across experts. We propose NOVA, a technology-architecture co-designed NMP system that overcomes both walls. On the technology side, NOVA combines a 4F^2 vertical channel transistor (VCT) DRAM cell with a peri-over-cell (POC) structure to achieve approximately 2x memory density at iso-area over conventional 6F^2-based DRAM, enabling continued scaling into sub-10nm nodes. On the architecture side, NOVA repurposes the POC peripheral-die (peri-die) to host processing units, forming a 2-tier NMP architecture: Tier-1 (peri-die NMP) for low-to-mid Op/B operations, and Tier-2 (base-die NMP) for mid-to-high Op/B operations. Parallel execution across tiers supports diverse compute patterns for hybrid LLMs, maximizing inference performance. Evaluated on state-of-the-art hybrid and MoE LLMs including Nemotron3-Nano, Nemotron3-Super, Falcon-H1R, and Qwen3, NOVA achieves on average 4.5x higher throughput, 69.8% lower end-to-end latency, and 5x better energy efficiency over a GPU baseline, with only 3.9% area overhead and no loss in memory capacity.",
+      "authors": [
+        "In-Jun Jung",
+        "Jaeha Min",
+        "Joo-Young Kim"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-08-23T21:38:46+00:00",
+      "link": "https://arxiv.org/pdf/2608.22613v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "near-memory processing (NMP) architecture co-design for hybrid LLM inference",
+      "llm_evidence_cn": "面向混合大模型推理的近存处理架构协同设计",
+      "llm_evidence": "面向混合大模型推理的近存处理架构协同设计",
+      "canonical_evidence": "面向混合大模型推理的近存处理架构协同设计",
+      "llm_tldr_en": "NOVA co-designs technology and architecture for near-memory processing of hybrid LLMs, tackling DRAM scaling limits and heterogeneous compute characteristics across GQA, SSM, and MoE layers, improving inference efficiency and energy.",
+      "llm_tldr_cn": "混合LLM推理给近存处理架构带来技术墙与架构墙双重挑战：DRAM单元缩放逼近物理极限，现有NMP设计无法覆盖异构计算需求。本文提出NOVA，通过技术-架构协同设计优化近存处理架构，针对GQA、SSM和MoE层的特点进行专门适配。结果表明NOVA能有效缓解存储器容量与能效瓶颈，提升推理性能与能效。该工作为存算一体/近存计算芯片设计提供了新思路。",
+      "llm_tldr": "混合LLM推理给近存处理架构带来技术墙与架构墙双重挑战：DRAM单元缩放逼近物理极限，现有NMP设计无法覆盖异构计算需求。本文提出NOVA，通过技术-架构协同设计优化近存处理架构，针对GQA、SSM和MoE层的特点进行专门适配。结果表明NOVA能有效缓解存储器容量与能效瓶颈，提升推理性能与能效。该工作为存算一体/近存计算芯片设计提供了新思路。",
+      "llm_tags": [
+        "query:cim:composite"
+      ],
+      "matched_query_tag": "query:cim:composite",
+      "matched_query_text": "Papers central to 存算一体，主要关注基于混合键合的三维堆叠的近存计算, especially work that connects or combines: compute-in-memory architecture; hybrid bonding 3D integration; 3D stacking memory technology; near-memory computing design; processing-in-memory systems; 3D integrated circuit design; What are the key benefits of hybrid bonding for 3D stacked near memory computing?; How does compute in memory architecture improve energy efficiency?; Design challenges of 3D stacking for near memory computing systems.",
+      "matched_requirement_id": "req-composite-cim",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2608.27057v1",
+      "source": "arxiv",
+      "title": "Fast On-Chip Thermometry with TiN Kinetic Inductance Resonators in 22 nm Process Technology",
+      "abstract": "Understanding the temporal and spatial dependence of temperature is critical in high-performance cryogenic devices. Typical thermometry techniques struggle to simultaneously combine high bandwidth, sensitivity and on-chip integration, limiting their ability to measure fast intra-device thermal fluctuations. Here, we demonstrate a time-resolved thermometry platform based on TiN kinetic inductance resonators integrated in a 22 nm FDSOI chip. By tracking temperature-dependent shifts in the resonant frequency, we achieve sub-millikelvin temperature sensitivity down to temperatures of 100 mK. Time-resolved on-chip pulsed heating experiments as a function of distance reveal an onset delay, consistent with a quasi-ballistic heat propagation velocity of 3.9 ${\\pm}$ 0.1 mm $μ$s${}^{-1}$. We also show that elevated temperatures increase net thermal conductance, shortening thermal relaxation times across all spatial separations. This behaviour manifests in two distinct regimes: a substrate-limited regime at 100 mK, where cooling rates vary with heater distance, and a Kapitza boundary-limited regime at 400 mK, where thermal relaxation becomes more spatially uniform.These measurements demonstrate kinetic inductance thermometry's ability to rapidly probe non-equilibrium temperature dynamics in cryogenic devices such as quantum processors.",
+      "authors": [
+        "Johann Drayne",
+        "George Ridgard",
+        "Lorenzo Peri",
+        "Frederic Schlattner",
+        "Fabio Olivieri",
+        "Mathieu de Kruijf",
+        "Isaac Harris",
+        "Grayson Noah",
+        "James Kirkman",
+        "Alberto Gomez-Saiz",
+        "M. Fernando Gonzalez-Zalba",
+        "Thomas Swift"
+      ],
+      "primary_category": "quant-ph",
+      "categories": [
+        "quant-ph",
+        "cond-mat.mes-hall"
+      ],
+      "published": "2026-08-27T12:42:43+00:00",
+      "link": "https://arxiv.org/pdf/2608.27057v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "on-chip thermometry method useful for evaluating thermal model accuracy",
+      "llm_evidence_cn": "片上测温方法可用于评估热模型精度",
+      "llm_evidence": "片上测温方法可用于评估热模型精度",
+      "canonical_evidence": "片上测温方法可用于评估热模型精度",
+      "llm_tldr_en": "A fast on-chip thermometry platform using TiN kinetic inductance resonators in 22nm FDSOI achieves sub-millikelvin sensitivity, enabling time-resolved thermal measurements for validating chip thermal models.",
+      "llm_tldr_cn": "面向低温高性能器件，快时变温度测量对理解器件热行为至关重要。本文在22nm FDSOI芯片中集成TiN动力学电感谐振器，通过谐振频率随温度的变化实现亚毫开尔文灵敏度的片上快速测温。时间分辨的片上脉冲加热实验揭示了距离相关的热传播起始延迟，与准弹道热输运一致。该平台为芯片热模型验证提供高带宽、高灵敏的实验手段。",
+      "llm_tldr": "面向低温高性能器件，快时变温度测量对理解器件热行为至关重要。本文在22nm FDSOI芯片中集成TiN动力学电感谐振器，通过谐振频率随温度的变化实现亚毫开尔文灵敏度的片上快速测温。时间分辨的片上脉冲加热实验揭示了距离相关的热传播起始延迟，与准弹道热输运一致。该平台为芯片热模型验证提供高带宽、高灵敏的实验手段。",
+      "llm_tags": [
+        "query:thermal-gnn"
+      ],
+      "matched_query_tag": "query:thermal-gnn",
+      "matched_query_text": "approaches for evaluating the accuracy of thermal models in microelectronics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2608.24637v1",
+      "source": "arxiv",
+      "title": "Thermal Tuning Overhead in Wafer-Scale Optical Interconnects for LLM MoE Training: A Cross-Layer Analysis and Ferroelectric-Based Mitigation",
+      "abstract": "The rapid scaling of large language models (LLMs), particularly mixture-of-experts (MoE) architectures, has intensified interconnect demands because expert-parallel execution is communication-intensive. Wafer-scale optical interconnects based on dense wavelength-division multiplexing (DWDM) offer a promising path to higher bandwidth; however, conventional microring-resonator (MRR)-based links rely on thermo-optic tuning and are therefore vulnerable to workload-induced thermal fluctuations. In this work, we present a cross-layer analysis of wafer-scale optical interconnects for MoE workloads that combines workload profiling, packet-level network simulation, and transient thermal analysis. We implement a wafer-scale topology in the ht-sim simulator and construct an Ansys thermal model of a 3D-integrated GPU/EIC/PIC stack. Our results show that transient temperature variations can exceed the tracking capability of conventional thermo-optic control loops and thereby introduce repeated tuning stalls during communication phases. The stall durations injected into the network simulation are derived directly from the thermal model rather than assumed. We further evaluate a ferroelectric-based electro-optic tuning mechanism that removes the continuous thermal-tuning requirement. In a four-layer proxy simulation across three MoE models, eliminating the tuning stalls yields speedups of 2.7x for Mixtral 8x7B, 3.8x for Qwen-MoE 14.3B, and 3.3x for LLaMA-MoE 6.7B relative to the thermo-optic case. These results indicate that minimizing photonic tuning latency is important for realizing the performance potential of optical interconnects in large-scale AI systems.",
+      "authors": [
+        "Seongwon Yoon",
+        "Pin-Jun Chen",
+        "Shimeng Yu"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-08-25T14:48:53+00:00",
+      "link": "https://arxiv.org/pdf/2608.24637v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "transient thermal analysis of chip-scale optical interconnects and thermal management",
+      "llm_evidence_cn": "芯片级光互连的瞬态热分析与热管理",
+      "llm_evidence": "芯片级光互连的瞬态热分析与热管理",
+      "canonical_evidence": "芯片级光互连的瞬态热分析与热管理",
+      "llm_tldr_en": "A cross-layer analysis of wafer-scale optical interconnects for LLM MoE training reveals workload-induced thermal fluctuation issues and proposes ferroelectric-based mitigation to reduce thermal tuning overhead.",
+      "llm_tldr_cn": "面向大语言模型混合专家训练的晶圆级光互连对带宽需求极高，但基于微环谐振器的链路依赖热光调谐，易受工作负载热波动影响。本文结合工作负载剖析、网络级仿真与瞬态热分析，跨层量化了热调谐开销。研究进一步提出基于铁电材料的缓解方案，以降低热波动带来的性能损失。该工作为大规模芯片互连热仿真与热管理提供了新视角。",
+      "llm_tldr": "面向大语言模型混合专家训练的晶圆级光互连对带宽需求极高，但基于微环谐振器的链路依赖热光调谐，易受工作负载热波动影响。本文结合工作负载剖析、网络级仿真与瞬态热分析，跨层量化了热调谐开销。研究进一步提出基于铁电材料的缓解方案，以降低热波动带来的性能损失。该工作为大规模芯片互连热仿真与热管理提供了新视角。",
+      "llm_tags": [
+        "query:thermal-gnn"
+      ],
+      "matched_query_tag": "query:thermal-gnn",
+      "matched_query_text": "computer simulation of temperature fields in integrated circuits",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2608.25155v1",
+      "source": "arxiv",
+      "title": "An Open-Source Benchmark Suite of 3D-IC Testcases",
+      "abstract": "The physical design community has benefited from standardized, publicly available benchmark suites, which have enabled reproducible evaluation and driven significant advances in 2D place-and-route algorithms over the past three decades. However, the emergence of 3D heterogeneous integration technologies, including through-silicon vias (TSVs), hybrid bonding, and chiplet-based architectures, has introduced new physical design challenges that are not captured by existing planar benchmarks. Although several 3D-IC design examples have been reported, publicly accessible and scalable benchmark suites that enable reproducible evaluation across different 3D physical design problems remain limited. In this paper, we present an open-source suite of 3D-IC benchmark testcases derived from representative chiplet-based case studies in CATCH, an open-source framework for estimating the cost of heterogeneous integration architectures. The proposed benchmark suite provides reusable virtual chiplet models covering compute, memory, I/O, analog, and substrate components. Each testcase captures essential physical design characteristics of 3D systems, including heterogeneous die integration, inter-die connectivity, and technology-dependent design constraints. By publicly releasing these benchmarks, we aim to establish a common evaluation platform and accelerate community-wide research progress in 3D heterogeneous integration.",
+      "authors": [
+        "Rohan Soni",
+        "Jooyeon Jeong",
+        "Alexander Graening",
+        "Anthony Foo",
+        "Richard Chen",
+        "Puneet Gupta"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-08-25T21:04:44+00:00",
+      "link": "https://arxiv.org/pdf/2608.25155v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Open-source benchmark suite for 3D-IC physical design with hybrid bonding and TSV",
+      "llm_evidence_cn": "面向混合键合与TSV三维集成的开源3D-IC基准测试套件",
+      "llm_evidence": "面向混合键合与TSV三维集成的开源3D-IC基准测试套件",
+      "canonical_evidence": "面向混合键合与TSV三维集成的开源3D-IC基准测试套件",
+      "llm_tldr_en": "This paper presents an open-source suite of 3D-IC benchmark testcases derived from realistic designs, covering TSV, hybrid bonding, and chiplet architectures, to support reproducible evaluation across 3D physical design problems.",
+      "llm_tldr_cn": "现有物理设计基准以二维为主，无法体现TSV、混合键合和芯粒等三维异构集成的新挑战。本文发布了一套开源、可扩展的3D-IC基准测试用例，覆盖多种三维物理设计问题，支持可复现的评估。该基准套件填补了公共3D-IC基准的空白，为三维集成设计工具和算法研究奠定了基础。",
+      "llm_tldr": "现有物理设计基准以二维为主，无法体现TSV、混合键合和芯粒等三维异构集成的新挑战。本文发布了一套开源、可扩展的3D-IC基准测试用例，覆盖多种三维物理设计问题，支持可复现的评估。该基准套件填补了公共3D-IC基准的空白，为三维集成设计工具和算法研究奠定了基础。",
+      "llm_tags": [
+        "query:cim:composite"
+      ],
+      "matched_query_tag": "query:cim:composite",
+      "matched_query_text": "Papers central to 存算一体，主要关注基于混合键合的三维堆叠的近存计算, especially work that connects or combines: compute-in-memory architecture; hybrid bonding 3D integration; 3D stacking memory technology; near-memory computing design; processing-in-memory systems; 3D integrated circuit design; What are the key benefits of hybrid bonding for 3D stacked near memory computing?; How does compute in memory architecture improve energy efficiency?; Design challenges of 3D stacking for near memory computing systems.",
+      "matched_requirement_id": "req-composite-cim",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2608.25980v1",
+      "source": "arxiv",
+      "title": "Watching a GaN Transistor Switch: Real-Time Nanoscale Strain and Heat Dynamics",
+      "abstract": "Digital and energy technologies depend on microelectromechanical and power electronic components whose performance is critically impacted by rapid, cyclic deformations. Real-time information on their operation has remained inaccessible due to the need for nanosecond and nanometer resolution in fully integrated devices. We break this limitation by imaging the complete switching cycle of an industrial GaN high electron mobility transistor through stroboscopic dark field X ray microscopy at a fourth-generation synchrotron, resolving electromechanical and thermal micro strain fields across the entire device and correlating them with time dependent voltage characteristics. Coupled simulations benchmarked against the measurements reproduce electric field evolution and transient thermal hotspots. This combined approach provides direct insight into device physics and informs design strategies for next generation energy and information processing technologies.",
+      "authors": [
+        "C. Corley-Wiciak",
+        "N. T. Sammler",
+        "B. Butej",
+        "M. Petersmann",
+        "A. A. Corley-Wiciak",
+        "L. Neumann",
+        "Juan M. Carrillo-Larrea",
+        "P. Schmiedeke",
+        "M. Strätgen",
+        "P. A. Douissard",
+        "S. J. Leake",
+        "P. Boesecke",
+        "M. Sievers",
+        "P. Imrich",
+        "M. Nelhiebel",
+        "M. Glavanovics",
+        "D. Pogany",
+        "M. Reisinger",
+        "T. U. Schulli"
+      ],
+      "primary_category": "cond-mat.mtrl-sci",
+      "categories": [
+        "cond-mat.mtrl-sci",
+        "physics.app-ph"
+      ],
+      "published": "2026-08-26T16:33:56+00:00",
+      "link": "https://arxiv.org/pdf/2608.25980v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Resolves thermal micro-strain fields in a GaN transistor via coupled simulation and synchrotron X-ray imaging",
+      "llm_evidence_cn": "通过同步辐射X射线成像与耦合仿真解析GaN晶体管中的热微应变场",
+      "llm_evidence": "通过同步辐射X射线成像与耦合仿真解析GaN晶体管中的热微应变场",
+      "canonical_evidence": "通过同步辐射X射线成像与耦合仿真解析GaN晶体管中的热微应变场",
+      "llm_tldr_en": "Real-time nanoscale heat and strain dynamics of a switching GaN transistor are captured by stroboscopic dark-field X-ray microscopy; coupled simulations benchmarked against the measurements reproduce the thermal and electric fields.",
+      "llm_tldr_cn": "针对功率晶体管在快速开关循环中因热-机-电耦合导致的性能退化难以实时观测的问题，本文利用第四代同步辐射源的频闪暗场X射线显微镜，以纳米级空间和时间分辨率成像工业GaN高电子迁移率晶体管完整开关周期内的应变与热微应变场，并将测量结果与耦合仿真相互校准。研究表明该方法能重现与时间相关电压特性对应的瞬态热力学过程，为集成器件实时热-力-电协同表征提供了新途径。",
+      "llm_tldr": "针对功率晶体管在快速开关循环中因热-机-电耦合导致的性能退化难以实时观测的问题，本文利用第四代同步辐射源的频闪暗场X射线显微镜，以纳米级空间和时间分辨率成像工业GaN高电子迁移率晶体管完整开关周期内的应变与热微应变场，并将测量结果与耦合仿真相互校准。研究表明该方法能重现与时间相关电压特性对应的瞬态热力学过程，为集成器件实时热-力-电协同表征提供了新途径。",
+      "llm_tags": [
+        "query:thermal-gnn"
+      ],
+      "matched_query_tag": "query:thermal-gnn",
+      "matched_query_text": "computer simulation of temperature fields in integrated circuits",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

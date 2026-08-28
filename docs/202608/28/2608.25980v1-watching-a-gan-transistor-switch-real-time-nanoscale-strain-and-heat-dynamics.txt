@@ -1,0 +1,364 @@
+Title: 2608.25980v1.pdf
+
+URL Source: https://arxiv.org/pdf/2608.25980v1
+
+Published Time: Thu, 27 Aug 2026 01:16:39 GMT
+
+Number of Pages: 21
+
+Markdown Content:
+1
+
+## Watching a GaN Transistor Switch: Real-Time Nanoscale Strain and Heat Dynamics 
+
+Cedric Corley-Wiciak 1* , Nicolas-Til Sammler 2, Boris Butej 2, Manuel Petersmann 2,Agnieszka A. Corley-Wiciak 1, Laura Neumann 3, Juan M. Carrillo-Larrea 1, Paul Schmiedeke 4,Marc Strätgen 5, Paul-Antoine Douissard 1, Steven J. Leake 1, Peter Boesecke 1, Markus Sievers 2,Peter Imrich 2, Michael Nelhiebel 2, Michael Glavanovics 2, Dionyz Pogany 6, Michael Reisinger 2* ,Tobias U. Schulli 1
+
+> 1
+
+ESRF – The European Synchrotron; 38000 Grenoble, France. 
+
+> 2
+
+KAI GmbH  - Kompetenzzentrum Automobil - und Industrieelektronik ; 9524  Villach, 
+
+Austria .
+
+> 3
+
+IKTS  - Fraunhofer -Institut für Keramische Technologien und Systeme ; 01277  Dresden, 
+
+Germany .
+
+> 4
+
+Infineon  Technologies AG ; 85579  Neubiberg, Germany .
+
+> 5
+
+Infineon Technologies Austria AG; 9500 Villach, Austria. 
+
+> 6
+
+Institute of Solid State Electronics, TU Wien; 1040 Vienna, Austria. 
+
+*Corresponding authors. Email: corley@esrf.fr, Michael.Reisinger@k-ai.at 
+
+Digital and energy technologies depend on microelectromechanical and power electronic components whose performance is critically impacted by rapid, cyclic deformations. Real-time information on their operation has remained inaccessible due to the need for nanosecond and nanometer resolution in fully integrated devices. We break this limitation by imaging the complete switching cycle of an industrial GaN high electron mobility transistor through stroboscopic dark field X ray microscopy at a fourth-generation synchrotron, resolving electromechanical and thermal micro strain fields across the entire device and correlating them with time dependent voltage characteristics. Coupled simulations benchmarked against the measurements reproduce electric field evolution and transient thermal hotspots. This combined approach provides direct insight into device physics and informs design strategies for next generation energy and information processing technologies. 2
+
+The transition of our economy to a more sustainable and interconnected future relies heavily on advanced functional materials, such as wide‑bandgap semiconductors [1, 2], which enable efficient power conversion in electric vehicles [3], industrial systems [4, 5], and emerging microelectronic platforms [6, 7]. During many such applications, devices are subjected to rapidly varying electric fields and high power densities [8], generating electromechanical deformation and transient thermal hotspots that critically influence performance and reliability [9, 10]. Today, the sub-microscopic dynamics governing these processes remain largely inaccessible in operating devices generally, as conventional characterization tools cannot probe buried active regions with the required nanometer spatial and nanosecond temporal resolution at high frequency [11, 12]. As a result, the development of next‑generation materials-based power electronics is largely reliant on theoretical models whose predictions cannot be directly validated [13]. 
+
+The recent advent of fourth-generation synchrotron sources with unprecedented brightness has enabled a transition from static strain imaging by X-ray diffraction microscopy to recording real‑time movies of lattice dynamics at kHz- MHz repetition rates [14, 15, 16]. Here we leverage stroboscopic Dark‑Field X‑ray Microscopy (DFXM) [17], applied to an industrial (Al)GaN high‑electron‑mobility transistor (HEMT) as a case study to directly visualize electromechanical and thermal strain evolution in a functional device during its OFF/ON switching cycle [18, 19]. An image sequence with ~100 nm and ~1 ns resolution reveals the spatio-temporal distribution of compressive and tensile deformation inside the active region, while simultaneous electrical measurements allow correlation of strain transients with the build-up of electric fields and power dissipation. Comparison with coupled Technology Computer-Aided Design (TCAD) and Finite Element Method (FEM) simulations yields an experimentally validated model of the electrical, thermal, and mechanical processes that govern operation under realistic working conditions. These results establish operando X‑ray microscopy as a powerful approach for uncovering nanoscale mechanisms that broadly limit the performance and reliability of materials and devices, extending well beyond microelectronics to batteries, catalysts, and other systems driven by transient external stimuli. 3
+
+# HEMT Pre-Characterization 
+
+Fig. 1a shows a top-view optical micrograph of the HEMT, consisting of four transistor structures connected in parallel, with a source-drain distance of 10 μm and a gate width of ~350 μm. The area investigated in this work, indicated by the shading, covers nearly the entire active area of the device. 
+
+The epitaxial (Al)GaN heterostructure, sketched in 
+
+Fig. 1b , is grown on a Si(111) substrate and consists of a~2 μm thick transition layer accommodating lattice and thermal mismatch between Si and GaN [20], a ~1 μm thick carbon-doped GaN layer (GaN:C) layer with a doping concentration of roughly 10 19 cm -3 , a ~400 nm unintentionally doped GaN (GaN:uid) channel, and a~60 nm thick Al 0.2 Ga 0.8 Nbarrier. The metallic gate, source, and drain electrodes are fabricated lithographically with a TiN contact layer. The sample is protected from environmental influences by a SiN passivation layer. 
+
+The GaN HEMT is subjected to switching with a capacitive load (see Supporting Figure 1). The drain supply voltage was set to VDD = 400 V, while the gate-source voltage was switched between 
+
+VGS = 0 V (OFF) and VGS = 4 V (ON) at a frequency f = 355 kHz and a duty cycle DC = 20%. As shown in Fig. 1c , VDD = 400 V was selected such that the global ON-state resistance RDS,on remains approximately constant throughout the experiment, while it increases over time for higher VDD .Thus, the chosen operating point minimized changes associated with trapping, allowing to focus on intrinsic physical processes during switching. 
+
+# Stroboscopic Strain Imaging 
+
+Fig. 2a depicts the time-dependent waveforms of drain-source voltage VDS (t), VGS (t), and drain current ID(t) during a single switching cycle. In the OFF-state ( VGS = 0 V) the device blocks with 
+
+VDS ≈ VDD = 400 V. During turn-ON starting at 𝑡 OFF = -580 ns, VGS is switched to 4 V and ID rises, reaching a maximum of ~200 mA at t ≈ -490 ns, while simultaneously VDS gradually reduces, reaching the ON-state value VDS ≈ 0 at 𝑡 ON = -390 ns. Subsequently, ID decreases to a plateau of 
+
+> Figure 1: HEMT device layout and (Al)GaN/Si heterostructure
+
+a, Optical micrography in top-view of the HEMT, the extents of gate, source, and drain electrodes are indicated by the dashed lines, the pink shading indicates the area measured by DFXM, the dashed blue box indicates the cross-section shown in b, Sketch of the epitaxial heterostructure with arrows depicting the lateral and vertical electric fields during OFF-state. c, ON-state resistance vs. hard-switching operation time for different drain supply voltages VDD .4
+
+~40 mA during the ON-state. At t = 0, VGS is switched back to 0 V and the device turns OFF, with 
+
+VDS gradually returning toward 400 V and ID decreasing to zero. The strain dynamics induced in the semiconductor material by switching the voltage are captured through stroboscopic DFXM at the hard X-ray microscopy beamline ID01/ESRF [21], with the experimental setup sketched in 
+
+Fig. 2b . Using compound refractive lenses (CRLs) as imaging objective, measurement of the 0002 Bragg reflection probes the out-of-plane lattice strain 𝛥𝜀 zz at each position ( X, Y) on the sample, integrated along the combined thickness of the GaN:uid and GaN:C sublayers. The switching of 
+
+VGS (t) is synchronized to the repetition frequency of the X-ray pulses, which have a length of ~ 40 ps, and the detector gating, enabling to image the device at a series of points during the OFF/ON cycle by scanning the delay between electrical switching and X-ray probe. In total, a 3D dataset 
+
+𝜀 zz (𝑡, 𝑥, 𝑦) is obtained (see Supporting Figure 3), from which we define the differential strain 
+
+𝛥𝜀 zz (𝑡, 𝑥, 𝑦) as relative change with respect to t = 0: 
+
+𝛥𝜀 zz (𝑡, 𝑥, 𝑦) = 𝜀 zz (𝑡, 𝑥, 𝑦) − 𝜀 zz (𝑡 = 0, 𝑥, 𝑦) (1) 
+
+Fig. 2c presents a selection of twelve representative images extracted from the full switching movie of the transistor (see Supporting Figure 4 for all 64 frames). These ‘snapshots’ capture key moments in the spatio-temporal strain evolution, with compressed/tensile regions depicted in blue and red, respectively. 
+
+There are two pronounced dynamic phenomena present at each of the four parallel regions: (1) A compressive strain field of 𝛥𝜀 zz ≈ −2 ∗ 10 −4 in the area between gate and drain, which is steady during the OFF-state, and (2) a tensile strain of up to 𝛥𝜀 zz ≈ +1.5 ∗ 10 −4 by the gate edge during turn-ON. By correlating the two types of dynamic strain fields with the time-dependent electronic waveform recorded simultaneously, we can attribute (1) to the IPE response of the GaN lattice from the change of the electrical field ( 𝛥𝜀 zz,IPE ~ VDS (t)) [12], and (2) to localized Joule heating (𝛥𝜀 zz,T ~ ID(t)) [9]: 
+
+𝛥𝜀 zz (𝑡, 𝑥, 𝑦) = 𝛥𝜀 zz,IPE (𝑡, 𝑥, 𝑦) + 𝛥𝜀 zz,T (𝑡, 𝑥, 𝑦) (2) 
+
+In the following, we describe the exact dynamics and origins of both effects. 
+
+# Electro-Thermal Dynamics 
+
+During OFF-state, we expect a two-dimensional (2D) electrical field 𝐸⃗ = [𝐸 x 0 𝐸 z] in the area between gate and drain. Since the experiment probes the differential out-of-plane strain 𝛥𝜀 zz ,which is unaffected by the lateral field component Ex [32], we focus the discussion on the vertical field Ez. In a wurtzite lattice structure, this component is linked to the corresponding strain 5
+
+> Figure 2: Spatio-temporal strain imaging by DFXM
+> I
+
+a, Time‐dependent waveforms of drain‐source voltage VDS (t), gate‐source voltage VGS (t), and drain current ID(t) during switching. b, Setup for stroboscopic DFXM. c, Spatial images of the dynamic strain 𝛥𝜀 zz (𝑡) = 𝜀 zz (𝑡) − 𝜀 zz (𝑡 = 0) for 12 points in time, all panels share the same scale and color bars, the dashed lines indicate the center of gate and drain electrodes. d, 
+
+Dynamic strain profiles 𝛥𝜀 zz (𝑥) across the entire HEMT at the same points in time, taken from the strain images, the shading indicates the extent of gate (G) and drain (D) electrodes. 6
+
+modulation 𝛥𝜀 zz,IPE by the piezoelectric coefficients d31 , d33 and Poisson number ν13 , accounting for the Poisson effect [22]: 
+
+𝛥𝜀 zz,IPE = (𝑑 33 − 2𝑑 31 
+
+1𝜈 13 − 1 ) 𝐸 z (3) 
+
+Using literature values of d31 = -1.4 pm/V, d33 = 2.7 pm/V [23], and ν13 = 0.183 for GaN [24], compressive strain can be directly related to a downwards-pointing electric field of 𝐸 z ≈ −0.6 MV cm 
+
+in the gate-drain region during OFF-state ( t < -580 ns, Fig. 2c1 ). Through the course of the switching, the magnitude of the strain, and thus the corresponding electric field, follows the trend of VDS (t). When turning ON at t > -580 ns ( c2 ), the compressive strain field reduces ( c3-6 ), disappearing in the ON-state ( c7-9 ), and rebuilding gradually when switching OFF again after t >0 ns ( c10-12 ). 
+
+In the turn-ON phase, tensile strain is generated along the drain-sided gate edge ( Fig. 2c3-4 ), reaching a maximum value of 𝛥𝜀 zz,T ≈ +1.5*10 -4 between t = -500 ns and t = -450 ns ( c5-6 ). This tension cannot be caused by the IPE, since it would require switching to an upwards-pointing electric field, which is an unreasonable assumption in the device. Instead, this strain field is attributed to thermal expansion due to self-heating during turn-ON [25]. During this period, ID
+
+strongly increases, while simultaneously the voltage has not yet settled into its small ON-state value, resulting in a strong voltage-current overlap and an associated dissipation of electrical power 𝑃(𝑡) [26, 27]: 
+
+𝑃 = ∫ 𝑉 DS (𝑡)I D(𝑡)𝑑𝑡 
+
+> 𝑡 ON
+> 𝑡 OFF
+
+(4) 
+
+In the ON-state , electrical power dissipation is small due to the low VDS and the hot areas are passively cooled via thermal conduction ( c7-9 ), with the thermal strain disappearing after t > 100 ns ( c10-12 ), as the active region approaches thermal equilibrium. 
+
+The translation of thermal strain to temperature T is complex for spatially inhomogeneous distributions and may not be easily expressed by an analytic equation [28]. Moreover, the study of spatial strain profiles 𝛥𝜀 zz (x) across the HEMT, plotted in Fig. 2d , reveals gradients from each gate towards the corresponding drain electrodes during OFF-state, turn-ON and turn-OFF, e.g. in the region indicated by the small arrows. 
+
+This indicates a gradient in the electric field and/or temperature at the gate edge, warranting a detailed consideration of localized potential and heating. A powerful means in the interpretation of operando strain data is the comparison of mechanical models to the experiment [29, 30], thus TCAD simulations of the device are performed, using as input the material parameters and measured time-dependent I-V characteristics. 
+
+We note that at all times, the strain evolution appears identical within each of the four parallel regions of the HEMT. Furthermore, there are no significant gradients of the differential strain along the electrodes, indicating uniform electric potential and temperature in y-direction 
+
+(∂𝛥𝜀 zz  
+
+> ∂y
+
+≈ 0) . Thus, all relevant electromechanical processes may be reproduced in a model in cross-section view ( xz-plane) of a single gate-drain region, with x perpendicular to the electrodes 7
+
+and z representing the depth. Fig. 3a shows simulated spatial distributions of the electric potential at four points in time during switching: OFF-state ( t < -580 ns); maximum power dissipation in turn-ON ( t = -490 ns); end of ON-state ( t = 0); turn-OFF ( t =1000 ns). In the OFF-state, in the area between gate and drain there are lateral and depth-dependent potential gradients, reaching the maximum of VDS = 400 V underneath the drain contact. During turn-ON, the potential reduces in the active region, approaching a negligible value in the ON-state and recovering the original spatial distribution during the turn-OFF. 
+
+Furthermore, the TCAD model incorporates electrothermal dynamics, providing temperature distributions in the device, presented in Fig. 3b . In the OFF-state, the temperature is homogenous. During turn-ON, a thermal hotspot occurs at the surface, near the drain-side edge of the gate electrode, with a maximum heating of Δ T ≈ +70 K . The temperature in the (Al)GaN layers decreases with distance to the hotspot, which also dissipates over time, having reduced to Δ T < 30 K at the end of the ON-state, and disappearing during turn-OFF. 
+
+To obtain the same physical quantity as probed by the experiment, a FEM model in COMSOL Multiphysics was employed to translate electric field and temperature distributions from TCAD into the differential strain 𝛥𝜀 zz (𝑡, 𝑥, 𝑦) , with the definition from Eq. (1). Images of the individual contributions from IPE 𝛥𝜀 zz,IPE and thermal strain 𝛥𝜀 zz,T are provided in Supporting Figure 6, their sum is presented in Fig. 3c . The combined TCAD and FEM simulations predict that GaN and transition layer are under compressive strain between gate and drain during OFF-state and turn-OFF due to the downwards potential gradient. 
+
+However, in the turn-ON, the thermal hotspot generates tensile strain in the GaN layer by the gate. Interestingly, the transition layer is predicted to become more compressive underneath the hotspot instead, due to the pressure exerted downwards as the upper layers expand. 
+
+> Figure 3: Modelling of electrical and thermal dynamics
+
+a, TCAD simulations of electric potential V in cross-section of the HEMT for four points in time. b, Temperature T in the same model. c, FEM simulation of the differential lattice strain 
+
+𝛥𝜀 zz (𝑡) .8
+
+For quantitative comparison of experiment and modelling, the 3D DFXM dataset 𝛥𝜀 zz (𝑡, 𝑥, 𝑦) 
+
+is reduced by averaging along y-
+
+direction, yielding the 2D spatio-temporal distribution of differential strain 𝛥𝜀 zz (𝑡, 𝑥) 
+
+plotted in Fig. 4a . Remarkably, the separation of IPE and heating is generally straightforward from this visualization due to the fine spatio-temporal resolution of the experimental data, as it is apparent that the two strain fields 
+
+𝛥𝜀 zz,IPE (𝑡, 𝑥, 𝑦) < 0 and 
+
+𝛥𝜀 zz,T (𝑡, 𝑥, 𝑦) > 0 only overlap close to the edge of the gate electrodes around t ≈ -500 ns. In this specific region of spacetime, 
+
+𝛥𝜀 zz is tensile, indicating that the thermal contribution is dominant. Moreover, we observe that the tensile section widens during the first ~50 ns of turn-ON until reaching a maximum width of ~5 μm, presumably through thermal diffusion from the hotspot. A plot of 𝛥𝜀 zz (𝑡, 𝑥) in the transition layer of the heterostructure (see Fig.1b) is presented in Fig. 4b 
+
+(strain images are provided in Supporting Figure 7). Indeed, we find in the experiment that close to the gate edge, the dynamic strain during turn-ON is compressive rather than tensile, as predicted by the modelling. 
+
+To capture the evolution of IPE and heating, in Fig. 4c two temporal profiles of the differential strain 𝛥𝜀 zz (𝑡) are extracted from the DFXM data of the GaN layer in 4 and 5 μm-wide slices adjacent to gate and drain, respectively, as indicated by the inset. The FEM simulations, represented by temporal datapoints obtained from the same spatial sections in the model, are in excellent agreement with the experiment for the strain evolution in the gate section, where the thermal strain dominates. In the drain region, which is affected almost exclusively by the IPE, the experimental and simulated strain profiles follow the same temporal trend, but the total magnitude 
+
+> Figure 4: Spatio-temporal strain distributions
+
+a, 2D distribution of dynamic lattice strain 𝛥𝜀 zz (𝑡, 𝑥) in the GaN layers. b, The same plot for the transition layer. c,Comparison of temporal profiles in experiment and simulation for the GaN layer, the inset indicates the spatial sections used for averaging. d, Spatial curves of experimental and simulated differential strain for OFF-state, turn-ON and turn-OFF, the extent of the electrodes is indicated by the shading. 9
+
+is weaker by ~20% for the former. This difference is well within the spread of the relevant coupling parameters d31 , d33 and ν13 (see Eq. 2) documented in the literature [24, 23]. 
+
+To study the spatial shape of the dynamic strain fields between gate and drain, experimental and simulated profiles of 𝛥𝜀 zz (𝑥) are compared in Fig. 4d . During OFF state (cyan curve), the 2DEG is depleted and the region between gate, drain and substrate is highly resistive. Here, the electrostatic potential decreases laterally between drain and gate and vertically between drain and substrate. Since the piezoelectric strain is proportional to the vertical electric field, this generates a lateral gradient from the gate edge towards a plateau by the drain. The corresponding linear decrease of 𝛥𝜀 zz (𝑥) by ~0.015 % over ~6 μm is reproduced in both experiment and simulation. 
+
+However, there is a rigid baseline offset between the two curves, which we attribute to gradual global heat accumulation in the device over many cycles. In the experiment, each data point is obtained by averaging over >10 5 pulses, while the simulation captures the sample after only six full cycles, i.e. at the onset of its operation. We attribute the baseline shift of the dynamic strain to per-pulse global heating of the model. 
+
+During turn-ON (orange curve), we find a local maximum in 𝛥𝜀 zz (𝑥) , which is well matched in amplitude between experiment and simulation, indicating that the model prediction for a maximum heating of Δ T ≈ +70 K is accurate. However, in the experiment the spatial profile of thermal strain is symmetric with its maximum at ~2 μm distance from the gate edge at the rim of the metal pad, while the simulation predicts the strongest deformation directly underneath the gate edge with a shoulder towards the drain side. This difference might be caused by a gradual charge redistribution in the carbon-doped layer during many OFF/ON cycles, which can modify the electrostatic potential near the gate [31], shifting the thermal hotspot towards the drain. This phenomenon may not be significant during the small number of switching cycles incorporated in the TCAD simulation. 
+
+# Discussion 
+
+Our operando X-ray diffraction microscopy measurements provide direct access to dynamic electromechanical and thermal strain fields inside a high-power transistor during 355 kHz operation. This mechanical insight translates into the spatio-temporal evolution of internal fields, revealing field gradients approaching −0.6 MV cm⁻¹ and a transient ~70 K hotspot a few microns wide at the gate edge. These phenomena may be conceptually predicted by modeling, but have not been validated at the relevant spatio-temporal scales. This experimental insight proved crucial, as the hotspot is shifted relative to theoretical expectations. 
+
+Visualizing these dynamics in situ provides new insight into the mechanisms limiting performance and reliability of power electronics. The field dynamics inferred from the strain transients modulate the two-dimensional electron gas, promote hot-carrier injection and trapping, and contribute to drift in the ON-state resistance RDS,on [32]. The thermal hotspot may reduce mobility through increased phonon scattering [33], and amplify conduction and switching losses. Together, these insights highlight the importance of field-shaping and thermal-management strategies, e.g., in the design of gate and field-plate geometries [34, 35], to suppress charge trapping and enhance material robustness. 
+
+More broadly, our results demonstrate that operando X-ray microscopy establishes a direct connection between device-scale electrical measurements and the underlying nanoscale structural processes. The brilliance and ultrashort pulses of next-generation synchrotrons and X-ray free-electron lasers will push time-resolved diffraction microscopy into the picosecond domain [36], 10 
+
+enabling comprehensive imaging of piezoelectric and thermal strain landscapes in a wide range of functional materials. This capability will open new avenues for understanding transient mechanical phenomena central to technologies such as memristors, ultrasonic actuators, and ultrafast photodiodes, establishing operando structural imaging as a foundational tool for next-generation microelectronics and beyond. 
+
+# Experimental section 
+
+# Electric stress testing 
+
+The GaN HEMT test circuit for hard-switching with a capacitive load is represented in Supporting Fig. 1. The value of the load resistor defines the ON-state current and therefore the ON-state conduction heating, which was chosen as Rload =10 kΩ. The load capacitor is given by the inherent parasitic capacitance of the Printed Circuit Board (PCB) and socket, with a value of Cload = 34 pF. During the synchrotron experiment, the VGS (t) and VDS (t) curves of the GaN HEMT were measured with differential high-voltage probes and recorded together with the trigger pulses from the delay generator by a digital oscilloscope to ensure accurate pump-probe synchronization. The drain current ID was measured separately and matched to the experimental data afterwards based on the voltage characteristics. 
+
+# Dark Field X-ray Diffraction Microscopy 
+
+The stroboscopic DFXM experiment was carried out at beamline ID01 of the European Synchrotron Radiation Facility (ESRF), with the setup sketched in Fig. 2b . The X-ray energy was set to 8.92 keV and sample and detector were aligned for the 0002 Bragg reflection of GaN in a horizontal scattering geometry. The objective comprised 50 Be CRLs with a curvature radius of 50 μm with a focal length 𝑓 ≈ 12 mm . The data was recorded with an Andor Zyla 5.5 area detector with 2160 x 2560 pixels with a pixel size of 6.5 μm placed inside an evacuated flight tube at a distance of 𝑑 ≈ 6.5 m to the objective, yielding in a magnification factor of 𝑑 𝑓 ≈ 54 . Due to the oblique diffraction angle of 𝜃 ≈ 15.55 ° , the effective pixel size on the detector broadens by a factor of sin(𝜃) −1 ≈ 3.73 within the diffraction plane, resulting in a spatial resolution of 119 nm along x-direction and 444 nm along y. To optimize the resolution across the active channel, the electrodes were oriented parallel to the diffraction plane. 
+
+In DFXM geometry, a real space image of the GaN layers in diffraction contrast could be obtained with an exposure time of only a few seconds and a Field of View (FOV) of several hundred μm 2.The combination of large FOV and fast acquisition time is crucial when exploring a large spatio-temporal parameter space to localize a dynamic effect. 
+
+The lattice strain is scanned by rotating the objective to obtain a curve of I(θ) in every point on the sample, from which the local out-of-plane lattice parameter c and the corresponding strain tensor component 𝜀 zz are calculated by re-arranging the Bragg equation for the 0002 reflection: 11 
+
+𝑐 = 𝜆 sin(𝜃) (5) 
+
+𝜀 zz = 𝑐 𝑐 GaN 
+
+− 1 (6) 
+
+With the X-ray wavelength 𝜆 = 0.139 nm and the literature value for the lattice parameter of GaN 
+
+𝑐 GaN = 0.5186 nm [47]. 
+
+In the 4bunch-mode of the ESRF, the synchrotron beam consists of pulses with a frequency of 1.42 MHz and duration of ~40 ps. The electrical switching was synchronized to the X-ray pulses with a Stanford Instruments DGS 645 , by which the delay time between the electrical signal for switching the HEMT and the X-ray probe pulse was scanned for dynamic strain imaging. Since switching was performed at exactly one quarter of the X-ray frequency, the detector was gated with an intensifier to select every fourth pulse, ensuring that each data point comprises only X-rays scattered from the sample at a specific delay time t.
+
+# TCAD modeling 
+
+TCAD simulation is performed with the Synopsys Sentaurus software, employing athermodynamic model for electron and hole current densities to obtain a self-consistent solution of HEMT operation including self-heating. The model is calibrated to temperature-dependent DC and AC characteristics with thermal conductivities taken from Refs. [45, 48]. Carbon doping is implemented as a dominant acceptor model [49]. The GaN HEMT test circuit is simulated and the load capacitance is adapted to account for parasitic capacitances in the experiment and match the drain current transient during turn-ON. Initially, the temperature in the model is set to be spatially homogenous at 300 K. 
+
+Six full OFF/ON switching cycles are simulated, during which the device experiences fast transient self-heating effects and a slow cumulative self-heating to ~315K over all six pulses, after which the simulation is stopped due to processing time constraints. The electrostatic potential and lattice temperature distributions during the last cycle are exported for FEM modelling. 
+
+# COMSOL modeling 
+
+The IPE, i.e. deformation of a material under an applied potential difference, is simulated in a finite element framework with COMSOL Multiphysics . The geometry of the TCAD simulation is re-meshed with quad elements with quadratic shape functions. Symmetry boundary conditions are applied on both sides of the 2D model, the lowest, leftmost node is constrained in both directions, while the lowest rightmost is allowed to move in one direction, allowing for an unconstrained expansion of the system. 
+
+The TCAD inputs are imported as an interpolation function of potential and temperature in space and time. For mechanical properties of the wurtzite (Al)GaN structure, elastic constants and piezoelectric coupling matrix from Ref. [50] and coefficients of thermal expansion from Ref. [51] were utilized. A small strain setting is employed, where the total strain comprises thermal, piezoelectric and elastic components. 12 
+
+# References 
+
+[1]  L. van Deurzen, E. Kim, N. Pieczulewski, Z. Zhang, A. Feduniewicz-Zmuda, M. Chlipala, M. Siekacz, D. Muller, H. G. Xing, D. Jena and others, "Using both faces of polar semiconductor wafers for functional devices," Nature, vol. 634, p. 334–340, 2024. 
+
+[2]  J. Y. Tsao, S. Chowdhury, M. A. Hollis, D. Jena, N. M. Johnson, K. A. Jones, R. J. Kaplar, S. Rajan, C. G. Van de Walle, E. J. A. E. M. Bellotti and others, "Ultrawide-bandgap semiconductors: research opportunities and challenges," Advanced Electronic Materials, vol. 4, p. 1600501, 2018. 
+
+[3]  Y. Zhang, D. Dong, Q. Li, R. Zhang, F. Udrea and H. Wang, "Wide-bandgap semiconductors and power electronics as pathways to carbon neutrality," Nature Reviews Electrical Engineering, vol. 2, p. 155–172, 2025. 
+
+[4]  M. Lanza, S. Pazos, F. Aguirre, A. Sebastian, M. Le Gallo, S. M. Alam, S. Ikegawa, J. J. Yang, E. Vianello, M.-F. Chang and others, "The growing memristor industry," Nature, vol. 640, p. 613–622, 2025. 
+
+[5]  L. Persano, A. Camposeo, F. Matino, R. Wang, T. Natarajan, Q. Li, M. Pan, Y. Su, S. Kar-Narayan, F. Auricchio and others, "Advanced materials for energy harvesting and soft robotics: emerging frontiers to enhance piezoelectric performance and functionality," Advanced Materials, vol. 36, p. 2405363, 2024. 
+
+[6]  N. Singh, K. Srivastava, A. Kumar, N. Yadav, A. Yadav, S. Dubey, R. Singh, A. Gehlot, A. S. Verma, N. Gupta and others, "Challenges and opportunities in engineering next-generation 3D microelectronic devices: improved performance and higher integration density," Nanoscale advances, vol. 6, p. 6044–6060, 2024. 
+
+[7]  S. H. Choi, Y. Kim, I. Jeon and H. Kim, "Heterogeneous integration of wide bandgap semiconductors and 2D materials: Processes, applications, and perspectives," Advanced Materials, vol. 37, p. 2411108, 2025. 
+
+[8]  L. Gill, S. DasGupta, J. C. Neely, R. J. Kaplar and A. J. Michaels, "A review of GaN HEMT dynamic ON-resistance and dynamic stress effects on field distribution," IEEE Transactions on Power Electronics, vol. 39, p. 517–537, 2023. 
+
+[9]  K. R. Bagnall, E. A. Moore, S. C. Badescu, L. Zhang and E. N. Wang, "Simultaneous measurement of temperature, stress, and electric field in GaN HEMTs with micro-Raman spectroscopy," Review of Scientific Instruments, vol. 88, 2017. 
+
+[10]  Y.-C. Liu, J. Zhu, J. Niroula, H. Pal, T. Palacios and S. R. Eisner, "High-temperature operation of group-III nitride high-electron-mobility transistors," Nature Electronics, p. 1–13, 2026. 
+
+[11]  Y. Zhang, W. Zhu, F. Hui, M. Lanza, T. Borca-Tasciuc and M. Muñoz Rojo, "A review on principles and applications of scanning thermal microscopy (SThM)," Advanced functional materials, vol. 30, p. 1900892, 2020. 
+
+[12]  K. R. Bagnall and E. N. Wang, "Contributed Review: Experimental characterization of inverse piezoelectric strain in GaN HEMTs via micro-Raman spectroscopy," Review of Scientific Instruments, vol. 87, p. 061501, June 2016. 
+
+[13]  M. Kuball, J. W. Pomeroy, F. Gucmann and B. Oner, "Thermal analysis of semiconductor devices and materials-Why should I not trust a thermal simulation?," in 2019 IEEE BiCMOS and Compound semiconductor Integrated Circuits and Technology Symposium (BCICTS) , 2019. 
+
+[14]  P. Cloetens, J. Daillant, C. Detlefs, J. Drnec, J. Frey, J.-A. Hernandez, V. Honkimaki, M. Krisch, G. Martı́nez-Criado, J. McCarthy and others, "The ESRF: Four Years of Extremely Brilliant Science," Synchrotron Radiation News, p. 1–6, 2025. 
+
+[15]  T. Zhou, A. Reinhardt, M. Bousquet, J. Eymery, S. Leake, M. V. Holt, P. G. Evans and T. Schülli, "High-resolution high-throughput spatiotemporal strain imaging reveals loss mechanisms in a surface acoustic wave device," Nature Communications, vol. 16, p. 2822, 2025. 
+
+[16]  H. Wen, M. J. Cherukara and M. V. Holt, "Time-Resolved X-Ray Microscopy for Materials Science," Annual Review of Materials Research, vol. 49, pp. 389-415, 2019. 
+
+[17]  H. Simons, A. King, W. Ludwig, C. Detlefs, W. Pantleon, S. Schmidt, F. Stöhr, I. Snigireva, A. Snigirev and H. F. Poulsen, "Dark-field X-ray microscopy for multiscale structural characterization," Nature communications, vol. 6, p. 6098, 2015. 13 
+
+[18]  J. He, W.-C. Cheng, Q. Wang, K. Cheng, H. Yu and Y. Chai, "Recent advances in GaN-based power HEMT devices," Advanced electronic materials, vol. 7, p. 2001045, 2021. 
+
+[19]  A. Udabe, I. Baraia-Etxaburu and D. G. Diez, "Gallium nitride power devices: A state of the art review," Ieee Access, vol. 11, p. 48628–48650, 2023. 
+
+[20]  M. Reisinger, M. Tomberger, J. Zechner, I. Daumiller, B. Sartory, W. Ecker, J. Keckes and R. T. Lechner, "Resolving alternating stress gradients and dislocation densities across AlxGa1-xN multilayer structures on Si (111)," Applied physics letters, vol. 111, 2017. 
+
+[21]  S. J. Leake, G. A. Chahine, H. Djazouli, T. Zhou, C. Richter, J. Hilhorst, L. Petit, M.-I. Richard, C. Morawe, R. Barrett, L. Zhang, R. A. Homs-Regojo, V. Favre-Nicolin, P. Boesecke and T. U. Schulli, "The Nanodiffraction Beamline ID01/ESRF: a Microscope for Imaging Strain and Structure," Journal of synchrotron radiation, vol. 26, p. 571–584, 2019. 
+
+[22]  A. Sarua, H. Ji, J. W. Pomeroy, M. J. Uren, T. Martin and M. Kuball, "Converse piezoelectric strain in undoped and Fe-doped AlGaN/GaN heterostructure field effect transistors studied by Raman scattering," 
+
+Semiconductor Science and Technology, vol. 25, p. 085004, July 2010. 
+
+[23]  F. Bernardini and V. Fiorentini, "First-principles calculation of the piezoelectric tensor d ⇊ of III–V nitrides," 
+
+Applied Physics Letters, vol. 80, pp. 4145-4147, June 2002. 
+
+[24]  M. A. Moram, Z. H. Barber and C. J. Humphreys, "Accurate experimental determination of the Poisson’s ratio of GaN using high-resolution x-ray diffraction," Journal of applied physics, vol. 102, 2007. 
+
+[25]  D. Pogány, S. Bychikhin, M. Litzenberger, E. Gornik, G. Groos and M. Stecher, "Extraction of spatio-temporal distribution of power dissipation in semiconductor devices using nanosecond interferometric mapping technique," Applied physics letters, vol. 81, p. 2881–2883, 2002. 
+
+[26]  F. Yang, S. Dalcanale, M. Gajda, S. Karboyan, M. J. Uren and M. Kuball, "The impact of hot electrons and self-heating during hard-switching in AlGaN/GaN HEMTs," IEEE Transactions on Electron Devices, vol. 67, p. 869–874, 2020. 
+
+[27]  M. A. J. Rasel, D. Zhang, A. Chen, M. Thomas, S. D. House, W. Kuo, J. Watt, A. Islam, N. Glavin, M. Smyth and others, "Temperature-induced degradation of GaN HEMT: An in situ heating study," Journal of Vacuum Science & Technology B, vol. 42, 2024. 
+
+[28]  C. Richter, V. M. Kaganer, A. Even, A. Dussaigne, P. Ferret, F. Barbier, Y.-M. Le Vaillant and T. U. Schülli, "Nanoscale Mapping of the Full Strain Tensor, Rotation, and Composition in Partially Relaxed In x Ga 1- x N Layers by Scanning X-ray Diffraction Microscopy," Physical Review Applied, vol. 18, p. 064015, 2022. 
+
+[29]  C. Corley-Wiciak, C. Richter, M. H. Zoellner, I. Zaitsev, C. L. Manganelli, E. Zatterin, T. U. Schulli, A. A. Corley-Wiciak, J. Katzer, F. Reichmann and others, "Nanoscale mapping of the 3D strain tensor in a germanium quantum well hosting a functional spin qubit device," ACS Applied Materials & Interfaces, vol. 15, p. 3119–3130, 2023. 
+
+[30]  C. Corley-Wiciak, M. H. Zoellner, A. A. Corley-Wiciak, F. Rovaris, E. Zatterin, I. Zaitsev, G. Sfuncia, G. Nicotra, D. Spirito, N. von den Driesch, C. L. Manganelli, A. Marzegalli, T. U. Schulli, D. Buca, F. Montalenti, G. Capellini and C. Richter, "Full Picture of Lattice Deformation in a Ge1 - xSnx Micro-Disk by 5D X-ray Diffraction Microscopy," Small Methods, vol. 8, p. 2400598, 2024. 
+
+[31]  B. Butej, D. Wieland, D. Pogany, A. Gharib, G. Pobegen, C. Ostermaier and C. Koller, "Evidence-Based Understanding of Lateral Hole Transport During OFF-State Stress Completing Dynamic GaN-on-Si Buffer Charging Model," physica status solidi (a), vol. 221, p. 2400089, 2024. 
+
+[32]  N. Modolo, C. De Santi, A. Minetto, L. Sayadi, G. Prechtl, G. Meneghesso, E. Zanoni and M. Meneghini, "Trap-state mapping to model GaN transistors dynamic performance," Scientific Reports, vol. 12, p. 1755, 2022. 
+
+[33]  D.-S. Tang and B.-Y. Cao, "Phonon thermal transport and its tunability in GaN for near-junction thermal management of electronics: A review," International Journal of Heat and Mass Transfer, vol. 200, p. 123497, 2023. 
+
+[34]  M. Kuball and J. W. Pomeroy, "A review of Raman thermography for electronic and opto-electronic device measurement with submicron spatial and nanosecond temporal resolution," IEEE Transactions on Device and Materials Reliability, vol. 16, p. 667–684, 2016. 14          
+
+> [35] L. Mitterhuber, B. Kosednar-Legenstein, A. Vohra, M. Borga, N. Posthuma and E. Kraker, "Correlation of heat transport mechanism and structural properties of GaN high electron mobility transistors," Journal of Applied Physics, vol. 136, 2024.
+> [36] L. E. Dresselhaus-Marais, B. Kozioziemski, T. S. Holstad, T. M. Ræder, M. Seaberg, D. Nam, S. Kim, S. Breckling, S. Choi, M. Chollet and others, "Simultaneous bright-and dark-field X-ray microscopy at X-ray free electron lasers," Scientific Reports, vol. 13, p. 17573, 2023.
+> [37] C. Corley-Wiciak, M. H. Zoellner, I. Zaitsev, K. Anand, E. Zatterin, Y. Yamamoto, A. A. Corley-Wiciak, F. Reichmann, W. Langheinrich, L. R. Schreiber, C. L. Manganelli, M. Virgilio, C. Richter and G. Capellini, "Lattice Deformation at Submicron Scale: X-Ray Nanobeam Measurements of Elastic Strain in Electron Shuttling Devices," Phys. Rev. Appl., vol. 20, no. 2, p. 024056, August 2023.
+
+Acknowledgments: We acknowledge the European Synchrotron Radiation Facility (ESRF) for provision of synchrotron radiation facilities under proposal number MA-6231 and thank the staff for assistance in using beamline ID01. Furthermore, we thank Dr. Guillaume Gaisne for his support on FAIR data treatment and maintaining the NOMAD repository. C. Corley-Wiciak and M. Petersmann thank Dr. Costanza Manganelli for her advice on COMSOL modelling. 
+
+Funding: This study has received financial support from the European Union: AddMorePower (GA 101091621). 
+
+Competing interests: 
+
+The authors have no competing interests to disclose. 
+
+Data, code, and materials availability: 
+
+The datasets generated and analyzed during the current study are available in the ESRF data archive (https://doi.org/10.15151/ESRF-ES-1854292272). Derived data are available from the AddMorePower Nomad Repository (10.17172/nomad.natt-46vn). All materials used in this study are described in the materials and methods. 15 
+
+# Supplementary Information 
+
+Details on the Electrical Setup 
+
+The circuits for two electrical setups to measure different types of the drain current are illustrated in S. Fig. 1 : ( a) The drain current ILoad from the beamline setup, which includes the load current that does not pass through the transistor but instead charges the capacitor Cload ; ( b) the actual drain current ID through the transistor, obtained from a separate measurement under a comparable wafer‐ level switching condition. 
+
+Supplementary Fig. 1: a , Schematics of the HEMT test circuit for hard-switching with capacitive load; b, HEMT application circuit; c, simplified test circuit for hard turn-ON. 
+
+Performing operando X-ray microscopy on the GaN HEMT imposes certain requirements on the electrical test setup: The switching instants must be accurately synchronized with the X-Ray pulse sequence, which is determined by the bunch frequency of the synchrotron. Moreover, static self-heating of the sample by excessive power dissipation should be minimized. Therefore, instead of true Pulse-Width Modulation (PWM) operation with an inductive load current, as in a DC converter application, a simplified stress test circuit was chosen ( panel c ), that models solely the hard turn-on of the GaN HEMT channel against a capacitor that represents the parasitic circuit load impedance of the switching node. The capacitor is recharged between pulses by a high ohmic resistor, thus the static drain current of the tested device remains sufficiently low to avoid self-heating, while the switching stress may be adjusted by changing the capacitor value as well as the gate drive voltage amplitude.  
+
+> Supplementary Figure 2: Mechanical fixture and carrier PCB with ZIF socket to support the GaN HEMT sample during the synchrotron experiment. 16
+
+The HEMT specimen was bonded in an open ceramic package to provide free access to the chip. The package was securely mounted in a standard Zero Insertion Force (ZIF) socket soldered to a PCB together with a fast gate driver and the required passive components. A purpose-built mechanical fixture, sketched in S. Fig. 2 , was mounted on an adjustable pod to support the PCB and socket, holding the chip securely but mobile on the beamline diffractometer. The re-charge resistor was placed on the metal frame for optimum cooling to minimize heating of the sample. 17 
+
+Strain Data in the GaN layers 
+
+Images of the strain 𝜀 zz in the GaN layers are presented in S. Fig. 3. In each frame, there are pronounced line features along the edges of the metallic contacts (gate/source and drain), indicating they are subject to some amount of internal stress [24]. The local strain modulation in the GaN layers originating from the drain electrodes is compressive with 𝜀 zz ≈ −10 −4 , while that of the gate is tensile ( 𝜀 zz ≈ +1.5 ∗ 10 −4 ). This may be attributed to differences in either the deposition conditions of the material, or the contact geometry, which determines the static strain field induced by the stressed metal stripes in the epilayers [51].    
+
+> Supplementary Figure 3: Spatial images of the instantaneous strain 𝜀 zz in the GaN layers for 65 points in time, all images share the same scale and color bars. 18
+
+From Eq. (1) in the main text, the spatial distribution of the dynamic strain 𝛥𝜀 zz is calculated at each point in time, yielding the series of 64 images in S. Fig. 4, excluding 𝛥𝜀 zz (𝑡 = 0) = 0 .   
+
+> Supplementary Fig. 4: Spatial images of 𝛥𝜀 zz (𝑡) in the GaN layers for 64 points in time, all images share the same scale and color bars. 19
+
+In a side-by-side comparison of sections of 𝜀 zz 
+
+and 𝛥𝜀 zz in the HEMT, shown by S. Fig. 5 , it is evident that they exhibit different spatial features. The static strain is dominated by the internal stress at the edges of the TiN electrodes, which appears time-independent, as it is not present in the dynamic strain image. Thus, we conclude that no additional stress is generated in the metallic electrode material during switching.      
+
+> Supplementary Figure 5: Side-by-side comparison of static strain 𝜀 zz and dynamic strain 𝛥𝜀 zz in the GaN layer 20
+
+Thermal and Electromechanical FEM Simulations 
+
+S. Fig. 6 shows the dynamic strain in cross-section view of the HEMT due to the IPE 𝛥𝜀 zz,IPE 
+
+and local heating 𝛥𝜀 zz,T (see Eq. (2) in the main text) calculated by the FEM model at four points in time, based on the spatial distribution of temperature and electric potential predicted by the TCAD model.     
+
+> Supplementary Figure 6: FEM calculation of dynamic lattice strain due to ( a) IPE 𝛥𝜀 zz,IPE and ( b) heating 𝛥𝜀 zz,T .21
+
+Strain Data in the transition layer 
+
+The diffraction curve measured by DFXM contained a peak for the AlGaN/AlN transition layer of the heterostructure, allowing to determine its dynamic strain by tracking its relative shift in the same way as for GaN layers. The resulting images of 𝛥𝜀 zz (𝑡) in the transition layer are presented in S. Fig. 7.

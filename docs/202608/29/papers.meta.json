@@ -1,8 +1,8 @@
 {
   "label": "2026-08-29",
   "date": "2026-08-29",
-  "generated_at": "2026-08-29T03:23:12",
-  "count": 5,
+  "generated_at": "2026-08-29T21:55:20",
+  "count": 6,
   "papers": [
     {
       "paper_id": "202608/29/2608.23404v1-viper-architecture-aware-performance-modeling-for-processing-in-memory-design-space-exploration",
@@ -16,21 +16,6 @@
       "tldr": "处理中内存(PIM)的实际加速受非可卸载主机执行、主机-PIM传输、容量限制及编程延迟等架构因素制约，而电路级工具无法捕捉这些端到端因素，周期精确模拟又太慢。VIPER通过一次主机剖析和PIM感知分析引擎，快速扫描PIM侧参数，支持近内存(PNM)与内存计算(PUM)及数据触发执行。在UPMEM和400余组gem5配置上验证，速度预测误差<10%，评估时间从小时级降至一分钟内，并准确预测UPMEM的卸载决策与峰值回落行为。该架构感知DSE揭示了设备级评估遗漏的关键权衡，为早期设计空间探索提供了轻量高效工具。",
       "tags": "query:cim",
       "abstract_en": "Processing-in-Memory (PIM) promises to reduce data movement overhead by executing computation in or near memory, but its realized application speedup remains highly design-dependent. Non-offloadable host execution, host-PIM transfers, limited PIM capacity, and device programming latency can limit end-to-end speedup, making fast early-stage design-space exploration (DSE) essential. However, existing PIM evaluation methods remain limited: circuit- and device-level tools cannot capture these end-to-end PIM performance factors, while cycle-accurate simulation is too slow for iterative DSE. To address this gap, we present VIPER, a unified, lightweight, and architecture-aware performance evaluation framework for PIM DSE. VIPER profiles host execution once and combines the measured host behavior with a PIM-aware analytical engine that sweeps PIM-side parameters across candidate designs. It supports both Processing Near Memory (PNM) and Processing Using Memory (PUM) under task-offloading and data-triggered execution by capturing host-PIM transfer, array access, in-memory computation, device programming latency, and capacity-induced partitioning, providing rapid architecture-aware performance estimates for iterative DSE without repeated cycle-accurate simulation. We validate VIPER against a commercial UPMEM system and more than 400 cycle-accurate gem5 configurations. VIPER predicts the UPMEM offloading decision and break-even region a priori, and, with a refined transfer model, captures the measured peak-and-rolloff behavior with 12\\% mean speedup error across the DPU sweep (6\\% up to the 256-DPU peak). Against gem5, VIPER achieves less than 10\\% error while reducing evaluation time from hours to under one minute. Case studies of UPMEM, ReRAM/FeFET crossbars, and IMCRYPTO show that architecture-aware DSE reveals key performance trade-offs that device-level evaluation misses.",
-      "source": "arxiv",
-      "selection_source": "fresh_fetch"
-    },
-    {
-      "paper_id": "202608/29/2608.22613v1-nova-technology-architecture-co-design-of-near-memory-processing-for-attention-ssm-moe-hybrid-llm-inference",
-      "section": "deep",
-      "title_en": "NOVA: Technology-Architecture Co-Design of Near-Memory Processing for Attention-SSM-MoE Hybrid LLM Inference",
-      "authors": "In-Jun Jung, Jaeha Min, Joo-Young Kim",
-      "date": "2026-08-23",
-      "pdf": "https://arxiv.org/pdf/2608.22613v1",
-      "score": "8.0",
-      "evidence": "面向混合大模型推理的近存计算架构设计",
-      "tldr": "混合LLM交织GQA、SSM与MoE层，其异构计算特性对近存计算（NMP）构成技术墙（DRAM缩放极限）与架构墙（窄Op/B范围）双重挑战。NOVA通过4F² VCT DRAM单元和POC结构实现约2倍存储密度，并在外围die上部署处理单元，形成双层NMP架构以适配宽范围Op/B。评测表明其吞吐量提升4.5倍，延迟降低69.8%，能效提升5倍，面积开销仅3.9%。",
-      "tags": "query:cim",
-      "abstract_en": "The rapid evolution of hybrid large language models (LLMs), which interleave grouped-query-attention (GQA), state-space model (SSM), and Mixture-of-Experts (MoE) layers, introduces two fundamental challenges for near-memory processing (NMP) architectures. First, the Technology Wall: the conventional 6F^2 DRAM cell is approaching its physical scaling limits at 10nm-class nodes, making it difficult to meet the memory capacity demands of MoE models with hundreds of experts. Second, the Architecture Wall: existing NMP designs target narrow arithmetic intensity (Op/B) ranges and cannot efficiently support the heterogeneous compute characteristics of hybrid LLMs, spanning memory-bound SSM layers, compute-intensive GQA layers, and large Op/B variations across experts. We propose NOVA, a technology-architecture co-designed NMP system that overcomes both walls. On the technology side, NOVA combines a 4F^2 vertical channel transistor (VCT) DRAM cell with a peri-over-cell (POC) structure to achieve approximately 2x memory density at iso-area over conventional 6F^2-based DRAM, enabling continued scaling into sub-10nm nodes. On the architecture side, NOVA repurposes the POC peripheral-die (peri-die) to host processing units, forming a 2-tier NMP architecture: Tier-1 (peri-die NMP) for low-to-mid Op/B operations, and Tier-2 (base-die NMP) for mid-to-high Op/B operations. Parallel execution across tiers supports diverse compute patterns for hybrid LLMs, maximizing inference performance. Evaluated on state-of-the-art hybrid and MoE LLMs including Nemotron3-Nano, Nemotron3-Super, Falcon-H1R, and Qwen3, NOVA achieves on average 4.5x higher throughput, 69.8% lower end-to-end latency, and 5x better energy efficiency over a GPU baseline, with only 3.9% area overhead and no loss in memory capacity.",
       "source": "arxiv",
       "selection_source": "fresh_fetch"
     },
@@ -50,17 +35,17 @@
       "selection_source": "fresh_fetch"
     },
     {
-      "paper_id": "202608/29/2608.25499v1-generalizing-thermal-transport-in-high-contrast-metamaterials-through-interfacial-fresnel-reflection",
-      "section": "quick",
-      "title_en": "Generalizing Thermal Transport in High-Contrast Metamaterials through Interfacial Fresnel Reflection",
-      "authors": "Seung Hyeon Ham, Yu Min Kim, In Hyeok Choi, Jeong Woo Han",
-      "date": "2026-08-26",
-      "pdf": "https://arxiv.org/pdf/2608.25499v1",
-      "score": "7.0",
-      "evidence": "面向高效散热的热超材料建模与控制热流方法",
-      "tldr": "生成式AI的快速发展使数据中心热管理面临严峻挑战，层状热超材料是调控热流的有效手段，但相邻层与背景介质热导率差异过大时，传统有效介质近似（EMA）给出的预测显著偏差。本文通过引入两个修正系数推广EMA，其中一个修正系数在数学形式上等同于光学中的Fresnel反射系数，由此将热流穿透高对比度层的输运过程类比为界面反射。基于这一新系数，热扩散这一耗散输运现象被重新诠释为射线光学中的射线传播问题。该理论推广不仅提升了高对比度热超材料的建模精度，也为热流调控设计提供了直观的物理图像。",
-      "tags": "query:thermal-gnn",
-      "abstract_en": "The rapid growth of generative AI has intensified the need for efficient heat dissipation in large-scale data centers. To control heat flow, thermal metamaterials with layered structures have been widely used, which impart the anisotropic properties of thermal conductivities. However, the conventional effective medium approximation (EMA) often fails to provide accurate predictions in systems with a high thermal conductivity contrast between adjacent layers embedded in a background medium. Here, we generalize the EMA by introducing two corrective coefficients that extend its validity to regimes where the conventional EMA was previously inapplicable, i.e., high-contrast thermal metamaterials with the background medium. Notably, one of these coefficients that we proposed has the same mathematical form as the Fresnel reflection coefficient in optics. This allows us to interpret the \"reflection-like\" behavior of heat flow as it penetrates adjacent layers with high thermal contrast. Our findings suggest that heat diffusion, traditionally viewed as a purely dissipative process, can be understood intuitively through the framework of ray optics.",
+      "paper_id": "202608/29/2608.22613v1-nova-technology-architecture-co-design-of-near-memory-processing-for-attention-ssm-moe-hybrid-llm-inference",
+      "section": "deep",
+      "title_en": "NOVA: Technology-Architecture Co-Design of Near-Memory Processing for Attention-SSM-MoE Hybrid LLM Inference",
+      "authors": "In-Jun Jung, Jaeha Min, Joo-Young Kim",
+      "date": "2026-08-23",
+      "pdf": "https://arxiv.org/pdf/2608.22613v1",
+      "score": "8.0",
+      "evidence": "面向混合大模型推理的近存计算架构设计",
+      "tldr": "混合LLM交织GQA、SSM与MoE层，其异构计算特性对近存计算（NMP）构成技术墙（DRAM缩放极限）与架构墙（窄Op/B范围）双重挑战。NOVA通过4F² VCT DRAM单元和POC结构实现约2倍存储密度，并在外围die上部署处理单元，形成双层NMP架构以适配宽范围Op/B。评测表明其吞吐量提升4.5倍，延迟降低69.8%，能效提升5倍，面积开销仅3.9%。",
+      "tags": "query:cim",
+      "abstract_en": "The rapid evolution of hybrid large language models (LLMs), which interleave grouped-query-attention (GQA), state-space model (SSM), and Mixture-of-Experts (MoE) layers, introduces two fundamental challenges for near-memory processing (NMP) architectures. First, the Technology Wall: the conventional 6F^2 DRAM cell is approaching its physical scaling limits at 10nm-class nodes, making it difficult to meet the memory capacity demands of MoE models with hundreds of experts. Second, the Architecture Wall: existing NMP designs target narrow arithmetic intensity (Op/B) ranges and cannot efficiently support the heterogeneous compute characteristics of hybrid LLMs, spanning memory-bound SSM layers, compute-intensive GQA layers, and large Op/B variations across experts. We propose NOVA, a technology-architecture co-designed NMP system that overcomes both walls. On the technology side, NOVA combines a 4F^2 vertical channel transistor (VCT) DRAM cell with a peri-over-cell (POC) structure to achieve approximately 2x memory density at iso-area over conventional 6F^2-based DRAM, enabling continued scaling into sub-10nm nodes. On the architecture side, NOVA repurposes the POC peripheral-die (peri-die) to host processing units, forming a 2-tier NMP architecture: Tier-1 (peri-die NMP) for low-to-mid Op/B operations, and Tier-2 (base-die NMP) for mid-to-high Op/B operations. Parallel execution across tiers supports diverse compute patterns for hybrid LLMs, maximizing inference performance. Evaluated on state-of-the-art hybrid and MoE LLMs including Nemotron3-Nano, Nemotron3-Super, Falcon-H1R, and Qwen3, NOVA achieves on average 4.5x higher throughput, 69.8% lower end-to-end latency, and 5x better energy efficiency over a GPU baseline, with only 3.9% area overhead and no loss in memory capacity.",
       "source": "arxiv",
       "selection_source": "fresh_fetch"
     },
@@ -76,6 +61,36 @@
       "tldr": "3D异构集成技术（如TSV、混合键合和chiplet）带来新的物理设计挑战，但现有平面基准无法覆盖，公开基准套件匮乏。本文基于CATCH开源框架中的代表性chiplet案例，构建了3D-IC基准测试套件，提供计算、存储、I/O、模拟和基板等可复用虚拟chiplet模型。每个测试用例包含异构芯片集成、芯片间互连及技术相关设计约束等关键物理设计特征。该套件旨在建立统一评估平台，促进3D异构集成物理设计研究的可复现比较与社区进展。",
       "tags": "query:cim",
       "abstract_en": "The physical design community has benefited from standardized, publicly available benchmark suites, which have enabled reproducible evaluation and driven significant advances in 2D place-and-route algorithms over the past three decades. However, the emergence of 3D heterogeneous integration technologies, including through-silicon vias (TSVs), hybrid bonding, and chiplet-based architectures, has introduced new physical design challenges that are not captured by existing planar benchmarks. Although several 3D-IC design examples have been reported, publicly accessible and scalable benchmark suites that enable reproducible evaluation across different 3D physical design problems remain limited. In this paper, we present an open-source suite of 3D-IC benchmark testcases derived from representative chiplet-based case studies in CATCH, an open-source framework for estimating the cost of heterogeneous integration architectures. The proposed benchmark suite provides reusable virtual chiplet models covering compute, memory, I/O, analog, and substrate components. Each testcase captures essential physical design characteristics of 3D systems, including heterogeneous die integration, inter-die connectivity, and technology-dependent design constraints. By publicly releasing these benchmarks, we aim to establish a common evaluation platform and accelerate community-wide research progress in 3D heterogeneous integration.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/29/2608.25499v1-generalizing-thermal-transport-in-high-contrast-metamaterials-through-interfacial-fresnel-reflection",
+      "section": "quick",
+      "title_en": "Generalizing Thermal Transport in High-Contrast Metamaterials through Interfacial Fresnel Reflection",
+      "authors": "Seung Hyeon Ham, Yu Min Kim, In Hyeok Choi, Jeong Woo Han",
+      "date": "2026-08-26",
+      "pdf": "https://arxiv.org/pdf/2608.25499v1",
+      "score": "7.0",
+      "evidence": "面向高效散热的热超材料建模与控制热流方法",
+      "tldr": "生成式AI的快速发展使数据中心热管理面临严峻挑战，层状热超材料是调控热流的有效手段，但相邻层与背景介质热导率差异过大时，传统有效介质近似（EMA）给出的预测显著偏差。本文通过引入两个修正系数推广EMA，其中一个修正系数在数学形式上等同于光学中的Fresnel反射系数，由此将热流穿透高对比度层的输运过程类比为界面反射。基于这一新系数，热扩散这一耗散输运现象被重新诠释为射线光学中的射线传播问题。该理论推广不仅提升了高对比度热超材料的建模精度，也为热流调控设计提供了直观的物理图像。",
+      "tags": "query:thermal-gnn",
+      "abstract_en": "The rapid growth of generative AI has intensified the need for efficient heat dissipation in large-scale data centers. To control heat flow, thermal metamaterials with layered structures have been widely used, which impart the anisotropic properties of thermal conductivities. However, the conventional effective medium approximation (EMA) often fails to provide accurate predictions in systems with a high thermal conductivity contrast between adjacent layers embedded in a background medium. Here, we generalize the EMA by introducing two corrective coefficients that extend its validity to regimes where the conventional EMA was previously inapplicable, i.e., high-contrast thermal metamaterials with the background medium. Notably, one of these coefficients that we proposed has the same mathematical form as the Fresnel reflection coefficient in optics. This allows us to interpret the \"reflection-like\" behavior of heat flow as it penetrates adjacent layers with high thermal contrast. Our findings suggest that heat diffusion, traditionally viewed as a purely dissipative process, can be understood intuitively through the framework of ray optics.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/29/2608.25767v1-study-of-resistive-switching-dynamics-and-memory-states-equilibria-in-analog-filamentary-conductive-metal-oxidehfox-reram-via-compact-modeling",
+      "section": "quick",
+      "title_en": "Study of Resistive Switching Dynamics and Memory States Equilibria in Analog Filamentary Conductive-Metal-Oxide/HfOx ReRAM via Compact Modeling",
+      "authors": "Matteo Galetta, Donato Francesco Falcone, Victoria Clerico, Wooseok Choi, Stephan Menzel, Antonio La Porta, Tommaso Stecconi, Folkert Horst, Bert Jan Offrein, Valeria Bragaglia",
+      "date": "2026-08-26",
+      "pdf": "https://arxiv.org/pdf/2608.25767v1",
+      "score": "6.0",
+      "evidence": "面向神经形态计算的模拟ReRAM紧凑模型",
+      "tldr": "现有阻变存储器紧凑模型难以准确刻画模拟电阻开关行为，制约神经形态芯片设计。本文面向金属氧化物/氧化铪基丝状器件提出基于物理的紧凑模型，扩展离子迁移与电子跳跃的动态耦合，并计入寄生电阻。模型成功复现准静态I-V曲线、单脉冲SET开关动力学及双极脉冲下的模拟累积电导调制，揭示记忆状态稳定于对称平衡点的物理判据。该模型支持模拟神经形态系统与非易失存储架构优化，可直接用于集成电路仿真。",
+      "tags": "query:cim",
+      "abstract_en": "Resistive Random Access Memory (ReRAM) devices offer a promising solution for next-generation non-volatile memory and neuromorphic computing systems. Yet, existing compact models fail to capture analog resistive switching behavior of ReRAM devices. This work presents an advanced physics-based compact model for analog filamentary Conductive-Metal-Oxide (CMO)/HfOx ReRAM, capable of reproducing switching characteristics over a broad range of operating conditions. Compared to the state-of-the-art, the model extends the dynamic interplay between ion migration and electron hopping, while also accounting for parasitic resistive elements. Simulations of various voltage inputs are tested to reproduce quasi-static I-V curves, SET switching kinetics under single-pulse programming conditions, and analog accumulative conductance modulation upon bipolar identical pulse streams. Additional simulations reveal the physical criterion underlying the stabilization of the CMO/HfOx-based ReRAM memory state around the equilibrium point, namely symmetry point, under pulsing conditions when a fading memory mechanism emerges. Building upon the evidence of such equilibrium stabilization under pulsing and quasi-static conditions, a procedure is established to visualize and map equilibrium memory states across different input domains. The physical model supports design optimization of switching behavior for analog neuromorphic systems and non-volatile memory architectures. It also enables accurate integrated circuit simulations with CMO/HfOx-based ReRAM technology.",
       "source": "arxiv",
       "selection_source": "fresh_fetch"
     }

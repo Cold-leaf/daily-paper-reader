@@ -1,6 +1,6 @@
 {
   "mode": "standard",
-  "generated_at": "2026-08-29T03:20:40.566809+00:00",
+  "generated_at": "2026-08-29T21:52:49.614987+00:00",
   "stats": {
     "mode": "standard",
     "tag_count": 1,
@@ -36,49 +36,13 @@
         "query:thermal-gnn"
       ],
       "llm_score": 9.0,
-      "llm_evidence_en": "Processing-in-memory performance modeling framework for design-space exploration",
-      "llm_evidence_cn": "面向处理中存储器设计空间探索的性能建模框架",
-      "llm_evidence": "面向处理中存储器设计空间探索的性能建模框架",
-      "canonical_evidence": "面向处理中存储器设计空间探索的性能建模框架",
-      "llm_tldr_en": "VIPER is a lightweight architecture-aware performance evaluation framework for PIM design-space exploration, capturing end-to-end factors like host-PIM transfers and capacity limits.",
-      "llm_tldr_cn": "针对处理中存储（PIM）设计空间探索缺乏快速且端到端准确的评估工具这一问题，作者提出了VIPER，一个统一、轻量的架构感知性能建模框架。它综合考虑主机不可卸载执行、主机与PIM间传输、PIM容量和设备编程延迟等影响因素，避免电路级工具和周期精确模拟的两难。在典型PIM设计空间上，VIPER能以较低开销提供接近周期级模拟的评估精度，显著加速早期设计决策。该工作为近存计算架构的快速选型提供了有效支撑。",
-      "llm_tldr": "针对处理中存储（PIM）设计空间探索缺乏快速且端到端准确的评估工具这一问题，作者提出了VIPER，一个统一、轻量的架构感知性能建模框架。它综合考虑主机不可卸载执行、主机与PIM间传输、PIM容量和设备编程延迟等影响因素，避免电路级工具和周期精确模拟的两难。在典型PIM设计空间上，VIPER能以较低开销提供接近周期级模拟的评估精度，显著加速早期设计决策。该工作为近存计算架构的快速选型提供了有效支撑。",
-      "llm_tags": [
-        "query:cim:composite"
-      ],
-      "matched_query_tag": "query:cim:composite",
-      "matched_query_text": "Papers central to 存算一体，主要关注基于混合键合的三维堆叠的近存计算, especially work that connects or combines: compute-in-memory architecture; hybrid bonding 3D integration; 3D stacking memory technology; near-memory computing design; processing-in-memory systems; 3D integrated circuit design; What are the key benefits of hybrid bonding for 3D stacked near memory computing?; How does compute in memory architecture improve energy efficiency?; Design challenges of 3D stacking for near memory computing systems.",
-      "matched_requirement_id": "req-composite-cim",
-      "selection_source": "fresh_fetch"
-    },
-    {
-      "id": "2608.22613v1",
-      "source": "arxiv",
-      "title": "NOVA: Technology-Architecture Co-Design of Near-Memory Processing for Attention-SSM-MoE Hybrid LLM Inference",
-      "abstract": "The rapid evolution of hybrid large language models (LLMs), which interleave grouped-query-attention (GQA), state-space model (SSM), and Mixture-of-Experts (MoE) layers, introduces two fundamental challenges for near-memory processing (NMP) architectures. First, the Technology Wall: the conventional 6F^2 DRAM cell is approaching its physical scaling limits at 10nm-class nodes, making it difficult to meet the memory capacity demands of MoE models with hundreds of experts. Second, the Architecture Wall: existing NMP designs target narrow arithmetic intensity (Op/B) ranges and cannot efficiently support the heterogeneous compute characteristics of hybrid LLMs, spanning memory-bound SSM layers, compute-intensive GQA layers, and large Op/B variations across experts. We propose NOVA, a technology-architecture co-designed NMP system that overcomes both walls. On the technology side, NOVA combines a 4F^2 vertical channel transistor (VCT) DRAM cell with a peri-over-cell (POC) structure to achieve approximately 2x memory density at iso-area over conventional 6F^2-based DRAM, enabling continued scaling into sub-10nm nodes. On the architecture side, NOVA repurposes the POC peripheral-die (peri-die) to host processing units, forming a 2-tier NMP architecture: Tier-1 (peri-die NMP) for low-to-mid Op/B operations, and Tier-2 (base-die NMP) for mid-to-high Op/B operations. Parallel execution across tiers supports diverse compute patterns for hybrid LLMs, maximizing inference performance. Evaluated on state-of-the-art hybrid and MoE LLMs including Nemotron3-Nano, Nemotron3-Super, Falcon-H1R, and Qwen3, NOVA achieves on average 4.5x higher throughput, 69.8% lower end-to-end latency, and 5x better energy efficiency over a GPU baseline, with only 3.9% area overhead and no loss in memory capacity.",
-      "authors": [
-        "In-Jun Jung",
-        "Jaeha Min",
-        "Joo-Young Kim"
-      ],
-      "primary_category": "cs.AR",
-      "categories": [
-        "cs.AR"
-      ],
-      "published": "2026-08-23T21:38:46+00:00",
-      "link": "https://arxiv.org/pdf/2608.22613v1",
-      "tags": [
-        "keyword:thermal-gnn",
-        "query:thermal-gnn"
-      ],
-      "llm_score": 8.0,
-      "llm_evidence_en": "Near-memory processing architecture for hybrid LLM inference",
-      "llm_evidence_cn": "面向混合大模型推理的近存计算架构设计",
-      "llm_evidence": "面向混合大模型推理的近存计算架构设计",
-      "canonical_evidence": "面向混合大模型推理的近存计算架构设计",
-      "llm_tldr_en": "Targets the technology and architecture walls of near-memory processing for hybrid LLMs, proposing a co-design framework to support heterogeneous layer compute.",
-      "llm_tldr_cn": "针对混合大模型推理中近存计算面临的DRAM工艺缩放与计算特征异构两大瓶颈，提出技术与架构协同设计的NOVA框架。该框架统一考虑存储器件特性和混合层（注意力/SSM/MoE）的计算特性，以匹配宽范围的算术强度。结果显示NOVA能有效提升混合LLM推理的能效与扩展性。该工作为面向下一代大模型的新型近存计算体系结构提供了参考。",
-      "llm_tldr": "针对混合大模型推理中近存计算面临的DRAM工艺缩放与计算特征异构两大瓶颈，提出技术与架构协同设计的NOVA框架。该框架统一考虑存储器件特性和混合层（注意力/SSM/MoE）的计算特性，以匹配宽范围的算术强度。结果显示NOVA能有效提升混合LLM推理的能效与扩展性。该工作为面向下一代大模型的新型近存计算体系结构提供了参考。",
+      "llm_evidence_en": "architecture-aware performance modeling framework for processing-in-memory design-space exploration",
+      "llm_evidence_cn": "面向处理-存储一体的架构感知性能建模框架，用于近存计算设计空间探索",
+      "llm_evidence": "面向处理-存储一体的架构感知性能建模框架，用于近存计算设计空间探索",
+      "canonical_evidence": "面向处理-存储一体的架构感知性能建模框架，用于近存计算设计空间探索",
+      "llm_tldr_en": "Presents VIPER, a lightweight, architecture-aware performance evaluation framework for processing-in-memory design-space exploration, capturing end-to-end factors that limit PIM speedup to enable fast early-stage DSE.",
+      "llm_tldr_cn": "针对处理-存内计算（PIM）实际加速比高度依赖设计、而现有电路/器件级工具无法捕获端到端因素、周期精确仿真又太慢的问题，本文提出VIPER，一个轻量级且架构感知的PIM设计空间探索性能评估框架。VIPER对不可卸载主机执行、主机-PIM传输、PIM容量限制和器件编程延迟等统一建模，从而在早期快速比较PIM设计选择，推动近存计算系统的设计与优化。",
+      "llm_tldr": "针对处理-存内计算（PIM）实际加速比高度依赖设计、而现有电路/器件级工具无法捕获端到端因素、周期精确仿真又太慢的问题，本文提出VIPER，一个轻量级且架构感知的PIM设计空间探索性能评估框架。VIPER对不可卸载主机执行、主机-PIM传输、PIM容量限制和器件编程延迟等统一建模，从而在早期快速比较PIM设计选择，推动近存计算系统的设计与优化。",
       "llm_tags": [
         "query:cim:composite"
       ],
@@ -121,14 +85,50 @@
         "keyword:thermal-gnn",
         "query:thermal-gnn"
       ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Analog ReRAM crossbar arrays for in-memory deep learning accelerators",
+      "llm_evidence_cn": "面向存内深度学习加速器的模拟ReRAM交叉阵列",
+      "llm_evidence": "面向存内深度学习加速器的模拟ReRAM交叉阵列",
+      "canonical_evidence": "面向存内深度学习加速器的模拟ReRAM交叉阵列",
+      "llm_tldr_en": "Addressing weight-update disturbances in ReRAM crossbars, this paper presents disturbance-resilient analog arrays that enable in-memory training of deep learning accelerators, improving sustainability and power efficiency.",
+      "llm_tldr_cn": "本文针对模拟ReRAM交叉阵列在存内训练时面临的全并行权重更新扰动问题，提出了抗干扰的器件级解决方案，并在35纳米工艺上验证了其有效性。该方案可降低训练过程中权重值的意外漂移，使交叉计算阵列更可靠地支持端到端存内训练。研究为可持续、低功耗的模拟人工智能加速器提供了关键硬件基础。",
+      "llm_tldr": "本文针对模拟ReRAM交叉阵列在存内训练时面临的全并行权重更新扰动问题，提出了抗干扰的器件级解决方案，并在35纳米工艺上验证了其有效性。该方案可降低训练过程中权重值的意外漂移，使交叉计算阵列更可靠地支持端到端存内训练。研究为可持续、低功耗的模拟人工智能加速器提供了关键硬件基础。",
+      "llm_tags": [
+        "query:cim:composite"
+      ],
+      "matched_query_tag": "query:cim:composite",
+      "matched_query_text": "Papers central to 存算一体，主要关注基于混合键合的三维堆叠的近存计算, especially work that connects or combines: compute-in-memory architecture; hybrid bonding 3D integration; 3D stacking memory technology; near-memory computing design; processing-in-memory systems; 3D integrated circuit design; What are the key benefits of hybrid bonding for 3D stacked near memory computing?; How does compute in memory architecture improve energy efficiency?; Design challenges of 3D stacking for near memory computing systems.",
+      "matched_requirement_id": "req-composite-cim",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.22613v1",
+      "source": "arxiv",
+      "title": "NOVA: Technology-Architecture Co-Design of Near-Memory Processing for Attention-SSM-MoE Hybrid LLM Inference",
+      "abstract": "The rapid evolution of hybrid large language models (LLMs), which interleave grouped-query-attention (GQA), state-space model (SSM), and Mixture-of-Experts (MoE) layers, introduces two fundamental challenges for near-memory processing (NMP) architectures. First, the Technology Wall: the conventional 6F^2 DRAM cell is approaching its physical scaling limits at 10nm-class nodes, making it difficult to meet the memory capacity demands of MoE models with hundreds of experts. Second, the Architecture Wall: existing NMP designs target narrow arithmetic intensity (Op/B) ranges and cannot efficiently support the heterogeneous compute characteristics of hybrid LLMs, spanning memory-bound SSM layers, compute-intensive GQA layers, and large Op/B variations across experts. We propose NOVA, a technology-architecture co-designed NMP system that overcomes both walls. On the technology side, NOVA combines a 4F^2 vertical channel transistor (VCT) DRAM cell with a peri-over-cell (POC) structure to achieve approximately 2x memory density at iso-area over conventional 6F^2-based DRAM, enabling continued scaling into sub-10nm nodes. On the architecture side, NOVA repurposes the POC peripheral-die (peri-die) to host processing units, forming a 2-tier NMP architecture: Tier-1 (peri-die NMP) for low-to-mid Op/B operations, and Tier-2 (base-die NMP) for mid-to-high Op/B operations. Parallel execution across tiers supports diverse compute patterns for hybrid LLMs, maximizing inference performance. Evaluated on state-of-the-art hybrid and MoE LLMs including Nemotron3-Nano, Nemotron3-Super, Falcon-H1R, and Qwen3, NOVA achieves on average 4.5x higher throughput, 69.8% lower end-to-end latency, and 5x better energy efficiency over a GPU baseline, with only 3.9% area overhead and no loss in memory capacity.",
+      "authors": [
+        "In-Jun Jung",
+        "Jaeha Min",
+        "Joo-Young Kim"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-08-23T21:38:46+00:00",
+      "link": "https://arxiv.org/pdf/2608.22613v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
       "llm_score": 8.0,
-      "llm_evidence_en": "compute-in-memory ReRAM crossbar arrays for in-memory deep learning accelerators",
-      "llm_evidence_cn": "面向存内计算的ReRAM交叉阵列与内存内深度学习加速器",
-      "llm_evidence": "面向存内计算的ReRAM交叉阵列与内存内深度学习加速器",
-      "canonical_evidence": "面向存内计算的ReRAM交叉阵列与内存内深度学习加速器",
-      "llm_tldr_en": "Addresses weight disturbance during fully parallel updates in analog ReRAM crossbars, proposing a device solution to support power-efficient in-memory training acceleration for AI hardware.",
-      "llm_tldr_cn": "模拟ReRAM交叉阵列有望实现存内推理与训练，但全并行权重更新时的串扰会破坏权重值，阻碍存内训练加速的发展。本文聚焦该关键挑战，提出一种抗更新干扰的ReRAM器件方案，并在35nm工艺基础上进行了验证。该方案提升了权重更新的可靠性，为可持续、高能效的模拟存内深度学习加速器提供了器件级支撑。",
-      "llm_tldr": "模拟ReRAM交叉阵列有望实现存内推理与训练，但全并行权重更新时的串扰会破坏权重值，阻碍存内训练加速的发展。本文聚焦该关键挑战，提出一种抗更新干扰的ReRAM器件方案，并在35nm工艺基础上进行了验证。该方案提升了权重更新的可靠性，为可持续、高能效的模拟存内深度学习加速器提供了器件级支撑。",
+      "llm_evidence_en": "Near-memory processing architecture co-design for hybrid LLM inference",
+      "llm_evidence_cn": "面向混合LLM推理的近存计算技术-架构协同设计",
+      "llm_evidence": "面向混合LLM推理的近存计算技术-架构协同设计",
+      "canonical_evidence": "面向混合LLM推理的近存计算技术-架构协同设计",
+      "llm_tldr_en": "NOVA co-designs technology and architecture for near-memory processing of hybrid LLMs, addressing DRAM cell scaling limits and narrow arithmetic intensity ranges for GQA/SSM/MoE layers.",
+      "llm_tldr_cn": "混合LLM交替使用GQA、SSM和MoE层，给近存计算带来存储容量与算力密度不匹配的挑战。NOVA从技术和架构协同设计出发，针对DRAM物理缩放限制和异构计算特征重新设计近存处理单元。实验表明所提架构能高效支持不同算力强度的混合负载，改善能效并缓解容量瓶颈。该工作为面向大模型的近存计算设计提供了系统思路。",
+      "llm_tldr": "混合LLM交替使用GQA、SSM和MoE层，给近存计算带来存储容量与算力密度不匹配的挑战。NOVA从技术和架构协同设计出发，针对DRAM物理缩放限制和异构计算特征重新设计近存处理单元。实验表明所提架构能高效支持不同算力强度的混合负载，改善能效并缓解容量瓶颈。该工作为面向大模型的近存计算设计提供了系统思路。",
       "llm_tags": [
         "query:cim:composite"
       ],
@@ -139,46 +139,6 @@
     }
   ],
   "quick_skim": [
-    {
-      "id": "2608.25499v1",
-      "source": "arxiv",
-      "title": "Generalizing Thermal Transport in High-Contrast Metamaterials through Interfacial Fresnel Reflection",
-      "abstract": "The rapid growth of generative AI has intensified the need for efficient heat dissipation in large-scale data centers. To control heat flow, thermal metamaterials with layered structures have been widely used, which impart the anisotropic properties of thermal conductivities. However, the conventional effective medium approximation (EMA) often fails to provide accurate predictions in systems with a high thermal conductivity contrast between adjacent layers embedded in a background medium. Here, we generalize the EMA by introducing two corrective coefficients that extend its validity to regimes where the conventional EMA was previously inapplicable, i.e., high-contrast thermal metamaterials with the background medium. Notably, one of these coefficients that we proposed has the same mathematical form as the Fresnel reflection coefficient in optics. This allows us to interpret the \"reflection-like\" behavior of heat flow as it penetrates adjacent layers with high thermal contrast. Our findings suggest that heat diffusion, traditionally viewed as a purely dissipative process, can be understood intuitively through the framework of ray optics.",
-      "authors": [
-        "Seung Hyeon Ham",
-        "Yu Min Kim",
-        "In Hyeok Choi",
-        "Jeong Woo Han"
-      ],
-      "primary_category": "physics.optics",
-      "categories": [
-        "physics.optics",
-        "cond-mat.mtrl-sci",
-        "cond-mat.other"
-      ],
-      "published": "2026-08-26T08:10:48+00:00",
-      "link": "https://arxiv.org/pdf/2608.25499v1",
-      "tags": [
-        "keyword:thermal-gnn",
-        "query:thermal-gnn"
-      ],
-      "llm_score": 7.0,
-      "llm_evidence_en": "Thermal metamaterial modeling to control heat flow for efficient heat dissipation",
-      "llm_evidence_cn": "面向高效散热的热超材料建模与控制热流方法",
-      "llm_evidence": "面向高效散热的热超材料建模与控制热流方法",
-      "canonical_evidence": "面向高效散热的热超材料建模与控制热流方法",
-      "llm_tldr_en": "Introduces corrective coefficients to generalize effective medium approximation for high-contrast thermal metamaterials, improving heat transport prediction for dissipation design.",
-      "llm_tldr_cn": "针对生成式AI带来的数据中心散热需求，高对比度分层热超材料设计面临传统有效介质近似预测不准的问题。作者通过引入两个修正系数推广了有效介质模型，使其适用于高导热对比度且存在背景介质的场景。结果表明所提广义模型显著提升了热输运预测的准确性，可更有效地指导散热路径设计与热流控制。这项研究为芯片/系统级热管理提供了可迁移的建模思路。",
-      "llm_tldr": "针对生成式AI带来的数据中心散热需求，高对比度分层热超材料设计面临传统有效介质近似预测不准的问题。作者通过引入两个修正系数推广了有效介质模型，使其适用于高导热对比度且存在背景介质的场景。结果表明所提广义模型显著提升了热输运预测的准确性，可更有效地指导散热路径设计与热流控制。这项研究为芯片/系统级热管理提供了可迁移的建模思路。",
-      "llm_tags": [
-        "query:thermal-gnn"
-      ],
-      "matched_query_tag": "query:thermal-gnn",
-      "matched_query_text": "methods for managing heat dissipation in microprocessors and chips",
-      "matched_requirement_id": "req-3",
-      "selection_source": "fresh_fetch",
-      "quick_tier": "7"
-    },
     {
       "id": "2608.25155v1",
       "source": "arxiv",
@@ -202,14 +162,58 @@
         "keyword:thermal-gnn",
         "query:thermal-gnn"
       ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Open-source benchmark suite for 3D-IC design including TSV and hybrid bonding",
+      "llm_evidence_cn": "包含TSV与混合键合的三维集成电路开源基准套件",
+      "llm_evidence": "包含TSV与混合键合的三维集成电路开源基准套件",
+      "canonical_evidence": "包含TSV与混合键合的三维集成电路开源基准套件",
+      "llm_tldr_en": "The paper presents an open-source 3D-IC benchmark suite covering TSVs, hybrid bonding, and chiplet architectures to enable reproducible evaluation and drive advances in 3D physical design problems.",
+      "llm_tldr_cn": "本文发布了面向三维集成电路的开源基准测试套件，涵盖硅通孔、混合键合与芯粒架构等3D异构集成技术。该套件填补了公开可扩展3D物理设计基准的空白，支持跨不同物理设计问题的可复现评测。基准中的测试案例有望带动三维布局布线等算法与工具的发展，为3D芯片设计研究提供标准化基础设施。",
+      "llm_tldr": "本文发布了面向三维集成电路的开源基准测试套件，涵盖硅通孔、混合键合与芯粒架构等3D异构集成技术。该套件填补了公开可扩展3D物理设计基准的空白，支持跨不同物理设计问题的可复现评测。基准中的测试案例有望带动三维布局布线等算法与工具的发展，为3D芯片设计研究提供标准化基础设施。",
+      "llm_tags": [
+        "query:cim:composite"
+      ],
+      "matched_query_tag": "query:cim:composite",
+      "matched_query_text": "Papers central to 存算一体，主要关注基于混合键合的三维堆叠的近存计算, especially work that connects or combines: compute-in-memory architecture; hybrid bonding 3D integration; 3D stacking memory technology; near-memory computing design; processing-in-memory systems; 3D integrated circuit design; What are the key benefits of hybrid bonding for 3D stacked near memory computing?; How does compute in memory architecture improve energy efficiency?; Design challenges of 3D stacking for near memory computing systems.",
+      "matched_requirement_id": "req-composite-cim",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2608.25767v1",
+      "source": "arxiv",
+      "title": "Study of Resistive Switching Dynamics and Memory States Equilibria in Analog Filamentary Conductive-Metal-Oxide/HfOx ReRAM via Compact Modeling",
+      "abstract": "Resistive Random Access Memory (ReRAM) devices offer a promising solution for next-generation non-volatile memory and neuromorphic computing systems. Yet, existing compact models fail to capture analog resistive switching behavior of ReRAM devices. This work presents an advanced physics-based compact model for analog filamentary Conductive-Metal-Oxide (CMO)/HfOx ReRAM, capable of reproducing switching characteristics over a broad range of operating conditions. Compared to the state-of-the-art, the model extends the dynamic interplay between ion migration and electron hopping, while also accounting for parasitic resistive elements. Simulations of various voltage inputs are tested to reproduce quasi-static I-V curves, SET switching kinetics under single-pulse programming conditions, and analog accumulative conductance modulation upon bipolar identical pulse streams. Additional simulations reveal the physical criterion underlying the stabilization of the CMO/HfOx-based ReRAM memory state around the equilibrium point, namely symmetry point, under pulsing conditions when a fading memory mechanism emerges. Building upon the evidence of such equilibrium stabilization under pulsing and quasi-static conditions, a procedure is established to visualize and map equilibrium memory states across different input domains. The physical model supports design optimization of switching behavior for analog neuromorphic systems and non-volatile memory architectures. It also enables accurate integrated circuit simulations with CMO/HfOx-based ReRAM technology.",
+      "authors": [
+        "Matteo Galetta",
+        "Donato Francesco Falcone",
+        "Victoria Clerico",
+        "Wooseok Choi",
+        "Stephan Menzel",
+        "Antonio La Porta",
+        "Tommaso Stecconi",
+        "Folkert Horst",
+        "Bert Jan Offrein",
+        "Valeria Bragaglia"
+      ],
+      "primary_category": "cs.ET",
+      "categories": [
+        "cs.ET"
+      ],
+      "published": "2026-08-26T13:11:53+00:00",
+      "link": "https://arxiv.org/pdf/2608.25767v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
       "llm_score": 6.0,
-      "llm_evidence_en": "Open-source 3D-IC benchmark suite covering hybrid bonding and 3D integration, supporting reproducible physical design evaluation for 3D stacked computing/memory",
-      "llm_evidence_cn": "涵盖混合键合与三维集成的开源三维IC基准套件，支撑三维堆叠计算/存储的可复现设计评估",
-      "llm_evidence": "涵盖混合键合与三维集成的开源三维IC基准套件，支撑三维堆叠计算/存储的可复现设计评估",
-      "canonical_evidence": "涵盖混合键合与三维集成的开源三维IC基准套件，支撑三维堆叠计算/存储的可复现设计评估",
-      "llm_tldr_en": "Presents an open-source 3D-IC benchmark suite addressing the lack of standardized testcases for emerging 3D heterogeneous integration, including TSVs, hybrid bonding and chiplets, to enable reproducible placement and routing evaluation.",
-      "llm_tldr_cn": "现有物理设计基准主要面向平面芯片，无法覆盖TSV、混合键合和芯粒等三维异构集成带来的新挑战。本文构建并开源了可扩展的三维集成电路测试用例集合，覆盖多种三维物理设计问题的评估需求。该基准套件能支持三维堆叠存储与近存计算等架构的可复现评测，为混合键合三维集成设计提供了基础验证平台。",
-      "llm_tldr": "现有物理设计基准主要面向平面芯片，无法覆盖TSV、混合键合和芯粒等三维异构集成带来的新挑战。本文构建并开源了可扩展的三维集成电路测试用例集合，覆盖多种三维物理设计问题的评估需求。该基准套件能支持三维堆叠存储与近存计算等架构的可复现评测，为混合键合三维集成设计提供了基础验证平台。",
+      "llm_evidence_en": "Compact modeling of analog ReRAM for neuromorphic computing",
+      "llm_evidence_cn": "面向神经形态计算的模拟ReRAM紧凑模型",
+      "llm_evidence": "面向神经形态计算的模拟ReRAM紧凑模型",
+      "canonical_evidence": "面向神经形态计算的模拟ReRAM紧凑模型",
+      "llm_tldr_en": "This paper develops a physics-based compact model for analog filamentary ReRAM, coupling ion migration and electron hopping with parasitic resistances, and reproduces resistive switching across broad operating conditions.",
+      "llm_tldr_cn": "本文提出了一个基于物理的模拟细丝ReRAM紧凑模型，能够描述离子迁移与电子跳跃之间的动态耦合，并计入寄生电阻效应。模型在多种工作条件和电压输入下均可复现阻变特性，弥补了现有紧凑模型在模拟开关行为上的不足。该模型为设计下一代非易失存储与神经形态电路提供了精确的仿真基础。",
+      "llm_tldr": "本文提出了一个基于物理的模拟细丝ReRAM紧凑模型，能够描述离子迁移与电子跳跃之间的动态耦合，并计入寄生电阻效应。模型在多种工作条件和电压输入下均可复现阻变特性，弥补了现有紧凑模型在模拟开关行为上的不足。该模型为设计下一代非易失存储与神经形态电路提供了精确的仿真基础。",
       "llm_tags": [
         "query:cim:composite"
       ],

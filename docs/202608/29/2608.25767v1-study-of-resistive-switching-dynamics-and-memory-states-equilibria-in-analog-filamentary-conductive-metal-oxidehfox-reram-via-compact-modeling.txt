@@ -1,0 +1,499 @@
+Title: Study of Resistive Switching Dynamics and Memory States Equilibria in Analog Filamentary Conductive-Metal-Oxide/HfOx ReRAM via Compact Modeling
+
+URL Source: https://arxiv.org/pdf/2608.25767v1
+
+Published Time: Thu, 27 Aug 2026 01:01:01 GMT
+
+Number of Pages: 21
+
+Markdown Content:
+# Study of Resistive Switching Dynamics and Memory States Equilibria in Analog Filamentary Conductive-Metal-Oxide/HfO x
+
+# ReRAM via Compact Modeling 
+
+Matteo Galetta* Donato Francesco Falcone Victoria Clerico Wooseok Choi Stephan Menzel Antonio La Porta Tommaso Stecconi Folkert Horst Bert Jan Offrein Valeria Bragaglia** 
+
+M. Galetta, D. F. Falcone, V. Clerico, Dr. W. Choi, Dr. A. La Porta, Dr. T. Stecconi, Dr. F. Horst, Prof. B. J. Offrein, and Prof. V. Bragalia Science of Quantum and Information Technology, IBM Research Europe-Zurich, R¨ uschlikon CH-8803, Switzerland E-mail Address: ata@zurich.ibm.com*, vbr@zurich.ibm.com** Dr. S. Menzel Peter Gr¨ unberg Institute-7, Forschungszentrum J¨ ulich, J¨ ulich DE-52425, Germany Keywords: Physics-based compact model, Conductive-Metal-Oxide, Analog ReRAM, Fading memory, Tiki-Taka algorithm 
+
+Resistive Random Access Memory (ReRAM) devices offer a promising solution for next-generation non-volatile memory and neu-romorphic computing systems. Yet, existing compact models fail to capture analog resistive switching behavior of ReRAM devices. This work presents an advanced physics-based compact model for analog filamentary Conductive-Metal-Oxide (CMO)/HfO x ReRAM, capable of reproducing switching characteristics over a broad range of operating conditions. Compared to the state-of-the-art, the model extends the dynamic interplay between ion migration and electron hopping, while also accounting for parasitic resistive ele-ments. Simulations of various voltage inputs are tested to reproduce quasi-static I-V curves, SET switching kinetics under single-pulse programming conditions, and analog accumulative conductance modulation upon bipolar identical pulse streams. Additional simulations reveal the physical criterion underlying the stabilization of the CMO/HfO x-based ReRAM memory state around the equilibrium point, namely symmetry point, under pulsing conditions when a fading memory mechanism emerges. Building upon the evidence of such equilibrium stabilization under pulsing and quasi-static conditions, a procedure is established to visualize and map equilibrium memory states across different input domains. The physical model supports design optimization of switching behavior for analog neuromorphic systems and non-volatile memory architectures. It also enables accurate integrated circuit simulations with CMO/HfO x-based ReRAM technology. 
+
+## 1 Introduction 
+
+In recent years, as Complementary Metal-Oxide-Semiconductor (CMOS) devices continued to scale down, memory units based on standard technologies—such as Static Random Access Memory (SRAM), Dy-namic Random Access Memory (DRAM), and flash—have struggled to keep pace with the performance improvements achieved by CMOS processors [1]. For advanced technology nodes, embedded memory elements exhibit escalating costs [2]. Some of them have also shown incompatibility with CMOS man-ufacturing processes [3], struggling to meet the demand for higher memory densities. Additionally, as Field-Effect Transistor (FET) size shrinks, increased leakage currents hinder the performance of stan-dard memories [4]. Meanwhile, memory modules have encountered latency issues in data movement [5] at the architecture level, highlighting the shortcomings of the von Neumann paradigm in handling the massive workloads of modern data-centric applications, such as Artificial Intelligence (AI) [6]. As high-throughput data trans-fer and processing are essential, the separation of memory and processing units creates performance and energy bottlenecks when executing Deep Neural Networks (DNNs) on conventional von Neumann archi-tectures. While compute performance demands continue to grow, AI workloads are executed on large, power-hungry Graphic Processing Unit (GPU)-based systems [1]. In this context, in-memory computing has emerged as a potential solution, enabling computations within memory elements, hence significantly improving energy efficiency by eliminating data movement [7]. Resistive Random Access Memory (ReRAM) has emerged as a promising alternative to conventional memory technologies, drawing attention due to low cost and high density integration in the Back-End of Line (BEOL) of two-terminal cell structures with low thermal budget requirements [2, 8, 9, 10]. Beyond 
+
+1arXiv:2608.25767v1 [cs.ET] 26 Aug 2026 its growing use in embedded memory arrays [2, 11], ReRAM is also a strong candidate for in-memory computing hardware, thanks to its non-volatility, low power consumption, and fast read/write perfor-mance [8, 12]. ReRAM technology in crossbar array structures can perform Matrix-Vector Multiplications (MVMs)—the core operations in DNNs—with constant time complexity (O(1)). These cross-point architectures allow for highly parallel computation and offer a significant reduction in latency and energy consumption com-pared to traditional GPU-based digital accelerators [13]. Leveraging these properties, ReRAM-based Re-sistive Processing Units (RPUs) enable efficient in-memory computing by physically encoding synaptic weights as conductance values in the ReRAM cells. A conventional ReRAM device cell consists of a Metal/Insulator/Metal (M/I/M) stack. Recent advances in material engineering have resulted in improved switching characteristics of HfO x-based ReRAM tech-nology through the integration of a properly engineered Conductive-Metal-Oxide (CMO) layer into the device stack. Filamentary CMO/HfO x-based ReRAM devices exhibit analog resistive switching and can therefore encode multi-bit values into High, Intermediate, and Low Resistive States (HRS, IRS, and LRS, respectively) [14, 15]. In addition, CMO/HfO x-based ReRAM technology has demonstrated remarkable retention times for resistive states programmed with low noise, along with excellent endurance—preserving analog properties over more than 10 7 programming pulses [15]. In the realm of AI, such improved resistive switching characteristics have been exploited to enable ac-curate and fast analog training of RPU-based DNNs thanks to dedicated algorithms, namely Tiki-Taka [16, 17, 18]. Particularly, this state-of-the-art analog training algorithm assumes that the ReRAM de-vices support analog bidirectional accumulative conductance updates, and exhibit a memory state where such updates in opposite directions are equal in magnitude, i.e., the Symmetry Point (SP) [16, 19]. Re-cently, hardware-algorithm co-optimization has demonstrated the feasibility of fully on-chip training [9, 10, 15, 20] and long-term inference capabilities [10] with CMO/HfO x-based ReRAM technology. To fully harness the potential of ReRAM as an emerging memory technology, the availability of device simulation models is essential for its advancements and integration into Integrated Circuits (ICs). Physi-cal models provide critical insights into the microscopic mechanisms behind resistive switching and trans-port phenomena [21, 22, 23], driving the optimization of electro-structural layer parameters for further technological advancements [24, 25]. On the other hand, compact models are vital for describing device behavior at the system level, enabling the design of ICs incorporating ReRAM devices. To meet both demands, physics-based compact models offer an effective balance between accuracy and simulation com-plexity, supporting broader operating ranges while remaining suitable for IC design. Although various ReRAM device compact models have been proposed in literature, such as the JART model [26] or the Stanford-PKU model [27], they are tailored for binary switching in metal-oxide ReRAM involving a filament gap formation. Other models targeting analog ReRAM have also been introduced [28], based on the assumption of multiple weak filaments within a metal-oxide layer. In contrast, resis-tive switching in the analog filamentary CMO/HfO x ReRAM relies on a gradual modulation of defect concentration in the CMO layer, over a rigid conductive filament, imposing a need for customized com-pact models that differ from those in existing literature [26, 27, 28]. In this work, a compact model tailored for CMO/HfO x-based ReRAM is employed to simulate the de-vice characteristics. 3D finite-element models of the same ReRAM device serve as groundwork for the physical assumptions about the electrothermal configuration within the device stack [23, 24]. The elec-tron conduction equations used here build upon the analytical description of electronic transport in the non-switching regime, as detailed in [23]. The compact model proposed in [29] incorporates thermal and ion migration dynamics to extend the aforementioned analytical framework, enabling a description of the full I-V sweep characteristic in a quasi-static voltage input domain. An advanced version of that compact model is presented in this study, integrating key improvements to accurately capture analog resistive switching phenomena in CMO/HfO x-based ReRAM. It accounts for the effects of parasitic resistive elements external to the ReRAM cell, corrects ion migration dynamics to prevent unphysical concentrations of oxygen-related defects, and introduces evolving physical parameters that regulate hopping conduction based on the interplay with defect density. A variability component of 
+
+> 2
+
+electronic transport is also included to reflect stochastic conduction non-idealities. In this work, the de-vice model—whose equivalent two-terminal electrical circuit is illustrated in Figure 1 a—is applied to various electrical input conditions, not addressed in previous studies, to validate its applicability across a broad range of operating time scales. Experimental data of quasi-static I-V characteristics, single-pulse programming time measurements, and analog bidirectional accumulative conductance responses are used to test the simulated device behavior. Further investigation explains the origin of conductance stabiliza-tion around an equilibrium point, i.e., the SP (see Figure 1b). Inspired by similar approaches [30, 31], the equilibrium point is identified from resistive switching transitions under quasi-static response. This work extends the analysis by studying how the equilibrium stabilization consistently manifests under both pulsed and quasi-static responses. Finally, the simulated switching responses upon different pulse schemes (see Figure 1b) are tested for analog Neural Network (NN) training within IBM’s AI analog hardware acceleration kit (’aihwkit’) [32]. This study evaluates the impact of pulse-driven switching symmetry tuning on the learning performance (illustrated in Figure 1b and Figure 1c) when using the earliest Tiki-Taka variant [16]. x200 […] x300 […] 
+
+> VA( t )
+> GND VA Ie REle REle RCF Iion RCMO Neural Network training simulation Switching response tuning
+> Pulse scheme Switching symmetry Tiki-Taka algorithm
+> x200 […]
+
+# (a) (b) (c)  
+
+> =V!""
+> 𝑒 #
+> M (BE) CMO HfOx CF ( V!"" )GND VA (200 nm) 2M (TE) Memory state equilibrium stabilization Symmetry Point memory state RSeries
+
+Figure 1: (a) Schematic illustration of the CMO/HfO x-based ReRAM structure and the equivalent circuit of the device’s compact model used in this work. (b) Analog switching characteristics and stabilization around the symmetry point of the CMO/HfO x-based ReRAM device resistance are reproduced through simulations of the experimental pulse scheme. The physical origin of ReRAM device’s symmetry point and its dependence on the input pulse scheme are leveraged to study the impact of the switching symmetry in the analog bidirectional accumulative characteristic on MNIST training simula-tions by using the Tiki-Taka algorithm (c). 
+
+## 2 Compact Modeling of Analog Resistive Switching Dynamics 
+
+Former studies [23, 29] reported the physical mechanisms behind resistive switching phenomena in CMO/HfO x-based ReRAM devices. Such mechanisms rely on a redistribution of oxygen-related defects, where the active layer that undergoes a reversible and non-volatile resistivity change (or memory effect) is the CMO. Under the assumption of sufficiently low switching voltages to avoid interlayer ion migration, the con-ductive properties of the HfO x layer change only during the electro-forming step. In CMO/HfO x-based ReRAM, the electro-forming step involves a relatively large applied bias that induces the formation of a metallic-like nanoscale conductive filament of a highly oxygen-deficient oxide [23]—schematically illus-trated in Figure 1a as CF—electrically bridging the bottom electrode and the CMO [33] through a soft dielectric breakdown. Evidence of electronic conduction through the conductive filament, namely fila-mentary conduction, has been demonstrated in [10, 14]. In this modeling study, the conductive filament is considered as formed in the HfO x layer with cylindrical shape as a conceptual simplification [21]. Elec-trothermal simulations based on finite element modeling showed that the current is constrained to pass through the ohmic-like conductive filament. Consequently, the presence of a CMO forces the spreading 
+
+3of the electric field from a narrow cylindrical region towards the top electrode [23]. Accordingly, when a bias is applied, most of the electrostatic field and temperature enhancement experience a confinement ef-fect in a semi-spherical region (dome) on top of the conductive filament, as a consequence of the spread-ing constraint imposed by the CMO [24]. Thus, the bias-induced oxygen-related defects redistribution occurs in the same dome-shaped region where the electrothermal energy is confined, while the filament remains rigid with constant resistance (see Figure 1a). Previous studies have outlined the material con-straints on the conduction and electrothermal properties of the CMO [23], which must be satisfied for the assumptions of this modeling study to hold true. Moreover, it can be extended across a range of sub-stoichiometric CMOs, including, but not limited to, the one considered in this work. A compact model for analog CMO/HfO x-based ReRAM devices, accounting for the aforementioned mi-croscopic mechanisms, has been previously introduced in [29] and tested in a quasi-static regime. This work demonstrates its applicability in simulating the device switching kinetics and analog pulse response, both of which have not been addressed in previous studies. This section reports the physical equations constituting the model core, recalling the key mechanisms occurring in the CMO during resistive switch-ing. It also details the new modified equations to account for external parasitic resistive elements and corrected ion migration dynamics, thereby preventing unphysical concentrations of oxygen-related de-fects. 
+
+> Device model
+
+In transition metal oxides (TMOs), like the sub-stoichiometric TaO x acting as CMO layer in this study, the memory effect arises from the migration of oxygen anions, although their dynamics can be expressed as a motion of oxygen vacancies [34]. Specifically, here only oxygen vacancies with charge equal to +2 are considered (V ··  
+
+> O
+
+in Kro¨ oger-Vink notation [35]), as they are the one with lowest formation energy [36]. Therefore, the V ··  
+
+> O
+
+concentration ( CV) in the CMO dome is used as a state variable to model the memory effect over the time span of the voltage input. This way, the following continuity equation de-scribes the rate of defect displacement: dCV
+
+dt = − JIon 
+
+zql D
+
+(1) where z is the defect charge number and q is the elementary charge. The presence of a vertical electric field ( E) lowers the zero-field intra-lattice migration barrier (∆ WA), establishing a preferred direction for ion drift along the dome thickness ( lD). Consequently, a net mo-tion of V ··  
+
+> O
+
+arises, resulting in an ionic drift current density ( JIon ), modeled as a lattice site-to-site Mott-Gurney hopping [37]. In this study, the ion drift mean velocity ( vIon ) associated with the V ··  
+
+> O
+
+net motion, is isolated from JIon , enabling the analysis of the ion migration speed profile during resistive switching transitions. 
+
+JIon = zq CV · vIon == zq CVaν 0 · exp 
+
+
+
+−∆WA
+
+kBT
+
+
+
+· 2 sinh 
+
+ zq Ea
+
+2kBT
+
+
+
+·
+
+
+
+1 − CV
+
+CV,lim 
+
+α
+
+(2) where a is the ion hopping distance, ν0 is the ion hopping attempt frequency, kB is the Boltzmann con-stant and T represents the temperature. In this work, a limiting factor to the power of α is introduced to ensure that CV does not exceed unphysical values beyond CV,lim , which is determined by density of oxygen sites in the unit cell (computations reported in Supporting Information), and might be related to material phase transitions [26]. To account for the effects of parasitic resistive elements external to the ReRAM cell ( RSeries ), as well as the voltage drops across the electrodes and the rigid, resistance-invariant conductive filament, this study introduces a voltage partitioning approach for the bias applied to the top electrode ( VA). Conse-quently, E is the field portion present across the only variable resistance layer, represented by RCMO , and 
+
+> 4
+
+is, therefore, the component responsible for driving ion migration. The conductive filament and the elec-trodes are modeled as invariant resistors ( RCF and 2 REle respectively), as schematically illustrated in the ReRAM equivalent circuit in Figure 1a. 
+
+RCMO = VA/I e − RCF − 2REle − RSeries (3) 
+
+E = VA
+
+lCMO 
+
+· RCMO 
+
+RCMO + RCF + 2 REle + RSeries 
+
+(4) A bias-induced redistribution of ions within the dome results in variations of CMO layer conduction prop-erties. In several TMOs, doubly charged V ··  
+
+> O
+
+defects lead to the presence of donor-like levels, spectrally positioned in the middle of the band gap, and thereby, making the excitations of electrons in the conduc-tion band energetically unfavorable [38]. As a consequence, electron hopping through defects dominates the conduction and the average density of electronic trap states ( De) dynamically modifies with alter-ations in CV, here simplified as: 
+
+De = βzC V (5) where β is a scaling factor (0 < β < 1) representing the fraction of occupied/available states, used to filter out the donor-like levels that might not contribute to conduction. This can occur due to their mis-alignment with the Fermi level under applied bias, or due to electron capture by trap states. Following the understanding proposed in [23], the current spreading constraint makes the CMO layer the conduction bottleneck. Hence, the electronic transport flowing through the whole ReRAM device is modeled as a Trap-Assisted Tunneling (TAT) process via V ··  
+
+> O
+
+deep levels in that layer, as in the following hopping form: 
+
+Ie = AMqDeaeνe · exp 
+
+
+
+−∆EA
+
+kBT
+
+
+
+· 2 sinh 
+
+ qEae
+
+2kBT
+
+
+
+(6) In Equation 6, AM represents the cross-sectional area of the CMO volume at the interface with the con-ductive filament, ae is the average trap-to-trap distance, νe is the electron jump attempt frequency, and ∆EA is the average zero-field activation energy for TAT. In addition, the lumped capacitance model is used to describe the thermodynamic phenomena confined in the CMO, as in [29]. The temperature transients are governed by Joule heating with respect to refer-ence room temperature ( T0): 
+
+Cth · dT
+
+dt = Pe −
+
+T − T0
+
+Rth 
+
+
+
+(7) where Cth and Rth are the thermal capacitance and thermal resistance, respectively, and Pe = Ie · VA is the electrical power. Table 1 in Supporting Information lists the simulation parameters employed to reproduce the electrother-mal behavior, resistive switching characteristics, and ion dynamics of the CMO/HfO x-based ReRAM us-ing the device model of this section. 
+
+## 3 ReRAM device electrical response simulations 
+
+3.1 Quasi-Static I-V Characteristic 
+
+The previous version of the analog ReRAM compact model has been used to reproduce the quasi-static 
+
+I-V characteristic [29]. In this work, Equation 2 is employed to extend the description of the device ter-minal behavior to the investigation of physical properties of ion migration velocity during bipolar resis-tive switching, under the same quasi-static conditions as the I-V sweep characteristic. 
+
+Figure 2 a shows 10 cycles of counter-eightwise (C8W) experimental I-V characteristic, according to the definition reported by Dittmann et al. [39]. The model core, including Equations 1 to 7, is simulated 
+
+> 5
+
+3.1 Quasi-Static I-V Characteristic (a)  
+
+> SET RESET
+
+# (b)     
+
+> Switching onset:
+> ℇ = 5.1 #10 7 V m -1
+> 𝑇 = 534 K Switching onset:
+> ℇ = 4.4 #10 7 V m -1
+> 𝑇 = 371 K
+
+Figure 2: (a) Simulated quasi-static C8W current-voltage sweep (left axis) overlaid with experimental data (10 full sweep cycles), both obtained using the same voltage input and RSeries = 0 Ω . White diamonds in the current-voltage character-istic mark the SET/RESET switching onsets, which are projected along the voltage axis on the modeled ion drift velocity (right axis). (b) In the upper plot, the dynamics of oxygen vacancy concentration (left axis) and the total non-linear resis-tance (right axis) over the voltage input time scale. White circles intersect the resistance-time curve for |VA| = 0.2 V, the voltage used to read the device state. In the bottom plot, the bipolar triangular voltage sweep (SR = 0 .1 Vs −1) applied to the ReRAM top electrode as input to reproduce the current-voltage characteristic. 
+
+with the same input as the experimental electrical conditions, i.e., the triangular voltage sweep shown in the bottom plot of Figure 2b. The highly non-linear I-V characteristic experimental data are accurately reproduced by a hopping transport mechanism as described with Equation 6. Here, the intra-lattice mi-gration barriers and the hopping conduction parameters ( ae, ∆EA) were calibrated exclusively consider-ing the I-V characteristic experimental data. The physical framework of the compact model enables the retrieval of the ion migration velocity evolv-ing over the applied voltage input. After validating the model’s fidelity through the quasi-static I-V char-acteristic, vIon is extracted from Equation 2 during the voltage sweep, and is shown in Figure 2a. The 
+
+vIon profile reveals an asymmetric evolution of ion migration speed between opposite switching polari-ties, driven by differences in electronic transport-Joule heating feedback. An exponential increase of vIon 
+
+during the SET phase reflects the thermal runaway of the ion migration processes as a consequence of the positive feedback between conductance, temperature, and current increase. However, the partial CV
+
+modulation leads to a gradual SET transition [23], in contrast to the abrupt SET observed in metal-oxide ReRAM exhibiting a filament gap formation [21]. Conversely, during the RESET phase, the ion 
+
+63.2 Switching Kinetics and Temperature-Programming Time Trade-Off 
+
+migration is slowed down (see Figure 2a), as Joule heating is counteracted by a current and conductance decrease. Despite the intrinsic electrothermal asymmetry of bipolar switching dynamics (see E and T at the switching onset in Figure 2a) [39], the ionic mean speed coincides for both SET and RESET transi-tions at the switching onset. The value of vIon initiating the migration ( ∼ 1.1 nm s −1) is found by pro-jecting the switching onset of the simulated I-V characteristic onto the ionic mean speed profile. Conse-quently, the average migration displacement is computed over a time interval (∆ tSw ) from the switching onset to the stop voltage in the triangular sweep as: 
+
+< s M > =
+
+Z
+
+> ∆tSw
+
+vIon dt (8) For both SET and RESET transitions, < s M > ∼ 6 nm, regardless of electrothermal disparities. This suggests that the resistive switching in CMO/HfO x-based ReRAM is governed by bidirectional migration of the same ionic species within a confined region thinner than lD. However, more rigorous and advanced spectroscopy techniques are required to experimentally confirm variations in defect concentration within the dome portion. As a result of V ··  
+
+> O
+
+migration, the CMO dome undergoes a modulation of defect con-centration, affecting the density of electron trap states, as described in Equation 5. Figure 2b shows that the CMO is partially depleted of V ··  
+
+> O
+
+in HRS and populated back in LRS ( CHRS V < C LRS V ). The assumed 3D spatial distribution of doubly-charged oxygen vacancies within the CMO/HfO x layer stack for differ-ent resistive states is schematically represented in Figure S1 in Supporting Information. In LRS, the homogeneously distributed traps within the dome allow electron jumps among regular TAT paths (mini-mum ae, ∆EA). Whereas during RESET, V ··  
+
+> O
+
+migrate towards the interface with the conductive filament [23], limiting the conduction in HRS by a trap deficit in the dome (maximum ae, ∆EA) [40]. To model the gradual conductivity change, a parametrization of the average trap-to-trap distance and the TAT ac-tivation energy is considered. The parameters ae, ∆EA are modeled as linearly increasing with the de-crease of the defect concentration in the dome [41]: 
+
+ae = ae,0 − k′
+
+· CV (9) ∆EA = ∆ EA,0 − k′′ 
+
+· CV (10) The ReRAM device experiences SET and RESET transitions when the electrothermal energy is suffi-ciently high to overcome the ion migration barrier. Here, ∆ WA grows with CV throughout the SET tran-sition [29], as the migration of V ··  
+
+> O
+
+is thermodynamically favored by the strong gradient of defect concen-tration at the CMO/conductive filament interface [42]. Although during the non-switching phase CV remains constant within the dome, the resistance of the device varies dynamically with the applied voltage, as shown in Figure 2b. This behavior arises from the inherently non-linear TAT transport: Joule heating and the applied bias accelerate electron jumps among trap states, leading to variations in resistance without any ∆ CV induced by ion migration. Hereby, memory states (i.e., device conductance or resistance levels) are retrieved as a combination of reading voltage and CV, with the latter uniquely identifying the device configuration (i.e., defect state). |VA| =0.2 V is chosen as a low bias value to read the memory state, when electrons are not strongly accelerated and the I-V relationship is nearly linear. 
+
+3.2 Switching Kinetics and Temperature-Programming Time Trade-Off 
+
+Switching kinetics in ReRAM devices is known to be highly non-linear, especially when resistive switch-ing is driven by thermally accelerated ionic drift [43]. As a consequence, the time of programming ex-periences a non-linear voltage dependency. A strong non-linearity in switching kinetics is beneficial for achieving fast, non-volatile switching and long-term retention, as it prevents perturbation of the device state upon repeated low-voltage read pulses that are too weak to trigger switching transitions. In addi-tion, this pronounced non-linearity implies programming of memory states using short voltage pulses, thereby addressing what is commonly referred to in the literature as the voltage-time dilemma [34]. 
+
+> 7
+
+3.2 Switching Kinetics and Temperature-Programming Time Trade-Off 
+
+The SET switching kinetics of the CMO/HfO x-based ReRAM is characterized and simulated in this sec-tion, with the read voltage ( VREAD ) fixed at |VA| = 0 .2 V to ensure consistency throughout this work. SET programming voltages that do not exceed approximately 10 · VREAD [39] are used throughout the experiment. Figure 3 a shows the exponential dependency of the SET switching time (∆ tSET ) on VSET 
+
+within the selected programming voltage range. To characterize the SET switching kinetics, single-pulse programming data are collected under fixed switching conditions, with the pre- and post-programming resistance values set to Ri,READ = 8 kΩ and Rf,READ = 2 kΩ, respectively. A tolerance of ±300 Ω is allowed for reaching Rf,READ . These values define the programming criterion used to consider an exper-imental data point as valid. Equally with the experimental programming conditions, identical READ-SET-READ pulse sequences are reproduced as input for the simulation. Figure 3a shows agreement be-tween the experimental and simulated switching kinetics, confirming that the model core accurately pre-dicts resistive switching behavior across a wide range of voltage and time programming conditions. Be-sides characterizing the switching kinetics, Figure 3a enables the design of the appropriate pulse am-plitude and duration to program the memory cell in a binary fashion by a single square voltage pulse, without accessing the IRSs. 2 k Ω
+
+> 8 k Ω
+
+# (b) […] x10 
+
+> Δ
+> tSET( ↑), VSET( ↓)VSET
+> Δ
+> tSET Rf,READ Ri,READ
+
+# (a)     
+
+> ∆
+> tSET simulation with tolerance ( Rf,READ ±300 Ω)
+> 175 mV/dec. Single-pulse SET programing currents Pre- and post-programming currents during READ pulses
+
+Figure 3: (a) In the top panel, a sketch of the READ-SET-READ pulse sequence used to study the switching kinetics through single-pulse programming. In the bottom plot, the time-voltage (∆ tSET -VSET ) trade-off for single-pulse program-ming, overlaying experimental and simulated SET times (left axis), along with the maximum temperature reached within the switching volume (right axis) as a function of pulse amplitude. The maximum temperature refers to the peak value during the SET programming pulse. Experimental and simulated voltages are applied to a series including the ReRAM and a load resistor ( RSeries = 50 Ω) used for current measurement in the experimental setup. The simulation is carried out with an initial oxygen vacancies concentration of CV,0 = 1 .37 · 10 26 m−3, corresponding to Ri,READ = 8 kΩ, when reading at |VA| = 0 .2 V. (b) Current transients over time within the programming pulse width ∆ tSET for VSET values ranging from -1.35 V to -1.8 V. Each current transient corresponds to a simulated SET pulse (white circles) that satisfies the criterion for pre- and post-programming resistance ( Ri,READ = 8 kΩ → Rf,READ = 2 kΩ). 
+
+An improper balance of VSET and ∆ tSET can lead to incomplete switching or excessive Joule heating/device degradation (region below or above the ∆ tSET (VSET ) curve respectively). A single slope in the ∆ tSET (VSET )diagram, plotted on a logarithmic scale, denotes Joule heating as the dominant driving mechanism accel-erating the memory state switching [44]. This behavior is typically associated with ion migration strongly confined within a region of few nanometers, supporting the average migration displacement estimated by Equation 8. Consequently, the high non-linearity of switching kinetics ( ∼175 mV/dec) in CMO/HfO x-based ReRAM might be attributed to the electrothermal confinement in the nanometer-scale dome re-gion on top of the conductive filament, where the ion mobility is enhanced by Joule heating. Figure 3b shows the simulated electronic current during the SET transition for each pulse, used to compute the electrical energy of programming ( Ep,SET ) as: 
+
+83.3 Analog Bidirectional Accumulative Conductance Response 
+
+Ep,SET =
+
+Z
+
+> ∆tSET
+
+VSET · Ie dt (11) The strong non-linearity of the ∆ tSET (VSET ) diagram reflects in the voltage-dependency of Ep,SET : large programming voltages with short pulses enable low energy switching (see Figure S3 in Supporting In-formation) at the expense of a large maximum temperature within the switching region in the CMO. Despite fast and low energy switching is preferred to outperform other memory technologies (DRAM or high performance SRAM [34]), a temperature-programming time trade-off has to be considered to avoid performance degradation of CMO/HfO x-based ReRAM attributed to excessive Joule heating. 
+
+3.3 Analog Bidirectional Accumulative Conductance Response 
+
+On-chip training using analog cross-point architectures was shown to be feasible by implementing hardware-aware algorithms, namely Tiki-Taka [16]. Such algorithms account for device non-linear switching re-sponse and assume that cross-point memory cells exhibit a SP and analog bidirectional accumulative conductance updates. Thereby, the cross-point ReRAM devices are studied to meet such criteria when tested under bipolar voltage pulse streams, where each batch involves pulses identical in amplitude and duration. Specifically, CMO/HfO x-based ReRAM devices exhibit analog bidirectional resistive switch-ing, where each pulse leads to a small conductance ( G) change, therefore allowing for access to multi-ple analog memory states. Furthermore, upon programming with alternating positive/negative pulses, the device features a given SP within the G-window [15]. In this study, the analog bidirectional accu-mulative conductance response of CMO/HfO x-based ReRAM is evaluated experimentally and simulated via physics-aware compact model, under Tiki-Taka training pulsing scenario conditions. To this aim, a predefined pulse scheme is applied, without involving a real-time feedback after each pulse to adjust the programming procedure for catching the desired device memory state. Such approach, also known as open-loop programming, consists of applying a batch of 200 positive ( VP+ ) and 200 negative pulses (VP−) with duration of ∆ t+/− = 300 ns to gradually decrease (down) and increase (up) the conductance respectively within a stable G-window. 300 alternating positive/negative pulses are used to program the ReRAM around the SP. Read pulses of VP,READ = 0 .2 V and long 200 ns, are used to evaluate the de-vice conductance after each programming pulse of the sequence. Experimental data reported in Figure 4 show the analog bidirectional accumulative conductance response over 3 cycles of down/up and 1 SP procedure, selected based on reproducible behavior within a stable G-window observed across multiple devices (see Figure S4 in Supporting Information).                
+
+> 93.3 Analog Bidirectional Accumulative Conductance Response x200 x200 x300 […] […] […] VP+ = 1.775 V VP- = -1.375 V VP,READ = 0.2 V Δ
+> t+/- = 300 ns
+> Figure 4: Analog bidirectional accumulative conductance response of the ReRAM undergoing bipolar batches of volt-age pulses. In the top panel, the experimental and simulated pulse scheme for 1 conductance depression/potentiation cycle ( VP+ /VP−as pulse amplitudes and ∆ t+/−as pulse duration) and a sequence of alternating VP+ /VP−pulses to catch the symmetry point memory state. The simulation is carried out with an initial oxygen vacancies concentration of CV,0= 3 .15 ·10 26 m−3for the first simulated data point and RSeries = 50 Ω, as in the experiment for current sensing.
+
+Open-loop programming of the device conductance and the oscillating behavior of the physical system around the SP are closely reproduced by the simulation model. Throughout the up/down phases, each programming pulse triggers ion displacement depending on the voltage pulse polarity. This results in a cumulative change in CV. Therefore, IRSs across the G-window can be retrieved through variations in the available electron trap states ( De ∝ CV) during the programming pulse duration, while remaining constant upon reading: 
+
+GREAD = Ie
+
+VP,READ 
+
+∝ D e (12) Parameter variability is incorporated into the simulation model to account for the stochasticity of the conductance levels during open-loop programming. In similar compact models for valence-change memo-ries, physical noise on the read resistance is tied to the number of V ··  
+
+> O
+
+within the switching layer [45, 46]. In the presented model, GREAD is directly proportional to De. Hence, its value can be modeled as the source of conduction variability. Under the circumstances of defects position change, abrupt current fluc-tuations are typically observed [38]. Ion migration can cause irregularities in the hopping paths through defect trap states, influencing the population of electrons. Accordingly, the fraction of occupied/available electron trap states—represented by the scaling factor β—might change irregularly between two different programmed states, resulting in current fluctuations. Moreover, when fewer defects govern conduction, current fluctuations become more pronounced, leading to greater dispersion [39]. Random fluctuations of the physical parameter β are simulated by sampling its value from a Gaussian distribution having the default β-parameter of the variability-free simulation as its mean value ( μβ ). The standard deviation (σβ ) is modeled as linearly inversely dependent on the defect state to account for the increased fluctua-tions observed at higher resistance values: 
+
+σβ = σβ, 0 − k′′′ 
+
+· CV (13) where σβ, 0, k′′′ 
+
+have been treated as model parameter, and calibrated to fit the experimental data. Fig-ure 5 a shows the simulated bidirectional accumulative resistance response, including the random model 
+
+> 10
+
+for the β-parameter to fit the experimental resistance dispersion. This approach simplifies the trap-assisted electron capture and emission process by modeling it as a stochastic TAT mechanism without explicit time constants. The Normalized Root-Mean-Square Deviation (NRMSD) is computed to assess the affin-ity of experimental and simulated resistance fluctuation dispersion. Figure 5b shows the NRMSD as a function of the mean resistance ( Rμ), highlighting a strong agreement between the stochastic model and the measured trend (2.16% Root Mean Squared Error between the two trends). In Figure 5b, each circle refers to a batch of 50 consecutive read resistance points out of the total 700 pulses. (b) zECBE EVBE 
+
+> 𝛽 =( )/( )
+
+# (a)  
+
+> vs : RMSE = 2.16 %
+> Figure 5: (a) Analog accumulative response, simulated including conduction variability as fluctuations in the ratio between free/occupied trap states for electrons hopping sampled from a random distribution. The top panel includes a sketch of the physical mechanisms responsible for conduction fluctuations. Free/occupied traps are schematically represented as non-dotted/dotted lines spectrally located in the middle of the band gap, and their fraction randomly changes as Gaussian dispersion. The simulation is carried out under the same conditions as in Figure 4. (b) Normalized Root-Mean-Square Deviation comparing the dispersion of resistance fluctuations among experimental and simulated cumulative response char-acteristics.
+
+As a result, this section demonstrates the capability of the advanced analog ReRAM compact model to accurately reproduce realistic analog resistive switching characteristics, including conduction variability. 
+
+## 4 Analysis of Memory States Equilibria 
+
+4.1 Physical Origin of the symmetry point 
+
+Recent studies on resistive switching in ReRAMs, triggered by periodic voltage stimuli, have reported an oscillatory response around memory states due to SET/RESET equilibrium [30]. Additionally, when a physical system exhibits a unique asymptotic behavior that is independent of initial conditions for a given electrical input, it is referred to as a fading memory mechanism. This study investigates the equi-librium of memory and defect states in CMO/HfO x-based ReRAM and their evolution over time, to es-tablish a correlation between the physical criterion satisfied at the equilibrium point under quasi-static switching conditions and under pulsed response around the SP. To this end, the Dynamic Route Map (DRM) approach presented in [30, 31] is tested with the simulation model provided in section 2. From a purely mathematical perspective, the DRM for a generic simulation model of a physical system con-sists of a class of State Dynamic Routes (SDRs). Each SDR represents the relationship between the time derivative of the state variable (or state variable flux, Φ) and the state variable itself. In the case of the CMO/HfO x-based ReRAM model, the device configuration is identified by the defect state CV. Hence,  
+
+> 11 4.1 Physical Origin of the symmetry point
+
+SDRs describing the SET or RESET dynamics are derived from Equation 1 as a function of CV.Φ = dCV
+
+dt = − JIon 
+
+zql D
+
+(14) The study under quasi-static conditions is conducted on two distinct cases (A & B), distinguished by the stop voltages of the input triangular sweeps ( VB,S+ > V A,S+ & VB,S− < V A,S−) and by the initial oxygen vacancies concentration ( CV,0), i.e. the initial defect state. Figure 6 a depicts the simulated quasi-static 
+
+I-V sweeps under A,B conditions. Whereas Figure 6b shows the DRM related to the switching phases only, i.e., when there is a significant change in the defect state. In case A, the SET and RESET SDRs intersect at a single point, identifying the Equilibrium Point (Eq.P.-A) where the state variable flux is equal for both switching transitions. Although ion migration processes during SET and RESET are elec-trothermally asymmetric due to the nature of the electrothermal feedback, at Eq.P.-A, the driving force for V ··  
+
+> O
+
+migration is equal in both directions. Therefore, CV at Eq.P.-A is referred to as the Equilibrium Defect State (EDS). It is worth noting that the ReRAM device does not exhibit one unique EDS: by ex-panding the resistive window, multiple equilibrium points can emerge, as shown in Figure 6b with the SDRs for case B (Eq.P.-B 1,2,3). Furthermore, the uniqueness of each EDS is violated if the electrical in-put changes, as demonstrated by the inequality Eq.P.-A ̸ = Eq.P.-B 1, as different triangular sweeps are used when simulating case A and case B. During analog bidirectional accumulative conductance response evaluation, a periodic electrical input of alternating positive/negative pulses is used to program the ReRAM around the SP. The temporal evo-lution of the defect state throughout the SP phase (300 alternating VP+ , V P− pulses) is shown in Figure 6c, simulated under the same initial and pulsing conditions as in Figure 4. Following a transient phase while alternating VP+ and VP− imply non-equal changes in CV, the strengths of pulses with opposite po-larities converge and become equal, i.e. the ReRAM is programmed around the SP. The SP is reached independently of the initial conditions for a given input, as demonstrated by Figure S5 in Supporting Information. Thereby, during the SP phase, the ReRAM exhibits a fading memory mechanism, erasing the memory of the starting level. Equation 14 is used to compute the state variable flux for each pro-gramming pulse in the course of the SP phase. VP+ and VP− result in different or equal Φ P+ , Φ P− in the transient phase or once the SP is reached, respectively (see Figure 6c insets). It can be concluded that the origin of the SP during the occurrence of the fading memory mechanism is tied to the same equi-librium criterion satisfied around the EDS under quasi-static operation. In both cases, electrothermally asymmetric bidirectional ion motions are rebalanced by external electrical stimuli. 
+
+> 12
+
+4.1 Physical Origin of the symmetry point VB,S+ 
+
+# (a) 
+
+VA,S+ VA,S-VB,S-AB
+
+# (b)      
+
+> ABEq.P.-A Eq.P.-B1 Eq.P.-B2 Eq.P.-B3 Choose the electrical input time scale (Δ
+> t+/- - SR) Use the same CV,0 as starting point Find the simulated voltage scheme (VP+/ VP- -VS+/ VS-) to keep the same
+> Δ
+> CV window Check equilibrium condition: 𝜕
+> t CV (Φ) coincides for SET/RESET Extract CV at the cross point between SET/RESET SDRs Extract the average CV during oscillations around the SP Read the conductance for CV at the equilibrium:
+> •Send a VP,READ = 0.2 V square pulse
+> •Triangular sweep with VS+=0.2 V Compute the skew (SkSP) Mapping steps: (Pulse response →
+> I-V sweep) Mapping steps: (I-V sweep →
+> Pulse response)
+
+# (e)    
+
+> ΦP+ =ΦP-
+> ΦP+ ≠ΦP-
+
+# (c) […] x300 
+
+> Eq.P.-A (EDS)
+
+# (d) 
+
+Figure 6: (a) Quasi-static current-voltage sweeps (cases A & B) simulated with varying positive/negative stop voltages (VS+ /VS−) and conductance window to investigate the equilibria of memory states. (b) State Dynamic Routes are divided for SET/RESET (dashed/solid lines) phases in each A & B case. Cross-points between SET/RESET dynamics reveal the equilibrium points of device memory states (marked with triangles). (c) Temporal dynamics of oxygen vacancy con-centration when the device undergoes the periodic voltage input sketched in the top panel. The left inset highlights the unbalanced change of oxygen vacancy concentration. While fading memory mechanism occurrence is shown in the right inset, around a constant stable memory state. (d) Overlay of the temporal dynamics of oxygen vacancy concentration. The device memory state is tuned with quasi-static voltage sweep input (left axis) and with bipolar batches of voltage pulses (right axis). The black dotted line shows the coincidence between the equilibrium defect state found through quasi-static Static Dynamic Routes and the symmetry point defect state of analog accumulative response within the same ∆ CV
+
+window. (e) Schematic procedure to map the equilibrium defect state into the symmetry point defect state across input domains, i.e., quasi-static voltage sweep and accumulative pulse response. Green steps allows to retrieve a bidirectional ac-cumulative pulse response having the symmetry point that coincides with the equilibrium defect state read at |VA| = 0 .2 V. Blue steps allow to retrieve a quasi-static I-V sweep having the equilibrium defect state read at |VA| = 0 .2 V that coincides with the symmetry point. 
+
+To assess the equivalence of the equilibrium condition, the quasi-static and pulse responses are stud-ied together. The CV(t) curves related to the two inputs are plotted in Figure 6d: the pulse response 
+
+13 4.2 Memory State Mapping Across Input Domains 
+
+refers to the same input of Figure 4, while the quasi-static one corresponds to the case A of Figure 6a. Both scenarios result in an identical memory state window when starting from the same stage. Figure 6d reveals that the EDS found through the DRM approach for quasi-static conditions matches the de-fect state of the SP. Therefore, given the same memory state window, there exists at least one combi-nation of external stimuli that results in equilibrium conditions around the same defect state, despite variations in the electrical input. These findings reveal the conditions under which the same equilibrium point manifests across different input domains (i.e., quasi-static voltage sweep and accumulative pulse responses), thus enabling the identification of the SP from an I-V sweep—or an I-V sweep featuring a stable resistance window for a given SP. 
+
+4.2 Memory State Mapping Across Input Domains 
+
+In the context of device criteria for the implementation of the Tiki-Taka algorithm, the switching sym-metry within a G-window is evaluated through the SP skew (Sk SP ) [15]: it is quantified in percentage, with 50% corresponding to a perfect symmetry between potentiation and depression phases, therefore having the SP in the middle of the G-window. Here, a skew mapping procedure is built upon the equiv-alence between the EDS, identified by the DRM approach under quasi-static conditions, and the SP de-fect state. Figure 6e illustrates the reversible mapping across input domains, summarizing the steps fol-lowed over the simulations related to Figure 6d. Additionally, once the CV corresponding either to the EDS or the SP defect state is found, Sk SP can be computed from both quasi-static I-V sweep or pulse response simulations according to: Sk SP = GLRS − GEDS 
+
+GLRS − GHRS 
+
+↔ Sk SP = Gmax − GSP 
+
+Gmax − Gmin 
+
+(15) 
+
+Figure 7 a and Figure 7b show the quasi-static I-V sweep and the accumulative conductance response used to test the skew mapping procedure. Figure 7a and Figure 7b are the results of blue and green steps illustrated in Figure 6e, respectively. GHRS ~ 161 𝜇 SGEDS ~ 243 𝜇 SGLRS ~ 365 𝜇 S
+
+# (a)    
+
+> Gmin ~ 161 𝜇 SGSP ~ 243 𝜇 SGmax ~ 365 𝜇 SSP
+
+# (b)           
+
+> Figure 7: (a) Quasi-static current-voltage sweep (case A) taken as a reference to test the skew mapping procedure.
+> GHRS /GLRS /GEDS are the parameters used to compute the correctly mapped Sk SP in quasi-static regime. (b) Bidirec-tional accumulative analog conductance response in the same conductance window of quasi-static current-voltage sweep (case A). ∆ t+/−= 300 ns, VP+ = 1 .706 V, VP−=−1.38 V are used, following the green steps of the skew mapping proce-dure. Gmin /Gmax /GSP are used to compute Sk SP .
+
+## 5 Training Simulations with Tiki-Taka Algorithm through Pulse-Amplitude Tuning 
+
+Analog training based on the Tiki-Taka algorithm (TTv1) relaxes device constraints typically required for Stochastic Gradient Descent (SGD) convergence [16, 47] by introducing an additional matrix, A. This 
+
+> 14
+
+matrix, used for gradient accumulation, involves ReRAM devices operated around the SP. However, to reach high training accuracy, some fundamental device requirements remain in terms of the number of stable conductance states, a Noise-to-Signal Ratio < 100% and most importantly, a centered SP [15]. In an updated version of Tiki-Taka (TTv2), the requirements of the number of reliable conductance states were considerably relaxed [17] by introducing a digital low-pass filtering stage, although still relying on the accurate programming of the SP in matrix A. The latest and more refined version, i.e., Analog Gra-dient Accumulation with Dynamic reference (AGAD or TTv4), strengthens the resilience of the algo-rithm to non-symmetrical switching characteristics (i.e,. non-centered SP) by estimating the SP itera-tively [18]. This is achieved through additional off-chip, on-the-fly digital computations, which incur an added computational complexity cost [18]. In this section, we investigate how tuning the pulse amplitudes—within the physics-based compact model simulation—affects the symmetry of the switching characteristic, impacting the analog training perfor-mance when employing the earliest version of Tiki-Taka, TTv1. The analog CMO/HfO x-based ReRAM compact model used in this study has been tested for devices exhibiting a slightly more gradual potentiation compared to the depression phase, therefore having a SP below the center of the conductance window (Sk SP > 50%). However, the SP is determined by the strength of the device’s response upon alternating pulses ( VP+ and VP−) and its memory state can be tuned accordingly [48]. Therefore, the pulse amplitude during the depression phase is freely adjusted, resulting in different percentages of symmetry (Sk SP = {50% , 57% , 68% } ). Figure 8 a shows three generated traces of analog bidirectional accumulative conductance response, varying the strength of VP+ 
+
+(+1.47 V, +1.65 V, and +1.95 V) in the compact model simulation. The individual traces are averaged and max-normalized to the (-1, 1) range, and posteriorly fitted to a 
+
+soft-bound analytical device model [49] in the ’aihwkit’ [32]. The soft-bound device realistically repro-duces the switching characteristics for weight updates during analog training. The three soft-bound de-vice presets account for the conductance range, minimum conductance step, SP skew and Noise-to-Signal Ratio (NSR)—parameters highlighted on the green trace of Figure 8a and summarized in Table 2 in Sup-porting Information. Consequently, the fitted soft-bound model does not account for inter-device vari-ability. Finally, the device presets were incorporated into a 3-layer Fully Connected (3-FC) NN for MNIST digit classification [50]. Training accuracy Switching symmetry Convergence speed     
+
+> SkSP=68 %
+> SkSP=57 %
+> SkSP=50 %
+> 11.3 %
+> 94.3 %
+> 97.9 %
+> ~12 ep. 5 ep.
+> 𝜎 ∆" !"
+> 𝐺̅ #$ 𝜇 ∆" !"
+> 𝐺 %&'
+> x200 x200 x500 […] […] […] VP- = -1.45 V VP,READ = 0.2 V
+> Δ
+> t+/- = 150 ns +1.47 V +1.65 V +1.95 V VP+: Floating-point SGD accuracy: 98.4 %
+
+# (a) (b) 
+
+> 𝐺 %()
+
+Figure 8: (a) Simulated traces of analog bidirectional accumulative conductance response used to evaluate the impact of the switching characteristic symmetry on training performance. (b) Training simulation results on a 3-FC (784-256-128-10) network for MNIST digit classification. For the floating-point SGD reference, the weight matrix was updated with a learn-ing rate ’lr = 0.01’. For TTv1, training simulations were done with ‘fast lr’ = 0.1 for gradient accumulation in matrix (A) and transferring to weight matrix (C) every ‘transfer every’ = 3 times. Effect of tuning the VP+ on Tiki-Taka training ac-curacy is based on two key performance metrics, i.e., convergence speed (in number of epochs), and final training accuracy with respect to the switching symmetry (Sk SP ). 15 Results depicted in Figure 8b show the decrease of the obtained training accuracy when the SP shifts away from the G-window center, leading to non-convergent behavior for the extreme case of highly shifted SP (green boxes in Figure 8b). Highest accuracy and fastest convergence are obtained for strongly-centered SP, which is obtained when employing VP+ = +1 .47 V and VP− = −1.45 V. This pulse-amplitude setup leads to a limited lower bound Gmin , and therefore a smaller G-window, due to weaker conduc-tance changes during the depression phase, see the yellow trace in Figure 8a. The smaller steps allow for accessing more conductance states within that conductance range, and therefore, preserving the number of available states for training. The findings outlined in this section show that pulse amplitude tuning can compensate for the relative abruptness between bidirectional switching phases, thereby improving the symmetry of the switching characteristics. Although the ’aihwkit’ training simulation does not explicitly account for pulse ampli-tudes—considering only their polarity and effect on conductance change—achieving high symmetry can lead to a fast training convergence with TTv1 and near-floating-point accuracy with minimal digital over-head. Enhancing the electrical response, through pulse scheme optimization, provides an alternative to the more complex algorithms, offering increased flexibility in scenarios where higher computational costs may not be achievable. 
+
+## 6 Conclusion 
+
+In this work, an advanced physics-based compact model for analog filamentary CMO/HfO x ReRAM is presented. It accurately captures analog resistive switching phenomena in the ReRAM memory cell over a wide range of operating conditions, reproducing multiple experimental characteristics with negligible error thanks to the physical framework of the model core. Such input conditions-independent accuracy makes this compact model suitable for predictive simulations in circuit-level design environments. Compared to the previous version [29], the current model incorporates the following key enhancements. First, it accounts for parasitic resistive elements external to the ReRAM cell, which influence the mea-sured switching characteristics. Second, the ion migration dynamics have been corrected to prevent any unphysical concentration levels of oxygen-related defects, ensuring realistic switching profiles. Third, the model introduces dynamically evolving physical parameters that govern hopping conduction, based on the real-time configuration of defects—an essential feature to accurately capture the analog behavior of the device. These enhancements enable the model to replicate a wide spectrum of experimental behav-iors, including quasi-static I-V curves, single-pulse SET kinetics, and analog bidirectional conductance modulation. In the quasi-static domain, simulations of the ion drift mean velocity profile provide insights into the average defect migration displacements during switching transitions. Single-pulse programming simula-tions are used to study the switching kinetics of CMO/HfO x-based ReRAM and to derive insights into thermal trade-offs when using short, low-energy pulses with high programming voltages. Additionally, the compact model supports realistic switching non-idealities by integrating a variability component for stochastic TAT mechanisms. A key highlight of the study is the analysis of the symmetry point within the G-window of analog bidi-rectional accumulative conductance responses. The model reveals that equilibrium memory states arise from a balance of opposing forces driving defect migration, which can be tuned via input pulse modula-tion. The physical origin of this stabilization—and its manifestation in both quasi-static I-V character-istics and pulse responses—is further explored through the dynamic route map approach, which enables visualization and mapping of equilibrium memory states across different input domains. The model’s predictive capabilities are employed in neuromorphic computing contexts. Different pulse schemes are used to achieve nearly perfect switching symmetry, characterized by a symmetry point skew around 50%. The impact of symmetry point tuning—achieved by adjusting the voltage pulse amplitudes—was validated for on-chip training, when employing the earliest version of the Tiki-Taka algorithm, with min-imal digital overhead. Simulation results demonstrated that when pulse-driven switching symmetry is obtained, near-floating-point performance is achieved in a 3-layer Fully Connected Neural Network for 
+
+> 16
+
+MNIST digit classification. These results underscore the importance of input pulse engineering for ana-log ReRAM-based RPUs. Future work will focus on integrating the proposed compact model into standard IC design tools, such as SPICE-based simulators, which require differentiable device descriptions. Owing to its inherent com-patibility, the model presented in this study lays the groundwork for circuit-level simulations including CMO/HfO x-based ReRAM technology, thereby supporting its application in both analog computing and digital non-volatile memory architectures. 
+
+## 7 Experimental Section 
+
+Electrical Characterization :The quasi-static I-V sweep characterization of the CMO/HfO x-based ReRAM device is performed with an Agilent B1500A Semiconductor Device Parameter Analyzer. A voltage signal is applied to the de-vice’s top electrode, while the bottom electrode is biased to the earth ground. The quasi-static signal consists of a staircase ramp with voltage steps of 10 mV, each long 100 ms/step (measurement time), therefore having a global Sweep Rate (SR) of 0.1 Vs −1. Two source measurement units are used, each of which simultaneously biases the ReRAM device and measures the current flowing into each termi-nal (top or bottom electrode). No external resistors are present in series with the ReRAM device during quasi-static characterizations. Pulse responses (single-pulse programming and bidirectional accumulative conductance response) char-acterizations are conducted using a 16-bit 400 MS/s NI PXIe-5451 arbitrary waveform generator to de-liver the generated pulses to the device’s top electrode, and a NI PXIe-5164 oscilloscope with 1 GS/s sampling rate and 400 MHz bandwidth to measure the current signal. The current signal is measured through the 50 Ω oscilloscope internal resistor, in series with the ReRAM device bottom electrode. To cancel out any potential measurement offset, experimental read pulses, according to the electrical pulse schemes reported in the manuscript, are divided into two alternating positive and negative pulses with amplitudes of ±200 mV. 
+
+Fabrication process :The fabrication process of the 200 nm × 200 nm ReRAM cell consisting of a TiN/TaO x/HfO x/TiN ma-terial stack (in order from the top electrode towards the bottom electrode) is described in our previous works [14]. 
+
+Supporting Information 
+
+Supporting Information is available from the Wiley Online Library or from the author. 
+
+Acknowledgements 
+
+The authors acknowledge the Binnig and Rohrer Nanotechnology Center (BRNC) at IBM Research Eu-rope - Z¨ urich. The authors would like to thank Linda Rudin for proofreading the manuscript. This work is funded by the European Union and Swiss state secretariat SERI within the PHASTRAC (grantID: 101092096) project, by SNSF ALMOND (grantID: 198612), and by the Federal Ministry of Education and Research (BMBF, Germany) within the NEUROTEC (grantID: 16ME0398K) project. 
+
+Author contributions 
+
+Conceptualization: M. G., D. F. F. and V. B.; electrical characterization: M. G., D. F. F and F. H.; de-vice fabrication: T. S.; compact model simulations: M. G.; training simulations: V. C.; result interpre-tation: M. G., D. F. F., V. C., W. C., S. M., A. L. P., B. J. O. and V. B.; supervision: V. B. and B. J. O.; manuscript writing: M. G. and V. C.; data curation: M. G., D. F. F., V. C. and V. B.; manuscript review and editing: all authors; funding acquisition: V. B. and B. J. O. 
+
+Conflict of Interest 
+
+The authors declare no competing interests. 
+
+> 17 REFERENCES
+
+## References 
+
+[1] M. Hobbhahn, L. Heim, G. Aydos, Trends in machine learning hardware, 2023 , URL https:// epoch.ai/blog/trends-in-machine-learning-hardware , Accessed: 2025-05-26. [2] Z. Wang, Y. Song, G. Zhang, Q. Luo, K. Xu, D. Gao, B. Yu, D. Loke, S. Zhong, Y. Zhang, Interna-tional Journal of Extreme Manufacturing 2024 , 6.[3] S. Yu, H. Jiang, S. Huang, X. Peng, A. Lu, IEEE circuits and systems magazine 2021 , 21 , 3 31. [4] K. Roy, S. Mukhopadhyay, H. Mahmoodi-Meimand, Proceedings of the IEEE 2003 , 91 , 2 305. [5] E. Erdil, Data movement bottlenecks to large-scale model training: Scaling past 1e28 flop, 2024 ,URL https://epoch.ai/blog/data-movement-bottlenecks-scaling-past-1e28-flop , Ac-cessed: 2024-12-06. [6] A. Sebastian, M. Le Gallo, R. Khaddam-Aljameh, E. Eleftheriou, Nature Nanotechnology 2020 , 15 .[7] D. Ielmini, H. S. Wong, Nature Electronics 2018 , 1.[8] G. W. Burr, R. M. Shelby, A. Sebastian, S. Kim, S. Kim, S. Sidler, K. Virwani, M. Ishii, P. Narayanan, A. Fumarola, L. L. Sanches, I. Boybat, M. Le Gallo, K. Moon, J. Woo, H. Hwang, Y. Leblebici, Advances in Physics: X 2017 , 2.[9] N. Gong, M. J. Rasch, S. C. Seo, A. Gasasira, P. Solomon, V. Bragaglia, S. Consiglio, H. Higuchi, C. Park, K. Brew, P. Jamison, C. Catano, I. Saraf, F. F. Athena, C. Silvestre, X. Liu, B. Khan, N. Jain, S. McDermott, R. Johnson, I. Estrada-Raygoza, J. Li, T. Gokmen, N. Li, R. Pujari, F. Carta, H. Miyazoe, M. M. Frank, D. Koty, Q. Yang, R. Clark, K. Tapily, C. Wajda, A. Mos-den, J. Shearer, A. Metz, S. Teehan, N. Saulnier, B. J. Offrein, T. Tsunomura, G. Leusink, V. Narayanan, T. Ando, In Technical Digest - International Electron Devices Meeting, IEDM , vol-ume 2022-December, ISSN 01631918, 2022 .[10] D. F. Falcone, V. Clerico, W. Choi, T. Stecconi, F. Horst, L. B´ egon-Lours, M. Galetta, A. La Porta, N. Garg, F. Alibart, B. J. Offrein, V. Bragaglia, Advanced Functional Materials 2025 , 2504688. [11] M. Lanza, S. Pazos, F. Aguirre, A. Sebastian, M. Le Gallo, S. M. Alam, S. Ikegawa, J. J. Yang, E. Vianello, M.-F. Chang, et al., Nature 2025 , 640 , 8059 613. [12] H. S. Wong, H. Y. Lee, S. Yu, Y. S. Chen, Y. Wu, P. S. Chen, B. Lee, F. T. Chen, M. J. Tsai, In 
+
+Proceedings of the IEEE , volume 100, ISSN 00189219, 2012 .[13] T. Gokmen, Y. Vlasov, Frontiers in Neuroscience 2016 , 10 .[14] T. Stecconi, R. Guido, L. Berchialla, A. L. Porta, J. Weiss, Y. Popoff, M. Halter, M. Sousa, F. Horst, D. D´ avila, U. Drechsler, R. Dittmann, B. J. Offrein, V. Bragaglia, Advanced Electronic Materials 2022 , 8.[15] T. Stecconi, V. Bragaglia, M. J. Rasch, F. Carta, F. Horst, D. F. Falcone, S. C. ten Kate, N. Gong, T. Ando, A. Olziersky, B. Offrein, Nano Letters 2024 , 24 .[16] T. Gokmen, W. Haensch, Frontiers in Neuroscience 2020 , 14 .[17] T. Gokmen, Frontiers in Artificial Intelligence 2021 , 4.[18] M. J. Rasch, F. Carta, O. Fagbohungbe, T. Gokmen, Nature Communications 2024 , 15 , 1 7133. [19] H. Kim, M. Rasch, T. Gokmen, T. Ando, H. Miyazoe, J.-J. Kim, J. Rozen, S. Kim, Zero-shifting technique for deep neural network training on resistive cross-point arrays, 2019 , URL https:// arxiv.org/abs/1907.10228 .
+
+> 18 REFERENCES
+
+[20] V. Clerico, A. Dutta, D. F. Falcone, W. Choi, M. Galetta, T. Stecconi, A. Horv´ ath, S. Varzandeh, B. J. Offrein, M. Kaboli, V. Bragaglia, In 2025 IEEE International Symposium on Circuits and Sys-tems (ISCAS) . 2025 1–5. [21] S. Larentis, F. Nardi, S. Balatti, D. C. Gilmer, D. Ielmini, IEEE Transactions on Electron Devices 
+
+2012 , 59 .[22] C. Funck, S. Menzel, ACS Applied Electronic Materials 2021 , 3.[23] D. F. Falcone, S. Menzel, T. Stecconi, M. Galetta, A. La Porta, B. J. Offrein, V. Bragaglia, 
+
+Nanoscale Horiz. 2024 , 9 775. [24] D. F. Falcone, S. Menzel, T. Stecconi, A. La Porta, L. Carraria-Martinotti, B. J. Offrein, V. Bra-gaglia, In 2023 IEEE International Memory Workshop, IMW 2023 - Proceedings . 2023 .[25] Y. Luo, W. Chen, M. Cheng, K. Kang, W.-Y. Yin, In 2016 IEEE MTT-S International Microwave Workshop Series on Advanced Materials and Processes for RF and THz Applications (IMWS-AMP) . 2016 1–3. [26] C. L. Torre, A. F. Zurhelle, T. Breuer, R. Waser, S. Menzel, IEEE Transactions on Electron Devices 
+
+2019 , 66 .[27] Z. Jiang, Y. Wu, S. Yu, L. Yang, K. Song, Z. Karim, H.-S. P. Wong, IEEE Transactions on Electron Devices 2016 , 63 , 5 1884. [28] Y. Liao, B. Gao, F. Xu, P. Yao, J. Chen, W. Zhang, J. Tang, H. Wu, H. Qian, IEEE Transactions on Electron Devices 2020 , 67 .[29] M. Galetta, D. F. Falcone, S. Menzel, A. La Porta, T. Stecconi, W. Choi, B. J. Offrein, V. Bra-gaglia, In 2024 IEEE European Solid-State Electronics Research Conference (ESSERC) . 2024 749– 752. [30] A. Ascoli, S. Menzel, V. Rana, T. Kempen, I. Messaris, A. S. Demirkol, M. Schulten, A. Siemon, R. Tetzlaff, Advanced Electronic Materials 2022 , 8.[31] A. Ascoli, N. Schmitt, I. Messaris, A. S. Demirkol, J. P. Strachan, R. Tetzlaff, L. Chua, Scientific Reports 2024 , 14 .[32] M. J. Rasch, D. Moreda, T. Gokmen, M. Le Gallo, F. Carta, C. Goldberg, K. El Maghraoui, A. Se-bastian, V. Narayanan, In 2021 IEEE 3rd International Conference on Artificial Intelligence Cir-cuits and Systems (AICAS) . 2021 1–4. [33] S. Lahkar, V. Bragaglia, B. Bagheri, D. F. Falcone, M. Galetta, M. Sousa, A. Todri-Sanial, De-coupling local electrostatic potential and temperature-driven atomistic forming mechanisms in taox/hfo2-based rerams using reactive molecular dynamics simulations, 2025 , URL https:// arxiv.org/abs/2505.24468 .[34] R. Waser, R. Dittmann, C. Staikov, K. Szot, Advanced Materials 2009 , 21 .[35] F. A. Kr¨ oger, H. J. Vink, Journal of Physics and Chemistry of Solids 1958 , 5.[36] L. Zhu, J. Zhou, Z. Guo, Z. Sun, Journal of Physical Chemistry C 2016 , 120 .[37] N. F. Mott, R. W. Gurney, Electronic Processes in Ionic Crystals , Oxford at the Clarendon Press, 2 ed., 1950 .[38] K. Schnieders, C. Funck, F. C¨ uppers, S. Aussen, T. Kempen, A. Sarantopoulos, R. Dittmann, S. Menzel, V. Rana, S. Hoffmann-Eifert, S. Wiefels, APL Materials 2022 , 10 .[39] R. Dittmann, S. Menzel, R. Waser, Advances in Physics 2021 , 70 .
+
+> 19 REFERENCES
+
+[40] C. E. Graves, N. D´ avila, E. J. Merced-Grafals, S. T. Lam, J. P. Strachan, R. S. Williams, Applied Physics Letters 2017 , 110 .[41] I. Goldfarb, F. Miao, J. J. Yang, W. Yi, J. P. Strachan, M. X. Zhang, M. D. Pickett, G. Medeiros-Ribeiro, R. S. Williams, Applied Physics A: Materials Science and Processing 2012 , 107 .[42] J. Woo, A. Belmonte, A. Redolfi, H. Hwang, M. Jurczak, L. Goux, IEEE Electron Device Letters 
+
+2016 , 37 .[43] S. Menzel, M. Waters, A. Marchewka, U. B¨ ottger, R. Dittmann, R. Waser, Advanced Functional Materials 2011 , 21 .[44] S. Menzel, U. B¨ ottger, M. Wimmer, M. Salinga, Advanced Functional Materials 2015 , 25 .[45] S. Wiefels, C. Bengel, N. Kopperberg, K. Zhang, R. Waser, S. Menzel, IEEE Transactions on Elec-tron Devices 2020 , 67 .[46] C. Bengel, A. Siemon, F. C¨ uppers, S. Hoffmann-Eifert, A. Hardtdegen, M. V. Witzleben, L. Hellmich, R. Waser, S. Menzel, IEEE Transactions on Circuits and Systems I: Regular Papers 
+
+2020 , 67 .[47] M. J. Rasch, T. Gokmen, W. Haensch, IEEE Design & Test 2020 , 37 , 2 19. [48] M. Abedin, N. Gong, K. Beckmann, M. Liehr, I. Saraf, O. Van der Straten, T. Ando, N. Cady, Sci-entific Reports 2023 , 13 , 1 14963. [49] J. Frascaroli, S. Brivio, E. Covi, S. Spiga, Scientific Reports 2018 , 8, 1 7178. [50] L. Deng, IEEE Signal Processing Magazine 2012 , 29 , 6 141. 
+
+> 20
+
+REFERENCES 
+
+Table of Contents REle REle RCF Iion RCMO =V!"" 
+
+𝑒 #
+
+M (BE) CMO HfOx CF ( V!"" )GND (200 nm) 2M (TE) Analog ReRAM physics-based compact model Origin of conductance level physical equilibria Ion dynamics Electronic conduction Thermal properties 
+
+Switching kinetics and programming energy-thermal trade-off Pulse scheme-driven optimization of training performance 
+
+VA Ie RSeries 
+
+A physics-based compact model for Conductive-Metal-Oxide/HfO x ReRAM, accounting for ion dynamics, electronic con-duction, and thermal effects, is presented. Accurate and versatile simulations of analog non-volatile conductance modula-tion and memory state stabilization enable reliable circuit-level studies, advancing the optimization of neuromorphic and memory systems, driven by device and material physics understanding. 21

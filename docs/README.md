@@ -44,14 +44,14 @@
       <span class="dpr-home-dashboard-kicker">2026-08-29</span>
       <h3 class="dpr-home-dashboard-title">今日汇总</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">共 5 篇</strong>
+    <strong class="dpr-home-dashboard-count">共 6 篇</strong>
   </div>
   <dl class="dpr-home-dashboard-stats">
-    <div class="dpr-home-dashboard-stat"><dt>累计更新</dt><dd>1 次</dd></div>
+    <div class="dpr-home-dashboard-stat"><dt>累计更新</dt><dd>2 次</dd></div>
     <div class="dpr-home-dashboard-stat"><dt>精读</dt><dd>3</dd></div>
-    <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>2</dd></div>
+    <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>3</dd></div>
   </dl>
-  <p class="dpr-home-dashboard-body">最近更新：2026-08-29 03:23:09 UTC<br>状态：成功</p>
+  <p class="dpr-home-dashboard-body">最近更新：2026-08-29 21:55:17 UTC<br>状态：成功</p>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-brief-card">
   <div class="dpr-home-dashboard-header">
@@ -62,7 +62,7 @@
     <strong class="dpr-home-dashboard-count">AI</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<p>今日精读聚焦处理内存架构与近内存计算，速读覆盖热超材料和3D-IC基准测试。最值得关注《VIPER》的架构感知性能建模和《NOVA》的存算协同设计，二者为内存瓶颈优化提供新思路。建议普通读者优先了解近内存处理在混合大模型推理中的潜力。</p>
+<p>今日聚焦存内计算与模拟ReRAM的架构级建模和可靠性问题，另涵盖3D-IC基准与热超材料等速读方向。最值得精读的是VIPER设计空间探索框架和面向深度学习加速器的抗更新干扰模拟ReRAM交叉阵列，均获9分高分。建议普通读者优先关注存内计算在能效与可靠性间的权衡，后续可留意相关开源基准与建模工具的应用。</p>
   </div>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-deep-card">
@@ -74,7 +74,7 @@
     <strong class="dpr-home-dashboard-count">3 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="VIPER: Architecture-Aware Performance Modeling for Processing-in-Memory Design-Space Exploration">VIPER: Architecture-Aware Performance Modeling for Processing-in-Memory Design-Space Exploration</span></li><li><span class="dpr-home-dashboard-paper-title" title="NOVA: Technology-Architecture Co-Design of Near-Memory Processing for Attention-SSM-MoE Hybrid LLM Inference">NOVA: Technology-Architecture Co-Design of Near-Memory Processing for Attention-SSM-MoE Hybrid LLM Inference</span></li><li><span class="dpr-home-dashboard-paper-title" title="Update Disturbance-Resilient Analog ReRAM Crossbar Arrays for In-Memory Deep Learning Accelerators">Update Disturbance-Resilient Analog ReRAM Crossbar Arrays for In-Memory Deep Learning Accelerators</span></li></ul>
+<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="VIPER: Architecture-Aware Performance Modeling for Processing-in-Memory Design-Space Exploration">VIPER: Architecture-Aware Performance Modeling for Processing-in-Memory Design-Space Exploration</span></li><li><span class="dpr-home-dashboard-paper-title" title="Update Disturbance-Resilient Analog ReRAM Crossbar Arrays for In-Memory Deep Learning Accelerators">Update Disturbance-Resilient Analog ReRAM Crossbar Arrays for In-Memory Deep Learning Accelerators</span></li><li><span class="dpr-home-dashboard-paper-title" title="NOVA: Technology-Architecture Co-Design of Near-Memory Processing for Attention-SSM-MoE Hybrid LLM Inference">NOVA: Technology-Architecture Co-Design of Near-Memory Processing for Attention-SSM-MoE Hybrid LLM Inference</span></li></ul>
   </div>
   <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">cim <strong>3</strong></span></div>
 </section>
@@ -84,12 +84,12 @@
       <span class="dpr-home-dashboard-kicker">今日累计</span>
       <h3 class="dpr-home-dashboard-title">速读推荐</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">2 篇</strong>
+    <strong class="dpr-home-dashboard-count">3 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="Generalizing Thermal Transport in High-Contrast Metamaterials through Interfacial Fresnel Reflection">Generalizing Thermal Transport in High-Contrast Metamaterials through Interfacial Fresnel Reflection</span></li><li><span class="dpr-home-dashboard-paper-title" title="An Open-Source Benchmark Suite of 3D-IC Testcases">An Open-Source Benchmark Suite of 3D-IC Testcases</span></li></ul>
+<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="An Open-Source Benchmark Suite of 3D-IC Testcases">An Open-Source Benchmark Suite of 3D-IC Testcases</span></li><li><span class="dpr-home-dashboard-paper-title" title="Generalizing Thermal Transport in High-Contrast Metamaterials through Interfacial Fresnel Reflection">Generalizing Thermal Transport in High-Contrast Metamaterials through Interfacial Fresnel Reflection</span></li><li><span class="dpr-home-dashboard-paper-title" title="Study of Resistive Switching Dynamics and Memory States Equilibria in Analog Filamentary Conductive-Metal-Oxide/HfOx ReRAM via Compact Modeling">Study of Resistive Switching Dynamics and Memory States Equilibria in Analog Filamentary Conductive-Metal-Oxide/HfOx ReRAM via Compact Modeling</span></li></ul>
   </div>
-  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">cim <strong>1</strong></span><span class="dpr-home-dashboard-tag">thermal-gnn <strong>1</strong></span></div>
+  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">cim <strong>2</strong></span><span class="dpr-home-dashboard-tag">thermal-gnn <strong>1</strong></span></div>
 </section>
 </div>
 

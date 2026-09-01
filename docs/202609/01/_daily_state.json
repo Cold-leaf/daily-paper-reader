@@ -1,0 +1,73 @@
+{
+  "date": "20260901",
+  "date_label": "",
+  "generated_at": "2026-09-01 23:04:55 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2608.30509v1",
+      "route": "202609/01/2608.30509v1-chipsmore-compute-in-interconnect-and--memory-chiplets-for-multi-mode-multi-request-llm-inference-acceleration",
+      "title": "CHIPSMORE: Compute-in-Interconnect and -Memory Chiplets for Multi-Mode Multi-Request LLM Inference Acceleration",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "cim"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "采用RRAM/SRAM存算一体芯粒的LLM推理架构",
+      "first_seen_at": "2026-09-01 23:04:55 UTC",
+      "updated_at": "2026-09-01 23:04:55 UTC"
+    },
+    {
+      "paper_id": "2608.23404v1",
+      "route": "202609/01/2608.23404v1-viper-architecture-aware-performance-modeling-for-processing-in-memory-design-space-exploration",
+      "title": "VIPER: Architecture-Aware Performance Modeling for Processing-in-Memory Design-Space Exploration",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "cim"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "面向处理进内存设计的性能评估框架，契合存算一体/近存计算主题",
+      "first_seen_at": "2026-09-01 23:04:55 UTC",
+      "updated_at": "2026-09-01 23:04:55 UTC"
+    },
+    {
+      "paper_id": "2608.25155v1",
+      "route": "202609/01/2608.25155v1-an-open-source-benchmark-suite-of-3d-ic-testcases",
+      "title": "An Open-Source Benchmark Suite of 3D-IC Testcases",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "cim"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "开源3D-IC基准测试套件，涵盖混合键合与TSV，契合三维堆叠/存算一体设计主题",
+      "first_seen_at": "2026-09-01 23:04:55 UTC",
+      "updated_at": "2026-09-01 23:04:55 UTC"
+    },
+    {
+      "paper_id": "2608.29338v1",
+      "route": "202609/01/2608.29338v1-analogue-phase-change-computational-memory-with-high-precision-reads-and-energy-efficient-writes",
+      "title": "Analogue Phase Change Computational Memory with High Precision Reads and Energy Efficient Writes",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "cim"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "面向存内计算的相变计算存储器，强调能效",
+      "first_seen_at": "2026-09-01 23:04:55 UTC",
+      "updated_at": "2026-09-01 23:04:55 UTC"
+    }
+  ]
+}

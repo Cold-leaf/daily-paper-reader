@@ -1,0 +1,69 @@
+{
+  "label": "2026-09-01",
+  "date": "2026-09-01",
+  "generated_at": "2026-09-01T23:04:57",
+  "count": 4,
+  "papers": [
+    {
+      "paper_id": "202609/01/2608.30509v1-chipsmore-compute-in-interconnect-and--memory-chiplets-for-multi-mode-multi-request-llm-inference-acceleration",
+      "section": "deep",
+      "title_en": "CHIPSMORE: Compute-in-Interconnect and -Memory Chiplets for Multi-Mode Multi-Request LLM Inference Acceleration",
+      "authors": "Yue Jiet Chong, Yimin Wang, Zhen Wu, Zixuan Wang, Wei Zhang, Xuanyao Fong",
+      "date": "2026-08-31",
+      "pdf": "https://arxiv.org/pdf/2608.30509v1",
+      "score": "9.0",
+      "evidence": "采用RRAM/SRAM存算一体芯粒的LLM推理架构",
+      "tldr": "LLM推理在适应模式、上下文长度和请求并发性上变化剧烈，导致CIM加速器难以同时保持高利用率、内存效率和可扩展性。CHIPSMORE设计为多模式多请求加速器，将计算互连与内存计算结合，采用RRAM-ACIM和SRAM-DCIM异构PE，通过可编程IPCN互连，并利用分层KV存储动态分配资源。其非复制多请求流水线利用请求级并行，状态感知重构降低能耗。在Mistral-7B推理中，相比Nvidia H100吞吐量提升2.38倍，能效提升27倍，且无需权重复制，展示了跨上下文长度和批大小的稳健性能。",
+      "tags": "query:cim",
+      "abstract_en": "Large language model (LLM) inference exhibits substantial variability across adaptation modes, context lengths, and request concurrency, creating challenges for maintaining high utilization, memory efficiency, and scalable performance on compute-in-memory (CIM) accelerators. This paper presents CHIPSMORE, a multi-mode and multi-request LLM inference accelerator that integrates compute-in-interconnect and CIM to support both base-mode and low-rank adaptation (LoRA) inference under diverse workloads. CHIPSMORE employs heterogeneous processing elements consisting of resistive RAM analog compute-in-memory (RRAM-ACIM) and static RAM digital compute-in-memory (SRAM-DCIM) interconnected through a programmable Inter-PE computational network (IPCN). A composable hierarchical key-value (KV) memory scheme dynamically allocates router scratchpad, SRAM-DCIM, and embedded DRAM (eDRAM) resources according to workload requirements, enabling scalable support for long-context and batched inference. Furthermore, a non-replicated multi-request execution pipeline exploits request-level parallelism without duplicating pretrained weights, while a state-aware resource reconfiguration mechanism selectively retains runtime states and power-gates inactive resources to improve energy efficiency. Evaluation using cycle-accurate hardware-software co-simulation demonstrates that CHIPSMORE effectively sustains high throughput across varying model sizes, context lengths, and batch sizes while maintaining favorable power scaling. Compared with Nvidia H100, CHIPSMORE achieves up to $2.38\\times$ higher throughput and $27\\times$ higher energy efficiency on Mistral-7B inference while eliminating weight replication for multi-request serving.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202609/01/2608.23404v1-viper-architecture-aware-performance-modeling-for-processing-in-memory-design-space-exploration",
+      "section": "deep",
+      "title_en": "VIPER: Architecture-Aware Performance Modeling for Processing-in-Memory Design-Space Exploration",
+      "authors": "Haoran Geng, Tomas Sousa Pereira, Xiaoyang Lu, Xian-He Sun, Michael Niemier, X. Sharon Hu",
+      "date": "2026-08-24",
+      "pdf": "https://arxiv.org/pdf/2608.23404v1",
+      "score": "8.0",
+      "evidence": "面向处理进内存设计的性能评估框架，契合存算一体/近存计算主题",
+      "tldr": "Processing-in-Memory(PIM)能减少数据搬运开销，但实际加速高度依赖设计，现有电路级工具无法捕捉端到端因素，周期精确模拟又太慢。VIPER提出轻量级架构感知性能框架，通过一次host profiling结合PIM分析引擎，在候选设计间快速扫描参数，支持近内存和处理使用内存两种模式。在UPMEM和gem5上验证，平均误差低于12%，评估时间从小时减至分钟，为迭代DSE提供高效工具，揭示设备级方法遗漏的设计权衡。",
+      "tags": "query:cim",
+      "abstract_en": "Processing-in-Memory (PIM) promises to reduce data movement overhead by executing computation in or near memory, but its realized application speedup remains highly design-dependent. Non-offloadable host execution, host-PIM transfers, limited PIM capacity, and device programming latency can limit end-to-end speedup, making fast early-stage design-space exploration (DSE) essential. However, existing PIM evaluation methods remain limited: circuit- and device-level tools cannot capture these end-to-end PIM performance factors, while cycle-accurate simulation is too slow for iterative DSE. To address this gap, we present VIPER, a unified, lightweight, and architecture-aware performance evaluation framework for PIM DSE. VIPER profiles host execution once and combines the measured host behavior with a PIM-aware analytical engine that sweeps PIM-side parameters across candidate designs. It supports both Processing Near Memory (PNM) and Processing Using Memory (PUM) under task-offloading and data-triggered execution by capturing host-PIM transfer, array access, in-memory computation, device programming latency, and capacity-induced partitioning, providing rapid architecture-aware performance estimates for iterative DSE without repeated cycle-accurate simulation. We validate VIPER against a commercial UPMEM system and more than 400 cycle-accurate gem5 configurations. VIPER predicts the UPMEM offloading decision and break-even region a priori, and, with a refined transfer model, captures the measured peak-and-rolloff behavior with 12\\% mean speedup error across the DPU sweep (6\\% up to the 256-DPU peak). Against gem5, VIPER achieves less than 10\\% error while reducing evaluation time from hours to under one minute. Case studies of UPMEM, ReRAM/FeFET crossbars, and IMCRYPTO show that architecture-aware DSE reveals key performance trade-offs that device-level evaluation misses.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202609/01/2608.25155v1-an-open-source-benchmark-suite-of-3d-ic-testcases",
+      "section": "deep",
+      "title_en": "An Open-Source Benchmark Suite of 3D-IC Testcases",
+      "authors": "Rohan Soni, Jooyeon Jeong, Alexander Graening, Anthony Foo, Richard Chen, Puneet Gupta",
+      "date": "2026-08-25",
+      "pdf": "https://arxiv.org/pdf/2608.25155v1",
+      "score": "8.0",
+      "evidence": "开源3D-IC基准测试套件，涵盖混合键合与TSV，契合三维堆叠/存算一体设计主题",
+      "tldr": "物理设计社区长期受益于标准化公开基准，但现有2D基准无法覆盖3D异质集成带来的新挑战。本文基于CATCH框架中的典型chiplet案例，开源了一套3D-IC基准测试集，包含可复用的虚拟chiplet模型，覆盖计算、存储、I/O、模拟与基板组件，并刻画异质芯片集成、芯片间互连及工艺约束。该基准旨在建立统一评估平台，加速3D异质集成研究。",
+      "tags": "query:cim",
+      "abstract_en": "The physical design community has benefited from standardized, publicly available benchmark suites, which have enabled reproducible evaluation and driven significant advances in 2D place-and-route algorithms over the past three decades. However, the emergence of 3D heterogeneous integration technologies, including through-silicon vias (TSVs), hybrid bonding, and chiplet-based architectures, has introduced new physical design challenges that are not captured by existing planar benchmarks. Although several 3D-IC design examples have been reported, publicly accessible and scalable benchmark suites that enable reproducible evaluation across different 3D physical design problems remain limited. In this paper, we present an open-source suite of 3D-IC benchmark testcases derived from representative chiplet-based case studies in CATCH, an open-source framework for estimating the cost of heterogeneous integration architectures. The proposed benchmark suite provides reusable virtual chiplet models covering compute, memory, I/O, analog, and substrate components. Each testcase captures essential physical design characteristics of 3D systems, including heterogeneous die integration, inter-die connectivity, and technology-dependent design constraints. By publicly releasing these benchmarks, we aim to establish a common evaluation platform and accelerate community-wide research progress in 3D heterogeneous integration.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202609/01/2608.29338v1-analogue-phase-change-computational-memory-with-high-precision-reads-and-energy-efficient-writes",
+      "section": "deep",
+      "title_en": "Analogue Phase Change Computational Memory with High Precision Reads and Energy Efficient Writes",
+      "authors": "Ghazi Sarwat Syed, Loris Coccia, Vara Prasad Jonnalagadda, Antonio Massimiliano Mio, Asit Ray, Matthew BrightSky, Abu Sebastian",
+      "date": "2026-08-29",
+      "pdf": "https://arxiv.org/pdf/2608.29338v1",
+      "score": "8.0",
+      "evidence": "面向存内计算的相变计算存储器，强调能效",
+      "tldr": "电阻式存储技术在大规模内存计算中面临精度、效率与密度难以兼顾的挑战。本文提出一种紧凑的相变存储器件架构，利用超限制开关体积提升电热效率，并借助非绝缘薄膜抑制时域电导波动。通过解析建模与交叉阵列集成，在常规未掺杂材料下实现接近6位的计算精度、低于50μS的稳定电导窗口，并开辟亚100μA编程电流的可行路径。该工作为高精度低功耗内存计算提供了实用化器件方案。",
+      "tags": "query:cim",
+      "abstract_en": "Resistive memory technologies offer a compelling advantage for in-memory computing. However, realizing a device architecture that simultaneously achieves high computational precision, efficiency, and density has remained elusive due to inherent trade-offs among these performance metrics. Here, we introduce a com- pact phase-change memory device architecture that combines an ultra-confined active switching volume for enhanced electro-thermal efficiency with a non-insulating thin film that suppresses temporal conductance fluctuations. We analytically model and back-end integrate these devices into crossbar arrays. Even with conventional, undoped phase-change materials, the device architecture enables a computational precision approaching 6 bits, low conductance values below 50 μS with an adequate conductance window, and a viable pathway toward sub-100 μA programming currents under nominal operating voltages.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

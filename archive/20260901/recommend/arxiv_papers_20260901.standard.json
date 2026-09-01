@@ -1,0 +1,174 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-09-01T23:03:02.919722+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 4,
+    "deep_cap": 6,
+    "deep_selected": 4,
+    "quick_candidates": 0,
+    "quick_skim_target": 11,
+    "quick_selected": 0
+  },
+  "deep_dive": [
+    {
+      "id": "2608.30509v1",
+      "source": "arxiv",
+      "title": "CHIPSMORE: Compute-in-Interconnect and -Memory Chiplets for Multi-Mode Multi-Request LLM Inference Acceleration",
+      "abstract": "Large language model (LLM) inference exhibits substantial variability across adaptation modes, context lengths, and request concurrency, creating challenges for maintaining high utilization, memory efficiency, and scalable performance on compute-in-memory (CIM) accelerators. This paper presents CHIPSMORE, a multi-mode and multi-request LLM inference accelerator that integrates compute-in-interconnect and CIM to support both base-mode and low-rank adaptation (LoRA) inference under diverse workloads. CHIPSMORE employs heterogeneous processing elements consisting of resistive RAM analog compute-in-memory (RRAM-ACIM) and static RAM digital compute-in-memory (SRAM-DCIM) interconnected through a programmable Inter-PE computational network (IPCN). A composable hierarchical key-value (KV) memory scheme dynamically allocates router scratchpad, SRAM-DCIM, and embedded DRAM (eDRAM) resources according to workload requirements, enabling scalable support for long-context and batched inference. Furthermore, a non-replicated multi-request execution pipeline exploits request-level parallelism without duplicating pretrained weights, while a state-aware resource reconfiguration mechanism selectively retains runtime states and power-gates inactive resources to improve energy efficiency. Evaluation using cycle-accurate hardware-software co-simulation demonstrates that CHIPSMORE effectively sustains high throughput across varying model sizes, context lengths, and batch sizes while maintaining favorable power scaling. Compared with Nvidia H100, CHIPSMORE achieves up to $2.38\\times$ higher throughput and $27\\times$ higher energy efficiency on Mistral-7B inference while eliminating weight replication for multi-request serving.",
+      "authors": [
+        "Yue Jiet Chong",
+        "Yimin Wang",
+        "Zhen Wu",
+        "Zixuan Wang",
+        "Wei Zhang",
+        "Xuanyao Fong"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-08-31T09:43:07+00:00",
+      "link": "https://arxiv.org/pdf/2608.30509v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "compute-in-memory architecture with RRAM/SRAM chiplets for LLM inference",
+      "llm_evidence_cn": "采用RRAM/SRAM存算一体芯粒的LLM推理架构",
+      "llm_evidence": "采用RRAM/SRAM存算一体芯粒的LLM推理架构",
+      "canonical_evidence": "采用RRAM/SRAM存算一体芯粒的LLM推理架构",
+      "llm_tldr_en": "CHIPSMORE integrates compute-in-interconnect and CIM with heterogeneous RRAM-ACIM and SRAM-DCIM to accelerate multi-mode multi-request LLM inference, improving utilization and memory efficiency.",
+      "llm_tldr_cn": "大型语言模型推理在适应模式、上下文长度和请求并发度上存在显著差异，给存算一体（CIM）加速器的利用率、内存效率和可扩展性带来挑战。针对此问题，该论文提出CHIPSMORE，一个集成计算互连与存算一体的多模式多请求LLM推理加速器，采用RRAM模拟存算一体和SRAM数字存算一体的异构处理单元，并支持基座模型与低秩适配（LoRA）推理。实验表明该架构能在多样工作负载下保持高利用率与内存效率，为CIM加速器的实用化提供了新思路。",
+      "llm_tldr": "大型语言模型推理在适应模式、上下文长度和请求并发度上存在显著差异，给存算一体（CIM）加速器的利用率、内存效率和可扩展性带来挑战。针对此问题，该论文提出CHIPSMORE，一个集成计算互连与存算一体的多模式多请求LLM推理加速器，采用RRAM模拟存算一体和SRAM数字存算一体的异构处理单元，并支持基座模型与低秩适配（LoRA）推理。实验表明该架构能在多样工作负载下保持高利用率与内存效率，为CIM加速器的实用化提供了新思路。",
+      "llm_tags": [
+        "query:cim:composite"
+      ],
+      "matched_query_tag": "query:cim:composite",
+      "matched_query_text": "Papers central to 存算一体，主要关注基于混合键合的三维堆叠的近存计算, especially work that connects or combines: compute-in-memory architecture; hybrid bonding 3D integration; 3D stacking memory technology; near-memory computing design; processing-in-memory systems; 3D integrated circuit design; What are the key benefits of hybrid bonding for 3D stacked near memory computing?; How does compute in memory architecture improve energy efficiency?; Design challenges of 3D stacking for near memory computing systems.",
+      "matched_requirement_id": "req-composite-cim",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.23404v1",
+      "source": "arxiv",
+      "title": "VIPER: Architecture-Aware Performance Modeling for Processing-in-Memory Design-Space Exploration",
+      "abstract": "Processing-in-Memory (PIM) promises to reduce data movement overhead by executing computation in or near memory, but its realized application speedup remains highly design-dependent. Non-offloadable host execution, host-PIM transfers, limited PIM capacity, and device programming latency can limit end-to-end speedup, making fast early-stage design-space exploration (DSE) essential. However, existing PIM evaluation methods remain limited: circuit- and device-level tools cannot capture these end-to-end PIM performance factors, while cycle-accurate simulation is too slow for iterative DSE. To address this gap, we present VIPER, a unified, lightweight, and architecture-aware performance evaluation framework for PIM DSE. VIPER profiles host execution once and combines the measured host behavior with a PIM-aware analytical engine that sweeps PIM-side parameters across candidate designs. It supports both Processing Near Memory (PNM) and Processing Using Memory (PUM) under task-offloading and data-triggered execution by capturing host-PIM transfer, array access, in-memory computation, device programming latency, and capacity-induced partitioning, providing rapid architecture-aware performance estimates for iterative DSE without repeated cycle-accurate simulation. We validate VIPER against a commercial UPMEM system and more than 400 cycle-accurate gem5 configurations. VIPER predicts the UPMEM offloading decision and break-even region a priori, and, with a refined transfer model, captures the measured peak-and-rolloff behavior with 12\\% mean speedup error across the DPU sweep (6\\% up to the 256-DPU peak). Against gem5, VIPER achieves less than 10\\% error while reducing evaluation time from hours to under one minute. Case studies of UPMEM, ReRAM/FeFET crossbars, and IMCRYPTO show that architecture-aware DSE reveals key performance trade-offs that device-level evaluation misses.",
+      "authors": [
+        "Haoran Geng",
+        "Tomas Sousa Pereira",
+        "Xiaoyang Lu",
+        "Xian-He Sun",
+        "Michael Niemier",
+        "X. Sharon Hu"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-08-24T15:49:56+00:00",
+      "link": "https://arxiv.org/pdf/2608.23404v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Processing-in-Memory performance modeling for PIM DSE",
+      "llm_evidence_cn": "面向处理进内存设计的性能评估框架，契合存算一体/近存计算主题",
+      "llm_evidence": "面向处理进内存设计的性能评估框架，契合存算一体/近存计算主题",
+      "canonical_evidence": "面向处理进内存设计的性能评估框架，契合存算一体/近存计算主题",
+      "llm_tldr_en": "VIPER is a lightweight, architecture-aware performance evaluation framework for PIM design-space exploration, enabling fast early-stage assessment of near-memory computing systems despite the limitations of circuit/cycle-accurate simulators.",
+      "llm_tldr_cn": "PIM设计空间探索缺乏既能捕捉端到端性能因素又足够轻量的评估手段。本文提出VIPER，一个统一、轻量且架构感知的PIM性能评估框架，将设备参数与端到端加速效果联系起来，支持快速早期设计空间探索。该方法克服了电路级工具无法建模系统因素与周期级仿真过慢的局限，为近存计算/存算一体架构的设计选型提供了实用工具。",
+      "llm_tldr": "PIM设计空间探索缺乏既能捕捉端到端性能因素又足够轻量的评估手段。本文提出VIPER，一个统一、轻量且架构感知的PIM性能评估框架，将设备参数与端到端加速效果联系起来，支持快速早期设计空间探索。该方法克服了电路级工具无法建模系统因素与周期级仿真过慢的局限，为近存计算/存算一体架构的设计选型提供了实用工具。",
+      "llm_tags": [
+        "query:cim:composite"
+      ],
+      "matched_query_tag": "query:cim:composite",
+      "matched_query_text": "Papers central to 存算一体，主要关注基于混合键合的三维堆叠的近存计算, especially work that connects or combines: compute-in-memory architecture; hybrid bonding 3D integration; 3D stacking memory technology; near-memory computing design; processing-in-memory systems; 3D integrated circuit design; What are the key benefits of hybrid bonding for 3D stacked near memory computing?; How does compute in memory architecture improve energy efficiency?; Design challenges of 3D stacking for near memory computing systems.",
+      "matched_requirement_id": "req-composite-cim",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.25155v1",
+      "source": "arxiv",
+      "title": "An Open-Source Benchmark Suite of 3D-IC Testcases",
+      "abstract": "The physical design community has benefited from standardized, publicly available benchmark suites, which have enabled reproducible evaluation and driven significant advances in 2D place-and-route algorithms over the past three decades. However, the emergence of 3D heterogeneous integration technologies, including through-silicon vias (TSVs), hybrid bonding, and chiplet-based architectures, has introduced new physical design challenges that are not captured by existing planar benchmarks. Although several 3D-IC design examples have been reported, publicly accessible and scalable benchmark suites that enable reproducible evaluation across different 3D physical design problems remain limited. In this paper, we present an open-source suite of 3D-IC benchmark testcases derived from representative chiplet-based case studies in CATCH, an open-source framework for estimating the cost of heterogeneous integration architectures. The proposed benchmark suite provides reusable virtual chiplet models covering compute, memory, I/O, analog, and substrate components. Each testcase captures essential physical design characteristics of 3D systems, including heterogeneous die integration, inter-die connectivity, and technology-dependent design constraints. By publicly releasing these benchmarks, we aim to establish a common evaluation platform and accelerate community-wide research progress in 3D heterogeneous integration.",
+      "authors": [
+        "Rohan Soni",
+        "Jooyeon Jeong",
+        "Alexander Graening",
+        "Anthony Foo",
+        "Richard Chen",
+        "Puneet Gupta"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-08-25T21:04:44+00:00",
+      "link": "https://arxiv.org/pdf/2608.25155v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Open-source 3D-IC benchmark suite including TSVs and hybrid bonding",
+      "llm_evidence_cn": "开源3D-IC基准测试套件，涵盖混合键合与TSV，契合三维堆叠/存算一体设计主题",
+      "llm_evidence": "开源3D-IC基准测试套件，涵盖混合键合与TSV，契合三维堆叠/存算一体设计主题",
+      "canonical_evidence": "开源3D-IC基准测试套件，涵盖混合键合与TSV，契合三维堆叠/存算一体设计主题",
+      "llm_tldr_en": "An open-source 3D-IC benchmark suite with testcases derived from real designs, covering TSVs, hybrid bonding, and chiplets, enables reproducible evaluation across 3D physical design problems.",
+      "llm_tldr_cn": "3D集成电路物理设计面临TSV、混合键合和chiplet等新挑战，但可公开获取的3D-IC基准套件仍然有限。为此该文发布一套开源3D-IC测试用例基准，覆盖多种三维异构集成技术，支持可复现的物理设计评估。该基准有助于社区在统一平台上比较和推进3D设计算法，为混合键合三维堆叠等方向提供了基础测试环境。",
+      "llm_tldr": "3D集成电路物理设计面临TSV、混合键合和chiplet等新挑战，但可公开获取的3D-IC基准套件仍然有限。为此该文发布一套开源3D-IC测试用例基准，覆盖多种三维异构集成技术，支持可复现的物理设计评估。该基准有助于社区在统一平台上比较和推进3D设计算法，为混合键合三维堆叠等方向提供了基础测试环境。",
+      "llm_tags": [
+        "query:cim:composite"
+      ],
+      "matched_query_tag": "query:cim:composite",
+      "matched_query_text": "Papers central to 存算一体，主要关注基于混合键合的三维堆叠的近存计算, especially work that connects or combines: compute-in-memory architecture; hybrid bonding 3D integration; 3D stacking memory technology; near-memory computing design; processing-in-memory systems; 3D integrated circuit design; What are the key benefits of hybrid bonding for 3D stacked near memory computing?; How does compute in memory architecture improve energy efficiency?; Design challenges of 3D stacking for near memory computing systems.",
+      "matched_requirement_id": "req-composite-cim",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.29338v1",
+      "source": "arxiv",
+      "title": "Analogue Phase Change Computational Memory with High Precision Reads and Energy Efficient Writes",
+      "abstract": "Resistive memory technologies offer a compelling advantage for in-memory computing. However, realizing a device architecture that simultaneously achieves high computational precision, efficiency, and density has remained elusive due to inherent trade-offs among these performance metrics. Here, we introduce a com- pact phase-change memory device architecture that combines an ultra-confined active switching volume for enhanced electro-thermal efficiency with a non-insulating thin film that suppresses temporal conductance fluctuations. We analytically model and back-end integrate these devices into crossbar arrays. Even with conventional, undoped phase-change materials, the device architecture enables a computational precision approaching 6 bits, low conductance values below 50 μS with an adequate conductance window, and a viable pathway toward sub-100 μA programming currents under nominal operating voltages.",
+      "authors": [
+        "Ghazi Sarwat Syed",
+        "Loris Coccia",
+        "Vara Prasad Jonnalagadda",
+        "Antonio Massimiliano Mio",
+        "Asit Ray",
+        "Matthew BrightSky",
+        "Abu Sebastian"
+      ],
+      "primary_category": "cond-mat.mtrl-sci",
+      "categories": [
+        "cond-mat.mtrl-sci"
+      ],
+      "published": "2026-08-29T15:40:14+00:00",
+      "link": "https://arxiv.org/pdf/2608.29338v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "phase-change computational memory for in-memory computing with energy efficiency",
+      "llm_evidence_cn": "面向存内计算的相变计算存储器，强调能效",
+      "llm_evidence": "面向存内计算的相变计算存储器，强调能效",
+      "canonical_evidence": "面向存内计算的相变计算存储器，强调能效",
+      "llm_tldr_en": "Introduces a compact phase-change memory architecture for analog in-memory computing, achieving high precision, energy efficiency, and density via an ultra-confined switching volume and non-insulating thin film.",
+      "llm_tldr_cn": "该文针对阻变存储器在精度、能效与密度之间难以兼顾的问题，提出一种紧凑的相变存储器件架构。其核心是将超受限开关体积与非绝缘薄膜结合，以提升电热效率并抑制电导涨落，并解析建模后道集成到交叉阵列。实验与建模表明，即便使用常规未掺杂相变材料，该架构也能实现高精度的模拟读取和节能写入，为存内计算的高能效实现提供新路径。",
+      "llm_tldr": "该文针对阻变存储器在精度、能效与密度之间难以兼顾的问题，提出一种紧凑的相变存储器件架构。其核心是将超受限开关体积与非绝缘薄膜结合，以提升电热效率并抑制电导涨落，并解析建模后道集成到交叉阵列。实验与建模表明，即便使用常规未掺杂相变材料，该架构也能实现高精度的模拟读取和节能写入，为存内计算的高能效实现提供新路径。",
+      "llm_tags": [
+        "query:cim:composite"
+      ],
+      "matched_query_tag": "query:cim:composite",
+      "matched_query_text": "Papers central to 存算一体，主要关注基于混合键合的三维堆叠的近存计算, especially work that connects or combines: compute-in-memory architecture; hybrid bonding 3D integration; 3D stacking memory technology; near-memory computing design; processing-in-memory systems; 3D integrated circuit design; What are the key benefits of hybrid bonding for 3D stacked near memory computing?; How does compute in memory architecture improve energy efficiency?; Design challenges of 3D stacking for near memory computing systems.",
+      "matched_requirement_id": "req-composite-cim",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": []
+}

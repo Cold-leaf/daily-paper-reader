@@ -1,0 +1,54 @@
+{
+  "label": "2026-08-31",
+  "date": "2026-08-31",
+  "generated_at": "2026-09-01T00:27:16",
+  "count": 3,
+  "papers": [
+    {
+      "paper_id": "202608/31/2608.23404v1-viper-architecture-aware-performance-modeling-for-processing-in-memory-design-space-exploration",
+      "section": "deep",
+      "title_en": "VIPER: Architecture-Aware Performance Modeling for Processing-in-Memory Design-Space Exploration",
+      "authors": "Haoran Geng, Tomas Sousa Pereira, Xiaoyang Lu, Xian-He Sun, Michael Niemier, X. Sharon Hu",
+      "date": "2026-08-24",
+      "pdf": "https://arxiv.org/pdf/2608.23404v1",
+      "score": "9.0",
+      "evidence": "面向近存计算的架构感知性能建模，支持设计空间快速探索",
+      "tldr": "处理中内存(PIM)的实际加速受主机执行、传输和编程延迟等影响，现有评估方法难以兼顾精度与速度。本文提出VIPER，一种架构感知的轻量级性能评估框架，通过主机性能剖析与PIM解析引擎结合，快速扫描设计空间。在UPMEM和gem5上验证，误差小于10-12%，评估时间从小时级降至分钟级。VIPER支持早期DSE，发现设备级评估遗漏的关键权衡。",
+      "tags": "query:cim",
+      "abstract_en": "Processing-in-Memory (PIM) promises to reduce data movement overhead by executing computation in or near memory, but its realized application speedup remains highly design-dependent. Non-offloadable host execution, host-PIM transfers, limited PIM capacity, and device programming latency can limit end-to-end speedup, making fast early-stage design-space exploration (DSE) essential. However, existing PIM evaluation methods remain limited: circuit- and device-level tools cannot capture these end-to-end PIM performance factors, while cycle-accurate simulation is too slow for iterative DSE. To address this gap, we present VIPER, a unified, lightweight, and architecture-aware performance evaluation framework for PIM DSE. VIPER profiles host execution once and combines the measured host behavior with a PIM-aware analytical engine that sweeps PIM-side parameters across candidate designs. It supports both Processing Near Memory (PNM) and Processing Using Memory (PUM) under task-offloading and data-triggered execution by capturing host-PIM transfer, array access, in-memory computation, device programming latency, and capacity-induced partitioning, providing rapid architecture-aware performance estimates for iterative DSE without repeated cycle-accurate simulation. We validate VIPER against a commercial UPMEM system and more than 400 cycle-accurate gem5 configurations. VIPER predicts the UPMEM offloading decision and break-even region a priori, and, with a refined transfer model, captures the measured peak-and-rolloff behavior with 12\\% mean speedup error across the DPU sweep (6\\% up to the 256-DPU peak). Against gem5, VIPER achieves less than 10\\% error while reducing evaluation time from hours to under one minute. Case studies of UPMEM, ReRAM/FeFET crossbars, and IMCRYPTO show that architecture-aware DSE reveals key performance trade-offs that device-level evaluation misses.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/31/2608.25781v1-update-disturbance-resilient-analog-reram-crossbar-arrays-for-in-memory-deep-learning-accelerators",
+      "section": "deep",
+      "title_en": "Update Disturbance-Resilient Analog ReRAM Crossbar Arrays for In-Memory Deep Learning Accelerators",
+      "authors": "Wooseok Choi, Tommaso Stecconi, Donato Francesco Falcone, Matteo Galetta, Victoria Clerico, Elisa Zaccaria, Mamidala Saketh Ram, Antonio La Porta, Folkert Horst, Daniel Jubin, Matias Senger, Marilyne Sousa, Steffen Reidt, Ralph Heller, Bernabe Linares-Barranco, Valeria Bragaglia, Bert Jan Offrein",
+      "date": "2026-08-26",
+      "pdf": "https://arxiv.org/pdf/2608.25781v1",
+      "score": "9.0",
+      "evidence": "面向存内深度学习训练的模拟ReRAM交叉阵列，属于核心存算一体硬件",
+      "tldr": "针对模拟ReRAM交叉阵列中全并行权重更新导致的权重扰动问题，提出基于HfOx导电金属氧化物（CMO）的350nm工艺器件，具备60ns快速模拟开关和超过10万次脉冲的扰动耐受性。通过COMSOL模拟揭示丝状热电能量集中的非线性响应，并在集成阵列上实现无扰动并行映射，硬件感知仿真表明其适用于全并行更新的内存深度学习加速器。",
+      "tags": "query:cim",
+      "abstract_en": "Resistive memory (ReRAM) technologies with crossbar array architectures hold significant potential for analog AI accelerator hardware, enabling both in-memory inference and training. Recent developments have successfully demonstrated inference acceleration by offloading compute-heavy training workloads to off-chip digital processors. However, in-memory acceleration of training algorithms is crucial for more sustainable and power-efficient AI, but still in an early stage of research. This study addresses in-memory training acceleration using analog ReRAM arrays, focusing on a key challenge during fully parallel weight updates: disturbances of the weight values in cross-point devices. A ReRAM device solution is presented on 350 nm silicon technology, utilizing a resistive switching conductive metal oxide (CMO) formed on a nanoscale conductive filament within a HfOx layer. The devices not only exhibit 60 ns fast, non-volatile analog switching, but also demonstrates outstanding resilience to update disturbances, enduring over 100k pulses. The disturbance tolerance of the ReRAM is analyzed using COMSOL Multiphysics simulations, modeling the filament-induced thermoelectric energy concentration that results in a highly nonlinear device responses to input voltage amplitudes. Disturbance-free parallel weight mapping is also demonstrated on the back-end-of-line integrated ReRAM array chip. Finally, comprehensive hardware-aware neural network simulations validate the potential of our ReRAM for in-memory deep learning accelerators capable of fully parallel weight updates.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/31/2608.25499v1-generalizing-thermal-transport-in-high-contrast-metamaterials-through-interfacial-fresnel-reflection",
+      "section": "quick",
+      "title_en": "Generalizing Thermal Transport in High-Contrast Metamaterials through Interfacial Fresnel Reflection",
+      "authors": "Seung Hyeon Ham, Yu Min Kim, In Hyeok Choi, Jeong Woo Han",
+      "date": "2026-08-26",
+      "pdf": "https://arxiv.org/pdf/2608.25499v1",
+      "score": "6.0",
+      "evidence": "针对层状热超构材料热流控制的广义有效介质近似，面向散热管理",
+      "tldr": "高热导率对比度下层状热超材料的传统有效介质近似失效。本文引入两个修正系数推广有效介质近似，其中一个具有与光学菲涅尔反射系数相同的数学形式。这使模型在传统近似失效的高对比场景下仍能准确预测热输运，并将热流穿透高对比界面的行为解释为类似反射。该工作将热扩散这一耗散过程与射线光学框架联系起来，为热超材料设计提供了直观工具。",
+      "tags": "query:thermal-gnn",
+      "abstract_en": "The rapid growth of generative AI has intensified the need for efficient heat dissipation in large-scale data centers. To control heat flow, thermal metamaterials with layered structures have been widely used, which impart the anisotropic properties of thermal conductivities. However, the conventional effective medium approximation (EMA) often fails to provide accurate predictions in systems with a high thermal conductivity contrast between adjacent layers embedded in a background medium. Here, we generalize the EMA by introducing two corrective coefficients that extend its validity to regimes where the conventional EMA was previously inapplicable, i.e., high-contrast thermal metamaterials with the background medium. Notably, one of these coefficients that we proposed has the same mathematical form as the Fresnel reflection coefficient in optics. This allows us to interpret the \"reflection-like\" behavior of heat flow as it penetrates adjacent layers with high thermal contrast. Our findings suggest that heat diffusion, traditionally viewed as a purely dissipative process, can be understood intuitively through the framework of ray optics.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

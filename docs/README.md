@@ -41,17 +41,17 @@
 <section class="dpr-home-dashboard-card dpr-home-report-card">
   <div class="dpr-home-dashboard-header">
     <div>
-      <span class="dpr-home-dashboard-kicker">2026-08-30</span>
+      <span class="dpr-home-dashboard-kicker">2026-08-31</span>
       <h3 class="dpr-home-dashboard-title">今日汇总</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">共 5 篇</strong>
+    <strong class="dpr-home-dashboard-count">共 3 篇</strong>
   </div>
   <dl class="dpr-home-dashboard-stats">
     <div class="dpr-home-dashboard-stat"><dt>累计更新</dt><dd>1 次</dd></div>
     <div class="dpr-home-dashboard-stat"><dt>精读</dt><dd>2</dd></div>
-    <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>3</dd></div>
+    <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>1</dd></div>
   </dl>
-  <p class="dpr-home-dashboard-body">最近更新：2026-08-30 22:20:47 UTC<br>状态：成功</p>
+  <p class="dpr-home-dashboard-body">最近更新：2026-09-01 00:27:13 UTC<br>状态：成功</p>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-brief-card">
   <div class="dpr-home-dashboard-header">
@@ -62,9 +62,7 @@
     <strong class="dpr-home-dashboard-count">AI</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<p>今日精读聚焦存内计算架构与模拟ReRAM阵列可靠性，速读覆盖热稳定性预测、神经PDE求解器及3D-IC测试基准。</p>
-<p>最值得关注：VIPER为存内计算设计空间探索提供架构感知性能建模，而抗更新干扰的模拟ReRAM交叉阵列是深度学习加速器的关键突破。</p>
-<p>建议普通读者优先关注存内计算芯片的能效与可靠性平衡，后续可跟进相关开源基准套件验证实际效果。</p>
+<p>今日精读两篇、速读一篇，聚焦存内计算与模拟ReRAM加速器研究。最值得关注的是《VIPER》的架构感知性能建模，以及《Update Disturbance-Resilient》中抗干扰模拟ReRAM阵列设计。建议普通读者优先了解存内计算的性能评估方法与器件可靠性挑战。</p>
   </div>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-deep-card">
@@ -86,12 +84,12 @@
       <span class="dpr-home-dashboard-kicker">今日累计</span>
       <h3 class="dpr-home-dashboard-title">速读推荐</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">3 篇</strong>
+    <strong class="dpr-home-dashboard-count">1 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="Differential Learning for Robust Prediction of Thermal Stability with Application to Energetic Materials">Differential Learning for Robust Prediction of Thermal Stability with Application to Energetic Materials</span></li><li><span class="dpr-home-dashboard-paper-title" title="Read, Write, Relax: Why Neural PDE Surrogates Need Both Global and Local Processing">Read, Write, Relax: Why Neural PDE Surrogates Need Both Global and Local Processing</span></li><li><span class="dpr-home-dashboard-paper-title" title="An Open-Source Benchmark Suite of 3D-IC Testcases">An Open-Source Benchmark Suite of 3D-IC Testcases</span></li></ul>
+<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="Generalizing Thermal Transport in High-Contrast Metamaterials through Interfacial Fresnel Reflection">Generalizing Thermal Transport in High-Contrast Metamaterials through Interfacial Fresnel Reflection</span></li></ul>
   </div>
-  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">thermal-gnn <strong>2</strong></span><span class="dpr-home-dashboard-tag">cim <strong>1</strong></span></div>
+  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">thermal-gnn <strong>1</strong></span></div>
 </section>
 </div>
 

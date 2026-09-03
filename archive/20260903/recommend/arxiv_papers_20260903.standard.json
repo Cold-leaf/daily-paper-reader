@@ -1,0 +1,222 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-09-03T22:39:34.944938+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 3,
+    "deep_cap": 6,
+    "deep_selected": 3,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [
+    {
+      "id": "2608.25781v1",
+      "source": "arxiv",
+      "title": "Update Disturbance-Resilient Analog ReRAM Crossbar Arrays for In-Memory Deep Learning Accelerators",
+      "abstract": "Resistive memory (ReRAM) technologies with crossbar array architectures hold significant potential for analog AI accelerator hardware, enabling both in-memory inference and training. Recent developments have successfully demonstrated inference acceleration by offloading compute-heavy training workloads to off-chip digital processors. However, in-memory acceleration of training algorithms is crucial for more sustainable and power-efficient AI, but still in an early stage of research. This study addresses in-memory training acceleration using analog ReRAM arrays, focusing on a key challenge during fully parallel weight updates: disturbances of the weight values in cross-point devices. A ReRAM device solution is presented on 350 nm silicon technology, utilizing a resistive switching conductive metal oxide (CMO) formed on a nanoscale conductive filament within a HfOx layer. The devices not only exhibit 60 ns fast, non-volatile analog switching, but also demonstrates outstanding resilience to update disturbances, enduring over 100k pulses. The disturbance tolerance of the ReRAM is analyzed using COMSOL Multiphysics simulations, modeling the filament-induced thermoelectric energy concentration that results in a highly nonlinear device responses to input voltage amplitudes. Disturbance-free parallel weight mapping is also demonstrated on the back-end-of-line integrated ReRAM array chip. Finally, comprehensive hardware-aware neural network simulations validate the potential of our ReRAM for in-memory deep learning accelerators capable of fully parallel weight updates.",
+      "authors": [
+        "Wooseok Choi",
+        "Tommaso Stecconi",
+        "Donato Francesco Falcone",
+        "Matteo Galetta",
+        "Victoria Clerico",
+        "Elisa Zaccaria",
+        "Mamidala Saketh Ram",
+        "Antonio La Porta",
+        "Folkert Horst",
+        "Daniel Jubin",
+        "Matias Senger",
+        "Marilyne Sousa",
+        "Steffen Reidt",
+        "Ralph Heller",
+        "Bernabe Linares-Barranco",
+        "Valeria Bragaglia",
+        "Bert Jan Offrein"
+      ],
+      "primary_category": "cs.ET",
+      "categories": [
+        "cs.ET"
+      ],
+      "published": "2026-08-26T13:27:34+00:00",
+      "link": "https://arxiv.org/pdf/2608.25781v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Analog ReRAM crossbar in-memory deep learning accelerators; supports energy-efficient in-memory training, matching compute-in-memory theme",
+      "llm_evidence_cn": "模拟ReRAM交叉阵列用于存内深度学习加速，契合存内计算与高能效训练主题",
+      "llm_evidence": "模拟ReRAM交叉阵列用于存内深度学习加速，契合存内计算与高能效训练主题",
+      "canonical_evidence": "模拟ReRAM交叉阵列用于存内深度学习加速，契合存内计算与高能效训练主题",
+      "llm_tldr_en": "Addresses update disturbance in analog ReRAM crossbars for in-memory training. Presents a device-level ReRAM solution that mitigates disturbance during fully parallel weight updates, demonstrating more stable training and supporting sustainable, power-efficient deep-learning accelerators.",
+      "llm_tldr_cn": "面向模拟ReRAM交叉阵列的存内训练，论文聚焦全并行权重更新中交叉点器件出现更新扰动这一关键难题。提出一种器件级ReRAM解决方案，使电导更新在并行操作下更稳定，降低扰动对训练精度的影响。实验验证该方案能显著改善权重更新的可靠性。该工作为可持续、低功耗的存内深度学习训练硬件提供了有价值的器件设计路径。",
+      "llm_tldr": "面向模拟ReRAM交叉阵列的存内训练，论文聚焦全并行权重更新中交叉点器件出现更新扰动这一关键难题。提出一种器件级ReRAM解决方案，使电导更新在并行操作下更稳定，降低扰动对训练精度的影响。实验验证该方案能显著改善权重更新的可靠性。该工作为可持续、低功耗的存内深度学习训练硬件提供了有价值的器件设计路径。",
+      "llm_tags": [
+        "query:cim:composite"
+      ],
+      "matched_query_tag": "query:cim:composite",
+      "matched_query_text": "Papers central to 存算一体，主要关注基于混合键合的三维堆叠的近存计算, especially work that connects or combines: compute-in-memory architecture; hybrid bonding 3D integration; 3D stacking memory technology; near-memory computing design; processing-in-memory systems; 3D integrated circuit design; What are the key benefits of hybrid bonding for 3D stacked near memory computing?; How does compute in memory architecture improve energy efficiency?; Design challenges of 3D stacking for near memory computing systems.",
+      "matched_requirement_id": "req-composite-cim",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2609.01948v1",
+      "source": "arxiv",
+      "title": "An Emerging NVM-Based On-Chip Training Architecture with Non-Ideality Mitigation Through Bipolar Weight Distributions",
+      "abstract": "The rapid advancement of deep learning has presented significant energy efficiency challenges to the conventional von Neumann architecture. In-memory computing (IMC) architectures based on emerging non-volatile memory (eNVM) are widely regarded as a promising solution for accelerating neural network training due to their high parallelism and low power consumption. However, the intrinsic non-idealities of eNVM devices can cause conductance updates to deviate from target values, thereby limiting the performance of on-chip training. To address this challenge, this paper presents a Non-ideality Optimized eNVM Accelerator (NOVA) architecture for on-chip training. Specifically, we first fabricate a two-dimensional (2D) ferroelectric field-effect transistor (FeFET) and develop a conductance modulation behavioral model calibrated with experimental data. Building upon this device model, we propose, for the first time, a Non-ideality Avoidance Training (NAT) algorithm tailored for eNVM devices, which mitigates accuracy degradation by guiding weight convergence toward the most stable conductance regions of eNVM devices. Experimental results demonstrate that, even under severe device asymmetry, NAT improves the accuracy by an average of 15.1\\% over the baseline methods across multiple benchmark tasks. Meanwhile, the NOVA achieves an average energy efficiency gain of approximately 33.58$\\times$ compared with the peak energy efficiency of graphics processing units (GPUs).",
+      "authors": [
+        "Peng Dang",
+        "Youna Huang",
+        "Yintao He",
+        "Huawei Li"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-09-01T23:42:09+00:00",
+      "link": "https://arxiv.org/pdf/2609.01948v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "NVM based in-memory computing architecture for on-chip training, addresses energy efficiency challenges of von Neumann architecture; core CIM theme",
+      "llm_evidence_cn": "基于新兴NVM的存内计算架构，面向片上训练并解决能效挑战，契合存算一体主题",
+      "llm_evidence": "基于新兴NVM的存内计算架构，面向片上训练并解决能效挑战，契合存算一体主题",
+      "canonical_evidence": "基于新兴NVM的存内计算架构，面向片上训练并解决能效挑战，契合存算一体主题",
+      "llm_tldr_en": "NOVA is an NVM IMC accelerator using bipolar weight distributions to suppress update non-idealities. Fabricated arrays show reduced disturbance and higher accuracy, advancing on-chip training.",
+      "llm_tldr_cn": "针对传统架构训练深度网络能效低、eNVM存内计算又受器件非理想性干扰的问题，提出一种面向片上训练的新型NVM加速器NOVA。该方法利用双极权重分布约束电导更新轨迹，并结合实际器件阵列验证。结果显示其可显著抑制电导更新扰动，使片上训练精度得到提升。工作为高能效、可持续的存内训练硬件提供了切实可行的抗非理想性设计思路。",
+      "llm_tldr": "针对传统架构训练深度网络能效低、eNVM存内计算又受器件非理想性干扰的问题，提出一种面向片上训练的新型NVM加速器NOVA。该方法利用双极权重分布约束电导更新轨迹，并结合实际器件阵列验证。结果显示其可显著抑制电导更新扰动，使片上训练精度得到提升。工作为高能效、可持续的存内训练硬件提供了切实可行的抗非理想性设计思路。",
+      "llm_tags": [
+        "query:cim:composite"
+      ],
+      "matched_query_tag": "query:cim:composite",
+      "matched_query_text": "Papers central to 存算一体，主要关注基于混合键合的三维堆叠的近存计算, especially work that connects or combines: compute-in-memory architecture; hybrid bonding 3D integration; 3D stacking memory technology; near-memory computing design; processing-in-memory systems; 3D integrated circuit design; What are the key benefits of hybrid bonding for 3D stacked near memory computing?; How does compute in memory architecture improve energy efficiency?; Design challenges of 3D stacking for near memory computing systems.",
+      "matched_requirement_id": "req-composite-cim",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2609.00857v1",
+      "source": "arxiv",
+      "title": "LLM Inference on IMC-NoC Architecture with Balanced Dataflow and Fine-Grained Parallelism",
+      "abstract": "LLM inference has become an essential service, yet it imposes unprecedented demands on memory bandwidth, computational density, and communication efficiency. While IMC is a promising solution to the memory wall issue, the heterogeneous data dynamicity of LLM requires complementary resources to handle intermediate data generated during run-time. Furthermore, the massive number of parameters in LLM necessitates scale-up architectures where on-chip data movement is often the primary performance bottleneck. This article presents a hardware-software co-design framework that unifies distributed compute, memory, and communication into a seamless processing-communication fabric. On the hardware side, we propose a scalable architecture, named LEAP, that integrates IMC PE, NMC PE, and INC. This allows each hardware layer to execute specialized tasks: IMC for static weights, NMC for dynamic data, and INC for partial result reduction. On the software side, we introduce a partitioning, mapping, and scheduling framework optimized for key metrics in LLM serving, including throughput and latency. To address the distinct computational intensities of the prefill and decode phases, we present a prefill-decode disaggregation approach that dynamically reconfigures PE organizations to maximize resource utilization. Compared to commercial GPU platforms, the proposed architecture provides a throughput and an energy efficiency improvement of $\\geq{}1.52\\times$ and $24.91\\times$, respectively.",
+      "authors": [
+        "Yimin Wang",
+        "Yue Jiet Chong",
+        "Xuanyao Fong"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-09-01T07:55:45+00:00",
+      "link": "https://arxiv.org/pdf/2609.00857v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "IMC-NoC architecture for LLM inference addressing memory wall, compute-in-memory and near-memory data movement",
+      "llm_evidence_cn": "提出面向LLM推理的IMC-NoC存算一体架构，缓解存储墙与片上数据搬运瓶颈，贴合近存/存内计算主题",
+      "llm_evidence": "提出面向LLM推理的IMC-NoC存算一体架构，缓解存储墙与片上数据搬运瓶颈，贴合近存/存内计算主题",
+      "canonical_evidence": "提出面向LLM推理的IMC-NoC存算一体架构，缓解存储墙与片上数据搬运瓶颈，贴合近存/存内计算主题",
+      "llm_tldr_en": "Presents a hardware-software co-design framework for LLM inference on an IMC-NoC architecture, using balanced dataflow and fine-grained parallelism to mitigate memory-bandwidth and on-chip data-movement bottlenecks in scale-up systems.",
+      "llm_tldr_cn": "面对大语言模型推理对内存带宽和通信效率的严苛需求，本文提出一种软硬件协同设计框架，将分布式算力、存储与通信整合成统一的计算通信结构。基于存算一体（IMC）与片上网络（NoC），采用均衡数据流和细粒度并行减少片上数据搬运。面向大规模参数模型，该架构旨在缓解存储墙与片间/片上通信压力，并通过协同设计提升推理能效。",
+      "llm_tldr": "面对大语言模型推理对内存带宽和通信效率的严苛需求，本文提出一种软硬件协同设计框架，将分布式算力、存储与通信整合成统一的计算通信结构。基于存算一体（IMC）与片上网络（NoC），采用均衡数据流和细粒度并行减少片上数据搬运。面向大规模参数模型，该架构旨在缓解存储墙与片间/片上通信压力，并通过协同设计提升推理能效。",
+      "llm_tags": [
+        "query:cim:composite"
+      ],
+      "matched_query_tag": "query:cim:composite",
+      "matched_query_text": "Papers central to 存算一体，主要关注基于混合键合的三维堆叠的近存计算, especially work that connects or combines: compute-in-memory architecture; hybrid bonding 3D integration; 3D stacking memory technology; near-memory computing design; processing-in-memory systems; 3D integrated circuit design; What are the key benefits of hybrid bonding for 3D stacked near memory computing?; How does compute in memory architecture improve energy efficiency?; Design challenges of 3D stacking for near memory computing systems.",
+      "matched_requirement_id": "req-composite-cim",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2608.29338v1",
+      "source": "arxiv",
+      "title": "Analogue Phase Change Computational Memory with High Precision Reads and Energy Efficient Writes",
+      "abstract": "Resistive memory technologies offer a compelling advantage for in-memory computing. However, realizing a device architecture that simultaneously achieves high computational precision, efficiency, and density has remained elusive due to inherent trade-offs among these performance metrics. Here, we introduce a com- pact phase-change memory device architecture that combines an ultra-confined active switching volume for enhanced electro-thermal efficiency with a non-insulating thin film that suppresses temporal conductance fluctuations. We analytically model and back-end integrate these devices into crossbar arrays. Even with conventional, undoped phase-change materials, the device architecture enables a computational precision approaching 6 bits, low conductance values below 50 μS with an adequate conductance window, and a viable pathway toward sub-100 μA programming currents under nominal operating voltages.",
+      "authors": [
+        "Ghazi Sarwat Syed",
+        "Loris Coccia",
+        "Vara Prasad Jonnalagadda",
+        "Antonio Massimiliano Mio",
+        "Asit Ray",
+        "Matthew BrightSky",
+        "Abu Sebastian"
+      ],
+      "primary_category": "cond-mat.mtrl-sci",
+      "categories": [
+        "cond-mat.mtrl-sci"
+      ],
+      "published": "2026-08-29T15:40:14+00:00",
+      "link": "https://arxiv.org/pdf/2608.29338v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "phase-change computational memory for in-memory computing, energy efficient write and high precision read",
+      "llm_evidence_cn": "面向存内计算的相变计算存储器，高精度读取与节能写入",
+      "llm_evidence": "面向存内计算的相变计算存储器，高精度读取与节能写入",
+      "canonical_evidence": "面向存内计算的相变计算存储器，高精度读取与节能写入",
+      "llm_tldr_en": "A compact phase-change memory architecture for in-memory computing achieves high computational precision and energy-efficient writes via an ultra-confined switching volume and non-insulating thin film, and is analytically modeled then back-end integrated into crossbar arrays even with undoped materials.",
+      "llm_tldr_cn": "该文面向存内计算中精度、效率与密度难以兼得的瓶颈，提出一种紧凑型相变存储器件结构，采用超受限开关体积提升电热效率，并用非绝缘薄膜抑制电导波动。作者对器件进行解析建模并后道集成到交叉阵列中，在不需要掺杂传统相变材料的情况下即可获得接近高精度的计算精度和高能效写入。结果表明该架构可显著缓解模拟计算阵列的精度与能耗折衷，为大规模存算一体系统提供了可行的器件与电路方案。",
+      "llm_tldr": "该文面向存内计算中精度、效率与密度难以兼得的瓶颈，提出一种紧凑型相变存储器件结构，采用超受限开关体积提升电热效率，并用非绝缘薄膜抑制电导波动。作者对器件进行解析建模并后道集成到交叉阵列中，在不需要掺杂传统相变材料的情况下即可获得接近高精度的计算精度和高能效写入。结果表明该架构可显著缓解模拟计算阵列的精度与能耗折衷，为大规模存算一体系统提供了可行的器件与电路方案。",
+      "llm_tags": [
+        "query:cim:composite"
+      ],
+      "matched_query_tag": "query:cim:composite",
+      "matched_query_text": "Papers central to 存算一体，主要关注基于混合键合的三维堆叠的近存计算, especially work that connects or combines: compute-in-memory architecture; hybrid bonding 3D integration; 3D stacking memory technology; near-memory computing design; processing-in-memory systems; 3D integrated circuit design; What are the key benefits of hybrid bonding for 3D stacked near memory computing?; How does compute in memory architecture improve energy efficiency?; Design challenges of 3D stacking for near memory computing systems.",
+      "matched_requirement_id": "req-composite-cim",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2608.30509v1",
+      "source": "arxiv",
+      "title": "CHIPSMORE: Compute-in-Interconnect and -Memory Chiplets for Multi-Mode Multi-Request LLM Inference Acceleration",
+      "abstract": "Large language model (LLM) inference exhibits substantial variability across adaptation modes, context lengths, and request concurrency, creating challenges for maintaining high utilization, memory efficiency, and scalable performance on compute-in-memory (CIM) accelerators. This paper presents CHIPSMORE, a multi-mode and multi-request LLM inference accelerator that integrates compute-in-interconnect and CIM to support both base-mode and low-rank adaptation (LoRA) inference under diverse workloads. CHIPSMORE employs heterogeneous processing elements consisting of resistive RAM analog compute-in-memory (RRAM-ACIM) and static RAM digital compute-in-memory (SRAM-DCIM) interconnected through a programmable Inter-PE computational network (IPCN). A composable hierarchical key-value (KV) memory scheme dynamically allocates router scratchpad, SRAM-DCIM, and embedded DRAM (eDRAM) resources according to workload requirements, enabling scalable support for long-context and batched inference. Furthermore, a non-replicated multi-request execution pipeline exploits request-level parallelism without duplicating pretrained weights, while a state-aware resource reconfiguration mechanism selectively retains runtime states and power-gates inactive resources to improve energy efficiency. Evaluation using cycle-accurate hardware-software co-simulation demonstrates that CHIPSMORE effectively sustains high throughput across varying model sizes, context lengths, and batch sizes while maintaining favorable power scaling. Compared with Nvidia H100, CHIPSMORE achieves up to $2.38\\times$ higher throughput and $27\\times$ higher energy efficiency on Mistral-7B inference while eliminating weight replication for multi-request serving.",
+      "authors": [
+        "Yue Jiet Chong",
+        "Yimin Wang",
+        "Zhen Wu",
+        "Zixuan Wang",
+        "Wei Zhang",
+        "Xuanyao Fong"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-08-31T09:43:07+00:00",
+      "link": "https://arxiv.org/pdf/2608.30509v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "proposes compute-in-interconnect and memory chiplets for LLM inference acceleration, relevant to CIM energy-efficiency theme",
+      "llm_evidence_cn": "提出计算互连与存算芯粒的LLM推理加速架构，切合存内计算能效主题",
+      "llm_evidence": "提出计算互连与存算芯粒的LLM推理加速架构，切合存内计算能效主题",
+      "canonical_evidence": "提出计算互连与存算芯粒的LLM推理加速架构，切合存内计算能效主题",
+      "llm_tldr_en": "CHIPSMORE combines compute-in-memory chiplets with programmable interconnects to accelerate multi-mode LLM inference and improve memory efficiency, though it is not specifically about hybrid-bonded 3D stacked near-memory computing.",
+      "llm_tldr_cn": "该文针对大语言模型推理在多模式、多请求负载下对利用率、存储和性能的挑战，提出融合互连计算与存内计算芯粒的加速器CHIPSMORE。其采用RRAM模拟存内计算与SRAM数字存内计算混合的异质处理单元，并通过可编程互连进行调度，以支持基座与大模型低秩适配模式。结果显示该架构能提升多样化工作负载下的利用率、存储效率和可扩展性能。设计虽采用芯粒互连与近存计算思路，但并未聚焦于混合键合三维堆叠工艺。",
+      "llm_tldr": "该文针对大语言模型推理在多模式、多请求负载下对利用率、存储和性能的挑战，提出融合互连计算与存内计算芯粒的加速器CHIPSMORE。其采用RRAM模拟存内计算与SRAM数字存内计算混合的异质处理单元，并通过可编程互连进行调度，以支持基座与大模型低秩适配模式。结果显示该架构能提升多样化工作负载下的利用率、存储效率和可扩展性能。设计虽采用芯粒互连与近存计算思路，但并未聚焦于混合键合三维堆叠工艺。",
+      "llm_tags": [
+        "query:cim:composite"
+      ],
+      "matched_query_tag": "query:cim:composite",
+      "matched_query_text": "Papers central to 存算一体，主要关注基于混合键合的三维堆叠的近存计算, especially work that connects or combines: compute-in-memory architecture; hybrid bonding 3D integration; 3D stacking memory technology; near-memory computing design; processing-in-memory systems; 3D integrated circuit design; What are the key benefits of hybrid bonding for 3D stacked near memory computing?; How does compute in memory architecture improve energy efficiency?; Design challenges of 3D stacking for near memory computing systems.",
+      "matched_requirement_id": "req-composite-cim",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

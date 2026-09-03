@@ -1,0 +1,89 @@
+{
+  "date": "20260903",
+  "date_label": "",
+  "generated_at": "2026-09-03 22:42:57 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2608.25781v1",
+      "route": "202609/03/2608.25781v1-update-disturbance-resilient-analog-reram-crossbar-arrays-for-in-memory-deep-learning-accelerators",
+      "title": "Update Disturbance-Resilient Analog ReRAM Crossbar Arrays for In-Memory Deep Learning Accelerators",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "cim"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "模拟ReRAM交叉阵列用于存内深度学习加速，契合存内计算与高能效训练主题",
+      "first_seen_at": "2026-09-03 22:42:57 UTC",
+      "updated_at": "2026-09-03 22:42:57 UTC"
+    },
+    {
+      "paper_id": "2609.01948v1",
+      "route": "202609/03/2609.01948v1-an-emerging-nvm-based-on-chip-training-architecture-with-non-ideality-mitigation-through-bipolar-weight-distributions",
+      "title": "An Emerging NVM-Based On-Chip Training Architecture with Non-Ideality Mitigation Through Bipolar Weight Distributions",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "cim"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "基于新兴NVM的存内计算架构，面向片上训练并解决能效挑战，契合存算一体主题",
+      "first_seen_at": "2026-09-03 22:42:57 UTC",
+      "updated_at": "2026-09-03 22:42:57 UTC"
+    },
+    {
+      "paper_id": "2609.00857v1",
+      "route": "202609/03/2609.00857v1-llm-inference-on-imc-noc-architecture-with-balanced-dataflow-and-fine-grained-parallelism",
+      "title": "LLM Inference on IMC-NoC Architecture with Balanced Dataflow and Fine-Grained Parallelism",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "cim"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "提出面向LLM推理的IMC-NoC存算一体架构，缓解存储墙与片上数据搬运瓶颈，贴合近存/存内计算主题",
+      "first_seen_at": "2026-09-03 22:42:57 UTC",
+      "updated_at": "2026-09-03 22:42:57 UTC"
+    },
+    {
+      "paper_id": "2608.29338v1",
+      "route": "202609/03/2608.29338v1-analogue-phase-change-computational-memory-with-high-precision-reads-and-energy-efficient-writes",
+      "title": "Analogue Phase Change Computational Memory with High Precision Reads and Energy Efficient Writes",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "cim"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "面向存内计算的相变计算存储器，高精度读取与节能写入",
+      "first_seen_at": "2026-09-03 22:42:57 UTC",
+      "updated_at": "2026-09-03 22:42:57 UTC"
+    },
+    {
+      "paper_id": "2608.30509v1",
+      "route": "202609/03/2608.30509v1-chipsmore-compute-in-interconnect-and--memory-chiplets-for-multi-mode-multi-request-llm-inference-acceleration",
+      "title": "CHIPSMORE: Compute-in-Interconnect and -Memory Chiplets for Multi-Mode Multi-Request LLM Inference Acceleration",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "cim"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "提出计算互连与存算芯粒的LLM推理加速架构，切合存内计算能效主题",
+      "first_seen_at": "2026-09-03 22:42:57 UTC",
+      "updated_at": "2026-09-03 22:42:57 UTC"
+    }
+  ]
+}

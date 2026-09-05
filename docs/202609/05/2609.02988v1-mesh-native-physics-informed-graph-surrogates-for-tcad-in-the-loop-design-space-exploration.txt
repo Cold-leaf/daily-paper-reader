@@ -1,0 +1,536 @@
+Title: Mesh-Native Physics-Informed Graph Surrogates for TCAD-in-the-Loop Design Space Exploration
+
+URL Source: https://arxiv.org/pdf/2609.02988v1
+
+Published Time: Fri, 04 Sep 2026 00:06:40 GMT
+
+Number of Pages: 9
+
+Markdown Content:
+# Mesh-Native Physics-Informed Graph Surrogates for TCAD-in-the-Loop Design Space Exploration 
+
+# Leonid Popryho ∗
+
+lpopry2@uic.edu University of Illinois Chicago Chicago, IL, USA 
+
+# Ayoub Sadeghi 
+
+asadeg3@uic.edu University of Illinois Chicago Chicago, IL, USA 
+
+# Inna Partin-Vaisband 
+
+vaisband@uic.edu University of Illinois Chicago Chicago, IL, USA 
+
+## Abstract 
+
+High-fidelity technology computer-aided design (TCAD) simula-tion of drift-diffusion transport remains the workhorse of emerging FinFET device design, but it is computationally expensive, partic-ularly for three-dimensional (3D) structures, where runtime es-calates steeply with mesh complexity. This cost sharply limits multi-objective design space exploration (DSE). Existing machine-learning surrogates map a fixed set of design parameters to a few scalar device metrics, discarding the underlying physics and losing transferability across device geometries and device families. A physics-informed graph attention network (GAT) surrogate is proposed. It operates directly on the tetrahedral TCAD mesh and predicts, at every mesh node, the electrostatic potential together with the electron and hole quasi-Fermi levels—the fundamental unknowns of the drift-diffusion system. Training combines a data loss with finite-volume current-continuity residuals, embedding carrier-transport physics directly into the objective. Operating on the mesh as a graph, the surrogate inherits size gen-eralization: a model trained on few-fin meshes applies unchanged to substantially larger arrays, bounded at inference only by GPU memory. Per-node uncertainty from a deep ensemble drives an active-learning loop that screens large candidate pools in seconds and forwards only the most informative designs for full simulation. Benchmarked against Sentaurus Device on multi-fin tri-gate FinFETs, the surrogate reproduces the three drift-diffusion fields with a sub-volt per-field RMSE against the ground-truth TCAD result and, with GPU-accelerated inference, reaches a per-design throughput orders of magnitude higher than the full simulator . The advantage becomes more significant with device size: on large multi-fin arrays that are prohibitively slow to simulate directly, inference still completes in under a second per device, enabling Pareto-front exploration across device scales that remain infeasible for direct TCAD sweeps. 
+
+## CCS Concepts 
+
+• Computing methodologies → Neural networks ; Active learn-ing settings ; • Hardware → Modeling and parameter extraction .
+
+> ∗Corresponding author.
+> This work is licensed under a Creative Commons Attribution 4.0 International License.
+> ICCAD ’26, San Jose, CA, USA
+> © 2026 Copyright held by the owner/author(s). ACM ISBN 979-8-4007-2873-0/2026/11 https://doi.org/10.1145/3831252.3834249
+
+## Keywords 
+
+TCAD, graph neural networks, physics-informed machine learning, drift-diffusion, active learning, multi-objective optimization, design space exploration, GaN power devices, surrogate modeling 
+
+ACM Reference Format: 
+
+Leonid Popryho, Ayoub Sadeghi, and Inna Partin-Vaisband. 2026. Mesh-Native Physics-Informed Graph Surrogates for TCAD-in-the-Loop Design Space Exploration. In IEEE/ACM International Conference on Computer-Aided Design (ICCAD ’26), November 08–12, 2026, San Jose, CA, USA. ACM, New York, NY, USA, 9 pages. https://doi.org/10.1145/3831252.3834249 
+
+## 1 Introduction 
+
+This paper presents a general, mesh-native, physics-informed graph-attention surrogate for TCAD-driven design space exploration, dem-onstrated on multi-fin tri-gate GaN FinFETs for vertical power deliv-ery as a representative test case. Design of modern semiconductor devices for advanced computing is constrained by the cost of accu-rate exploration across high-dimensional design spaces. Roadmaps such as the IEEE Heterogeneous Integration Roadmap (HIR) empha-size aggressive 2.5D/3D integration, further tightening performance and efficiency requirements [5]. In vertical power delivery (VPD) architectures, power switches must meet strict conversion ratios (48 V-to-1 V), current density targets exceeding 2 A /mm 2, and end-to-end efficiencies approaching 90% [15]. Multi-fin tri-gate gallium nitride (GaN) FinFETs, alongside other vertically integrated GaN power devices, have emerged as leading candidates for the VPD power stage [11, 19, 24, 28], but their performance depends on many structural parameters that interact nonlinearly, raising the cost of design-space exploration. The increasing complexity of these emerging devices precludes accurate analytical models for rapid performance evaluation. TCAD offers high-fidelity device simulation, but each 3D run requires as-sembling and solving a large system on a tetrahedral mesh (i.e., a 3D discretization into irregular volumetric elements) whose cost grows steeply with mesh size: a single design point can take minutes to hours on a modern workstation [27]. Three factors compound to make TCAD-driven exploration prohibitive: (i) the design space is low-dimensional but highly nonconvex and multi-modal, requiring dense sampling; (ii) the optimization is inherently multi-objective, targeting a Pareto front rather than a single optimum; (iii) at min-utes to hours per evaluation, resolving this front exceeds typical project and license budgets. Classical black-box optimizers—grid search, NSGA-II [7], and manual expert tuning [24, 29]—cannot lift these constraints, because every query still requires a full TCAD solve. Machine-learning surrogates have been proposed to amortize this cost, typically by regressing a fixed vector of design parameters arXiv:2609.02988v1 [cs.LG] 2 Sep 2026 ICCAD ’26, November 08–12, 2026, San Jose, CA, USA Leonid Popryho, Ayoub Sadeghi, and Inna Partin-Vaisband 
+
+onto a small set of scalar device figures of merit (FoM) such as drive current 𝐼 𝑑, max , threshold voltage 𝑉 th , on-resistance 𝑅 on , transcon-ductance 𝑔 𝑚 , subthreshold swing, drain-induced barrier lowering (DIBL), and breakdown voltage [1, 14, 18, 23]. These parameter-to-scalar maps are lightweight and fast to train, but they discard the underlying physics: the electrostatic and carrier fields are reduced to a few aggregates, the model has no notion of the device geometry beyond the input vector, and a surrogate trained on one mesh topol-ogy cannot transfer to a structurally different device without full retraining. Recent work that learns directly on device meshes [10] or leverages physics-informed inductive biases [12, 17, 22] has shown that geometry-aware and physics-informed approaches recover fidelity and transferability, yet these strands have not been com-bined on full 3D drift-diffusion surrogates inside an active-learning loop for TCAD-in-the-loop design space exploration (DSE); Sec. 2 surveys these threads in detail. A physics-informed graph attention network (GAT) surrogate is proposed that operates directly on the tetrahedral TCAD mesh (i.e., the discretized device geometry), predicting the three drift-diffusion field unknowns—the electrostatic potential and the electron and hole quasi-Fermi levels—at every mesh node. Operating on the mesh rather than on a fixed parameter vector (i) aligns the surrogate with the finite-volume scheme used to enforce current continuity during training, (ii) inherits the size-invariance of graph neural networks so that a model trained on few-fin meshes transfers unchanged to larger arrays, and (iii) decouples the input from any specific device layout. Training augments a data loss with finite-volume current-continuity residuals evaluated on the mesh edges, embed-ding carrier-transport physics into the objective [22] rather than applying it as a post-hoc correction. At inference time, disagree-ment across a deep ensemble yields a per-node uncertainty signal that drives the active-learning outer loop: large candidate pools are screened in seconds and only the most informative designs are for-warded to full Sentaurus simulation [16]. Benchmarked on multi-fin tri-gate GaN FinFETs, the surrogate reproduces the drift-diffusion fields with sub-volt RMSE per field, while the speed advantage over direct TCAD increases with device size. This enables Pareto-front exploration across device scales that are otherwise infeasible with direct TCAD sweeps. The mesh-graph abstraction, finite-volume physics loss, and uncertainty-driven active-learning loop are device-agnostic; the GaN FinFET study here uses a material-specific node embedding (GaN, AlGaN, HfO 2, TiN, Au), and extending to other device families through a general learned material embedding is left to future work (Sec. 5). The contributions of this work are as follows: 
+
+• Discretization-consistent, mesh-native drift-diffusion sur-rogate. A graph attention network is formulated directly on the tetrahedral TCAD mesh, predicting the three fundamental drift-diffusion unknowns—the electrostatic potential and the electron and hole quasi-Fermi levels—at every mesh node. Unlike prior parameter-to-scalar surrogates or mesh-based predictors without full-field reconstruction, this formulation aligns learning with the TCAD discretization and preserves device physics. 
+
+• Physics-informed training aligned with the finite-volume solver. Training integrates a data loss with finite-volume current-continuity residuals computed on the same mesh edges used by Design x sde msh.tdr bnd.tdr sdevice1 sdevice2 𝑉 th sweep       
+
+> .plt
+> 9 snapshots
+> *.tdr ,.plt tdx tdr2dfise .grd /.dat tdr_extract.py
+> PyG Data
+> (9 graphs) GAT ensemble ˆ𝐼 𝑑, max ,ˆ𝑉 th ,U ( x)
+> Acquisition Score
+> Sentaurus TCAD
+> Mesh Generation Drift-Diffusion Solver TCAD Data Representation (TDR) Extraction Physics-Informed GAT (PI-GNN) Surrogate
+
+Figure 1: Pipeline of the TCAD-in-the-loop surrogate frame-work. A parameterized device design x is converted to a tetra-hedral mesh (sde) and evaluated by the drift-diffusion solver (SDevice) to produce bias-dependent field snapshots. These are converted into mesh-aligned graphs and used to train a physics-informed GAT ensemble that predicts per-node fields and scalar objectives. The dashed path denotes the active-learning loop, where uncertainty-driven acquisition selects new designs for full TCAD evaluation. 
+
+the TCAD solver. This embeds carrier-transport physics at the discretization level as a soft regularizer, avoiding the limitations of continuous physics-informed neural networks at material in-terfaces and keeping the surrogate aligned with the ground-truth numerical scheme. 
+
+• Size-transferable surrogate across device geometries. By operating on mesh graphs with localized message passing, the surrogate generalizes across device sizes, enabling models trained on few-fin structures to transfer without retraining to substan-tially larger multi-fin arrays. This opens efficient exploration of device scales that are prohibitively expensive for direct TCAD sweeps. 
+
+• Field-aware uncertainty for TCAD-in-the-loop design space exploration. A deep ensemble produces per-node uncertainty estimates, enabling spatially resolved confidence assessment of predicted fields. This uncertainty drives an active-learning loop that prioritizes informative designs for TCAD evaluation, en-abling surrogate-assisted exploration while maintaining high-fidelity simulation where needed. The entire training set used in this paper was itself assembled through this loop (Sec. 4): 147 bootstrap designs, expanded by 53 acquisition-selected designs concentrated on the least-certain device sizes. 
+
+## 2 Related Work 
+
+Table 1 positions each line of prior work relative to the capabilities of the proposed surrogate. 
+
+Scalar-FoM surrogates for TCAD. Early ML surrogates for TCAD map a fixed vector of device and process parameters to scalar FoMs or to I–V/C–V curves sampled at a small set of applied gate and drain voltages. Autoencoder-based compact models reproduce full FinFET I–V/C–V responses from modest amounts of TCAD data and report high agreement on 𝐼 ON , 𝐼 OFF , DIBL and 𝑔 𝑚 [18]. Neural networks have also been used as warm-start predictors, supplying Newton initial guesses that shorten per-bias drift-diffusion solves without altering the underlying TCAD engine [9]. In variability-heavy settings, such as work-function fluctuation in nanosheet gate-all-around devices or process-variation effects in advanced nodes, surrogate regressors avoid otherwise intractable 3D Monte Carlo Mesh-Native Physics-Informed Graph Surrogates for TCAD-in-the-Loop Design Space Exploration ICCAD ’26, November 08–12, 2026, San Jose, CA, USA 
+
+Table 1: Representative ML surrogates for TCAD/PDE. Rep: M=mesh-native, G=grid. Phys: PDE=residual, FV=finite-volume, out=output constraint.                                                                       
+
+> Category Refs Represent. Physical loss Size Uncert. Mesh Field Type Level Scalar-FoM surrogate [1, 14, 18, 23] ××××××
+> Warm-start regressor [9] ×✓××××
+> Physics-guided NCM [12] ××output constr. FoM post-proc. ××
+> Mesh GNN (TCAD) [10] ✓✓××××
+> Mesh GNN (PDE) [3, 21] ✓✓××✓×
+> Neural operator [17] grid only ✓××✓×
+> PINN (continuous) [22] ×✓PDE residual autograd colloc. ××
+> AL / multi-obj. DSE [6, 7, 20, 25] ××××N/A scalar per-trial
+> This work –✓✓PDE residual FV/mesh edges ✓ensemble
+
+sweeps [1, 14], and meta-learned, TCAD-assisted sampling further improves data efficiency across related process conditions [23]. These approaches share a common limitation: the field solution is reduced to a few scalars, the model has no notion of the geometry beyond the input vector, and transfer to a structurally different device requires a new dataset and retraining from scratch. 
+
+Learning on meshes and neural PDE solvers. Graph neural networks that pass messages on local mesh neighborhoods have emerged as a natural fit for unstructured simulation data. Mesh graph networks establish that learned local update rules on irregular meshes generalize to domains and resolutions unseen during train-ing [21], and neural partial differential equation (PDE) solvers ex-tend the approach to time-dependent problems with explicit stabil-ity arguments [3]. Within device simulation, graph neural networks applied directly to geometry and doping predict TCAD-quality out-puts from small datasets [10], demonstrating mesh-native learning on modest single-device scales but without a physics-aware training signal. The surrogate combines unstructured-mesh message pass-ing with a finite-volume physics loss, a combination not previously exercised on full 3D drift-diffusion. 
+
+Physics-informed learning for transport. Physics-informed neu-ral networks embed governing PDEs as a soft penalty, using au-tomatic differentiation to evaluate residuals at randomly sampled collocation points in the continuous domain [22]. This approach presumes that the predicted field is smooth enough for gradients and Laplacians computed by autograd (automatic differentiation) to remain meaningful, an assumption that breaks down at abrupt ma-terial junctions where the electrostatic potential is continuous but its derivative jumps by orders of magnitude across a heterointerface. Physics-augmented neural compact models instead encode device laws as monotonicity or scaling constraints on post-processed fig-ures of merit rather than as PDE residuals [12], which preserves physical consistency at the output level but does not constrain the underlying field. The proposed surrogate evaluates current-continuity residuals directly on the same finite-volume scheme used by Sentaurus Device, enforcing conservation at the discretization level rather than at autograd collocation points, masking contact nodes from the residual since current enters and exits them. 
+
+Active learning and multi-objective DSE over expensive solvers. 
+
+Evolutionary search such as NSGA-II remains a default EDA base-line for black-box multi-objective exploration but treats every query as a full device simulation [7]. Bayesian optimization improves sample efficiency by coupling a Gaussian process surrogate with an acquisition function [8, 25]; multi-objective variants such as ParEGO and (q)EHVI target Pareto-front progress [6, 13], while best-practice surveys caution that Gaussian process effectiveness degrades in high-dimensional, heteroscedastic, constraint-heavy regimes typical of TCAD [26]. Multi-output Gaussian processes share representations across correlated objectives [2], while deep ensembles provide robust epistemic uncertainty estimates for neural surrogates and are naturally parallelizable [16]. Recent device-level design-technology co-optimization (DTCO) flows wrap TCAD in uncertainty-guided active-learning loops and report meaningful wall-clock savings over random search [20]. All of these approaches operate on a scalar-per-trial uncertainty signal tied to a few output metrics. The proposed surrogate instead produces a per-node un-certainty field from ensemble disagreement, so candidate devices are screened at the field level—revealing where in the device the ensemble disagrees—before a full TCAD run is committed. 
+
+## 3 Method 
+
+This section presents the mesh-native physics-informed graph at-tention (GAT) surrogate and the active-learning loop in which it is embedded, in four parts: problem formulation, mesh-graph repre-sentation, physics-informed GAT surrogate, and TCAD-in-the-loop active learning. The overall workflow is sketched in Fig. 1. 
+
+## 3.1 Problem Formulation 
+
+A multi-fin tri-gate gallium nitride (GaN) FinFET is parameterized by six continuous design variables bounded in Table 2: 
+
+x =  𝑇 GaN , 𝑇 AlGaN , 𝑊 fin , 𝑇 ox , 𝑇 Gate , 𝑁 AlGaN 
+
+⊤ ∈ X ⊂ R6.
+
+where 𝑇 GaN and 𝑇 AlGaN denote the thicknesses of the GaN channel and AlGaN barrier layers, respectively, 𝑊 fin is the fin width, 𝑇 ox is the oxide thickness, 𝑇 Gate is the gate thickness, and 𝑁 AlGaN is the AlGaN doping concentration. The ranges are drawn from fabricated device dimensions in the literature and are broad—spanning up to two orders of magnitude for doping and up to 25 × for geometric dimensions—to avoid excluding non-obvious Pareto-optimal con-figurations; the active-learning loop of Sec. 3.4 explores this space efficiently. The fin count 𝑁 fins ∈ { 1, . . . , 𝑁 max } stratifies the design space; the same axis is reused for size extrapolation in Sec. 4. Fig. 2 shows the device structure with annotated parameters (center) and how the same geometry maps to a mesh graph (right). For a fixed 𝑁 fins , the objective is the two-target maximization max  
+
+> x∈ X
+
+f (x; 𝑁 fins ) =  𝐼 𝑑, max (x), 𝑉 th (x), 𝑉 th > 0, (1) with the enhancement-mode (E-mode) feasibility constraint 𝑉 th > 0enforced as a post-hoc filter on the Pareto set. The ground-truth values 𝐼 𝑑, max (x) and 𝑉 th (x) are produced by the Sentaurus Device (SDevice) drift-diffusion solver under a wall-time cap 𝜏 ; trials that time out or fail to converge are pruned from the training dataset. While f is instantiated here with two standard device metrics for clarity, the training objective, mesh-graph message passing, and ICCAD ’26, November 08–12, 2026, San Jose, CA, USA Leonid Popryho, Ayoub Sadeghi, and Inna Partin-Vaisband                          
+
+> Parameter Symbol Baseline [24] Range GaN thickness (nm) 𝑇 GaN 20 10–100 AlGaN thickness (nm) 𝑇 AlGaN 40 10–100 Fin width (nm) 𝑊 fin 100 10–250 Oxide thickness (nm) 𝑇 ox 65–25 Gate thickness (nm) 𝑇 Gate 20 5–40 AlGaN doping (cm −3)𝑁 AlGaN 10 18 10 18 –10 20 0.0 0.2 0.4 0.6 0.8
+> y(μm)
+> −1.0 −0.8 −0.6 −0.4 −0.2
+> z (μm)
+> GaN AlGaN Gold HfO 2
+> TiN
+
+Figure 2: Device parameters, geometry, and graph representation. Left: Six design-space parameters and their exploration ranges. Center: Physical structure showing the design variables. Right: The same device represented as a mesh graph: nodes carry material identity, doping, and contact flags; edges carry Euclidean distance and a cross-material indicator. 
+
+active-learning outer loop are agnostic to the choice and number of objectives and to the device family . The GaN FinFET design and 
+
+(𝐼 𝑑, max , 𝑉 th ) targets serve as a representative test case; the only device-specific component of the present implementation is the material-identity node feature (Sec. 3.2), a five-entry one-hot over {GaN, AlGaN, Au, HfO 2, TiN}. Extension to arbitrary device families amounts to replacing this one-hot with a learned material embed-ding indexed by a general material library, a direction discussed in Sec. 5. 
+
+## 3.2 Mesh-Graph Representation 
+
+Surrogate input is the tetrahedral mesh produced by the Sentaurus Structure Editor (SDE) before any drift-diffusion solve is attempted. For each candidate design x, a graph 𝐺 (x) = (V ,E,XV ,XE ) is as-sembled once and re-used across all nine bias snapshots. 
+
+Vertices and edges. Each mesh vertex becomes a graph node; 
+
+|V | = 𝑁 ranges from a few thousand to tens of thousands nodes across the training set. Edges are extracted per tetrahedron as the  42
+
+ = 6 unique vertex pairs per element, de-duplicated over the whole mesh, and stored bidirectionally so that every undirected edge (𝑖, 𝑗 ) contributes both (𝑖 → 𝑗 ) and ( 𝑗 →𝑖 ) to the edge list. This bidirectional layout lets the finite-volume divergence of Sec. 3.3 be evaluated with a single scatter-add over the source index. 
+
+Node features. Each node 𝑣 ∈ V carries a feature vector x𝑣 ∈ R17 
+
+grouped by physical origin (geometry 3 + material 5 + doping 1 + Al fraction 1 + contact flags 3 + bias 2 + permittivity 1 + volume tag 1 = 17): 
+
+• Geometry (3). Per-axis normalized coordinates ( ˜𝑥, ˜𝑦, ˜𝑧 ): ˜ 𝑥 is nor-malized by the total channel length 𝐿 ch ˜𝑦 by one fin pitch 𝑊 fin +𝑆 fin ;˜𝑧 by the per-sample 𝑧 -bounding-box range. The ˜ 𝑦 -by-pitch nor-malization enables size extrapolation by mapping each interior fin to a consistent [0, 1) local coordinate frame across 𝑁 fins =1. 
+
+• Material identity (5). One-hot encoding over the bulk material set {GaN , AlGaN , Gold , HfO 2, TiN }, derived from the Sentaurus region membership of the tetrahedra incident to 𝑣 .
+
+• Doping (1). The signed log transform sgn (𝑁 𝑣 ) log 10 (| 𝑁 𝑣 | + 1)
+
+of the local net doping concentration, which is approximately linear in volts and compresses the 10 16 –10 20 cm −3 dynamic range without losing sign. 
+
+• Aluminum mole fraction (1). The Al content of the AlGaN layer (Al xGa 1-x N), left in raw form. 
+
+• Contact flags (3). Binary indicators for source ( 𝑆 ), drain ( 𝐷 ), and gate ( 𝐺 ) membership. These also define the Dirichlet boundary set that is masked out of the data and physics losses in Sec. 3.3. 
+
+• Applied bias (2). Gate-source 𝑉 GS and drain-source 𝑉 DS biases broadcast to all nodes. Each Sentaurus run produces nine graphs with sharing topology but different biases: five gate-sweep points at 𝑉 DS = 0 plus four drain-sweep points at 𝑉 GS = 𝑉 GS ,max . These snapshots suffice to extract both 𝐼 𝑑, max and 𝑉 th in post-processing. 
+
+• Relative permittivity (1). A table lookup over the material identity, providing the surrogate with the local 𝜀 𝑟 that would otherwise have to be inferred from the one-hot encoding. 
+
+• Sparse volume tag (1). A log-compressed Sentaurus volume field, retained for compatibility, not used as loss or uncertainty weight. 
+
+Edge features. Each directed edge (𝑖, 𝑗 ) ∈ E carries e𝑖 𝑗 ∈ R5: the Euclidean distance 𝑑 𝑖 𝑗 = ∥p𝑗 − p𝑖 ∥, the displacement Δp𝑖 𝑗 = p𝑗 − p𝑖 ,and a binary cross-material indicator 1[mat (𝑖 ) ≠ mat ( 𝑗 )] . The cross-material flag gives attention a cheap, physically meaningful way to separate interfacial edges (gate stack, AlGaN/GaN hetero-junction) from intra-material bonds, which is where the current-continuity residual in Sec. 3.3 is sharpest. 
+
+Targets. Every node carries a three-dimensional target y𝑣 =
+
+(𝜓 𝑣 , Φ𝑛,𝑣 , Φ𝑝,𝑣 ) ∈ R3, where 𝜓 is the electrostatic potential and Φ𝑛 ,
+
+Φ𝑝 are the electron and hole electrochemical (quasi-Fermi) poten-tials produced by the Sentaurus drift-diffusion solver. These three scalar fields are the fundamental unknowns of the drift-diffusion system; all downstream figures of merit are recovered from them by post-processing (Sec. 3.4, device_metrics ). 
+
+Notation. Throughout the paper, 𝐺 𝑘 (x) denotes the graph of design x at bias snapshot 𝑘 ∈ { 1, . . . , 9}, and 𝑓 𝜃 (𝐺 𝑘 ) ∈ R𝑁 ×3 denotes the per-node prediction of a surrogate with parameters 𝜃 .
+
+## 3.3 Physics-Informed GAT Surrogate 
+
+Architecture. The surrogate 𝑓 𝜃 is a residual graph attention net-work operating on the mesh graph of Sec. 3.2. A two-layer multi-layer perceptron (MLP) encoder maps each node-feature vector x𝑣 
+
+to a 𝐷 -dimensional embedding h(0) 
+
+> 𝑣
+
+. A stack of 𝐾 message-passing blocks then updates the embedding according to 
+
+h(𝑘 ) 
+
+> 𝑣
+
+= LN  h(𝑘 −1) 
+
+> 𝑣
+
++ g(𝑘 )
+
+> 𝑣
+
+,
+
+where g(𝑘 ) 
+
+> 𝑣
+
+is the edge-conditioned GATv2 message [4] aggregated from the previous-layer neighborhood of 𝑣 , using the edge feature vector e𝑖 𝑗 as an attention bias. Each block uses four attention heads, Mesh-Native Physics-Informed Graph Surrogates for TCAD-in-the-Loop Design Space Exploration ICCAD ’26, November 08–12, 2026, San Jose, CA, USA 
+
+an edge-feature projection of dimension 5, and a LeakyReLU activa-tion; the residual-plus-LayerNorm wrapper is essential for the eight-layer stack to train stably. A two-layer MLP decoder then maps h(𝐾 )
+
+> 𝑣
+
+to the three-dimensional per-node prediction ˆ y𝑣 = ( ˆ𝜓 𝑣 , ˆΦ𝑛,𝑣 , ˆΦ𝑝,𝑣 ).The default configuration used throughout the paper is 𝐾 =8 layers, hidden width 𝐷 =128, four attention heads, node input dimension 17, and edge input dimension 5, for a total of 1 ,111 ,683 trainable parameters. The network returns a per-node prediction: no global readout is used, so the same weights apply to meshes of any size, with inference bounded only by GPU memory (a dynamic-batching cap of ∼100 ,000 nodes per batch on an RTX 4090 in practice). 
+
+Why graph attention on the mesh. (i) GATv2 attention condi-tioned on edge features e𝑖 𝑗 weights neighbors by physical attributes (distance, cross-material flag) rather than topology alone, matching the anisotropy of transport at heterojunctions. (ii) Eight message-passing hops cover the channel-to-contact diameter of these meshes; the residual-plus-LayerNorm wrapper stabilizes the stack at hidden width 128 [3]. (iii) No global readout is used, so the same weights apply unchanged to larger meshes. 
+
+Training objective. The loss combines an unweighted per-node data term on the three predicted fields with a physics term that enforces steady-state current continuity on the same mesh edges: 
+
+L( 𝜃 ) = 𝑤 data Ldata (𝜃 ) + 𝜆 phys (𝑡 ) 𝑤 cont Lcont (𝜃 ), (2) with fixed base weights 𝑤 data = 1 and 𝑤 cont = 0.1, and a time-dependent physics weight 𝜆 phys (𝑡 ) described below. 
+
+Data loss. Targets and predictions are mapped to per-field 𝑧 -score space using per-field means and standard deviations computed once at training start over interior (non-contact) nodes of the training set. Let Vint denote the set of nodes with no source, drain, or gate contact flag. The data loss is the unweighted mean squared error 
+
+Ldata = 1
+
+|V int |∑︁ 𝑣 ∈ V int 
+
+˜y𝑣 − ˜𝑓 𝜃 (𝐺 )𝑣 22, (3) where ˜(·) denotes 𝑧 -score normalization. Contact nodes are ex-cluded because Φ𝑛 and Φ𝑝 at source, drain, and gate contacts are Dirichlet-pinned to the applied bias, so the mean squared error on those nodes is small and would bleed gradient signal away from the channel region where the physics is nontrivial. The same interior-mean formulation is used for the uncertainty definition in Sec. 3.4. 
+
+Current-continuity residual. The physics term enforces ∇· J𝑛 = 0and ∇· J𝑝 = 0 at interior nodes in a finite-volume sense. Given the predicted fields, carrier densities are reconstructed from Boltzmann statistics, 
+
+𝑛 𝑣 = 𝑁 𝐶 exp 
+
+𝜓 𝑣 −Φ𝑛,𝑣 
+
+> 𝑉 𝑇
+
+
+
+, 𝑝 𝑣 = 𝑁 𝑉 exp 
+
+ Φ𝑝,𝑣 −𝜓 𝑣 
+
+> 𝑉 𝑇
+
+
+
+, (4) with 𝑉 𝑇 =𝑘 𝐵 𝑇 /𝑞 ≈ 25 .85 mV at 𝑇 =300 K and the effective densities of states 𝑁 𝐶 =2.23 ×10 18 cm −3, 𝑁 𝑉 =4.62 ×10 19 cm −3 for GaN as in the Sentaurus material models. The arguments of the exponentials are clamped to [− 30 , 30 ] to keep the forward pass inside float32 range. An Einstein-relation edge flux follows as ˜𝐽 𝑛 𝑖 𝑗 = 12 (𝑛 𝑖 + 𝑛 𝑗 ) Φ𝑛,𝑗 − Φ𝑛,𝑖 
+
+𝑑 𝑖 𝑗 
+
+· 1
+
+𝐽 ref 
+
+, (5) and analogously for holes, with 𝐽 ref = 𝑁 𝐶 𝑉 𝑇 a purely numerical normalization that keeps squared fluxes inside float32. Since the edge list is bidirectional and the quasi-Fermi difference Φ𝑛,𝑗 − Φ𝑛,𝑖 
+
+flips sign between (𝑖, 𝑗 ) and ( 𝑗, 𝑖 ), the finite-volume divergence at node 𝑣 is obtained exactly by accumulating signed edge fluxes with a single scatter-add over the source index, 
+
+(∇· ˜J𝑛 )𝑣 =∑︁  
+
+> 𝑗 :(𝑣,𝑗 ) ∈ E
+
+˜𝐽 𝑛 𝑣 𝑗 ,
+
+with no double-counting. The continuity residual is then 
+
+Lcont = 1
+
+|V int |∑︁ 𝑣 ∈ V int 
+
+h
+
+log  1 + (∇· ˜J𝑛 )2
+
+> 𝑣
+
+ + log  1 + (∇· ˜J𝑝 )2
+
+> 𝑣
+
+i
+
+. (6) The log (1 + 𝑥 2) form is a robust quadratic penalty that bounds the gradient contribution from outliers without hard clipping; a 
+
+|𝑥 | < 10 18 safeguard keeps 𝑥 2 representable in float32. Contact nodes are masked out since current legitimately enters and exits there. Relative to the solver’s Scharfetter–Gummel box scheme, the residual uses edge lengths with unit face areas, edge-averaged Boltzmann densities with constant mobility, and no generation– recombination: it is a soft regularizer, not a re-implementation of the solver. 
+
+Physics-weight ramp. The physics weight is ramped from zero: 
+
+𝜆 phys (𝑡 ) =
+
+
+
+0 𝑡 < 𝑡 start 
+
+𝜆 max · 𝑡 −𝑡 start  
+
+> 𝑡 ramp
+
+𝑡 start ≤ 𝑡 < 𝑡 start + 𝑡 ramp 
+
+𝜆 max otherwise with 𝑡 start = 20, 𝑡 ramp = 150 epochs, and 𝜆 max = 0.1. The ramp is mo-tivated by the practical observation that a cold start with 𝜆 phys > 0mixes two non-trivial gradient fields before either has a low-loss attractor; data fitting is therefore allowed to establish a sensible field before the continuity residual begins to shape it. The value 
+
+𝜆 max = 0.1 is a design choice consistent with the data and continu-ity terms being of comparable scale after 𝑧 -score normalization; a systematic sweep is left for future work. 
+
+Training setup. Optimization uses AdamW with base learning rate 10 −3 and weight decay 10 −4, a cosine-annealing schedule over 500 epochs, and gradient clipping at 5. Batching is dynamic: instead of a fixed batch size, graphs are grouped until their total node count reaches a cap of roughly 28 ,000 nodes. A fixed batch size of eight graphs easily runs out of memory on the 𝑁 fins ≥ 3 tail of the training distribution (largest graph ∼10 .7k nodes, median ∼3.8k); dynamic batching keeps throughput high while respecting this mesh-size imbalance. A single training epoch takes approximately one minute 
+
+on an RTX 4090 under the dynamic-batching cap used throughout (∼8 h for the full 500-epoch schedule). 
+
+## 3.4 TCAD-in-the-Loop Active Learning 
+
+The surrogate is embedded in an outer loop in which a deep ensem-ble of 𝑀 independently seeded models selects informative designs for full Sentaurus simulation. The use of the SDE for mesh gen-eration rather than the full drift-diffusion solve for the candidate pool is the key speed lever: a candidate costs a mesh ( ∼30 s), not a solution ( ∼20–60 minutes). ICCAD ’26, November 08–12, 2026, San Jose, CA, USA Leonid Popryho, Ayoub Sadeghi, and Inna Partin-Vaisband 
+
+Ensemble. The loop maintains 𝑀 = 5 independently seeded copies {𝑓 𝜃 𝑗 }𝑀 𝑗 =1 of the GATv2 surrogate, each trained from scratch on the current dataset. Five members offer a reasonable variance estimate while staying within the training budget of a two-GPU workstation. 
+
+Mesh-only candidate generation. Candidates are sampled uni-formly over 𝑁 fins ∈ { 1, . . . , 𝑁 max }, with the six continuous variables drawn per-stratum from the ranges in Table 2. The fin-spacing constraint 𝑇 ox + 𝑇 Gate < 𝑆 fin /2 is enforced by rejection. For each accepted tuple, only the Sentaurus SDE (mesh generation) step is executed, producing the full set of nine bias-snapshot graphs 
+
+{𝐺 𝑘 (x)} 9 
+
+> 𝑘 =1
+
+with target fields left as zeros. These zero-target graphs are never used for training or evaluation; they only carry the mesh topology and node/edge features that the surrogate needs for infer-ence. 
+
+Per-candidate uncertainty. For a candidate x and snapshot 𝑘 , let 
+
+𝑓 𝜃 𝑗 (𝐺 𝑘 )𝑣 ∈ R3 denote the per-node prediction of ensemble member 
+
+𝑗 at node 𝑣 , and let ¯𝑓 (𝐺 𝑘 )𝑣 = 1
+
+> 𝑀
+
+Í𝑗 𝑓 𝜃 𝑗 (𝐺 𝑘 )𝑣 be the ensemble mean. The per-node ensemble variance is 
+
+𝜎 2 
+
+> 𝑣
+
+(x, 𝑘 ) = 1
+
+𝑀 
+
+> 𝑀
+
+∑︁ 
+
+> 𝑗 =1
+
+𝑓 𝜃 𝑗 (𝐺 𝑘 )𝑣 − ¯𝑓 (𝐺 𝑘 )𝑣 22.
+
+The per-snapshot scalar uncertainty is obtained by averaging 𝜎 2
+
+> 𝑣
+
+over interior nodes only, using the same mask as the data loss in Sec. 3.3, and taking a square root: 
+
+𝑢 𝑘 (x) =√︄ 1
+
+|V int |∑︁ 𝑣 ∈ V int 
+
+𝜎 2 
+
+> 𝑣
+
+(x, 𝑘 ).
+
+The candidate-level uncertainty is the worst-case over the nine bias snapshots, 
+
+𝑈 (x) = max   
+
+> 𝑘 ∈ { 1,..., 9}
+
+𝑢 𝑘 (x). (7) 
+
+Predicted objectives. The ensemble-mean fields on the nine snap-shots are passed through physics-based post-processing to obtain two scalar predictions ˆ 𝐼 𝑑, max (x) and ˆ 𝑉 th (x). The drain current is the electron-plus-hole flux integrated over drain-boundary edges of the high-bias snapshot, normalized by the effective device width 𝑊 eff ,
+
+𝑊 eff = 𝑁 fins (𝑃 + 𝑊 fin + 𝑆 fin ),
+
+where 𝑃 = 2 𝐻 fin is the fin cross-sectional perimeter with 𝐻 fin =
+
+𝑇 AlGaN + 𝑇 GaN . The threshold voltage ˆ 𝑉 th is the gate bias at which the mean electron density over the GaN channel mask crosses 10 16 cm −3, obtained by linear interpolation of the five gate-sweep snapshots at 𝑉 DS = 0. 
+
+Acquisition score. For the candidate pool C𝑡 at iteration 𝑡 , the un-certainty and each predicted objective are 𝑧 -scored independently across C𝑡 and combined in an upper-confidence-bound (UCB)-style score, 
+
+𝑠 (x) = 𝛼 𝑧   ˆ𝐼 𝑑, max (x) + 𝑧   ˆ𝑉 th (x) + 𝛽 𝑧  𝑈 (x), (8) with 𝛼 = 0.5 and 𝛽 = 1.0. The predicted-objective term captures the “exploitation” bias toward promising regions of design space, while the 𝑈 (x) term drives “exploration” into regions where the ensemble disagrees. The chosen weighting leans more on 𝑈 (x)
+
+than on the predicted objective: inference on a mesh candidate is orders of magnitude faster than a Sentaurus run, so the marginal cost of occasionally sampling a redundant informative candidate is smaller than the cost of missing an informative one. 
+
+Diversity filter. A greedy top-𝐾 selection by 𝑠 (x) is applied, reject-ing a candidate whose 𝐿 2 distance in the six-dimensional normalized parameter space falls below a threshold 𝛿 from any already-selected candidate with the same 𝑁 fins . Cross-stratum rejection is deliberately disabled so that single-fin and multi-fin candidates never exclude each other, preserving coverage of every 𝑁 fins stratum. 
+
+Plateau stopping criterion. The loop tracks the median candidate-level uncertainty ¯ 𝑈 𝑡 = median x∈ C ok  
+
+> 𝑡
+
+𝑈 (x) over successfully scored candidates of iteration 𝑡 .The relative improvement 𝜌 𝑡 = ( ¯𝑈 𝑡 −1 − ¯𝑈 𝑡 )/ max ( ¯𝑈 𝑡 −1, 𝜀 0) is monitored, and the loop terminates when 𝜌 𝑡 < 𝜀 for ℓ consecutive iterations or when the Sentaurus budget 𝑁 is exhausted. Defaults: 
+
+𝜀 = 0.02, ℓ = 3. 
+
+## 4 Experiments 
+
+This section evaluates the mesh-native physics-informed GAT sur-rogate of Sec. 3 on three questions: (i) does it reconstruct the drift-diffusion unknowns accurately, and does accuracy degrade grace-fully at fin counts never seen during training? (ii) how does its inference cost compare against the full Sentaurus drift-diffusion solve it substitutes inside the active-learning loop? (iii) does per-stratum Pareto post-processing of the dataset assembled by the loop surface useful E-mode designs? 
+
+## 4.1 Setup 
+
+Dataset. The training set consists of 1 ,786 bias snapshots from 200 Sentaurus Device runs (device geometries) assembled over the course of the active-learning loop of Sec. 3.4 : 147 bootstrap designs generated by uniform sampling over Table 2 seed the ensemble, and subsequent AL iterations contribute 53 further designs selected by the acquisition score of Eq. (8); the loop concentrated these where the surrogate was least certain (64% of the selected designs have 
+
+𝑁 fins ≥ 3, vs. 10% of the bootstrap). The set spans 𝑁 fins ∈ { 1, . . . , 5};a disjoint validation set of 1 ,017 snapshots (113 designs) across the same fin counts is used for model selection. A data-scaling ablation indicates that the surrogate is sample-efficient: the in-distribution ranking fidelity of the predicted 𝐼 𝑑, max against TCAD on held-out designs saturates (Spearman 𝜌 ≈ 0.99) by ∼25 training designs. Each ensemble member is trained for 500 epochs ( ∼8 h on an RTX 4090 at ∼1 min/epoch). To evaluate generalization beyond the training range, a separate benchmark test set is generated by running the full Sentaurus pipeline at 𝑁 fins = 1 through 40 with five independent random parameter samples per fin count; the 
+
+𝑁 fins > 5 strata are never seen during training and measure out-of-distribution extrapolation under the per-fin-pitch normalization of Sec. 3.2. 
+
+Ensemble. The reported numbers use a deep ensemble of 𝑀 =5independently seeded GATv2 members, trained from scratch with the physics-informed loss of (2). 
+
+Hardware. All training and inference run on a single workstation with two NVIDIA RTX 4090 GPUs, an AMD Ryzen 9 7950X, and Mesh-Native Physics-Informed Graph Surrogates for TCAD-in-the-Loop Design Space Exploration ICCAD ’26, November 08–12, 2026, San Jose, CA, USA 
+
+Algorithm 1: TCAD-in-the-loop active learning with a mesh-native GAT ensemble 
+
+Input: design space X ⊂ R6, strata count 𝑁 max , bootstrap size 𝑛 0, Sentaurus budget 𝑁 , ensemble size 𝑀 =5, candidate pool size 𝑛 𝑐 , batch size 𝑏 , acquisition weights 𝛼 =0.5, 𝛽 =1.0, diversity threshold 𝛿 , plateau tolerance 𝜀 , patience ℓ, wall-time cap 𝜏 
+
+Output: Sentaurus-simulated dataset D𝑇 
+
+Draw 𝑛 0 samples stratified over 𝑁 fins ∈ { 1, . . . , 𝑁 max }; run Sentaurus (SDE+SDevice) with cap 𝜏 ; form D0 (prune timeouts/failures). 
+
+for 𝑡 = 1, 2, . . . do 
+
+Train {𝑓 𝜃 𝑗 }𝑀 𝑗 =1 on D𝑡 −1 (five independently seeded members). Build mesh-only pool C𝑡 ⊂ X of size 𝑛 𝑐 : draw params stratified over 𝑁 fins , for 𝑁 fins > 1 reject those violating 
+
+𝑇 ox + 𝑇 Gate < 𝑆 fin /2, run SDE only to obtain nine bias-snapshot graphs per candidate. 
+
+for x ∈ C 𝑡 in parallel do for snapshot 𝑘 = 1, . . . , 9 do 
+
+predict 𝑓 𝜃 𝑗 (𝐺 𝑘 (x)) for 𝑗 = 1, . . . , 𝑀 
+
+compute per-node variance 𝜎 2 
+
+> 𝑣
+
+(x, 𝑘 ) and interior-masked scalar 𝑢 𝑘 (x)
+
+end 
+
+𝑈 (x) ← max 𝑘 𝑢 𝑘 (x) (7) 
+
+( ˆ𝐼 𝑑, max , ˆ𝑉 th ) ← device_metrics   ¯𝑓 (𝐺 1.. 9 (x)) 
+
+end 
+
+𝑧 -score 𝑈 , ˆ 𝐼 𝑑, max , and ˆ 𝑉 th independently across C𝑡 ; score 
+
+𝑠 (x) by (8). Select top-𝑏 by 𝑠 with same-𝑁 fins 𝛿 -diversity filter in normalized parameter space. Dispatch selections to Sentaurus (SDE+SDevice, cap 𝜏 ); ingest successes into D𝑡 .¯𝑈 𝑡 ← median x∈ C ok  
+
+> 𝑡
+
+𝑈 (x);
+
+𝜌 𝑡 ← ( ¯𝑈 𝑡 −1 − ¯𝑈 𝑡 )/ max ( ¯𝑈 𝑡 −1, 𝜀 0).
+
+if 𝜌 𝑡 < 𝜀 for ℓ consecutive iterations or |D 𝑡 | ≥ 𝑁 then break end end return D𝑇 .124 GB of RAM. Sentaurus Device wall times in Sec. 4.3 are collected from the same workstation under realistic license-bounded worker concurrency. 
+
+Metrics. Prediction quality is reported as the unweighted RMSE (in volts) of each drift-diffusion field 𝜓 , Φ𝑛 , Φ𝑝 averaged over mesh nodes and over samples in each 𝑁 fins stratum. RMSE rather than rel-ative 𝐿 2 is used because Φ𝑛 , Φ𝑝 collapse to zero over buffer and oxide regions, making a relative-𝐿 2 denominator numerically unstable. 
+
+## 4.2 Size Extrapolation on Device Metrics 
+
+Figure 3 reports the device-metric error on the four standard FoMs— drain current 𝐼 𝑑, max , on-resistance 𝑅 on , threshold voltage 𝑉 th , and peak transconductance 𝑔 𝑚 —as a function of 𝑁 fins on 39 held-out designs with 1–8 fins, for the physics-informed surrogate (PI-GNN) and a data-only ablation (same architecture, 𝜆 max =0). Ground-truth and surrogate FoMs are extracted by the same route: the predicted 
+
+(𝜓, Φ𝑛 , Φ𝑝 ) fields are uploaded into Sentaurus Device, which reads the FoMs from them exactly as from its own solution (no re-solve); the closed-form post-processing of Sec. 3.4 remains the fast in-loop estimator. 𝑉 th is reported as an absolute error because the true threshold crosses zero across the design space. Within the training range the two surrogates are comparable on 𝐼 𝑑, max (median error 14% for PI-GNN vs. 7% for data-only), while PI-GNN is already more accurate on 𝑅 on (16% vs. 24%) and 𝑔 𝑚 (14% vs. 68%). Beyond the training range the data-only ablation diverges: its 𝐼 𝑑, max error grows to 53% at 𝑁 fins =6 and ≈300% on the single 𝑁 fins =8 design, whereas PI-GNN stays bounded (38% and 4%). The data-only fields yield 
+
+no valid 𝑉 th on any design (they do not conserve current, so the reconstructed transfer characteristic is unusable), while PI-GNN’s 
+
+𝑉 th error stays within 0 .14–0 .29 V. The physics loss thus acts as a regularizer that keeps the derived device metrics usable under extrapolation, porting the learned stencil to unseen fin counts under the per-fin-pitch normalization of Sec. 3.2. 
+
+Per-field RMSE.. At the field level, PI-GNN reconstructs 𝜓 , Φ𝑛 ,and Φ𝑝 with per-field RMSE of 0 .16–1 .3 V in the training range, growing by ≈2–12 × at 𝑁 fins = 38; the data-only ablation starts tighter ( ≈0.1 V per field in-distribution) but grows ≈18–22 × over the same range. The field RMSE is computed over all mesh nodes, whereas FoMs are extracted from electrically dominant regions and cross-bias post-processing, so local field errors in weakly relevant regions inflate RMSE without proportionally degrading the derived metrics; this is why PI-GNN’s larger in-distribution field RMSE does not translate into weaker device-metric accuracy in Fig. 3. 
+
+## 4.3 Simulator vs. Surrogate Runtime 
+
+Figure 4 contrasts the wall time of a full Sentaurus Device drift-diffusion solve against a single GAT forward pass on the same mesh, both as a function of 𝑁 fins . Sentaurus Device wall time grows super-linearly with fin count—from roughly 19 min at 𝑁 fins =2 to over 7 .5 h at 𝑁 fins =38—as the mesh and Newton iteration count in-crease; a single GAT forward pass (graph construction from cached mesh plus one ensemble-member inference on an RTX 4090) grows roughly linearly from 65 ms to 1 .7 s over the same range. The re-sulting speedup is consistently four orders of magnitude (≈1.6×10 4–4.1×10 4×) and is the lever that makes the active-learning loop of Sec. 3.4 worth implementing: an uncertainty-guided acquisition score only pays off if evaluating the score on a large candidate pool is cheap relative to a TCAD run. 
+
+## 4.4 Pareto Exploitation and Design Selection 
+
+Once the active-learning loop terminates, the simulated dataset 
+
+D𝑇 is treated as the candidate pool for Pareto post-processing. The E-mode feasibility filter of (1) removes configurations with 𝑉 th ≤ 0, and a per-stratum non-dominated sort produces a two-target front in the (𝐼 𝑑, max , 𝑉 th ) plane separately for each fin count. A farthest-first diversity selector then spreads the recommended design points across the feasible subspace rather than clustering them at a single Pareto knee. ICCAD ’26, November 08–12, 2026, San Jose, CA, USA Leonid Popryho, Ayoub Sadeghi, and Inna Partin-Vaisband 1 2 3 4 5 6 8
+
+> Nfins
+> 10 1
+> 10 2
+
+Id, max rel. err [%]       
+
+> PI-GNN data-only
+> 1234568
+> Nfins
+> 10 1
+> 10 2
+
+Ron rel. err [%]        
+
+> 1234568
+> Nfins
+> 0.0 0.2
+> data-only: 0 valid Vth
+> (non-conserving fields)
+
+Vth abs. err [V]       
+
+> 1234568
+> Nfins
+> 10 1
+> 10 2
+
+gm rel. err [%] 
+
+Figure 3: Device-metric accuracy vs. 𝑁 fins on held-out designs for the physics-informed surrogate (PI-GNN) and a data-only ablation (same architecture, 𝜆 max =0). FoMs are read back by uploading the predicted (𝜓, Φ𝑛 , Φ𝑝 ) fields into Sentaurus Device (no re-solve), so ground truth and surrogate share one extraction route. Panels report the relative error of 𝐼 𝑑, max , 𝑅 on , and 𝑔 𝑚 (log scale) and the absolute error of 𝑉 th ; markers are per-fin-count medians with standard-error bars. The shaded region indicates the training range 𝑁 fins ∈ { 1, . . . , 5}. The data-only fields yield no valid 𝑉 th (non-conserving fields) and diverge on 𝐼 𝑑, max beyond the training range. 
+
+Figure 4: Per-design wall time vs. 𝑁 fins (log scale) for Sentau-rus Device (drift–diffusion solve) and PI-GNN on the same meshes. Shaded bands show the 5th–95th percentile interval. 
+
+Summary. The physics-informed GAT surrogate reconstructs the three drift-diffusion fields with per-field RMSE of 0 .16–1 .3 V in the training range and degrades more gracefully under extrapolation than a data-only ablation, confirming the regularization benefit of the physics loss. Inference runs four orders of magnitude faster than the Sentaurus solve it replaces, and Pareto post-processing exposes the design trade-offs of multi-fin GaN FinFETs in a single pass over the simulated dataset. These results rest on a training set assembled by the active-learning loop of Sec. 3.4, whose uncertainty-driven acquisition keeps the training-data cost practical. 
+
+## 5 Conclusion 
+
+This paper presents a mesh-native physics-informed graph atten-tion surrogate for drift-diffusion simulation of multi-fin GaN Fin-FETs, targeting global design-space exploration rather than local calibration around a known baseline. The model operates directly on the tetrahedral mesh produced by the Sentaurus mesh generator, predicts the three drift-diffusion unknowns (𝜓, Φ𝑛 , Φ𝑝 ) at every node, and is trained with a current-continuity residual loss that mirrors the finite-volume discretization of the TCAD solver. A deep ensemble of GATv2 members provides per-node uncertainty that drives a TCAD-in-the-loop active-learning loop: the candidate pool requires only mesh generation, and the expensive drift-diffusion solve is reserved for acquisition-selected designs. On a benchmark test set spanning 𝑁 fins =1 through 40, the surro-gate reconstructs all three fields with sub-volt per-field RMSE that degrades gracefully under 5 → 40 fin-count extrapolation, confirm-ing that the per-fin-pitch coordinate normalization ports the learned stencil to larger arrays. An ablation confirms that the physics loss acts as a regularizer, trading in-distribution accuracy for a flatter extrapolation error curve. Inference takes 65 ms to 1 .7 s per mesh on a single RTX 4090 depending on fin count, roughly four orders of magnitude below the Sentaurus wall time, making screening of 10 3–10 4 mesh-only candidates per active-learning round practical. The surrogate’s advantage over black-box optimizers rests on four compounding inductive biases: the mesh graph carries device geom-etry, the finite-volume residual enforces carrier-transport physics, the deep ensemble surfaces epistemic uncertainty, and the active-learning loop drives that uncertainty down preferentially near the Pareto frontier. 
+
+Scope. This study trains on designs with 𝑁 fins ≤ 5 and uses a node-feature encoding tailored to the GaN/AlGaN/HfO 2/TiN/Au stack. The mesh-native formulation and physics-informed training are not tied to these choices, and extend naturally to larger device sizes and alternative material stacks. 
+
+Future work. Three directions are immediate. (i) Closing the inverse-design loop : coupling the predicted fields and per-node un-certainty to gradient-based optimization in design-parameter space, validated end-to-end against TCAD. (ii) Device-agnostic extension :replacing the fixed five-material one-hot with a learned material embedding indexed against a general material library, enabling transfer to other transistor topologies and to non-transistor TCAD problems that share the per-node field structure. (iii) Broadening the training range directly to cover higher fin counts and richer bias sweeps, and weighting the loss toward the gate stack and barrier, where the residual error concentrates. 
+
+## Acknowledgments 
+
+This work was supported by the Center for Heterogeneous Integra-tion of Micro Electronic Systems (CHIMES), one of seven centers in the Joint University Microelectronics Program (JUMP) 2.0, a Semi-conductor Research Corporation (SRC) program sponsored by the Defense Advanced Research Projects Agency (DARPA), under Grant 2023-JU-3136. The authors thank Prof. Debjit Pal for providing the distributed simulation infrastructure used in this work. Mesh-Native Physics-Informed Graph Surrogates for TCAD-in-the-Loop Design Space Exploration ICCAD ’26, November 08–12, 2026, San Jose, CA, USA 
+
+## References 
+
+[1] Chandni Akbar, Yiming Li, and Wen Li Sung. 2021. Machine Learning Aided Device Simulation of Work Function Fluctuation for Multichannel Gate-All-Around Silicon Nanosheet MOSFETs. IEEE Transactions on Electron Devices 68, 11 (Nov. 2021), 5490–5497. doi:10.1109/TED.2021.3084910 [2] Edwin V. Bonilla, Kian Chai, and Christopher Williams. 2007. Multi-task Gaussian Process Prediction. In Advances in Neural Information Processing Systems , J. Platt, D. Koller, Y. Singer, and S. Roweis (Eds.), Vol. 20. Curran Associates, Inc., Red Hook, NY, USA, 8 pages. https://proceedings.neurips.cc/paper_files/paper/2007/ file/66368270ffd51418ec58bd793f2d9b1b-Paper.pdf [3] Johannes Brandstetter, Daniel E. Worrall, and Max Welling. 2022. Message Passing Neural PDE Solvers. In International Conference on Learning Representa-tions . OpenReview.net, Virtual Event, 1–27. https://openreview.net/forum?id= vSix3HPYKSU [4] Shaked Brody, Uri Alon, and Eran Yahav. 2022. How Attentive are Graph Attention Networks?. In International Conference on Learning Representations (ICLR) . OpenReview, Virtual Event, 26 pages. https://openreview.net/forum?id= F72ximsx7C1 [5] William Chen and Bill Bottoms. 2019. Heterogeneous Integration Roadmap: Driving Force and Enabling Technology for Systems of the Future. In 2019 Sym-posium on VLSI Technology . IEEE, Kyoto, Japan, T50–T51. doi:10.23919/VLSIT. 2019.8776484 [6] Samuel Daulton, Maximilian Balandat, and Eytan Bakshy. 2020. Differentiable expected hypervolume improvement for parallel multi-objective Bayesian opti-mization. In Proceedings of the 34th International Conference on Neural Information Processing Systems (Vancouver, BC, Canada) (NIPS ’20) . Curran Associates Inc., Red Hook, NY, USA, Article 826, 14 pages. [7] K. Deb, A. Pratap, S. Agarwal, and T. Meyarivan. 2002. A fast and elitist multiobjec-tive genetic algorithm: NSGA-II. IEEE Transactions on Evolutionary Computation 
+
+6, 2 (April 2002), 182–197. doi:10.1109/4235.996017 [8] Roman Garnett. 2023. Bayesian Optimization . Cambridge University Press, Cambridge, UK. [9] Seung-Cheol Han, Jonghyun Choi, and Sung-Min Hong. 2021. Acceleration of Semiconductor Device Simulation With Approximate Solutions Predicted by Trained Neural Networks. IEEE Transactions on Electron Devices 68, 11 (2021), 5483–5489. doi:10.1109/TED.2021.3075192 [10] Wonik Jang, Sanghoon Myung, Jae Myung Choe, Young-Gu Kim, and Dae Sin Kim. 2023. TCAD Device Simulation With Graph Neural Network. IEEE Electron Device Letters 44, 8 (2023), 1368–1371. doi:10.1109/LED.2023.3290930 [11] Jaeyong Jeong, Chan Jik Lee, Sung Joon Choi, Nahyun Rheem, Minseo Song, Yoon-Je Suh, Bong Ho Kim, Joon Pyo Kim, Joonsup Shim, Jiseon Lee, Myungsoo Park, Yumin Koh, Donghyun Kim, and Sanghyeon Kim. 2024. Vertically Integrated Ac-tive Power Delivery Network (PDN) for Heterogenous 3D (H3D) Stacked Systems: 3D On-Chip Integration of GaN Power Devices on PDN with Direct Heat Spread-ing Layer Bonding. In 2024 IEEE International Electron Devices Meeting (IEDM) .IEEE, San Francisco, CA, USA, 1–4. doi:10.1109/IEDM50854.2024.10872988 [12] Yohan Kim, Sanghoon Myung, Jisu Ryu, Changwook Jeong, and Dae Sin Kim. 2020. Physics-augmented Neural Compact Model for Emerging Device Technologies. In 
+
+2020 International Conference on Simulation of Semiconductor Processes and Devices (SISPAD) . IEEE, Kobe, Japan, 257–260. doi:10.23919/SISPAD49475.2020.9241638 [13] J. Knowles. 2006. ParEGO: a hybrid algorithm with on-line landscape approxi-mation for expensive multiobjective optimization problems. IEEE Transactions on Evolutionary Computation 10, 1 (2006), 50–66. doi:10.1109/TEVC.2005.851274 [14] Kyul Ko, Jang Kyu Lee, Myounggon Kang, Jongwook Jeon, and Hyungcheol Shin. 2019. Prediction of Process Variation Effect for Ultrascaled GAA Vertical FET Devices Using a Machine Learning Approach. IEEE Transactions on Electron Devices 66, 10 (2019), 4474–4477. doi:10.1109/TED.2019.2937786 [15] Sriharini Krishnakumar, Mingeun Choi, Ramin Rahimzadeh Khorasani, Rohit Sharma, Madhavan Swaminathan, Satish Kumar, and Inna Partin-Vaisband. 2024. Vertical Power Delivery for High Performance Computing Systems with Buck-Derived Regulators. In 2024 IEEE 74th Electronic Components and Technology Conference (ECTC) . IEEE, Denver, CO, USA, 2136–2142. doi:10.1109/ECTC51529. 2024.00364 [16] Balaji Lakshminarayanan, Alexander Pritzel, and Charles Blundell. 2017. Simple and scalable predictive uncertainty estimation using deep ensembles. In Proceed-ings of the 31st International Conference on Neural Information Processing Systems 
+
+(Long Beach, CA, USA) (NIPS ’17) . Curran Associates Inc., Red Hook, NY, USA, 6405–6416. [17] Zongyi Li, Nikola Borislavov Kovachki, Kamyar Azizzadenesheli, Burigede Liu, Kaushik Bhattacharya, Andrew Stuart, and Anima Anandkumar. 2021. Fourier Neural Operator for Parametric Partial Differential Equations. In In-ternational Conference on Learning Representations . OpenReview.net, Vienna, Austria, 15 pages. https://openreview.net/forum?id=c8P9NQVtmnO [18] Kashyap Mehta and Hiu-Yung Wong. 2021. Prediction of FinFET Current-Voltage and Capacitance-Voltage Curves Using Machine Learning With Autoencoder. 
+
+IEEE Electron Device Letters 42, 2 (2021), 136–139. doi:10.1109/LED.2020.3045064 [19] L. Nela, J. Ma, C. Erine, P. Xiang, T.-H. Shen, V. Tileli, T. Wang, K. Cheng, and E. Matioli. 2021. Multi-channel nanowire devices for efficient power conversion. 
+
+Nature Electronics 4, 3 (2021), 284–290. doi:10.1038/s41928-021-00550-8 [20] Chanwoo Park, Junghwan Park, Premkumar Vincent, and Hyunbo Cho. 2024. Accelerating DTCO with a Sample-Efficient Active Learning Framework for TCAD Device Modeling. In Proceedings of the 61st ACM/IEEE Design Automation Conference (San Francisco, CA, USA) (DAC ’24) . Association for Computing Machinery, New York, NY, USA, Article 132, 6 pages. doi:10.1145/3649329.3655925 [21] Tobias Pfaff, Meire Fortunato, Alvaro Sanchez-Gonzalez, and Peter Battaglia. 2021. Learning Mesh-Based Simulation with Graph Networks. In International Con-ference on Learning Representations . OpenReview.net, Vienna, Austria, 18 pages. https://openreview.net/forum?id=roNqYL0_XP [22] M. Raissi, P. Perdikaris, and G.E. Karniadakis. 2019. Physics-informed neural networks: A deep learning framework for solving forward and inverse problems involving nonlinear partial differential equations. J. Comput. Phys. 378 (2019), 686–707. doi:10.1016/j.jcp.2018.10.045 [23] Tejender Singh Rawat, Chung Yuan Chang, Yen-Wei Feng, ShihWei Chen, Chang-Hong Shen, Jia-Min Shieh, and Albert Shihchun Lin. 2023. Meta-Learned and TCAD-Assisted Sampling in Semiconductor Laser Annealing. ACS Omega 8, 1 (2023), 737–746. doi:10.1021/acsomega.2c06000 [24] Ayoub Sadeghi and Inna Partin-Vaisband. 2025. Analysis and Optimization of Multi-Channel E-Mode AlGaN/GaN Trigate FinFET for Vertical Power Delivery with Embedded Power Converters. In 2025 IEEE 75th Electronic Components and Technology Conference (ECTC) . IEEE, Las Vegas, NV, USA, 1282–1289. doi:10. 1109/ECTC51687.2025.00220 [25] Bobak Shahriari, Kevin Swersky, Ziyu Wang, Ryan P. Adams, and Nando De Fre-itas. 2016. Taking the human out of the loop: A review of Bayesian optimization. 
+
+Proc. IEEE 104, 1 (Jan. 2016), 148–175. doi:10.1109/JPROC.2015.2494218 [26] Eero Siivola, Andrei Paleyes, Javier González, and Aki Vehtari. 2021. Good prac-tices for Bayesian optimization of high dimensional structured spaces. Applied AI Letters 2, 2 (May 2021), 13 pages. doi:10.1002/ail2.24 [27] Synopsys. 2022. Sentaurus Device User Manual . Synopsys Inc., Mountain View, CA, USA. [28] Chia-Hsun Wu, Jian-You Chen, Ping-Cheng Han, Ming-Wen Lee, Kun-Sheng Yang, Huan-Chung Wang, Po-Chun Chang, Quang Ho Luc, Yueh-Chin Lin, Chang Fu Dee, Azrul Azlan Hamzah, and Edward Yi Chang. 2019. Normally-Off Tri-Gate GaN MIS-HEMTs with 0.76 m Ω·cm 2 Specific On-Resistance for Power Device Applications. IEEE Transactions on Electron Devices 66 (2019), 3441–3446. doi:10.1109/TED.2019.2922301 [29] Chun-Lin Yu, Chih-Hao Lin, and Yuh-Renn Wu. 2020. Analysis and Optimization of GaN Based Multi-Channels FinFETs. IEEE Transactions on Nanotechnology 19 (2020), 439–445. doi:10.1109/TNANO.2020.2998840

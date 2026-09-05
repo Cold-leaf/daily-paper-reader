@@ -1,0 +1,137 @@
+{
+  "date": "20260905",
+  "date_label": "",
+  "generated_at": "2026-09-05 21:46:20 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2608.30509v1",
+      "route": "202609/05/2608.30509v1-chipsmore-compute-in-interconnect-and--memory-chiplets-for-multi-mode-multi-request-llm-inference-acceleration",
+      "title": "CHIPSMORE: Compute-in-Interconnect and -Memory Chiplets for Multi-Mode Multi-Request LLM Inference Acceleration",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "cim"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "面向多模式多请求LLM推理加速的存内互连与存内计算芯粒架构",
+      "first_seen_at": "2026-09-05 21:46:20 UTC",
+      "updated_at": "2026-09-05 21:46:20 UTC"
+    },
+    {
+      "paper_id": "2609.00421v1",
+      "route": "202609/05/2609.00421v1-vara-a-voltage-aware-reram-based-accelerator-for-energy-efficient-computing",
+      "title": "VARA: A Voltage-Aware ReRAM-Based Accelerator for Energy-Efficient Computing",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "cim"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "面向ReRAM存内计算能耗，提出电压感知加速器VARA，利用激活稀疏性提升能效。",
+      "first_seen_at": "2026-09-05 21:46:20 UTC",
+      "updated_at": "2026-09-05 21:46:20 UTC"
+    },
+    {
+      "paper_id": "2609.00701v1",
+      "route": "202609/05/2609.00701v1-falcon-fault-tolerant-magnetic-tunnel-junction-based-in-memory-stochastic-architecture-for-reliability-critical-edge-ai-applications",
+      "title": "FALCON: Fault-Tolerant Magnetic Tunnel Junction-Based In-Memory Stochastic Architecture for Reliability-Critical Edge AI Applications",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "cim"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "基于磁隧道结的容错存内随机计算架构，面向能效与可靠性关键边缘AI",
+      "first_seen_at": "2026-09-05 21:46:20 UTC",
+      "updated_at": "2026-09-05 21:46:20 UTC"
+    },
+    {
+      "paper_id": "2609.00857v1",
+      "route": "202609/05/2609.00857v1-llm-inference-on-imc-noc-architecture-with-balanced-dataflow-and-fine-grained-parallelism",
+      "title": "LLM Inference on IMC-NoC Architecture with Balanced Dataflow and Fine-Grained Parallelism",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "cim"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "大模型推理采用IMC-NoC软硬件协同架构，切入存算一体与片上数据流优化主题。",
+      "first_seen_at": "2026-09-05 21:46:20 UTC",
+      "updated_at": "2026-09-05 21:46:20 UTC"
+    },
+    {
+      "paper_id": "2609.01948v1",
+      "route": "202609/05/2609.01948v1-an-emerging-nvm-based-on-chip-training-architecture-with-non-ideality-mitigation-through-bipolar-weight-distributions",
+      "title": "An Emerging NVM-Based On-Chip Training Architecture with Non-Ideality Mitigation Through Bipolar Weight Distributions",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "cim"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "面向片上训练的eNVM存内计算架构，旨在提高能效",
+      "first_seen_at": "2026-09-05 21:46:20 UTC",
+      "updated_at": "2026-09-05 21:46:20 UTC"
+    },
+    {
+      "paper_id": "2609.00955v1",
+      "route": "202609/05/2609.00955v1-assert-adaptive-stochastic-sampling-for-robust-diffusion-models-on-analog-compute-in-memory-hardware",
+      "title": "ASSERT: Adaptive Stochastic Sampling for Robust Diffusion Models on Analog Compute-in-Memory Hardware",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "cim"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "直接面向模拟存内计算硬件的推理噪声建模与自适应采样优化，符合存内计算主题",
+      "first_seen_at": "2026-09-05 21:46:20 UTC",
+      "updated_at": "2026-09-05 21:46:20 UTC"
+    },
+    {
+      "paper_id": "2609.02988v1",
+      "route": "202609/05/2609.02988v1-mesh-native-physics-informed-graph-surrogates-for-tcad-in-the-loop-design-space-exploration",
+      "title": "Mesh-Native Physics-Informed Graph Surrogates for TCAD-in-the-Loop Design Space Exploration",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "thermal-gnn"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "面向3D TCAD网格的物理信息图注意力网络代理，可迁移到芯片GNN热预测建模",
+      "first_seen_at": "2026-09-05 21:46:20 UTC",
+      "updated_at": "2026-09-05 21:46:20 UTC"
+    },
+    {
+      "paper_id": "2608.29338v1",
+      "route": "202609/05/2608.29338v1-analogue-phase-change-computational-memory-with-high-precision-reads-and-energy-efficient-writes",
+      "title": "Analogue Phase Change Computational Memory with High Precision Reads and Energy Efficient Writes",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "cim"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "基于相变的存内计算器件以高精度读取和低能耗写入为目标，覆盖存算一体对能效的关注",
+      "first_seen_at": "2026-09-05 21:46:20 UTC",
+      "updated_at": "2026-09-05 21:46:20 UTC"
+    }
+  ]
+}

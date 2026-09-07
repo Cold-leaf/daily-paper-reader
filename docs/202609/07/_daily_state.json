@@ -1,0 +1,105 @@
+{
+  "date": "20260907",
+  "date_label": "",
+  "generated_at": "2026-09-07 22:00:50 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2609.04705v1",
+      "route": "202609/07/2609.04705v1-sustainable-edge-vision-via-empirically-calibrated-dvfs-eliminating-thermal-throttling-on-passively-cooled-hardware",
+      "title": "Sustainable Edge Vision via Empirically Calibrated DVFS: Eliminating Thermal Throttling on Passively Cooled Hardware",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "thermal-gnn"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "通过经验校准DVFS消除热节流，属于芯片散热/热管理方法",
+      "first_seen_at": "2026-09-07 22:00:50 UTC",
+      "updated_at": "2026-09-07 22:00:50 UTC"
+    },
+    {
+      "paper_id": "2608.30509v1",
+      "route": "202609/07/2608.30509v1-chipsmore-compute-in-interconnect-and--memory-chiplets-for-multi-mode-multi-request-llm-inference-acceleration",
+      "title": "CHIPSMORE: Compute-in-Interconnect and -Memory Chiplets for Multi-Mode Multi-Request LLM Inference Acceleration",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "cim"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "面向LLM推理的存内计算与互连内计算芯粒加速器",
+      "first_seen_at": "2026-09-07 22:00:50 UTC",
+      "updated_at": "2026-09-07 22:00:50 UTC"
+    },
+    {
+      "paper_id": "2609.01948v1",
+      "route": "202609/07/2609.01948v1-an-emerging-nvm-based-on-chip-training-architecture-with-non-ideality-mitigation-through-bipolar-weight-distributions",
+      "title": "An Emerging NVM-Based On-Chip Training Architecture with Non-Ideality Mitigation Through Bipolar Weight Distributions",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "cim"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "基于新兴非易失存储器的存内计算架构，面向片上训练",
+      "first_seen_at": "2026-09-07 22:00:50 UTC",
+      "updated_at": "2026-09-07 22:00:50 UTC"
+    },
+    {
+      "paper_id": "2609.00701v1",
+      "route": "202609/07/2609.00701v1-falcon-fault-tolerant-magnetic-tunnel-junction-based-in-memory-stochastic-architecture-for-reliability-critical-edge-ai-applications",
+      "title": "FALCON: Fault-Tolerant Magnetic Tunnel Junction-Based In-Memory Stochastic Architecture for Reliability-Critical Edge AI Applications",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "cim"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "基于磁隧道结的存内计算架构，面向能效与可靠性，契合存算一体主题",
+      "first_seen_at": "2026-09-07 22:00:50 UTC",
+      "updated_at": "2026-09-07 22:00:50 UTC"
+    },
+    {
+      "paper_id": "2609.00857v1",
+      "route": "202609/07/2609.00857v1-llm-inference-on-imc-noc-architecture-with-balanced-dataflow-and-fine-grained-parallelism",
+      "title": "LLM Inference on IMC-NoC Architecture with Balanced Dataflow and Fine-Grained Parallelism",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "cim"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "IMC-NoC架构统一计算、存储与通信，属存内计算范畴",
+      "first_seen_at": "2026-09-07 22:00:50 UTC",
+      "updated_at": "2026-09-07 22:00:50 UTC"
+    },
+    {
+      "paper_id": "2609.04266v1",
+      "route": "202609/07/2609.04266v1-compute-in-memory-attention-a-time-domain-analog-softmax-circuit-with-rc-tunable-temperature",
+      "title": "Compute-in-Memory Attention: A Time-Domain Analog Softmax Circuit with RC-Tunable Temperature",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "cim"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "面向存内计算注意力的时域模拟Softmax电路",
+      "first_seen_at": "2026-09-07 22:00:50 UTC",
+      "updated_at": "2026-09-07 22:00:50 UTC"
+    }
+  ]
+}

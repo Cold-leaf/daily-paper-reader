@@ -1,0 +1,245 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-09-08T21:40:24.862274+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 3,
+    "deep_cap": 6,
+    "deep_selected": 3,
+    "quick_candidates": 3,
+    "quick_skim_target": 11,
+    "quick_selected": 3
+  },
+  "deep_dive": [
+    {
+      "id": "2608.30509v1",
+      "source": "arxiv",
+      "title": "CHIPSMORE: Compute-in-Interconnect and -Memory Chiplets for Multi-Mode Multi-Request LLM Inference Acceleration",
+      "abstract": "Large language model (LLM) inference exhibits substantial variability across adaptation modes, context lengths, and request concurrency, creating challenges for maintaining high utilization, memory efficiency, and scalable performance on compute-in-memory (CIM) accelerators. This paper presents CHIPSMORE, a multi-mode and multi-request LLM inference accelerator that integrates compute-in-interconnect and CIM to support both base-mode and low-rank adaptation (LoRA) inference under diverse workloads. CHIPSMORE employs heterogeneous processing elements consisting of resistive RAM analog compute-in-memory (RRAM-ACIM) and static RAM digital compute-in-memory (SRAM-DCIM) interconnected through a programmable Inter-PE computational network (IPCN). A composable hierarchical key-value (KV) memory scheme dynamically allocates router scratchpad, SRAM-DCIM, and embedded DRAM (eDRAM) resources according to workload requirements, enabling scalable support for long-context and batched inference. Furthermore, a non-replicated multi-request execution pipeline exploits request-level parallelism without duplicating pretrained weights, while a state-aware resource reconfiguration mechanism selectively retains runtime states and power-gates inactive resources to improve energy efficiency. Evaluation using cycle-accurate hardware-software co-simulation demonstrates that CHIPSMORE effectively sustains high throughput across varying model sizes, context lengths, and batch sizes while maintaining favorable power scaling. Compared with Nvidia H100, CHIPSMORE achieves up to $2.38\\times$ higher throughput and $27\\times$ higher energy efficiency on Mistral-7B inference while eliminating weight replication for multi-request serving.",
+      "authors": [
+        "Yue Jiet Chong",
+        "Yimin Wang",
+        "Zhen Wu",
+        "Zixuan Wang",
+        "Wei Zhang",
+        "Xuanyao Fong"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-08-31T09:43:07+00:00",
+      "link": "https://arxiv.org/pdf/2608.30509v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "compute-in-memory architecture with RRAM/SRAM CIM arrays and chiplet interconnects for energy-efficient LLM inference",
+      "llm_evidence_cn": "面向大语言模型推理的高能效存算一体与芯粒互连架构",
+      "llm_evidence": "面向大语言模型推理的高能效存算一体与芯粒互连架构",
+      "canonical_evidence": "面向大语言模型推理的高能效存算一体与芯粒互连架构",
+      "llm_tldr_en": "CHIPSMORE integrates compute-in-interconnect and compute-in-memory to accelerate multimodal multiple-request LLM inference, combining RRAM analog and SRAM digital CIM processing elements via programmable interconnect to support base and LoRA modes.",
+      "llm_tldr_cn": "大语言模型推理负载在模式、上下文长度和并发度上差异较大，现有存算一体加速器难以同时保证高利用率、存储效率与可扩展性。论文提出CHIPSMORE，融合互连计算与存内计算，将RRAM模拟存算单元和SRAM数字存算单元做成异构处理阵列，并通过可编程互连支持基座模型与LoRA推理。结果表明该架构能适配多模式多请求场景，改善资源利用率和可扩展性能，为面向LLM推理的存算与近存芯粒设计提供了系统级方案。",
+      "llm_tldr": "大语言模型推理负载在模式、上下文长度和并发度上差异较大，现有存算一体加速器难以同时保证高利用率、存储效率与可扩展性。论文提出CHIPSMORE，融合互连计算与存内计算，将RRAM模拟存算单元和SRAM数字存算单元做成异构处理阵列，并通过可编程互连支持基座模型与LoRA推理。结果表明该架构能适配多模式多请求场景，改善资源利用率和可扩展性能，为面向LLM推理的存算与近存芯粒设计提供了系统级方案。",
+      "llm_tags": [
+        "query:cim:composite"
+      ],
+      "matched_query_tag": "query:cim:composite",
+      "matched_query_text": "Papers central to 存算一体，主要关注基于混合键合的三维堆叠的近存计算, especially work that connects or combines: compute-in-memory architecture; hybrid bonding 3D integration; 3D stacking memory technology; near-memory computing design; processing-in-memory systems; 3D integrated circuit design; What are the key benefits of hybrid bonding for 3D stacked near memory computing?; How does compute in memory architecture improve energy efficiency?; Design challenges of 3D stacking for near memory computing systems.",
+      "matched_requirement_id": "req-composite-cim",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2609.00857v1",
+      "source": "arxiv",
+      "title": "LLM Inference on IMC-NoC Architecture with Balanced Dataflow and Fine-Grained Parallelism",
+      "abstract": "LLM inference has become an essential service, yet it imposes unprecedented demands on memory bandwidth, computational density, and communication efficiency. While IMC is a promising solution to the memory wall issue, the heterogeneous data dynamicity of LLM requires complementary resources to handle intermediate data generated during run-time. Furthermore, the massive number of parameters in LLM necessitates scale-up architectures where on-chip data movement is often the primary performance bottleneck. This article presents a hardware-software co-design framework that unifies distributed compute, memory, and communication into a seamless processing-communication fabric. On the hardware side, we propose a scalable architecture, named LEAP, that integrates IMC PE, NMC PE, and INC. This allows each hardware layer to execute specialized tasks: IMC for static weights, NMC for dynamic data, and INC for partial result reduction. On the software side, we introduce a partitioning, mapping, and scheduling framework optimized for key metrics in LLM serving, including throughput and latency. To address the distinct computational intensities of the prefill and decode phases, we present a prefill-decode disaggregation approach that dynamically reconfigures PE organizations to maximize resource utilization. Compared to commercial GPU platforms, the proposed architecture provides a throughput and an energy efficiency improvement of $\\geq{}1.52\\times$ and $24.91\\times$, respectively.",
+      "authors": [
+        "Yimin Wang",
+        "Yue Jiet Chong",
+        "Xuanyao Fong"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-09-01T07:55:45+00:00",
+      "link": "https://arxiv.org/pdf/2609.00857v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "In-memory computing (IMC) combined with NoC targets memory bandwidth and on-chip data movement, matching compute-in-memory and near-memory computing theme.",
+      "llm_evidence_cn": "将存内计算与片上网络结合，面向内存带宽和片上数据移动问题，契合存算一体/近存计算主题。",
+      "llm_evidence": "将存内计算与片上网络结合，面向内存带宽和片上数据移动问题，契合存算一体/近存计算主题。",
+      "canonical_evidence": "将存内计算与片上网络结合，面向内存带宽和片上数据移动问题，契合存算一体/近存计算主题。",
+      "llm_tldr_en": "LLM inference demands high memory bandwidth and low data movement; proposed IMC-NoC hardware-software fabric unifies compute, memory, and communication with balanced dataflow and fine-grained parallelism.",
+      "llm_tldr_cn": "大语言模型推理对内存带宽和片上数据搬运提出极高要求，传统架构难以满足。本文提出软硬件协同的IMC-NoC架构，将分布式计算、存储与通信统一为处理-通信体，并采用平衡数据流与细粒度并行策略。硬件侧给出可扩展架构，结合存内计算缓解内存墙，面向大规模参数的规模扩展系统优化片上通信瓶颈。该工作为面向LLM的存算一体与近存计算设计提供系统级参考。",
+      "llm_tldr": "大语言模型推理对内存带宽和片上数据搬运提出极高要求，传统架构难以满足。本文提出软硬件协同的IMC-NoC架构，将分布式计算、存储与通信统一为处理-通信体，并采用平衡数据流与细粒度并行策略。硬件侧给出可扩展架构，结合存内计算缓解内存墙，面向大规模参数的规模扩展系统优化片上通信瓶颈。该工作为面向LLM的存算一体与近存计算设计提供系统级参考。",
+      "llm_tags": [
+        "query:cim:composite"
+      ],
+      "matched_query_tag": "query:cim:composite",
+      "matched_query_text": "Papers central to 存算一体，主要关注基于混合键合的三维堆叠的近存计算, especially work that connects or combines: compute-in-memory architecture; hybrid bonding 3D integration; 3D stacking memory technology; near-memory computing design; processing-in-memory systems; 3D integrated circuit design; What are the key benefits of hybrid bonding for 3D stacked near memory computing?; How does compute in memory architecture improve energy efficiency?; Design challenges of 3D stacking for near memory computing systems.",
+      "matched_requirement_id": "req-composite-cim",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2609.01948v1",
+      "source": "arxiv",
+      "title": "An Emerging NVM-Based On-Chip Training Architecture with Non-Ideality Mitigation Through Bipolar Weight Distributions",
+      "abstract": "The rapid advancement of deep learning has presented significant energy efficiency challenges to the conventional von Neumann architecture. In-memory computing (IMC) architectures based on emerging non-volatile memory (eNVM) are widely regarded as a promising solution for accelerating neural network training due to their high parallelism and low power consumption. However, the intrinsic non-idealities of eNVM devices can cause conductance updates to deviate from target values, thereby limiting the performance of on-chip training. To address this challenge, this paper presents a Non-ideality Optimized eNVM Accelerator (NOVA) architecture for on-chip training. Specifically, we first fabricate a two-dimensional (2D) ferroelectric field-effect transistor (FeFET) and develop a conductance modulation behavioral model calibrated with experimental data. Building upon this device model, we propose, for the first time, a Non-ideality Avoidance Training (NAT) algorithm tailored for eNVM devices, which mitigates accuracy degradation by guiding weight convergence toward the most stable conductance regions of eNVM devices. Experimental results demonstrate that, even under severe device asymmetry, NAT improves the accuracy by an average of 15.1\\% over the baseline methods across multiple benchmark tasks. Meanwhile, the NOVA achieves an average energy efficiency gain of approximately 33.58$\\times$ compared with the peak energy efficiency of graphics processing units (GPUs).",
+      "authors": [
+        "Peng Dang",
+        "Youna Huang",
+        "Yintao He",
+        "Huawei Li"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-09-01T23:42:09+00:00",
+      "link": "https://arxiv.org/pdf/2609.01948v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Presents an in-memory computing architecture based on emerging non-volatile memory for energy-efficient on-chip training, with non-ideality mitigation.",
+      "llm_evidence_cn": "提出基于新兴非易失存储器的存内计算架构，面向高能效片上训练并缓解器件非理想效应，契合存算一体主题。",
+      "llm_evidence": "提出基于新兴非易失存储器的存内计算架构，面向高能效片上训练并缓解器件非理想效应，契合存算一体主题。",
+      "canonical_evidence": "提出基于新兴非易失存储器的存内计算架构，面向高能效片上训练并缓解器件非理想效应，契合存算一体主题。",
+      "llm_tldr_en": "On-chip DNN training is energy-hungry; presents NOVA, an eNVM-based in-memory computing accelerator that mitigates conductance-update non-idealities via bipolar weight distributions for reliable efficient training.",
+      "llm_tldr_cn": "深度学习训练的能效需求对冯诺依曼体系提出挑战，基于新兴非易失存储器的存内计算虽能实现高并行低能耗训练，但器件非理想性会造成电导更新偏差。针对这一问题，论文提出NOVA加速器架构，通过构造双极权重分布等方式补偿更新偏差，并实际制造二维器件阵列进行验证。结果显示该设计可有效抑制非理想性影响，提高片上训练精度。该工作为高能效NVM存算一体训练芯片提供了实用解决思路。",
+      "llm_tldr": "深度学习训练的能效需求对冯诺依曼体系提出挑战，基于新兴非易失存储器的存内计算虽能实现高并行低能耗训练，但器件非理想性会造成电导更新偏差。针对这一问题，论文提出NOVA加速器架构，通过构造双极权重分布等方式补偿更新偏差，并实际制造二维器件阵列进行验证。结果显示该设计可有效抑制非理想性影响，提高片上训练精度。该工作为高能效NVM存算一体训练芯片提供了实用解决思路。",
+      "llm_tags": [
+        "query:cim:composite"
+      ],
+      "matched_query_tag": "query:cim:composite",
+      "matched_query_text": "Papers central to 存算一体，主要关注基于混合键合的三维堆叠的近存计算, especially work that connects or combines: compute-in-memory architecture; hybrid bonding 3D integration; 3D stacking memory technology; near-memory computing design; processing-in-memory systems; 3D integrated circuit design; What are the key benefits of hybrid bonding for 3D stacked near memory computing?; How does compute in memory architecture improve energy efficiency?; Design challenges of 3D stacking for near memory computing systems.",
+      "matched_requirement_id": "req-composite-cim",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2609.04287v1",
+      "source": "arxiv",
+      "title": "Huawei's $τ$ Chip Was Supposed to Melt?",
+      "abstract": "Heat is the sharpest concern on $τ$ scaling law --- the time-scaling principle behind Huawei's folded silicon, named for the delay $τ$ (``Tao'') it sets out to shrink. Our Kirin measurements turned that objection upside down. The reason is one every commuter already knows: on a chip, as in a workday, it is the travel that burns the majority of the energy, not the work at the desk.",
+      "authors": [
+        "Tingbo He"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-09-03T09:01:14+00:00",
+      "link": "https://arxiv.org/pdf/2609.04287v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "chip-level heat concern and energy-decomposition analysis for folded-silicon processors",
+      "llm_evidence_cn": "针对芯片的发热与能耗担忧，通过麒麟实测区分数据搬运和计算能耗",
+      "llm_evidence": "针对芯片的发热与能耗担忧，通过麒麟实测区分数据搬运和计算能耗",
+      "canonical_evidence": "针对芯片的发热与能耗担忧，通过麒麟实测区分数据搬运和计算能耗",
+      "llm_tldr_en": "Chip heat is the main worry for Huawei tau scaling chip. Kirin measurements reveal that travel/data movement, not computation, consumes most energy; this undermines the melt objection.",
+      "llm_tldr_cn": "针对华为τ缩放芯片的发热争议，论文质疑其重度三维集成会导致局部熔化的担忧。作者引入通勤比喻，强调芯片能量主要消耗在数据搬运而非计算本身。基于麒麟芯片的测量结果，大部分功耗来自互连传输，产热因此分散而不是集中。该结果否定了单纯按计算产热判断热失效的直觉，为三维类芯片的热设计提供了新的分析视角。",
+      "llm_tldr": "针对华为τ缩放芯片的发热争议，论文质疑其重度三维集成会导致局部熔化的担忧。作者引入通勤比喻，强调芯片能量主要消耗在数据搬运而非计算本身。基于麒麟芯片的测量结果，大部分功耗来自互连传输，产热因此分散而不是集中。该结果否定了单纯按计算产热判断热失效的直觉，为三维类芯片的热设计提供了新的分析视角。",
+      "llm_tags": [
+        "query:thermal-gnn"
+      ],
+      "matched_query_tag": "query:thermal-gnn",
+      "matched_query_text": "methods for managing heat dissipation in microprocessors and chips",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2609.00701v1",
+      "source": "arxiv",
+      "title": "FALCON: Fault-Tolerant Magnetic Tunnel Junction-Based In-Memory Stochastic Architecture for Reliability-Critical Edge AI Applications",
+      "abstract": "As modern data-centric applications such as neural inference and sensor-edge analytics expand, they increasingly encounter the von Neumann memory wall, suffering from excessive data movement overhead and stringent energy constraints. In-Memory Computing (IMC) utilizing emerging non-volatile technologies, such as Magnetic Tunnel Junctions (MTJs), promises to mitigate these bottlenecks. However, conventional binary radix-based IMC architectures suffer from excessive vulnerability to process-induced variations, restricted operating margins, and thermal noise. To bridge the gap between energy efficiency and computational reliability, this work proposes FALCON, a fault-tolerant, MTJ-based in-memory arithmetic architecture integrated with Stochastic Computing (SC). By encoding numerical values into uniform bit-streams, SC naturally absorbs localized soft errors and enables the execution of an essential suite of arithmetic operations using highly compact logic primitives directly within the memory arrays. FALCON integrates a deterministic bit mapping mechanism with reconfigurable logic-in-memory (LIM) structures, eliminating the need to transfer data to external processors or area- and power-hungry random number generators. Experimental results using 14 nm FinFET technology validate the correct functionality of FALCON even under aggressive voltage scaling, severe process variation, and noise injection levels up to 30%, making it a robust framework for reliability-critical edge AI applications. We investigate the proper functionality of FALCON on morphological closing as a realistic noise-tolerant image processing case study.",
+      "authors": [
+        "Farzad Razi",
+        "Mehran Moghadam",
+        "Sercan Aygun",
+        "M. Hassan Najafi",
+        "Marc Riedel"
+      ],
+      "primary_category": "cs.ET",
+      "categories": [
+        "cs.ET",
+        "cs.AR",
+        "eess.IV"
+      ],
+      "published": "2026-09-01T04:22:25+00:00",
+      "link": "https://arxiv.org/pdf/2609.00701v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "MTJ-based in-memory computing architecture tolerating thermal noise and process variation for edge AI",
+      "llm_evidence_cn": "基于磁隧道结的容错存内计算架构，面向边缘AI兼顾热噪声与工艺偏差",
+      "llm_evidence": "基于磁隧道结的容错存内计算架构，面向边缘AI兼顾热噪声与工艺偏差",
+      "canonical_evidence": "基于磁隧道结的容错存内计算架构，面向边缘AI兼顾热噪声与工艺偏差",
+      "llm_tldr_en": "Presents FALCON, a fault-tolerant MTJ-based in-memory stochastic architecture that counters process variation and thermal noise, bridging energy-efficient IMC and reliability for edge AI.",
+      "llm_tldr_cn": "边缘AI等数据密集应用面临存储墙和高能耗问题，MTJ存内计算能减轻数据搬运开销，却受工艺偏差和热噪声影响。本文提出FALCON，一种基于磁隧道结的容错存内随机架构，将随机计算与存内计算结合，降低对器件失配的敏感性，从而兼顾高能效与计算可靠性。其面向可靠性关键的边缘AI设计，为存内计算在真实场景中的稳健部署提供了可行的架构思路。",
+      "llm_tldr": "边缘AI等数据密集应用面临存储墙和高能耗问题，MTJ存内计算能减轻数据搬运开销，却受工艺偏差和热噪声影响。本文提出FALCON，一种基于磁隧道结的容错存内随机架构，将随机计算与存内计算结合，降低对器件失配的敏感性，从而兼顾高能效与计算可靠性。其面向可靠性关键的边缘AI设计，为存内计算在真实场景中的稳健部署提供了可行的架构思路。",
+      "llm_tags": [
+        "query:cim:composite"
+      ],
+      "matched_query_tag": "query:cim:composite",
+      "matched_query_text": "Papers central to 存算一体，主要关注基于混合键合的三维堆叠的近存计算, especially work that connects or combines: compute-in-memory architecture; hybrid bonding 3D integration; 3D stacking memory technology; near-memory computing design; processing-in-memory systems; 3D integrated circuit design; What are the key benefits of hybrid bonding for 3D stacked near memory computing?; How does compute in memory architecture improve energy efficiency?; Design challenges of 3D stacking for near memory computing systems.",
+      "matched_requirement_id": "req-composite-cim",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2609.04266v1",
+      "source": "arxiv",
+      "title": "Compute-in-Memory Attention: A Time-Domain Analog Softmax Circuit with RC-Tunable Temperature",
+      "abstract": "Softmax is a key operation in Transformer attention, but its exponentiation and normalization add significant overhead in compute-in-memory (CIM) accelerators, especially when analog attention scores must first be converted to the digital domain. This work presents a tunable-temperature analog softmax circuit in GlobalFoundries 22-nm fully depleted silicon-on-insulator (FDSOI) technology that operates directly on CIM-generated score voltages without intermediate analog-to-digital conversion. Each input score is converted into a time-domain event using a shared falling ramp. The corresponding comparator transition samples an RC-decaying reference to generate an exponential weight, which is then processed by an in-circuit normalization stage. In contrast to analog softmax circuits that rely on transistor weak-inversion behavior for exponentiation, the proposed architecture controls the softmax response through the ramp slope and RC time constant, enabling programmable effective temperature. The 128-element architecture is evaluated using transistor-level and post-layout extracted simulations, including multi-level input vectors, capacitance variation and mismatch, process and temperature variation, monte carlo analysis, and shared-interconnect parasitics. The complete 128-element implementation occupies 9453.42~$μ\\mathrm{m}^{2}$ including the shared global ramp circuitry, while each replicated softmax element occupies 70.2~$μ\\mathrm{m}^{2}$. The circuit achieves a 242.97-ns evaluation latency at 13.44~mW total power, corresponding to 25.5~pJ per output element. The simultaneous 128-element evaluation achieves an RMSE of 24.46~mV relative to the ideal softmax response. The extracted circuit characteristics are further incorporated into a MemTorch-based hardware-aware Transformer model, where the proposed softmax achieves a validation loss within 2.5\\% of the ideal-softmax baseline.",
+      "authors": [
+        "Ankur Singh",
+        "Ashish Gautam",
+        "Shruti R. Kulkarni",
+        "Guojing Cong"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR",
+        "cs.LG"
+      ],
+      "published": "2026-09-02T18:43:19+00:00",
+      "link": "https://arxiv.org/pdf/2609.04266v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Directly addresses compute-in-memory attention and energy-efficient softmax circuit for CIM accelerators",
+      "llm_evidence_cn": "直接面向存内计算注意力加速，提出低开销的模拟Softmax电路以提升能效",
+      "llm_evidence": "直接面向存内计算注意力加速，提出低开销的模拟Softmax电路以提升能效",
+      "canonical_evidence": "直接面向存内计算注意力加速，提出低开销的模拟Softmax电路以提升能效",
+      "llm_tldr_en": "Presents a tunable-temperature analog softmax circuit for CIM attention that eliminates ADC conversion by operating directly on CIM-generated scores; RC-decaying reference sampling provides exponential weighting and in-circuit normalization, reducing overhead and improving energy efficiency.",
+      "llm_tldr_cn": "针对Transformer注意力中的Softmax运算在存内计算加速器中需经模数转换、导致开销大的问题，论文提出一种温度可调的时域模拟Softmax电路。它利用共享下降斜坡将输入分数转为时间事件，并对RC衰减参考采样以产生指数权重，从而在电路内完成归一化，省去中间ADC。该设计基于GlobalFoundries 22nm FDSOI工艺，可直接处理CIM生成的模拟分数，有望提升存内计算注意力模块的能效，并为后续Transformer加速硬件的低功耗设计提供借鉴。",
+      "llm_tldr": "针对Transformer注意力中的Softmax运算在存内计算加速器中需经模数转换、导致开销大的问题，论文提出一种温度可调的时域模拟Softmax电路。它利用共享下降斜坡将输入分数转为时间事件，并对RC衰减参考采样以产生指数权重，从而在电路内完成归一化，省去中间ADC。该设计基于GlobalFoundries 22nm FDSOI工艺，可直接处理CIM生成的模拟分数，有望提升存内计算注意力模块的能效，并为后续Transformer加速硬件的低功耗设计提供借鉴。",
+      "llm_tags": [
+        "query:cim:composite"
+      ],
+      "matched_query_tag": "query:cim:composite",
+      "matched_query_text": "Papers central to 存算一体，主要关注基于混合键合的三维堆叠的近存计算, especially work that connects or combines: compute-in-memory architecture; hybrid bonding 3D integration; 3D stacking memory technology; near-memory computing design; processing-in-memory systems; 3D integrated circuit design; What are the key benefits of hybrid bonding for 3D stacked near memory computing?; How does compute in memory architecture improve energy efficiency?; Design challenges of 3D stacking for near memory computing systems.",
+      "matched_requirement_id": "req-composite-cim",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

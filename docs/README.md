@@ -41,7 +41,7 @@
 <section class="dpr-home-dashboard-card dpr-home-report-card">
   <div class="dpr-home-dashboard-header">
     <div>
-      <span class="dpr-home-dashboard-kicker">2026-09-07</span>
+      <span class="dpr-home-dashboard-kicker">2026-09-08</span>
       <h3 class="dpr-home-dashboard-title">今日汇总</h3>
     </div>
     <strong class="dpr-home-dashboard-count">共 6 篇</strong>
@@ -51,7 +51,7 @@
     <div class="dpr-home-dashboard-stat"><dt>精读</dt><dd>3</dd></div>
     <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>3</dd></div>
   </dl>
-  <p class="dpr-home-dashboard-body">最近更新：2026-09-07 22:00:50 UTC<br>状态：成功</p>
+  <p class="dpr-home-dashboard-body">最近更新：2026-09-08 21:42:10 UTC<br>状态：成功</p>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-brief-card">
   <div class="dpr-home-dashboard-header">
@@ -62,9 +62,7 @@
     <strong class="dpr-home-dashboard-count">AI</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<p>今日聚焦边缘AI能效与LLM推理加速，精读覆盖散热调频与Chiplet存算架构两大方向。</p>
-<p>最值得关注：基于经验校准DVFS消除被动散热热节流的方案（9.0/10），以及面向多模态多请求LLM的存内互连/存储Chiplet加速器（8.0/10）。</p>
-<p>后续可优先跟进被动散热边缘设备稳定性设计，以及存算一体在推理场景的能效收益。</p>
+<p>今日精读3篇速读3篇，聚焦LLM推理加速与存内计算芯片架构。最值得看的是两篇8分工作：CHIPSMORE的互连/内存chiplet多请求加速，以及IMC-NoC的均衡数据流与细粒度并行。普通读者可顺带关注7分的华为τ芯片报道，了解工程争议。</p>
   </div>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-deep-card">
@@ -76,9 +74,9 @@
     <strong class="dpr-home-dashboard-count">3 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="Sustainable Edge Vision via Empirically Calibrated DVFS: Eliminating Thermal Throttling on Passively Cooled Hardware">Sustainable Edge Vision via Empirically Calibrated DVFS: Eliminating Thermal Throttling on Passively Cooled Hardware</span></li><li><span class="dpr-home-dashboard-paper-title" title="CHIPSMORE: Compute-in-Interconnect and -Memory Chiplets for Multi-Mode Multi-Request LLM Inference Acceleration">CHIPSMORE: Compute-in-Interconnect and -Memory Chiplets for Multi-Mode Multi-Request LLM Inference Acceleration</span></li><li><span class="dpr-home-dashboard-paper-title" title="An Emerging NVM-Based On-Chip Training Architecture with Non-Ideality Mitigation Through Bipolar Weight Distributions">An Emerging NVM-Based On-Chip Training Architecture with Non-Ideality Mitigation Through Bipolar Weight Distributions</span></li></ul>
+<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="CHIPSMORE: Compute-in-Interconnect and -Memory Chiplets for Multi-Mode Multi-Request LLM Inference Acceleration">CHIPSMORE: Compute-in-Interconnect and -Memory Chiplets for Multi-Mode Multi-Request LLM Inference Acceleration</span></li><li><span class="dpr-home-dashboard-paper-title" title="LLM Inference on IMC-NoC Architecture with Balanced Dataflow and Fine-Grained Parallelism">LLM Inference on IMC-NoC Architecture with Balanced Dataflow and Fine-Grained Parallelism</span></li><li><span class="dpr-home-dashboard-paper-title" title="An Emerging NVM-Based On-Chip Training Architecture with Non-Ideality Mitigation Through Bipolar Weight Distributions">An Emerging NVM-Based On-Chip Training Architecture with Non-Ideality Mitigation Through Bipolar Weight Distributions</span></li></ul>
   </div>
-  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">cim <strong>2</strong></span><span class="dpr-home-dashboard-tag">thermal-gnn <strong>1</strong></span></div>
+  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">cim <strong>3</strong></span></div>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-skim-card">
   <div class="dpr-home-dashboard-header">
@@ -89,9 +87,9 @@
     <strong class="dpr-home-dashboard-count">3 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="FALCON: Fault-Tolerant Magnetic Tunnel Junction-Based In-Memory Stochastic Architecture for Reliability-Critical Edge AI Applications">FALCON: Fault-Tolerant Magnetic Tunnel Junction-Based In-Memory Stochastic Architecture for Reliability-Critical Edge AI Applications</span></li><li><span class="dpr-home-dashboard-paper-title" title="LLM Inference on IMC-NoC Architecture with Balanced Dataflow and Fine-Grained Parallelism">LLM Inference on IMC-NoC Architecture with Balanced Dataflow and Fine-Grained Parallelism</span></li><li><span class="dpr-home-dashboard-paper-title" title="Compute-in-Memory Attention: A Time-Domain Analog Softmax Circuit with RC-Tunable Temperature">Compute-in-Memory Attention: A Time-Domain Analog Softmax Circuit with RC-Tunable Temperature</span></li></ul>
+<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="Huawei&#x27;s $τ$ Chip Was Supposed to Melt?">Huawei&#x27;s $τ$ Chip Was Supposed to Melt?</span></li><li><span class="dpr-home-dashboard-paper-title" title="FALCON: Fault-Tolerant Magnetic Tunnel Junction-Based In-Memory Stochastic Architecture for Reliability-Critical Edge AI Applications">FALCON: Fault-Tolerant Magnetic Tunnel Junction-Based In-Memory Stochastic Architecture for Reliability-Critical Edge AI Applications</span></li><li><span class="dpr-home-dashboard-paper-title" title="Compute-in-Memory Attention: A Time-Domain Analog Softmax Circuit with RC-Tunable Temperature">Compute-in-Memory Attention: A Time-Domain Analog Softmax Circuit with RC-Tunable Temperature</span></li></ul>
   </div>
-  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">cim <strong>3</strong></span></div>
+  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">cim <strong>2</strong></span><span class="dpr-home-dashboard-tag">thermal-gnn <strong>1</strong></span></div>
 </section>
 </div>
 

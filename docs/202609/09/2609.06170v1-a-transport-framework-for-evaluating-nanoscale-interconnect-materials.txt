@@ -1,0 +1,250 @@
+Title: A Transport Framework for Evaluating Nanoscale Interconnect Materials
+
+URL Source: https://arxiv.org/pdf/2609.06170v1
+
+Published Time: Wed, 09 Sep 2026 00:49:36 GMT
+
+Number of Pages: 13
+
+Markdown Content:
+# A Transport Framework for Evaluating Nanoscale Interconnect Materials 
+
+Md. Rafiqul Islam 1, ∗ and Patrick E. Hopkins 1, 2, 3, †
+
+> 1
+
+Department of Mechanical and Aerospace Engineering, University of Virginia, Charlottesville, Virginia 22904, USA 
+
+> 2
+
+Department of Materials Science and Engineering, University of Virginia, Charlottesville, Virginia 22904, USA 
+
+> 3
+
+Department of Physics, University of Virginia, Charlottesville, Virginia 22904, USA 
+
+As CMOS technology continues to scale, metallic interconnects increasingly limit circuit perfor-mance through rising resistivity, self-heating, and reliability degradation. Although several alter-native metals have been proposed, a quantitative framework for evaluating their transport perfor-mance under nanoscale confinement remains unavailable. Here, we establish a transport framework by combining independently measured thermal and electrical conductivities with normalized and unnormalized transport figures of merit. We apply this framework to Cu, Ru, W, Co, Ir, and Mo thin films using new steady-state thermoreflectance measurements of Mo, Co, and Ir together with previously reported Cu, Ru, and W data. While Cu exhibits the highest intrinsic transport performance, its effective performance is substantially reduced by thickness scaling and Ta liner re-sistance. In contrast, Ru and Mo maintain favorable transport properties while enabling barrierless integration, identifying them as promising candidates for next-generation CMOS interconnects. 
+
+Moore’s law continues to drive transistor scaling into the nanometer regime, resulting in elevated power densi-ties and severe localized heating [1, 2]. In this limit, inter-connects have emerged as a primary performance bottle-neck because their electrical and thermal transport prop-erties deviate significantly from bulk values. Specifically, increased resistivity and self-heating in scaled intercon-nects degrade the reliability and efficiency of advanced in-tegrated circuits [3]. Copper (Cu), the industry-standard material, exhibits a precipitous rise in resistivity near 25 nm due to enhanced surface and grain boundary scat-tering [4]. While recent evaluations have integrated sus-tainability metrics, such as supply risk and environmen-tal impact, into the selection criteria [5, 6], resistivity remains the critical metric, as it fundamentally dictates signal delay and power dissipation [4, 7, 8]. Electromigration presents a parallel reliability chal-lenge. As cross-sectional areas vanish, increased current densities accelerate atomic transport, leading to catas-trophic void formation and hillock growth [9]. While Cu replaced aluminum for its superior resistance [10], scaled Cu lines now suffer from enhanced grain boundary diffu-sion and the parasitic volume of necessary liner/barrier layers [11].As VLSI nodes scale below 5 nm, the search for alternative materials has intensified [3]. These nanoscale challenges are rooted in the fundamental physics govern-ing heat and charge transport. In bulk metals, electron-driven heat transfer is predominantly limited by electron-phonon ( e-ph ) interactions at room temperature. How-ever, as structures shrink below the intrinsic e-ph mean free path, boundary scattering emerges as the dominant mechanism, significantly reducing transport efficiency. At these scales, conductivities are deleteriously influ-enced by complex interactions between excited electrons, phonons, grain boundaries, and defects, as conceptually illustrated in Fig. 1. Promising candidates such as ruthe-
+
+FIG. 1. Microscopic scattering processes in laser-excited metallic thin films. The diagram depicts the interplay be-tween excited electrons and the lattice (phonons), as well as structural defects including grain boundaries and atomic va-cancies. These interactions define the characteristic length scales that limit charge and heat transport as device dimen-sions scale toward the nanometer regime 
+
+nium (Ru), cobalt (Co), molybdenum (Mo), and iridium (Ir) offer shorter electron mean free paths [12], result-ing in a less dramatic resistivity scaling compared to Cu. Furthermore, relatively high cohesive energies and melt-ing points of these aforementioned metals suggest intrin-sically superior electromigration resistance [5, 13] and the potential for barrierless integration. This directly links fundamental bonding energy and scattering cross-sections to the long-term reliability of next-generation devices. In this work, we employ a scaling-based analytical framework to evaluate the coupled thermal and electrical transport behavior of metallic interconnects under nano-metric confinement. By integrating the Wiedemann– arXiv:2609.06170v1 [cond-mat.mtrl-sci] 5 Sep 2026 2  
+
+> FIG. 2. (a) Theoretical predictions for candidate metals incorporating mean-free-path limitations, highlighting the stronger thickness-dependent degradation of Cu relative to the alternative metals. (b) Experimental comparison of the combined thermal and electrical transport performance of Cu, Ru, W, Ir, Co, and Mo thin films as a function of thickness. The plotted data correspond to the nominal thermal and electrical conductivities used in the analysis.
+
+Franz relationship with a thickness-dependent mean free path model, we establish a predictive figure of merit (FOM) that quantifies how intrinsic scattering mecha-nisms limit the overall transport performance of candi-date interconnect metals. We apply this framework to Ir, Mo, Co, Cu, Ru, and W using both intrinsic ( κσ )and effective ( κeff σeff ) transport products to assess their viability for nanoscale interconnect applications. To vali-date the proposed framework, the predicted FOM is com-pared against experimentally measured thermal conduc-tivities of PVD-grown metallic thin films with thicknesses ranging from 25 to 100 nm using steady-state thermore-flectance (SSTR). Our results identify Ru and Mo as particularly promis-ing candidates, exhibiting reduced resistivity scaling and enhanced transport efficiency relative to the other met-als investigated. By combining independent thermal and electrical transport measurements, this work establishes a comprehensive framework for evaluating nanoscale in-terconnect materials and provides a critical experimental dataset for the selection of metals in next-generation in-tegrated circuits. To compare candidate interconnect metals, we define a transport figure of merit (FOM) that combines thermal and electrical transport while accounting for thickness-dependent boundary scattering. Assuming (i) the Wiede-mann–Franz relation for the electronic contribution to thermal conductivity, (ii) Matthiessen’s rule for the ef-fective electron mean free path via Kinetic Theory con-siderations, and (iii) thermal and electrical conductivities scale with the effective mean free path, the normalized FOM becomes FOM = λ−2bulk 
+
+ 1
+
+λbulk 
+
++ 1
+
+d
+
+−2
+
+(1) where 
+
+λ(d) = 
+
+ 1
+
+λbulk 
+
++ 1
+
+d
+
+−1
+
+(2) Here, λ(d) is the effective electron mean free path in a film of thickness d, while λbulk denotes the intrinsic bulk electron mean free path. As the film thickness de-creases, boundary scattering shortens the effective mean free path, resulting in reduced thermal and electrical transport. The complete derivation and further discus-sions of the aforementioned assumptions are provided in the Supporting Information. Figure 2 compares the transport performance of candi-date interconnect metals as the film thickness decreases. Figure 2(a) presents theoretical predictions based on the scattering-limited scaling model and the Wiedemann– Franz law, assuming both κ and σ scale with the effective electron mean free path. Bulk electron mean free paths are taken from Ref. [12]. The model predicts that Cu exhibits the most pronounced degradation owing to its relatively long bulk mean free path ( λbulk ≈ 39 .9 nm). In contrast, metals with shorter mean free paths, including Ru ( ≈ 6 nm), Co ( ≈ 11 .8 nm), and Ir ( ≈ 7.1 nm), retain their transport performance even below 10 nm, consis-tent with the electrical resistivity analysis of Gall [8]. The model here assumes that the Wiedemann–Franz law applies to the electronic contribution to thermal conduc-tivity and neglects interface and adhesion-layer effects. 3Since the Wiedemann–Franz law may not accurately de-scribe the total thermal conductivity when phonons con-tribute to heat transport, we independently measure the thermal conductivity ( κ) and electrical conductivity ( σ)using steady-state thermoreflectance (SSTR) and four-point probe measurements, respectively. These indepen-dent measurements enable both validation of the pro-posed transport figure of merit and assessment of the applicability of the Wiedemann–Franz relation for the investigated metals. The in-plane thermal conductivities of the metallic thin films are measured using the steady-state thermore-flectance (SSTR) technique, which we describe in detail elsewhere [4, 14, 15]. Briefly, SSTR is a low-frequency pump–probe technique that establishes steady-state ther-mal gradients, providing high sensitivity to the in-plane thermal conductivity of thin films. To ensure consis-tent optothermal transduction and suppress substrate-induced optical artifacts, we coat all samples with a 20 nm Al/60 nm Ti transducer. This transducer provides optical opacity at the probe wavelength while minimizing lateral heat spreading, thereby maximizing sensitivity to the in-plane thermal conductivity of the underlying metal film. We measure the electrical conductivity of each film using a standard four-point probe technique and es-timate the electronic thermal conductivity from the Wiedemann–Franz relation using the Sommerfeld value of the Lorenz number, L0 = 2 .44 × 10 −8 W Ω K −2. Al-though the Lorenz number may deviate from the Som-merfeld value in thin metallic films [15], this estimate provides a useful reference for comparison with the in-dependently measured thermal conductivity, thus allow-ing us to assess the validity of this widely implemented assumption in Wiedemann-Franz law-based thermal con-ductivity calculations. The Cu, Ru, and W datasets are obtained from our previous studies [4, 15], whereas we measure the Mo, Co, and Ir films as part of the present study. We provide addi-tional details on sample preparation, measurement tech-niques, data analysis, and uncertainty calcualation in the Supporting Information. The experimental results qual-itatively agree with the model predictions and support the selection of alternative interconnect metals beyond Cu at nanoscale dimensions, as shown in Fig. 2(b). Cu exhibits the most pronounced reduction in transport per-formance with decreasing thickness, and annealing fur-ther degrades its performance because of defect forma-tion [4]. In contrast, Ru, W, Co, and Ir exhibit substan-tially weaker thickness dependence, consistent with their shorter electron mean free paths. Among these materi-als, Mo and Ir retain the highest transport performance over the investigated thickness range. Normalized figures of merit facilitate comparisons rela-tive to bulk properties but can obscure differences in the absolute transport performance relevant to practical in-terconnect applications. We therefore evaluate both the normalized and unnormalized κσ values. The unnormal-ized κσ directly reflects the measured thermal and electri-cal transport of each film, whereas the normalized met-ric isolates the effect of thickness-dependent transport degradation. For example, annealing produces only mi-nor changes in the normalized performance of Cu and Ru, while the unnormalized κσ reveals an improvement in Ru arising from microstructural modifications, as discussed below. Unless otherwise noted, the analysis excludes the thermal and electrical contributions of the 3 nm Ta ad-hesion layer. Figure 3(a) presents the unnormalized κσ values for all metals based on the experimentally measured values from Fig. 2b. Cu exhibits the highest transport performance for thicknesses exceeding approximately 20 nm because of its intrinsically high electrical and thermal conductiv-ity. In contrast, W and Ir show lower κσ values over the investigated thickness range, with Ir exhibiting the lowest transport performance owing to its relatively low electrical conductivity. Although normalized metrics em-phasize transport degradation relative to bulk behavior, the unnormalized κσ provides a more direct comparison of the transport performance expected in practical inter-connects. The practical implementation of Cu interconnects re-quires adhesion and diffusion-barrier layers to suppress Cu diffusion into the surrounding dielectric, thereby preventing dielectric breakdown and interconnect fail-ure [3, 16]. To account for this practical constraint, Fig. 3(b) incorporates a 3 nm Ta adhesion/barrier layer into the transport analysis. The electrical conductivity of Ta is obtained from its measured electrical resistiv-ity, while its electronic thermal conductivity is estimated using the Wiedemann–Franz relation with the Sommer-feld Lorenz number. The effective electrical and thermal transport properties of the Cu/Ta stack are then calcu-lated by treating the Cu conductor and Ta liner as elec-trical and thermal resistances connected in series, respec-tively. Owing to the relatively low electrical and thermal conductivity of Ta, its inclusion substantially degrades the effective transport performance of Cu, particularly at reduced dimensions where the liner occupies an in-creasingly large fraction of the interconnect cross section. Details of the transport model are provided in the Sup-porting Information. Among the candidate materials, Ru, Mo and Cu pro-vide a favorable balance between transport performance and practical integration as shown in Fig. 3c. Unlike Cu, both materials are compatible with barrierless in-tegration while exhibiting excellent electromigration re-sistance [5, 13]. Previous studies further show that Mo adheres well to dielectric materials, including SiO 2, low-κ
+
+organosilicate glass, and SiCO, without requiring adhe-sion or barrier layers [17, 18]. Although Co exhibits com-petitive transport performance (Fig. 3c) , its adhesion 4          
+
+> FIG. 3. (a) Measured κσ values for Cu, Ru, W, Co, Mo, and Ir thin films. Cu shows the highest κσ for thicknesses above 20 nm. (b) The impact of a 3 nm Ta adhesion layer is considered for Cu, leading to a reduction in its effective κσ and eliminating its performance advantage at lower thicknesses. (c) Effective κeff σeff values for barrierless Ru, W, Co, Mo, and Ir thin films, demonstrating their transport performance in the absence of adhesion and diffusion-barrier layers. The data in the figure represent the nominal thermal and electrical conductivities used in the transport analysis.
+
+reliability and resistance to delamination require further investigation [19]. By combining normalized and unnormalized transport figures of merit with independently measured thermal and electrical conductivities, we establish a quantitative framework for evaluating nanoscale interconnect materi-als. The results demonstrate that intrinsic transport per-formance alone is insufficient for material selection once thickness scaling and integration constraints are consid-ered. Within this framework, Ru and Mo emerge as the most promising candidates for future logic and memory interconnects. 
+
+> ACKNOWLEDGEMENTS
+
+This work was supported as part of APEX (A Center for Power Electronics Materials and Manufacturing Ex-ploration), an Energy Frontier Research Center funded by the U.S. Department of Energy, Office of Science, Ba-sic Energy Sciences under Award No ERW0345. We thank Sean W. King, Colin D. Landon, Christopher Jezewski, Rinus T. P. Lee, and Kandabara Tapily for providing the thin-film samples. We also acknowledge Intel Corporation and TEL Technology Center, Amer-ica, LLC, for their support in thin-film synthesis. 5
+
+# Supporting Information 
+
+# A Transport Framework for Evaluating Nanoscale Interconnect Materials 
+
+Md. Rafiqul Islam and Patrick E. Hopkins Department of Mechanical and Aerospace Engineering, University of Virginia, Charlottesville, Virginia 22904, USA 
+
+> SYNTHESIS AND SAMPLE DESCRIPTION
+
+We synthesize Cu, Ru, W, Mo, Co, and Ir thin films with thicknesses ranging from 5 to 100 nm by physical vapor deposition (PVD). Cu and W films are deposited on 3 nm Ta/100 nm SiO 2/Si substrates, whereas Ru, Mo, Co, and Ir films are deposited directly on 100 nm SiO 2/Si substrates without an adhesion or barrier layer. The thermal transport properties of the Cu, Ru, and W films have been reported in our previous studies [4, 15], whereas the Ir, Mo, and Co films are characterized in the present work. The Ir, Mo and Co films are deposited by Intel on SiO 2/Si substrates. 
+
+> DERIVATION OF THE TRANSPORT FIGURE OF MERIT
+
+As interconnect dimensions continue to shrink in advanced microelectronics, the transport performance of metallic thin films becomes increasingly sensitive to surface and grain-boundary scattering. An ideal interconnect material maintains high thermal conductivity, low electrical resistivity, and minimal transport degradation as the film thickness decreases. The thickness dependence of thermal and electrical transport is commonly characterized by normalizing the measured conductivities to their corresponding bulk values [20, 21], 
+
+κ(d)
+
+κbulk 
+
+, σ(d)
+
+σbulk 
+
+, (S1) where κ(d) and σ(d) denote the thermal and electrical conductivities of a film with thickness d, and κbulk and 
+
+σbulk are the corresponding bulk values. Assuming the Wiedemann–Franz (WF) law is applicable to the electronic contribution to thermal conductivity, 
+
+κ = L0σT, (S2) where L0 is the Sommerfeld Lorenz number and T is the absolute temperature. Combining the thermal and electrical transport properties gives 
+
+κσ = κ2
+
+L0T , (S3) which serves as a measure of the coupled thermal and electrical transport capability of the metal. To account for finite-size effects, we describe the effective electron mean free path using Matthiessen’s rule, 
+
+λ(d) = 
+
+ 1
+
+λbulk 
+
++ 1
+
+d
+
+−1
+
+, (S4) where λ(d) is the effective electron mean free path of a film with thickness d, and λbulk denotes the intrinsic bulk electron mean free path. As the film thickness decreases, enhanced boundary scattering reduces the effective mean free path and consequently suppresses both thermal and electrical transport. Within the Fuchs–Sondheimer size-effect framework, both the electrical conductivity and the electronic contribution to the thermal conductivity scale approximately with the effective electron mean free path, 
+
+κ(d) ∝ λ(d), σ(d) ∝ λ(d). (S5) 6Therefore, 
+
+κ(d)σ(d) ∝ λ(d)2 =
+
+ 1
+
+λbulk 
+
++ 1
+
+d
+
+−2
+
+. (S6) We define the normalized transport figure of merit (FOM) as FOM = κ(d)σ(d)
+
+κbulk σbulk 
+
+. (S7) Since the bulk transport product scales with the square of the bulk electron mean free path, 
+
+κbulk σbulk ∝ λ2bulk , (S8) the normalized transport figure of merit becomes FOM = λ−2bulk 
+
+ 1
+
+λbulk 
+
++ 1
+
+d
+
+−2
+
+(S9) This expression describes the degradation of coupled thermal and electrical transport with decreasing film thickness due to boundary scattering. The derivation assumes that (i) the Wiedemann–Franz law is valid for the electronic contribution to thermal conductivity, (ii) Matthiessen’s rule describes the thickness-dependent electron mean free path, and (iii) interface and adhesion-layer effects are neglected. Because the Lorenz number may deviate from the Sommerfeld value when phonons contribute appreciably to thermal transport, we independently measure the thermal conductivity and electrical conductivity using steady-state thermoreflectance (SSTR) and four-point probe measurements, respectively, to accurately evaluate the transport performance of the metallic thin films. 
+
+> Modeling the Effect of the Ta Adhesion/Barrier Layer
+
+To account for the practical implementation of Cu interconnects, we incorporate a 3 nm Ta adhesion/barrier layer into the transport analysis. The Cu/Ta interconnect is modeled as two layers connected in series for both electrical and thermal transport. The electrical resistance of each layer is given by 
+
+Ri = ρiLAi
+
+, (S10) where ρi, L, and Ai are the electrical resistivity, conductor length, and cross-sectional area of layer i, respectively. The total electrical resistance of the Cu/Ta stack is therefore 
+
+Relec = RCu + RTa . (S11) The electrical resistivity of the 3 nm Ta layer is taken as ρTa = 2 .69 × 10 −6 Ω·m, corresponding to an electrical conductivity of σTa = 3 .69 ×10 5 S m −1. The electronic thermal conductivity of Ta is estimated using the Wiedemann– Franz relation, 
+
+κTa = L0σTa T, (S12) where L0 = 2 .44 × 10 −8 WΩK −2 is the Sommerfeld Lorenz number and T = 298 K, yielding 
+
+κTa ≈ 2.66 W m −1K−1.7Similarly, the thermal resistance of each layer is 
+
+Rth ,i = LκiAi
+
+, (S13) and the total thermal resistance of the Cu/Ta stack is 
+
+Rth = Rth ,Cu + Rth ,Ta . (S14) The corresponding effective electrical and thermal conductivities of the Cu/Ta stack are subsequently used to evaluate the transport figure of merit discussed in the main text. The electrical resistivity and thermal conductivity of Cu are taken from our previous study [4]. 
+
+> TDTR MEASUREMENTS, SENSITIVITY ANALYSIS, AND UNCERTAINTY
+
+Time-domain thermoreflectance (TDTR) measurements are performed to determine the thermophysical param-eters required for the steady-state thermoreflectance (SSTR) thermal model. The experimental configuration has been described in detail elsewhere [4, 15]. Briefly, a Ti:sapphire laser (Spectra Physics Tsunami, ∼808 nm, 80 MHz) generates the pump and probe beams. The pump beam is modulated using an electro-optic modulator (EOM) to induce a periodic surface temperature oscillation, while the probe beam monitors the corresponding change in reflec-tivity through a balanced photodetector and lock-in amplifier. The effective pump–probe beam radius is determined using an Al-coated fused silica calibration sample (Corning HPFS 7980, κ = 1 .36 W m −1 K−1). Fitting the known thermal conductivity with the TDTR thermal model yields an effective beam radius of approximately 2.15 μm at the 20 × objective. Assuming identical pump and probe beam sizes, we further verify the beam radius by measuring the thermal conductivity of a sapphire reference sample. To evaluate the applicability of TDTR for the present metal films, we calculate the measurement sensitivity to the in-plane thermal conductivity of 100 nm Ir, Mo, and Co films following the methodology reported previously for Cu, Ru and W films [4, 15]. A 20 nm Al/60 nm Ti transducer is employed to ensure optical opacity and to laterally distribute the absorbed laser energy within the transducer before it enters the metal films. The sensitivity calculations are performed at two modulation frequencies using an effective beam radius of 2.15 μm and the thermophysical parameters listed in Table S4.   
+
+> FIG. S1. TDTR sensitivity for 100 nm Ir, Mo, and Co films . TDTR sensitivity to the in-plane thermal conductivity (κ∥) of Al/Ti-coated 100 nm Ir, Mo, and Co films for different modulation frequencies at an effective pump–probe beam radius of 2.15 μm
+
+As shown in Fig. S1, TDTR exhibits the highest sensitivity to the in-plane thermal conductivity of the 100 nm Ir, Mo, and Co films at a modulation frequency of 1.2 MHz. Nevertheless, the sensitivity decreases rapidly with decreasing film thickness, becoming insufficient for films thinner than approximately 50 nm. Under the present experimental configuration, TDTR also does not provide sufficient sensitivity to independently determine the cross-plane thermal conductivity of these metal films. Consequently, only the in-plane thermal conductivity of the 100 nm Ir, Mo, and Co 8films is extracted from the TDTR measurements. The sensitivity analysis further indicates that the TDTR response is more strongly influenced by the thermal conductivities of the SiO 2 layer and Si substrate than by those of the metal films. Therefore, the accepted literature values for SiO 2 and Si are fixed in the thermal model to improve the robustness of the fitting procedure [14, 22–25]. 
+
+TABLE S1. Parameters used in the thermal model to determine the in-plane thermal conductivities of Ir, Mo, and Co thin films. 
+
+Material Thickness (nm) Heat Capacity (MJ/m 3K) Thermal Conductivity (W/m ·K) TBR (m 2K/GW) 
+
+Al 20 2.42 [23] 110–120 –Al/Ti – – – 0.333 [26, 27] Ti 60 2.36 [28] 16–19 –Ir 5–100 2.94 [29] 100 nm, k∥ = 16 .35 ± 12 .4a –Ti/Ir – – – 1.33 a
+
+Mo 5–100 2.56 [30] 100 nm, k∥ = 28 .18 ± 15 .6a –Ti/Mo – – – 1.33 a
+
+Co 5–100 3.76 [31] 100 nm, k∥ = 31 .77 ± 15 .8a –Ti/Co – – – 3.11 a
+
+Metal/SiO 2 – – – 5.00 [22] SiO 2 100 1.62 [14, 22, 24] 1.45 [14, 22–24] –SiO 2/Si – – – 4.35 [22, 24] Si – 1.65 [14, 22–24] 140 [14, 22] –  
+
+> a. The listed thermal conductivities correspond to the measured in-plane thermal conductivities of the 100 nm reference films determined by TDTR: The corresponding TDTR-measured thermal boundary resistances are used in the thermal model. We propagate a 50% uncertainty in both measured and assumed TBR values.
+> b. We perturb the thermal conductivities of Al, Ti, and Si by 5% and that of SiO 2by 3%. Since the cross-plane thermal conductivity of the metal films cannot be resolved from the TDTR measurements, we assume it is equal to the corresponding electronic thermal conductivity and assign a 50% uncertainty to this parameter. We perturb the film thicknesses by 3%.
+
+The in-plane thermal conductivities of the Ir, Mo, and Co films are extracted by fitting the TDTR response with a five-layer heat diffusion model [32, 33]. The thermophysical properties, layer thicknesses, and thermal boundary resistances used in the calculations are summarized in Table S1. Because the present TDTR configuration does not provide sufficient sensitivity to independently determine the cross-plane thermal conductivity of the Ir, Mo and Co films, we assume it is equal to the corresponding electronic thermal conductivity and use this value as a model parameter during the fitting procedure. The experimental TDTR data are analyzed by comparing the measured ratio of the in-phase and out-of-phase voltages, −Vin /V out , with the predictions of the thermal model. Representative fits for the 100 nm Ir, Mo, and Co films are presented in Fig. S2a, demonstrating excellent agreement between the measured response and the model. The fitting procedure simultaneously determines the in-plane thermal conductivity and the thermal boundary resistance between the transducer and the metal film. The extracted values are listed in Table S1. To evaluate the uniqueness of the fitted parameters, we calculate residual error by varying the in-plane thermal conductivity about their optimum values. As shown in Fig. S2b, multiple parameter combinations produce comparable agreement with the experimental data. We therefore define the uncertainty associated with the fitting procedure using a residual threshold of 1.5%, corresponding to the range of parameter pairs that reproduce the measured TDTR response within this criterion. The uncertainty in the extracted in-plane thermal conductivity includes contributions from the fitting residual, spatial variation among repeated measurements, and uncertainties in the thermal model parameters. Specifically, we propagate uncertainties associated with the thermal conductivities of Al, Ti, SiO 2, and Si, the thermal boundary resistances, and the assumed cross-plane thermal conductivity of the metal films. The total uncertainty, εi, is calculated as 
+
+εi =
+
+s
+
+σ2 
+
+> i
+
++ X
+
+> i
+
+∆2 
+
+> i
+
+, (S15) where σi denotes the standard deviation obtained from measurements at multiple locations on each sample and ∆ i
+
+represents the uncertainty associated with each parameter in the thermal model [14, 34]. The resulting uncertain-ties, together with the extracted in-plane thermal conductivities and thermal boundary resistances, are reported in Table S1. 9    
+
+> FIG. S2. Theoretical fit and error analysis .(a) Measured TDTR signals (symbols) and best-fit thermal model (dashed lines) for 100 nm Ir, Mo, and Co films obtained at 1.2 MHz with an effective pump–probe beam radius of 2.15 μm. (b)
+> Residual error as a function of the fitted in-plane thermal conductivity ( κ∥). The dashed horizontal lines denote the 1.5% residual criterion adopted to estimate the uncertainty in the extracted thermal conductivity.
+> SSTR MEASUREMENTS, SENSITIVITY ANALYSIS, AND UNCERTAINTY
+
+To establish the capability of steady-state thermoreflectance (SSTR) to determine the in-plane thermal conductivity of Ir, Mo, and Co films, we calculate the measurement sensitivity to the thermophysical parameters of the multilayer structure as a function of film thickness. The sensitivity analysis follows the methodology reported in our previous work [4, 15] and the formalism developed by Braun et al. and Yang et al. [14, 35]. The sensitivity to a parameter, x, is defined as 
+
+Sx = ∆T1.1x − ∆T0.9x
+
+∆Tx
+
+, (S16) where ∆ Tx is the temperature rise predicted by the steady-state heat diffusion model using the nominal material properties, and ∆ T1.1x and ∆ T0.9x correspond to 10% positive and negative perturbations of the parameter, respec-tively. The calculations employ the thermophysical properties listed in Table S1. Figure S3 shows the calculated sensitivities for Ir, Mo, and Co films using an effective pump–probe beam radius of approximately 2.15 μm. For all three materials, the SSTR response is considerably more sensitive to the in-plane thermal conductivity ( κ∥) than to the cross-plane thermal conductivity ( κ⊥). This behavior arises because the thermal conductivity of the metal films greatly exceeds that of the underlying SiO 2 layer, promoting lateral heat transport within the film and producing a stronger in-plane temperature gradient [14, 36]. Consequently, SSTR primarily probes the in-plane thermal conduc-tivity of the metallic films. Figure S3 shows that SSTR signal remains more sensitive to the SiO 2 thermal conductivity than to the metal-film thermal conductivity over a broad thickness range. We use the accepted literature value of 
+
+κSiO 2 = 1 .45 W m −1 K−1 range [14, 22–24]. Likewise, literature values are adopted for the thermal conductivity of Si and for the heat capacities and thermal boundary resistances used in the thermal model (Table S1) [14, 22–24]. These results demonstrate that the chosen SSTR configuration provides sufficient sensitivity to accurately determine the in-plane thermal conductivity of Ir, Mo, and Co thin films. The in-plane thermal conductivities of the Ir, Mo, and Co films are determined by fitting the SSTR measurements with a five-layer heat diffusion model consisting of the Al/Ti transducer, metal film, SiO 2, and Si substrate [4, 14, 22]. Material properties not directly determined by SSTR, including the thermal boundary resistances are obtained from 10     
+
+> FIG. S3. Sensitivity analysis of SSTR measurements. Calculated sensitivities of the SSTR signal to the thermophysical parameters of (a) Ir, (b) Mo, and (c) Co films as a function of film thickness. The calculations are performed using the corresponding thermal model parameters listed in Table S1. For all three materials, the sensitivity to the in-plane thermal conductivity ( κ∥) increases with increasing film thickness and exceeds the sensitivity to the cross-plane thermal conductivity (κ⊥), enabling reliable extraction of the in-plane thermal conductivity over the investigated thickness range.
+
+TDTR measurements or established literature values, as summarized in Table S1. Figures S4(a), (c), and (e) compare the measured normalized thermoreflectance signal (∆ V /V ) with the corresponding thermal-model predictions as a function of the pump-induced voltage change (∆ P ). A sapphire reference sample with well-established thermophysical properties is used to determine the calibration factor ( γ), which is subsequently fixed for all measurements. The only adjustable parameter in the fitting procedure is the in-plane thermal conductivity, κ∥. The fitting robustness is evaluated through the residual analysis shown in Figs. S4(b), (d), and (f), where the residual error is plotted as a function of the assumed in-plane thermal conductivity. The minimum of each curve identifies the best-fit value of κ∥,while the dashed horizontal line denotes the 2.0% residual threshold adopted to define the acceptable fitting window. This criterion is selected based on the maximum deviation between the experimental data and the thermal model and provides a consistent estimate of the uncertainty associated with the fitting procedure. The total uncertainty reported in the thermal conductivity is calculated using Eq. S15, combining the fitting residual, spot-to-spot measurement variability, and propagated uncertainties in the thermophysical properties and thermal boundary resistances listed in Table S1. Figure S5 compares the electronic thermal conductivity with the total in-plane thermal conductivity measured by SSTR. The electronic thermal conductivity is independently estimated from the measured electrical resistivity using the Wiedemann–Franz law with the Sommerfeld Lorenz number. For all three metals, the SSTR-measured thermal conductivity consistently exceeds the electronic contribution estimated from the Wiedemann–Franz relation. This observation is consistent with previous studies reporting a finite phonon contribution to thermal transport in Ir, Mo, and Co.[7, 37, 38] A quantitative separation of the electronic and phononic contributions is beyond the scope of the present work. The larger uncertainties observed for films thinner than approximately 50 nm arise from the reduced sensitivity of the SSTR measurements to the in-plane thermal conductivity in this thickness regime.        
+
+> ∗Corresponding Author: mrisagor013@gmail.com
+> †Corresponding Author: phopkins@virginia.edu [1] Shankar Krishnan, Suresh V Garimella, Gregory M Chrysler, and Ravi V Mahajan. Towards a thermal moore’s law. IEEE Transactions on advanced packaging , 30(3):462–474, 2007. [2] Krishna Seshan. Scaling—its effects on heat generation and cooling of devices. a “thermal moore’s” law? Handbook of Thin Film Deposition , page 41, 2012. [3] Tianzhuo Zhan, Kaito Oda, Shuaizhe Ma, Motohiro Tomita, Zhicheng Jin, Hiroki Takezawa, Kohei Mesaki, Yen-Ju Wu, Yibin Xu, Takashi Matsukawa, et al. Effect of thermal boundary resistance between the interconnect metal and dielectric interlayer on temperature increase of interconnects in deeply scaled vlsi. ACS applied materials & interfaces , 12(19):22347– 22356, 2020. [4] Md Rafiqul Islam, Pravin Karna, John A Tomko, Eric R Hoglund, Daniel M Hirt, Md Shafkat Bin Hoque, Saman Zare, Kiumars Aryana, Thomas W Pfeifer, Christopher Jezewski, et al. Evaluating size effects on the thermal conductivity and electron-phonon scattering rates of copper thin films for experimental validation of matthiessen’s rule. Nature Communi-cations , 15(1):9167, 2024. [5] Jean-Philippe Souli´ e, Kiroubanand Sankaran, Benoit Van Troeye, Alicja Le´ sniewska, Olalla Varela Pedreira, Herman
+
+11 
+
+FIG. S4. Representative SSTR fitting and residual analysis. Experimental SSTR data (symbols) and best-fit thermal model (dashed lines) for (a) Ir, (c) Mo, and (e) Co films with thicknesses of approximately 25, 50, and 100 nm, together with a sapphire reference sample used for gamma calibration. The corresponding residual error as a function of the fitted in-plane thermal conductivity ( κ∥) is shown in (b), (d), and (f). The dashed horizontal line indicates the 2.0% residual threshold adopted to determine the uncertainty in the extracted thermal conductivity. 12 
+
+FIG. S5. Comparison of electronic and total thermal conductivities of Ir, Mo, and Co films. (a)–(c) In-plane thermal conductivities of Ir, Mo, and Co films measured by SSTR (blue triangles) together with the electronic thermal con-ductivities estimated from four-point probe resistivity measurements using the Wiedemann–Franz law (black squares). The measured thermal conductivity is consistently higher than the electronic contribution, consistent with previously reported phonon-mediated heat transport in these metals [7, 37, 38]. Oprins, Gilles Delie, Claudia Fleischmann, Lizzie Boakes, C´ edric Rolin, et al. Selecting alternative metals for advanced interconnects. Journal of Applied Physics , 136(17), 2024. [6] Lizzie Boakes, Lars-˚ Ake Ragnarsson, C´ edric Rolin, and Christoph Adelmann. Selection of alternative local interconnect metals: Beyond traditional criteria towards sustainable and secure supply chains. arXiv preprint arXiv:2401.02864 , 2024. [7] Christopher Perez, Atharv Jog, Heungdong Kwon, Daniel Gall, Mehdi Asheghi, Suhas Kumar, Woosung Park, and Ken-neth E Goodson. Dominant energy carrier transitions and thermal anisotropy in epitaxial iridium thin films. Advanced Functional Materials , 32(45):2207781, 2022. [8] Daniel Gall. The search for the most conductive metal for narrow interconnect lines. Journal of Applied Physics , 127(5), 2020. [9] James R Black. Electromigration—a brief survey and some recent results. IEEE Transactions on Electron Devices ,16(4):338–347, 1969. [10] Dan Edelstein, J Heidenreich, R Goldblatt, W Cote, C Uzoh, N Lustig, P Roper, T McDevitt, W Motsiff, A Simon, et al. Full copper wiring in a sub-0.25/spl mu/m cmos ulsi technology. In International Electron Devices Meeting. IEDM Technical Digest , pages 773–776. IEEE, 1997. [11] Houman Zahedmanesh, O Varela Pedreira, Chris Wilson, Zsolt T˝ okei, and Kristof Croes. Copper electromigration; predic-tion of scaling limits. In Proceedings of IEEE International Interconnect Technology Conference (IITC) , pages 3–5. IEEE, 2019. [12] Daniel Gall. Electron mean free path in elemental metals. Journal of applied physics , 119(8):085101, 2016. [13] William M Haynes. CRC handbook of chemistry and physics . CRC press, 2016. [14] Jeffrey L Braun, David H Olson, John T Gaskins, and Patrick E Hopkins. A steady-state thermoreflectance method to measure thermal conductivity. Review of Scientific Instruments , 90(2), 2019. [15] Md Rafiqul Islam, Pravin Karna, Niraj Bhatt, Sandip Thakur, Helge Heinrich, Daniel M Hirt, Saman Zare, Christopher Jezewski, Rinus TP Lee, Kandabara Tapily, et al. Unveiling phonon contributions to thermal conductivity and the applica-bility of the wiedemann—franz law in ruthenium and tungsten thin films. Advanced Functional Materials , 36(12):e11592, 2026. [16] Chun-Li Lo, Massimo Catalano, Ava Khosravi, Wanying Ge, Yujin Ji, Dmitry Y Zemlyanov, Luhua Wang, Rafik Addou, Yuanyue Liu, Robert M Wallace, et al. Enhancing interconnect reliability and performance by converting tantalum to 2d layered tantalum sulfide at low temperature. Advanced Materials , 31(30):1902397, 2019. [17] A Le´ sniewska, Philippe J Roussel, Davide Tierno, V Vega Gonzalez, Marleen H van der Veen, Patrick Verdonck, Nicolas Jourdan, Christopher J Wilson, Zs T˝ okei, and Kris Croes. Dielectric reliability study of 21 nm pitch interconnects with barrierless ru fill. In 2020 IEEE international reliability physics symposium (IRPS) , pages 1–6. IEEE, 2020. [18] A Le´ sniewska, O Varela Pedreira, Melina Lofrano, Gayle Murdoch, Marleen van der Veen, Anish Dangol, Naoto Horiguchi, Zs T˝ okei, and Kris Croes. Reliability of a dme ru semidamascene scheme with 16 nm wide airgaps. In 2021 IEEE International Reliability Physics Symposium (IRPS) , pages 1–6. IEEE, 2021. [19] F Griggio, James Palmer, F Pan, N Toledo, Anthony Schmitz, Ilan Tsameret, R Kasim, G Leatherman, Jeffery Hicks, A Madhavan, et al. Reliability of dual-damascene local interconnects featuring cobalt on 10 nm logic technology. In 2018 IEEE International Reliability Physics Symposium (IRPS) , pages 6E–3. IEEE, 2018. [20] Emigdio Ch´ avez-Angel, Juan Sebastian Reparaz, Jordi Gomis-Bresco, Markus R Wagner, John Cuffe, Bartlomiej Graczykowski, Andrey Shchepetov, Hua Jiang, Mika Prunnila, Jouni Ahopelto, et al. Reduction of the thermal con-ductivity in free-standing silicon nano-membranes investigated by non-invasive raman thermometry. APL materials , 2(1), 2014. [21] K Fuchs. The conductivity of thin metallic films according to the electron theory of metals. In Mathematical Proceedings 13 
+
+of the Cambridge Philosophical Society , volume 34, pages 100–108. Cambridge University Press, 1938. [22] Md Shafkat Bin Hoque, Yee Rui Koh, Kiumars Aryana, Eric R Hoglund, Jeffrey L Braun, David H Olson, John T Gaskins, Habib Ahmad, Mirza Mohammad Mahbube Elahi, Jennifer K Hite, et al. Thermal conductivity measurements of sub-surface buried substrates by steady-state thermoreflectance. Review of Scientific Instruments , 92(6), 2021. [23] Claudia Cancellieri, Ethan A Scott, Jeffrey Braun, Sean W King, Ron Oviedo, Christopher Jezewski, John Richards, Fabio La Mattina, Lars PH Jeurgens, and Patrick E Hopkins. Interface and layer periodicity effects on the thermal conductivity of copper-based nanomultilayers with tungsten, tantalum, and tantalum nitride diffusion barriers. Journal of Applied Physics , 128(19), 2020. [24] Jeffrey L Braun, Christopher H Baker, Ashutosh Giri, Mirza Elahi, Kateryna Artyushkova, Thomas E Beechem, Pamela M Norris, Zayd C Leseman, John T Gaskins, and Patrick E Hopkins. Size effects on the thermal conductivity of amorphous silicon thin films. Physical Review B , 93(14):140201, 2016. [25] Ethan A Scott, Sean W Smith, M David Henry, Christina M Rost, Ashutosh Giri, John T Gaskins, Shelby S Fields, Samantha T Jaszewski, Jon F Ihlefeld, and Patrick E Hopkins. Thermal resistance and heat capacity in hafnium zirconium oxide (hf1–xzrxo2) dielectrics and ferroelectric thin films. Applied Physics Letters , 113(19), 2018. [26] RB Wilson and David G Cahill. Experimental validation of the interfacial form of the wiedemann-franz law. Physical review letters , 108(25):255901, 2012. [27] Ramez Cheaito, Khalid Hattar, John T Gaskins, Ajay K Yadav, John C Duda, Thomas E Beechem, Jon F Ihlefeld, Edward S Piekos, Jon K Baldwin, Amit Misra, et al. Thermal flux limited electron kapitza conductance in copper-niobium multilayers. Applied Physics Letters , 106(9), 2015. [28] David H Olson, Maria G Sales, John A Tomko, Teng-Fei Lu, Oleg V Prezhdo, Stephen J McDonnell, and Patrick E Hopkins. Band alignment and defects influence the electron–phonon heat transport mechanisms across metal interfaces. 
+
+Applied Physics Letters , 118(16), 2021. [29] Balaram Thakur, Xuejun Gong, and Andrea Dal Corso. Ab initio thermodynamic properties of iridium: A high-pressure and high-temperature study. Computational Materials Science , 234:112797, 2024. [30] Pramond D Desai. Thermodynamic properties of manganese and molybdenum. Journal of physical and chemical reference data , 16(1):91–108, 1987. [31] Skiles A Montague, Clifton W Draper, and Gerd M Rosenblatt. Thermal diffusivities of hafnium and cobalt from 300 to 1000 k. Journal of Physics and Chemistry of Solids , 40(12):987–992, 1979. [32] David G Cahill et al. Analysis of heat flow in layered structures for time-domain thermoreflectance. Review of scientific instruments , 75(12):5119, 2004. [33] Patrick E Hopkins, Justin R Serrano, Leslie M Phinney, Sean P Kearney, Thomas W Grasser, and C Thomas Harris. Criteria for cross-plane dominated thermal transport in multilayer thin film systems during modulated laser heating. 2010. [34] Joseph P Feser and David G Cahill. Probing anisotropic heat transport using time-domain thermoreflectance with offset laser spots. Review of Scientific Instruments , 83(10), 2012. [35] Jia Yang, Carlo Maragliano, and Aaron J Schmidt. Thermal property microscopy with frequency domain thermoreflectance. 
+
+Review of Scientific Instruments , 84(10), 2013. [36] Md Shafkat Bin Hoque, Yee Rui Koh, Jeffrey L Braun, Abdullah Mamun, Zeyu Liu, Kenny Huynh, Michael E Liao, Kamal Hussain, Zhe Cheng, Eric R Hoglund, et al. High in-plane thermal conductivity of aluminum nitride thin films. ACS nano ,15(6):9588–9599, 2021. [37] Shihao Wen, Jinlong Ma, Ashis Kundu, and Wu Li. Large lattice thermal conductivity, interplay between phonon-phonon, phonon-electron, and phonon-isotope scatterings, and electrical transport in molybdenum from first principles. Physical Review B , 102(6):064303, 2020. [38] Zhen Tong, Shouhang Li, Xiulin Ruan, and Hua Bao. Comprehensive first-principles analysis of phonon thermal conduc-tivity and electron-phonon coupling in different metals. Physical review B , 100(14):144306, 2019.

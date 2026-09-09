@@ -41,17 +41,17 @@
 <section class="dpr-home-dashboard-card dpr-home-report-card">
   <div class="dpr-home-dashboard-header">
     <div>
-      <span class="dpr-home-dashboard-kicker">2026-09-08</span>
+      <span class="dpr-home-dashboard-kicker">2026-09-09</span>
       <h3 class="dpr-home-dashboard-title">今日汇总</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">共 6 篇</strong>
+    <strong class="dpr-home-dashboard-count">共 8 篇</strong>
   </div>
   <dl class="dpr-home-dashboard-stats">
     <div class="dpr-home-dashboard-stat"><dt>累计更新</dt><dd>1 次</dd></div>
     <div class="dpr-home-dashboard-stat"><dt>精读</dt><dd>3</dd></div>
-    <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>3</dd></div>
+    <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>5</dd></div>
   </dl>
-  <p class="dpr-home-dashboard-body">最近更新：2026-09-08 21:42:10 UTC<br>状态：成功</p>
+  <p class="dpr-home-dashboard-body">最近更新：2026-09-09 21:45:05 UTC<br>状态：成功</p>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-brief-card">
   <div class="dpr-home-dashboard-header">
@@ -62,7 +62,9 @@
     <strong class="dpr-home-dashboard-count">AI</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<p>今日精读3篇速读3篇，聚焦LLM推理加速与存内计算芯片架构。最值得看的是两篇8分工作：CHIPSMORE的互连/内存chiplet多请求加速，以及IMC-NoC的均衡数据流与细粒度并行。普通读者可顺带关注7分的华为τ芯片报道，了解工程争议。</p>
+<p>今日推荐8篇论文，核心聚焦事件驱动存算一体与可靠边缘AI计算。</p>
+<p>最值得看FlexSpIM（9.0分）的灵活操作数混合驻留设计，以及FALCON（8.0分）面向可靠性关键应用的容错MTJ随机架构。</p>
+<p>建议普通读者优先浏览这两篇精读论文，了解芯片级能效与容错权衡的实用思路。</p>
   </div>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-deep-card">
@@ -74,7 +76,7 @@
     <strong class="dpr-home-dashboard-count">3 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="CHIPSMORE: Compute-in-Interconnect and -Memory Chiplets for Multi-Mode Multi-Request LLM Inference Acceleration">CHIPSMORE: Compute-in-Interconnect and -Memory Chiplets for Multi-Mode Multi-Request LLM Inference Acceleration</span></li><li><span class="dpr-home-dashboard-paper-title" title="LLM Inference on IMC-NoC Architecture with Balanced Dataflow and Fine-Grained Parallelism">LLM Inference on IMC-NoC Architecture with Balanced Dataflow and Fine-Grained Parallelism</span></li><li><span class="dpr-home-dashboard-paper-title" title="An Emerging NVM-Based On-Chip Training Architecture with Non-Ideality Mitigation Through Bipolar Weight Distributions">An Emerging NVM-Based On-Chip Training Architecture with Non-Ideality Mitigation Through Bipolar Weight Distributions</span></li></ul>
+<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="FlexSpIM: An Event-Based Digital Compute-In-Memory Accelerator with Flexible Operand Resolution and Layer-Wise Hybrid Stationarity">FlexSpIM: An Event-Based Digital Compute-In-Memory Accelerator with Flexible Operand Resolution and Layer-Wise Hybrid Stationarity</span></li><li><span class="dpr-home-dashboard-paper-title" title="FALCON: Fault-Tolerant Magnetic Tunnel Junction-Based In-Memory Stochastic Architecture for Reliability-Critical Edge AI Applications">FALCON: Fault-Tolerant Magnetic Tunnel Junction-Based In-Memory Stochastic Architecture for Reliability-Critical Edge AI Applications</span></li><li><span class="dpr-home-dashboard-paper-title" title="Differentiable Partitioning with Placement and Hybrid Bonding Terminal Awareness for Optimized 3D Placement">Differentiable Partitioning with Placement and Hybrid Bonding Terminal Awareness for Optimized 3D Placement</span></li></ul>
   </div>
   <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">cim <strong>3</strong></span></div>
 </section>
@@ -84,12 +86,12 @@
       <span class="dpr-home-dashboard-kicker">今日累计</span>
       <h3 class="dpr-home-dashboard-title">速读推荐</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">3 篇</strong>
+    <strong class="dpr-home-dashboard-count">5 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="Huawei&#x27;s $τ$ Chip Was Supposed to Melt?">Huawei&#x27;s $τ$ Chip Was Supposed to Melt?</span></li><li><span class="dpr-home-dashboard-paper-title" title="FALCON: Fault-Tolerant Magnetic Tunnel Junction-Based In-Memory Stochastic Architecture for Reliability-Critical Edge AI Applications">FALCON: Fault-Tolerant Magnetic Tunnel Junction-Based In-Memory Stochastic Architecture for Reliability-Critical Edge AI Applications</span></li><li><span class="dpr-home-dashboard-paper-title" title="Compute-in-Memory Attention: A Time-Domain Analog Softmax Circuit with RC-Tunable Temperature">Compute-in-Memory Attention: A Time-Domain Analog Softmax Circuit with RC-Tunable Temperature</span></li></ul>
+<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="LLM Inference on IMC-NoC Architecture with Balanced Dataflow and Fine-Grained Parallelism">LLM Inference on IMC-NoC Architecture with Balanced Dataflow and Fine-Grained Parallelism</span></li><li><span class="dpr-home-dashboard-paper-title" title="An Emerging NVM-Based On-Chip Training Architecture with Non-Ideality Mitigation Through Bipolar Weight Distributions">An Emerging NVM-Based On-Chip Training Architecture with Non-Ideality Mitigation Through Bipolar Weight Distributions</span></li><li><span class="dpr-home-dashboard-paper-title" title="Compute-in-Memory Attention: A Time-Domain Analog Softmax Circuit with RC-Tunable Temperature">Compute-in-Memory Attention: A Time-Domain Analog Softmax Circuit with RC-Tunable Temperature</span></li></ul>
   </div>
-  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">cim <strong>2</strong></span><span class="dpr-home-dashboard-tag">thermal-gnn <strong>1</strong></span></div>
+  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">cim <strong>4</strong></span><span class="dpr-home-dashboard-tag">thermal-gnn <strong>1</strong></span></div>
 </section>
 </div>
 

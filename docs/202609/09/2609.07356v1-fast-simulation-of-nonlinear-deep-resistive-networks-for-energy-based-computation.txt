@@ -1,0 +1,2138 @@
+Title: Fast simulation of nonlinear deep resistive networks for energy-based computation
+
+URL Source: https://arxiv.org/pdf/2609.07356v1
+
+Published Time: Wed, 09 Sep 2026 02:22:08 GMT
+
+Number of Pages: 38
+
+Markdown Content:
+# Fast simulation of nonlinear deep resistive networks for energy-based computation 
+
+Filip Osana (1)(2) , Julie Grollier (2)* , Damien Querlioz (1) (1) Universit´ e Paris-Saclay, CNRS, Centre de Nanosciences et de Nanotechnologies, Palaiseau, France  
+
+> (2)
+
+Laboratoire Albert Fert, CNRS, Thales, Universit´ e Paris-Saclay, Palaiseau, France  
+
+> *
+
+Corresponding author: julie.grollier@cnrs-thales.fr 
+
+Abstract 
+
+Deep resistive networks are electronic energy-based systems in which computation is performed by the steady-state voltages of nonlinear cir-cuits. Nonlinear devices enable expressive input-output transformations, but make the circuit equilibria costly to compute during simulation and training. Recent coordinate-descent solvers have achieved large speedups over SPICE-class circuit simulators, but only for nonlinearities modeled as ideal-diode models. This mathematical simplification is not sufficient for practical analog circuits. Here we extend coordinate-descent sim-ulation to realistic monotone nonlinearities, including Shockley diodes, antiparallel diode pairs, and piecewise-linear current-voltage characteris-tics. With neighboring voltages fixed, each node update remains a scalar Kirchhoff-law solve. Single-exponential characteristics admit closed-form Lambert-(W) updates, while more general monotone characteristics can be handled with scalar root-finding methods. Across networks with one to three hidden layers and hidden widths from 64 to 1024, the solver repro-duces matched SPICE steady-state voltages with relative L1 errors below 1.1 × 10 −4 for 90% of validation samples, while achieving speedups up to (1 .7 × 10 3). We further train a 1568 × 100 × 20 double-Shockley network on MNIST, reaching about 3.0% test error and reducing the per-epoch training time by roughly 4 .4 × 10 2. Together, these results establish a practical route to the circuit-level design and training of large-scale ana-log energy-based systems incorporating realistic nonlinear devices. 
+
+# Introduction 
+
+Physical machines for energy-based computation use the dynamics of physics to perform part of the computation: a state evolves under physical laws until it reaches an equilibrium, attractor, or minimum of an energy-like landscape [1, 2, 3, 4, 5]. In electronic implementations, this idea is especially appealing because Kirchhoff’s laws, device nonlinearities, and dissipation are then mechanisms that perform energy minimization intrinsically. 1arXiv:2609.07356v1 [cs.ET] 7 Sep 2026 Deep resistive networks (DRNs), whose topology is inspired by deep neu-ral networks, provide a promising electronic implementation of energy-based computation [6, 7]. In these circuits, trainable parameters are encoded by con-ductances connecting successive layers, while nonlinear one-port elements play the role of activation functions. The node voltages are determined by Kirch-hoff’s current law, and for monotone nonlinear elements the steady state can be written as the minimizer of an electrical content function, which plays the role of the “energy function” of the network. This energy-minimization formu-lation makes DRNs compatible with equilibrium propagation [8, 9, 10], in which learning is obtained from local differences between free and nudged equilibria. In principle, this gives a route to trainable analog physical learning machines [11, 12]. A central challenge, however, is that these networks must be designed, trained, and benchmarked in simulation before they can be built at useful scale. A single inference requires solving for the steady-state voltages of the circuit, each training step requires one or more steady-state solves, and a complete training run can require millions of such solves. This makes DRNs particularly hard to study and optimize. General-purpose circuit simulators such as SPICE provide reliable reference solutions for DRNs, but they are slow for the repeated steady-state solves required in inference and learning. Each solve is treated as a generic nonlinear circuit simulation, without exploiting the layered structure of DRNs or the fact that many similar equilibria must be computed. This com-putational cost has limited SPICE-based studies of nonlinear DRNs to modest network sizes [6, 13]. More broadly, scalable hardware demonstrations of resis-tive learning systems have often avoided this nonlinear-equilibrium bottleneck by focusing on linear networks [14, 15, 16]. Recent work showed that coordinate descent can greatly accelerate DRN simulation when the nonlinear elements are modeled as ideal diodes [17]. In that special case, the equilibrium problem reduces to a quadratic program with linear inequality constraints, which makes the coordinate updates particularly simple. However, ideal diodes are a severe simplification of physical circuit behavior. In practical analog circuits, nonlinear behavior is governed by realistic current-voltage characteristics, such as Shockley diode curves, antiparallel diode pairs, or transistor-derived responses. The challenge is therefore to retain the speed of coordinate descent while moving beyond ideal constraints to physical nonlinear device characteristics. Realistic current-voltage characteristics can be specified either by analytical expressions or by measured tabulated data. They no longer give the quadratic program obtained for ideal-diode networks, but when the characteristics are monotone their contribution to the electrical content remains convex. The key observation underlying this work is that this is sufficient to preserve the coordinate-descent approach. With neighboring voltages held fixed, updating a node voltage still only requires enforcing Kirchhoff’s current law at that node, leading to a scalar nonlinear equation. Device realism therefore only changes the local update rule, while the layer-wise coordinate-descent structure of DRNs is preserved. 2Here, we turn this observation into a coordinate-descent solver for nonlinear DRNs. We first formulate networks with linear conductances, ideal sources, and monotone nonlinear one-port devices as convex content minimization prob-lems. We then derive local coordinate updates for analytical and tabulated nonlinear current-voltage characteristics, including closed-form Lambert-W up-dates for single-exponential branches and scalar updates for antiparallel Shock-ley and monotone piecewise-linear characteristics. We validate the resulting solver against matched SPICE simulations on Digits networks with one to three hidden layers, hidden widths from 64 to 1024, and three nonlinear device mod-els. Finally, we use the solver to train a 1568 × 100 × 20 double-Shockley DRN on MNIST and verify the trained circuit against SPICE. 
+
+# Results 
+
+## Resistive networks with nonlinear one-port elements as energy-based machines 
+
+We consider electrical networks composed of ideal voltage sources, ideal current sources, linear resistors, and voltage-controlled nonlinear one-port elements, as illustrated in Fig. 1. The linear resistors connect pairs of circuit nodes and represent the trainable conductances of the network. By contrast, the nonlinear elements are local shunt elements: they are attached to free nodes and connected on their other terminal to a fixed potential, such as ground or a voltage bias. If the fixed terminal of the nonlinear element connected to node (k) is held at V fix  
+
+> k
+
+,its current depends on the voltage difference vk − V fix  
+
+> k
+
+. Since V fix  
+
+> k
+
+is prescribed, we absorb this constant offset into the definition of the device characteristic and write ik(vk) for the current leaving node (k) through the nonlinear branch. The network has N nodes and node potentials v = ( v1, . . . , v N ) ∈ RN . We define V := {1, . . . , N }. We index circuit elements by the sets 
+
+BR ⊆ {j, k } ⊆ V : j̸ = k (resistor branches) , BCS ⊆ V×V (current sources) ,VN L ⊆ V (nodes with a nonlinear element) .
+
+Voltage sources clamp boundary nodes to prescribed potentials. We denote by S ⊆ RN the set of node potentials compatible with these constraints and a chosen reference node. We denote by Vfree ⊆ V the set of free, non-boundary nodes, i.e., nodes whose voltages are not fixed by voltage-source constraints. For each resistor branch {j, k } ∈ BR, gjk ≥ 0 denotes the conductance be-tween nodes j and k. For each current-source branch ( j, k ) ∈ BCS , ICS jk denotes the current leaving node j and entering node k. For the nonlinear branches, we restrict attention to monotone current-voltage characteristics. This assumption covers the passive nonlinear elements considered here and ensures that each branch contributes a convex term to the electrical content. Specifically, for each 
+
+k ∈ VN L , the nonlinear element is described by a nondecreasing current law 3ik(·) and its primitive function [18, 19, 20]. 
+
+ϕk(v) := 
+
+Z v
+
+> 0
+
+ik(u) d u. (1) Because ik is nondecreasing, ϕk is convex. We define the energy function of the network as 
+
+E(v) = Elin (v) + Enl (v) + Ecs (v), (2) with 
+
+Elin (v) := 12
+
+X
+
+> {j,k }∈ BR
+
+gjk 
+
+ vj − vk
+
+2, (3) 
+
+Enl (v) := X
+
+> k∈VN L
+
+ϕk(vk), (4) 
+
+Ecs (v) := X
+
+> (j,k )∈BCS
+
+ICS jk 
+
+ vj − vk
+
+. (5) The energy function of the network is called this way as it plays the role of energy in energy-based networks, although it is homogeneous to a power. In the literature, this quantity is also called content function [18, 19] or pseudopower [20]. For a free node k, differentiating E with respect to vk gives the residual current leaving that node: 
+
+∂E ∂v k
+
+(v) = X
+
+> j:{j,k }∈ BR
+
+gjk (vk−vj )+ 
+
+(
+
+ik(vk), k ∈ VN L ,
+
+0, k / ∈ VN L , + X
+
+> j:( k,j )∈BCS
+
+ICS kj − X
+
+> j:( j,k )∈BCS
+
+ICS jk .
+
+(6) Thus, the stationarity conditions ∂E/∂v k = 0 on free nodes are precisely the KCL equations at free nodes. Since the resistor contributions are convex for gjk ≥ 0, the nonlinear con-tributions are convex because ik(·) is nondecreasing, and the current-source contributions are linear, the content E is convex on S. The KCL solution can be characterized as the minimizer of this electrical content 
+
+v⋆ = arg min  
+
+> v∈S
+
+E(v), (7) [18, 19, 20]. When E is strictly convex on the free variables, this equilibrium is unique. 
+
+## Coordinate descent reduces each update to a local KCL solve 
+
+The convexity of the content objective E on S allows us to solve (7) using co-ordinate descent, following the approach of ref. [17]. In ref. [17], the nonlinear 45g1,3 g3,5
+
+g2,4 g4,6
+
+g1,2
+
+> −
+> +
+> −
+> +
+
+Isource     
+
+> vi
+> 1 V 10 mA 2 V 15 mA 3 V 50 mA
+> −
+> +
+
+voff 
+
+> −
+> +
+
+−voff 
+
+v1 v3 v5
+
+v2
+
+v4 v6
+
+(a) The general schematic of the circuit that can be solved using our CD solver. vi
+
+(b) Single Shockley diode. vi (c) Double Shockley diode. vi (d) PWL curve. 
+
+Figure 1: Network class and nonlinear device models considered in this work. (a) Representative resistive network with ideal sources, linear conduc-tances, and nonlinear one-port elements connected to fixed potentials. In the schematic, these one-port elements are drawn with diode symbols for simplicity, but they represent generic voltage-controlled nonlinear current-voltage charac-teristics. (b-d) Device characteristics used in the experiments: Shockley diode, double Shockley diode, and monotone piecewise-linear (PWL) i-v curve. elements are ideal diodes, which do not contribute in terms of the dissipation potential and are enforced by linear inequality constraints. This assumption yields a quadratic objective with linear inequality constraints. Here, we gener-alize to the nonlinearities that contribute through convex dissipation potentials 
+
+ϕk, so the objective remains convex but it is non-quadratic. Coordinate descent algorithms minimize the energy function of the network by iteratively updating one coordinate at a time. At iteration t, we select a free node kt ∈ Vfree . All other node voltages {vj }j̸ =kt are held fixed, and vkt is updated by solving 
+
+vt+1  
+
+> kt
+
+∈ arg min  
+
+> u∈R
+
+E vt
+
+> 1
+
+, . . . , v tkt−1, u, v tkt+1 , . . . , v tN
+
+. (8) With all other node voltages held fixed, the only terms in the energy function of the network that depend on the selected voltage are the resistor branches, current sources, and nonlinear elements incident on node k. Therefore, the one-dimensional subproblem can be written as 
+
+Ek(vk) = ak v2 
+
+> k
+
++ bk vk + ϕk(vk),ak : = 12
+
+X
+
+> j∈N R(k)
+
+gkj ,bk : = − X
+
+> j∈N R(k)
+
+gkj vj + X
+
+> j:( k,j )∈BCS
+
+ICS kj − X
+
+> j:( j,k )∈BCS
+
+ICS jk .
+
+(9) Here, ϕk ≡ 0 if node k has no nonlinear one-port element, and 
+
+NR(k) := { j ∈ V \ { k} : {j, k } ∈ BR } (10) is the set of resistive neighbors of node k.The exact coordinate update is given by the stationarity condition ∂E k 
+
+> ∂v k
+
+(vk) = 0, i.e. 2ak vk + bk + ∂ϕ k
+
+∂v (vk) = 0 . (11) For differentiable device laws, ∂ϕ k 
+
+> ∂v
+
+(v) = ik(v), so the update is obtained by solving 2ak vk + bk + ik(vk) = 0 , (12) which is the KCL equation at node k with all neighboring voltages held fixed. Therefore, an exact coordinate-descent update is equivalent to solving the KCL equation at a single node. During intermediate CD iterations, only the selected node is brought into local KCL balance; the residuals at other free nodes generally remain nonzero because they depend on neighboring voltages that may have changed. At convergence, all free-node KCL equations are satisfied: 
+
+∂E ∂v k
+
+(v⋆) = 0 , ∀k ∈ Vfree . (13) The efficiency of the solver therefore depends on how quickly and accurately the scalar subproblem in Eq. (12) can be solved for each nonlinear device law. Below, we derive these scalar updates for the nonlinearities used in this work. 6Device-specific scalar updates 
+
+Shockley diode. We first consider the Shockley diode with current-voltage relation 
+
+i(v) = Is
+
+
+
+exp 
+
+ v − voff 
+
+vT
+
+
+
+− 1
+
+
+
+. Is ≥ 0, v T > 0 (14) For this device law, the scalar KCL equation in Eq. (12) becomes 
+
+∂E ∂v k
+
+= 2 akvk + bk + Is
+
+
+
+exp 
+
+ vk − voff 
+
+vT
+
+
+
+− 1
+
+
+
+= 0 . (15) This equation has the Lambert-W form 
+
+A x + B + C e Dx = 0 , A̸ = 0 , D ̸ = 0 , (16) whose principal branch solution is 
+
+x⋆ = − BA − 1
+
+D W0
+
+ DC A e−DB/A 
+
+
+
+, (17) where W0 denotes the principal branch of the Lambert-W function. Therefore, the coordinate update is available in closed form: 
+
+v⋆k = − bk − Is
+
+2ak
+
+− vT W0
+
+ Is
+
+2akvT
+
+exp 
+
+
+
+− voff 
+
+vT
+
+− bk − Is
+
+2akvT
+
+
+
+. (18) For ak > 0, Is > 0, and vT > 0, the argument of W0(·) is strictly positive, so (18) gives a real update. As E(vk) is strictly convex, v⋆k is unique. The full derivation is provided in Supplementary Sec. S1.1.1 
+
+Double Shockley diode. We next consider the antiparallel diode nonlinear-ity used in ref. [6]. The full antiparallel Shockley current-voltage law is 
+
+i(v) = Is
+
+
+
+exp 
+
+ v − voff ,1
+
+vT
+
+
+
+− 1
+
+
+
+−Is
+
+
+
+exp 
+
+ −(v + voff ,2)
+
+vT
+
+
+
+− 1
+
+
+
+, Is ≥ 0, v T > 0.
+
+(19) where voff ,1 > 0 and voff ,2 > 0 are the positive and negative branch voltage offsets. Substituting Eq. (19) into the scalar KCL (Eq. (12)) gives 2akvk + bk + Is exp 
+
+ vk − voff ,1
+
+vT
+
+
+
+− Is exp 
+
+ −(vk + voff ,2)
+
+vT
+
+
+
+= 0 , (20) The constant −Is terms cancel in the full antiparallel model. Eq. (20) con-tains both exp( vk/v T ) and exp( −vk/v T ), so it does not reduce to the Lambert-W
+
+form used above. 7To recover a Lambert-W form for the CD solver, we use an active-branch approximation in which only the forward-biased diode branch is retained: 
+
+iLS (v) ≈
+
+
+
+Is exp 
+
+ v − voff ,1
+
+vT
+
+
+
+, v > 0,
+
+− Is exp 
+
+ −(v + voff ,2)
+
+vT
+
+
+
+, v < 0.
+
+(21) Away from the switching point vk = 0, the coordinate update is therefore obtained from ∂E ∂v k
+
+(vk) = 2 akvk + bk + iLS (vk) = 0 . (22) Under Eq. (21), the scalar objective is strictly convex, with a strictly increasing derivative on each open branch and an upward jump at vk = 0. The signs of the one-sided derivatives therefore determine whether the unique minimizer lies on the positive branch, the negative branch, or at vk = 0. The one-sided KCL residuals at the switching point between the two branches are 
+
+F+(0) = bk + Is exp 
+
+
+
+− voff ,1
+
+vT
+
+
+
+, F−(0) = bk − Is exp 
+
+
+
+− voff ,2
+
+vT
+
+
+
+. (23) The active branch is selected from the signs of these one-sided residuals: 
+
+F+(0) < 0 =⇒ v⋆k > 0,F−(0) > 0 =⇒ v⋆k < 0,F−(0) ≤ 0 ≤ F+(0) =⇒ v⋆k = 0 .
+
+(24) When the minimizer lies on a nonzero branch, its value is easily obtained by rewriting the stationarity condition as a Lambert-W equation. Using Eq. (21), the stationarity equation reduces to a single-exponential equation: 
+
+A x + B + C e Dx = 0 , A̸ = 0 , D ̸ = 0 . (25) 
+
+Case (i). On the positive branch the solution is given by 
+
+v⋆k = − bk
+
+2ak
+
+− vT W0
+
+ Is
+
+2akvT
+
+exp 
+
+
+
+− voff ,1
+
+vT
+
+− bk
+
+2akvT
+
+
+
+, v⋆k > 0. (26) 
+
+Case (ii). On the negative branch the solution is given by 
+
+v⋆k = − bk
+
+2ak
+
++ vT W0
+
+ Is
+
+2akvT
+
+exp 
+
+
+
+− voff ,2
+
+vT
+
++ bk
+
+2akvT
+
+
+
+, v⋆k < 0. (27) The full derivation is provided in Supplementary Section S1.2. 8Piecewise-linear i-v curve. The Shockley nonlinearities above are specified by analytic i-v expressions. In practice, however, a nonlinear device may be available through measured or simulated tabulated i-v data. To make the CD solver applicable to such empirical device models, we represent the nonlinear branch by a monotone piecewise-linear (PWL) interpolant. For each nonlinear element, we assume that a set of points {(vm, i m)}Mm=0 is given, with 
+
+v0 < · · · < v M , i0 ≤ · · · ≤ iM .
+
+From these points we construct a monotone PWL interpolant ˆ i(v), so that on each interval [ vm, v m+1 ], ˆi(v) = smv + cm, v ∈ [vm, v m+1 ], (28) where 
+
+sm = im+1 − im
+
+vm+1 − vm
+
+, cm = im − smvm. (29) The stationary condition is then given by 
+
+∂E ∂v k
+
+(v) = 2 akvk + bk + ˆ i(vk) = 0 . (30) Eq. (30) is a one-dimensional root-finding problem, which we solve using the Newton–Raphson method. Since ˆ i(v) is piecewise linear, it is differentiable on each interval ( vm, v m+1 ), with ˆi′(v) = sm for v ∈ (vm, v m+1 ).
+
+We therefore compute the coordinate update with a set of Newton iterations, using the slope of the active PWL segment: 
+
+v(t+1)  
+
+> k
+
+= v(t) 
+
+> k
+
+− 2akv(t) 
+
+> k
+
++ bk + ˆ i v(t)
+
+> k
+
+
+
+2ak + ˆ i′ v(t)
+
+> k
+
+ . (31) The active PWL segment is updated after each step, and the process is repeated until convergence. 
+
+## Application to deep resistive networks 
+
+CD updates. The networks considered above have arbitrary architecture, where nodes may be connected by any resistor branches and nonlinear elements are attached to selected nodes. Deep resistive networks (DRNs) [6] are a subclass of these circuits, designed to mirror the layered architecture of conventional neural networks. The nodes are partitioned into layers 0 , . . . , L , with layer 0 corresponding to the input, layer L to the output, and intermediate layers to hidden units. The trainable parameters of the system are the conductances 
+
+g(ℓ) 
+
+> jk
+
+, which connect only adjacent layers. Nonlinear elements are attached to hidden-layer nodes, while the output layer is linear. 9The CD framework developed above applies directly to DRNs: the same scalar CD update is used at each node and the layered structure gives explicit formulas for the local coefficients a(ℓ) 
+
+> k
+
+and b(ℓ) 
+
+> k
+
+. The energy function of the DRN can be written in a layerwise fashion: 
+
+E(v) = 12
+
+> L
+
+X
+
+> ℓ=1
+> Nℓ−1
+
+X
+
+> j=1
+> Nℓ
+
+X
+
+> k=1
+
+g(ℓ)
+
+> jk
+
+ v(ℓ−1)  
+
+> j
+
+− v(ℓ)
+
+> k
+
+2 +
+
+> L−1
+
+X
+
+> ℓ=1
+> Nℓ
+
+X
+
+> k=1
+
+ϕ(ℓ)
+
+> k
+
+ v(ℓ)
+
+> k
+
+. (32) The Methods section “CD equations for deep resistive networks” derives the expression of CD updates in this case. As suggested in [17], the layered structure makes the CD updates parallelizable. As there are no conductive couplings within a layer, all nodes in a layer can be updated independently once the neighboring layers are fixed. In networks with many layers, one can alternate between updating all odd-indexed layers while keeping the even layers fixed, and updating all even-indexed layers while keeping the odd layers fixed. Each half-iteration can then be written in matrix-vector form, which makes the solver efficient on multicore CPUs or GPUs. In deep DRNs, voltage signals attenuate as they propagate through succes-sive layers. To mitigate this signal attenuation while preserving the network’s bidirectionality, ref. [6] introduced a bidirectional amplifier between adjacent layers. The amplifier consists of a voltage-controlled voltage source (VCVS), which amplifies the forward voltage by a factor A, and a current-controlled cur-rent source (CCCS), which amplifies the backward current by a factor B. In ref. [6], the reciprocal choice B = 1 /A was used. Here, we allow A and B to be chosen independently and show how the resulting rescaling can be incorporated into the energy function of the network and the CD framework. The Meth-ods section “Bidirectional amplification” derives the exact CD updates in the presence of such arbitrary bidirectional amplification. 
+
+SPICE validation. We implement the proposed CD solver in PyTorch and evaluate it against matched SPICE simulations of the same DRNs (see Meth-ods). In the CD-SPICE comparisons, the two simulators use the same conduc-tance matrices, input clamps, output current sources, nonlinear branch laws, and bidirectional amplification parameters. Fig. 2 shows the DRN architecture used in the experiments. Unless otherwise stated, all simulations use bidirec-tional amplification factors A = 4 and B = 1. The voltage amplification helps compensate signal attenuation across layers. We use B = 1, rather than the reciprocal choice B = 1 /A used in ref. Kendall et al. [6], because reducing the backward current gain made deeper DRNs harder to train in preliminary experiments. We first evaluate whether CD reproduces the steady states obtained by SPICE. All results in this subsection use DRNs trained on the Digits dataset and are evaluated on the same 360-sample validation set in both simulators. We consider one-, two-, and three-hidden-layer architectures, hidden layer widths from 64 to 1024 and the three nonlinearities studied in this work: a Shockley 10 vin, 1         
+
+> −
+> +
+> vin, 2
+> −
+> +
+> vin, 3
+> −
+> +
+> v(1) (1)
+> inonlin (v)
+> BA
+> v(1) (2)
+> inonlin (v)
+> BA
+> v(1) (3)
+> inonlin (v)
+> BA
+> v(2) (1)
+> inonlin (v)
+> BA
+> v(2) (2)
+> inonlin (v)
+> BA
+> v(2) (3)
+> inonlin (v)
+> BA
+> v(3) (1)
+> Inudge ,1=β∂C (g)free
+> ∂v out ,1
+> v(3) (2)
+> Inudge ,2=β∂C (g)free
+> ∂v out ,2
+> v(3) (3)
+> Inudge ,3=β∂C (g)free
+> ∂v out ,3
+
+1Figure 2: Architecture of the DRN used in the experiments. Dense conductance layers are connected by grounded nonlinearities and bidirectional amplifiers. In both the free and nudged phases, the input nodes are clamped to the input voltages. In the nudged phase, the nudging currents are additionally injected into the output nodes. diode, a double-Shockley diode, and a PWL i(v) curve. The single-diode net-works use output dimension 10, while the double-diode and PWL networks use output dimension 20. SPICE could not generate netlists for the architectures with two hidden layers and hidden width 1024, nor for those with three hid-den layers and hidden widths 512 or 1024. These configurations are therefore excluded from the matched CD-SPICE comparisons. The PWL nonlinearity is included to test the solver on a tabulated device law. Here it is constructed synthetically from the double-Shockley curve in Eq. (19): we sample the curve at 200 uniformly spaced points on [ −2, 2] V and linearly interpolate between the samples to obtain ˆ i(v). For the single- and double-Shockley diode runs, we use an over-relaxed vari-ant of coordinate descent in the deeper architectures to accelerate convergence. After computing the exact coordinate update vCD  
+
+> k
+
+, the node voltage is updated according to 
+
+vnew  
+
+> k
+
+= vold  
+
+> k
+
++ ω  vCD  
+
+> k
+
+− vold 
+
+> k
+
+ .
+
+The standard CD update is recovered for ω = 1, whereas ω > 1 extrapolates beyond the exact coordinate update in the same direction. We use ω = 1 .2 for two-hidden-layer networks and ω = 1 .4 for three-hidden-layer networks. The implementation and effect of over-relaxation are described in Supplementary Sec. S2. To quantify the agreement between CD and SPICE, we compare the steady-state node voltages. For a validation sample i, let vCD (i) and vSPICE (i) denote the vectors obtained by stacking the hidden- and output-layer voltages. We define the samplewise relative error as RelErr i = vCD (i) − vSPICE (i) 1
+
+∥vSPICE (i)∥1
+
+=
+
+PNk=1 vCD  
+
+> k
+
+(i) − vSPICE  
+
+> k
+
+(i)
+
+PNk=1 vSPICE  
+
+> k
+
+(i) . (33) 11 For each configuration, we summarize {RelErr i}360  
+
+> i=1
+
+by its 90th percentile (P90). We define a CD sweep as one full pass through the non-clamped nodes of the network. In the odd-even layer update scheme used here, this corresponds to updating all odd-indexed layers, followed by all even-indexed layers, so that each free node is updated once per sweep. We then evaluate how the CD solution approaches the SPICE equilibrium as the number of sweeps increases. For each nonlinearity and each depth, we use a width-128 Digits network. We summarize the validation error by its 90th percentile, meaning that 90% of validation samples have a relative L1 voltage error below the reported value. Fig. 3 shows that, across all network depths and nonlinearities, the error decreases rapidly during the first few sweeps and then saturates at a low floor. Across all reported configurations, the final P90 relative error is of order 10 −5.Increasing the number of hidden layers shifts the curves to the right, indicating that deeper networks require more sweeps to reach the same accuracy. All networks with the single and double Shockley nonlinearities reach their observed error floors within 16 sweeps, while those with the PWL nonlinearity require up to 32 sweeps to converge. 
+
+## Runtime scaling 
+
+The fixed-sweep experiments in the previous section show that CD approaches the SPICE steady state, but a fixed number of sweeps is not ideal for timing comparisons because the number of sweeps needed for convergence depends on the conductances, nonlinearity, width, and depth. For the runtime experiments, we therefore use an adaptive stopping rule based on the relative voltage change. Writing v(t) for the stacked vector of all non-clamped node voltages after sweep 
+
+t, convergence is declared when 
+
+∥v(t+1) − v(t)∥∞ ≤ vtol ∥v(t+1) ∥∞ + vn, tol , (34) where vn, tol = 10 −6 V is a small absolute floor. We evaluate this stopping rule on the same width-128 Digits networks used above by varying the relative voltage tolerance vtol . Fig. 4 shows how the P90 relative L1 CD–SPICE error and the average number of sweeps depend on this tolerance. Across the three nonlinearities, tightening vtol reduces the P90 error, but the improvement becomes marginal once vtol reaches 10 −5, where the error is already on the order of 10 −5. The tolerance, vtol = 10 −5 provides a good accuracy–cost trade-off as tighter tolerances require additional sweeps while providing little further improvement in error. We therefore use this value in the main runtime experiments. We next compare the wall-clock time of CD and SPICE on the full Digits validation set. For each choice of nonlinearity, depth, and hidden-layer width, we evaluate the corresponding trained model with both solvers. Both CD and SPICE measurements are performed on CPU, on a dual-socket machine with Intel Xeon Gold 5220 CPUs. To measure serial equilibrium-solve cost rather 12 (a) Single Shockley Diode.  
+
+> (b) Double Shockley Diode.
+> (c) PWL i(v).
+
+Figure 3: P90 relative L1 voltage error between CD and SPICE versus the number of CD sweeps for width-128 Digits networks. Each panel shows one nonlinearity. Hidden 1, Hidden 2 and Hidden 3 denote networks with one, two, and three hidden layers. (a) Single Shockley Diode.  
+
+> (b) Double Shockley Diode.
+> (c) PWL i(v).
+
+Figure 4: P90 relative L1 voltage error and average outer sweeps versus the relative-voltage tolerance vtol for width-128 Digits networks. Each panel shows one nonlinearity. Hidden 1, Hidden 2 and Hidden 3 denote networks with one, two, and three hidden layers. Solid curves show P90 errors on the left axis and dashed curves show average outer sweeps on the right axis. than batching performance, the CD runs use the batch size of one. CD is run with the adaptive stopping rule above, using vtol = 10 −5. Reported SPICE timings correspond to DC simulation time and exclude netlist generation. Fig. 5 shows the runtime scaling. SPICE runtime rises steeply with width and depth, while CD has more moderate scaling. The CD runtime is controlled by two factors: the number of outer odd-even sweeps needed to satisfy the stopping rule, and the cost of the local nonlinear updates within each sweep. For the exponential nonlinearities, the scalar update has a closed-form Lambert-W
+
+expression. In the implementation, extreme Lambert arguments are clipped for numerical stability, and the resulting local KCL residual is refined by Newton-Raphson iterations when needed. Supplementary Sec. S2 analyzes this runtime decomposition in more detail. CD is faster than SPICE for every configuration with a reliable matched SPICE timing. Supplementary Tables S1 and S2 show speedups ranging from 1.2× to 1750 ×, while agreement with SPICE remains tight: the P90 relative L1
+
+error stays below 1 .0 × 10 −4 and is typically in the 10 −5 range. 
+
+## MNIST-scale training 
+
+Finally, we test whether CD can be used to train a larger DRN. We train a 1568 × 100 × 20 network with double antiparallel Shockley-diode nonlinearities on MNIST. This is the same DRN size and device family studied by Kendall et al. [6], but trained here with the CD solver. For all MNIST experiments, we use a fixed budget of four CD sweeps per equilibrium solve. A fixed sweep budget is more convenient for batched training than an adaptive stopping rule, and increasing the budget to six or eight sweeps did not produce a meaningful improvement in final test error. Fig. 6a summarizes the test accuracy across four independent double-diode runs and includes the output-dimension-10 ideal-diode baseline for comparison. The final test error of the double-diode runs is around 3% and the full training run takes roughly 3.5 hours in our implementation. By comparison, [6] reported about 3 .4% test error after 10 training epochs and roughly one week of training for the same network class. Thus, CD enables substantially longer training and yields slightly better final accuracy. After training, we exported the learned weights to SPICE, and verified that the same accuracy was recovered. To assess agreement between the two solvers beyond the test samples, we also compare CD and SPICE on a two-dimensional PCA slice of the MNIST input space. We use the first two principal directions and sweep a 30 × 30 grid in the corresponding plane centered at the data mean, 
+
+v(α, β ) = μ + αq 1 + βq 2,
+
+with α ∈ [−3σ1, 3σ1] and β ∈ [−3σ2, 3σ2], where σi = √λi. At each grid point, we compute the relative L1 error between the CD and SPICE steady-state voltages, separately for the hidden and output layers. Figure 6b shows that the CD–SPICE discrepancy is smallest near the center of the PCA plane, where 15 (a) Single Shockley Diode.  
+
+> (b) Double Shockley Diode.
+> (c) PWL i(v).
+
+Figure 5: Runtime versus hidden width for matched CD and SPICE simulations. Each panel shows one nonlinearity. Hidden 1, Hidden 2 and Hidden 3 denote networks with one, two, and three hidden layers. Solid curves show CD runtimes and dashed curves show SPICE runtimes. inputs remain close to the MNIST data distribution, and increases mainly near the edges and corners of the sweep. This indicates that the trained CD model remains consistent with the corresponding SPICE circuit over the relevant input region, with larger deviations confined mostly to out-of-distribution inputs. 
+
+# Discussion 
+
+This work extends fast coordinate-descent simulation of deep resistive learning machines from ideal-diode models to circuits with realistic nonlinear device char-acteristics. The key point is that, for grounded voltage-controlled nonlinear de-vices whose current-voltage characteristics are monotone, the electrical content remains convex and each coordinate update remains local. With neighboring voltages fixed, updating a node voltage reduces to enforcing Kirchhoff’s cur-rent law at that node. This allows realistic device behavior to be incorporated through the scalar node update, while preserving the layer-parallel odd-even structure that makes coordinate descent efficient in DRNs. The observed speedups change the practical scale of DRN studies. On Digits networks, CD reproduces SPICE steady-state voltages with relative L1 errors below 10 −4 for 90% of validation samples, while reducing runtime by up to 1750 ×. On MNIST, the same approach makes it practical to train a 1568 ×
+
+100 × 20 nonlinear DRN for 100 epochs and then export the trained circuit back to SPICE. The resulting classification accuracy is not intended as a digital machine-learning benchmark; rather, it demonstrates that realistic nonlinear resistive learning circuits can now be trained and validated at a scale where direct SPICE training is prohibitive. Several idealizations remain. The present formulation assumes linear con-ductances, ideal sources, and one-port monotone nonlinearities. Extending the approach to nonlinear conductances, non-ideal sources, compact transistor mod-els, and non-grounded nonlinear two-terminal elements would broaden its rel-evance to fabricated circuits. On the numerical side, the odd-even CD scheme could likely be accelerated further by Anderson acceleration, Krylov-like residual minimization, or multigrid-inspired corrections. Future work should also test whether these device-aware equilibrium solvers support deeper architectures and more challenging inference tasks. 
+
+# Methods 
+
+## Simulation details 
+
+The experiments using a fixed number of CD sweeps, and the experiments using a fixed voltage tolerance and the MNIST experiments were all performed on a machine equipped with an NVIDIA RTX 3090 GPU. The Digits runtime comparison was performed on CPU on a dual-socket server equipped with Intel Xeon Gold 5220 processors. Both the CD and SPICE 17 18 
+
+> (a) MNIST test accuracy.
+> (b) CD–SPICE PCA-sweep error.
+
+Figure 6: MNIST-scale simulations. Top: test accuracy across four independent 100-epoch training runs of the 1568 ×100 ×20 network with the double Shockley diode, together with the 1568 × 100 × 10 ideal-diode baseline from Ref. [17]. All runs use four CD sweeps. The central curves show the mean across runs and the shaded bands show the min–max envelopes. Bottom: P90 relative L1 error between CD and SPICE across a 30 × 30 PCA sweep of the MNIST input space for the trained 1568 × 100 × 20 network. wall-clock measurements were obtained on this machine. To make the compar-ison with SPICE fair, the PyTorch CD simulations were run with batch size 1. SPICE-level reference simulations were carried out with ELDO 17.1, a com-mercial SPICE-compatible circuit simulator. The runs were done using ELDO’s interactive DC mode. We did not manually modify the simulator’s accuracy set-tings; the default convergence parameters are reported in Table 1. Table 1: ELDO accuracy-control settings. Setting Value 
+
+RELTOL 10 −3
+
+VNTOL 10 −6 V
+
+ABSTOL 10 −12 A
+
+ITOL 10 −6
+
+EPS 5 × 10 −3
+
+## CD equations for deep resistive networks 
+
+The CD framework applies directly to DRNs. The energy function of the DRN can be written in a layerwise fashion: 
+
+E(v) = 12
+
+> L
+
+X
+
+> ℓ=1
+> Nℓ−1
+
+X
+
+> j=1
+> Nℓ
+
+X
+
+> k=1
+
+g(ℓ)
+
+> jk
+
+ v(ℓ−1)  
+
+> j
+
+− v(ℓ)
+
+> k
+
+2 +
+
+> L−1
+
+X
+
+> ℓ=1
+> Nℓ
+
+X
+
+> k=1
+
+ϕ(ℓ)
+
+> k
+
+ v(ℓ)
+
+> k
+
+, (35) where the nonlinear dissipation potential on each branch is defined by 
+
+ϕ(ℓ) 
+
+> k
+
+(v) := 
+
+Z v
+
+> 0
+
+i(ℓ) 
+
+> k
+
+(u) d u. (36) The nudging current sources are incorporated through the additional linear term 
+
+Ecs (v) = 
+
+> NL
+
+X
+
+> k=1
+
+I(L) 
+
+> k
+
+v(L) 
+
+> k
+
+,
+
+so that stationarity yields the source contribution 
+
+∂E cs (v)
+
+∂v (L)
+
+> k
+
+(v) = I(L) 
+
+> k
+
+, (I(L) 
+
+> k
+
+= 0 in the free phase) .
+
+The contribution of v(ℓ) 
+
+> k
+
+to the energy function of the network can be written as 
+
+E(ℓ)
+
+> k
+
+ v(ℓ)
+
+> k
+
+ = a(ℓ)
+
+> k
+
+ v(ℓ)
+
+> k
+
+2 + b(ℓ) 
+
+> k
+
+v(ℓ) 
+
+> k
+
++ ϕ(ℓ)
+
+> k
+
+ v(ℓ)
+
+> k
+
+, (37) 19 where ϕ(ℓ) 
+
+> k
+
+is the dissipation potential of the nonlinear device(s) attached to node ( ℓ, k ). Here the coefficients ak and bk are defined as 
+
+a(ℓ) 
+
+> k
+
+=
+
+
+
+> 12
+
+
+
+> Nℓ−1
+
+X
+
+> j=1
+
+g(ℓ) 
+
+> jk
+
++
+
+> Nℓ+1
+
+X
+
+> m=1
+
+g(ℓ+1) 
+
+> km
+
+ , ℓ = 1 , . . . , L − 1,
+
+> 12
+> NL−1
+
+X
+
+> j=1
+
+g(L) 
+
+> jk
+
+, ℓ = L, 
+
+(38) 
+
+b(ℓ) 
+
+> k
+
+=
+
+
+
+−
+
+> Nℓ−1
+
+X
+
+> j=1
+
+g(ℓ) 
+
+> jk
+
+v(ℓ−1)  
+
+> j
+
+−
+
+> Nℓ+1
+
+X
+
+> m=1
+
+g(ℓ+1)  
+
+> km
+
+v(ℓ+1)  
+
+> m
+
++ I(ℓ) 
+
+> k
+
+, ℓ = 1 , . . . , L − 1,
+
+−
+
+> NL−1
+
+X
+
+> j=1
+
+g(L) 
+
+> jk
+
+v(L−1)  
+
+> j
+
++ I(L) 
+
+> k
+
+, ℓ = L. 
+
+(39) The exact coordinate update is characterized by the stationarity condition 
+
+∂E (ℓ)
+
+> k
+
+∂v (ℓ)
+
+> k
+
+ v(ℓ)
+
+> k
+
+ = 2 a(ℓ) 
+
+> k
+
+v(ℓ) 
+
+> k
+
++ b(ℓ) 
+
+> k
+
++ ∂ϕ (ℓ)
+
+> k
+
+∂v 
+
+ v(ℓ)
+
+> k
+
+ = 0 . (40) For hidden layers ℓ = 1 , . . . , L − 1, we have ∂ϕ (ℓ) 
+
+> k
+> ∂v
+
+(v) = i(ℓ) 
+
+> k
+
+(v), hence 2a(ℓ) 
+
+> k
+
+v(ℓ) 
+
+> k
+
++ b(ℓ) 
+
+> k
+
++ i(ℓ)
+
+> k
+
+ v(ℓ)
+
+> k
+
+ = 0 . (41) At the output layer ℓ = L, there is no nonlinearity, so 2a(L) 
+
+> k
+
+v(L) 
+
+> k
+
++ b(L) 
+
+> k
+
+= 0 . (42) 
+
+## Bidirectional amplification 
+
+In deep DRNs, voltage signals attenuate as they propagate through successive layers. To mitigate this signal attenuation while preserving the network’s bidi-rectionality, ref. [6] introduced a bidirectional amplifier between adjacent layers. The amplifier, schematized in Figure 7, consists of a voltage-controlled voltage source (VCVS), which amplifies the forward voltage by a factor A, and a current-controlled current source (CCCS), which amplifies the backward current by a factor B. In ref. [6], the reciprocal choice B = 1 /A was used. Here, we allow A
+
+and B to be chosen independently and show how the resulting rescaling can be incorporated into the energy function of the network and the CD framework. The energy function of the amplified DRN can be rewritten as 
+
+E(v) = 12
+
+> L
+
+X
+
+> ℓ=1
+
+ BA
+
+ℓ−1 Nℓ−1
+
+X
+
+> j=1
+> Nℓ
+
+X
+
+> k=1
+
+g(ℓ)
+
+> jk
+
+ αℓ v(ℓ−1)  
+
+> j
+
+−v(ℓ)
+
+> k
+
+2 +
+
+> L−1
+
+X
+
+> ℓ=1
+
+ BA
+
+ℓ−1 NℓX
+
+> k=1
+
+ϕ(ℓ)
+
+> k
+
+ v(ℓ)
+
+> k
+
+,
+
+(43) 20 V1 I1 V2
+
+> I2
+> −
+> +
+
+CCCS VCVS          
+
+> I1=B·I2V2=A·V1
+
+Figure 7: Schematic of a bidirectional amplifier. VCVS amplifies voltage in one direction, while CCCS amplifies current in the other direction. with 
+
+αℓ =
+
+(
+
+1, ℓ = 1 ,A, ℓ ≥ 2 . (44) where the nonlinear dissipation potential on each branch is 
+
+ϕ(ℓ) 
+
+> k
+
+(v) := 
+
+Z v
+
+> 0
+
+i(ℓ) 
+
+> k
+
+(u) d u. (45) We then define 
+
+a(ℓ)pre ,k := 
+
+> Nℓ+1
+
+X
+
+> m=1
+
+g(ℓ+1)  
+
+> km
+
+, b(ℓ)pre ,k := 
+
+> Nℓ+1
+
+X
+
+> m=1
+
+g(ℓ+1)  
+
+> km
+
+v(ℓ+1)  
+
+> m
+
+, (46) 
+
+a(ℓ)post ,k := 
+
+> Nℓ−1
+
+X
+
+> j=1
+
+g(ℓ) 
+
+> jk
+
+, b(ℓ)post ,k := 
+
+> Nℓ−1
+
+X
+
+> j=1
+
+g(ℓ) 
+
+> jk
+
+v(ℓ−1)  
+
+> j
+
+. (47) and the stationarity condition is given by 
+
+∂E ∂v (ℓ)
+
+> k
+
+=
+
+
+
+a(ℓ)post ,k + BA α2 
+
+> ℓ+1
+
+a(ℓ)pre ,k 
+
+
+
+v(ℓ) 
+
+> k
+
+−
+
+
+
+αℓ b(ℓ)post ,k + BA αℓ+1 b(ℓ)pre ,k 
+
+
+
++ i(ℓ)nonlin 
+
+ v(ℓ)
+
+> k
+
+ = 0 .
+
+(48) 
+
+# Data availability 
+
+The Digits dataset is available through scikit-learn, and MNIST is available through standard machine-learning dataset repositories. The curated numerical data for the figures and tables is included in the repository at https://github. com/filip137/nonlinear-drn-paper .21 Code availability 
+
+The source code needed to reproduce the results is available at 
+
+https://github.com/filip137/nonlinear-drn-paper .
+
+# Acknowledgements 
+
+This work was supported by a France 2030 government grant managed by the French National Research Agency (ANR-22-PEEL-0010) and the European Re-search Council grant GRENADYN (101020684). 
+
+# Author contributions 
+
+F.O., J.G. and D.Q conceived the study. J.G. and D.Q. supervised the work. F.O. achieved the work. All authors regularly discussed the results. All authors contributed to write the manuscript. 
+
+# Competing interests 
+
+The authors declare no competing interests. 22 S1 Supplementary Material - Derivations 
+
+## S1.1 Lambert-W derivations 
+
+S1.1.1 Single Shockley diode 
+
+For the single Shockley diode, the stationarity condition of the CD subproblem is 2akvk + ( bk − Is) + Ise−voff /v T exp 
+
+ vk
+
+vT
+
+
+
+= 0 . (S1) We define 
+
+A = 2 ak, B = bk − Is, C = Ise−voff /v T , D = 1
+
+vT
+
+, (S2) so that (S1) becomes 
+
+Av k + B + Ce Dv k = 0 ⇐⇒ Av k + B = −Ce Dv k . (S3) We now rewrite (S3) in the canonical form 
+
+z e z = x ⇐⇒ z = W (x). (S4) We introduce 
+
+u := −Dv k − DB A . (S5) Then 
+
+Av k + B = − AD u, eDv k = e−u e−DB/A .
+
+Substituting these identities into (S3) gives 
+
+u e u = DC A e−DB/A . (S6) Applying the principal branch W0, defined by W0(x)eW0(x) = x, yields 
+
+u = W0
+
+ DC A e−DB/A 
+
+
+
+.
+
+Solving for vk therefore gives 
+
+v⋆k = − BA − 1
+
+D W0
+
+ DC A e−DB/A 
+
+
+
+. (S7) Finally, substituting (S2) into (S7) gives 
+
+v⋆k = − bk − Is
+
+2ak
+
+− vT W0
+
+ Is
+
+2akvT
+
+exp 
+
+
+
+− voff 
+
+vT
+
+− bk − Is
+
+2akvT
+
+
+
+. (S8) This reproduces Eq. (18) in the main text. 23 S1.2 Piecewise Lambert-W update for the double Shock-ley (antiparallel) diode 
+
+For the double Shockley diode, and under the approximation that only a single diode is conducting at the time, the stationarity condition away from vk = 0 is 
+
+∂E ∂v k
+
+(vk) = 2 akvk + bk + iLS (vk) = 0 . (S9) On each branch, the second derivative is strictly positive: 
+
+vk > 0 : ∂2E∂v 2
+
+> k
+
+= 2 ak+ Is
+
+vT
+
+exp 
+
+ vk − voff ,1
+
+vT
+
+
+
+> 0, vk < 0 : ∂2E∂v 2
+
+> k
+
+= 2 ak+ Is
+
+vT
+
+exp 
+
+ −(vk + voff ,2)
+
+vT
+
+
+
+> 0.
+
+Hence E is strictly convex on each open branch. The one-sided derivatives at 
+
+vk = 0 are 
+
+∂E ∂v k 0+
+
+= bk + Is exp 
+
+
+
+− voff ,1
+
+vT
+
+
+
+, ∂E ∂v k 0−
+
+= bk − Is exp 
+
+
+
+− voff ,2
+
+vT
+
+
+
+. (S10) Thus, the derivative is strictly increasing across the two branches, with an up-ward jump at vk = 0, and the global minimizer is unique. The signs of the one-sided derivatives determine its location: 
+
+∂E ∂v k 0+
+
+< 0 = ⇒ v⋆k > 0,∂E ∂v k 0−
+
+> 0 = ⇒ v⋆k < 0,∂E ∂v k 0−
+
+≤ 0 ≤ ∂E ∂v k 0+
+
+=⇒ v⋆k = 0 .
+
+(S11) Using (S10), this can be written equivalently as 
+
+bk < −Is exp 
+
+
+
+− voff ,1
+
+vT
+
+
+
+=⇒ v⋆k > 0,bk > Is exp 
+
+
+
+− voff ,2
+
+vT
+
+
+
+=⇒ v⋆k < 0,
+
+− Is exp 
+
+
+
+− voff ,1
+
+vT
+
+
+
+≤ bk ≤ Is exp 
+
+
+
+− voff ,2
+
+vT
+
+
+
+=⇒ v⋆k = 0 .
+
+Once the correct branch is known, (S9) reduces to a single-exponential equa-tion of the form 
+
+A x + B + C e Dx = 0 , A̸ = 0 , D ̸ = 0 , (S12) whose solution on the principal branch is 
+
+x⋆ = − BA − 1
+
+D W0
+
+ DC A e−DB/A 
+
+
+
+. (S13) 24 Positive branch ( vk ≥ 0). On the positive branch, 2akvk + bk + Is exp 
+
+ vk − voff ,1
+
+vT
+
+
+
+= 0 ⇐⇒ A v k + B + C e Dv k = 0 with 
+
+A = 2 ak, B = bk, C = Ise−voff ,1/v T , D = 1
+
+vT
+
+.
+
+Substituting these quantities into (S13) gives 
+
+v⋆k = − bk
+
+2ak
+
+− vT W0
+
+ Is
+
+2akvT
+
+exp 
+
+
+
+− voff ,1
+
+vT
+
+− bk
+
+2akvT
+
+
+
+, v⋆k > 0. (S14) 
+
+Negative branch ( vk < 0). On the negative branch, 2akvk + bk − Is exp 
+
+ −(vk + voff ,2)
+
+vT
+
+
+
+= 0 ⇐⇒ A v k + B + C e Dv k = 0 with 
+
+A = 2 ak, B = bk, C = −Ise−voff ,2/v T , D = − 1
+
+vT
+
+.
+
+Substituting these quantities into (S13) gives 
+
+v⋆k = − bk
+
+2ak
+
++ vT W0
+
+ Is
+
+2akvT
+
+exp 
+
+
+
+− voff ,2
+
+vT
+
++ bk
+
+2akvT
+
+
+
+, v⋆k < 0. (S15) 
+
+# S2 Supplementary material - Solver Details 
+
+## S2.1 Overrelaxed diode solver 
+
+In our work we also consider the overrelaxed CD update. After computing the exact CD update vCD , we set the next iterate to 
+
+vnew = vold + ω vCD − vold .
+
+Thus, ω = 1 recovers plain CD, ω > 1 gives overrelaxation, and ω < 1 gives underrelaxation. In our work we use overrelaxation. We apply it for the single-diode and double-diode solvers. The minimizer also supports an optional re-ject/backtracking safeguard for ω > 1, although we do not use it in practice in the runs reported here. In the double-diode exponential sweep, overrelaxation substantially reduces the number of fixed sweeps needed to reach a given SPICE-relative error. The first sweep budget at which the node-weighted cross-layer relative L1 P90 error falls below 10 −4 is 64 for ω = 0 .8, 32 for ω = 1 .0, 16 for ω = 1 .2, and 12 for 
+
+ω = 1 .4. For the 2 × 10 −5 threshold, the corresponding budgets are 64, 32, 32, and 16. Since one overrelaxed sweep has nearly the same cost as one standard sweep, this improves simulation speed. 25 Figure S1: P90 node-weighted cross-layer relative L1 error versus CD sweeps for several overrelaxation factors in the three-hidden-layer, width-128 double-Shockley Digits network. 
+
+## S2.2 CD runtime decomposition 
+
+The total CD runtime has two sources. The first is the number of odd-even sweeps required to satisfy the stopping criterion. This is a global convergence effect, and it is partly captured by the average-Hessian contraction proxy ρ(T )discussed in Supplementary Sec. S2.2.2. We report these as outer sweeps .The second component is the work performed within each sweep. Every outer sweep contains many nonlinear coordinate updates. Although each such update has an analytical solution in terms of the Lambert W function, the implementation clips the Lambert argument for numerical stability. The clipped Lambert step is therefore only an initial approximation, which we then refine with a few Newton steps. We report the number of these as inner iterations .Both of these are reported for all runs in the Supplementary Table S1. 
+
+S2.2.1 Clipped Lambert solve and Newton polish 
+
+To interpret the inner-iteration counts, it is helpful to examine a single nonlinear coordinate solve. For the double-diode updater, each coordinate update reduces to one of the two scalar equations 2av + b + Is exp 
+
+ v − voff 
+
+VT
+
+
+
+= 0 , (S16) or 2av + b − Is exp 
+
+
+
+− v + voff 
+
+VT
+
+
+
+= 0 , (S17) 26 depending on the active diode branch. All quantities are evaluated in float64 .In exact arithmetic, both equations can be solved in closed form using the Lambert W function. In practice, however, the Lambert argument has the form 
+
+z = C exp( η), and the exponent η can become numerically large. To avoid overflow and loss of stability, we clip this exponent to 165 before forming z.For the forward branch, we write 
+
+A+ = b
+
+2a , z+ = Is
+
+2aV T
+
+exp 
+
+
+
+clip 
+
+
+
+− A+ + voff 
+
+VT
+
+ 
+
+, v(0) + = −A+−VT W0(z+),
+
+(S18) and for the reverse branch, 
+
+A− = b
+
+2a , z− = Is
+
+2aV T
+
+exp 
+
+
+
+clip 
+
+ A− − voff 
+
+VT
+
+ 
+
+, v(0)  
+
+> −
+
+= −A−+VT W0(z−).
+
+(S19) Because this clipping perturbs the exact closed-form solution, we apply a short Newton polish after the Lambert initialization. For the forward branch, we define 
+
+f+(v) = 2 av + b + Is exp 
+
+
+
+clip 
+
+ v − voff 
+
+VT
+
+ 
+
+, (S20) and update 
+
+v ← v − f+(v)
+
+f ′
+
+> +
+
+(v) . (S21) Similarly, for the reverse branch, 
+
+f−(v) = 2 av + b − Is exp 
+
+
+
+clip 
+
+
+
+− v + voff 
+
+VT
+
+ 
+
+, (S22) with update 
+
+v ← v − f−(v)
+
+f ′−(v) . (S23) The reported inner iterations are the Newton steps used. 
+
+S2.2.2 Odd–even sweep map and local convergence rate 
+
+To understand the variations in the number of outer sweeps, it is convenient to view the odd–even CD solver as a nonlinear iteration map on the free voltages. We can write the free node voltages, in the odd/even order, as 
+
+v = ( vo, v e).
+
+One odd–even sweep consists of two exact CD block minimizations, 
+
+vk+1  
+
+> o
+
+= arg min 
+
+> uo
+
+E(uo, v ke ), (S24) 
+
+vk+1  
+
+> e
+
+= arg min 
+
+> ue
+
+E(vk+1  
+
+> o
+
+, u e). (S25) 27 Equivalently, we can define 
+
+ψo(ve) := arg min 
+
+> uo
+
+E(uo, v e), ψe(vo) := arg min 
+
+> ue
+
+E(vo, u e).
+
+Then one full sweep defines the nonlinear map Φ( vo, v e) :=  ψo(ve), ψ e(ψo(ve)) . (S26) At a converged state v⋆ = ( v⋆o , v ⋆e ), we have 
+
+v⋆ = Φ( v⋆).
+
+Writing the error as ek := vk − v⋆ and expanding around v⋆ gives 
+
+ek+1 = DΦ( v⋆)ek + o(∥ek∥). (S27) Near v⋆, the error is governed to first order by DΦ( v⋆). Thus the local asymp-totic convergence rate is determined by the spectral radius 
+
+ρ(DΦ( v⋆)) := max  
+
+> λ∈σ(DΦ( v⋆))
+
+|λ|,
+
+where σ(DΦ( v⋆)) denotes the set of eigenvalues of DΦ( v⋆). Thus, when ρ(DΦ( v⋆)) <
+
+1, the number of sweeps needed to reduce the error to a fixed tolerance scales as 
+
+k ∝ 1
+
+− log ρ(DΦ( v⋆)) .
+
+To make DΦ( v⋆) explicit, we differentiate the functions that update blocks ψo
+
+and ψe. These maps are defined implicitly by the stationarity conditions 
+
+∇oE(ψo(ve), v e) = 0 , (S28) and 
+
+∇eE(vo, ψ e(vo)) = 0 . (S29) At the fixed point v⋆ = ( v⋆o , v ⋆e ), let 
+
+Hoo := ∇2
+
+> oo
+
+E(v⋆), Hoe := ∇2
+
+> oe
+
+E(v⋆), Heo := ∇2
+
+> eo
+
+E(v⋆), Hee := ∇2
+
+> ee
+
+E(v⋆),
+
+so that, 
+
+H⋆ = ∇2E(v⋆) = 
+
+Hoo Hoe 
+
+Heo Hee 
+
+
+
+.
+
+Differentiating (S28) with respect to ve at v⋆e gives 
+
+Hoo Dψ o(v⋆e ) + Hoe = 0 ,
+
+and differentiating (S29) with respect to vo at v⋆o gives 
+
+Heo + Hee Dψ e(v⋆o ) = 0 .
+
+28 Hence 
+
+Dψ o(v⋆e ) = −H−1 
+
+> oo
+
+Hoe , Dψ e(v⋆o ) = −H−1 
+
+> ee
+
+Heo .
+
+Since Φ( vo, v e) =  ψo(ve), ψ e(ψo(ve)) ,
+
+the chain rule gives 
+
+DΦ( v⋆) = 
+
+0 −H−1 
+
+> oo
+
+Hoe 
+
+0 H−1 
+
+> ee
+
+Heo H−1 
+
+> oo
+
+Hoe 
+
+
+
+.
+
+The nonzero eigenvalues of DΦ( v⋆) are exactly those of 
+
+T ⋆ := H−1 
+
+> ee
+
+Heo H−1 
+
+> oo
+
+Hoe . (S30) 
+
+T ⋆ is the reduced error-propagation matrix associated with one odd–even sweep. When ρ(T ⋆) < 1, the fixed point is locally linearly stable, and smaller values of 
+
+ρ(T ⋆) correspond to faster asymptotic decay of the error. For a fixed stopping tolerance, the expected number of sweeps therefore scales with 
+
+k ∝ 1
+
+− log ρ(T ⋆) .
+
+For the DRN used in our experiments, the energy function is given by 
+
+E(v) = 12
+
+> L
+
+X
+
+> ℓ=1
+
+ BA
+
+ℓ−1 Nℓ−1
+
+X
+
+> j=1
+> Nℓ
+
+X
+
+> k=1
+
+g(ℓ)
+
+> jk
+
+ αℓv(ℓ−1)  
+
+> j
+
+−v(ℓ)
+
+> k
+
+2+
+
+> L−1
+
+X
+
+> ℓ=1
+
+ BA
+
+ℓ−1 NℓX
+
+> k=1
+
+ϕ(ℓ)
+
+> k
+
+ v(ℓ)
+
+> k
+
++
+
+> NL
+
+X
+
+> k=1
+
+I(L) 
+
+> k
+
+v(L) 
+
+> k
+
+,
+
+(S31) where 
+
+αℓ =
+
+(
+
+1, ℓ = 1 ,A, ℓ ≥ 2.
+
+The energy function has three terms; the quadratic term related to the linear conductive coupling between the layer, the non-linear term related to the non-linearities connecting the node voltage to the ground and the linear term connected to the current sources. Since the current source term is linear, it does not contribute to the Hessian. The Hessian is thus given by 
+
+H(v) = ∇2E(v) = Hlin + D(v), (S32) where Hlin is the contribution of the linear conductances and D(v) is the con-tribution of the grounded nonlinearities. Because each layer is coupled only to its immediate neighbors, Hlin is block tridiagonal: 
+
+Hlin =
+
+
+
+M1 −   BA
+
+ α2G(2) 
+
+−   BA
+
+ α2(G(2) )⊤ M2
+
+. . .. . . . . . −   BA
+
+L−1 αLG(L)
+
+−   BA
+
+L−1 αL(G(L))⊤ ML
+
+ .
+
+(S33) 29 Here 
+
+G(ℓ) = [ g(ℓ) 
+
+> jk
+
+] ∈ RNℓ−1×Nℓ
+
+denotes the weight matrix between layers ℓ − 1 and ℓ. The diagonal entries of 
+
+Mℓ collect the sum of linear conductances connected to each node (Mℓ)kk =
+
+ BA
+
+ℓ−1 Nℓ−1
+
+X
+
+> j=1
+
+g(ℓ) 
+
+> jk
+
++
+
+ BA
+
+ℓ
+
+α2
+
+> ℓ+1
+> Nℓ+1
+
+X
+
+> m=1
+
+g(ℓ+1)  
+
+> km
+
+, ℓ = 1 , . . . , L − 1,
+
+(S34) (ML)kk =
+
+ BA
+
+L−1 NL−1
+
+X
+
+> j=1
+
+g(L) 
+
+> jk
+
+. (S35) The grounded nonlinearities ϕ(ℓ) 
+
+> k
+
+(v(ℓ) 
+
+> k
+
+) depend only on a single node voltage, so their contribution to the Hessian is diagonal, with diagonal blocks given by the differential conductances: 
+
+D(v) = blkdiag 
+
+
+
+Diag  i(1) ′(v(1) ), BA Diag  i(2) ′(v(2) ), . . . , 
+
+ BA
+
+L−2
+
+Diag  i(L−1) ′(v(L−1) ), 0
+
+
+
+.
+
+(S36) For a given sample i, the local asymptotic convergence of the odd–even solver is governed by the Hessian evaluated at that sample’s converged state v⋆i . Since in our experiments we report the average number of outer sweeps over the validation set, we define a single average Hessian for each run by replacing the sample-dependent nonlinear differential conductances with their average over the converged validation states: 
+
+Havg = Hlin + blkdiag 
+
+
+
+c1 Diag  i(1) ′(v(1) ), . . . , c L−1 Diag  i(L−1) ′(v(L−1) ), 0
+
+
+
+,
+
+(S37) where cℓ = ( B/A )ℓ−1, and the overline denotes an elementwise average over the converged validation states. Using the same odd/even block convention as above, the corresponding average-Hessian sweep matrix is 
+
+T := T (Havg ) = H−1 
+
+> ee
+
+Heo H−1 
+
+> oo
+
+Hoe . (S38) This gives an average-Hessian estimate of the local contraction factor, ρ(T ). Since the number of sweeps scales as 1 /(− log ρ) in the linearized regime, we use 1
+
+− log ρ(T ) (S39) as the scalar predictor of the average number of outer sweeps. In the Figures S2a, S2b and S2c this spectral radius is compared with the average number of outer sweeps for DRNs with one, two, and three hidden layers. 30 31 
+
+> (a) DRN with 1 Hidden Layer.
+> (b) DRN with 2 Hidden Layers.
+> (c) DRN with 3 Hidden Layers.
+
+Figure S2: Average outer sweeps and the contraction proxy 1 /(− log ρ(T )) for different layers widths. Each point is one Digits DRN configuration at the indicated hidden-layer depth, across nonlinearities and widths. S2.3 Timing summary tables 
+
+Supplementary Tables S1 and S2 provide the data from the timing experiments. Supplementary Table S1 reports total runtimes together with outer-sweep and inner-iteration counts. Supplementary Table S2 reports the error between CD and SPICE. 32 Table S1: Runtime decomposition for the CPU timing runs included in the solver comparison. Outer sweeps denote the average number of equilibrium sweeps per sample. Inner sweeps denote the average number of local nonlinear-solver iterations per call. The runs for which SPICE netlist could not be generated are marked with dashes. 
+
+> Nonlinearity  H Width  CD [s]  SPICE [s]  Speedup  Sweeps avg.  Inner avg./call  Total inner Single Shockley  1 64  7.246  59.305  8.2  11.972  1.181  10,176 Single Shockley  1 128  7.679  30.891  4.0  9.000  2.000  12,960 Single Shockley  1 256  5.889  69.386  11.8  5.878  2.000  8,464 Single Shockley  1 512  6.013  198.342  33.0  5.469  1.990  7,836 Single Shockley  1 1024  6.005  793.847  132.2  5.106  1.999  7,349 Single Shockley  2 64  17.869  76.661  4.3  15.172  1.404  30,666 Single Shockley  2 128  17.492  477.836  27.3  14.878  1.084  23,213 Single Shockley  2 256  24.606  4293.154  174.5  21.456  1.000  30,896 Single Shockley  2 512  39.363  49270.400  1251.7  31.775  1.000  45,756 Single Shockley  2 1024  48.479  – – 27.586  1.000  39,724 Single Shockley  3 64  162.036  186.352  1.2  80.794  1.532  267,400 Single Shockley  3 128  48.861  1737.107  35.6  17.853  2.408  92,876 Single Shockley  3 256  132.086  12971.061  98.2  67.783  1.365  199,839 Single Shockley  3 512  46.419  – – 17.000  1.640  60,221 Double Shockley  1 64  5.923  22.065  3.7  9.000  1.895  6,141 Double Shockley  1 128  4.767  73.608  15.4  8.972  1.000  3,230 Double Shockley  1 256  5.946  100.499  16.9  9.000  1.966  6,371 Double Shockley  1 512  7.815  309.581  39.6  9.000  1.994  6,462 Double Shockley  1 1024  8.324  1107.349  133.0  9.000  2.000  6,480 Double Shockley  2 64  14.678  68.514  4.7  16.750  1.000  12,060 Double Shockley  2 128  14.702  549.956  37.4  15.847  1.213  13,837 Double Shockley  2 256  16.778  4312.234  257.0  18.033  1.000  12,984 Double Shockley  2 512  29.478  51768.450  1756.2  26.522  1.000  19,096 Double Shockley  2 1024  55.053  – – 31.731  1.000  22,846 Double Shockley  3 64  27.569  138.930  5.0  9.578  1.879  30,427 Double Shockley  3 128  21.922  1183.510  54.0  16.158  1.389  24,245 Double Shockley  3 256  47.417  14361.823  302.9  16.644  7.844  141,011 Double Shockley  3 512  78.675  – – 51.936  1.000  56,091 PWL i(v)  1 64  11.807  22.023  1.9  13.778  20.352  100,948 PWL i(v)  1 128  2.950  39.071  13.2  14.142  1.024  5,211 PWL i(v)  1 256  8.974  94.790  10.6  8.050  20.875  60,497 Continued on next page
+
+33 Table S1 (continued) Nonlinearity  H Width  CD [s]  SPICE [s]  Speedup  Sweeps avg.  Inner avg./call  Total inner PWL i(v)  1 512  9.070  311.140  34.3  7.233  21.082  54,898 PWL i(v)  1 1024  10.487  1094.952  104.4  5.761  24.476  50,764 PWL i(v)  2 64  11.105  61.481  5.5  33.400  1.000  24,048 PWL i(v)  2 128  12.756  543.731  42.6  21.236  3.956  60,485 PWL i(v)  2 256  15.340  4301.242  280.4  39.936  1.000  28,754 PWL i(v)  2 512  29.918  52009.107  1738.4  61.994  1.000  44,636 PWL i(v)  2 1024  54.844  – – 68.481  1.000  49,306 PWL i(v)  3 64  15.679  165.079  10.5  7.422  15.818  126,800 PWL i(v)  3 128  30.622  1131.481  37.0  26.231  6.905  195,624 PWL i(v)  3 256  12.472  13723.796  1100.4  13.167  3.643  51,805 PWL i(v)  3 512  67.944  – – 95.214  1.000  102,831 
+
+34 Table S2: Accuracy and error summary for the CPU timing runs included in the solver comparison. The runs for which SPICE netlist could not be generated are marked with dashes. 
+
+Nonlinearity H Width MAE p50 rel. err. p90 rel. err. p99 rel. err. Single Shockley 1 64 7.29e-06 1.27e-05 1.55e-05 1.81e-05 Single Shockley 1 128 1.86e-05 1.51e-05 1.61e-05 1.71e-05 Single Shockley 1 256 1.88e-05 1.55e-05 1.64e-05 1.70e-05 Single Shockley 1 512 5.60e-06 1.10e-05 1.17e-05 1.23e-05 Single Shockley 1 1024 5.78e-06 1.08e-05 1.14e-05 1.20e-05 Single Shockley 2 64 4.11e-06 1.18e-05 1.39e-05 1.63e-05 Single Shockley 2 128 4.59e-06 9.68e-06 1.08e-05 1.21e-05 Single Shockley 2 256 1.93e-06 1.82e-05 2.06e-05 2.21e-05 Single Shockley 2 512 1.90e-06 3.17e-05 3.81e-05 4.11e-05 Single Shockley 2 1024 – – – –Single Shockley 3 64 4.92e-05 6.62e-05 9.13e-05 1.08e-04 Single Shockley 3 128 1.80e-05 1.53e-05 1.60e-05 1.65e-05 Single Shockley 3 256 3.52e-05 2.05e-05 9.90e-05 2.13e-04 Single Shockley 3 512 – – – –Double Shockley 1 64 9.72e-06 1.25e-05 1.46e-05 1.58e-05 Double Shockley 1 128 1.87e-06 8.69e-06 9.95e-06 1.07e-05 Double Shockley 1 256 6.37e-06 1.13e-05 1.26e-05 1.34e-05 Double Shockley 1 512 6.84e-06 1.16e-05 1.25e-05 1.30e-05 Double Shockley 1 1024 7.88e-06 1.21e-05 1.27e-05 1.32e-05 Double Shockley 2 64 1.83e-06 1.34e-05 1.76e-05 2.07e-05 Double Shockley 2 128 1.41e-05 1.17e-05 1.25e-05 1.30e-05 Double Shockley 2 256 1.56e-06 1.65e-05 2.02e-05 2.35e-05 Double Shockley 2 512 1.76e-06 2.30e-05 2.69e-05 2.95e-05 Double Shockley 2 1024 – – – –Double Shockley 3 64 2.20e-05 1.21e-05 1.28e-05 1.32e-05 Double Shockley 3 128 1.09e-05 1.10e-05 1.19e-05 1.32e-05 Double Shockley 3 256 1.03e-05 1.21e-05 1.27e-05 1.32e-05 Double Shockley 3 512 – – – –PWL i(v) 1 64 1.06e-05 1.37e-05 1.58e-05 1.75e-05 PWL i(v) 1 128 2.96e-06 1.36e-05 1.68e-05 1.99e-05 PWL i(v) 1 256 6.53e-06 1.17e-05 1.28e-05 1.35e-05 PWL i(v) 1 512 6.91e-06 1.17e-05 1.26e-05 1.33e-05 PWL i(v) 1 1024 7.87e-06 1.21e-05 1.27e-05 1.33e-05 PWL i(v) 2 64 9.11e-06 6.85e-05 7.97e-05 8.67e-05 PWL i(v) 2 128 1.49e-05 1.21e-05 1.36e-05 1.68e-05 PWL i(v) 2 256 6.15e-06 6.39e-05 7.41e-05 8.30e-05 PWL i(v) 2 512 6.24e-06 8.07e-05 9.14e-05 1.03e-04 PWL i(v) 2 1024 – – – –PWL i(v) 3 64 2.13e-05 1.20e-05 1.27e-05 1.37e-05 Continued on next page 
+
+35 Table S2 (continued) Nonlinearity H Width MAE p50 rel. err. p90 rel. err. p99 rel. err. PWL i(v) 3 128 1.25e-05 1.22e-05 1.47e-05 2.07e-05 PWL i(v) 3 256 1.04e-05 1.14e-05 1.19e-05 1.23e-05 PWL i(v) 3 512 – – – –
+
+36 References 
+
+[1] Danijela Markovic, Abraham Mizrahi, Damien Querlioz, and Julie Grollier. Physics for neuromorphic computing. Nature Reviews Physics , 2(9):499– 510, 2020. [2] T. P. Xiao, C. H. Bennett, B. Feinberg, S. Agarwal, and M. J. Marinella. Analog architectures for neural network acceleration based on non-volatile memory. Applied Physics Reviews , 7(3), 2020. [3] Qingqing Xia and J. Joshua Yang. Memristive crossbar arrays for brain-inspired computing. Nature Materials , 18(4):309–323, 2019. [4] Dennis V Christensen, Regina Dittmann, Bernabe Linares-Barranco, Abu Sebastian, Manuel Le Gallo, Andrea Redaelli, Stefan Slesazeck, Thomas Mikolajick, Sabina Spiga, Stephan Menzel, et al. 2022 roadmap on neuro-morphic computing and engineering. Neuromorphic Computing and Engi-neering , 2(2):022501, 2022. [5] Ali Momeni, Babak Rahmani, Benjamin Scellier, Logan G Wright, Peter L McMahon, Clara C Wanjura, Yuhang Li, Anas Skalli, Natalia G Berloff, Tatsuhiro Onodera, et al. Training of physical neural networks. Nature ,645(8079):53–61, 2025. [6] Jack Kendall, R. Pantone, K. Manickavasagam, Yoshua Bengio, and Ben-jamin Scellier. Training end-to-end analog neural networks with equilibrium propagation. 2020. [7] Benjamin Scellier and Sid Mishra. A universal approximation theorem for nonlinear resistive networks. 2023. [8] Benjamin Scellier and Yoshua Bengio. Equilibrium propagation: Bridging the gap between energy-based models and backpropagation. Frontiers in Computational Neuroscience , 11:24, 2017. [9] Benjamin Scellier. A deep learning theory for neural networks grounded in physics. arXiv preprint arXiv:2103.09985 , 2021. [10] Axel Laborieux, Maxence Ernoult, Benjamin Scellier, Yoshua Bengio, Julie Grollier, and Damien Querlioz. Scaling equilibrium propagation to deep convnets by drastically reducing its gradient estimator bias. Frontiers in neuroscience , 15:633674, 2021. [11] S. Dillavou, M. Stern, A. J. Liu, and D. J. Durian. Demonstration of de-centralized physics-driven learning. Physical Review Applied , 18(1):014040, 2022. [12] S. Dillavou, B. D. Beyer, M. Stern, M. Z. Miskin, A. J. Liu, and D. J. Durian. Machine learning without a processor: Emergent learning in a nonlinear electronic metamaterial. 2023. 37 [13] M. Watfa, A. Garcia-Ortiz, and G. Sassatelli. Energy-based analog neural network framework. Frontiers in Computational Neuroscience , 17:1114651, 2023. [14] M. Stern, S. Dillavou, M. Z. Miskin, D. J. Durian, and A. J. Liu. Physi-cal learning beyond the quasistatic limit. Physical Review Research , 4(2): L022037, 2022. [15] M. Stern, S. Dillavou, D. Jayaraman, D. J. Durian, and A. J. Liu. Training self-learning circuits for power-efficient solutions. APL Machine Learning ,2(1), 2024. [16] J. F. Wycoff, S. Dillavou, M. Stern, A. J. Liu, and D. J. Durian. Desyn-chronous learning in a physics-driven learning network. The Journal of Chemical Physics , 156(14), 2022. [17] Benjamin Scellier. A fast algorithm to simulate nonlinear resistive networks. In Proceedings of the 41st International Conference on Machine Learning ,volume 235 of Proceedings of Machine Learning Research , pages 43477– 43503, 2024. [18] W. Millar. Some general theorems for non-linear systems possessing resistance. The London, Edinburgh, and Dublin Philosophical Maga-zine and Journal of Science , 42(333):1150–1160, 1951. doi: 10.1080/ 14786445108561361. [19] E. C. Cherry. Some general theorems for non-linear systems possess-ing reactance. The London, Edinburgh, and Dublin Philosophical Mag-azine and Journal of Science , 42(333):1161–1177, 1951. doi: 10.1080/ 14786445108561362. [20] Will Johnson. Nonlinear electrical networks. Manuscript, 2010. URL https://sites.math.washington.edu/~reu/papers/2017/ willjohnson/directed-networks.pdf . University of Washington (REU notes). 38

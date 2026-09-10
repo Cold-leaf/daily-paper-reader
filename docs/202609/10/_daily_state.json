@@ -1,0 +1,25 @@
+{
+  "date": "20260910",
+  "date_label": "",
+  "generated_at": "2026-09-10 21:14:43 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2609.04266v1",
+      "route": "202609/10/2609.04266v1-compute-in-memory-attention-a-time-domain-analog-softmax-circuit-with-rc-tunable-temperature",
+      "title": "Compute-in-Memory Attention: A Time-Domain Analog Softmax Circuit with RC-Tunable Temperature",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "cim"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "面向Transformer注意力的存内计算模拟Softmax电路",
+      "first_seen_at": "2026-09-10 21:14:43 UTC",
+      "updated_at": "2026-09-10 21:14:43 UTC"
+    }
+  ]
+}

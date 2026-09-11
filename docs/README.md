@@ -41,17 +41,17 @@
 <section class="dpr-home-dashboard-card dpr-home-report-card">
   <div class="dpr-home-dashboard-header">
     <div>
-      <span class="dpr-home-dashboard-kicker">2026-09-10</span>
+      <span class="dpr-home-dashboard-kicker">2026-09-11</span>
       <h3 class="dpr-home-dashboard-title">今日汇总</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">共 1 篇</strong>
+    <strong class="dpr-home-dashboard-count">共 3 篇</strong>
   </div>
   <dl class="dpr-home-dashboard-stats">
     <div class="dpr-home-dashboard-stat"><dt>累计更新</dt><dd>1 次</dd></div>
     <div class="dpr-home-dashboard-stat"><dt>精读</dt><dd>0</dd></div>
-    <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>1</dd></div>
+    <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>3</dd></div>
   </dl>
-  <p class="dpr-home-dashboard-body">最近更新：2026-09-10 21:14:43 UTC<br>状态：成功</p>
+  <p class="dpr-home-dashboard-body">最近更新：2026-09-11 21:14:08 UTC<br>状态：成功</p>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-brief-card">
   <div class="dpr-home-dashboard-header">
@@ -62,9 +62,9 @@
     <strong class="dpr-home-dashboard-count">AI</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<p>日报速览：2026-09-10 仅1篇速读、0篇精读，存内计算注意力电路入选。</p>
-<p>唯一推荐是《Compute-in-Memory Attention: A Time-Domain Analog Softmax Circuit with RC-Tunable Temperature》，6.0/10，方向聚焦时域模拟 Softmax 与 RC 可调温度。</p>
-<p>普通读者可先关注“存内计算+模拟 Softmax”如何服务注意力加速，等后续精读再决定是否深入。</p>
+<p>2026-09-11日报：精读0篇、速读3篇，主题集中在生物传热仿真、非均质热传导和存内计算加速器。</p>
+<p>三篇速读均为6.0分，可优先关注PPIM的Pennes物理信息Mamba用于热源条件3D生物传热，以及FlexSpIM的事件驱动存内计算加速器方向。</p>
+<p>普通读者可先看这三篇的摘要与结论，若关心热管理仿真或低功耗AI芯片，再进一步深读。</p>
   </div>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-deep-card">
@@ -86,12 +86,12 @@
       <span class="dpr-home-dashboard-kicker">今日累计</span>
       <h3 class="dpr-home-dashboard-title">速读推荐</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">1 篇</strong>
+    <strong class="dpr-home-dashboard-count">3 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="Compute-in-Memory Attention: A Time-Domain Analog Softmax Circuit with RC-Tunable Temperature">Compute-in-Memory Attention: A Time-Domain Analog Softmax Circuit with RC-Tunable Temperature</span></li></ul>
+<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="PPIM: Pennes Physics-Informed Mamba for Heat-Source-Conditioned 3D Bioheat Simulation">PPIM: Pennes Physics-Informed Mamba for Heat-Source-Conditioned 3D Bioheat Simulation</span></li><li><span class="dpr-home-dashboard-paper-title" title="A Generalized Finite Difference-Based Fragile Points Method for Heat Conduction Problems in Non-Homogeneous Media">A Generalized Finite Difference-Based Fragile Points Method for Heat Conduction Problems in Non-Homogeneous Media</span></li><li><span class="dpr-home-dashboard-paper-title" title="FlexSpIM: An Event-Based Digital Compute-In-Memory Accelerator with Flexible Operand Resolution and Layer-Wise Hybrid Stationarity">FlexSpIM: An Event-Based Digital Compute-In-Memory Accelerator with Flexible Operand Resolution and Layer-Wise Hybrid Stationarity</span></li></ul>
   </div>
-  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">cim <strong>1</strong></span></div>
+  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">thermal-gnn <strong>2</strong></span><span class="dpr-home-dashboard-tag">cim <strong>1</strong></span></div>
 </section>
 </div>
 

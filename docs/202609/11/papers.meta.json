@@ -1,0 +1,54 @@
+{
+  "label": "2026-09-11",
+  "date": "2026-09-11",
+  "generated_at": "2026-09-11T21:14:13",
+  "count": 3,
+  "papers": [
+    {
+      "paper_id": "202609/11/2609.06869v1-ppim-pennes-physics-informed-mamba-for-heat-source-conditioned-3d-bioheat-simulation",
+      "section": "quick",
+      "title_en": "PPIM: Pennes Physics-Informed Mamba for Heat-Source-Conditioned 3D Bioheat Simulation",
+      "authors": "Dongyun Lee, Kyungho Yoon, Minwoo Shin",
+      "date": "2026-09-06",
+      "pdf": "https://arxiv.org/pdf/2609.06869v1",
+      "score": "6.0",
+      "evidence": "神经PDE求解器进行三维瞬态温度场模拟",
+      "tldr": "三维生物传热模拟需预测组织瞬态温度，常用Pennes方程刻画扩散、灌注散热与外热源。针对微波消融式局部热源条件，作者提出PPIM：在时序子序列Mamba模型中引入热源条件输入和Pennes感知SSM衰减初始化。相同训练与Pennes残差下，600 s算例中PPIM的MAE、相对L1和L2误差均最低，剩余误差多集中于热源附近。结果表明PPIM能有效逼近有限差分数值参考，为热源条件化三维生物传热神经求解提供方案。",
+      "tags": "query:thermal-gnn",
+      "abstract_en": "Three-dimensional bioheat simulation aims to predict transient temperature distributions in biological tissue and is commonly modeled using the Pennes bioheat equation, which combines thermal diffusion, perfusion-mediated heat loss, and external heat generation. In this study, we consider a controlled 3D Pennes bioheat simulation under a localized heat-source condition inspired by microwave ablation (MWA). To evaluate neural approximation performance, we compare three neural partial differential equation (PDE) solvers under the same controlled simulation: a spatial Fourier-feature physics-informed neural network (PINN), a generic PINNMamba temporal subsequence model, and Pennes Physics-Informed Mamba (PPIM). PPIM builds on the temporal subsequence model by incorporating conditioned heat-source input and Pennes-aware state-space model (SSM) decay initialization. All three neural models are trained under the same conditions with the same Pennes residual, and an explicit finite-difference method (FDM) solution is used only as the numerical reference. In a representative 600~s run, PPIM achieved the lowest MAE, relative $L_1$ error, and relative $L_2$ error among the evaluated neural solvers. Error maps further showed that the remaining PPIM errors were more concentrated near the heat-source region than across the rest of the domain. These results indicate that PPIM is effective for approximating the FDM reference final temperature field in this controlled simulation. The source code is available at https://github.com/muvYun/PPIM.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202609/11/2609.06891v1-a-generalized-finite-difference-based-fragile-points-method-for-heat-conduction-problems-in-non-homogeneous-media",
+      "section": "quick",
+      "title_en": "A Generalized Finite Difference-Based Fragile Points Method for Heat Conduction Problems in Non-Homogeneous Media",
+      "authors": "Smriti, Sundararajan Natarajan, Abhinash Malla",
+      "date": "2026-09-07",
+      "pdf": "https://arxiv.org/pdf/2609.06891v1",
+      "score": "6.0",
+      "evidence": "面向热传导与界面问题的无网格数值方法",
+      "tldr": "针对非均质介质热传导中隐式界面问题，传统数值方法常依赖复杂积分且难以自然处理界面间断。本文提出基于广义有限差分的Fragile Points Method（FPM）增强格式，利用局部点基多项式构造本质不连续试函数/测试函数，无需专门数值积分。为消除间断带来的不一致性，引入受间断伽辽金启发的数值通量修正。基准算例验证了方法的高效性与鲁棒性，为无网格界面问题提供系统数学基础。",
+      "tags": "query:thermal-gnn",
+      "abstract_en": "This paper presents an enhanced formulation of the Fragile Points Method (FPM), a truly meshless approach for efficiently modeling implicit interfaces in two-dimensional differential equations involving non-homogeneous materials. The proposed framework eliminates the need for specialized numerical integration techniques and provides a systematic mathematical foundation for solving interface problems. Discontinuities in both primary and secondary variables across interfaces are naturally handled through the inherently discontinuous shape functions of FPM. Unlike conventional Galerkin methods, FPM employs simple, local, point-based polynomial trial and test functions constructed via a generalized finite difference approach. These discontinuous functions bypass the continuity requirements of standard Galerkin frameworks. To address the resulting inconsistency due to discontinuities, we incorporate numerical flux corrections inspired by the discontinuous Galerkin method. The proposed method is validated through several benchmark problems, demonstrating its efficiency and robustness.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202609/11/2609.08446v1-flexspim-an-event-based-digital-compute-in-memory-accelerator-with-flexible-operand-resolution-and-layer-wise-hybrid-stationarity",
+      "section": "quick",
+      "title_en": "FlexSpIM: An Event-Based Digital Compute-In-Memory Accelerator with Flexible Operand Resolution and Layer-Wise Hybrid Stationarity",
+      "authors": "Nicolas Chauvaux, Adrian Kneip, Charlotte Frenkel",
+      "date": "2026-09-08",
+      "pdf": "https://arxiv.org/pdf/2609.08446v1",
+      "score": "6.0",
+      "evidence": "存内计算加速器架构",
+      "tldr": "面向边缘视觉的脉冲神经网络CIM加速器虽具微秒级延迟与超低能耗，但电路和系统灵活性不足，难以适配多样负载。FlexSpIM提出数字CIM架构，在统一存储中支持任意操作数分辨率和形状，并实现层间混合权重/输出固定数据流。40nm CMOS原型验证了可重构精度、能效与吞吐优势；相比固定精度数字CIM SNN加速器，其1-bit归一化能效与吞吐更具竞争力，并提供逐位分辨率重构能力。在IBM DVS手势数据集达95.8%精度，大规模系统能耗降45%、延迟降52%。",
+      "tags": "query:cim",
+      "abstract_en": "Compute-in-memory (CIM) accelerators for spiking neural networks (SNNs) offer a promising solution for achieving $μ$s-level inference latency and ultra-low energy in edge vision applications. However, their limited flexibility at both circuit and system levels restricts their deployment across diverse workloads. This work introduces FlexSpIM, a digital CIM architecture supporting arbitrary operand resolution and shape within a unified storage for weights and neuron states (i.e., membrane potentials). These circuit-level capabilities enable a layer-level hybrid weight- and output-stationary dataflow, maximizing operand reuse and reducing costly on- and off-chip data movement during SNN execution. Measurement results from a fabricated FlexSpIM prototype in 40-nm CMOS demonstrate competitive 1-bit-normalized energy efficiency and higher throughput compared with prior fixed-precision digital CIM-based SNN accelerators, while providing bitwise resolution reconfiguration. Evaluated on the IBM DVS gesture dataset, FlexSpIM achieves 95.8% accuracy while enabling up to 45% energy and 52% latency reductions in large-scale systems compared with fixed stationarity approaches.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

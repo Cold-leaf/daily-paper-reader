@@ -1,0 +1,695 @@
+Title: A Generalized Finite Difference-Based Fragile Points Method for Heat Conduction Problems in Non-Homogeneous Media
+
+URL Source: https://arxiv.org/pdf/2609.06891v1
+
+Published Time: Wed, 09 Sep 2026 01:40:15 GMT
+
+Number of Pages: 22
+
+Markdown Content:
+# A Generalized Finite Difference-Based Fragile Points Method for Heat Conduction Problems in Non-Homogeneous Media 
+
+Smriti a, Sundararajan Natarajan a,1, ∗, Abinash Malla a
+
+> aDepartment of Mechanical Engineering, Indian Institute of Technology Madras, Chennai 600036, India.
+
+Abstract 
+
+This paper presents an enhanced formulation of the Fragile Points Method (FPM), a truly meshless approach for efficiently modeling implicit interfaces in two-dimensional differential equations involving non-homogeneous materials. The proposed framework eliminates the need for specialized numerical integration techniques and provides a systematic mathematical foundation for solving interface problems. Discontinuities in both primary and secondary variables across interfaces are naturally handled through the inherently discontinuous shape functions of FPM. Unlike conventional Galerkin methods, FPM employs simple, local, point-based polynomial trial and test functions constructed via a generalized finite difference approach. These discontinuous functions bypass the continuity requirements of standard Galerkin frameworks. To address the resulting inconsistency due to discontinuities, we incorporate numerical flux corrections inspired by the discontinuous Galerkin method. The proposed method is validated through several benchmark problems, demonstrating its efficiency and robustness. 
+
+Keywords: Implicit interface, Discontinuous Galerkin method, Fragile Points Method, Generalised finite difference method, Numerical Flux Correction 
+
+1. Introduction 
+
+Interfaces are ubiquitous in nature and serve as a critical boundary that facilitates transfer of forces between components. The physical processes occurring at the interface is typically modeled using non-homogeneous second order elliptic equations. These models are essential for providing an accurate description of systems in which discrete properties across an interface play a major role in determining the overall behaviour. Common applications include heat transfer across various media, diffusion processes in heterogeneous materials, and groundwater flow through distinct soil layers. Elliptic interface problems pose challenges due to discontinuities at the interfaces between different materials, leading to abrupt changes in properties like conductivity or permeability. Accurately capturing these changes is essential for reliable simulation results. Solving these problems is critical across numerous fields such as biomedical engineering, fluid dynamics (where different fluids interact), electronic device 
+
+> ⋆Pandurangan Faculty Fellow
+> ∗Corresponding author
+> 1Department of Mechanical Engineering, Indian Institute of Technology Madras, Chennai - 600036, Tamil Nadu, India. Email: snatarajan@iitm.ac.in
+> September 9, 2026 arXiv:2609.06891v1 [math.NA] 7 Sep 2026
+
+optimization (where different conducting materials affect the flow of electric current), the design of composite materials with desired properties, environmental science, and more. Typically numerical methods are used for tackling these problems, as analytical solutions are often unattainable. Commonly used numerical methods include the finite element method (FEM)[1], the scaled boundary finite element method (SBFEM)[2], and the extended finite element method (XFEM) combined with the immersed interface method (IIM)[3]. These techniques discretize the domain into smaller nonoverlapping segments, solving the governing equations while managing discontinuities at the interfaces. Adaptive mesh refinement is frequently utilized near interfaces to capture these discontinuities with greater accuracy. Recently, Atluri et al. [4] introduced a truly meshfree method that employs point-wise simple polynomial trial and test functions through generalized finite difference methods, known as the fragile points method (FPM). Since these functions are defined point-wise, both the test and trial functions are discontinuous at the cell boundaries. To enhance consistency, and inspired by the discontinuous Galerkin approach, numerical flux corrections are employed [5]. The salient features of this framework include: (a) trial and test functions that are local to the cell and inherently discontinuous, making the framework ideal for modeling problems with strong and weak discontinuities; (b) the use of simple polynomial functions, which eliminates the need for specialized numerical integration techniques; and (c) the ability to efficiently manage interface problems and interface boundary conditions without a significant computational burden. The accuracy, consistency in the solution, and robustness of the FPM when applied to 1D and 2D Poisson’s equations were studied in [4]. Additionally, the FPM has been utilized to investigate transient heat conduction problems in [6, 7], employing the generalized finite difference technique to derive trial and test functions pointwise. Both the primal FPM and mixed FPM approaches have been used to analyze flexoelectric effects in 2D dielectric materials [8, 9]. Yang et al. [10] developed the FPM for linear elasticity, performing convergence studies on benchmark elasticity problems and simulating the crack propagation and initiation problems. In the context of cardiac electrophysiology, Mountris et al. [11] used the FPM to derive the cardiac monodomain model and estimated ventricular and atrial fiber configurations for four distinct geometries [12]. Furthermore, Mountris et al. [13] formulated an explicit Lagrangian algorithm using the FPM to simulate the deformation of hyperelastic materials undergoing large deformation. The FPM has also been applied to study interface debonding in U-notched structures [14] and has proven effective in addressing the two-dimensional hyperbolic telegraph equation [15], as well as linear and non-linear wave equations in cracked domains [16]. As seen from the literature, since its inception, the FPM has been utilized to address a variety of problems involving both linear and non-linear equations. The method’s robustness and accuracy have been validated for both smooth and singular problems. However, to the best of the authors’ knowledge, the FPM has not yet been applied to model implicit interfaces in two-dimensional differential equations within non-homogeneous materials, which are crucial in many engineering disciplines. This work makes several important contributions: 
+
+❑ Extension of FPM to Implicit Interface Problems: This study extends the FPM 2to model implicit interfaces in non-homogeneous materials, addressing a notable gap in the existing literature. 
+
+❑ Development of a Comprehensive framework: A complete mathematical framework has been established to handle implicit/explicit interfaces, making it a promising alternative for both the finite element-based approach and the mesh-free methods. 
+
+❑ Efficient Numerical Integration: Proposed method avoids the need for specialized integration techniques commonly required in mesh-free methods and allows the construction of interpolation shape functions without much computational complexity. Furthermore, a simple numerical integration technique is employed to compute the domain integrals. The structure of the remainder of this paper is organized as follows: Section 2 details the governing differential equation for heat conduction in an anisotropic non-homogeneous medium. Section 3 outlines the implementation of the Fragile Points Method (FPM) for this equation. A discussion on numerical flux correction for ensuring stability and consistency in the solutions, is presented in Section 4. The accuracy, stability and robustness of the FPM in addressing the global response of different interface problems are demonstrated in Section 5, and the paper concludes with final remarks in the last section. 
+
+2. Governing equations 
+
+In this paper, we investigate heat conduction in an anisotropic heterogeneous medium, using it as a case study to demonstrate the robustness of the Fragile Points Method (FPM) to handle interface problems. Consider a solid body occupying a domain Ω ⊂ R2, enclosed by an external boundary Γ. This boundary is partitioned into two disjoint segments: the Dirichlet boundary ΓD ⊆ Γ and the Neumann boundary ΓN ⊆ Γ, such that ΓD ∩ ΓN = ∅ and 
+
+ΓD ∪ ΓN = Γ . The domain Ω comprises two distinct material regions: an inclusion Ω1 and a surrounding matrix Ω2, satisfying Ω = Ω 1 ∪ Ω2 and Ω1 ∩ Ω2 = ∅. These subdomains are separated by an internal interface denoted by Γ12 . See Figure 1 for a schematic description. The combined boundary consisting of the external boundary Γ and the internal interface Γ12 
+
+is denoted by ˜Γ = Γ ∪ Γ12 .3Figure 1: Solid body occupying the domain Ω = Ω 1 ∪ Ω2 with inclusion Ω1, matrix Ω2 and an interface Γ12 .The external boundary Γ comprises Dirichlet (Γ D ) and Neumann (Γ N ) boundaries, with n as the outward unit normal to Γ.
+
+The steady state heat conduction within this domain is governed by the following set of equations: 
+
+∇ · (β(x)∇u(x)) = Q(x) on x ∈ Ω,u(x) = gD(x) in x ∈ ΓD,β(x)∇u · n = q in x ∈ ΓN ,
+
+JuK = 0 in x ∈ Γ12 ,
+
+Jβ∇u · nK = 0 in x ∈ Γ12 ,
+
+(1) where ∇ = { ∂∂x ∂∂y }T is the gradient operator, u(x) is the temperature distribution at a point x of the body, n denotes the outward pointing unit normal to Γ, the heat flux is denoted by q and the internal heat source within the domain is represented by Q(x). The diffusion coefficient of the material denoted by β(x) is a piecewise constant function defined as: 
+
+β(x) = 
+
+ β1 in Ω1
+
+β2 in Ω2
+
+(2) To facilitate numerical solutions, we assume the trial and test functions are selected from function spaces Uh and Vh defined as: 
+
+(Uh ⊂ U = {u(x) ∈ H1(Ω) : u = gD(x) on ΓD},
+
+Vh ⊂ V = {v(x) ∈ H1(Ω) : v = 0 on ΓD}. (3) The domain Ω is partitioned into non-overlapping element Ωh. The unknown temperature field is approximated by finite-dimensional piecewise function uh(x) = P 
+
+> a
+
+Na(x)ua, where 
+
+Na(x) represents the nodal basis function and ua is the nodal unknown temperature. Following the standard Bubnov-Galerkin approach, the weak form of the heat conduction equation is expressed as: Find u ∈ H1 such that ∀v ∈ V h,
+
+Z
+
+> Ω
+
+∇vT β∇u dΩ = 
+
+Z
+
+> Ω
+
+Qv dΩ + 
+
+Z
+
+> ˜Γ
+
+vnT β∇u dΓ. (4) 4The shape functions, denoted as Na(x), are usually continuous within each finite element but may exhibit discontinuities across element boundaries. These functions are typically chosen to be piecewise polynomials within each element of the discretized domain Ωh ensuring that the approximation uh(x) inherits the continuity and smoothness properties of the shape functions. The discontinuities across element boundaries are physically meaningful, often corresponding to material interfaces or jumps in properties. 
+
+3. Point-based discontinuous trial and test functions for Fragile Points method 
+
+One of the fundamental aspects of the Fragile Points Method (FPM) is its ability to handle problems with complex geometries and potential material discontinuities. This is achieved through the use of local, discontinuous trial and test functions. The first step involves introducing a set of random points within the domain. Then, with these points, the domain can be partitioned into conforming and non-overlapping subdomains in such a way that each subdomain contains only one point. This characteristic grants FPM significant flexibility in handling complex geometries, as the subdomain shape can adapt to the point distribution and can be of any geometry as shown in Figure 2. This advantage arises because the trial and test functions are constructed solely based on the random points within the domain, and their form is entirely independent of the specific subdomain shapes. For creating subdomains, many partitioning schemes can be employed, e.g., the Voronoi Diagram partition, as well as quadrilateral, and triangular partition, even FEM elements, can be converted into FPM subdomains by defining the centroid of each FEM geometrical element as the internal Fragile Point. 
+
+> Figure 2: Domain and its partition
+
+Then, within each subdomain, a simple, local, discontinuous polynomial trial and test function is established. The trial function, denoted as uh(x), approximates the unknown solution at any point x located within subdomain E0. This subdomain also houses an internal point, designated as P0. The polynomial trial function can be defined in terms of the values of u
+
+and its gradients at P0. For simplicity, we use 2D linear functions. To construct the trial function, we leverage a Taylor series expansion centered at P0. Mathematically, such a trial function is expressed as: 
+
+uh(x) = u0 + ( x − x0) · ∇u|P0 , x ∈ E0, (5) 5where u0 represents the value of the solution field at the internal point P0, x denotes the position vector of any point within subdomain E0, x0 is the position vector of P0 and 
+
+∇u|P0 symbolizes the gradient of the solution field, evaluated at P0. The challenge lies  
+
+> Figure 3: Domain with support for point P0
+
+in determining the gradient, ∇u|P0 in equation (5), as it’s typically unknown beforehand. To address this, FPM employs the Generalized Finite Difference (GFD) [4] method that involves defining the support of the Point P0 first. This is typically done by selecting a set of neighboring points surrounding the internal point P0. The two common strategies for selecting neighbors are: (a) Radius-based selection , where all points P ∈ { P (x)|(x−x0) ≤
+
+r}, within a fixed radius r are included, (b) Nearest neighbor selection , which considers points in subdomains sharing boundaries with the subdomain of P0. In this paper, we use the second approach, defining the support of P0 as all points that share boundaries with the subdomain E0, as shown in Figure 3. These neighboring points are denoted as 
+
+P1, P 2, P 3, ....P m.The gradient ∇u is determined by defining a weighted discrete L2 norm J [4, 17] as follows: 
+
+J =
+
+> m
+
+X
+
+> i=1
+
+(( xi − x0).∇u|P0 − (ui − u0)) 2wi (6) where xi denotes the coordinate vector of Pi, ui denotes the value of uh at Pi and wi signifies the value of weight function of P0 at Pi (i = 1 , 2, ...m ). The weight function is assumed to remain constant in this context. The stationarity of J leads to the following formula for the gradient ∇u at P0:
+
+∇u|P0 = Bu E , (7) where the matrix B and the vector uE are defined as 
+
+B = ( ATA)−1AT I1 I2
+
+ , (8a) 
+
+uE =   u0 u1 ... um
+
+ T . (8b) 6The matrices A, I1 and I2 are further defined as 
+
+A =
+
+
+
+x1 − x0
+
+x2 − x0
+
+· · · 
+
+xm − x0
+
+ , (9a) 
+
+I1 =
+
+−1 −1 ... −1
+
+> 1×m
+
+T
+
+, (9b) 
+
+I2 =
+
+
+
+1 0 0 · · · 00 1 0 · · · 0
+
+· · · · · · · · · · · · · · · 
+
+0 0 0 · · · 1
+
+
+
+> m×m
+
+. (9c) Finally, by substituting ∇u|P0 from equation (7) into equation (5), the trial function uh
+
+becomes 
+
+uh(x) = Nu E , x ∈ E0 (10) where 
+
+N = ( x − x0)B + 1 0 ... 0 
+
+> 1×(m+1)
+
+. (11) The matrix N serves as the shape function of uh within the subdomain E0, defined in terms of the internal point P0 and its support points P1, P 2, P 3..., P m. Thus, neighbouring subdomains have their own shape function values at the common boundary, as no continuity requirement is imposed at the internal boundaries. Consequently, the shape functions are discontinuous at these boundaries. To demonstrate this, the shape function plots at a point in both 1-D and 2-D domains are shown in Figure 4 and Figure 5, respectively.  
+
+> Figure 4: 1-D domain Figure 5: 2-D domain
+
+Regarding the test function vh, we stipulate that it adopts the identical shape function as 
+
+uh within the weak Galerkin formulation. It is evident from the assembly of trial and test functions that they possess characteristics of being local, straightforward polynomials, reliant on point-based approaches, and exhibiting piecewise-continuous behavior throughout Ω.74. Fragile Points formulation for governing equation 
+
+4.1. Concept of point stiffness 
+
+In the governing Equation (1), multiplying both sides by a test function v and integrating by parts over the entire domain Ω yields the following weak form: 
+
+X Z
+
+> Ei
+
+∇vT β∇u dΩ = X Z
+
+> Ei
+
+Qv dΩ + 
+
+Z
+
+> ˜Γ
+
+vnT β∇u dΓ. (12) where n denotes the outward unit normal vector on the boundary Γ. For a subdomain E0,we substitute the trial and test functions uh and vh in terms of the shape function N and its gradient B. Substituting these into the weak form Equation (12), the point stiffness matrix 
+
+KP of the subdomain E0 is derived as 
+
+KP =
+
+Z
+
+> E0
+
+BTβB dΩ . (13) The use of linear interpolation for uh and vh, combined with the computation of B exclusively at the internal point P0 within E0, ensures that the matrix B remains constant for this subdomain. As a result, when the diffusion coefficient β is constant, the integration required for the calculation of the point stiffness matrix simplifies to 
+
+KP = BTβBAE0 , (14) where AE0 represents the area of the subdomain E0. The global stiffness matrix for the entire domain Ω is then constructed by assembling the point stiffness matrices from all subdomains. Notably, unlike the finite element method (FEM) which uses element stiffness matrices, the fragile point method (FPM) employs point stiffness matrices. This is to note that although here, we use constant coefficients per cell, the formulation admits spatially varying, anisotropic tensors β(x) without requiring any modification. However, discontinuous trial and test functions in the Galerkin weak form lead to inconsistencies and inaccuracy in the solution failing the patch test. To demonstrate this, consider a one-dimensional steady-state heat conduction problem governed by the equation 
+
+− ddx
+
+
+
+β du
+
+dx
+
+
+
+= 1 , x ∈ (0 , 1) , (15a) 
+
+ux=0 = 0 , ux=1 = 1 . (15b) The exact solution of Equation (15b) is given by u = x. Figures 6 and 7 depict the error (difference between the exact and numerical solutions) obtained by solving Equation (15b) using FPM with 101 points distributed uniformly and randomly across the domain. As evident from Figure 6, the discontinuous trial and test functions lead to solution inconsistencies, particularly for randomly distributed points. To mitigate this issue, FPM incorporates numerical flux corrections inspired by the discontinuous Galerkin method, which will be discussed in the next subsection. 8Figure 6: 101 uniformly distributed points Figure 7: 101 randomly distributed points 
+
+4.2. Concept of numerical fluxes 
+
+As discussed in the previous section, the Fragile Points Method (FPM), which utilizes point-wise trial and test functions that are discontinuous at element boundaries, fails to deliver accurate results even with an increased number of points. To address this, numerical flux corrections are implemented to ensure consistency and enhance the method’s accuracy. Commonly associated with the Discontinuous Galerkin method, numerical fluxes improve result accuracy and consistency. These fluxes facilitate the continuity of the solution across boundaries and contribute to stability. They typically incorporate jump and average operators for the primary and secondary variables. The average operators promote continuity at interfaces, while the jump operators help stabilize the solution. To adapt the concept of numerical flux within the framework of the FPM, the governing differential equation (c.f. Equation (1)), is multiplied with the test function v and using the Gauss divergence theorem, the weak form can be written as 
+
+X
+
+> E∈Ω
+
+Z
+
+> E
+
+∇vT β∇u dΩ = X
+
+> E∈Ω
+
+Z
+
+> E
+
+Qv dΩ + 
+
+Z
+
+> ˜Γ
+
+vnT β∇ˆu dΓ (16) where ˆuh is called the numerical flux, which is the approximation of uh on the boundary of subdomain E for all E ∈ Ω. Next, using the average( {} ) and the jump operator( JK ), Equation (12) is rewritten as: 
+
+X
+
+> E∈Ω
+
+Z
+
+> E
+
+∇vT β∇u dΩ = X
+
+> E∈Ω
+
+Z
+
+> E
+
+Qv dΩ + X
+
+> e∈Γh
+
+Z
+
+> e
+
+({v}Jβ∇ˆuK + JvK · { β∇ˆu}) dΓ+ X 
+
+> e∈ΓD
+> SΓN
+
+Z
+
+> e
+
+JvK · { β∇ˆu}dΓ (17) where ˜Γ = Γ h ∪ ΓD ∪ ΓN is the set of all boundaries, Γh is the set of all internal boundaries and Dirichlet and Neumann conditions are specified on ΓD, ΓN , respectively, representing the external boundaries. The average and jump operators for a scalar quantity ϕ and a vector 9Table 1: Interior Penalty Numerical Flux 
+
+Keyword Γh ΓD ΓN
+
+ˆu {u} gD u
+
+∇ˆu {∇u} − ηhe JuK ∇u − ηhe (u − gD)n g
+
+quantity Φ are defined as follows: 
+
+∀e ∈ Γh
+
+
+
+{ϕ} = 12(ϕ1 + ϕ2), JϕK = ϕ1n1 + ϕ2n2
+
+{Φ} = 12(Φ1 + Φ2), JΦK = Φ1 · n1 + Φ2 · n2
+
+(18a) 
+
+∀e ∈ [Γ D, ΓN ] {ϕ} = ϕ, JϕK = ϕn, {Φ} = Φ, JΦK = Φ · n (18b) 
+
+4.3. Interior Penalty (IP) Numerical Flux and Primal form 
+
+There are different types of Numerical Fluxes that have evolved and been studied by many authors (see the review by [5]). Proper choice of numerical flux can lead to a stable, accurate, and consistent solution and also affect the computational time of a particular method. In this paper, we use Interior Penalty (IP) as the Numerical Flux as shown in Table 1. In Table 1, he is a boundary dependent parameter with the dimensions of length and can be defined as length of the subdomain in case of 1D and length of the boundary in 2D, η is the penalty parameter (positive number) independent of the edge size. Upon substituting the IP numerical flux into Equation (17) we get the primal form of the FPM: 
+
+X
+
+> E∈Ω
+
+Z
+
+> E
+
+∇vT β∇u dΩ − X
+
+> e∈Γh∪ΓD
+
+Z
+
+> e
+
+({β∇u} · JvK + {∇v} · Jβu K) dΓ+ X
+
+> e∈Γh∪ΓD
+
+ηhe
+
+Z
+
+> e
+
+Jβu K·JvK dΓ= X
+
+> E∈Ω
+
+Z
+
+> E
+
+Qv dΩ + X
+
+> e∈ΓD
+
+Z
+
+> e
+
+β
+
+ ηhe
+
+v − ∇v · n
+
+
+
+gD dΓ + X
+
+> e∈ΓN
+
+Z
+
+> e
+
+vβg N dΓ (19) 
+
+4.4. Numerical Implementation 
+
+The primal form of FPM Equation (19) can be written in the matrix form: 
+
+Ku = f (20) where K is the global thermal conductivity matrix, u is the unknown vector with nodal DOFs and f is the load vector. Upon substituting N for u and v, B for ∇u and ∇v in Equation (19), the point stiffness matrix KP, point stiffness matrix at internal boundary 10 KIP , Dirichlet boundary stiffness matrix KD and load matrix f can obtained as : 
+
+KP =
+
+Z
+
+> E
+
+BTβB dΩ , where E ∈ Ω (21a) 
+
+KIP = −12
+
+Z
+
+> e
+
+(β1B1TnTN1 + β1N1TnB 1) dΓ + ηhe
+
+Z
+
+> e
+
+β1N1TN1 dΓ 
+
+−12
+
+Z
+
+> e
+
+(β2B2TnTN2 + β2N2TnB 2) dΓ + ηhe
+
+Z
+
+> e
+
+β2N2TN2 dΓ 
+
+−12
+
+Z
+
+> e
+
+(β2B2TnTN1 + β2N2TnB 1) dΓ + ηhe
+
+Z
+
+> e
+
+β1N1TN2 dΓ 
+
+−12
+
+Z
+
+> e
+
+(β1B1TnTN2 + β1N1TnB 2) dΓ + ηhe
+
+Z
+
+> e
+
+β2N2TN1 dΓ ,
+
+(21b) where e = ∂E 1 ∩ ∂E 2
+
+KD = 12
+
+Z
+
+> e
+
+(βBTnTN + βNTnB ) dΓ + ηhe
+
+Z
+
+> e
+
+βNTN dΓ , where e ∈ ΓD (21c) 
+
+f =
+
+Z
+
+> E
+
+QN dΩ + 
+
+Z
+
+> ΓD
+
+β
+
+ ηhe
+
+N − B
+
+
+
+gD dΓ + 
+
+Z
+
+> ΓN
+
+Nβg N dΓ (21d) The total stiffness matrix is then given by: 
+
+K = KP + KIP + KD. (22) Since the trial function used in FPM is discontinuous, interface problems can be modeled explicitly within this method by means of the following simple modifications. When an interior interface is there, the support of the pair of neighbouring points should be modified to exclude each other from their support, which guarantees that the trial functions in this pair of neighbouring subdomains become independent. In this way, the interaction between the neighbouring subdomains is completely separated when the interface is formed. A pseudo-code for the implementation of the fragile points method is given in Algorithm 1. 
+
+5. Numerical examples 
+
+This section evaluates the accuracy and convergence properties of the proposed framework by applying it to various benchmark problems. We consider example problems with interfaces of various shapes, including straight, circular and complex star-shaped interfaces. In order to estimate the errors and study the convergence properties of the numerical results, the following relative error ( r) with the displacement L2 norm is employed: 
+
+r = || uh − uexact || L2
+
+|| uexact || L2
+
+(23) where, 
+
+|| u|| L2 =
+
+sZ
+
+> Ω
+
+uT u dΩ 
+
+11 Algorithm 1: Algorithm to solve Interface problem 
+
+Input: Coordinates of the fragile points 
+
+Output: Stiffness matrix 
+
+for i = 1: number of fragile points do 
+
+Compute shape functions N from Eq. (11) Compute B using Eq. (8a) Compute the point stiffness matrix KP using Eq. (21a) and assemble to the global stiffness matrix, K
+
+if the interface involves a primary variable jump then 
+
+During assemble of point stiffness to global stiffness matrix, don’t connect the two side interface elements 
+
+else 
+
+Compute the Global stiffness matrix as we do for the finite element method 
+
+for e = 1: number of internal interface edges do 
+
+Identify subdomains E1 and E2 sharing the e-th interface edge Compute shape functions N1, N2 on E1 and E2
+
+Compute gradients B1, B2
+
+Compute the interface stiffness matrix KIP using Eq. (21b) Compute the Dirichlet boundary stiffness matrix KD using Eq. (21c) Assemble all KP, KIP and KD to find the global stiffness matrix K
+
+Compute the load vector f using Eq. (21d) Implement boundary conditions either strongly or weakly Solve the assembled Eq. (20) to find the primary variable values 12 and error (%) as 
+
+error (%) = uh − uexact 
+
+uexact × 100 .
+
+For the Fragile Point Method (FPM) simulations, linear trial and test functions are utilized. The paper also showcases a comparison between the FPM simulations that use numerical fluxes and the analytical solutions for each example in the subsequent subsections. 
+
+5.1. Patch test 
+
+To examine the consistency of the Fragile Points Method (FPM), we conducted a 1D patch test to solve the one-dimensional steady-state heat conduction equation governed by the following equation: d2u
+
+dx2 = 0 , x ∈ [0 , 1] . (24) The analytical solution for this patch test is u(x) = x, representing a linear temperature gradient across the domain. Our one-dimensional domain extends from x = 0 to x = 1 . The boundary conditions are set such that u(0) = 0 and u(1) = 1 , perfectly aligning with the chosen analytical solution. During the FPM simulation, linear trial and test functions are employed, utilizing a penalty coefficient η = 10 for this 1D scenario. Since the exact solutions are linear functions, to pass the patch tests, the numerical solutions must equal the exact solutions up to machine precision. The error in u for the 1D case, for both uniformly distributed and randomly distributed points, is illustrated in Figure 8. This comparison infers that, due to the implementation of numerical flux during the calculations, our proposed methodology is consistent in both scenarios, achieving solutions that are accurate to machine precision. 
+
+(a) (b) 
+
+> Figure 8: (a) 1D-101 uniformly distributed points (with NF) (b) 1D-101 randomly distributed points (with NF)
+
+13 5.2. Straight interface 
+
+Consider a one-dimensional diffusion problem within a two-dimensional domain denoted as Ω = [0 , 1] ×[0 , 1] . Here, the domain Ω is divided into two distinct subdomains by a straight interface located at x = 0 .5. The subdomain Ω1 is characterized by thermal conductivity 
+
+β1 and Ω2 is characterized by the thermal conductivity β2. As shown in Figure 9(a), zero Neumann boundary conditions are applied at the top (y = 1) and at the bottom (y =0) boundaries, signifying that these surfaces are perfectly insulated. In contrast, Dirichlet boundary conditions are employed at the left (x = 0) and the right (x = 1) boundaries, where the temperature is specified from the analytical solution given by [2]. At the interface, the jump conditions are specified by 
+
+JuK = δ, Jβ∇uK = 0 , (25a) where δ represents the prescribed jump in temperature. Two scenarios are examined: azero jump condition ( δ = 0 ), indicating continuous temperature across the interface, and a non-zero jump condition ( δ = 2 ), indicating a discontinuity in temperature. The thermal conductivities are selected such that the ratio β1
+
+β2
+
+= 6 . Additionally, a constant heat source term, Q = 1 , is assumed throughout the domain. The analytical solutions for these boundary conditions are as follows [2]: 
+
+(a) (b)               
+
+> Figure 9: (a) Square domain with straight interface geometry and its boundary conditions and (b) representative mesh used for FPM
+
+u1(x) = (3 β1 + β2)x
+
+4β21 + 4 β1β2
+
+− x2
+
+2β1
+
+∀x < 0.5 (26a) 
+
+u2(x) = β2 − β1 + (3 β1 + β2)x
+
+4β21 + 4 β1β2
+
+− x2
+
+2β2
+
++ δ ∀x ≥ 0.5 (26b) 14 For numerical simulations, the domain is refined with a total of 64 points, as shown in 
+
+(a) (b)  
+
+> Figure 10: (a) Numerical solution of the temperature over the domain from the proposed framework for without jump, (b) Numerical solution of the temperature over the domain from the proposed framework for with jump at interface
+
+Figure 9b. A penalty coefficient of η = 1 was used. The resulting temperature profiles along section A-A within the domain are depicted in Figure 10 wherein Figure 10a showcases the temperature distribution for the zero jump condition scenario, while Figure 10b presents the results for the non-zero jump condition scenario. These results show a good agreement with the analytical solutions. Furthermore, to assess the accuracy of the numerical solutions as the mesh is refined, we analyze the convergence of the relative error in the L2 norm using Equation (23). The convergence behavior for both the zero jump and nonzero jump scenarios is illustrated in Figures 11a and 11b, respectively. It is seen that the results from the FPM is accurate and converges at a rate of 2. 
+
+5.3. Circular interface 
+
+This subsection explores a less trivial two-dimensional heat conduction problem within a square domain denoted by Ω = [ −1, 1] ×[−1, 1] . Heat conduction is governed by Equation (1). The domain Ω encompasses a circular inclusion of radius r0 = 0.5 centered at its geometric centre, as illustrated in Figure 12. The thermal conductivities within the subdomains Ω1 and 
+
+Ω2 are assigned the values of β1 = 1 and β2 = 1000 , respectively. In addition, a constant heat source term of Q = −4 is introduced throughout the domain. Due to the inherent symmetry in both the geometry and the boundary conditions, it suffices to solve for the temperature distribution in only one quadrant of the domain, see Figure 12 for the geometry. The jump conditions at the interface are given by: 
+
+JuK = 0 and Jβ∇uK = δ, (27a) where δ is the specified jump. Similar to the previous example, two different cases are considered: a zero jump condition (δ = 0) , in the heat flux at the interface and a nonzero 15 (a) (b) 
+
+Figure 11: Convergence of the relative error in the L2 norm for a domain with the straight interface: (a) with zero jump condition at the interface, i.e., JuK = 0 and (b) with a non-zero jump condition at the interface, i.e., JuK = δ.
+
+Figure 12: Square domain with circular interface geometry and its boundary conditions and the simplified quarter model after considering symmetry 
+
+jump condition (δ = 2) , in the heat flux at the interface. For the given set of boundary 16 conditions, the analytical solution for the zero jump case is given by [2]: 
+
+u1(x, y ) = r2
+
+β1
+
+∀r ≤ 0.5 (28a) 
+
+u2(x, y ) = r2
+
+β2
+
+− r20
+
+β2
+
++ r20
+
+β1
+
+∀r > 0.5 (28b) and for the non-zero jump condition, the analytical solution is given by [2]: 
+
+u1(x, y ) = 1 ∀r ≤ 0.5 (29a) 
+
+u2(x, y ) = 1 + ln 2r ∀r > 0.5 (29b) where r = px2 + y2. For numerical simulation, a penalty coefficient of η = 10 was employed. 
+
+(a) (b)  
+
+> Figure 13: (a) Numerical solution of the temperature over the domain from the proposed framework for without jump at the circular interface, (b) Numerical solution of the temperature over the domain from the proposed framework for with jump in the derivative at the circular interface
+
+The resulting temperature profiles along section A-A within the domain are presented in Figure 13 wherein Figure 13a showcases the temperature distribution for the zero jump condition, while Figure 13b presents the results for the non-zero jump condition. As observed, the numerical solutions obtained from the proposed framework exhibit good agreement with the corresponding analytical solutions. The convergence of the relative error in the L2 norm with mesh refinement for both the cases is shown in Figures 14a and 14b. It is seen that the results from the FPM is accurate and converges at a rate of 2. 
+
+5.4. Star shaped interface 
+
+We further examine the convergence of the proposed method by considering a star shaped inclusion within a two-dimensional square domain Ω = [ −1, 1] ×[−1, 1] as shown in Figure 16. The interface is generated by using the following equation in polar form: 
+
+r = 0 .45 + 0 .1(cos(5 θ) + sin(5 θ)) , with θ ∈ [0 , 2π).
+
+17 (a) (b)        
+
+> Figure 14: Relative error in the L2norm for the circular interface: (a) without interface jump, Jk∇uK= 0
+> and (b) with Jk∇uK=δ.
+
+The thermal conductivity in the interior of the interface is assigned the value of β1 = 100 
+
+and on the exterior region, the value assigned is β2 = 1 . The constant heat source term is 
+
+Q = 1 throughout the domain and Dirichlet boundary conditions are imposed at the x = 0 ,
+
+x = 1 , y = 0 and y = 1 . The jump conditions at the interface are given by 
+
+JuK = δ, Jβ∇uK = 0 , (30) where δ is the specified jump. For δ > 0, non-zero jump condition in the temperature field at the interface the analytical solution is given by [18]: 
+
+u(x) = 
+
+(x − y2 + 10 , ∀ x ∈ Ω1,ex cos( πy ) ∀ x ∈ Ω2. (31) For numerical simulation, a penalty coefficient of η = 10 was employed. The numerical and analytical temperature distributions over the domain for the non-zero jump condition in the primary variable at the star-shaped interface are illustrated in Figure 16, and a close agreement between the two can be observed. The convergence of the relative error in the 
+
+L2 norm with mesh refinement for both the cases is shown in Figure 17. It is seen that the results from the FPM is accurate and converges at a rate of 2, as expected. 
+
+6. Conclusions 
+
+This study demonstrates the effectiveness of the Fragile Points Method (FPM) as a robust and accurate meshless framework for solving two-dimensional interface problems in heterogeneous continua. By leveraging discontinuous shape functions constructed through a generalized finite difference approach, the method naturally enforces jump conditions on both primary and secondary variables without requiring additional constraints. The implicit 18 Figure 15: A square domain mesh with the star-shaped interface 
+
+(a) (b) 
+
+Figure 16: (a)Numerical solution of the temperature over the domain from the proposed framework for with jump in the primary variable at the star-shaped interface (b) Analytical solution of the temperature over the domain from the proposed framework for with jump in the primary variable at the star-shaped interface 
+
+19 Figure 17: Relative error in L2 norm for the star interface 
+
+representation of interfaces via level sets enhances the flexibility of the framework, which is validated across a range of benchmark problems with complex interface geometries. Numerical results confirm that the proposed approach achieves high accuracy while maintaining optimal convergence rates in respective norms. The same flux-based, meshless framework could be extended to functionally graded porous media with TPMS architectures by representing the surface implicitly and embedding spatially varying transport tensors in the cell integrals. This positions FPM as a practical tool for graded heat or flow problems [19, 20]. Overall, this framework offers a promising tool for modeling interface phenomena, with potential extensions to moving boundary problems and three-dimensional applications planned for future research. 
+
+Conflict of Interest 
+
+The authors declare that they have no conflicts of interest regarding the publication of this manuscript. 
+
+References 
+
+[1] Anita Hansbo and Peter Hansbo. An unfitted finite element method, based on nitsche’s method, for elliptic interface problems. Computer Methods in Applied Mechanics and Engineering , 191(47-48):5537–5552, 2002. 20 [2] Shaima M Dsouza, ALN Pramod, Ean Tat Ooi, Chongmin Song, and Sundararajan Natarajan. Robust modelling of implicit interfaces by the scaled boundary finite element method. Engineering Analysis with Boundary Elements , 124:266–286, 2021. [3] Benjamin Vaughan, Bryan Smith, and David Chopp. A comparison of the extended finite element method with the immersed interface method for elliptic equations with discontinuous coefficients and singular sources. Communications in Applied Mathematics and Computational Science , 1(1):207–228, 2007. [4] L.Dong, T. Yang, K. Wang, and S. N. Atluri. A new Fragile Points Method (FPM) in computational mechanics, based on the concepts of point stiffnesses and numerical flux corrections. Engineering Analysis with Boundary Elements , 107(124–133), 2019. [5] D. N. Arnold, F. Brezzi, B. Cockburn, and L. Donatella Marini. Unified analysis of discontinuous galerkin methods for elliptic problems. SIAM J.Numer. Anal , 39(5), 2002. [6] Yue Guan, Rade Grujicic, Xuechuan Wang, Leiting Dong, and Satya N. Atluri. A new meshless “fragile points method" and a local variational iteration method for general transient heat conduction in anisotropic nonhomogeneous media.Part I:Theory and implementation. Numerical Heat Transfer, Part B: Fundamentals , 78(71-85), 2020. [7] Yue Guan, Rade Grujicic, Xuechuan Wang, Leiting Dong, and Satya N. Atluri. A new meshless “fragile points method" and a local variational iteration method for general transient heat conduction in anisotropic nonhomogeneous media. Part II: Validation and discussion. Numerical Heat Transfer, Part B: Fundamentals , 78:109–86, 2020. [8] Yue Guan, Leiting Dong, and Satya N Atluri. A new meshless fragile points method (FPM) with minimum unknowns at each point, for flexoelectric analysis under two theories with crack propagation, I: theory and implementation. Journal of Mechanics of Materials and Structures , 16(2):159–195, 2021. [9] Yue Guan, Leiting Dong, and Satya N. Atluri. A New Meshless Fragile Points Method (FPM) With Minimum Unknowns at Each Point, For Flexoelectric Analysis Under Two Theories with Crack Propagation, II: Validation and discussion. Journal of Mechanics of Materials and Structures , 16(2):197–223, 2021. [10] Tian Yang, Leiting Dong, and Satya N Atluri. A simple galerkin meshless method, the fragile points method using point stiffness matrices, for 2d linear elastic problems in complex domains with crack and rupture propagation. International Journal for Numerical Methods in Engineering , 122(2):348–385, 2021. [11] Konstantinos A Mountris, Leiting Dong, Yue Guan, Satya N Atluri, and Esther Pueyo. A meshless fragile points method for the solution of the monodomain model for cardiac electrophysiology simulation. Journal of Computational Science , 65:101880, 2022. [12] Konstantinos A Mountris and Esther Pueyo. A meshless fragile points method for rule-based definition of myocardial fiber orientation. Computer Methods and Programs in Biomedicine , 226:107164, 2022. 21 [13] Konstantinos A Mountris, Mingjing Li, Richard Schilling, Leiting Dong, Satya N Atluri, Alicia Casals, and Helge A Wurdemann. An explicit total lagrangian fragile points method for finite deformation of hyperelastic materials. Engineering Analysis with Boundary Elements , 151:255–264, 2023. [14] Kailei Wang, Baoying Shen, Mingjing Li, Leiting Dong, and Satya N Atluri. A fragile points method, with an interface debonding model, to simulate damage and fracture of u-notched structures. International Journal for Numerical Methods in Engineering ,123(8):1736–1759, 2022. [15] Donya Haghighi, Saeid Abbasbandy, Elyas Shivanian, Leiting Dong, and Satya N Atluri. The Fragile Points Method (FPM) to solve two-dimensional hyperbolic telegraph equation using point stiffness matrices. Engineering Analysis with Boundary Elements ,134:11–21, 2022. [16] Donya Haghighi, Saeid Abbasbandy, and Elyas Shivanian. Study of the fragile points method for solving two-dimensional linear and nonlinear wave equations on complex and cracked domains. Engineering Analysis with Boundary Elements , 146:44–55, 2023. [17] Tadeusz Liszka and Janusz Orkisz. The finite difference method at arbitrary irregular grids and its application in applied mechanics. Computers & Structures , 11(1-2):83–95, 1980. [18] Lin Mu, Junping Wang, Xiu Ye, and Shan Zhao. A new weak galerkin finite element method for elliptic interface problems. Journal of Computational Physics , 325:157–173, 2016. [19] Kim Q. Tran, Tien-Dat Hoang, Jaehong Lee, and H. Nguyen-Xuan. Three novel computational modeling frameworks of 3d-printed graphene platelets reinforced functionally graded triply periodic minimal surface (gplr-fg-tpms) plates. Applied Mathematical Modelling , 126:667–697, 2024. [20] Kim Q. Tran, Thoi V. Duong, Hoang Nguyen, and H. Nguyen-Xuan. Thermo-mechanical buckling analysis of bio-inspired rottpms plates via quasi-3d hsdt isogeometric analysis. 
+
+Materials and Emerging Technologies for Sustainability , 1(1), 2025. 22

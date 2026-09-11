@@ -1,0 +1,129 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-09-11T21:12:46.552340+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 3,
+    "quick_skim_target": 11,
+    "quick_selected": 3
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2609.06869v1",
+      "source": "arxiv",
+      "title": "PPIM: Pennes Physics-Informed Mamba for Heat-Source-Conditioned 3D Bioheat Simulation",
+      "abstract": "Three-dimensional bioheat simulation aims to predict transient temperature distributions in biological tissue and is commonly modeled using the Pennes bioheat equation, which combines thermal diffusion, perfusion-mediated heat loss, and external heat generation. In this study, we consider a controlled 3D Pennes bioheat simulation under a localized heat-source condition inspired by microwave ablation (MWA). To evaluate neural approximation performance, we compare three neural partial differential equation (PDE) solvers under the same controlled simulation: a spatial Fourier-feature physics-informed neural network (PINN), a generic PINNMamba temporal subsequence model, and Pennes Physics-Informed Mamba (PPIM). PPIM builds on the temporal subsequence model by incorporating conditioned heat-source input and Pennes-aware state-space model (SSM) decay initialization. All three neural models are trained under the same conditions with the same Pennes residual, and an explicit finite-difference method (FDM) solution is used only as the numerical reference. In a representative 600~s run, PPIM achieved the lowest MAE, relative $L_1$ error, and relative $L_2$ error among the evaluated neural solvers. Error maps further showed that the remaining PPIM errors were more concentrated near the heat-source region than across the rest of the domain. These results indicate that PPIM is effective for approximating the FDM reference final temperature field in this controlled simulation. The source code is available at https://github.com/muvYun/PPIM.",
+      "authors": [
+        "Dongyun Lee",
+        "Kyungho Yoon",
+        "Minwoo Shin"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "math-ph"
+      ],
+      "published": "2026-09-06T22:56:34+00:00",
+      "link": "https://arxiv.org/pdf/2609.06869v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "3D transient temperature field simulation via neural PDE solver",
+      "llm_evidence_cn": "神经PDE求解器进行三维瞬态温度场模拟",
+      "llm_evidence": "神经PDE求解器进行三维瞬态温度场模拟",
+      "canonical_evidence": "神经PDE求解器进行三维瞬态温度场模拟",
+      "llm_tldr_en": "Three-dimensional bioheat simulation is costly, so this work compares Fourier-feature PINN, PINNMamba and Pennes Physics-Informed Mamba for transient temperature prediction under a localized heat source.",
+      "llm_tldr_cn": "三维生物传热模拟通常依赖Pennes方程刻画热扩散、灌注散热与外加热源，但传统数值求解计算代价高。本文提出Pennes物理信息Mamba（PPIM），并与空间傅里叶特征PINN及通用PINNMamba在相同受控仿真下比较。结果表明PPIM在时序子序列建模上具有优势，能更有效地预测瞬态温度分布。该工作为热源条件下的三维温度场神经近似提供了新方案。",
+      "llm_tldr": "三维生物传热模拟通常依赖Pennes方程刻画热扩散、灌注散热与外加热源，但传统数值求解计算代价高。本文提出Pennes物理信息Mamba（PPIM），并与空间傅里叶特征PINN及通用PINNMamba在相同受控仿真下比较。结果表明PPIM在时序子序列建模上具有优势，能更有效地预测瞬态温度分布。该工作为热源条件下的三维温度场神经近似提供了新方案。",
+      "llm_tags": [
+        "query:thermal-gnn"
+      ],
+      "matched_query_tag": "query:thermal-gnn",
+      "matched_query_text": "computer simulation of temperature fields in integrated circuits",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2609.06891v1",
+      "source": "arxiv",
+      "title": "A Generalized Finite Difference-Based Fragile Points Method for Heat Conduction Problems in Non-Homogeneous Media",
+      "abstract": "This paper presents an enhanced formulation of the Fragile Points Method (FPM), a truly meshless approach for efficiently modeling implicit interfaces in two-dimensional differential equations involving non-homogeneous materials. The proposed framework eliminates the need for specialized numerical integration techniques and provides a systematic mathematical foundation for solving interface problems. Discontinuities in both primary and secondary variables across interfaces are naturally handled through the inherently discontinuous shape functions of FPM. Unlike conventional Galerkin methods, FPM employs simple, local, point-based polynomial trial and test functions constructed via a generalized finite difference approach. These discontinuous functions bypass the continuity requirements of standard Galerkin frameworks. To address the resulting inconsistency due to discontinuities, we incorporate numerical flux corrections inspired by the discontinuous Galerkin method. The proposed method is validated through several benchmark problems, demonstrating its efficiency and robustness.",
+      "authors": [
+        "Smriti",
+        "Sundararajan Natarajan",
+        "Abhinash Malla"
+      ],
+      "primary_category": "math.NA",
+      "categories": [
+        "math.NA"
+      ],
+      "published": "2026-09-07T00:25:56+00:00",
+      "link": "https://arxiv.org/pdf/2609.06891v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "meshless numerical method for heat conduction and interface problems",
+      "llm_evidence_cn": "面向热传导与界面问题的无网格数值方法",
+      "llm_evidence": "面向热传导与界面问题的无网格数值方法",
+      "canonical_evidence": "面向热传导与界面问题的无网格数值方法",
+      "llm_tldr_en": "Modeling heat conduction across implicit interfaces in non-homogeneous media usually needs specialized numerical integration; an enhanced Fragile Points Method uses discontinuous meshless shape functions built by generalized finite differences to handle interface discontinuities naturally.",
+      "llm_tldr_cn": "非均匀材料界面热传导的数值模拟通常需要专门的数值积分技术，二维界面问题建模效率与精度受限。本文提出增强型脆弱点法，采用真正无网格框架与广义有限差分构造的局部点式多项式试探与检验函数，自然处理界面上主次变量的不连续。该方法无需专门积分即可求解含隐式界面的热传导问题，并给出系统数学基础。该工作为温度场仿真提供了一种高效的无网格数值工具。",
+      "llm_tldr": "非均匀材料界面热传导的数值模拟通常需要专门的数值积分技术，二维界面问题建模效率与精度受限。本文提出增强型脆弱点法，采用真正无网格框架与广义有限差分构造的局部点式多项式试探与检验函数，自然处理界面上主次变量的不连续。该方法无需专门积分即可求解含隐式界面的热传导问题，并给出系统数学基础。该工作为温度场仿真提供了一种高效的无网格数值工具。",
+      "llm_tags": [
+        "query:thermal-gnn"
+      ],
+      "matched_query_tag": "query:thermal-gnn",
+      "matched_query_text": "computer simulation of temperature fields in integrated circuits",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2609.08446v1",
+      "source": "arxiv",
+      "title": "FlexSpIM: An Event-Based Digital Compute-In-Memory Accelerator with Flexible Operand Resolution and Layer-Wise Hybrid Stationarity",
+      "abstract": "Compute-in-memory (CIM) accelerators for spiking neural networks (SNNs) offer a promising solution for achieving $μ$s-level inference latency and ultra-low energy in edge vision applications. However, their limited flexibility at both circuit and system levels restricts their deployment across diverse workloads. This work introduces FlexSpIM, a digital CIM architecture supporting arbitrary operand resolution and shape within a unified storage for weights and neuron states (i.e., membrane potentials). These circuit-level capabilities enable a layer-level hybrid weight- and output-stationary dataflow, maximizing operand reuse and reducing costly on- and off-chip data movement during SNN execution. Measurement results from a fabricated FlexSpIM prototype in 40-nm CMOS demonstrate competitive 1-bit-normalized energy efficiency and higher throughput compared with prior fixed-precision digital CIM-based SNN accelerators, while providing bitwise resolution reconfiguration. Evaluated on the IBM DVS gesture dataset, FlexSpIM achieves 95.8% accuracy while enabling up to 45% energy and 52% latency reductions in large-scale systems compared with fixed stationarity approaches.",
+      "authors": [
+        "Nicolas Chauvaux",
+        "Adrian Kneip",
+        "Charlotte Frenkel"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-09-08T08:50:31+00:00",
+      "link": "https://arxiv.org/pdf/2609.08446v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "compute-in-memory accelerator architecture",
+      "llm_evidence_cn": "存内计算加速器架构",
+      "llm_evidence": "存内计算加速器架构",
+      "canonical_evidence": "存内计算加速器架构",
+      "llm_tldr_en": "FlexSpIM is a digital compute-in-memory accelerator for spiking neural networks supporting arbitrary operand resolution and a layer-wise hybrid weight/output-stationary dataflow, maximizing operand reuse and cutting on/off-chip data movement for microsecond-latency, ultra-low-energy edge inference.",
+      "llm_tldr_cn": "针对脉冲神经网络存内计算加速器电路与系统灵活性受限、难以适配多样负载的问题，本文提出FlexSpIM数字存内计算架构，支持任意操作数分辨率与形状，并在统一存储中融合权重与神经元状态，实现逐层权重与输出混合驻留的数据流。该设计最大化操作数复用，减少昂贵的片上与片外数据搬运，实现微秒级推理延迟与超低能耗，为边缘视觉等场景提供了灵活可扩展的存内计算方案。",
+      "llm_tldr": "针对脉冲神经网络存内计算加速器电路与系统灵活性受限、难以适配多样负载的问题，本文提出FlexSpIM数字存内计算架构，支持任意操作数分辨率与形状，并在统一存储中融合权重与神经元状态，实现逐层权重与输出混合驻留的数据流。该设计最大化操作数复用，减少昂贵的片上与片外数据搬运，实现微秒级推理延迟与超低能耗，为边缘视觉等场景提供了灵活可扩展的存内计算方案。",
+      "llm_tags": [
+        "query:cim:composite"
+      ],
+      "matched_query_tag": "query:cim:composite",
+      "matched_query_text": "Papers central to 存算一体，主要关注基于混合键合的三维堆叠的近存计算, especially work that connects or combines: compute-in-memory architecture; hybrid bonding 3D integration; 3D stacking memory technology; near-memory computing design; processing-in-memory systems; 3D integrated circuit design; What are the key benefits of hybrid bonding for 3D stacked near memory computing?; How does compute in memory architecture improve energy efficiency?; Design challenges of 3D stacking for near memory computing systems.",
+      "matched_requirement_id": "req-composite-cim",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

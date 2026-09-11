@@ -1,0 +1,57 @@
+{
+  "date": "20260911",
+  "date_label": "",
+  "generated_at": "2026-09-11 21:14:08 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2609.06869v1",
+      "route": "202609/11/2609.06869v1-ppim-pennes-physics-informed-mamba-for-heat-source-conditioned-3d-bioheat-simulation",
+      "title": "PPIM: Pennes Physics-Informed Mamba for Heat-Source-Conditioned 3D Bioheat Simulation",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "thermal-gnn"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "神经PDE求解器进行三维瞬态温度场模拟",
+      "first_seen_at": "2026-09-11 21:14:08 UTC",
+      "updated_at": "2026-09-11 21:14:08 UTC"
+    },
+    {
+      "paper_id": "2609.06891v1",
+      "route": "202609/11/2609.06891v1-a-generalized-finite-difference-based-fragile-points-method-for-heat-conduction-problems-in-non-homogeneous-media",
+      "title": "A Generalized Finite Difference-Based Fragile Points Method for Heat Conduction Problems in Non-Homogeneous Media",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "thermal-gnn"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "面向热传导与界面问题的无网格数值方法",
+      "first_seen_at": "2026-09-11 21:14:08 UTC",
+      "updated_at": "2026-09-11 21:14:08 UTC"
+    },
+    {
+      "paper_id": "2609.08446v1",
+      "route": "202609/11/2609.08446v1-flexspim-an-event-based-digital-compute-in-memory-accelerator-with-flexible-operand-resolution-and-layer-wise-hybrid-stationarity",
+      "title": "FlexSpIM: An Event-Based Digital Compute-In-Memory Accelerator with Flexible Operand Resolution and Layer-Wise Hybrid Stationarity",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "cim"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "存内计算加速器架构",
+      "first_seen_at": "2026-09-11 21:14:08 UTC",
+      "updated_at": "2026-09-11 21:14:08 UTC"
+    }
+  ]
+}

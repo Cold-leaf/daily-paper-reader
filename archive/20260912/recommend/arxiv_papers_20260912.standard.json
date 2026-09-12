@@ -1,0 +1,95 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-09-12T21:45:56.036675+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [
+    {
+      "id": "2609.08446v1",
+      "source": "arxiv",
+      "title": "FlexSpIM: An Event-Based Digital Compute-In-Memory Accelerator with Flexible Operand Resolution and Layer-Wise Hybrid Stationarity",
+      "abstract": "Compute-in-memory (CIM) accelerators for spiking neural networks (SNNs) offer a promising solution for achieving $μ$s-level inference latency and ultra-low energy in edge vision applications. However, their limited flexibility at both circuit and system levels restricts their deployment across diverse workloads. This work introduces FlexSpIM, a digital CIM architecture supporting arbitrary operand resolution and shape within a unified storage for weights and neuron states (i.e., membrane potentials). These circuit-level capabilities enable a layer-level hybrid weight- and output-stationary dataflow, maximizing operand reuse and reducing costly on- and off-chip data movement during SNN execution. Measurement results from a fabricated FlexSpIM prototype in 40-nm CMOS demonstrate competitive 1-bit-normalized energy efficiency and higher throughput compared with prior fixed-precision digital CIM-based SNN accelerators, while providing bitwise resolution reconfiguration. Evaluated on the IBM DVS gesture dataset, FlexSpIM achieves 95.8% accuracy while enabling up to 45% energy and 52% latency reductions in large-scale systems compared with fixed stationarity approaches.",
+      "authors": [
+        "Nicolas Chauvaux",
+        "Adrian Kneip",
+        "Charlotte Frenkel"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-09-08T08:50:31+00:00",
+      "link": "https://arxiv.org/pdf/2609.08446v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "digital compute-in-memory accelerator with hybrid dataflow and operand reuse",
+      "llm_evidence_cn": "数字存内计算加速器，混合数据流与操作数复用",
+      "llm_evidence": "数字存内计算加速器，混合数据流与操作数复用",
+      "canonical_evidence": "数字存内计算加速器，混合数据流与操作数复用",
+      "llm_tldr_en": "FlexSpIM is a digital compute-in-memory accelerator for spiking neural networks that supports arbitrary operand resolution and shape in unified weight and neuron-state storage, enabling layer-wise hybrid dataflow that cuts on- and off-chip data movement in edge vision.",
+      "llm_tldr_cn": "面向边缘视觉的脉冲神经网络推理需要微秒级延迟与超低能耗，但现有存内计算加速器在电路与系统层面灵活性不足，难以适配多样负载。本文提出FlexSpIM数字存内计算架构，在统一存储中支持任意操作数分辨率与形状，并实现逐层的权重驻留与输出驻留混合数据流。该设计最大化操作数复用、减少片上与片外数据搬运，从而支撑SNN执行。其贡献在于以电路级灵活性提升存内计算加速器对多类工作负载的通用性。",
+      "llm_tldr": "面向边缘视觉的脉冲神经网络推理需要微秒级延迟与超低能耗，但现有存内计算加速器在电路与系统层面灵活性不足，难以适配多样负载。本文提出FlexSpIM数字存内计算架构，在统一存储中支持任意操作数分辨率与形状，并实现逐层的权重驻留与输出驻留混合数据流。该设计最大化操作数复用、减少片上与片外数据搬运，从而支撑SNN执行。其贡献在于以电路级灵活性提升存内计算加速器对多类工作负载的通用性。",
+      "llm_tags": [
+        "query:cim:composite"
+      ],
+      "matched_query_tag": "query:cim:composite",
+      "matched_query_text": "Papers central to 存算一体，主要关注基于混合键合的三维堆叠的近存计算, especially work that connects or combines: compute-in-memory architecture; hybrid bonding 3D integration; 3D stacking memory technology; near-memory computing design; processing-in-memory systems; 3D integrated circuit design; What are the key benefits of hybrid bonding for 3D stacked near memory computing?; How does compute in memory architecture improve energy efficiency?; Design challenges of 3D stacking for near memory computing systems.",
+      "matched_requirement_id": "req-composite-cim",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2609.06408v1",
+      "source": "arxiv",
+      "title": "Differentiable Partitioning with Placement and Hybrid Bonding Terminal Awareness for Optimized 3D Placement",
+      "abstract": "Research on 3D-ICs physical design has expanded rapidly in recent years. Hybrid bonding-enabled 3D integrated circuits (3D-ICs) offer substantial benefits in interconnect scaling and system integration, yet tier assignment remains challenging because it jointly determines 3D wirelength and hybrid bonding terminal (HBT) assignment. This paper presents a differentiable partitioning framework that directly optimizes placement-aware tier assignment for 3D-ICs through gradient-based optimization. Discrete tier assignment is relaxed to continuous probabilities, and a Dual-Max 3D wirelength model is introduced to capture per-tier half-perimeter wirelength (HPWL). In addition, a terminal-aware cutsize penalty selectively suppresses cross-die nets in HBT-congested regions, and a local balance constraint enforces grid-cell density equilibrium across tiers. Experimental results on OpenROAD benchmarks show that our method reduces D2D HPWL by 2.0% on average over two min-cut baselines and by 12.1% over the state-of-the-art 3D placer. We open-source our partition code with 3D placement flow to support reproducibility.",
+      "authors": [
+        "Liwen Jiang",
+        "Xu Shi",
+        "Rufeng Xiao",
+        "Changhao Yan",
+        "Rujun Jiang",
+        "Zhiang Wang",
+        "Keren Zhu"
+      ],
+      "primary_category": "cs.ET",
+      "categories": [
+        "cs.ET"
+      ],
+      "published": "2026-09-06T05:56:14+00:00",
+      "link": "https://arxiv.org/pdf/2609.06408v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "hybrid bonding enabled 3D-IC tier assignment and terminal-aware 3D placement",
+      "llm_evidence_cn": "混合键合三维集成电路层分配与端子感知三维布局",
+      "llm_evidence": "混合键合三维集成电路层分配与端子感知三维布局",
+      "canonical_evidence": "混合键合三维集成电路层分配与端子感知三维布局",
+      "llm_tldr_en": "Hybrid-bonding-enabled 3D-ICs make tier assignment hard because it jointly determines 3D wirelength and bonding terminal assignment; the paper proposes a differentiable partitioning framework relaxing discrete tiers to continuous probabilities with a Dual-Max 3D wirelength model.",
+      "llm_tldr_cn": "混合键合使能的三维集成电路在互连缩放与系统集成上优势显著，但层分配需同时决定三维线长与混合键合端子分配，难度很大。本文提出可微划分框架，将离散层分配松弛为连续概率，并引入Dual-Max三维线长模型刻画各层半周长线长，同时加入端子感知割尺寸惩罚。该框架通过梯度优化直接优化布局感知的层分配。其贡献在于为混合键合三维集成提供可微的层分配与端子协同优化方法。",
+      "llm_tldr": "混合键合使能的三维集成电路在互连缩放与系统集成上优势显著，但层分配需同时决定三维线长与混合键合端子分配，难度很大。本文提出可微划分框架，将离散层分配松弛为连续概率，并引入Dual-Max三维线长模型刻画各层半周长线长，同时加入端子感知割尺寸惩罚。该框架通过梯度优化直接优化布局感知的层分配。其贡献在于为混合键合三维集成提供可微的层分配与端子协同优化方法。",
+      "llm_tags": [
+        "query:cim:composite"
+      ],
+      "matched_query_tag": "query:cim:composite",
+      "matched_query_text": "Papers central to 存算一体，主要关注基于混合键合的三维堆叠的近存计算, especially work that connects or combines: compute-in-memory architecture; hybrid bonding 3D integration; 3D stacking memory technology; near-memory computing design; processing-in-memory systems; 3D integrated circuit design; What are the key benefits of hybrid bonding for 3D stacked near memory computing?; How does compute in memory architecture improve energy efficiency?; Design challenges of 3D stacking for near memory computing systems.",
+      "matched_requirement_id": "req-composite-cim",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

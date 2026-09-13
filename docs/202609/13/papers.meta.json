@@ -1,0 +1,69 @@
+{
+  "label": "2026-09-13",
+  "date": "2026-09-13",
+  "generated_at": "2026-09-13T21:33:30",
+  "count": 4,
+  "papers": [
+    {
+      "paper_id": "202609/13/2609.06408v1-differentiable-partitioning-with-placement-and-hybrid-bonding-terminal-awareness-for-optimized-3d-placement",
+      "section": "quick",
+      "title_en": "Differentiable Partitioning with Placement and Hybrid Bonding Terminal Awareness for Optimized 3D Placement",
+      "authors": "Liwen Jiang, Xu Shi, Rufeng Xiao, Changhao Yan, Rujun Jiang, Zhiang Wang, Keren Zhu",
+      "date": "2026-09-06",
+      "pdf": "https://arxiv.org/pdf/2609.06408v1",
+      "score": "7.0",
+      "evidence": "面向混合键合三维集成电路的层分配与布局优化",
+      "tldr": "混合键合3D-IC中，层分配需同时决定3D线长与混合键合终端（HBT）资源，二者紧密耦合且离散优化颇具挑战。本文提出可微分划分框架，将层分配松弛为连续概率，引入Dual-Max模型刻画逐层HPWL，并用HBT拥塞感知切割惩罚与局部密度均衡约束，以梯度法联合优化布局感知层分配，实现端到端可导优化。在OpenROAD基准上，D2D HPWL较两种min-cut基线平均降低2.0%，较先进3D布局器降低12.1%，验证方法有效性。作者开源划分代码与3D布局流程，便于复现并推动3D物理设计，为后续研究提供基础。",
+      "tags": "query:cim",
+      "abstract_en": "Research on 3D-ICs physical design has expanded rapidly in recent years. Hybrid bonding-enabled 3D integrated circuits (3D-ICs) offer substantial benefits in interconnect scaling and system integration, yet tier assignment remains challenging because it jointly determines 3D wirelength and hybrid bonding terminal (HBT) assignment. This paper presents a differentiable partitioning framework that directly optimizes placement-aware tier assignment for 3D-ICs through gradient-based optimization. Discrete tier assignment is relaxed to continuous probabilities, and a Dual-Max 3D wirelength model is introduced to capture per-tier half-perimeter wirelength (HPWL). In addition, a terminal-aware cutsize penalty selectively suppresses cross-die nets in HBT-congested regions, and a local balance constraint enforces grid-cell density equilibrium across tiers. Experimental results on OpenROAD benchmarks show that our method reduces D2D HPWL by 2.0% on average over two min-cut baselines and by 12.1% over the state-of-the-art 3D placer. We open-source our partition code with 3D placement flow to support reproducibility.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202609/13/2609.08446v1-flexspim-an-event-based-digital-compute-in-memory-accelerator-with-flexible-operand-resolution-and-layer-wise-hybrid-stationarity",
+      "section": "quick",
+      "title_en": "FlexSpIM: An Event-Based Digital Compute-In-Memory Accelerator with Flexible Operand Resolution and Layer-Wise Hybrid Stationarity",
+      "authors": "Nicolas Chauvaux, Adrian Kneip, Charlotte Frenkel",
+      "date": "2026-09-08",
+      "pdf": "https://arxiv.org/pdf/2609.08446v1",
+      "score": "7.0",
+      "evidence": "面向高能效推理的存算一体加速器架构",
+      "tldr": "面向边缘视觉的脉冲神经网络CIM加速器虽具微秒级推理与超低能耗潜力，但电路与系统灵活性不足，难以适配多样负载。FlexSpIM采用数字存内计算架构，在统一存储中支持任意操作数位宽与形状，并实现层间权重/输出混合驻留数据流，以提升复用、减少片内外数据搬运。40nm原型验证了位宽可重构下的高能效与吞吐；在IBM DVS手势数据集上达95.8%精度，大规模系统较固定驻留方案最多降低45%能耗和52%延迟。",
+      "tags": "query:cim",
+      "abstract_en": "Compute-in-memory (CIM) accelerators for spiking neural networks (SNNs) offer a promising solution for achieving $μ$s-level inference latency and ultra-low energy in edge vision applications. However, their limited flexibility at both circuit and system levels restricts their deployment across diverse workloads. This work introduces FlexSpIM, a digital CIM architecture supporting arbitrary operand resolution and shape within a unified storage for weights and neuron states (i.e., membrane potentials). These circuit-level capabilities enable a layer-level hybrid weight- and output-stationary dataflow, maximizing operand reuse and reducing costly on- and off-chip data movement during SNN execution. Measurement results from a fabricated FlexSpIM prototype in 40-nm CMOS demonstrate competitive 1-bit-normalized energy efficiency and higher throughput compared with prior fixed-precision digital CIM-based SNN accelerators, while providing bitwise resolution reconfiguration. Evaluated on the IBM DVS gesture dataset, FlexSpIM achieves 95.8% accuracy while enabling up to 45% energy and 52% latency reductions in large-scale systems compared with fixed stationarity approaches.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202609/13/2609.08898v1-otter---two-transistor---one-rram-architecture-for-reliable-in-memory-computing-in-28-nm-cmos-technology",
+      "section": "quick",
+      "title_en": "OTTER - Two Transistor - One RRAM Architecture for Reliable In-Memory-Computing in 28 nm CMOS Technology",
+      "authors": "Yang Chen, Daniele Storelli, Xinyi Zhao, Ankit Bende, Paul-Philipp Manea, Oliver Artner, Arun Ashok, Kay Winterberg, Godwin Paul, Siyuan Jia, Christian Roth, Sabitha Kusuma, Michael Schiek, Vikas Rana, Dirk Wouters, Stephan Menzel, Andre Zambanini, Christian Grewing, Stefan Wiefels, Susanne Hoffmann-Eifert, John Paul Strachan, Stefan van Waasen, Regina Dittmann",
+      "date": "2026-09-08",
+      "pdf": "https://arxiv.org/pdf/2609.08898v1",
+      "score": "6.0",
+      "evidence": "基于RRAM的存内计算架构，28纳米CMOS实现",
+      "tldr": "面向可靠存内计算，OTTER 在 28 nm CMOS 上共集成 TaOx 基 VCM RRAM，提出 2T1R 单元。该单元并联低驱动电流与高驱动电流晶体管，为 SET 编程和 RESET 提供独立偏置路径。借助 JART VCM Rth 紧凑模型，给出满足完全 RESET 的最小 RESET 晶体管 W/L 设计准则。脉冲编程实现六个可编程电导态，并验证 aCAM 与 15×15 阵列 CIM MAC 运算。",
+      "tags": "query:cim",
+      "abstract_en": "This work presents OTTER, a 28 nm CMOS platform co-integrated with TaOx-based valence-change mechanism (VCM) RRAM, demonstrating a two-transistor-one-memristive-device (2T1R) architecture for reliable in-memory computing. The 2T1R cell combines a low-drive-current (LD) transistor and a high-drive-current (HD) transistor in parallel, providing dedicated bias paths for SET programming and RESET operation, respectively. Through systematic experimental and simulated comparison of various transistor-pairing configurations using the physical compact model JART VCM Rth, design guidelines for transistor sizing are derived, establishing the minimum RESET transistor W/L required for complete RESET as a function of the SET current compliance. The 2T1R cell is further characterized under pulse-based programming, demonstrating multilevel analog conductance tuning with narrow, well separated conductance states across six programmable levels. An analog content-addressable memory (aCAM) design based on the same 2T1R cell is additionally analyzed at the circuit level, evaluating trade-offs between top- and bottom-connected RRAM comparator configurations. A hardware implementation of compute-in-memory (CIM) multiply-and-accumulate (MAC) operations is further demonstrated on a 15 x 15 2T1R crossbar array.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202609/13/2609.09800v1-hbfsim-fast-and-faithful-simulation-of-high-bandwidth-flash-under-real-gpu-execution",
+      "section": "quick",
+      "title_en": "HBFSim: Fast and Faithful Simulation of High-Bandwidth Flash Under Real GPU Execution",
+      "authors": "Yanpeng Hu, Yiwei Yang, Yuanwu Zhu, Yusheng Zheng, Wei Zhang, Andi Quinn",
+      "date": "2026-09-09",
+      "pdf": "https://arxiv.org/pdf/2609.09800v1",
+      "score": "6.0",
+      "evidence": "封装内三维堆叠闪存的含热效应仿真",
+      "tldr": "大模型推理受内存容量限制，HBF（高带宽闪存）将 NAND 堆叠进加速器封装，但硬件 2027 年才送样，容量与数据放置决策无法等待。HBFSim 通过改写 PTX 并门控 kernel 启动，让真实 GPU 执行真实负载的同时叠加 HBF 的时序、容量与热效应。它在六个标定点与实测设备完全一致，零不安全启动，vLLM 0.15.1 服务 Qwen3-30B-A3B 输出与基线一致，快路径比详细路径快 20.8 倍。",
+      "tags": "query:thermal-gnn",
+      "abstract_en": "Serving a large language model (LLM) is limited by memory capacity. High-Bandwidth Flash (HBF) stacks NAND flash inside the accelerator package, one tier below high-bandwidth memory (HBM); the specification was published on August 3, 2026, and the first inference devices are expected to sample in early 2027. Decisions about capacity and data placement cannot wait for silicon. No existing method settles those decisions: a storage simulator replaying a recorded access sequence never executes the workload, a GPU simulator does not run the real compute kernels, and a cycle-accurate simulator cannot finish one LLM inference run. We present HBFSim, the first evaluation platform that applies HBF timing, capacity, and thermal effects to a real inference workload while that workload executes on a real GPU. HBFSim rewrites PTX, the intermediate code NVIDIA's compiler emits, and gates kernel launches; issue is separated from consumption, so real hardware supplies the computation that hides an access. Timing comes from measurements of a real device rather than a parameter sheet, and junction temperature sets both the rate HBF sustains and the retention deadline that forces refresh writes. HBFSim matches the measured device exactly at all six calibration breakpoints, with zero unsafe launches, and an unmodified vLLM 0.15.1 serving Qwen3-30B-A3B returns the token identifiers of the uninstrumented baseline. The device fast path serves the same Qwen3-30B-A3B case in 2s against 44s on the detailed reference path, 20.8x faster. Before HBF parts sample, HBFSim lets a designer measure a capacity or placement decision under a real workload instead of assuming one.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

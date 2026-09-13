@@ -1,0 +1,73 @@
+{
+  "date": "20260913",
+  "date_label": "",
+  "generated_at": "2026-09-13 21:33:27 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2609.06408v1",
+      "route": "202609/13/2609.06408v1-differentiable-partitioning-with-placement-and-hybrid-bonding-terminal-awareness-for-optimized-3d-placement",
+      "title": "Differentiable Partitioning with Placement and Hybrid Bonding Terminal Awareness for Optimized 3D Placement",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "cim"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "面向混合键合三维集成电路的层分配与布局优化",
+      "first_seen_at": "2026-09-13 21:33:27 UTC",
+      "updated_at": "2026-09-13 21:33:27 UTC"
+    },
+    {
+      "paper_id": "2609.08446v1",
+      "route": "202609/13/2609.08446v1-flexspim-an-event-based-digital-compute-in-memory-accelerator-with-flexible-operand-resolution-and-layer-wise-hybrid-stationarity",
+      "title": "FlexSpIM: An Event-Based Digital Compute-In-Memory Accelerator with Flexible Operand Resolution and Layer-Wise Hybrid Stationarity",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "cim"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "面向高能效推理的存算一体加速器架构",
+      "first_seen_at": "2026-09-13 21:33:27 UTC",
+      "updated_at": "2026-09-13 21:33:27 UTC"
+    },
+    {
+      "paper_id": "2609.08898v1",
+      "route": "202609/13/2609.08898v1-otter---two-transistor---one-rram-architecture-for-reliable-in-memory-computing-in-28-nm-cmos-technology",
+      "title": "OTTER - Two Transistor - One RRAM Architecture for Reliable In-Memory-Computing in 28 nm CMOS Technology",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "cim"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "基于RRAM的存内计算架构，28纳米CMOS实现",
+      "first_seen_at": "2026-09-13 21:33:27 UTC",
+      "updated_at": "2026-09-13 21:33:27 UTC"
+    },
+    {
+      "paper_id": "2609.09800v1",
+      "route": "202609/13/2609.09800v1-hbfsim-fast-and-faithful-simulation-of-high-bandwidth-flash-under-real-gpu-execution",
+      "title": "HBFSim: Fast and Faithful Simulation of High-Bandwidth Flash Under Real GPU Execution",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "thermal-gnn"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "封装内三维堆叠闪存的含热效应仿真",
+      "first_seen_at": "2026-09-13 21:33:27 UTC",
+      "updated_at": "2026-09-13 21:33:27 UTC"
+    }
+  ]
+}

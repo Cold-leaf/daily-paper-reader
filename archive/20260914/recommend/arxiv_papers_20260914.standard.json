@@ -1,0 +1,152 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-09-14T22:56:19.699627+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 3,
+    "quick_skim_target": 11,
+    "quick_selected": 3
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2609.06408v1",
+      "source": "arxiv",
+      "title": "Differentiable Partitioning with Placement and Hybrid Bonding Terminal Awareness for Optimized 3D Placement",
+      "abstract": "Research on 3D-ICs physical design has expanded rapidly in recent years. Hybrid bonding-enabled 3D integrated circuits (3D-ICs) offer substantial benefits in interconnect scaling and system integration, yet tier assignment remains challenging because it jointly determines 3D wirelength and hybrid bonding terminal (HBT) assignment. This paper presents a differentiable partitioning framework that directly optimizes placement-aware tier assignment for 3D-ICs through gradient-based optimization. Discrete tier assignment is relaxed to continuous probabilities, and a Dual-Max 3D wirelength model is introduced to capture per-tier half-perimeter wirelength (HPWL). In addition, a terminal-aware cutsize penalty selectively suppresses cross-die nets in HBT-congested regions, and a local balance constraint enforces grid-cell density equilibrium across tiers. Experimental results on OpenROAD benchmarks show that our method reduces D2D HPWL by 2.0% on average over two min-cut baselines and by 12.1% over the state-of-the-art 3D placer. We open-source our partition code with 3D placement flow to support reproducibility.",
+      "authors": [
+        "Liwen Jiang",
+        "Xu Shi",
+        "Rufeng Xiao",
+        "Changhao Yan",
+        "Rujun Jiang",
+        "Zhiang Wang",
+        "Keren Zhu"
+      ],
+      "primary_category": "cs.ET",
+      "categories": [
+        "cs.ET"
+      ],
+      "published": "2026-09-06T05:56:14+00:00",
+      "link": "https://arxiv.org/pdf/2609.06408v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "hybrid bonding enabled 3D-IC tier assignment and placement",
+      "llm_evidence_cn": "混合键合三维集成电路的层分配与布局",
+      "llm_evidence": "混合键合三维集成电路的层分配与布局",
+      "canonical_evidence": "混合键合三维集成电路的层分配与布局",
+      "llm_tldr_en": "Tier assignment in hybrid bonding enabled 3D-ICs is difficult because it jointly determines wirelength and bonding terminal assignment. This paper proposes a differentiable partitioning framework with a Dual-Max 3D wirelength model and a terminal-aware cutsize penalty, optimized by gradients.",
+      "llm_tldr_cn": "混合键合三维集成电路在互连缩放与系统集成上优势显著，但层分配需同时决定三维线长与混合键合端子分配，极具挑战。本文提出可微分层划分框架，将离散层分配松弛为连续概率，并引入Dual-Max三维线长模型与端子感知切割代价惩罚，通过梯度优化直接求解布局感知的层分配。实验表明该框架能有效优化三维布局质量，为混合键合三维集成设计提供新方法。",
+      "llm_tldr": "混合键合三维集成电路在互连缩放与系统集成上优势显著，但层分配需同时决定三维线长与混合键合端子分配，极具挑战。本文提出可微分层划分框架，将离散层分配松弛为连续概率，并引入Dual-Max三维线长模型与端子感知切割代价惩罚，通过梯度优化直接求解布局感知的层分配。实验表明该框架能有效优化三维布局质量，为混合键合三维集成设计提供新方法。",
+      "llm_tags": [
+        "query:cim:composite"
+      ],
+      "matched_query_tag": "query:cim:composite",
+      "matched_query_text": "Papers central to 存算一体，主要关注基于混合键合的三维堆叠的近存计算, especially work that connects or combines: compute-in-memory architecture; hybrid bonding 3D integration; 3D stacking memory technology; near-memory computing design; processing-in-memory systems; 3D integrated circuit design; What are the key benefits of hybrid bonding for 3D stacked near memory computing?; How does compute in memory architecture improve energy efficiency?; Design challenges of 3D stacking for near memory computing systems.",
+      "matched_requirement_id": "req-composite-cim",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2609.08446v1",
+      "source": "arxiv",
+      "title": "FlexSpIM: An Event-Based Digital Compute-In-Memory Accelerator with Flexible Operand Resolution and Layer-Wise Hybrid Stationarity",
+      "abstract": "Compute-in-memory (CIM) accelerators for spiking neural networks (SNNs) offer a promising solution for achieving $μ$s-level inference latency and ultra-low energy in edge vision applications. However, their limited flexibility at both circuit and system levels restricts their deployment across diverse workloads. This work introduces FlexSpIM, a digital CIM architecture supporting arbitrary operand resolution and shape within a unified storage for weights and neuron states (i.e., membrane potentials). These circuit-level capabilities enable a layer-level hybrid weight- and output-stationary dataflow, maximizing operand reuse and reducing costly on- and off-chip data movement during SNN execution. Measurement results from a fabricated FlexSpIM prototype in 40-nm CMOS demonstrate competitive 1-bit-normalized energy efficiency and higher throughput compared with prior fixed-precision digital CIM-based SNN accelerators, while providing bitwise resolution reconfiguration. Evaluated on the IBM DVS gesture dataset, FlexSpIM achieves 95.8% accuracy while enabling up to 45% energy and 52% latency reductions in large-scale systems compared with fixed stationarity approaches.",
+      "authors": [
+        "Nicolas Chauvaux",
+        "Adrian Kneip",
+        "Charlotte Frenkel"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-09-08T08:50:31+00:00",
+      "link": "https://arxiv.org/pdf/2609.08446v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "digital compute-in-memory accelerator architecture",
+      "llm_evidence_cn": "数字存内计算加速器架构",
+      "llm_evidence": "数字存内计算加速器架构",
+      "canonical_evidence": "数字存内计算加速器架构",
+      "llm_tldr_en": "Compute-in-memory accelerators for spiking neural networks lack flexibility across workloads. This work introduces FlexSpIM, a digital CIM architecture with flexible operand resolution and a layer-wise hybrid weight- and output-stationary dataflow reducing data movement.",
+      "llm_tldr_cn": "面向脉冲神经网络的存内计算加速器虽能实现微秒级推理与超低能耗，但电路与系统层面的灵活性不足，难以适配多样负载。本文提出FlexSpIM数字存内计算架构，在统一存储权重与神经元状态的同时支持任意操作数精度与形状，并实现层级的权重与输出混合驻留数据流。该设计提升了操作数复用率并降低片上片外数据搬运，为存算一体架构的灵活性拓展提供了方案。",
+      "llm_tldr": "面向脉冲神经网络的存内计算加速器虽能实现微秒级推理与超低能耗，但电路与系统层面的灵活性不足，难以适配多样负载。本文提出FlexSpIM数字存内计算架构，在统一存储权重与神经元状态的同时支持任意操作数精度与形状，并实现层级的权重与输出混合驻留数据流。该设计提升了操作数复用率并降低片上片外数据搬运，为存算一体架构的灵活性拓展提供了方案。",
+      "llm_tags": [
+        "query:cim:composite"
+      ],
+      "matched_query_tag": "query:cim:composite",
+      "matched_query_text": "Papers central to 存算一体，主要关注基于混合键合的三维堆叠的近存计算, especially work that connects or combines: compute-in-memory architecture; hybrid bonding 3D integration; 3D stacking memory technology; near-memory computing design; processing-in-memory systems; 3D integrated circuit design; What are the key benefits of hybrid bonding for 3D stacked near memory computing?; How does compute in memory architecture improve energy efficiency?; Design challenges of 3D stacking for near memory computing systems.",
+      "matched_requirement_id": "req-composite-cim",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2609.08898v1",
+      "source": "arxiv",
+      "title": "OTTER - Two Transistor - One RRAM Architecture for Reliable In-Memory-Computing in 28 nm CMOS Technology",
+      "abstract": "This work presents OTTER, a 28 nm CMOS platform co-integrated with TaOx-based valence-change mechanism (VCM) RRAM, demonstrating a two-transistor-one-memristive-device (2T1R) architecture for reliable in-memory computing. The 2T1R cell combines a low-drive-current (LD) transistor and a high-drive-current (HD) transistor in parallel, providing dedicated bias paths for SET programming and RESET operation, respectively. Through systematic experimental and simulated comparison of various transistor-pairing configurations using the physical compact model JART VCM Rth, design guidelines for transistor sizing are derived, establishing the minimum RESET transistor W/L required for complete RESET as a function of the SET current compliance. The 2T1R cell is further characterized under pulse-based programming, demonstrating multilevel analog conductance tuning with narrow, well separated conductance states across six programmable levels. An analog content-addressable memory (aCAM) design based on the same 2T1R cell is additionally analyzed at the circuit level, evaluating trade-offs between top- and bottom-connected RRAM comparator configurations. A hardware implementation of compute-in-memory (CIM) multiply-and-accumulate (MAC) operations is further demonstrated on a 15 x 15 2T1R crossbar array.",
+      "authors": [
+        "Yang Chen",
+        "Daniele Storelli",
+        "Xinyi Zhao",
+        "Ankit Bende",
+        "Paul-Philipp Manea",
+        "Oliver Artner",
+        "Arun Ashok",
+        "Kay Winterberg",
+        "Godwin Paul",
+        "Siyuan Jia",
+        "Christian Roth",
+        "Sabitha Kusuma",
+        "Michael Schiek",
+        "Vikas Rana",
+        "Dirk Wouters",
+        "Stephan Menzel",
+        "Andre Zambanini",
+        "Christian Grewing",
+        "Stefan Wiefels",
+        "Susanne Hoffmann-Eifert",
+        "John Paul Strachan",
+        "Stefan van Waasen",
+        "Regina Dittmann"
+      ],
+      "primary_category": "cs.ET",
+      "categories": [
+        "cs.ET"
+      ],
+      "published": "2026-09-08T15:37:22+00:00",
+      "link": "https://arxiv.org/pdf/2609.08898v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "2T1R RRAM architecture for reliable in-memory computing",
+      "llm_evidence_cn": "面向可靠存内计算的2T1R RRAM架构",
+      "llm_evidence": "面向可靠存内计算的2T1R RRAM架构",
+      "canonical_evidence": "面向可靠存内计算的2T1R RRAM架构",
+      "llm_tldr_en": "Reliable in-memory computing needs controllable devices. OTTER co-integrates TaOx VCM RRAM in 28nm CMOS and proposes a 2T1R cell with parallel low- and high-drive transistors, deriving sizing guidelines via the JART VCM Rth model for complete RESET.",
+      "llm_tldr_cn": "存内计算需要可靠且可控的存储器件架构，以支撑稳定的写入与擦除。本文在28纳米CMOS上共集成TaOx基价态变化RRAM，提出将低驱动与高驱动晶体管并联的2T1R单元，并借助JART VCM Rth紧凑模型与实验给出晶体管尺寸设计准则。结果确定了完成复位所需的最小复位晶体管尺寸与SET电流的关系。该工作为可靠存内计算RRAM阵列的器件设计提供了可复用的工程指导。",
+      "llm_tldr": "存内计算需要可靠且可控的存储器件架构，以支撑稳定的写入与擦除。本文在28纳米CMOS上共集成TaOx基价态变化RRAM，提出将低驱动与高驱动晶体管并联的2T1R单元，并借助JART VCM Rth紧凑模型与实验给出晶体管尺寸设计准则。结果确定了完成复位所需的最小复位晶体管尺寸与SET电流的关系。该工作为可靠存内计算RRAM阵列的器件设计提供了可复用的工程指导。",
+      "llm_tags": [
+        "query:cim:composite"
+      ],
+      "matched_query_tag": "query:cim:composite",
+      "matched_query_text": "Papers central to 存算一体，主要关注基于混合键合的三维堆叠的近存计算, especially work that connects or combines: compute-in-memory architecture; hybrid bonding 3D integration; 3D stacking memory technology; near-memory computing design; processing-in-memory systems; 3D integrated circuit design; What are the key benefits of hybrid bonding for 3D stacked near memory computing?; How does compute in memory architecture improve energy efficiency?; Design challenges of 3D stacking for near memory computing systems.",
+      "matched_requirement_id": "req-composite-cim",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

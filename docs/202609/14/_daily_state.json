@@ -1,0 +1,57 @@
+{
+  "date": "20260914",
+  "date_label": "",
+  "generated_at": "2026-09-14 22:56:42 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2609.06408v1",
+      "route": "202609/14/2609.06408v1-differentiable-partitioning-with-placement-and-hybrid-bonding-terminal-awareness-for-optimized-3d-placement",
+      "title": "Differentiable Partitioning with Placement and Hybrid Bonding Terminal Awareness for Optimized 3D Placement",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "cim"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "混合键合三维集成电路的层分配与布局",
+      "first_seen_at": "2026-09-14 22:56:42 UTC",
+      "updated_at": "2026-09-14 22:56:42 UTC"
+    },
+    {
+      "paper_id": "2609.08446v1",
+      "route": "202609/14/2609.08446v1-flexspim-an-event-based-digital-compute-in-memory-accelerator-with-flexible-operand-resolution-and-layer-wise-hybrid-stationarity",
+      "title": "FlexSpIM: An Event-Based Digital Compute-In-Memory Accelerator with Flexible Operand Resolution and Layer-Wise Hybrid Stationarity",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "cim"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "数字存内计算加速器架构",
+      "first_seen_at": "2026-09-14 22:56:42 UTC",
+      "updated_at": "2026-09-14 22:56:42 UTC"
+    },
+    {
+      "paper_id": "2609.08898v1",
+      "route": "202609/14/2609.08898v1-otter---two-transistor---one-rram-architecture-for-reliable-in-memory-computing-in-28-nm-cmos-technology",
+      "title": "OTTER - Two Transistor - One RRAM Architecture for Reliable In-Memory-Computing in 28 nm CMOS Technology",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "cim"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "面向可靠存内计算的2T1R RRAM架构",
+      "first_seen_at": "2026-09-14 22:56:42 UTC",
+      "updated_at": "2026-09-14 22:56:42 UTC"
+    }
+  ]
+}

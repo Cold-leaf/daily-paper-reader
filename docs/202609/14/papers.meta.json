@@ -1,0 +1,54 @@
+{
+  "label": "2026-09-14",
+  "date": "2026-09-14",
+  "generated_at": "2026-09-14T22:56:46",
+  "count": 3,
+  "papers": [
+    {
+      "paper_id": "202609/14/2609.06408v1-differentiable-partitioning-with-placement-and-hybrid-bonding-terminal-awareness-for-optimized-3d-placement",
+      "section": "quick",
+      "title_en": "Differentiable Partitioning with Placement and Hybrid Bonding Terminal Awareness for Optimized 3D Placement",
+      "authors": "Liwen Jiang, Xu Shi, Rufeng Xiao, Changhao Yan, Rujun Jiang, Zhiang Wang, Keren Zhu",
+      "date": "2026-09-06",
+      "pdf": "https://arxiv.org/pdf/2609.06408v1",
+      "score": "6.0",
+      "evidence": "混合键合三维集成电路的层分配与布局",
+      "tldr": "3D-IC混合键合中，层分配同时影响3D线长与HBT分配，是难题。本文提出可微分区框架，将离散层分配松弛为连续概率，用Dual-Max 3D HPWL模型和终端感知切割惩罚、局部平衡约束做梯度优化。在OpenROAD基准上，D2D HPWL较两个min-cut基线平均降2.0%，较SOTA 3D布局器降12.1%。开源分区代码与3D流程，提升可复现性。",
+      "tags": "query:cim",
+      "abstract_en": "Research on 3D-ICs physical design has expanded rapidly in recent years. Hybrid bonding-enabled 3D integrated circuits (3D-ICs) offer substantial benefits in interconnect scaling and system integration, yet tier assignment remains challenging because it jointly determines 3D wirelength and hybrid bonding terminal (HBT) assignment. This paper presents a differentiable partitioning framework that directly optimizes placement-aware tier assignment for 3D-ICs through gradient-based optimization. Discrete tier assignment is relaxed to continuous probabilities, and a Dual-Max 3D wirelength model is introduced to capture per-tier half-perimeter wirelength (HPWL). In addition, a terminal-aware cutsize penalty selectively suppresses cross-die nets in HBT-congested regions, and a local balance constraint enforces grid-cell density equilibrium across tiers. Experimental results on OpenROAD benchmarks show that our method reduces D2D HPWL by 2.0% on average over two min-cut baselines and by 12.1% over the state-of-the-art 3D placer. We open-source our partition code with 3D placement flow to support reproducibility.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202609/14/2609.08446v1-flexspim-an-event-based-digital-compute-in-memory-accelerator-with-flexible-operand-resolution-and-layer-wise-hybrid-stationarity",
+      "section": "quick",
+      "title_en": "FlexSpIM: An Event-Based Digital Compute-In-Memory Accelerator with Flexible Operand Resolution and Layer-Wise Hybrid Stationarity",
+      "authors": "Nicolas Chauvaux, Adrian Kneip, Charlotte Frenkel",
+      "date": "2026-09-08",
+      "pdf": "https://arxiv.org/pdf/2609.08446v1",
+      "score": "6.0",
+      "evidence": "数字存内计算加速器架构",
+      "tldr": "面向边缘视觉的脉冲神经网络CIM加速器虽具微秒级延迟与超低功耗潜力，却因电路与系统灵活性不足难以适配多样负载。FlexSpIM采用数字CIM架构，在统一存储中支持任意操作数分辨率与形状，并实现层间权重/输出混合驻留数据流。40nm原型验证了逐位分辨率重构，在IBM DVS手势数据集达95.8%准确率。相较固定驻留方案，大规模系统能耗与延迟最高降45%和52%。",
+      "tags": "query:cim",
+      "abstract_en": "Compute-in-memory (CIM) accelerators for spiking neural networks (SNNs) offer a promising solution for achieving $μ$s-level inference latency and ultra-low energy in edge vision applications. However, their limited flexibility at both circuit and system levels restricts their deployment across diverse workloads. This work introduces FlexSpIM, a digital CIM architecture supporting arbitrary operand resolution and shape within a unified storage for weights and neuron states (i.e., membrane potentials). These circuit-level capabilities enable a layer-level hybrid weight- and output-stationary dataflow, maximizing operand reuse and reducing costly on- and off-chip data movement during SNN execution. Measurement results from a fabricated FlexSpIM prototype in 40-nm CMOS demonstrate competitive 1-bit-normalized energy efficiency and higher throughput compared with prior fixed-precision digital CIM-based SNN accelerators, while providing bitwise resolution reconfiguration. Evaluated on the IBM DVS gesture dataset, FlexSpIM achieves 95.8% accuracy while enabling up to 45% energy and 52% latency reductions in large-scale systems compared with fixed stationarity approaches.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202609/14/2609.08898v1-otter---two-transistor---one-rram-architecture-for-reliable-in-memory-computing-in-28-nm-cmos-technology",
+      "section": "quick",
+      "title_en": "OTTER - Two Transistor - One RRAM Architecture for Reliable In-Memory-Computing in 28 nm CMOS Technology",
+      "authors": "Yang Chen, Daniele Storelli, Xinyi Zhao, Ankit Bende, Paul-Philipp Manea, Oliver Artner, Arun Ashok, Kay Winterberg, Godwin Paul, Siyuan Jia, Christian Roth, Sabitha Kusuma, Michael Schiek, Vikas Rana, Dirk Wouters, Stephan Menzel, Andre Zambanini, Christian Grewing, Stefan Wiefels, Susanne Hoffmann-Eifert, John Paul Strachan, Stefan van Waasen, Regina Dittmann",
+      "date": "2026-09-08",
+      "pdf": "https://arxiv.org/pdf/2609.08898v1",
+      "score": "6.0",
+      "evidence": "面向可靠存内计算的2T1R RRAM架构",
+      "tldr": "针对RRAM存内计算中编程可靠性与器件集成难题，本文提出OTTER：在28 nm CMOS上共集成TaOx VCM RRAM的2T1R单元，将低驱动与高驱动晶体管并联，为SET与RESET提供独立偏置路径。基于JART VCM Rth紧凑模型系统比较晶体管配对，给出按SET限流确定RESET管最小W/L的尺寸准则。实验与仿真验证了完整可靠编程与多值存储能力，脉冲编程实现六档窄分布、可区分模拟电导态；在15×15交叉阵列上完成CIM MAC硬件演示，并分析aCAM比较器接法权衡。",
+      "tags": "query:cim",
+      "abstract_en": "This work presents OTTER, a 28 nm CMOS platform co-integrated with TaOx-based valence-change mechanism (VCM) RRAM, demonstrating a two-transistor-one-memristive-device (2T1R) architecture for reliable in-memory computing. The 2T1R cell combines a low-drive-current (LD) transistor and a high-drive-current (HD) transistor in parallel, providing dedicated bias paths for SET programming and RESET operation, respectively. Through systematic experimental and simulated comparison of various transistor-pairing configurations using the physical compact model JART VCM Rth, design guidelines for transistor sizing are derived, establishing the minimum RESET transistor W/L required for complete RESET as a function of the SET current compliance. The 2T1R cell is further characterized under pulse-based programming, demonstrating multilevel analog conductance tuning with narrow, well separated conductance states across six programmable levels. An analog content-addressable memory (aCAM) design based on the same 2T1R cell is additionally analyzed at the circuit level, evaluating trade-offs between top- and bottom-connected RRAM comparator configurations. A hardware implementation of compute-in-memory (CIM) multiply-and-accumulate (MAC) operations is further demonstrated on a 15 x 15 2T1R crossbar array.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,150 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-09-15T22:11:41.278625+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [
+    {
+      "id": "2609.08446v1",
+      "source": "arxiv",
+      "title": "FlexSpIM: An Event-Based Digital Compute-In-Memory Accelerator with Flexible Operand Resolution and Layer-Wise Hybrid Stationarity",
+      "abstract": "Compute-in-memory (CIM) accelerators for spiking neural networks (SNNs) offer a promising solution for achieving $μ$s-level inference latency and ultra-low energy in edge vision applications. However, their limited flexibility at both circuit and system levels restricts their deployment across diverse workloads. This work introduces FlexSpIM, a digital CIM architecture supporting arbitrary operand resolution and shape within a unified storage for weights and neuron states (i.e., membrane potentials). These circuit-level capabilities enable a layer-level hybrid weight- and output-stationary dataflow, maximizing operand reuse and reducing costly on- and off-chip data movement during SNN execution. Measurement results from a fabricated FlexSpIM prototype in 40-nm CMOS demonstrate competitive 1-bit-normalized energy efficiency and higher throughput compared with prior fixed-precision digital CIM-based SNN accelerators, while providing bitwise resolution reconfiguration. Evaluated on the IBM DVS gesture dataset, FlexSpIM achieves 95.8% accuracy while enabling up to 45% energy and 52% latency reductions in large-scale systems compared with fixed stationarity approaches.",
+      "authors": [
+        "Nicolas Chauvaux",
+        "Adrian Kneip",
+        "Charlotte Frenkel"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-09-08T08:50:31+00:00",
+      "link": "https://arxiv.org/pdf/2609.08446v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "digital compute-in-memory accelerator architecture",
+      "llm_evidence_cn": "数字存内计算加速器架构",
+      "llm_evidence": "数字存内计算加速器架构",
+      "canonical_evidence": "数字存内计算加速器架构",
+      "llm_tldr_en": "FlexSpIM is a digital compute-in-memory accelerator supporting arbitrary operand resolution and shape with unified storage for weights and neuron states, enabling layer-wise hybrid stationarity to cut data movement and reach microsecond SNN inference at ultra-low energy.",
+      "llm_tldr_cn": "针对存内计算加速器电路与系统灵活性不足、难以适配多样脉冲神经网络负载的问题，本文提出FlexSpIM数字存内计算架构。它在统一存储中容纳权重与神经元膜电位，支持任意操作数分辨率与形状，并实现逐层权重/输出混合驻留数据流。实验表明该设计最大化操作数复用、减少片上与片外数据搬运，在边缘视觉推理中达成微秒级延迟与超低能耗，提升了存内计算加速器的通用性。",
+      "llm_tldr": "针对存内计算加速器电路与系统灵活性不足、难以适配多样脉冲神经网络负载的问题，本文提出FlexSpIM数字存内计算架构。它在统一存储中容纳权重与神经元膜电位，支持任意操作数分辨率与形状，并实现逐层权重/输出混合驻留数据流。实验表明该设计最大化操作数复用、减少片上与片外数据搬运，在边缘视觉推理中达成微秒级延迟与超低能耗，提升了存内计算加速器的通用性。",
+      "llm_tags": [
+        "query:cim:composite"
+      ],
+      "matched_query_tag": "query:cim:composite",
+      "matched_query_text": "Papers central to 存算一体，主要关注基于混合键合的三维堆叠的近存计算, especially work that connects or combines: compute-in-memory architecture; hybrid bonding 3D integration; 3D stacking memory technology; near-memory computing design; processing-in-memory systems; 3D integrated circuit design; What are the key benefits of hybrid bonding for 3D stacked near memory computing?; How does compute in memory architecture improve energy efficiency?; Design challenges of 3D stacking for near memory computing systems.",
+      "matched_requirement_id": "req-composite-cim",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2609.14464v1",
+      "source": "arxiv",
+      "title": "First Demonstration of Flip DRAM from Process, Architecture to System to Push DRAM Scaling beyond 4F2: 2F2 Self-aligned Flip Vertical Channel Transistor (FVCT) DRAM and Flip WL (FWL) 3D-DRAM",
+      "abstract": "For the first time, we proposed a novel stacking technology for DRAM scaling by flipping and backside processes, making full use of DRAM wafer's backside and investigating it on both 4F2 and 3D-DRAM. For 4F2 VCT, 2F2 Flip VCT featuring self-aligned back-to-back stacked 1T1C bitcell, with various BL and WL configurations, were studied and key process modules such as self-aligned stacked vertical channel, BL and WL formations, wafer bonding and flipping, substrate thinning and low-R Co storage node (SN) were successfully developed, addressing the potential thermal, misalign and parasitic concerns in the Flip VCT process. A full DRAM DTCO framework was also established from device to mat and chip level. Compared to 4F2 VCT DRAM with the same mat size, 2F2 FVCT delivers 27.5% less parasitics, 11% better sense margin, 16.3% higher charge sharing (CS) speed and 50% less area. For 3D-DRAM, a brand-new flip WL staircase design with peripheral circuit innovations was studied and proved to have 25% density gain, 15.1% faster turn-on speed and 6.8% less CS time, proving further extendibility of flip technology on DRAM.",
+      "authors": [
+        "Yu Liu",
+        "Xinyue He",
+        "Yanbang Chu",
+        "Siyuan Liu",
+        "Jianxiang Jin",
+        "Fangcheng Sun",
+        "Yuyang Qiao",
+        "Xu Tian",
+        "Lan Li",
+        "Baokang Peng",
+        "Lining Zhang",
+        "Xing Wu",
+        "Pengpeng Ren",
+        "Zhigang Ji",
+        "Zongwei Wang",
+        "Lijie Zhang",
+        "Xinwei Wan",
+        "Weihai Bu",
+        "Ming Li",
+        "Runsheng Wang",
+        "Heng Wu",
+        "Ru Huang"
+      ],
+      "primary_category": "cond-mat.mes-hall",
+      "categories": [
+        "cond-mat.mes-hall"
+      ],
+      "published": "2026-09-13T12:14:25+00:00",
+      "link": "https://arxiv.org/pdf/2609.14464v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "wafer bonding and flipping 3D-DRAM stacking with thermal concerns addressed",
+      "llm_evidence_cn": "晶圆键合与翻转的三维DRAM堆叠并处理热问题",
+      "llm_evidence": "晶圆键合与翻转的三维DRAM堆叠并处理热问题",
+      "canonical_evidence": "晶圆键合与翻转的三维DRAM堆叠并处理热问题",
+      "llm_tldr_en": "Demonstrates a flip and backside process stacking technology for DRAM scaling, using wafer bonding and thinning while addressing thermal, misalignment and parasitic concerns in 3D-DRAM.",
+      "llm_tldr_cn": "该文针对DRAM继续微缩面临的工艺与堆叠难题，提出利用晶圆背面与翻转工艺的新型堆叠技术，覆盖4F2与三维DRAM。方法开发了自对准背靠背堆叠垂直沟道、位线字线成形、晶圆键合翻转、衬底减薄与低阻存储节点等关键模块。结果成功演示了全DRAM工艺，并缓解了翻转垂直沟道中的热、失配与寄生问题，为三维堆叠存储与混合键合集成提供工艺依据。",
+      "llm_tldr": "该文针对DRAM继续微缩面临的工艺与堆叠难题，提出利用晶圆背面与翻转工艺的新型堆叠技术，覆盖4F2与三维DRAM。方法开发了自对准背靠背堆叠垂直沟道、位线字线成形、晶圆键合翻转、衬底减薄与低阻存储节点等关键模块。结果成功演示了全DRAM工艺，并缓解了翻转垂直沟道中的热、失配与寄生问题，为三维堆叠存储与混合键合集成提供工艺依据。",
+      "llm_tags": [
+        "query:cim:composite"
+      ],
+      "matched_query_tag": "query:cim:composite",
+      "matched_query_text": "Papers central to 存算一体，主要关注基于混合键合的三维堆叠的近存计算, especially work that connects or combines: compute-in-memory architecture; hybrid bonding 3D integration; 3D stacking memory technology; near-memory computing design; processing-in-memory systems; 3D integrated circuit design; What are the key benefits of hybrid bonding for 3D stacked near memory computing?; How does compute in memory architecture improve energy efficiency?; Design challenges of 3D stacking for near memory computing systems.",
+      "matched_requirement_id": "req-composite-cim",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2609.15326v1",
+      "source": "arxiv",
+      "title": "System-Technology Co-Evaluation of A7 CFET and A10 NSFET Technologies from Cell Parasitics to Chip Reliability",
+      "abstract": "Complementary FETs (CFETs) extend nanosheet FET (NSFET) scaling by vertically stacking n- and p-type gate-all-around (GAA) devices, thereby shrinking standard-cell area. The performance gain, however, cannot be assessed from device metrics alone, as CFET layouts also introduce larger cell-level parasitic resistance and capacitance (RC). In this work, we present a physics-based thermal- and aging-aware system-technology co-evaluation (STCO) flow to assess parasitic RCs in A7 CFET and A10 NSFET technology nodes. Our flow links calibrated device models, optimized standard-cell generation, automated GDS-to-TCAD conversion enabling accurate 3D parasitic RC extraction, full RTL-to-GDS implementation for an AI accelerator, multiphysics thermal analysis, and physics-based bias temperature instability (BTI) aging evaluation. Using the same device model for both technologies, we can isolate the impact of parasitic RCs and design at different levels of the design flow. The results of the AI accelerator design demonstrate that the A7 CFET reduces the chip area by 24.7% and the total wire length by 12%, improving the area efficiency TOPS/mm^2 by 74% relative to the baseline of the A10 NSFET. Under iso-frequency operation, results reveal that CFET voltage scaling reduces power by 68% and lowers power density from 148 W/cm^2 to 55 W/cm^2, which reduces the chip's temperature from 125 degrees C down to merely 62 degrees C. The resulting reduction in stress temperature suppresses 10-year BTI-induced degradation by 39%, reducing the required aging timing guardband by 53%.",
+      "authors": [
+        "Mahdi Benkhelifa",
+        "Leon Mayr",
+        "Hadi Nour Eddine",
+        "Andrea Padovani",
+        "Luca Larcher",
+        "Hussam Amrouch"
+      ],
+      "primary_category": "cs.ET",
+      "categories": [
+        "cs.ET"
+      ],
+      "published": "2026-09-14T10:16:45+00:00",
+      "link": "https://arxiv.org/pdf/2609.15326v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "thermal- and aging-aware 3D TCAD co-evaluation of vertically stacked CFET devices",
+      "llm_evidence_cn": "面向垂直堆叠CFET的热与老化感知三维TCAD协同评估",
+      "llm_evidence": "面向垂直堆叠CFET的热与老化感知三维TCAD协同评估",
+      "canonical_evidence": "面向垂直堆叠CFET的热与老化感知三维TCAD协同评估",
+      "llm_tldr_en": "A physics-based, thermal- and aging-aware system-technology co-evaluation flow links calibrated device models, standard-cell generation, GDS-to-TCAD conversion and RTL-to-GDS implementation to extract 3D parasitic RC and assess A7 CFET and A10 NSFET nodes from cell parasitics to chip reliability.",
+      "llm_tldr_cn": "针对CFET等垂直堆叠器件仅凭器件指标无法评估寄生RC与芯片可靠性问题，本文提出物理基、热与老化感知的系统-工艺协同评估流程。该流程串联校准器件模型、标准单元生成、GDS到TCAD自动转换与完整RTL到GDS实现，实现精确的三维寄生RC提取。在A7 CFET与A10 NSFET节点上完成从单元寄生到芯片可靠性的协同评估，为先进三维堆叠技术的性能与可靠性权衡提供可复用评估框架。",
+      "llm_tldr": "针对CFET等垂直堆叠器件仅凭器件指标无法评估寄生RC与芯片可靠性问题，本文提出物理基、热与老化感知的系统-工艺协同评估流程。该流程串联校准器件模型、标准单元生成、GDS到TCAD自动转换与完整RTL到GDS实现，实现精确的三维寄生RC提取。在A7 CFET与A10 NSFET节点上完成从单元寄生到芯片可靠性的协同评估，为先进三维堆叠技术的性能与可靠性权衡提供可复用评估框架。",
+      "llm_tags": [
+        "query:thermal-gnn"
+      ],
+      "matched_query_tag": "query:thermal-gnn",
+      "matched_query_text": "thermal modeling and simulation of three-dimensional stacked chips",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

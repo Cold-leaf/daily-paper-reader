@@ -1,0 +1,942 @@
+, VOL. XX, NO. XX, XXXX 2026
+1
+System–Technology Co-Evaluation of
+A7 CFET and A10 NSFET Technologies
+from Cell Parasitics to Chip Reliability
+Mahdi Benkhelifa, Leon Mayr, Hadi Nour Eddine, Andrea Padovani, Member, IEEE,
+Luca Larcher, and Hussam Amrouch, Member, IEEE
+Abstract— Complementary
+FETs
+(CFETs)
+extend
+nanosheet FET (NSFET) scaling by vertically stacking
+n- and p-type gate-all-around (GAA) devices, thereby
+shrinking
+standard-cell
+area.
+The
+performance
+gain,
+however, cannot be assessed from device metrics alone,
+as CFET layouts also introduce larger cell-level parasitic
+resistance and capacitance (RC). In this work, we present
+a
+physics-based
+thermal-
+and
+aging-aware
+system–
+technology co-evaluation (STCO) flow to assess parasitic
+RCs in A7 CFET and A10 NSFET technology nodes. Our
+flow links calibrated device models, optimized standard-
+cell
+generation,
+automated
+GDS-to-TCAD
+conversion
+enabling accurate 3D parasitic RC extraction, full RTL-to-
+GDS implementation for an AI accelerator, multiphysics
+thermal analysis, and physics-based bias temperature
+instability (BTI) aging evaluation. Using the same device
+model for both technologies, we can isolate the impact
+of parasitic RCs and design at different levels of the
+design flow. The results of the AI accelerator design
+demonstrate that the A7 CFET reduces the chip area by
+24.7 % and the total wire length by 12 %, improving the area
+efficiency TOPS/mm2 by 74 % relative to the baseline of
+the A10 NSFET. Under iso-frequency operation, results
+reveal that CFET voltage scaling reduces power by 68 %
+and lowers power density from 148 W cm−2 to 55 W cm−2,
+which reduces the chip’s temperature from 125 ◦C down to
+merely 62 ◦C. The resulting reduction in stress temperature
+suppresses 10-year BTI-induced degradation by 39 %,
+reducing the required aging timing guardband by 53 %.
+Index Terms— Nanosheets, standard cell, STCO, AI ac-
+celerator, aging, BTI, CFET.
+I. INTRODUCTION
+N
+SFETS are a key architecture for nodes beyond 5 nm [1].
+Their vertically stacked channels, fully surrounded by
+Received XX XXXX 2026. (Corresponding author: Hussam Am-
+rouch.)
+M. Benkhelifa, L. Mayr, H. N. Eddine, and H. Amrouch are with
+the Technical University of Munich, TUM School of Computation, In-
+formation and Technology, Chair of AI Processor Design, Munich In-
+stitute of Robotics and Machine Intelligence, Munich, Germany (e-
+mail: m.benkhelifa@tum.de; leon.h.mayr@tum.de; hadi.nour@tum.de;
+amrouch@tum.de).
+A. Padovani is with the Department of Science and Methods for
+Engineering, University of Modena and Reggio
+Emilia, Reggio Emilia, Italy (e-mail: andrea.padovani@unimore.it).
+L.
+Larcher
+is
+with
+Applied
+Materials,
+CA,
+USA
+(e-mail:
+Luca Larcher@amat.com).
+...
+...
+...
+...
+...
+...
+...
+...
+...
+...
+...
+...
+...
+...
+...
+...
+Activations
+Weights
+System
+Technology
+Co-Evaluation
+Multiply-and-accumulate
+(MAC) processing element
+AI Accelerator featuring 1024
+parallel MACs enabling efficiency
+and fast matrix-matrix
+multiplication for AI weights
+and activations.
+output
+input
+Cell Height
+Buried
+Power
+Rail
+Buried
+Power
+Rail
+output
+input
+Cell Height
+A7
+CFET
+A10
+NSFET
+CFET v.s. NSFET   Area   Frequency   Power Density   Temperature   Aging
+Iso-voltage 
+Iso-performance
+Fig. 1: CFET vertically stacks n- and p-type nanosheets,
+reducing cell height and hence chip area. However, tighter 3D
+integration increases cell parasitics and hence switching power
+leading to higher power density, increased temperature, and
+accelerated aging. Nevertheless, under iso-performance oper-
+ation, CFET achieves the target frequency at a lower voltage,
+reducing power, power density, temperature, and aging.
+the gate, provide superior electrostatic control while increas-
+ing effective channel width—and hence drive-current capa-
+bility—within a given device footprint [2], [3]. However,
+further logic scaling is increasingly constrained by standard-
+cell layout rather than by transistor size. Lateral n-/p-device
+separation, contacted poly pitch (CPP), gate length, and local
+routing resources limit further reductions in cell area and hence
+logic density [4], [5], [6], [7]. CFETs address these limitations
+by vertically stacking n- and p-type GAA transistors, enabling
+aggressive footprint reduction [8].
+The CFET density advantage is accompanied by increased
+parasitic and reliability challenges. Compact vertical integra-
+tion introduces additional high-aspect-ratio interconnect resis-
+tance and substantial MOL parasitic capacitance, while the
+arXiv:2609.15326v1  [cs.ET]  14 Sep 2026
+
+
+2
+, VOL. XX, NO. XX, XXXX 2026
+Layout design of standard cells
+GAA transistor device modeling
+Rapid 3D parasitic RC extraction and post-parasitics netlist generation
+Standard-cell characterization and RTL-to-GDS physical design and sign-off analysis
+Physics-based device aging analysis
+a
+SLiC
+ automated layout generation 
+optimized for standard-cell area
+Standard-cell netlists
+Design rules
+DRC and LVS clean standard-cell 
+layout library in GDSII format
+Ginestra
+ simulations 
+for BTI-driven aging
+ΔVTH
+VGStress
+TStress
+Layer specifications
+Our in-house rapid 
+GDS-to-TCAD 
+conversion tool
+Raphael FX field solver 
+3D parasitic extraction, 
+heat dissipation analysis
+Metal and dielectric properties 
+Post-parasitics standard-
+cell netlist generation 
+and LVS check
+Post-parasitics standard-cell netlists
+Standard-cell library CCS-
+based characterization
+Logic synthesis
+Multi-corner 
+characterized 
+standard-cell 
+libraries
+Chip placement and 
+routing
+Chip-level parasitic 
+RC extraction
+Sign-off analysis for delay, 
+area, and power
+ΔVTH
+“If aging is 
+considered”
+Circuit RTL design
+Interconnect database (.nxtgrd)
+Power density, Temperature, PPA
+GAA TCAD 
+calibration
+BSIM-CMG 
+model extraction
+GAA experimental data [15]
+Standard-cell thermal maps
+Post-parasitics 
+standard-cell netlists
+Standard-cell layouts
+c
+d
+a
+b
+e
+Fig. 2: System–technology co-evaluation workflow. (a) SLiC™enables automated, optimized standard-cell layout generation.
+(b) Transistor characteristics are calibrated to measurements, and a SPICE compact model is calibrated. (c) Our in-house GDS-
+to-TCAD framework generates 3D TCAD structures, from which Raphael FX extracts standard-cell parasitic RCs and 3D
+thermal maps. (d) Our digital design flow includes library characterization, RTL-to-GDS implementation, chip-level parasitic
+RC extraction, and industrial sign-off analysis to obtain PPA. Multiphysics simulations convert power density into chip-level
+temperature. (e) Physics-based BTI defect generation using Ginestra™for accurate BTI-induced ∆VT H analysis.
+           
+0 . 0
+0 . 2
+0 . 4
+0 . 6
+0 . 8
+1 0 
+ 	
+1 0 
+ 
+1 0 
+ 
+1 0 
+ 
+1 0 
+ 
+1 0 
+ 
+1 0 
+ 
+1 0 
+ 
+1 0 
+ 
+I D S ( A /  m )
+V
+G S ( V )
+| V
+D S | = 0 . 7 5 V
+S y m b o l s : M
+e a s u r e d [ 1 3 ]
+L i n e : M
+o d e l
+Fig. 3: TCAD-calibrated model for n-type and p-type
+nanosheets. IDS–VGS transfer characteristics show an excel-
+lent match with data measurements [13], which we calibrated
+against.
+close proximity of the stacked devices enhances electrical and
+thermal coupling [9], [10], [11], [12]. Aggressive interconnect
+dimensional scaling increases resistivity through enhanced
+surface and grain-boundary electron scattering, while BPR-
+based backside power delivery and dense local routing intro-
+duce additional MOL parasitics and increase the complexity
+of FEOL–MOL–BEOL parasitic interactions [14], [15], [16].
+These effects degrade standard-cell delay and transition time
+as well as increase dynamic power. At the same time, reduced
+chip area results in higher power density [17], [18] and, hence,
+higher temperature, which in turn accelerates BTI-induced
+defect generation.
+Therefore, CFET scaling must be carefully analyzed through
+a system–technology co-evaluation flow that propagates tech-
+nology assumptions into layout, parasitics, timing, thermal
+behavior, and even aging. Isolated device or cell metrics
+are insufficient because cell-level RC penalties and chip-level
+routing benefits can act in opposite directions. Reliability and
+performance consequences of the parasitic RCs that result
+from the vertical stacking in the A7 node compared to the
+A10 node are summarized in Fig. 1.
+In our previous work [19], we investigated the impact of
+cell-level parasitics in vertically stacked NSFET devices on
+critical-path delay using synthesized circuits and presented
+preliminary results on their implications for device self-
+heating. In this work, we evaluate how parasitics associated
+with vertical device stacking affect the PPA of placed-and-
+routed AI accelerator designs in the A7 CFET and A10
+NSFET nodes, and ultimately their impact on device reliability.
+We show that, although the A7 CFET cell design incurs
+a measurable cell-level parasitic penalty, its greater layout
+density reduces total interconnect length at the routed-chip
+level, enabling higher operating frequencies. At iso-frequency,
+this performance advantage allows the CFET design to operate
+at a substantially lower supply voltage, reducing self-heating
+and, consequently, aging-induced performance degradation.
+
+
+BENKHELIFA et al.:SYSTEM–TECHNOLOGY CO-EVALUATION OF A7 CFET AND A10 NSFET TECHNOLOGIES FROM CELL PARASITICS TO CHIP RELIABILITY
+3
+TABLE I: Employed design parameters and assumptions of A7
+and A10 technologies [23], [24].
+Layers
+width [nm]
+spacing [nm]
+line resist.
+permittivity
+A10
+A7
+A10
+A7
+[Ωµm−1]
+A10
+A7
+M0, M2, M3
+10
+10
+10
+8
+889
+2.95
+2.375
+M1
+14
+14
+32
+30
+375
+2.95
+2.375
+M4, M5
+23
+23
+13
+13
+134
+2.475
+2.475
+M6 - M9
+40
+40
+40
+40
+16
+2.475
+2.475
+M10
+80
+80
+80
+80
+3
+2.475
+2.475
+SPICE netlist
+GDSII layout
+3D TCAD
+(a)
+(b) xor2_x1
+(c) D-latch16
+Area
+-24.3%
+Fig. 4: GDS-to-TCAD fully automated conversion framework.
+(a) SLiC™generates optimized GDSII standard-cell layouts
+from SPICE netlists, which are automatically converted into
+3D TCAD structures using our in-house framework. Example
+of layouts and corresponding 3D TCAD structures of X1-drive
+(a) XOR and (b) D-latch cells. The A7 cells achieve an average
+area reduction of 24.3 %.
+II. SYSTEM-TECHNOLOGY CO-EVALUATION FLOW
+Fig. 2 illustrates our system-technology co-evaluation flow,
+which includes a calibrated transistor model, automated
+standard-cell layout generation, library characterization, a full
+RTL-to-GDS flow, and multiphysics aging simulation.
+A. Our Device-to-System Flow
+First, SLiC™[20] automatically generates area-optimized
+GDSII layouts for a 75-cell standard-cell library using
+standard-cell netlists [21], [22] and technology design rules.
+At the device level, a TCAD GAA nanosheet is cali-
+brated [25] against measured ID–VG data [13]. The calibrated
+device replicates the reported measurements with high accu-
+racy, as shown in Fig. 3. BSIM-CMG compact models for n-
+and p-type devices are calibrated and used in cell-level SPICE
+simulations. We intentionally used the same calibrated device
+in both CFET and NSFET to isolate the impact of parasitics
+that result from vertical stacking and design-rule scaling.
+Our in-house GDS-to-TCAD conversion framework auto-
+matically constructs full 3D TCAD standard-cell structures
+A r e a 
+D e l a y
+T r a n s . t i m e
+P o w e r
+0 . 6
+0 . 8
+1 . 0
+1 . 2
+N o r m a l i z e d A v e r a g e
+ A 1 0 N S F E T
+ A 7 C F E T
+Fig. 5: Normalized area, delay, transition time, and power
+of A10 NSFET- and A7 CFET-based standard cells. Values
+are averaged across all standard cells and normalized to the
+NSFET as a baseline. Higher parasitic RCs in CFET increase
+cell-level delay, transition time, and power.
+from the generated optimized layouts. The framework uses
+layer geometry and material specifications to enable accurate
+3D field-solver-based parasitic RC extraction using Synopsys
+Raphael FX [26]. Finally, post-parasitics standard-cell netlists
+are generated, and LVS checks are performed.
+The generated post-parasitics netlists are then character-
+ized using the calibrated devices under the industry-standard
+composite-current-source (CCS) methodology across multi-
+ple voltage-temperature corners. The switching behavior of
+standard cells is modeled as a time-dependent output current
+waveform, resulting in an accurate description of delay, output
+transition, and power consumption at the cell level. Addition-
+ally, the liberty file generated in this step contains information
+on the input pin capacitance for each cell and pin, which can
+be used for technology comparison.
+The characterized libraries are then used to synthesize the
+RTL design of a 64-bit RISC-V processor [27], and an in-
+house 32×32 multiply-and-accumulate (MAC) systolic array
+AI accelerator. The synthesized AI accelerator designs are
+deployed in physical design, resulting in DRC-clean chip
+layouts. Chip-level parasitic extraction is performed to enable
+post-physical-design sign-off analysis and obtain the chip PPA.
+Finally, the chip-level PPA results are then used to derive
+the temperature and voltage stress conditions for subsequent
+device-level reliability analysis.
+B. BTI-driven Aging Evaluation
+To compare the impact of parasitics on BTI-driven aging
+in NSFET and CFET devices, the chip power density from
+the sign-off analysis is used to run a package-level multi-
+physics ANSYS simulation to determine the maximum chip
+temperature under the given operating voltage. Ginestra™[28]
+simulations use the extracted temperature and the operating
+voltage as stress inputs to determine the 10-year threshold-
+voltage shift (∆VT H) due to BTI aging. To evaluate the
+performance under aging, we re-characterize the standard-cell
+library using aged device characteristics and propagate the
+
+
+4
+, VOL. XX, NO. XX, XXXX 2026
+A I A c c e l e r a t o r
+R I S C - V
+A v e r a g e
+0 . 1
+0 . 2
+0 . 3
+0 . 4
+0 . 5
+0 . 6
+0 . 7
+0 . 8
+D e l a y ( n s )
+ A 1 0 N S F E T
+ A 7 C F E T
++ 1 3 . 2 %
+Fig. 6: Delay comparison before chip physical design (i.e., at
+the synthesis level). RTL designs of the AI accelerator and a
+RISC-V processor are synthesized with the A10 and A7 cell
+libraries. CFET shows 13.2 % larger delay due to higher cell
+parasitics.
+updated library through the RTL-to-GDS flow. Finally, sign-
+off analysis is performed to quantify the resulting impact of
+aging on system-level PPA.
+C. Technology Assumptions
+Technology assumptions for A10 NSFET and A7 CFET
+are derived from the IRDS 2024 roadmap and literature [23],
+[24]. The resulting parameters are summarized in Table I. We
+apply node-to-node scaling assumptions for the FEOL up to
+M3, while keeping the BEOL from M4 to M10 identical for
+both technologies. NSFET uses a 46 nm CPP, a 4-track cell
+height, and a 20 nm M0-pitch, whereas the A7 CFET uses
+a 44 nm CPP, 3.5-track cell height, and a 18 nm M0-pitch,
+reflecting tighter scaling in the CFET case. Line width and
+line resistance are identical for both NSFET and CFET for
+the entire BEOL stack. The spacer dielectric permittivity is
+scaled from 3 to 2.7, the permittivty for M0-M4 is scaled
+from 2.95 to 2.375, while M5-M10 are identically at 2.475,
+in alignment with the IRDS [23]. Fig. 4 shows examples of
+the 3D TCAD structures of XOR and D-latch standard cells
+generated using our GDS-to-TCAD framework.
+III. RESULTS
+We evaluate the impact of parasitic RC components in
+NSFET and CFET technologies across multiple stages of
+the STCO flow. First, their effect on individual standard-cell
+performance is assessed. Circuit-level PPA is then evaluated
+after synthesis and again after physical design, enabling the
+impact of chip-level interconnect parasitics to be distinguished
+from cell-level parasitic effects. Finally, BTI-induced aging is
+analyzed at iso-frequency under the corresponding operating
+voltage and the obtained temperature conditions.
+A. Standard Cells
+Fig. 5 compares normalized area, delay, transition time, and
+power averaged across all 75 sequential and combinational
+(a) A10 NSFET
+Layers: M0-M10
+Wire Length: 646 mm
+Area: 17297 μm2
+(b) A7 CFET
+Layers: M0-M10
+Wire Length: 569 mm
+Area 13017 μm2
+131.5μm
+131.6μm
+114.2μm
+114.2μm
+25% Area reduction
+Fig. 7: Full physical design showing GDS of AI accelerator
+using (a) A10 NSFET and (b) A7 CFET nodes. The CFET
+implementation reduces die area by 25 % and shrinks total
+wire length by
+12 %, while still maintaining an equal area
+utilization of 61.7 %.
+TABLE II: Iso-voltage (0.8V) post-physical-design evaluation
+of the AI accelerator designs. The A7 CFET design is faster
+than its A10 NSFET counterpart due to a 12 % reduction in
+total wire length, which improves chip-level parasitics and
+results in higher TOPS.
+Metric
+A10
+A7
+Change
+Frequency (GHz)
+0.68
+0.88
++30 %
+Power (mW)
+12
+21
++74.5 %
+Area (µm2)
+17296
+13017
+−24.7 %
+Performance (TOPS)
+1.39
+1.81
+−30 %
+Efficiency (TOPS/W)
+115
+86
+−20.4 %
+Power Density (W cm−2)
+70
+162
++132 %
+TOPS/mm2
+80
+140
++28.1 %
+Figure of Merit (TOPS2/mm2*W)
+9252
+11958
++29.3 %
+standard cells which we have created. A7 CFET reduces
+standard-cell area by 24.3 % through p-/n-type transistor stack-
+ing. However, the compact 3D cell geometry increases the
+input pin capacitance by 9.7 % on average across cells and
+input pins, despite the reduced dielectric permittivity. Addi-
+tionally, super-vias increase parasitic resistance. Consequently,
+this leads to a 6.1 % higher delay, a 5.0 % longer transition
+time, and a 3.4 % larger cell internal power.
+B. A10- and A7-based AI Accelerator Evaluation
+Pre-physical-design timings obtained from the synthesized
+designs show that the A10 NSFET AI accelerator and RISC-V
+designs achieve delays of 0.337 ns and 0.652 ns, respectively.
+The A7 CFET implementations, on average, reduce the syn-
+thesized design area by 24.7 %, while being 13.2 % slower due
+to increased cell-level parasitics, which aligns well with the
+standard cell results (Fig. 6).
+The physical implementations of the AI accelerator chips
+in A10 NSFET and A7 CFET are shown in Fig. 7. The
+accelerator features a 32 × 32 MAC systolic array. Using the
+same M0–M10 routing stack and an identical area utilization
+of 61.7 %, the CFET-based accelerator achieves a 25 % smaller
+footprint than its NSFET-based counterpart owing to its re-
+duced standard-cell height. The CFET implementation also
+
+
+BENKHELIFA et al.:SYSTEM–TECHNOLOGY CO-EVALUATION OF A7 CFET AND A10 NSFET TECHNOLOGIES FROM CELL PARASITICS TO CHIP RELIABILITY
+5
+(a)
+0 . 5
+0 . 6
+0 . 7
+0 . 8
+0 . 9
+0
+5
+1 0
+1 5
+2 0
+2 5
+3 0
+3 5
+S u p p l y v o l t a g e s w e e p : 
+        	 
+    
+T o t a l P o w e r ( m W
+)
+F r e q u e n c y ( G H z )
+ A 1 0 N S F E T
+ A 7 C F E T
++ 2 8 . 8 %
+- 6 8 . 1 %
+0 . 5 V
+0 . 5 V
+1 V
+1 V
+(b)
+0 . 5
+0 . 6
+0 . 7
+0 . 8
+0 . 9
+0
+5 0
+1 0 0
+1 5 0
+2 0 0
+2 5 0
+1 V
+S u p p l y v o l t a g e s w e e p :
+        	 
+    
+P o w e r D e n s i t y ( W
+c m
+- 2 )
+F r e q u e n c y ( G H z )
+ A 1 0 N S F E T
+ A 7 C F E T
++ 2 3 . 3 %
+- 5 8 %
+1 V
+0 . 5 V
+0 . 5 V
+Fig. 8: Power/performance tradeoffs of AI accelerator in A10 NSFET and A7 CFET. (a) The CFET design achieves iso-
+frequency at 0.56 V vs. 1 V for NSFET, reducing power by 68 %. (b) Corresponding power-density scaling: NSFET reaches
+148 W cm−2 at 1 V, while CFET reduces it to 55 W cm−2 at 0.56 V, leading to much lower temperature (Fig. 9).
+A10 NSFET @ 1.0 V
+Power density:
+148 W/cm2
+Chip Temperature: 
+125 °C
+substrate 
+A7 CFET @ 0.56 V
+Power density:
+55 W/cm2
+Chip Temperature: 
+62 °C
+125°C
+115°C
+106°C
+77°C
+68°C
+49°C
+40°C
+chip silicon die
+interposer
+PCB
+Fig. 9: Power density and temperature of A10 NSFET vs. A7
+CFET designs at iso-frequency (0.7 GHz). Chip temperature is
+obtained by mapping power densities (Fig. 8b) through chip-
+level multiphysics ANSYS simulations.
+reduces the total wire length by 12 %, indicating more efficient
+routing and lower chip-level parasitics.
+Following chip-level parasitic extraction, the iso-voltage
+performance of both implementations is evaluated through
+sign-off analysis (Table II). The shorter total wire length of the
+CFET implementation enables a higher frequency, resulting
+in a throughput of 1.81 TOPS, compared with 1.39 TOPS
+for the NSFET implementation. However, this performance
+improvement is accompanied by a 75 % increase in power
+consumption. Combined with the smaller chip area, this
+leads to an increased power density from 70 W cm−2 for
+the NSFET-based chip to 162 W cm−2 for the CFET chip.
+Comparing these results with the pre-physical design results
+reveals that the increased chip-level performance mainly stems
+from improved routing, which outweighs the CFET cell delay
+penalty. This highlights the importance of system-technology
+co-evaluation.
+Next, voltage-scaling sign-off analysis is performed. As
+shown in Fig. 8, the A7 CFET design operating at 0.56 V
+achieves iso-frequency operation with the A10 NSFET de-
+sign operating at 1.0 V, while reducing the total power by
+68 %. Under iso-power operation, the CFET design provides
+a 28.8 % frequency improvement. The NSFET design reaches
+a power density of 148 W cm−2 at 1.0 V, whereas the iso-
+frequency CFET design reaches only 55 W cm−2 at 0.56 V.
+Thus, the CFET power-density concern is substantially elimi-
+nated when the routed-chip timing advantage is traded-off with
+a lower operating voltage.
+C. BTI-Aging Results
+The PPA-derived iso-frequency power densities are subse-
+quently converted into steady-state temperatures using mul-
+tiphysics simulations, as shown in Fig. 9. The resulting
+aging stress points are 1.0 V/125 ◦C for A10 NSFET and
+0.56 V/62 ◦C for A7 CFET. The stress pairs are used in 10-
+year physics-based BTI simulations in Ginestra™. As shown
+in Fig. 10a, ∆VT H decreases from 61 mV for NSFET to
+37 mV for CFET. The extracted ∆VT H are then propagated
+to the circuit level through aging-aware standard-cell libraries,
+which we characterized. Using aging-aware standard-cell li-
+braries and chip-level sign-off analysis, we demonstrate a
+53 % reduction in the accelerator aging timing guardband at
+the CFET stress point relative to the NSFET stress point
+(Fig. 10b).
+Overall, the improved routing efficiency of the CFET
+implementation provides a substantial speed advantage that
+can be traded for lower-voltage operation, thereby improving
+reliability while maintaining the baseline NSFET performance.
+IV. CONCLUSION
+We presented parasitic-aware, thermal-aware, and aging-
+aware system–technology co-evaluation for A7 CFET and
+A10 NSFET designs. The underlying technologies are coupled
+with automated cell layout generation, 3D parasitic extraction,
+library characterization, routed-chip implementation, multi-
+physics thermal simulation, and BTI-aware timing analysis.
+Our work reveals how parasitic RCs and design-rule scaling
+lead to three coupled effects that are difficult to distinguish
+
+
+6
+, VOL. XX, NO. XX, XXXX 2026
+(a)
+1 0 3
+1 0 5
+1 0 7
+1 0 9
+0
+1 0
+2 0
+3 0
+4 0
+5 0
+6 0
+7 0
+B T I - i n d u c e d  V
+T H ( m V )
+T i m e ( s )
+ V
+G s t r e s s = 1 . 0 V , T
+s t r e s s = 1 2 5 ° C
+ V
+G s t r e s s = 0 . 5 6 V , T
+s t r e s s = 6 2 ° C
+6 1 m V
+3 7 m V
+- 3 9 %
+(b)
+0
+1 0
+2 0
+3 0
+4 0
+5 0
+6 0
+7 0
+8 0
+A g i n g G u a r d b a n d ( p s )
+ A 1 0 N S F E T
+ A 7 C F E T
+- 5 3 %
+Fig. 10: Physics-based BTI aging analysis using Ginestra™. (a) After 10 years, VT H increases by 61 mV at (1 V, 125 ◦C) vs.
+37 mV at (0.56 V, 62 ◦C). (b) Post-aging delay signoff analysis shows a 53 % reduction in required aging timing guardband
+for the AI accelerator under CFET stress conditions. Results were obtained using aging-aware NSFET and CFET standard-cell
+libraries, which were characterized under the effects of aging-induced increases in VT H.
+using a single abstraction level. 1 CFET vertical stacking
+improves density but increases cell parasitics. 2 The smaller
+routed design reduces wire length, hence chip-level parasitics
+decrease - opposite to cell-level parasitics. 3 The gain in
+performance, due to lesser routing, enables lower-voltage iso-
+frequency operation, which mitigates thermal and aging ef-
+fects. Results demonstrate that CFET should be assessed from
+cell parasitics to chip reliability: cell-level penalties can co-
+exist with system-level gains when routed-chip compactness
+enables lower-voltage iso-frequency operation.
+ACKNOWLEDGMENT
+We thank S. Shahin, S. Deshwal, A. Mema, S. Niftaliyev,
+and M. Wei from TUM for their help in device-/system-level
+simulations. We also thank Applied Materials for providing
+access to SLiC™as well as Gaurav Thareja from Applied
+Materials for his very valuable support and discussions.
+REFERENCES
+[1]
+U. K. Das et al., “In-depth dtco analysis on scaling
+gate-all-around nanosheets/nanowires for 20 ˚a node and
+beyond technologies,” IEEE Transactions on Electron
+Devices, vol. 71, no. 8, pp. 4483–4488, 2024. DOI: 10.
+1109/TED.2024.3409643
+[2]
+S. Sharma et al., “Parasitic capacitance model for
+stacked gate-all-around nanosheet fets,” IEEE Transac-
+tions on Electron Devices, vol. 71, no. 1, pp. 37–45,
+2024. DOI: 10.1109/TED.2023.3281530
+[3]
+D. Jang et al., “Device exploration of nanosheet transis-
+tors for sub-7-nm technology node,” IEEE Transactions
+on Electron Devices, vol. 64, no. 6, pp. 2707–2713,
+2017. DOI: 10.1109/TED.2017.2695455
+[4]
+P. Weckx et al., “Novel forksheet device architec-
+ture as ultimate logic scaling device towards 2nm,”
+in 2019 IEEE International Electron Devices Meeting
+(IEDM), 2019, pp. 36.5.1–36.5.4. DOI: 10 . 1109 /
+IEDM19573.2019.8993635
+[5]
+S. Sharma et al., “Parasitic gate capacitance model for
+n-stack forksheet fets,” IEEE Transactions on Electron
+Devices, vol. 71, no. 3, pp. 1728–1736, 2024. DOI: 10.
+1109/TED.2023.3335031
+[6]
+K. K. Bhuwalka et al., “Contacted-poly-pitch (cpp)
+scaling limitations of si gate-all-around nanosheet (gaa-
+ns) devices,” IEEE Transactions on Electron Devices,
+vol. 72, no. 12, pp. 6437–6446, 2025. DOI: 10.1109/
+TED.2025.3615917
+[7]
+S. Li et al., “Vertically stacked nanosheet number op-
+timization strategy for complementary fet (cfet) scaling
+beyond 2 nm,” IEEE Transactions on Electron Devices,
+vol. 70, no. 12, pp. 6118–6124, 2023. DOI: 10.1109/
+TED.2023.3323449
+[8]
+S. Yang et al., “Multi-node scaling potential of mono-
+lithic cfet,” in 2025 IEEE International Electron De-
+vices Meeting (IEDM), 2025, pp. 1–4. DOI: 10.1109/
+IEDM50572.2025.11353555
+[9]
+L. Jiang et al., “Complementary fet for advanced tech-
+nology nodes: Where does it stand?” In 2021 Inter-
+national Conference on Simulation of Semiconductor
+Processes and Devices (SISPAD), 2021, pp. 11–14. DOI:
+10.1109/SISPAD54002.2021.9592562
+[10]
+S.-J. Min et al., “3-nm cfet process design kit for
+advancing mol-aware modeling for precise circuit per-
+formance analysis,” IEEE Access, vol. 13, pp. 215 382–
+215 390, 2025. DOI: 10 . 1109 / ACCESS . 2025 .
+3646669
+[11]
+S. Kumar et al., “Demonstrating the electro-thermal
+dynamics in complementary fets: Quantifying the role
+of self-heating and grain effect intercoupling,” IEEE
+Transactions on Electron Devices, vol. 73, no. 4,
+pp. 2415–2421, 2026. DOI: 10.1109/TED.2026.
+3664068
+[12]
+S. Zhao et al., “Self-heating and thermal network model
+for complementary fet,” IEEE Transactions on Electron
+Devices, vol. 69, no. 1, pp. 11–16, 2022. DOI: 10.
+1109/TED.2021.3130010
+
+
+BENKHELIFA et al.:SYSTEM–TECHNOLOGY CO-EVALUATION OF A7 CFET AND A10 NSFET TECHNOLOGIES FROM CELL PARASITICS TO CHIP RELIABILITY
+7
+[13]
+S. Liao et al., “Complementary field-effect transistor
+(cfet) demonstration at 48nm gate pitch for future logic
+technology scaling,” in 2023 International Electron
+Devices Meeting (IEDM), 2023, pp. 1–4. DOI: 10 .
+1109/IEDM45741.2023.10413672
+[14]
+S. S. T. Nibhanupudi et al., “A holistic evaluation
+of buried power rails and back-side power for sub-5
+nm technology nodes,” IEEE Transactions on Electron
+Devices, vol. 69, no. 8, pp. 4453–4459, 2022. DOI: 10.
+1109/TED.2022.3186657
+[15]
+J.-S. Kim et al., “Addressing interconnect challenges for
+enhanced computing performance,” Science, vol. 386,
+no. 6727, eadk6189, 2024. DOI: 10.1126/science.
+adk6189 [Online]. Available: https : / / www .
+science.org/doi/abs/10.1126/science.
+adk6189
+[16]
+H. Liu et al., “Modeling the parasitic capacitance of
+nanosheet fets with backside power delivery network,”
+IEEE Transactions on Electron Devices, vol. 72, no. 9,
+pp. 4728–4734, 2025. DOI: 10.1109/TED.2025.
+3585478
+[17]
+S. Mishra et al., “Thermal considerations for block-level
+ppa assessment in angstrom era: A comparison study
+of nanosheet fets (a10) & complementary fets (a5),”
+in 2024 IEEE Symposium on VLSI Technology and
+Circuits (VLSI Technology and Circuits), 2024, pp. 1–2.
+DOI: 10.1109/VLSITechnologyandCir46783.
+2024.10631358
+[18]
+M. Horowitz, “1.1 computing’s energy problem (and
+what we can do about it),” in 2014 IEEE International
+Solid-State Circuits Conference Digest of Technical
+Papers (ISSCC), 2014, pp. 10–14. DOI: 10.1109/
+ISSCC.2014.6757323
+[19]
+M. Benkhelifa et al., “Revealing the impact of para-
+sitic effects on cfet reliability and performance across
+devices, standard cells, and circuits,” in 2026 IEEE
+International Reliability Physics Symposium (IRPS),
+2026, pp. 1–5. DOI: 10.1109/IRPS61424.2026.
+11499255
+[20]
+Applied Materials, SLiC™.
+[21]
+D. Eun Shim et al., “Gt3: An open-source 3-nm gaafet
+pdk and platform for end-to-end evaluation of emerging
+technologies,” IEEE Transactions on Electron Devices,
+vol. 72, no. 4, pp. 1582–1588, 2025. DOI: 10.1109/
+TED.2025.3540760
+[22]
+L. T. Clark et al., “Asap7: A 7-nm finfet predictive
+process design kit,” Microelectronics Journal, vol. 53,
+pp. 105–115, 2016. DOI: https : / / doi . org /
+10 . 1016 / j . mejo . 2016 . 04 . 006 [Online].
+Available: https://www.sciencedirect.com/
+science/article/pii/S002626921630026X
+[23]
+IEEE International Roadmap for Devices and Systems
+(IRDS), “2024 IRDS More Moore,” IEEE, Tech. Rep.,
+2024.
+[24]
+A. Farokhnejad et al., “N2 nanosheet pathfinding-pdk
+(p-pdktm) including back-side pdn,” in 2024 IEEE
+European Solid-State Electronics Research Confer-
+ence (ESSERC), 2024, pp. 17–20. DOI: 10 . 1109 /
+ESSERC62670.2024.10719536
+[25]
+S. Shahin et al., “Cfet beyond 3 nm: Sram reliability un-
+der design-time and run-time variability,” IEEE Journal
+on Exploratory Solid-State Computational Devices and
+Circuits, vol. 11, pp. 51–59, 2025. DOI: 10.1109/
+JXCDC.2025.3568622
+[26]
+Synopsys, Inc., Raphael FX, 2025.
+[27]
+K. Asanovi´c et al., “The rocket chip generator,” 2016.
+[28]
+Applied Materials, Ginestra™.

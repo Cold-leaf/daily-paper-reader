@@ -1,0 +1,57 @@
+{
+  "date": "20260915",
+  "date_label": "",
+  "generated_at": "2026-09-15 22:14:57 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2609.08446v1",
+      "route": "202609/15/2609.08446v1-flexspim-an-event-based-digital-compute-in-memory-accelerator-with-flexible-operand-resolution-and-layer-wise-hybrid-stationarity",
+      "title": "FlexSpIM: An Event-Based Digital Compute-In-Memory Accelerator with Flexible Operand Resolution and Layer-Wise Hybrid Stationarity",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "cim"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "数字存内计算加速器架构",
+      "first_seen_at": "2026-09-15 22:14:57 UTC",
+      "updated_at": "2026-09-15 22:14:57 UTC"
+    },
+    {
+      "paper_id": "2609.14464v1",
+      "route": "202609/15/2609.14464v1-first-demonstration-of-flip-dram-from-process-architecture-to-system-to-push-dram-scaling-beyond-4f2-2f2-self-aligned-flip-vertical-channel-transistor-fvct-dram-and-flip-wl-fwl-3d-dram",
+      "title": "First Demonstration of Flip DRAM from Process, Architecture to System to Push DRAM Scaling beyond 4F2: 2F2 Self-aligned Flip Vertical Channel Transistor (FVCT) DRAM and Flip WL (FWL) 3D-DRAM",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "cim"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "晶圆键合与翻转的三维DRAM堆叠并处理热问题",
+      "first_seen_at": "2026-09-15 22:14:57 UTC",
+      "updated_at": "2026-09-15 22:14:57 UTC"
+    },
+    {
+      "paper_id": "2609.15326v1",
+      "route": "202609/15/2609.15326v1-system-technology-co-evaluation-of-a7-cfet-and-a10-nsfet-technologies-from-cell-parasitics-to-chip-reliability",
+      "title": "System-Technology Co-Evaluation of A7 CFET and A10 NSFET Technologies from Cell Parasitics to Chip Reliability",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "thermal-gnn"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "面向垂直堆叠CFET的热与老化感知三维TCAD协同评估",
+      "first_seen_at": "2026-09-15 22:14:57 UTC",
+      "updated_at": "2026-09-15 22:14:57 UTC"
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "date": "20260916",
+  "date_label": "",
+  "generated_at": "2026-09-16 22:15:18 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2609.08446v1",
+      "route": "202609/16/2609.08446v1-flexspim-an-event-based-digital-compute-in-memory-accelerator-with-flexible-operand-resolution-and-layer-wise-hybrid-stationarity",
+      "title": "FlexSpIM: An Event-Based Digital Compute-In-Memory Accelerator with Flexible Operand Resolution and Layer-Wise Hybrid Stationarity",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "cim"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "数字存算一体加速器与低能耗",
+      "first_seen_at": "2026-09-16 22:15:18 UTC",
+      "updated_at": "2026-09-16 22:15:18 UTC"
+    },
+    {
+      "paper_id": "2609.14464v1",
+      "route": "202609/16/2609.14464v1-first-demonstration-of-flip-dram-from-process-architecture-to-system-to-push-dram-scaling-beyond-4f2-2f2-self-aligned-flip-vertical-channel-transistor-fvct-dram-and-flip-wl-fwl-3d-dram",
+      "title": "First Demonstration of Flip DRAM from Process, Architecture to System to Push DRAM Scaling beyond 4F2: 2F2 Self-aligned Flip Vertical Channel Transistor (FVCT) DRAM and Flip WL (FWL) 3D-DRAM",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "cim"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "通过晶圆键合与翻转的3D-DRAM堆叠并应对热与对准问题",
+      "first_seen_at": "2026-09-16 22:15:18 UTC",
+      "updated_at": "2026-09-16 22:15:18 UTC"
+    }
+  ]
+}

@@ -1,0 +1,110 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-09-16T22:14:49.854512+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2609.08446v1",
+      "source": "arxiv",
+      "title": "FlexSpIM: An Event-Based Digital Compute-In-Memory Accelerator with Flexible Operand Resolution and Layer-Wise Hybrid Stationarity",
+      "abstract": "Compute-in-memory (CIM) accelerators for spiking neural networks (SNNs) offer a promising solution for achieving $μ$s-level inference latency and ultra-low energy in edge vision applications. However, their limited flexibility at both circuit and system levels restricts their deployment across diverse workloads. This work introduces FlexSpIM, a digital CIM architecture supporting arbitrary operand resolution and shape within a unified storage for weights and neuron states (i.e., membrane potentials). These circuit-level capabilities enable a layer-level hybrid weight- and output-stationary dataflow, maximizing operand reuse and reducing costly on- and off-chip data movement during SNN execution. Measurement results from a fabricated FlexSpIM prototype in 40-nm CMOS demonstrate competitive 1-bit-normalized energy efficiency and higher throughput compared with prior fixed-precision digital CIM-based SNN accelerators, while providing bitwise resolution reconfiguration. Evaluated on the IBM DVS gesture dataset, FlexSpIM achieves 95.8% accuracy while enabling up to 45% energy and 52% latency reductions in large-scale systems compared with fixed stationarity approaches.",
+      "authors": [
+        "Nicolas Chauvaux",
+        "Adrian Kneip",
+        "Charlotte Frenkel"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-09-08T08:50:31+00:00",
+      "link": "https://arxiv.org/pdf/2609.08446v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "digital compute-in-memory accelerator, low energy, data movement reduction",
+      "llm_evidence_cn": "数字存算一体加速器与低能耗",
+      "llm_evidence": "数字存算一体加速器与低能耗",
+      "canonical_evidence": "数字存算一体加速器与低能耗",
+      "llm_tldr_en": "Compute-in-memory accelerators for spiking neural networks promise ultra-low energy, but limited circuit and system flexibility restricts deployment. FlexSpIM is a digital CIM architecture supporting arbitrary operand resolution within unified weight and neuron-state storage, enabling a layer-wise hybrid weight- and output-stationary dataflow that cuts on- and off-chip data movement.",
+      "llm_tldr_cn": "面向脉冲神经网络的存算一体加速器虽有望实现超低能耗，但其电路与系统灵活性不足，难以适配多样工作负载。本文提出FlexSpIM数字存算一体架构，在统一存储中同时容纳权重与神经元膜电位，支持任意操作数分辨率与形状。该设计实现层级的权重/输出混合驻留数据流，最大化操作数复用并减少片内与片间数据搬运，从而降低执行开销。工作为高能效边缘视觉推理提供了灵活的存算一体方案。",
+      "llm_tldr": "面向脉冲神经网络的存算一体加速器虽有望实现超低能耗，但其电路与系统灵活性不足，难以适配多样工作负载。本文提出FlexSpIM数字存算一体架构，在统一存储中同时容纳权重与神经元膜电位，支持任意操作数分辨率与形状。该设计实现层级的权重/输出混合驻留数据流，最大化操作数复用并减少片内与片间数据搬运，从而降低执行开销。工作为高能效边缘视觉推理提供了灵活的存算一体方案。",
+      "llm_tags": [
+        "query:cim:composite"
+      ],
+      "matched_query_tag": "query:cim:composite",
+      "matched_query_text": "Papers central to 存算一体，主要关注基于混合键合的三维堆叠的近存计算, especially work that connects or combines: compute-in-memory architecture; hybrid bonding 3D integration; 3D stacking memory technology; near-memory computing design; processing-in-memory systems; 3D integrated circuit design; What are the key benefits of hybrid bonding for 3D stacked near memory computing?; How does compute in memory architecture improve energy efficiency?; Design challenges of 3D stacking for near memory computing systems.",
+      "matched_requirement_id": "req-composite-cim",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2609.14464v1",
+      "source": "arxiv",
+      "title": "First Demonstration of Flip DRAM from Process, Architecture to System to Push DRAM Scaling beyond 4F2: 2F2 Self-aligned Flip Vertical Channel Transistor (FVCT) DRAM and Flip WL (FWL) 3D-DRAM",
+      "abstract": "For the first time, we proposed a novel stacking technology for DRAM scaling by flipping and backside processes, making full use of DRAM wafer's backside and investigating it on both 4F2 and 3D-DRAM. For 4F2 VCT, 2F2 Flip VCT featuring self-aligned back-to-back stacked 1T1C bitcell, with various BL and WL configurations, were studied and key process modules such as self-aligned stacked vertical channel, BL and WL formations, wafer bonding and flipping, substrate thinning and low-R Co storage node (SN) were successfully developed, addressing the potential thermal, misalign and parasitic concerns in the Flip VCT process. A full DRAM DTCO framework was also established from device to mat and chip level. Compared to 4F2 VCT DRAM with the same mat size, 2F2 FVCT delivers 27.5% less parasitics, 11% better sense margin, 16.3% higher charge sharing (CS) speed and 50% less area. For 3D-DRAM, a brand-new flip WL staircase design with peripheral circuit innovations was studied and proved to have 25% density gain, 15.1% faster turn-on speed and 6.8% less CS time, proving further extendibility of flip technology on DRAM.",
+      "authors": [
+        "Yu Liu",
+        "Xinyue He",
+        "Yanbang Chu",
+        "Siyuan Liu",
+        "Jianxiang Jin",
+        "Fangcheng Sun",
+        "Yuyang Qiao",
+        "Xu Tian",
+        "Lan Li",
+        "Baokang Peng",
+        "Lining Zhang",
+        "Xing Wu",
+        "Pengpeng Ren",
+        "Zhigang Ji",
+        "Zongwei Wang",
+        "Lijie Zhang",
+        "Xinwei Wan",
+        "Weihai Bu",
+        "Ming Li",
+        "Runsheng Wang",
+        "Heng Wu",
+        "Ru Huang"
+      ],
+      "primary_category": "cond-mat.mes-hall",
+      "categories": [
+        "cond-mat.mes-hall"
+      ],
+      "published": "2026-09-13T12:14:25+00:00",
+      "link": "https://arxiv.org/pdf/2609.14464v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "3D-DRAM stacking via wafer bonding and flipping, addressing thermal and misalignment concerns",
+      "llm_evidence_cn": "通过晶圆键合与翻转的3D-DRAM堆叠并应对热与对准问题",
+      "llm_evidence": "通过晶圆键合与翻转的3D-DRAM堆叠并应对热与对准问题",
+      "canonical_evidence": "通过晶圆键合与翻转的3D-DRAM堆叠并应对热与对准问题",
+      "llm_tldr_en": "Proposes a flip and backside-process stacking technology for DRAM scaling, developing self-aligned vertical channels, wafer bonding, substrate thinning, and addressing thermal, misalignment and parasitic concerns for 4F2 and 3D-DRAM.",
+      "llm_tldr_cn": "为突破DRAM微缩瓶颈，本文首次提出通过翻转与背面工艺充分利用晶圆背面的新型堆叠技术，并在4F2与3D-DRAM上验证。研究开发了自对准背靠背堆叠1T1C位元、垂直沟道、位线与字线形成、晶圆键合与翻转、衬底减薄及低阻存储节点等关键工艺模块。该方案同时应对翻转工艺中的热、对准与寄生问题，为高密度三维存储堆叠提供工艺路径。",
+      "llm_tldr": "为突破DRAM微缩瓶颈，本文首次提出通过翻转与背面工艺充分利用晶圆背面的新型堆叠技术，并在4F2与3D-DRAM上验证。研究开发了自对准背靠背堆叠1T1C位元、垂直沟道、位线与字线形成、晶圆键合与翻转、衬底减薄及低阻存储节点等关键工艺模块。该方案同时应对翻转工艺中的热、对准与寄生问题，为高密度三维存储堆叠提供工艺路径。",
+      "llm_tags": [
+        "query:cim:composite"
+      ],
+      "matched_query_tag": "query:cim:composite",
+      "matched_query_text": "Papers central to 存算一体，主要关注基于混合键合的三维堆叠的近存计算, especially work that connects or combines: compute-in-memory architecture; hybrid bonding 3D integration; 3D stacking memory technology; near-memory computing design; processing-in-memory systems; 3D integrated circuit design; What are the key benefits of hybrid bonding for 3D stacked near memory computing?; How does compute in memory architecture improve energy efficiency?; Design challenges of 3D stacking for near memory computing systems.",
+      "matched_requirement_id": "req-composite-cim",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

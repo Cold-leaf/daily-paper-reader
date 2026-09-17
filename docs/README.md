@@ -41,17 +41,17 @@
 <section class="dpr-home-dashboard-card dpr-home-report-card">
   <div class="dpr-home-dashboard-header">
     <div>
-      <span class="dpr-home-dashboard-kicker">2026-09-16</span>
+      <span class="dpr-home-dashboard-kicker">2026-09-17</span>
       <h3 class="dpr-home-dashboard-title">今日汇总</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">共 2 篇</strong>
+    <strong class="dpr-home-dashboard-count">共 1 篇</strong>
   </div>
   <dl class="dpr-home-dashboard-stats">
     <div class="dpr-home-dashboard-stat"><dt>累计更新</dt><dd>1 次</dd></div>
     <div class="dpr-home-dashboard-stat"><dt>精读</dt><dd>0</dd></div>
-    <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>2</dd></div>
+    <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>1</dd></div>
   </dl>
-  <p class="dpr-home-dashboard-body">最近更新：2026-09-16 22:15:18 UTC<br>状态：成功</p>
+  <p class="dpr-home-dashboard-body">最近更新：2026-09-17 22:14:35 UTC<br>状态：成功</p>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-brief-card">
   <div class="dpr-home-dashboard-header">
@@ -62,7 +62,7 @@
     <strong class="dpr-home-dashboard-count">AI</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<p>今日速读2篇：一篇7.0分的FlexSpIM存内计算加速器，主打灵活操作数精度与逐层混合驻留；一篇6.0分的Flip DRAM，从工艺、架构到系统展示2F2自对准垂直沟道晶体管DRAM。最值得看的是存内计算如何兼顾精度灵活性，以及DRAM向4F2以下微缩的工艺路径。普通读者可优先了解存内计算，DRAM部分关注其微缩与三维集成思路即可。</p>
+<p>今日速读1篇，聚焦GPT-6 Astra在二维CFET热设计与电热分析中的AI for Science应用。值得一看的是大模型如何切入芯片级热管理这一硬核工程问题（6.0/10）。普通读者可先关注AI辅助EDA与电热仿真的落地进展，不必急于深入细节。</p>
   </div>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-deep-card">
@@ -84,12 +84,12 @@
       <span class="dpr-home-dashboard-kicker">今日累计</span>
       <h3 class="dpr-home-dashboard-title">速读推荐</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">2 篇</strong>
+    <strong class="dpr-home-dashboard-count">1 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="FlexSpIM: An Event-Based Digital Compute-In-Memory Accelerator with Flexible Operand Resolution and Layer-Wise Hybrid Stationarity">FlexSpIM: An Event-Based Digital Compute-In-Memory Accelerator with Flexible Operand Resolution and Layer-Wise Hybrid Stationarity</span></li><li><span class="dpr-home-dashboard-paper-title" title="First Demonstration of Flip DRAM from Process, Architecture to System to Push DRAM Scaling beyond 4F2: 2F2 Self-aligned Flip Vertical Channel Transistor (FVCT) DRAM and Flip WL (FWL) 3D-DRAM">First Demonstration of Flip DRAM from Process, Architecture to System to Push DRAM Scaling beyond 4F2: 2F2 Self-aligned Flip Vertical Channel Transistor (FVCT) DRAM and Flip WL (FWL) 3D-DRAM</span></li></ul>
+<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="AI for Science with GPT-6 Astra: Thermal Design and Electrothermal Analysis of 2D CFET">AI for Science with GPT-6 Astra: Thermal Design and Electrothermal Analysis of 2D CFET</span></li></ul>
   </div>
-  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">cim <strong>2</strong></span></div>
+  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">thermal-gnn <strong>1</strong></span></div>
 </section>
 </div>
 

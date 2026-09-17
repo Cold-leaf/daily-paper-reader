@@ -1,0 +1,25 @@
+{
+  "date": "20260917",
+  "date_label": "",
+  "generated_at": "2026-09-17 22:14:35 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2609.17123v1",
+      "route": "202609/17/2609.17123v1-ai-for-science-with-gpt-6-astra-thermal-design-and-electrothermal-analysis-of-2d-cfet",
+      "title": "AI for Science with GPT-6 Astra: Thermal Design and Electrothermal Analysis of 2D CFET",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "thermal-gnn"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "CFET器件的电热建模与热优化",
+      "first_seen_at": "2026-09-17 22:14:35 UTC",
+      "updated_at": "2026-09-17 22:14:35 UTC"
+    }
+  ]
+}

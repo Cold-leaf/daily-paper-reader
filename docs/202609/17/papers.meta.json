@@ -1,0 +1,24 @@
+{
+  "label": "2026-09-17",
+  "date": "2026-09-17",
+  "generated_at": "2026-09-17T22:14:37",
+  "count": 1,
+  "papers": [
+    {
+      "paper_id": "202609/17/2609.17123v1-ai-for-science-with-gpt-6-astra-thermal-design-and-electrothermal-analysis-of-2d-cfet",
+      "section": "quick",
+      "title_en": "AI for Science with GPT-6 Astra: Thermal Design and Electrothermal Analysis of 2D CFET",
+      "authors": "Min-Hui Kim, Khushi Sharma, Sarah Zhang, Ye Wang",
+      "date": "2026-09-15",
+      "pdf": "https://arxiv.org/pdf/2609.17123v1",
+      "score": "6.0",
+      "evidence": "CFET器件的电热建模与热优化",
+      "tldr": "2D CFET逆变器热优化需权衡结构方案与电学代价。本文用GPT-6 Astra驱动的AI agent工作流，在给定电热模型中测试热设计。12 nm下，Astra选择重分布源极互连，协调agent提出衬底定向散热路径，固定金属体积与20 μW时峰值温升降低1.67 K；金属电阻灵敏度实现约0.6 K冷却，代价为2% nFET开态电流损失。接触长度缩放显示电流下降时低温可伴高热阻。复现保留104.95 K失败供诊断，表明AI科学家可提出热结构、统一约束测试并量化电学代价。",
+      "tags": "query:thermal-gnn",
+      "abstract_en": "Thermal optimization of 2D CFET inverters requires testing structural proposals against their electrical costs. We examine these research tasks using an AI agent workflow within a supplied electrothermal model. At 12 nm, Astra selects a redistributed source-interconnect geometry, while a coordinating agent proposes a substrate-directed heat-removal path. The combined design reduces peak temperature rise by 1.67 K at fixed metal volume and 20 μW. A subsequent metal-resistance sensitivity gives about 0.6-K inverter cooling alongside a 2% nFET on-current loss. Effective contact-length scaling further shows that lower temperature can accompany higher thermal resistance when current falls. Reproduction identifies agreeing implementations and retains a 104.95-K failure for diagnosis. These results show that an AI scientist workflow can propose thermal structures, test them under common constraints, and quantify their electrical cost.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

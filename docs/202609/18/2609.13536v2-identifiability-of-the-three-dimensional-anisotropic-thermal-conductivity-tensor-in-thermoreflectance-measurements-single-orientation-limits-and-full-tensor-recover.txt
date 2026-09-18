@@ -1,0 +1,1856 @@
+Title: Identifiability of the three-dimensional anisotropic thermal-conductivity tensor in thermoreflectance measurements: Single-orientation limits and full-tensor recover
+
+URL Source: https://arxiv.org/pdf/2609.13536v2
+
+Published Time: Wed, 16 Sep 2026 00:40:52 GMT
+
+Number of Pages: 47
+
+Markdown Content:
+Identifiability of the three-dimensional anisotropic thermal-conductivity tensor in thermoreflectance measurements: Single-orientation limits and full-tensor recovery 
+
+Dihui Wang and Heng Ban 
+
+Department of Mechanical Engineering and Materials Science, University of Pittsburgh, Pittsburgh, PA, USA 
+
+(Dated: 11 September 2026) 
+
+Materials with full anisotropic thermal conductivity tensors are widely used in ad-vanced applications, creating a need for dedicated characterization. Such tensors contain six independent components: three diagonal conductivities and three non-zero off-diagonal couplings. However, whether thermoreflectance measurements on a single crystalline orientation can uniquely determine an arbitrary tensor remains unclear. Here, we show that every fully anisotropic thermal-conductivity tensor admits a Schur-equivalent tensor with zero cross-plane couplings ( kxz = kyz = 0). The two tensors produce identical surface thermal responses, and this equivalence persists as frequency, delay time, beam geometry, and spatial offset vary. We further demonstrate that parameter-identifiability assessments based on heuristic interpretations of sensitivity trends or singular-value decomposition (SVD) of the sensitivity matrix cannot, by themselves, rule out globally equivalent solutions in fully anisotropic systems. Com-bining systematic analysis with numerical validation, we provide guidance on selecting signals and measurement orientations for full-tensor characterization. Specifically, measurements at three mutually orthogonal crystallographic orientations provide complementary information for full-tensor recovery. These findings clarify the limits of single-surface measurements and establish a systematic approach to characterizing fully anisotropic thermal-conductivity tensors. 1arXiv:2609.13536v2 [physics.app-ph] 15 Sep 2026 I. INTRODUCTION 
+
+Macroscopic heat conduction in an anisotropic solid obeys the tensor form of Fourier’s law, q = −K∇T , where q is the heat-flux vector, ∇T is the temperature gradient, and K is the symmetric second-rank thermal-conductivity tensor. In a right-handed Cartesian frame (ˆ x, ˆy, ˆz), the tensor in matrix form is 
+
+K =
+
+
+
+kxx kxy kxz 
+
+kxy kyy kyz 
+
+kxz kyz kzz 
+
+ . (1) The components of K reflect both the material and the coordinate frame in which they are expressed. A full anisotropic thermal-conductivity tensor refers to the most general form, in which all six components are independent: the diagonal terms kxx , kyy , and kzz , and the off-diagonal terms kxy , kxz , and kyz .Materials with fully anisotropic thermal conductivity tensors play two distinct roles in advanced applications. First, a material may be selected primarily for its electronic, optical, or structural functionality, while its thermal anisotropy imposes a constraint that must be accommodated in the thermal design. Representative examples include the wide-bandgap power semiconductor β-Ga 2O31,2 , laser-host crystals such as KLu(WO 4)23, and environmental-barrier coatings such as β-Y 2Si 2O74. Second, anisotropic thermal transport may itself provide the engineered functionality. Thermal metamaterials are designed with anisotropic conductivity to guide, concentrate, or cloak heat flow 5–7 . Artificially tilted thermoelectric multilayers extend the rotated-laminate heat-routing mechanism to energy conversion, producing a transverse voltage from a longitudinal temperature difference 7,8 . In both cases, device performance and reliability depend on anisotropic three-dimensional heat transport, and the underlying conductivity tensor must therefore be characterized accurately. Non-contact thermoreflectance and lock-in thermography provide several routes to measure anisotropic conductivity. Time-domain thermoreflectance (TDTR) and frequency-domain thermoreflectance (FDTR) vary delay, modulation frequency, pump–probe offset, or beam ellipticity to probe in-plane anisotropy 9–11 . Spatial-domain thermoreflectance (SDTR) uses spatial phase scans 12 , whereas spatially resolved lock-in micro-thermography (SR-LIT) fits two-dimensional maps through tensor analysis 13 . Complementary iterative transient electrothermal fitting characterizes the thermal properties of thin fibers 14 .210 1 10 2 10 3 10 4 10 5 10 6        
+
+> Frequency (Hz)
+> −40 −30 −20 −10 0
+> phase (deg)
+> (kxx ,kyy )(50, 10) (10, 50) (30, 30)
+> kxy = 20
+> 10 110 210 310 410 510 6
+> Frequency (Hz)
+> -0.3 -0.2 -0.1 0.0
+> S ϕ
+> (kxx ,kyy ) = (50, 10)
+
+kxx 
+
+kyy 
+
+a bFIG. 1. Azimuthal degeneracy and phase sensitivity of centered circular FDTR on a substrate with a known isotropic metal transducer (coating parameters in Supplementary Note S6). (a) FDTR phase versus frequency for ( kxx , k yy ) = (50 , 10), (10 , 50), and (30 , 30) (W m −1 K−1); the third case additionally has kxy = 20 W m −1 K−1. All three tensors have kzz = 10 W m −1 K−1 and kxz = kyz = 0. They share the in-plane eigenvalue pair (50 , 10) and differ only by rotation about ˆ z. The reference curve (solid) and rotated-tensor symbols coincide to machine precision. (b) Dimensionless normalized phase sensitivities Sϕp for p = kxx and kyy , evaluated at ( kxx , k yy ) = (50 , 10) W m −1 K−1. The distinct local sensitivities do not remove the global rotation ambiguity. 
+
+Directional approaches resolve in-plane anisotropy ( kxy ̸ = 0 and kxz = kyz = 0) by producing nearly one-dimensional heat flow along different in-plane directions. The resulting directional conductivities are then combined to reconstruct the in-plane tensor. For three-dimensional heat flow in polyimide films, square-pulsed-source thermoreflectance resolves in-plane and cross-plane conductivities and volumetric heat capacity 15 .Tensors with nonzero cross-plane couplings kxz and kyz present a more difficult inverse problem. One route combines measurements in known crystal orientations. Olson et al. used cross-plane TDTR on EBSD-indexed grains in polycrystalline β-Y 2Si 2O7 4; this requires sufficiently diverse orientations and grains large compared with the thermal footprint. Three-dimensional SR-LIT instead used three orthogonal crystal orientations 16 . A second route uses a constrained material model: BO-SPS reported all six components for AT-cut quartz from beam offsets on one orientation 17 . Its transfer matrix, however, propagates the incomplete cross-plane heat flux Q = −kzz ∂z T . As shown below, omitting the in-plane contributions to the complete flux qz = −(kxz ∂xT + kyz ∂yT + kzz ∂z T ) creates artificial offset asymmetry. 3Whether a single-orientation measurement can uniquely determine an unconstrained tensor therefore requires a direct identifiability analysis. Multiparameter fitting is commonly assessed through sensitivity analysis. For an observable 
+
+g(χ), the sensitivity to a parameter pj is Sgpj (χ) = ∂ ln |g(χ)|/∂ ln |pj | = ( pj /g ) ∂g (χ)/∂p j ; χ
+
+denotes the controlled experimental condition, such as modulation frequency, delay time, or spatial position. Schmidt et al. proposed using separated sensitivity trends to assess the feasibility of multiparameter fitting 18 . Such criteria guide experimental design but do not prove uniqueness. More recently, sensitivity-matrix reduction and singular-value decomposition (SVD) have provided a systematic test of the local linear independence of a specified set of parameters 19 . Chen et al. proposed that the number of parameters that can be determined is the number of singular values satisfying the practical cutoff σi > 0.120 .Neither sensitivity analysis nor SVD, however, establishes global uniqueness. In the centered circular FDTR example of figure 1, the two in-plane conductivities have distinct sensitivities and both singular values of the unnormalized log-phase sensitivity matrix exceed the proposed cutoff. Yet swapping the conductivities leaves the response unchanged. Allowing 
+
+kxy ̸ = 0 extends this ambiguity to rotated tensors with the same in-plane eigenvalues: the signal depends only on their trace and determinant. Thus a locally independent parameter pair need not have a unique laboratory axis assignment. Supplementary Note S5 gives the symmetry proof and numerical spectra. This work focuses on thermoreflectance measurements of an anisotropic substrate beneath a metal transducer, as used in standard FDTR and TDTR. We derive the Schur-equivalent matrix and the resulting single-orientation information limit for the coated planar stack. We then combine sensitivity-matrix analysis with global-equivalence checks to guide signal selection and measurement geometry. Three registered orthogonal surfaces provide a route to an otherwise unconstrained tensor. We demonstrate this route with a joint six-entry fit to noisy phase-frequency scans and verify that the combined sensitivity matrix resolves all six parameter directions. 4II. THREE-DIMENSIONAL ANISOTROPIC MODEL AND SINGLE-ORIENTATION THEOREM 
+
+We derive the harmonic surface response of a planar multilayer structure in terms of the Schur-equivalent thermal-conductivity tensor. 
+
+A. Governing equation and face-local formulation 
+
+Within each homogeneous layer, the heat-diffusion equation Cv∂tT = ∇· (Kf ∇T ) expands to 
+
+Cv
+
+∂T ∂t = kxx 
+
+∂2T∂x 2 + kyy 
+
+∂2T∂y 2 + kzz 
+
+∂2T∂z 2 + 2 kxy 
+
+∂2T∂x ∂y + 2 kxz 
+
+∂2T∂x ∂z + 2 kyz 
+
+∂2T∂y ∂z . (2) Here, T = T (x, y, z, t ) is the temperature rise relative to equilibrium, Cv is the volumetric heat capacity, t is time, and Kf is the thermal-conductivity tensor of that layer, written in the form of equation (1). The x and y directions are in-plane, while z is the inward cross-plane coordinate. Heating and detection occur at the outer transducer surface. Neglecting radiative and convective losses there, we represent the modulated component of an absorbed continuous-wave laser as qp(x, y, t ) = qp, 0(x, y )eiω0t, where ω0 is the modulation angular frequency. With the temporal transform convention Ft{f } = R ∞−∞ f (t)e−iωt dt, the boundary condition is qz (x, y, 0; ω) = qp(x, y ; ω), where 
+
+qp(x, y ; ω) = 2Pabs 
+
+πw xwy
+
+exp 
+
+
+
+−2
+
+(x − xp)2
+
+w2
+
+> x
+
++ (y − yp)2
+
+w2
+
+> y
+
+ 
+
+× 2πδ (ω − ω0).
+
+(3) in which Pabs is the absorbed modulated-power amplitude, ( xp, y p) the pump center, and wx
+
+and wy the 1 /e 2 intensity radii. The factor 2 πδ (ω − ω0) selects the modulation frequency and is suppressed in the phasor equations below, evaluated at ω = ω0. We now derive the surface response using the Schur-equivalent matrix; Supplementary Note S1 gives the Fourier-transform details. 5B. Solution based on the Schur-equivalent matrix 
+
+We partition the thermal-conductivity tensor as 
+
+Kf =
+
+ Λ μμT kzz 
+
+ ∈ R3×3,
+
+Λ =
+
+kxx kxy 
+
+kxy kyy 
+
+ ∈ R2×2, μ =
+
+kxz 
+
+kyz 
+
+ ∈ R2×1,
+
+(4) where Λ is the in-plane block, μ couples the in-plane and cross-plane directions, and kzz is the cross-plane conductivity. We define the 2 × 2 Schur complement 
+
+S = Λ − μμ T
+
+kzz 
+
+. (5) Taking the Fourier transform with respect to the in-plane coordinates ( x, y ) and time t,we write 
+
+T (x, y, z, t ) Fx,y,t 
+
+←−−→ bθ(u, v, z ; ω), (6) where u and v are the in-plane spatial frequencies and ω is the angular frequency. With the Fourier-space gradient operator b∇ = (i2 πu, i2 πv, ∂ z )T, applying the transform to equation (2) and Fourier’s law gives iωC v bθ = b∇TKf b∇bθ, bq = −Kf b∇bθ, (7) where bθ and bq are the complex Fourier-space temperature and heat-flux amplitudes. The in-plane gradient transforms to b∇t bθ = i2 π(u, v )T bθ, so the cross-plane heat flux is 
+
+bqz = −μT b∇t bθ − kzz ∂z bθ. (8) Let column vector ν ≡ [u v ]T ∈ R2×1, so that ∇t 7 → i2 πν. Supplementary Note S1 gives the transform pair and the term-by-term reduction. At fixed ( ν, ω ), primes denote derivatives with respect to depth. We define the shear coefficient 
+
+β(ν) = 2 πνTμ = 2 π(uk xz + vk yz ). (9) Then equation (7) becomes 
+
+kzz bθ′′ + 2i β bθ′ − (2 π)2νTΛν + i ωC v
+
+ bθ = 0 . (10) 6All explicit μ dependence in equation (10) resides in the first-derivative term, and within a homogeneous layer β and kzz are independent of z. Division by kzz places the equation in the form bθ′′ + P bθ′ + Qbθ = 0 with 
+
+P = 2i βkzz 
+
+, Q = −(2 π)2νTΛν + i ωC v
+
+kzz 
+
+, (11) so the standard reduction to normal form, bθ = exp[ −12
+
+R P dz] A, becomes the unimodular substitution 
+
+bθ(z) = exp 
+
+
+
+−iβz kzz 
+
+
+
+A(z). (12) This substitution separates the shear phase from the transformed temperature amplitude 
+
+A(z). Its derivatives are 
+
+bθ′ = e−iβz/k zz 
+
+
+
+A′ − iβkzz 
+
+A
+
+
+
+,
+
+bθ′′ = e−iβz/k zz 
+
+
+
+A′′ − 2i βkzz 
+
+A′ − β2
+
+k2
+
+> zz
+
+A
+
+
+
+.
+
+Upon substitution into equation (10), the contributions −2i βA ′ and +2i βA ′ cancel. Removing the common exponential factor gives 
+
+kzz A′′ −
+
+
+
+(2 π)2νTΛν − β2
+
+kzz 
+
++ i ωC v
+
+
+
+A = 0 . (13) Using β = 2 πνTμ and S = Λ − μμ T/k zz , we obtain (2 π)2νTΛν − β2
+
+kzz 
+
+= (2 π)2νTSν, (14) so that equation (13) becomes 
+
+kzz A′′ − (2 π)2νTSν + i ωC v
+
+ A = 0 . (15) Equation (15) is the governing equation associated with the Schur-equivalent matrix diag( S, k zz ). The propagation constants of equation (15) are ±σσ =
+
+s
+
+iωC v + (2 π)2νTSν
+
+kzz 
+
+, Re σ > 0, (16) The corresponding modes of equation (10) are 
+
+bθ = A+es+z + A−es−z , s± = − iβkzz 
+
+± σ, (17) 7in which s+ and s− are the two complex depth roots and A+ and A− are their complex temperature amplitudes. The shear contributes an imaginary offset, while σ sets attenuation and temporal phase lag and depends on μ only through S.The cross-plane heat flux in equation (8) transforms covariantly under the same shear: 
+
+bqz = −
+
+
+
+kzz 
+
+ddz + i β
+
+bθ = −e−iβz/k zz kzz A′, (18) The temperature and heat flux form the state vector 
+
+ bθ(z)
+
+bqz (z)
+
+ =
+
+ es+z es−z
+
+−kzz σe s+z kzz σe s−z
+
+A+
+
+A−
+
+ . (19) Eliminating the modal amplitudes using the state at z0 gives 
+
+ bθ(z0 + d)
+
+bqz (z0 + d)
+
+ = e−iβd/k zz 
+
+
+
+cosh( σd ) −sinh( σd )
+
+kzz σ
+
+−kzz σ sinh( σd ) cosh( σd )
+
+
+
+×
+
+ bθ(z0)
+
+bqz (z0)
+
+ .
+
+(20) The explicit coupling dependence appears only in the common phase factor e−iβd/k zz , which cancels from the temperature-to-flux ratio. The two columns of equation (19) likewise give the modal admittances bqz, ±/bθ± = ∓kzz σ. This cancellation relies on the in-plane-gradient contribution in equation (8). 
+
+C. Reduced-flux comparator 
+
+The cancellation in equation (20) is a property of the complete cross-plane heat flux, and it is lost if a different boundary variable is propagated. Suppose instead that the propagated flux variable is taken to be bqred = −kzz ∂z bθ, which omits the −μT b∇t bθ term. By equation (12), 
+
+bqred = e−iβz/k zz (i βA − kzz A′). The common exponential still cancels from bqred /bθ, but the explicit i β term does not. For the decaying root, 
+
+bqred 
+
+bθ = kzz σ + i β. (21) The surviving term i β is odd under ν → − ν, so for mirror-symmetric pump and detector weightings the reduced-flux model can predict unequal phases at opposite offsets. This model-induced asymmetry is an implementation diagnostic, not evidence that a single-orientation surface measurement resolves μ.8D. Surface equivalence for multilayer 
+
+We number the N ≥ 2 planar layers j = 1 , . . . , N from the measured transducer surface toward the substrate rear. The standard model contains a metal transducer and an anisotropic substrate separated by a scalar thermal boundary conductance; additional planar layers are treated identically. All layers share the same inward + z direction, while layer j carries a local depth coordinate zj ∈ [0 , h j ] that resets to zero at its top, in which hj is the layer thickness. Denote its volumetric heat capacity, cross-plane conductivity, coupling vector, and Schur complement by Cv,j , kzz,j , μj , and Sj . The layer-dependent shear coefficient and propagation constant are 
+
+βj = 2 πνTμj ,σj =
+
+s
+
+iωC v,j + (2 π)2νTSj ν
+
+kzz,j 
+
+,
+
+Define the dimensionless thermal thickness aj , characteristic thermal admittance Yj , and shear factor pj as 
+
+aj = σj hj , Yj = kzz,j σj , pj = exp 
+
+
+
+−iβj hj
+
+kzz,j 
+
+
+
+.
+
+Then equation (20) becomes 
+
+ bθj (hj )
+
+bqz,j (hj )
+
+ = Lj
+
+ bθj (0) 
+
+bqz,j (0) 
+
+ ,
+
+Lj = pj L0,j = pj
+
+
+
+cosh aj −sinh aj
+
+Yj
+
+−Yj sinh aj cosh aj
+
+ .
+
+(22) The matrix L0,j therefore depends on the tensor only through ( kzz,j , Sj ), while all explicit dependence on βj = 2 πνTμj is contained in pj . Supplementary Note S1 gives the modal derivation of equation (22). An interface with thermal boundary conductance Gj and resistance Rj = G−1 
+
+> j
+
+preserves the cross-plane heat flux and imposes the temperature jump bθj+1 (0) = bθj (hj ) − Rj bqz,j (hj ): 
+
+ bθj+1 (0) 
+
+bqz,j +1 (0) 
+
+ = Ij
+
+ bθj (hj )
+
+bqz,j (hj )
+
+ ,
+
+Ij =
+
+1 −Rj
+
+0 1
+
+ .
+
+(23) 9Let ψj (zj ) ≡ [bθj (zj ), bqz,j (zj )] T denote the temperature–flux state vector in layer j. Then 
+
+ψN (hN ) = Mψ1(0) ,
+
+M = LN IN −1LN −1 · · · I1L1 = Φ M0,
+
+Φ = 
+
+> N
+
+Y
+
+> j=1
+
+pj = exp −i
+
+> N
+
+X
+
+> j=1
+
+βj hj
+
+kzz,j 
+
+!
+
+,
+
+M0 = L0,N IN −1L0,N −1 · · · I1L0,1 =
+
+m11 m12 
+
+m21 m22 
+
+ .
+
+(24) All explicit shear dependence is contained in the common prefactor Φ. With an adiabatic rear surface, bqz,N (hN ) = 0, and prescribed heating flux bqtop ≡ bqz, 1(0) = bqp, equation (24) gives 0 = Φ 
+
+
+
+m21 bθtop + m22 bqtop 
+
+
+
+,Ztop ≡ bθtop 
+
+bqtop 
+
+= −m22 
+
+m21 
+
+.
+
+(25) The surface temperature bθtop = Ztop bqtop contains no explicit shear phase. This holds for arbitrary surface beam profiles and temporal waveforms under linear Fourier diffusion, including continuous-wave FDTR and pulsed TDTR heating. In layered samples, kzz can affect FDTR phase-frequency scans and TDTR delay responses, including −Vin /V out . This sensitivity remains confined to the four invariants ( kzz , S) for each otherwise unconstrained anisotropic layer. For a non-adiabatic rear surface, convection and radiation impose a Robin boundary condition. Let the absolute surface and ambient temperatures be 
+
+Ts = T0 + θs, T∞ = T0 + θ∞, (26) where T0 is the equilibrium temperature and the temperature rises are small compared with T0. The heat flux leaving the rear surface is the sum of the convective and radiative contributions, 
+
+qrear = hc (Ts − T∞) + ϵσ SB 
+
+ T 4s − T 4
+
+> ∞
+
+ . (27) Linearization of the radiative term about T0 gives 
+
+T 4s − T 4 
+
+> ∞
+
+≃ 4T 30 (θs − θ∞) , (28) 10 and hence 
+
+qrear = Hrear (θs − θ∞) ,Hrear = hc + hr, hr = 4 ϵσ SB T 30 .
+
+(29) Here, Hrear is a scalar effective rear-surface heat-transfer coefficient with units of W m −2K−1.For a stationary ambient, bθ∞ = 0. Defining bθrear ≡ bθN (hN ) and bqrear ≡ bqz,N (hN ), the Fourier-domain boundary condition reduces to 
+
+bqrear = Hrear bθrear . (30) Equivalently, the rear boundary condition becomes 0 = 
+
+h
+
+−Hrear 1
+
+i
+
+Φ
+
+m11 m12 
+
+m21 m22 
+
+bθtop 
+
+bqtop 
+
+
+
+= Φ 
+
+h
+
+(m21 − Hrear m11 ) bθtop + ( m22 − Hrear m12 ) bqtop 
+
+i
+
+. (31) The front-surface impedance is therefore 
+
+Ztop ≡ bθtop 
+
+bqtop 
+
+= m22 − Hrear m12 
+
+Hrear m11 − m21 
+
+. (32) Thus, a spatially uniform convective–radiative rear boundary changes the finite-thickness surface impedance but does not reintroduce explicit dependence on the shear phase Φ. For a substrate whose other properties and coating are fixed, the exact ambiguity follows from holding ( kzz , S) fixed. For any coupling vector μalt = ( kxz, alt , k yz, alt )T, define 
+
+Kf (μalt ) = 
+
+S + μalt μT
+
+> alt
+
+/k zz μalt 
+
+μT 
+
+> alt
+
+kzz 
+
+ . (33) Every member shares kzz and S, and hence the surface response in equations (25) and (32). The corresponding Schur-equivalent conductivity matrix is 
+
+Keq =
+
+ S 00T kzz 
+
+ . (34) 11 (a)                               
+
+> metal transducer
+> qp
+> z= 0
+> x
+> +z(inward) qz=−kzz ∂zθ−μT∇tθ
+> substrate: Kfor Keq
+> (b)
+> identical at z= 0
+> zKeq Kf
+> (∆ x, ∆y)T=zsγ
+> (c) Kf(μalt )="
+> S+μalt μT
+> alt /k zz μalt
+> μT
+> alt kzz
+> #
+> any two-component col-umn μalt at fixed ( kzz ,S)=⇒identical single-orientation operator
+
+FIG. 2. Surface equivalence for a multi-layer sample. (a) Heating and detection occur on the metal transducer, whose properties and interface conductance are fixed. The substrate uses the complete cross-plane heat flux. (b) For an isotropic transducer, the shear displacement is zero throughout the coating and grows as zsγ within the substrate, where γ = μ/k zz and zs is depth below the transducer–substrate interface. The substrate field is displaced relative to its Schur-equivalent field, while the measured surface response is unchanged. (c) Every full anisotropic thermal-conductivity tensor in the two-parameter family shares kzz and S and therefore gives the same surface response. 
+
+E. Internal response 
+
+This cancellation applies to the front-surface response, but not to an internal field at finite depth. For j ≥ 2, the state at the top of layer j is 
+
+ψj (0) = Φ j−1Ij−1L0,j −1 · · · I1L0,1ψ1(0) ,
+
+Φj−1 =
+
+> j−1
+
+Y
+
+> ℓ=1
+
+pℓ.
+
+(35) We take the empty product to be Φ 0 ≡ 1. At a depth zj ∈ [0 , h j ] within the same layer, 
+
+ψj (zj ) = pj (zj )L0,j (zj )ψj (0) = Φ j (zj )ψeq ,j (zj ),pj (zj ) = exp 
+
+
+
+−iβj zj
+
+kzz,j 
+
+
+
+, Φj (zj ) = Φ j−1pj (zj ),
+
+(36) where ψeq ,j is the state in the layerwise Schur-equivalent stack. Taking the temperature component gives the explicit internal-temperature relation 
+
+bθj (ν, z j ; ω) = Φ j (zj )bθeq ,j (ν, z j ; ω) . (37) 12 Thus Φ 1(0) = 1 at the measured surface, whereas an internal temperature field retains the cumulative phase of every traversed layer and the partial phase accumulated within layer j.
+
+F. Sensitivity-matrix SVD and local identifiability 
+
+Sensitivity-matrix analysis tests which parameter combinations are distinguishable near a specified tensor and experimental design 19,20 . For a positive signal R and parameter ξj ,the conventional logarithmic sensitivity is Sξj = ∂ ln R/∂ ln ξj = ( ξj /R )∂R/∂ξ j . Here we differentiate the selected signals directly, so phase and signed or zero-valued off-diagonal entries require no logarithms. The six parameters are k = ( kxx , k yy , k zz , k xy , k xz , k yz )T. Let y(k) ∈ RNd contain the selected observations. For FDTR, these are the phases relative to the modulated heating, stacked over frequencies, offset directions, and measured faces. The physical sensitivity matrix is 
+
+J = ∂y
+
+∂k =
+
+
+
+∂y 1
+
+∂k xx 
+
+∂y 1
+
+∂k yy 
+
+· · · ∂y 1
+
+∂k yz 
+
+∂y 2
+
+∂k xx 
+
+∂y 2
+
+∂k yy 
+
+· · · ∂y 2
+
+∂k yz 
+
+... ... . . . ...
+
+∂y Nd
+
+∂k xx 
+
+∂y Nd
+
+∂k yy 
+
+· · · ∂y Nd
+
+∂k yz 
+
+
+
+> Nd×6
+
+. (38) Each column varies one tensor component while the other five are fixed; an off-diagonal variation changes both symmetric matrix positions. We scale the six components using a fixed positive diagonal matrix D = diag( a1, . . . , a 6). Factoring the data covariance as Cy = LL T gives the scaled, noise-weighted matrix 
+
+eJ = L−1JD . (39) For independent noise, row m is divided by its standard deviation sm. In the example, diagonal entries use aii = kii, 0 and off-diagonal entries use aij = pkii, 0kjj, 0, evaluated at the nominal tensor. These fixed scales change singular values but preserve rank; Supplementary Note S2 gives the implementation. The thin singular-value decomposition is 
+
+eJ = U diag( σ1, . . . , σ q)VT,q = min( Nd, 6) , σ1 ≥ · · · ≥ σq ≥ 0.
+
+(40) 13 For a small tensor perturbation δk, the linearized, noise-weighted signal change is 
+
+δey ≡ L−1δy ≃
+
+> q
+
+X
+
+> j=1
+
+σj uj
+
+ vT 
+
+> j
+
+D−1δk . (41) Thus vj describes a combination of the six scaled tensor changes; the corresponding physical direction is Dv j . A zero singular value gives a null direction JDv j = 0, while a small nonzero value gives a weakly sensed combination. Individual nonzero sensitivities therefore do not establish independent identifiability. The number of nonzero singular values is the local rank of the declared forward map. We classify numerical nulls using σj /σ 1 < 10 −8 together with derivative convergence and the exact invariant family. This rank test is separate from practical precision, which also depends on the noise and parameter scales. For perturbations restricted to the retained scaled directions, the linearized covariance in physical tensor entries is 
+
+Ck,id ≃ DV r diag( σ−21 , . . . , σ −2 
+
+> r
+
+)VT 
+
+> r
+
+D, (42) where r is the retained rank and Vr contains its singular vectors. This covariance is conditional on the other thermal inputs being fixed and describes only the resolved directions. An exact null direction remains undetermined and cannot be assigned a finite error bar from these data alone. 
+
+III. RESULTS AND DISCUSSION A. One orientation: Schur-equivalent FDTR and TDTR responses 
+
+Consider a substrate with full anisotropic substrate tensor 
+
+K0 =
+
+
+
+10 .4 2.0 −4.02.0 7.0 4.0
+
+−4.0 4 .0 8.6
+
+ W m −1 K−1. (43) With 80 nm Au transducer (detailed properties in Supplementary Note S6). The Schur complement is S0 = [ 8.5 3 .93.9 5 .1 ] W m −1 K−1. Its Schur-equivalent conductivity matrix is 
+
+Keq ,0 =
+
+
+
+8.5 3 .9 0 .03.9 5 .1 0 .00.0 0 .0 8 .6
+
+ W m −1 K−1. (44) 14 Thus the cross-plane coupling vector changes from ( −4, 4) T W m −1 K−1 to zero while the in-plane block changes to preserve ( kzz , S0). Independent evaluations using the full characteristic roots, complete cross-plane heat flux, and Schur formula agree to numerical precision. Figure 3 presents the comparison of the original tensor and Schur-equivalent tensor for popular signal choices in FDTR and TDTR. FDTR frequency sweeps and SDTR spatial scans 12 therefore probe the same invariant set despite their different scan variables. An independent pulse-train TDTR reconstruction likewise gives indistinguishable complex delay traces, quadratures, phase, and −Vin /V out ratios for the two tensors. Supplementary Note S3 separates the TDTR equivalence residual from the harmonic-truncation error; Supplementary Note S6 gives the remaining evaluation and convergence details. Figure 4 extends the comparison to complete two-dimensional surface maps used in SR-LIT tensor analysis 13 . The amplitude and phase maps coincide for the two tensors. 
+
+FIG. 3. Single-orientation Schur equivalence for a coated substrate. Lines and open symbols compare K0 with its Schur-equivalent tensor for (a,d) FDTR frequency sweeps, (b,e) SDTR spatial scans, and (c,f) TDTR delay scans. Panels (a,b) show amplitude normalized by the original-tensor peak. Panel (c) shows Vin (solid/circles) and Vout (dashed/squares) in arbitrary units, scaled by the original complex-trace peak. Panels (d)–(f) show phase. Each tensor pair shares one normalization and overlaps to numerical precision. Stack and scan settings are given in Supplementary Note S6. 
+
+15 FIG. 4. Complete two-dimensional transducer-surface response of the coated substrate with an adiabatic rear. Panels (a,b) show normalized amplitude and (d,e) show phase for the original and Schur-equivalent tensors, respectively. Panel (c) shows the logarithm of the relative complex residual, and (f) shows the phase residual. The amplitude maps share one normalization and the phase maps share one color scale. Residual panels show only floating-point and quadrature noise. Phase residuals are wrapped and restricted to the reliable-signal mask defined in Supplementary Note S6. 
+
+B. Two orthogonal orientations: a common equivalent tensor 
+
+We examine the information provided by two orthogonal surfaces in two steps. First, we consider the full anisotropic tensor K0 from equation (43). Second, we impose the independently known constraint kyz = 0 and test recovery of the remaining five components, including kxz . The input properties are specified in Supplementary Note S6. We label each face by its cross-plane axis. The z and y faces have registered local axes (x, y ; z) and ( z, x ; y), respectively, with the cross-plane axis listed last (figure 7). The same conductivity tensor expressed in these two local frames is 
+
+K(z) =
+
+
+
+kxx kxy kxz 
+
+kxy kyy kyz 
+
+kxz kyz kzz 
+
+ , K(y) =
+
+
+
+kzz kxz kyz 
+
+kxz kxx kxy 
+
+kyz kxy kyy 
+
+ .
+
+16 Their measured-face Schur complements are 
+
+Sz =
+
+
+
+kxx − k2
+
+> xz
+
+kzz 
+
+kxy − kxz kyz 
+
+kzz 
+
+kxy − kxz kyz 
+
+kzz 
+
+kyy − k2
+
+> yz
+
+kzz 
+
+ , Sy =
+
+
+
+kzz − k2
+
+> yz
+
+kyy 
+
+kxz − kxy kyz 
+
+kyy 
+
+kxz − kxy kyz 
+
+kyy 
+
+kxx − k2
+
+> xy
+
+kyy 
+
+ .
+
+A common Schur-equivalent tensor K′ must preserve both displayed Schur matrices and their corresponding cross-plane conductivities: ( kzz , Sz ) and ( kyy , Sy). Thus k′ 
+
+> zz
+
+= kzz and 
+
+k′ 
+
+> yy
+
+= kyy . Matching the lower-right entry of Sz gives k′ 
+
+> yz
+
+= ±kyz . The unchanged sign recovers K; the opposite sign generally gives a distinct tensor. To construct this second tensor, set k′ 
+
+> yz
+
+= −kyz . The off-diagonal Schur entries require 
+
+k′ 
+
+> xy
+
++ ( kyz /k zz )k′ 
+
+> xz
+
+= Sz,xy and k′ 
+
+> xz
+
++ ( kyz /k yy )k′ 
+
+> xy
+
+= Sy,zx . Solving these two linear equations, then matching Sz,xx , gives 
+
+k′ 
+
+> xy
+
+= Sz,xy − (kyz /k zz )Sy,zx 
+
+λ , k′ 
+
+> xz
+
+= Sy,zx − (kyz /k yy )Sz,xy 
+
+λ ,k′ 
+
+> xx
+
+= Sz,xx + (k′ 
+
+> xz
+
+)2
+
+kzz 
+
+, λ = 1 − k2
+
+> yz
+
+kyy kzz 
+
+> 0.
+
+These entries also satisfy k′ 
+
+> xx
+
+− (k′
+
+> xy
+
+)2/k yy = Sy,xx , completing the equivalence on both surfaces. The resulting common two-surface Schur-equivalent conductivity tensor is 
+
+K(z,y )eq =
+
+
+
+k′ 
+
+> xx
+
+k′ 
+
+> xy
+
+k′
+
+> xz
+
+k′ 
+
+> xy
+
+kyy −kyz 
+
+k′ 
+
+> xz
+
+−kyz kzz 
+
+ ≃
+
+
+
+20 .2 8.5 −10 .08.5 7.0 −4.0
+
+−10 .0 −4.0 8.6
+
+ W m −1 K−1. (45) The numerical matrix is obtained by substituting K0; its entries are rounded to one decimal place. Both tensors are expressed in the same global frame. Supplementary Note S5 gives the corresponding branch construction for the z, x pair. Figure 5 compares independent full-tensor calculations for K0 and K(z,y )eq . Their FDTR frequency scans, SDTR spatial scans, and TDTR delay responses overlap on both faces, confirming the common Schur equivalence. Varying the signal choice therefore cannot remove this ambiguity. Sufficiently informative two-face data can therefore have local rank six without uniquely determining the tensor. Two surfaces suffice if independent information fixes the coupling between their cross-plane axes to zero. For the z, y pair with known kyz = 0, the five unknown components follow from 
+
+kxy = Sz,xy , kxz = Sy,zx , and kxx = Sz,xx + k2 
+
+> xz
+
+/k zz , together with the measured cross-plane 17 10 −2                    
+
+> 10 −1
+> 10 0
+> Norm. amp.  (a)
+> 0.0 0.5 1.0
+> Norm. amp.  (b)
+> −0.3 0.3 0.9
+> Vin , Vout
+> (a.u.)  Vin
+> Vout
+> (c)
+> 10 310 510 7
+> Frequency (Hz)
+> −48 −40
+> Phase (°)  (d)
+> −4 −2 024
+> Offset d/w
+> −160 −80
+> Phase (°)  (e)
+> 024
+> Delay (ns)
+> −30 −20
+> Phase (°)  (f)
+> 10 −2
+> 10 −1
+> 10 0
+> Norm. amp.  (g)
+> 0.0 0.5 1.0
+> Norm. amp.  (h)
+> −0.3 0.3 0.9
+> Vin , Vout
+> (a.u.)  Vin
+> Vout
+> (i)
+> 10 310 510 7
+> Frequency (Hz)
+> −50 −40
+> Phase (°)  (j)
+> −4 −2 024
+> Offset d/w
+> −200 −100
+> Phase (°)  (k)
+> 024
+> Delay (ns)
+> −30 −20
+> Phase (°)  (l)
+> Original tensor Two-surface equivalent
+
+FIG. 5. Common two-surface equivalence for K0 (lines) and K(z,y )eq (symbols) on (a)–(f) the z face and (g)–(l) the y face. Columns compare FDTR frequency scans, SDTR spatial scans, and TDTR delay responses. Upper rows show normalized amplitude or Vin and Vout in arbitrary units; lower rows show phase. TDTR channels share the original complex-trace peak as their scale. Each tensor pair uses the same normalization. Measurement settings are given in Supplementary Note S6. 
+
+conductivities kzz and kyy . The two equivalent branches then coincide. For the z, x pair, the corresponding condition is known kxz = 0, leaving kyz to be recovered. This zero-coupling constraint requires independent material or orientation information; registration of the surface axes alone does not impose it. To test this case, we set kyz = 0 in K0 and retain the other five entries. Beam-offset FDTR (BO-FDTR) 11 phase scans at 0 ◦, 45 ◦, and 90 ◦ on each of the two faces use 31 frequencies from 1 kHz to 10 MHz and one-radius offsets. Adding independent relative phase noise bounded by ±0.5 % gives 186 observations for a joint five-parameter weighted nonlinear least-squares (NLLS) fit, using inverse phase-noise variance weights 21 (figure 6). The fit returns bK =
+
+h 10 .6 2 .1 −4.12.1 7.0 0.0 
+
+> −4.1 0 .08.6
+
+i
+
+W m −1 K−1, with a relative Frobenius error of 1.8 %. 18 10 3 10 4 10 5 10 6 10 7           
+
+> Modulation frequency (Hz)
+> −50 −45 −40 −35
+> Phase (°)
+> (a)
+> 10 310 410 510 610 7
+> Modulation frequency (Hz)
+> (b)
+> 0∘45 ∘90 ∘Noisy phase Joint fit
+
+FIG. 6. Five-component recovery from BO-FDTR phases on the (a) z and (b) y faces with kyz 
+
+known to be zero. Symbols show noisy phase data and lines show the joint five-parameter fit. Colors identify the local offset azimuths. All other tensor entries are fitted simultaneously. 
+
+IV. GUIDANCE FOR DETERMINING THE FULL ANISOTROPIC TENSOR 
+
+In this section, we show that three mutually orthogonal surfaces enable full-tensor recovery through simulated BO-FDTR. Adding the third orthogonal surface removes the two-face ambiguity once the three signed Schur matrices are resolved. Use face-local in-plane and cross-plane axes ( x, y ; z), ( y, z ; x), and ( z, x ; y) for the z, x, and y faces, respectively. Each face has its own Schur-equivalent tensor K(f )eq = diag( Sf , k f f ). The three sets of face invariants constrain the same global tensor K. The block-inverse identity gives 
+
+S−1 
+
+> f
+
+= PT 
+
+> f
+
+K−1Pf , f ∈ { z, x, y }, (46) where the columns of Pf are the two registered in-plane unit vectors. Thus the three faces supply the ( x, y ), ( y, z ), and ( z, x ) blocks of K−1, which together determine all six entries. Inverting the assembled thermal-resistivity matrix recovers K. In particular, the additional 
+
+x-face ( y, z ) block distinguishes the two tensors constructed in section III B. Figure 7 shows this arrangement for K0. This establishes global uniqueness from the resolved face invariants; the corresponding sensitivity ranks are summarized in table I. For validation, we examine the same target full anisotropic tensor K0. On each orthogonal face ( z, x, and y), the probe is displaced by one radius at local azimuths 0 ◦, 45 ◦, and 90 ◦
+
+(figure 7). We concatenate the 31 phase points from three directional scans on each of the three faces into a single vector containing 3 × 3 × 31 = 279 phase values. 19 TABLE I. Sensitivity rank and tensor ambiguity for one, two, and three measurement orientations. 
+
+Surface orientations Signal choices Local rank Recovered information Remaining tensor ambiguity One orientation FDTR: frequency, offset, and spot-size scans; TDTR: delay-time scans 4 4: kzz and the three entries of the in-plane Schur complement S
+
+Continuous two-parameter family Two orthogonal orientations Same choices on both surfaces 6 5: the remaining entry has two possible values Two equivalent tensors in general Three orthogonal orientations Same choices on all three surfaces 6 6: all six tensor entries None; unique tensor recovery aK0 =
+
+10.4 2.0 −4.0 2.0 7.0 4.0 −4.0 4.0 8.6             
+
+> W m −1 K−1
+> xy
+> zface
+> yz
+> xface
+> zx
+> yface
+> Probe offset azimuth pump 0° 45° 90°
+> wp=wpr =d= 40 μm; schematic not to scale
+
+b   
+
+> zface: in-plane ( x,y); cross-plane z
+
+Sz = 8.5 3.9 3.9 5.1 kzz = 8.6    
+
+> xface: in-plane ( y,z); cross-plane x
+
+Sx = 6.6 4.8 4.8 7.1 kxx = 10.4    
+
+> yface: in-plane ( z,x); cross-plane y
+
+Sy = 6.3 −5.1 −5.1 9.8 kyy = 7.0     
+
+> K(f)eq = diag( Sf,kff )
+> S−1
+> f= ( K−1 0)in−plane
+> The (x,y), (y,z), and (z,x) blocks together determine all six tensor entries.
+
+FIG. 7. Three-face measurement arrangement for K0. (a) Registered face axes and probe offsets at 0◦, 45 ◦, and 90 ◦ relative to the first in-plane axis. Each face carries the Au transducer, omitted from the schematic. Pump and probe radii are equal, and the offset is one radius. Scans are performed far from specimen edges. (b) Schur matrices and cross-plane conductivities in W m −1 K−1, rounded for display. Their inverse in-plane blocks jointly determine the global tensor. 
+
+To mimic experimental conditions, we add independent uniform noise bounded by ±0.5 % of the noiseless phase magnitude. We jointly fit all six tensor entries by weighted NLLS (inverse phase-noise variance weights 21 ). Other inputs are specified in Supplementary Note S6. 20 To construct the sensitivity matrix, we use the 279 phase values and six tensor parameters 
+
+k = ( kxx , k yy , k zz , k xy , k xz , k yz )T. The resulting 279 × 6 matrix is evaluated at K0. The SVD of its scaled, noise-weighted form, eJ = UΣV T, gives the normalized singular values (σ1, . . . , σ 6)/σ 1 = (1 , 0.570 , 0.518 , 0.425 , 0.309 , 0.186). These six nonzero values establish local identifiability at K0. The third face also removes the global ambiguity that can persist with two orthogonal orientations, enabling unique recovery of the full anisotropic tensor. 10 3 10 5 10 7           
+
+> Modulation frequency (Hz)
+> −50 −45 −40 −35
+> Phase (degrees)
+> (a)
+> zface
+> 10 310 510 7
+> Modulation frequency (Hz)
+> (b)
+> xface
+> 10 310 510 7
+> Modulation frequency (Hz)
+> (c)
+> yface 0° 45° 90° Noisy data Joint fit
+
+FIG. 8. Joint six-entry recovery from noisy BO-FDTR phase-frequency scans on the (a) z, (b) x,and (c) y faces. Open symbols are synthetic data with bounded relative phase noise; lines are the common NLLS fit. Colors denote the registered in-plane offset azimuths. All nine curves are fitted simultaneously using one global conductivity tensor. 
+
+The fit shown in figure 8 yields bK =
+
+h 10 .4 2 .1 −3.92.1 7.0 4.0 
+
+> −3.9 4 .08.6
+
+i
+
+W m −1 K−1. The largest relative entry error is 6.6 % for kxy , while all other entries are within 1.6 % of their true values. The larger relative error in kxy partly reflects its small anisotropy coupling, |kxy |/pkxx kyy =2.0/√10 .4 × 7.0 ≃ 0.23, consistent with the higher fractional uncertainty reported for weak off-diagonal couplings 16 . To assess convergence stability, we tested eight initial guesses, all of which converged to the same solution. 21 V. CONCLUSIONS 
+
+We established an exact Schur-equivalent conductivity matrix for single-orientation ther-moreflectance measurements. The temperature response depends on the substrate tensor only through kzz and the in-plane Schur complement S = Λ − μμ T/k zz . Distinct tensors with the same invariants therefore produce identical surface temperature responses. The single-orientation upper limit is four independent tensor components. We confirm this equivalence for both FDTR and TDTR data choices, including phase, amplitude, and the TDTR ratio −Vin /V out . Varying measurement controls can improve precision but cannot remove the exact nonuniqueness. Two orthogonal surfaces can retain a common equivalent tensor. When the coupling between their cross-plane axes is independently known to vanish, they suffice to recover the remaining five components. Finally, we show that three mutually orthogonal orientations provide complementary information for full-tensor recovery. Joint fitting of BO-FDTR data from these orientations recovers all six tensor components, while the corresponding SVD confirms their local identifiability. 
+
+AUTHOR DECLARATIONS Conflict of interest 
+
+The authors have no conflicts to disclose. 22 Supplementary Information for 
+
+## Identifiability of the three-dimensional anisotropic thermal-conductivity tensor in thermoreflectance measurements: Single-orientation limits and full-tensor recovery 
+
+Dihui Wang and Heng Ban 
+
+Department of Mechanical Engineering and Materials Science, University of Pittsburgh, Pittsburgh, PA, USA 
+
+S1. DETAILED FOURIER REDUCTION AND MULTILAYER IMPEDANCE RECURSION 
+
+This note gives the transform convention and intermediate algebra omitted from the coated-stack derivation in the main text. The physical coordinates are ( x, y, z ), with z
+
+positive into the transducer-coated specimen. Only x and y are Fourier transformed; z
+
+remains a physical depth coordinate. We use the spatial frequencies u and v in cycles per unit length and collect them in the lateral spatial-frequency vector 
+
+ν ≡
+
+uv
+
+ , [ν] = cycles per unit length . (S1) Using the eiωt phasor convention, let θ(x, y, z ; ω) be the complex harmonic temperature amplitude, with ω = 2 πf . The forward and inverse transforms are 
+
+bθ(ν, z ; ω) = 
+
+Z ∞−∞ 
+
+Z ∞−∞ 
+
+θ(x, y, z ; ω)e−i2 π(ux +vy ) dx dy, (S2a) 
+
+θ(x, y, z ; ω) = 
+
+Z ∞−∞ 
+
+Z ∞−∞ 
+
+bθ(ν, z ; ω)ei2 π(ux +vy ) du dv. (S2b) Here θ is the complex temperature amplitude, f is the modulation frequency in hertz, ω is angular frequency, and i = √−1. The shorthand measure d 2ν ≡ du dv is used below. The absence of a numerical prefactor in equation (S2b) follows from using cycles per unit length. The first derivative identity follows by integration by parts, assuming the temperature field 23 vanishes at lateral infinity: 
+
+Fx,y {∂xθ} =
+
+Z ∞−∞ 
+
+Z ∞−∞ 
+
+∂xθ e −i2 π(ux +vy ) dx dy
+
+=
+
+Z ∞−∞ 
+
+θe −i2 π(ux +vy )x=∞ 
+
+> x=−∞
+
+dy + i2 πu 
+
+Z ∞−∞ 
+
+Z ∞−∞ 
+
+θe −i2 π(ux +vy ) dx dy
+
+= i2 πu bθ. (S3) Repeated application gives 
+
+∂x 7 −→ i2 πu, ∂y 7 −→ i2 πv, ∂z 7 −→ ∂z ,∂xx 7 −→ − 4π2u2, ∂yy 7 −→ − 4π2v2, ∂xy 7 −→ − 4π2uv, ∂xz 7 −→ i2 πu ∂ z , ∂yz 7 −→ i2 πv ∂ z , ∂zz 7 −→ ∂zz . (S4) In coordinates parallel to the measured face, write the conductivity tensor of each homogeneous layer as 
+
+Kf =
+
+ Λ μμT kzz 
+
+ , Λ =
+
+kxx kxy 
+
+kxy kyy 
+
+ , μ =
+
+kxz 
+
+kyz 
+
+ . (S5) Here Λ ∈ R2×2 is the in-plane conductivity block, μ ∈ R2×1 is the cross-plane–in-plane coupling vector, μT ∈ R1×2 is its transpose, and kzz is the face-local cross-plane conductivity. For spatially uniform properties, the harmonic heat equation i ωC vθ = ∇· (Kf ∇θ) expands to iωC vθ = ∇T 
+
+> t
+
+Λ∇tθ + 2 μT∇t∂z θ + kzz ∂2 
+
+> z
+
+θ, ∇t =
+
+∂x
+
+∂y
+
+ . (S6) Here Cv is volumetric heat capacity and ∇t is the in-plane gradient operator. Applying equation (S4) term by term gives 
+
+Fx,y 
+
+∇T 
+
+> t
+
+Λ∇tθ = −(2 π)2νTΛν bθ, (S7) 
+
+Fx,y 
+
+2μT∇t∂z θ = 2i  2πνTμ bθ′, (S8) 
+
+Fx,y 
+
+kzz ∂2 
+
+> z
+
+θ = kzz bθ′′ . (S9) The prime notation denotes differentiation with respect to physical depth z, with ( ν, ω ) held fixed: 
+
+bθ′ ≡ dbθ
+
+dz , bθ′′ ≡ d2 bθ
+
+dz2 .
+
+24 Define 
+
+β(ν) = 2 πνTμ = 2 π(uk xz + vk yz ), (S10) Both ν and μ are 2 × 1 columns, so β is a scalar coupling-weighted lateral Fourier coefficient. The transformed depth equation is 
+
+kzz bθ′′ + 2i β bθ′ − (2 π)2νTΛν + i ωC v
+
+ bθ = 0 . (S11) In component form, the in-plane quadratic term is 
+
+νTΛν = kxx u2 + 2 kxy uv + kyy v2. (S12) For each fixed ( ν, ω ), seek an exponential depth mode bθ(ν, z ; ω) = Ae sz , where A is its complex amplitude and s is its complex propagation constant in inverse-length units. Substitution into equation (S11) gives 
+
+kzz s2 + 2i βs − (2 π)2νTΛν + i ωC v
+
+ = 0 . (S13) Equation (S13) is called the characteristic equation: its roots are the values of s that characterize the two independent exponential solutions of the second-order depth equation. Introduce the Schur complement 
+
+S = Λ − μμ T
+
+kzz 
+
+. (S14) Writing s = −iβ/k zz + λ, where λ is a shifted propagation constant introduced only to complete the square, cancels the term linear in λ and reduces equation (S13) to 
+
+kzz λ2 − (2 π)2νTSν + i ωC v
+
+ = 0 . (S15) Thus, the characteristic equation has the two roots 
+
+s± = − iβkzz 
+
+± σ, σ =
+
+s
+
+iωC v + (2 π)2νTSν
+
+kzz 
+
+, Re σ > 0. (S16) The general solution of equation (S11) is therefore 
+
+bθ(ν, z ; ω) = A+(ν; ω)es+z + A−(ν; ω)es−z . (S17) Here A+ and A− are the complex amplitudes fixed by the boundary and interface conditions. The two signs label the two independent depth modes. The quantity σ is the complex thermal 25 decay constant, with its square-root branch selected by Re σ > 0. Consequently, s+ is the growing mode and s− is the decaying mode for increasing z.The complete heat-flux amplitude is q = −Kf ∇θ. Its cross-plane component relative to the measured face is 
+
+qz = −μT∇tθ − kzz ∂z θ, (S18) which transforms to 
+
+bqz = −
+
+
+
+kzz 
+
+ddz + i β
+
+bθ. (S19) That is, bqz ≡ F x,y {qz }. For either depth root, define bθ± = A±es±z and bqz, ± = −(kzz s± +i β)bθ±.The modal thermal admittance is the flux-to-temperature ratio: 
+
+bqz, ±
+
+bθ±
+
+= − (kzz s± + i β) = ∓kzz σ. (S20) The subscript ± associates each flux and temperature with the corresponding propagation constant s±. The explicit term linear in μ cancels only because equation (S18) uses the complete cross-plane heat flux. The sign convention takes qz > 0 into the coated specimen. For a thermally thick substrate beneath the transducer, the decaying depth mode sets the load impedance at the substrate top: 
+
+Z∞ 
+
+> sub
+
+= bθsub (0) 
+
+bqz, sub (0) = 1
+
+kzz, sub σsub 
+
+. (S21) The coordinate in this equation starts at the transducer–substrate interface. This load is combined with the interface resistance and transducer propagation below to obtain the measured surface response. 
+
+S1.1. Adiabatic rear boundary and backward impedance recursion 
+
+Consider N ≥ 2 finite, laterally homogeneous layers, numbered j = 1 , . . . , N from the measured transducer surface to the substrate rear. In layer j, reset the local depth coordinate to zj = 0 at its top and let zj ∈ [0 , h j ], where hj is the layer thickness. Denote its volumetric heat capacity, cross-plane conductivity, coupling vector, and Schur complement by Cv,j , kzz,j ,
+
+μj , and Sj , respectively, and define 
+
+aj = σj hj , Yj = kzz,j σj , pj = e−iβj hj /k zz,j , (S22) 26 where 
+
+σj =
+
+s
+
+iωC v,j + (2 π)2νTSj ν
+
+kzz,j 
+
+, βj = 2 πνTμj , Re σj > 0. (S23) Also define the layerwise propagation constants s±,j = −iβj /k zz,j ± σj . Here aj is the dimensionless thermal thickness, Yj is the characteristic thermal admittance, and pj is the accumulated shear phase factor. The state of temperature and cross-plane heat flux propagates through the layer as 
+
+ψj (hj ) = pj L0,j ψj (0) , L0,j =
+
+ cosh aj − sinh aj /Y j
+
+−Yj sinh aj cosh aj
+
+ , (S24) where ψj = ( bθj , bqz,j )T.For the last layer, the two-mode solution gives 
+
+bqz,N (z) = −YN A+,N es+,N z + YN A−,N es−,N z . (S25) The adiabatic rear condition bqz,N (hN ) = 0 therefore requires 
+
+A+,N es+,N hN = A−,N es−,N hN , A+,N 
+
+A−,N 
+
+= e−2σN hN . (S26) Thus a finite substrate with an adiabatic rear retains both modes; A+,N = 0 gives the thermally thick substrate load in equation (S21). At the top of the last layer, 
+
+Zad  
+
+> N
+
+≡ bθN (0) 
+
+bqz,N (0) = coth aN
+
+YN
+
+= coth( σN hN )
+
+kzz,N σN
+
+. (S27) The coupling-weighted spatial frequency βN has canceled exactly. The cancellation persists while the stack is built backward toward the measured surface. Define the input impedance at the top of any layer by Zj = bθj (0) /bqz,j (0). Across the scalar interface resistance Rj , cross-plane flux is continuous, bqz,j (hj ) = bqz,j +1 (0) ≡ bqI,j , and 
+
+bθj (hj ) = bθj+1 (0) + Rj bqI,j . The load impedance seen by layer j is therefore 
+
+ZL,j = Rj + Zj+1 . (S28) Substitution into equation (S24) and solution for the top impedance gives 
+
+Zj = ZL,j cosh aj + sinh aj /Y j
+
+cosh aj + ZL,j Yj sinh aj
+
+. (S29) 27 The common factor pj cancels because an impedance is a temperature-to-flux ratio. Starting with the finite substrate load in equation (S27), or the thermally thick load in equation (S21), and applying equations (S28) and (S29) for j = N − 1, . . . , 1 proves inductively that, with 
+
+bθs ≡ bθ1(0), bqp ≡ bqz, 1(0), and Zs ≡ Z1,
+
+bθs(ν; ω) = Z1(ν; ω)bqp(ν; ω) (S30) contains no explicit βj . Each anisotropic layer enters the front-surface response through (kzz,j , Sj ), not through μj independently. Finally, the finite adiabatic substrate load converges exponentially to the thermally thick substrate load used in the same coated model. Since Z∞ 
+
+> N
+
+= 1 /Y N ,
+
+Zad 
+
+> N
+
+Z∞
+
+> N
+
+− 1 = 2
+
+e2σN hN − 1 ≤ 2
+
+e2 Re( σN )hN − 1. (S31) For a tolerance ε, it is sufficient that Re( σN )hN ≥ 12 ln 
+
+
+
+1 + 2
+
+ε
+
+
+
+. (S32) The thresholds are 2 .65 for 1% and 3 .80 for 0 .1%. For the laterally uniform mode, 
+
+δN = 1Re σN
+
+=
+
+s
+
+kzz,N 
+
+πf C v,N 
+
+, (S33) where δN is the cross-plane thermal penetration depth of the laterally uniform mode. Thus the 1% criterion is hN /δ N ≥ 2.65. High frequency makes the rear condition thermally irrelevant in the measured front response; it is not required for the exact Schur cancellation under the adiabatic boundary. 
+
+S2. SENSITIVITY MATRICES FOR THE SIX TENSOR COMPONENTS 
+
+The coated-sample FDTR calculations use the phase ϕm = arg Hm relative to the modu-lated heating, without subtracting zero-offset phase. The six parameters are the physical tensor entries k = ( kxx , k yy , k zz , k xy , k xz , k yz )T. The sensitivity matrix is Jmj = ∂ϕ m/∂k j ;each row corresponds to a measured frequency and offset, and each column to one tensor component. An off-diagonal derivative varies both symmetric matrix positions together. All six columns are retained when testing full-tensor identifiability. 28 For the Au-coated example, the matrix used for SVD is 
+
+eJmj = aj
+
+sm
+
+Jmj , aii = kii, 0, aij = pkii, 0kjj, 0 (i̸ = j), (S34) where sm is the prescribed phase-noise standard deviation and the subscript 0 denotes the nominal tensor. The row weights account for the noise at each observation; the fixed column scales permit dimensionless comparison of the six sensitivity directions. Singular values are reported relative to the largest, and values below 10 −8 of the largest are classified as numerical nulls. Scaling changes the singular values but not the exact rank. Supplementary Note S6 gives the data ordering, noise model, and derivative checks. The coated componentwise comparison instead uses the conventional logarithmic sensitivity 
+
+∂ ln |ϕ|/∂ ln |kij | at the nonzero entries of K0. Sign-preserving logarithmic perturbations at steps 10 −3 and 5 × 10 −4 are combined by Richardson extrapolation after continuous phase-branch alignment. These derivatives are with respect to ordinary phase; center normalization is used only for the separately specified amplitude channel. Supplementary Note S4 fits a conditional subset of three entries, using a scaled additive coordinate for the entry whose nominal value can vanish. Its three-column matrix is separate from the six-column full-tensor analysis. 
+
+S3. TDTR PULSE-TRAIN EXTENSION AND COMPUTATIONAL VERIFICATION S3.1. A TDTR delay trace is a sum of harmonic surface responses 
+
+The single-orientation Schur equivalence is not restricted to sinusoidal FDTR. Under linear, time-invariant Fourier diffusion, the surface response to an arbitrary temporal heat input is a superposition of the harmonic surface responses derived in Supplementary Note S1. TDTR changes the temporal pump waveform and additionally applies delayed probe sampling and lock-in demodulation; all three operations are linear and independent of the unknown conductivity tensor 22,23 .To make this statement explicit, let Tr = 1 /f r be the laser repetition period, ωr = 2 πf r
+
+the repetition angular frequency, ωm = 2 πf m the pump-modulation angular frequency, and τ
+
+the pump–probe delay. Let Wp and Wd be the Fourier-domain pump and detector weights, 29 respectively. Define the unit-power harmonic surface response 
+
+HK(ω, d) = 
+
+Z
+
+> R2
+
+W ∗ 
+
+> d
+
+(ν) Gs, K(ν; ω) Wp(ν) ei2 πνTd d2ν, (S35) where d is the detector displacement and Gs, K is the input impedance at the coated front surface for substrate tensor K. One complex lock-in sideband family of an amplitude-modulated pulse train has the signed comb frequencies 
+
+ωℓ = ωm + ℓω r, ℓ ∈ Z. (S36) After delayed probe sampling and demodulation, its complex lock-in signal can be written 
+
+VK(τ ) = Γ eiωmτ
+
+> ∞
+
+X
+
+> ℓ=−∞
+
+cℓHK(ωℓ, d)eiℓω r τ . (S37) Here cℓ contains the temporal pump-pulse spectrum, the finite probe-pulse gate, and any other tensor-independent sideband weighting; Γ contains the thermoreflectance coefficient and detector gain. A different lock-in phase convention can absorb the common factor 
+
+eiωmτ . The real pump also has the conjugate modulation sideband, and the unmodulated component is rejected by the lock-in. Neither detail changes the argument below because the Green-function equality holds for every signed frequency. For two tensors with the same ( kzz , S), Supplementary Note S1 gives 
+
+Gs, K(ν; ω) = Gs, Keq (ν; ω) for every ( ν, ω ). (S38) Consequently, the spatial integration in equation (S35) and every term of equation (S37) are equal: 
+
+VK(τ ) = VKeq (τ ) for every delay τ. (S39) Thus Vin = Re V, Vout = Im V, amplitude, phase, and the usual ratio −Vin /V out are Schur-equivalent wherever the ratio is defined. Delay scanning samples the same single-orientation surface operator and cannot remove its two tensor null directions. 30 S3.2. Independent full-root computation 
+
+We verified equation (S39) without evaluating both tensors through a Schur-reduced kernel. The original tensor and its Schur-equivalent matrix were 
+
+K0 =
+
+
+
+10 .4 2.0 −4.02.0 7.0 4.0
+
+−4.0 4 .0 8.6
+
+ , Keq ,0 =
+
+
+
+8.5 3 .9 0 .03.9 5 .1 0 .00.0 0 .0 8 .6
+
+ W m −1 K−1. (S40) For every signed comb frequency and lateral Fourier point, each tensor was inserted separately into the complete characteristic equation 
+
+kzz s2 + 2i βs − (2 π)2νTΛν + i ωC v
+
+ = 0 , Ysub = − (kzz s− + i β) , (S41) where the decaying root s− was selected and Ysub was calculated from the complete cross-plane heat flux. This directly retains Λ and μ in the numerical calculation; the cancellation is therefore a result of the solution, not an input assumption. The finite adiabatic substrate contributes the input impedance Zsub = [ Ysub tanh( σh sub )] −1,where σ = −s− − iβ/k zz . The interface resistance is added to this load before propagation through the transducer. The material stack was the same as the finite-stack comparison in the main text: a 100 nm isotropic transducer with k = 100 W m −1 K−1 and Cv = 2 .4 × 10 6 J m −3 K−1, a scalar interface resistance of 2 × 10 −8 m2 K W −1, and a 1.8 mm substrate with Cv = 1 .95 × 10 6 J m −3 K−1
+
+and an adiabatic rear. Equal Gaussian pump and probe radii of 40 /√2 μm preserve the 40 μm effective spatial weighting of the FDTR comparison, so only the temporal source and TDTR sampling are changed. We used fr = 80 MHz, fm = 10 MHz, Gaussian pump and probe temporal full widths at half maximum of 2 ps, and 161 delays from 0.10 ns to 5.0 ns. The lateral integral used 24 × 24 Gauss–Hermite nodes, and the final reconstruction retained 
+
+ℓ = −16384 , . . . , 16384. The maximum comb-tooth discrepancy, scaled by the largest harmonic response, was below 1 × 10 −16 . After pulse accumulation, the maximum complex delay-trace discrepancy was 3 .1 × 10 −16 , the maximum reliable-signal phase discrepancy was 1 .6 × 10 −14 degrees, and the peak-scaled TDTR ratio discrepancy was 3 .8 × 10 −16 . Doubling the harmonic cutoff from 8192 to 16384 changed the original-tensor trace by 5 .9 × 10 −8; this comb-truncation convergence is reported separately from the much smaller Schur-equivalence residual. 31 0.5 0.6 0.7 0.8 0.9 
+
+> Vin  (a.u.)
+
+a
+
+> 0.38
+> 0.36
+> 0.34
+> Vout  (a.u.)
+
+b      
+
+> 012345delay (ns)
+> 1.6 1.8 2.0 2.2 2.4
+> Vin /Vout
+
+c         
+
+> 012345delay (ns)
+> 10 18
+> 10 17
+> 10 16
+> | |/max|  |
+
+d 
+
+> original tensor Schur-equivalent tensor
+
+FIG. S1. Independent pulse-train TDTR verification of the Schur-equivalent tensor pair in equa-tion (S40), using 80 MHz repetition and 10 MHz modulation. Panels (a) and (b) show Vin and Vout 
+
+in arbitrary units, scaled by the common peak complex amplitude. Panel (c) shows −Vin /V out 
+
+where |Vout | exceeds 8% of its peak. Panel (d) shows the complex signal difference. The original tensor is the solid line and the equivalent tensor is shown by sparse open circles. Their complete delay traces agree at roundoff precision. 
+
+The extension assumes linear small-signal thermoreflectance, local Fourier diffusion with constant properties, surface heating, surface detection on the same planar orientation, laterally homogeneous layers, the complete cross-plane heat flux, and scalar interface resistances. Volumetric absorption inside the unknown anisotropic layer, a buried or rear detector, an anisotropic or patterned interface, quasiballistic transport, or temperature-dependent properties can introduce depth information or nonlinear frequency mixing and must be analyzed separately. 32 S4. CONDITIONAL SVD AND PROPAGATED PARAMETER UNCERTAINTY 
+
+This coated-sample control fits only three tensor components while holding the other three fixed. Its three-column sensitivity matrix therefore addresses conditional recovery, not the six-unknown full-tensor problem. The coating, interface, and scan settings are those of the componentwise comparison in Supplementary Note S6. This note separates three quantities that use similar notation in parts of the thermore-flectance literature. We reserve σi for the singular values of a sensitivity matrix and σi/σ 1
+
+for their normalized ratios. The propagated one-standard-deviation uncertainty of a fitted conductivity component is instead denoted by 
+
+u(kj ) = 
+
+q
+
+(Ck)jj . (S42) Thus u(kj ) has units of thermal conductivity and is neither a singular value nor a normalized singular value. 
+
+S4.1. Conditional coordinates and error propagation 
+
+The paired calculation uses 
+
+K(e) = 
+
+
+
+30 .0 6 .8 27 .06.8 9.2 e
+
+27 .0 e 30 .0
+
+ W m −1 K−1, e ∈ { 5, 0}. (S43) Only ( kyy , k zz , k yz ) are fitted. The entries ( kxx , k xy , k xz ) = (30 , 6.8, 27) W m −1 K−1 are con-trolled inputs. Both tensors use the dimensionless coordinates 
+
+qyy = ln kyy 
+
+kyy, 0
+
+, qzz = ln kzz 
+
+kzz, 0
+
+, qyz = kyz − kyz, 0
+
+pkyy, 0kzz, 0
+
+. (S44) The scaled-additive qyz remains locally defined when kyz, 0 = 0. Let g(q, p) be the stacked vector of 81 spatial-scan and 81 frequency-scan phase values in degrees, where p contains the controlled inputs. Both scans use the unwrapped phase of the complex response relative to the heating, without zero-offset phase subtraction. Define the dimensional phase Jacobians 
+
+Jq = ∂g
+
+∂q, Jp = ∂g
+
+∂p. (S45) 33 The SVD calculation stores Jlog  
+
+> q
+
+= ∂ ln |ϕ|/∂ q. At the nonzero baseline phase, the chain rule converts it to the raw-phase Jacobian used for uncertainty propagation, 
+
+Jq = diag( ϕdeg )Jlog  
+
+> q
+
+, (S46) with the same conversion applied to each controlled-input column. For the unweighted least-squares estimator of Yang, Ziade, and Schmidt, 24 the first-order covariance is 
+
+H = ( JT 
+
+> q
+
+Jq)−1JT 
+
+> q
+
+, (S47) 
+
+Ceff = Cy + JpCpJT 
+
+> p
+
+, (S48) 
+
+Cq = HC eff HT. (S49) Here Cy and Cp are the measurement and controlled-input covariances. The plus sign in equation (S48) follows because independent measurement and controlled-input errors both add data-space variance. The physical covariance is 
+
+Ck = DC qDT, D = diag 
+
+
+
+kyy, 0, k zz, 0, pkyy, 0kzz, 0
+
+
+
+. (S50) 
+
+S4.2. Matched uncertainty assumptions 
+
+The comparison assigns the same independent one-standard-deviation uncertainties to both tensors: 0 .1◦ at every phase point; 5 % for the three controlled tensor entries, the two beam radii, both layer thicknesses, and spatial-position calibration; 20 % for transducer conductivity and interface conductance; 2 % for transducer and substrate heat capacities; and 0.1 % for frequency calibration. The percentage priors are implemented in sign-preserving logarithmic coordinates. These are local, independent Gaussian assumptions used for a controlled comparison, not a universal instrument specification. 
+
+S4.3. Results and interpretation 
+
+Table S1 reports three scenarios. The measurement-only case enforces all controlled inputs exactly. The second propagates experimental controls while retaining the three complementary tensor entries as exact. The third also assigns those nominally fixed tensor entries their declared 5 % uncertainty. 34 TABLE S1. Propagated one-standard-deviation parameter uncertainties. Values are in W m −1 K−1;parentheses give uncertainty relative to the nonzero nominal component. A relative percentage is undefined for nominal kyz = 0. Scenario kyz u(kyy ) u(kzz ) u(kyz )Measurement only 5 0.0218 (0 .237%) 0 .0104 (0 .0347%) 0 .00783 (0 .157%) Measurement only 0 0.0179 (0 .194%) 0 .0191 (0 .0635%) 0.00804 Experiment controls; tensor entries exact 5 6.47 (70 .3%) 1.73 (5 .77%) 2.81 (56 .2%) Experiment controls; tensor entries exact 0 5.14 (55 .8%) 6.86 (22 .9%) 2.32 All declared controls 5 6.47 (70 .3%) 3.91 (13 .0%) 2.86 (57 .2%) All declared controls 0 5.14 (55 .9%) 7.71 (25 .7%) 2.35 
+
+For nominal kyz = 0, the final u(kyz ) = 2 .35 W m −1 K−1 is 14.2 % of the natural coordinate scale pkyy, 0kzz, 0. Relative to the nonzero case, the all-control uncertainties change by factors (0 .794 , 1.973 , 0.822) for ( kyy , k zz , k yz ). The zero case therefore approximately doubles the kzz 
+
+uncertainty, but it is not uniformly less precise in every reported component. The unweighted logarithmic-phase singular values are (18 .05 , 4.769 , 1.036) for kyz = 5 and (159 .6, 2.638 , 1.420) for kyz = 0. Although every raw value exceeds 0 .1, their normalized spectra are respectively (1 , 0.264 , 0.0574) , (1 , 0.0165 , 0.00889) . (S51) The leading modes contain 93.2 % and 99.965 % of the squared raw sensitivity. Their squared loadings in ( qyy , q zz , q yz ) are (0 .006 , 0.945 , 0.049) and (0 .022 , 0.548 , 0.429), respectively. Consequently, the large value 159 .6 is not a singular value belonging to kyy ; it describes a mixed direction dominated by qzz and qyz .A raw absolute cutoff such as σi > 0.1 is not portable because singular values change with data count, observable definition, and parameter scaling. Normalized singular values expose mode imbalance but do not themselves define acceptable parameter precision. Indeed, a relative cutoff of 0 .1 would discard sensitivity directions in these three-parameter matrices even though both measurement-only conditional fits in table S1 have finite uncertainty. For a covariance-aware diagnostic, let Ceff = LL T and form the whitened Jacobian 
+
+eJq = L−1Jq. With all declared controls, its relative singular spectra are (1 , 0.437 , 0.286) and 35 (1 , 0.322 , 0.259), with condition numbers 3 .50 and 3 .87. A fit that actually minimizes the corresponding covariance-weighted residual has covariance ( JT 
+
+> q
+
+C−1eff Jq)−1; this is a different estimator from the unweighted Yang–Ziade–Schmidt propagation in equation (S49). Practical measurability is therefore best reported using the declared covariance, propagated u(kj ), and an explicit acceptable-precision criterion. Structural rank remains a separate analytic or tight-relative-tolerance question. 
+
+S5. GLOBAL AMBIGUITIES THAT A LOCAL SVD CANNOT DETECT S5.1. Centered circular data determine an unordered in-plane pair 
+
+Consider the diagonal control 
+
+K = diag( kx, k y, k z ) (S52) with an isotropic transducer and co-centered circular pump and detector on the z face. At zero offset, the Fourier-domain signal can be written schematically as 
+
+H(kx, k y; ω) = 
+
+Z Z 
+
+> R2
+
+W (u2 + v2) G(u2 + v2, k xu2 + kyv2; ω) d u dv, (S53) where the circular pump and detector factors are collected in the radial weight W , and G also contains the fixed cross-plane and layer properties. The substitution ( u, v ) 7 → (v, u ) gives the exact exchange symmetry 
+
+H(kx, k y; ω) = H(ky, k x; ω) for every ω. (S54) Consequently, centered circular frequency data can determine the two in-plane eigenvalues only as an unordered pair; they do not assign the larger value to the laboratory x or y axis. This discrete global ambiguity is compatible with a full-rank local Jacobian. The coated control uses the 100 nm transducer and interface of Supplementary Note S6, an effective circular radius of 40 μm, and 101 frequencies from 10 Hz to 1 MHz. At ( kx, k y, k z ) = (50 , 10 , 10) W m −1 K−1, only kx and ky are varied; kz and all off-diagonal entries are fixed. The unweighted 101 × 2 matrix ∂ ln |ϕ(f )|/∂ (ln kx, ln ky) has singular values (2 .4325 , 0.3849). These are the raw stacked values, without a division by the square root of the number of observations. Exchanging kx and ky changes the complex trace by less than 2 × 10 −16 relative 36 to its peak. Thus each branch is locally regular, although the two parameter vectors produce the same coated FDTR phase response. Baseline dependence follows from the same symmetry. Define the antisymmetric logarith-mic path 
+
+kx(δ) = k0eδ, ky(δ) = k0e−δ. (S55) Equation (S54) makes H(δ) an even function, so dH
+
+dδ δ=0 
+
+= 0 , H(δ) − H(0) = O(δ2). (S56) The local rank drop at kx = ky follows from this symmetry, but it does not imply that finite anisotropy has no effect. An elliptical beam with a registered azimuth or noncollinear offset scans can break this symmetry by supplying directional weighting. Independent crystallographic information can instead assign the conductivity axes. Numerically, a global check should also launch the optimizer from both permutations, profile over an in-plane rotation angle, or compare the raw forward traces directly. 
+
+S5.2. Two faces can be locally rank six but globally twofold 
+
+Write the global tensor as 
+
+K =
+
+
+
+a d ed b f e f c
+
+ ≻ 0. (S57) Suppose measurements on the orthogonal z and x faces resolve the cross-plane entries and the complete signed in-plane Schur tensors. Define the inverse-tensor entries rij = ( K−1)ij . The two inverse Schur matrices supply ( rxx , r xy , r yy , r yz , r zz ), while cross-plane conductivity fixes ∆ = det( K−1) through ∆ = ( ryy rzz − r2 
+
+> yz
+
+)/a = ( rxx ryy − r2
+
+> xy
+
+)/c . These are six generically independent observable combinations, but the missing rxz satisfies a quadratic with two roots. Thus their count does not establish unique recovery of the six conductivity entries. To construct the two tensors explicitly, define the two measured off-diagonal Schur combinations 
+
+D = d − ef c , R = f − de a , λ = 1 − e2
+
+ac > 0. (S58) 37 Here D = Sz,xy , R = Sx,yz , and Sz,yy = b − f 2/c are entries of the two measured face Schur tensors. The two face data determine e2, rather than the sign branch of e. For either e = + |e|
+
+or e = −| e|, the remaining entries are reconstructed as 
+
+d = D + ( e/c )Rλ , f = R + ( e/a )Dλ , b = Sz,yy + f 2
+
+c . (S59) For invariant sets arising from a full anisotropic thermal-conductivity tensor, both branches give physically admissible tensors that reproduce the same two face-invariant sets. When 
+
+e̸ = 0 they are separated solutions and the local invariant Jacobian can have rank six; when 
+
+e = 0 the branches merge and the local rank drops to five. This is a discrete two-face ambiguity, not the continuous two-dimensional one-face family at fixed ( kzz , S). Three labeled orthogonal faces remove the branch. Their cross-plane conductivity data give a, b, and c; their Schur diagonals give the squared magnitudes of d, e, and f ; and their signed Schur off-diagonals select the mutually consistent signs. Equivalently, if each coated measurement resolves its complete signed Schur matrix, the inverse Schur matrices supply the three in-plane blocks of K−1 and collectively contain all six resistivity entries. This is a statement about resolved face invariants; it does not assume that an arbitrary normalized signal determines them. These examples delimit what SVD establishes. Singular values describe local parameter combinations in a declared scaling, not individual tensor entries, and an absolute cutoff changes under nonsingular column scaling or altered row weighting. A full nonlinear identifi-ability claim additionally requires an exact invariance argument or global diagnostics such as multistart, profile-likelihood, and direct forward-response comparison. 
+
+S6. NUMERICAL IMPLEMENTATION AND COATED-SAMPLE STUDY DESIGN S6.1. Independent evaluations of the coated surface response 
+
+The numerical comparisons use an isotropic transducer, a scalar thermal boundary resistance, and an anisotropic substrate. One evaluator solves the complete anisotropic characteristic equation and calculates the cross-plane heat flux directly; the other forms the substrate Schur matrix. Both propagate the temperature–heat-flux state through the 38 same coating and interface. Their agreement tests the reduction without assuming it in both evaluations. The finite substrate has an adiabatic rear boundary. The reference tensor is 
+
+K0 =
+
+
+
+10 .4 2.0 −4.02.0 7.0 4.0
+
+−4.0 4 .0 8.6
+
+ W m −1 K−1, (S60) with S0 = [ 8.5 3 .93.9 5 .1 ] W m −1 K−1 and Keq ,0 = diag( S0, 8.6) in block notation. Displayed entries are rounded; calculations use the exact Schur matrix. The single-surface FDTR, spatial-scan, surface-map, and TDTR equivalence comparisons use a 100 nm isotropic transducer with k = 100 W m −1 K−1 and Cv = 2 .4 × 10 6 J m −3 K−1,an interface resistance R = 2 × 10 −8 m2 K W −1, and a 1.8 mm substrate with Cv = 1 .95 ×
+
+10 6 J m −3 K−1. The effective Gaussian spatial radius is 40 μm. The line scan has 161 positions over ±160 μm at 10 Hz; the frequency sweep has 161 logarithmically spaced frequencies from 10 Hz to 1 MHz at offset (40 , 40) μm; and the 61 × 61 surface map spans ±120 μm. These are equivalence controls with fixed stack properties. The Au-coated reconstruction below uses its separately stated stack and 1 kHz–10 MHz frequency range. For responses H and H′, we use the peak-scaled complex residual ε = max i |Hi −
+
+H′ 
+
+> i
+
+|/ max i |H′ 
+
+> i
+
+| and phase discrepancy εϕ = max i |ϕi − ϕ′
+
+> i
+
+| in degrees. The coated frequency sweep, line scan, and map each give ε < 6 × 10 −16 and εϕ < 7 × 10 −14 degrees. The phase-map residuals are restricted to pixels exceeding 1 % of the peak amplitude. Supplementary Note S3 describes the independent full-root TDTR pulse-train calculation and its harmonic-truncation check. 
+
+S6.2. Coated component and conditional sensitivity checks 
+
+The componentwise calculation uses the same 100 nm coating and interface, with 81 positions and 81 frequencies over the ranges above. Its phase is the ordinary unwrapped argument of the complex signal. All six physical tensor entries are varied, one at a time, and the logarithmic phase derivatives are assembled into spatial, frequency, and combined sensitivity matrices. The optional joint calculation appends derivatives of the normalized log amplitude ln |Hi| − ln |H0|, where H0 is the zero-offset response at the same frequency. This amplitude normalization does not change the definition of the phase channel. 39 All three phase matrices have rank four. For the combined scan, the last two singular values, divided by the largest, are 1 .1 × 10 −12 and 1 .0 × 10 −12 ; appending the amplitude channel leaves them at the same numerical level. The individual kxz and kyz sensitivities are nonzero, whereas the two analytical directions that preserve ( kzz , S) have residual sensitivity below 5 .2 × 10 −12 . Thus the rank deficiency concerns jointly varying tensor combinations, not vanishing individual columns. The separate conditional comparison in Supplementary Note S4 holds ( kxx , k xy , k xz ) fixed and fits only ( kyy , k zz , k yz ). Its spatial and frequency matrices each have three columns and rank three; this is not a rank-three claim for the six-unknown coated FDTR problem. The maximum Richardson changes for its two nominal tensors are 2 .3 × 10 −6 and 8 .3 × 10 −5.
+
+S6.3. Single-face ordinary-phase FDTR audit 
+
+The z face of the Au-coated reconstruction provides an independent check using stan-dard phase-versus-frequency data without zero-offset subtraction. Three offset azimuths and 31 frequencies give 93 phase values. Differentiation with respect to all six entries (kxx , k yy , k zz , k xy , k xz , k yz ) gives a 93 × 6 matrix. With the physical column scales and noise weights specified below, its four nonzero normalized singular values are (1 , 0.598 , 0.437 , 0.222); the remaining two are of order 10 −16 . Its numerical rank is four using the relative threshold 10 −8. Refining the polar quadrature from 80 × 64 to 112 × 80 points leaves this result unchanged; two centered finite-difference steps agree with the analytical Jacobian within 1.0 × 10 −8 in relative norm. If kxz = kyz = 0 is instead held fixed, the four remaining parameters are ( kxx , k yy , k zz , k xy ), and their 93 × 4 matrix has normalized singular values (1 , 0.832 , 0.381 , 0.302) and rank four. For the unrestricted tensor, the four resolved combinations are ( kzz , S xx , S yy , S xy ). These two parameter choices must be distinguished when interpreting a reported four-component fit. 
+
+S6.4. Two-surface FDTR, SDTR, and TDTR equivalence 
+
+The comparison in section III B and figure 5 uses the z and y faces, with right-handed local frames ( x, y, z ) and ( z, x, y ). Both faces use the 80 nm Au coating, interface conductance, 40 substrate, and 40 μm pump and probe radii specified in section S6 S6.6. The data are noiseless, and phase is referenced to the modulated heating without zero-offset subtraction. Each FDTR sweep contains 161 logarithmically spaced frequencies from 1 kHz to 10 MHz at a 40 μm offset and local azimuth 45 ◦. The SDTR scan uses 161 signed offsets from −4w
+
+to 4 w along the same azimuth at 1 kHz, with w = 40 μm. The centered TDTR calculation uses 10 MHz modulation, 80 MHz repetition, 2 ps Gaussian pump and probe full widths at half maximum, and 161 delays from 0.10 ns to 5.0 ns. Each tensor is evaluated independently using its full characteristic roots and complete cross-plane heat flux. Original and equivalent responses share the original-response peak normalization for each method and face. Their maximum peak-scaled complex difference is below 4 × 10 −16 . Refining the FDTR/SDTR polar grid from 80 × 96 to 112 × 144 nodes and the TDTR Gauss–Hermite order from 24 to 32 changes the responses by less than 5 × 10 −15 
+
+in the same metric. The TDTR reconstruction retains harmonics −16384 ≤ ℓ ≤ 16384; doubling the cutoff from 8192 changes the trace by less than 4 × 10 −8. This truncation check is separate from the tensor-equivalence residual. 
+
+S6.5. Two-face recovery with a known zero coupling 
+
+The test in figure 6 sets kyz = kzy = 0 in K0 and fits ( kxx , k yy , k zz , k xy , k xz ) on the z, y 
+
+faces. It uses the Au stack, 31 frequencies, and three offset azimuths specified below for the three-face test. Stacking the directional scans on the z face followed by the y face gives 186 ordinary phase values. Independent uniform relative noise in [ −0.005 , 0.005] uses seed 20260912; its standard deviations and physical-entry scales follow equations (S62) and (S64) for the five fitted entries. The optimizer keeps the zero coupling exact by writing K =
+
+h a d e d b 0  
+
+> e0c
+
+i
+
+with a = t+d2/b +e2/c ,
+
+t, b, c > 0, and signed d, e . This spans the physically admissible tensors satisfying the known-zero constraint. The analytic 186 × 5 physical-entry sensitivity matrix has normalized singular values (1 , 0.837 , 0.716 , 0.419 , 0.249) and rank five. Its derivatives agree with a Richardson-extrapolated central difference to 5 .1 × 10 −10 relative error. Six starts, comprising 10 I W m −1 K−1 and five random admissible tensors (seed 20260913), converge within 1 .2 × 10 −8 relative Frobenius distance. The fitted tensor error is 1.8 %; the relative errors in the five entries are (1 .69 , 0.26 , 0.39 , 5.96 , 2.88) %. Generation and fitting 41 use 160 × 112 and 80 × 64 polar grids, respectively. Refinement to 224 × 160 changes phase by less than 1 .2 × 10 −12 degrees, and noiseless recovery gives a relative tensor error below 1.5 × 10 −14 . These checks test the declared known-zero model; they do not infer the zero coupling from the data. 
+
+S6.6. Three-face noisy phase reconstruction 
+
+The example in section IV uses the exact K0 of equation (43). Each face is evaluated as a planar stack away from edges, with cyclic right-handed frames ( x, y, z ), ( y, z, x ), and ( z, x, y ). The substrate is 1.8 mm thick with an adiabatic rear boundary and Cv = 1 .95 ×10 6 J m −3 K−1.The isotropic Au transducer has thickness 80 nm, conductivity 180 W m −1 K−1, and room-temperature volumetric heat capacity 2.49 × 10 6 J m −3 K−1. The heat-capacity value follows Table 1 of Tang and Dames 11 . The thermal boundary conductance is G = 1 × 10 8 W m −2 K−1,equivalent to R = G−1 = 1 × 10 −8 m2 K W −1. Both Gaussian 1 /e 2 beam radii and the offset are 40 μm. Each face uses 31 logarithmically spaced frequencies from 1 kHz to 10 MHz at offset azimuths 0 ◦, 45 ◦, and 90 ◦, giving 279 phase observations. For each face n ∈ { z, x, y },let ϕn,α ∈ R31 contain the phase values at azimuth α in increasing frequency order. The combined data vector is 
+
+ϕn = ( ϕT 
+
+> n, 0◦
+
+, ϕT 
+
+> n, 45 ◦
+
+, ϕT 
+
+> n, 90 ◦
+
+)T ∈ R93 ,
+
+ϕ = ( ϕT 
+
+> z
+
+, ϕT 
+
+> x
+
+, ϕT 
+
+> y
+
+)T ∈ R279 .
+
+(S61) The signal is the unwrapped argument of the complex lock-in response, relative to the modulated heating, without zero-offset subtraction. For each observation m, the synthetic data and fixed noise standard deviation are 
+
+ϕobs  
+
+> m
+
+= ϕm(K0)(1 + ηm), ηm ∼ U (−0.005 , 0.005) , sm = 0.005 |ϕm(K0)|√3 . (S62) The independent noise realization uses seed 20260910. The largest sampled relative pertur-bation is below 0.5 %. The weights use the known synthetic noise law, not an estimated experimental variance. We minimize 
+
+X
+
+> m
+
+ϕm(K) − ϕobs 
+
+> m
+
+sm
+
+2
+
+(S63) over six free coordinates of K = (10 W m −1 K−1)LL T, where L is lower triangular with exponentiated diagonal entries. All six tensor entries are therefore fitted without sign 42 constraints on the couplings. SciPy least squares uses an analytic phase Jacobian, function and step tolerances of 10 −11 , and gradient tolerance 10 −9. Eight fixed starts comprise 10 I W m −1 K−1 and seven random full anisotropic thermal-conductivity tensors with random eigenvectors and eigenvalues drawn log-uniformly from 2 to 30 W m −1 K−1 (seed 20260911). All converge to the same fit within 9 .2 × 10 −9 relative Frobenius distance. The six sensitivity parameters are k = ( kxx , k yy , k zz , k xy , k xz , k yz )T. The Cholesky coordi-nates are used only by the optimizer. Each coupling derivative varies both symmetric matrix positions together. We form 
+
+Jmj = ∂ϕ m
+
+∂k j K0
+
+, eJ = diag( s−1 
+
+> m
+
+)J diag( aj ) = UΣV T, (S64) where J, eJ ∈ R279 ×6, aii = kii, 0, and aij = pkii, 0kjj, 0. These fixed column scales and row weights make the reported singular values dimensionless. The six singular values of the three-face matrix are (549 .3, 313 .3, 284 .6, 233 .4, 169 .9, 101 .9). The two-face subset below uses the z and x faces, distinct from the z–y signal comparison in figure 5. At K0, the singular values normalized by the largest are 
+
+z : (1 , 0.5981 , 0.4368 , 0.2222 , < 10 −15 , < 10 −15 ),z, x : (1 , 0.5664 , 0.4927 , 0.2900 , 0.1727 , 0.1590) ,z, x, y : (1 , 0.5704 , 0.5181 , 0.4249 , 0.3093 , 0.1856) .
+
+(S65) Figure S2 contrasts the one-face and three-face spectra. The coated phase ranks for one, two, and three faces are four, six, and six, respectively. These are six-parameter sensitivity matrices; rank six at two faces is a local statement and does not remove the global branch discussed below. Fresh physical-entry derivatives reproduce the saved Jacobian; independent central differences agree to 3 .6 × 10 −9 relative error. The SVD reconstructs the combined matrix to 2 .5 × 10 −15 relative error. The absolute relative entry errors, in the same order, are (0 .320 , 0.092 , 0.049 , 6.625 , 1.583 , 0.232) %. The phase residual RMS is 0.128 °,and its noise-weighted RMS is 0.994. Local linearized standard deviations from the inverse information matrix are (0 .033 , 0.026 , 0.031 , 0.073 , 0.048 , 0.044) W m −1 K−1. They include only the declared measurement noise; all auxiliary parameters are exact. The forward solver uses the full-flux planar-stack response integrated over radial and angular Fourier coordinates. The generation grid has 160 × 112 nodes and the fitting grid 43 1 2 3 4 5 6Singular-value index i
+
+10 0
+
+10 −4 
+
+10 −8 
+
+10 −12 
+
+10 −16 
+
+> Normalized singular value  σi/σ1
+> Rank threshold One face (rank 4) Three faces (rank 6)
+
+FIG. S2. Normalized singular spectra for the one-face and three-face phase protocols at K0, with physical-entry scaling and noise weights defined in the text. The one-face matrix has two structural null directions; all six directions are resolved by the three-face matrix. The dashed line is the relative numerical rank threshold. 
+
+80 × 64. Their maximum phase difference is below 1 .1 × 10 −12 degrees at both truth and fit, far below the noise. An additional 320 × 224 refinement changes the generated phase by less than 1 .8 × 10 −12 degrees. A noiseless recovery using the separate generation grid has relative tensor error 1 .3 × 10 −14 . Finite-difference checks verify the analytic Jacobian to relative error 1.3 × 10 −9, and the existing full-root implementation reproduces the new complex response to within 4 .7 × 10 −15 relative error. For the same z–x subset used in the sensitivity analysis, the exact two-face branch in Supplementary Note S5 supplies the control 
+
+Ktwin ≃
+
+
+
+10 .4 7.4 4.07.4 11 .9 7 .64.0 7.6 8.6
+
+ W m −1 K−1. (S66) Using unrounded entries, this full anisotropic thermal-conductivity tensor reproduces the z-and x-face phase curves to numerical precision, whereas its y-face curve differs by up to 4.68 °.Thus even the locally full-rank two-face protocol retains a global ambiguity. The three-face 44 fit demonstrates recovery for one tensor and one noise realization under the same physical model used for generation. It does not test correlated measurement error, model mismatch, uncertain inputs, or imperfect face registration. 
+
+REFERENCES 
+
+> 1
+
+P. Jiang, X. Qian, X. Li, and R. Yang, “Three-dimensional anisotropic thermal conductivity tensor of single crystalline β-Ga 2O3,” Applied Physics Letters 113 , 232105 (2018). 
+
+> 2
+
+D. Klimm, B. Amgalan, S. Ganschow, A. Kwasniewski, Z. Galazka, and M. Bickermann, “The thermal conductivity tensor of β-Ga 2O3 from 300 to 1275 K,” Crystal Research and Technology 58 , 2200204 (2023). 
+
+> 3
+
+O. Silvestre, J. Grau, M. C. Pujol, J. Massons, M. Aguil´ o, F. D´ ıaz, M. T. Borowiec, A. Szewczyk, M. U. Gutowska, M. Massot, A. Salazar, and V. Petrov, “Thermal properties of monoclinic KLu(WO 4)2 as a promising solid state laser host,” Optics Express 16 ,5022–5034 (2008). 
+
+> 4
+
+D. H. Olson, V. A. Avincola, C. G. Parker, J. L. Braun, J. T. Gaskins, J. A. Tomko, E. J. Opila, and P. E. Hopkins, “Anisotropic thermal conductivity tensor of β-Y 2Si 2O7 for orientational control of heat flow on micrometer scales,” Acta Materialia 189 , 299–305 (2020). 
+
+> 5
+
+Y. Li, W. Li, T. Han, X. Zheng, J. Li, B. Li, S. Fan, and C.-W. Qiu, “Transforming heat transfer with thermal metamaterials and devices,” Nature Reviews Materials 6, 488–507 (2021). 
+
+> 6
+
+S. Narayana and Y. Sato, “Heat flux manipulation with engineered thermal materials,” Physical Review Letters 108 , 214303 (2012). 
+
+> 7
+
+K. P. Vemuri, F. M. Canbazoglu, and P. R. Bandaru, “Guiding conductive heat flux through thermal metamaterials,” Applied Physics Letters 105 , 193904 (2014). 
+
+> 8
+
+F. Ando, T. Hirai, H. Adachi, and K.-i. Uchida, “Adiabatic transverse thermoelectric conversion enhanced by heat current manipulation in artificially tilted multilayers,” Phys. Rev. Appl. 23 , 064061 (2025). 
+
+> 9
+
+J. P. Feser and D. G. Cahill, “Probing anisotropic heat transport using time-domain thermoreflectance with offset laser spots,” Review of Scientific Instruments 83 , 104901 (2012). 45 10 P. Jiang, X. Qian, and R. Yang, “A new elliptical-beam method based on time-domain thermoreflectance (TDTR) to measure the in-plane anisotropic thermal conductivity and its comparison with the beam-offset method,” Review of Scientific Instruments 89 , 094902 (2018). 
+
+> 11
+
+L. Tang and C. Dames, “Anisotropic thermal conductivity tensor measurements using beam-offset frequency domain thermoreflectance (BO-FDTR) for materials lacking in-plane symmetry,” International Journal of Heat and Mass Transfer 164 , 120600 (2021). 
+
+> 12
+
+P. Jiang, D. Wang, Z. Xiang, R. Yang, and H. Ban, “A new spatial-domain thermore-flectance method to measure a broad range of anisotropic in-plane thermal conductivity,” International Journal of Heat and Mass Transfer 191 , 122849 (2022). 
+
+> 13
+
+D. Wang, H. Ban, and P. Jiang, “Spatially resolved lock-in micro-thermography (SR-LIT): A tensor analysis-enhanced method for anisotropic thermal characterization,” Applied Physics Reviews 11 , 021407 (2024). 
+
+> 14
+
+W. Spirnock, A. Hake, D. Wang, T. Sullivan, D. He, and H. Ban, “A novel iterative-fitting approach for the thermal characterization of thin fibers,” SSRN preprint (2026). 
+
+> 15
+
+B. Zhang, D. Wang, T. Chen, H. Ban, and P. Jiang, “Anisotropic thermal characteriza-tion of suspended and spin-coated polyimide films using a square-pulsed source method,” International Journal of Heat and Mass Transfer 255 , 127764 (2026). 
+
+> 16
+
+D. Wang, H. Ban, and P. Jiang, “Three-dimensional (3D) tensor-based methodology for characterizing 3D anisotropic thermal conductivity tensor,” International Journal of Heat and Mass Transfer 242 , 126886 (2025). 
+
+> 17
+
+T. Chen, S. Song, R. Hu, and P. Jiang, “Comprehensive measurement of three-dimensional thermal conductivity tensor using a beam-offset square-pulsed source (BO-SPS) approach,” International Journal of Thermal Sciences 207 , 109347 (2025). 
+
+> 18
+
+A. J. Schmidt, R. Cheaito, and M. Chiesa, “A frequency-domain thermoreflectance method for the characterization of thermal properties,” Review of Scientific Instruments 80 , 094901 (2009). 
+
+> 19
+
+J. Tu and W.-L. Ong, “A universal sensitivity matrix reduction technique (SMART) to uncover governing thermal transport relationships,” International Journal of Heat and Mass Transfer 206 , 123949 (2023). 
+
+> 20
+
+T. Chen and P. Jiang, “Decoupling thermal properties in multilayered systems for advanced thermoreflectance experiments,” Physical Review Applied 23 , 044004 (2025). 46 21 J. Tellinghuisen, “Least squares in calibration: weights, nonlinearity, and other nuisances,” Methods in Enzymology 454 , 259–285 (2009). 
+
+> 22
+
+D. G. Cahill, “Analysis of heat flow in layered structures for time-domain thermoreflectance,” Review of Scientific Instruments 75 , 5119–5122 (2004). 
+
+> 23
+
+A. J. Schmidt, X. Chen, and G. Chen, “Pulse accumulation, radial heat conduction, and anisotropic thermal conductivity in pump-probe transient thermoreflectance,” Review of Scientific Instruments 79 , 114902 (2008). 
+
+> 24
+
+J. Yang, E. Ziade, and A. J. Schmidt, “Uncertainty analysis of thermoreflectance measure-ments,” Review of Scientific Instruments 87 , 014901 (2016). 47

@@ -1,0 +1,39 @@
+{
+  "label": "2026-09-18",
+  "date": "2026-09-18",
+  "generated_at": "2026-09-18T21:40:09",
+  "count": 2,
+  "papers": [
+    {
+      "paper_id": "202609/18/2609.20379v1-predictive-structure-to-thermal-conductivity-modeling-framework-for-beol-interconnect-stacks-in-advanced-technology-nodes-enabled-by-extensive-layer-resolved-thermal-measurements",
+      "section": "quick",
+      "title_en": "Predictive Structure to Thermal Conductivity Modeling Framework for BEOL Interconnect Stacks in Advanced Technology Nodes Enabled by Extensive Layer Resolved Thermal Measurements",
+      "authors": "Zifeng Huang, Yiyang Sun, Tianyu Jia, Runsheng Wang, Zhe Cheng",
+      "date": "2026-09-17",
+      "pdf": "https://arxiv.org/pdf/2609.20379v1",
+      "score": "7.0",
+      "evidence": "面向集成电路互连叠层的结构感知热导率建模框架，支撑预测性热分析",
+      "tldr": "先进节点BEOL互连堆叠结构日益复杂，亟需结构感知的热导率建模，但缺乏基于层分辨测量的可泛化模型。本文利用约100 nm深度分辨的时域热反射测量，汇总40余个层分辨热导率数据并进行统计分析，建立可泛化的结构-热导率经验关系。结合有效介质理论与真实版图，进一步构建层内三维热导率分布模型。由此形成实验导出的结构感知建模框架，可预测分析先进互连堆叠与3D IC热行为。",
+      "tags": "query:thermal-gnn",
+      "abstract_en": "The increasing structural complexity of BEOL interconnect stacks in advanced integrated circuits demands a structure-aware thermal conductivity (\\k{appa}) modeling framework. However, generalizable models derived from layer-resolved thermal measurements that quantitatively capture the dependence of \\k{appa} on interconnect structures remain lacking, limiting predictive thermal analysis. Here, we establish an experimentally derived, structure-aware \\k{appa} modeling framework enabled by time-domain thermoreflectance measurements with ~100 nm depth resolution. Statistical analysis of a compiled dataset comprising over 40 experimentally measured layer-resolved \\k{appa} values across diverse BEOL layers reveals a generalizable empirical structure-to-\\k{appa} relationship, enabling predictive modeling based on interconnect structure. An intra-layer three-dimensional \\k{appa} distribution model based on effective medium theory and realistic layouts further resolves spatial \\k{appa} variations within practical interconnect layers. Together, these models establish an experimentally derived, structure-aware \\k{appa} modeling framework for predictive and generalizable thermal analysis of advanced interconnect stacks and 3D ICs.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202609/18/2609.13536v2-identifiability-of-the-three-dimensional-anisotropic-thermal-conductivity-tensor-in-thermoreflectance-measurements-single-orientation-limits-and-full-tensor-recover",
+      "section": "quick",
+      "title_en": "Identifiability of the three-dimensional anisotropic thermal-conductivity tensor in thermoreflectance measurements: Single-orientation limits and full-tensor recover",
+      "authors": "Dihui Wang, Heng Ban",
+      "date": "2026-09-11",
+      "pdf": "https://arxiv.org/pdf/2609.13536v2",
+      "score": "6.0",
+      "evidence": "各向异性热导率张量的可辨识性，关系到热表征与热模型精度",
+      "tldr": "全各向异性热导张量含六个独立分量，但单晶向热反射测量能否唯一确定该张量尚不明确。本文证明任意全各向异性张量都存在Schur等价张量，其面外耦合 kxz=kyz=0，且两者在频率、延迟、光束几何与空间偏移变化下产生相同表面热响应。基于灵敏度趋势或SVD的参数可辨识性评估无法排除此类全局等价解。研究进一步指出，三个相互正交晶向的测量可提供互补信息，实现全张量恢复。",
+      "tags": "query:thermal-gnn",
+      "abstract_en": "Materials with full anisotropic thermal conductivity tensors are widely used in advanced applications, creating a need for dedicated characterization. Such tensors contain six independent components: three diagonal conductivities and three non-zero off-diagonal couplings. However, whether thermoreflectance measurements on a single crystalline orientation can uniquely determine an arbitrary tensor remains unclear. Here, we show that every fully anisotropic thermal-conductivity tensor admits a Schur-equivalent tensor with zero cross-plane couplings ($k_{xz}=k_{yz}=0$).   The two tensors produce identical surface thermal responses, and this equivalence persists as frequency, delay time, beam geometry, and spatial offset vary. We further demonstrate that parameter-identifiability assessments based on heuristic interpretations of sensitivity trends or singular-value decomposition (SVD) of the sensitivity matrix cannot, by themselves, rule out globally equivalent solutions in fully anisotropic systems. Combining systematic analysis with numerical validation, we provide guidance on selecting signals and measurement orientations for full-tensor characterization. Specifically, measurements at three mutually orthogonal crystallographic orientations provide complementary information for full-tensor recovery. These findings clarify the limits of single-surface measurements and establish a systematic approach to characterizing fully anisotropic thermal-conductivity tensors.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

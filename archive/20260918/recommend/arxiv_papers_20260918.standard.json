@@ -1,0 +1,93 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-09-18T21:38:17.013761+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2609.20379v1",
+      "source": "arxiv",
+      "title": "Predictive Structure to Thermal Conductivity Modeling Framework for BEOL Interconnect Stacks in Advanced Technology Nodes Enabled by Extensive Layer Resolved Thermal Measurements",
+      "abstract": "The increasing structural complexity of BEOL interconnect stacks in advanced integrated circuits demands a structure-aware thermal conductivity (\\k{appa}) modeling framework. However, generalizable models derived from layer-resolved thermal measurements that quantitatively capture the dependence of \\k{appa} on interconnect structures remain lacking, limiting predictive thermal analysis. Here, we establish an experimentally derived, structure-aware \\k{appa} modeling framework enabled by time-domain thermoreflectance measurements with ~100 nm depth resolution. Statistical analysis of a compiled dataset comprising over 40 experimentally measured layer-resolved \\k{appa} values across diverse BEOL layers reveals a generalizable empirical structure-to-\\k{appa} relationship, enabling predictive modeling based on interconnect structure. An intra-layer three-dimensional \\k{appa} distribution model based on effective medium theory and realistic layouts further resolves spatial \\k{appa} variations within practical interconnect layers. Together, these models establish an experimentally derived, structure-aware \\k{appa} modeling framework for predictive and generalizable thermal analysis of advanced interconnect stacks and 3D ICs.",
+      "authors": [
+        "Zifeng Huang",
+        "Yiyang Sun",
+        "Tianyu Jia",
+        "Runsheng Wang",
+        "Zhe Cheng"
+      ],
+      "primary_category": "cond-mat.mes-hall",
+      "categories": [
+        "cond-mat.mes-hall",
+        "cond-mat.mtrl-sci"
+      ],
+      "published": "2026-09-17T13:32:36+00:00",
+      "link": "https://arxiv.org/pdf/2609.20379v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "structure-aware thermal conductivity modeling framework enabling predictive thermal analysis of IC interconnect stacks",
+      "llm_evidence_cn": "面向集成电路互连叠层的结构感知热导率建模框架，支撑预测性热分析",
+      "llm_evidence": "面向集成电路互连叠层的结构感知热导率建模框架，支撑预测性热分析",
+      "canonical_evidence": "面向集成电路互连叠层的结构感知热导率建模框架，支撑预测性热分析",
+      "llm_tldr_en": "A structure-aware thermal conductivity modeling framework for BEOL interconnect stacks in advanced ICs, built from layer-resolved thermoreflectance data, enables predictive thermal analysis where generalizable models were lacking.",
+      "llm_tldr_cn": "针对先进制程BEOL互连叠层结构日益复杂、缺乏可泛化热导率模型从而限制预测性热分析的问题，本文提出一种结构感知的热导率建模框架。方法上利用约100纳米深度分辨的时域热反射测量，构建并统计分析40余组层分辨热数据。结果显示该由实验导出的模型能够定量刻画热导率对互连结构的依赖关系。该框架为先进节点的芯片预测性热分析与热感知设计提供了可泛化基础。",
+      "llm_tldr": "针对先进制程BEOL互连叠层结构日益复杂、缺乏可泛化热导率模型从而限制预测性热分析的问题，本文提出一种结构感知的热导率建模框架。方法上利用约100纳米深度分辨的时域热反射测量，构建并统计分析40余组层分辨热数据。结果显示该由实验导出的模型能够定量刻画热导率对互连结构的依赖关系。该框架为先进节点的芯片预测性热分析与热感知设计提供了可泛化基础。",
+      "llm_tags": [
+        "query:thermal-gnn"
+      ],
+      "matched_query_tag": "query:thermal-gnn",
+      "matched_query_text": "computer simulation of temperature fields in integrated circuits",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2609.13536v2",
+      "source": "arxiv",
+      "title": "Identifiability of the three-dimensional anisotropic thermal-conductivity tensor in thermoreflectance measurements: Single-orientation limits and full-tensor recover",
+      "abstract": "Materials with full anisotropic thermal conductivity tensors are widely used in advanced applications, creating a need for dedicated characterization. Such tensors contain six independent components: three diagonal conductivities and three non-zero off-diagonal couplings. However, whether thermoreflectance measurements on a single crystalline orientation can uniquely determine an arbitrary tensor remains unclear. Here, we show that every fully anisotropic thermal-conductivity tensor admits a Schur-equivalent tensor with zero cross-plane couplings ($k_{xz}=k_{yz}=0$).   The two tensors produce identical surface thermal responses, and this equivalence persists as frequency, delay time, beam geometry, and spatial offset vary. We further demonstrate that parameter-identifiability assessments based on heuristic interpretations of sensitivity trends or singular-value decomposition (SVD) of the sensitivity matrix cannot, by themselves, rule out globally equivalent solutions in fully anisotropic systems. Combining systematic analysis with numerical validation, we provide guidance on selecting signals and measurement orientations for full-tensor characterization. Specifically, measurements at three mutually orthogonal crystallographic orientations provide complementary information for full-tensor recovery. These findings clarify the limits of single-surface measurements and establish a systematic approach to characterizing fully anisotropic thermal-conductivity tensors.",
+      "authors": [
+        "Dihui Wang",
+        "Heng Ban"
+      ],
+      "primary_category": "physics.app-ph",
+      "categories": [
+        "physics.app-ph"
+      ],
+      "published": "2026-09-11T21:06:24+00:00",
+      "link": "https://arxiv.org/pdf/2609.13536v2",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "identifiability of anisotropic thermal conductivity tensor affects accuracy of thermal characterization",
+      "llm_evidence_cn": "各向异性热导率张量的可辨识性，关系到热表征与热模型精度",
+      "llm_evidence": "各向异性热导率张量的可辨识性，关系到热表征与热模型精度",
+      "canonical_evidence": "各向异性热导率张量的可辨识性，关系到热表征与热模型精度",
+      "llm_tldr_en": "The paper shows that a single-orientation thermoreflectance measurement cannot uniquely determine an arbitrary 3D anisotropic thermal conductivity tensor, since every tensor has a Schur-equivalent form with zero cross-plane couplings.",
+      "llm_tldr_cn": "针对全各向异性热导率张量含六个独立分量、但单晶取向热反射测量能否唯一确定张量尚不明确的问题，本文分析其可辨识性。方法上利用Schur等价变换证明任一全各向异性张量都存在面外耦合为零的等价张量，两者表面热响应完全相同。结果表明单取向测量存在固有不可辨识性，需要多取向或附加约束才能恢复全张量。该结论为热导率表征与热模型精度评估提供了理论依据。",
+      "llm_tldr": "针对全各向异性热导率张量含六个独立分量、但单晶取向热反射测量能否唯一确定张量尚不明确的问题，本文分析其可辨识性。方法上利用Schur等价变换证明任一全各向异性张量都存在面外耦合为零的等价张量，两者表面热响应完全相同。结果表明单取向测量存在固有不可辨识性，需要多取向或附加约束才能恢复全张量。该结论为热导率表征与热模型精度评估提供了理论依据。",
+      "llm_tags": [
+        "query:thermal-gnn"
+      ],
+      "matched_query_tag": "query:thermal-gnn",
+      "matched_query_text": "approaches for evaluating the accuracy of thermal models in microelectronics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

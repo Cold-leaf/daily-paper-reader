@@ -1,0 +1,100 @@
+Title: Microsoft Word - 29104922026250508IEDM Huang 20260719.docx
+
+URL Source: https://arxiv.org/pdf/2609.20379v1
+
+Published Time: Fri, 18 Sep 2026 01:18:41 GMT
+
+Number of Pages: 4
+
+Markdown Content:
+# Predictive Structure-to-Thermal Conductivity Modeling Framework for BEOL Interconnect Stacks in Advanced Technology Nodes Enabled by Extensive Layer-Resolved Thermal Measurements 
+
+Zifeng Huang, Yiyang Sun, Tianyu Jia, Runsheng Wang, Zhe Cheng* 
+
+School of Integrated Circuits, Peking University, Beijing, China Corresponding author: zhe.cheng@pku.edu.cn 
+
+Abstract —The increasing structural complexity of BEOL interconnect stacks in advanced integrated circuits demands a structure-aware thermal conductivity ( κ) modeling framework. However, generalizable models derived from layer-resolved thermal measurements that quantitatively capture the dependence of κ on interconnect structures remain lacking, limiting predictive thermal analysis. Here, we establish an experimentally derived, structure-aware κ modeling framework enabled by time-domain thermoreflectance (TDTR) measurements with ~100 nm depth resolution. Statistical analysis of a compiled dataset comprising over 40 experimentally measured layer-resolved κ values across diverse BEOL layers reveals a generalizable empirical structure-to-κ relationship, enabling predictive modeling based on interconnect structure. An intra-layer three-dimensional κ
+
+distribution model based on effective medium theory and realistic layouts further resolves spatial κ variations within practical interconnect layers. Together, these models establish an experimentally derived, structure-aware κ modeling framework for predictive and generalizable thermal analysis of advanced interconnect stacks and 3D ICs. 
+
+I. INTRODUCTION 
+
+Compared with conventional 2D chips, the BEOL interconnect stacks in three-dimensional integrated circuits (3D-ICs) introduce longer and more complex thermal transport paths between active layers and heat sinks. Meanwhile, the continuously increasing interconnect density further aggravates thermal accumulation, as shown in Fig. 1 [1]. In advanced BEOL technologies, the thermal transport capability of interconnect layers is no longer determined solely by the intrinsic properties of bulk copper and dielectric materials, but is strongly governed by nanoscale structural features, including interconnect linewidth and the increasing contribution of Cu/dielectric interfaces. These structural effects lead to substantial variations in effective thermal conductivity ( κ) among different interconnect layers, making conventional thermal models based on fixed material parameters insufficient for structure-aware prediction of heat dissipation behavior. Despite its critical role in thermal management and device reliability, experimentally established and generalizable models that quantitatively capture the dependence of κ on BEOL structures remain lacking, hindering predictive thermal network modeling and hotspot analysis. Here, we establish an experimentally derived, structure-aware κ modeling framework for BEOL interconnect stacks by integrating layer-resolved TDTR measurements, effective medium theory (EMT), and realistic layout information. Statistical analysis of more than 40 layer-resolved κ values across diverse BEOL layers reveals a generalizable empirical structure-to-κ relationship, enabling predictive κ modeling based on key interconnect parameters, including linewidth and Cu volume fraction. An EMT model further elucidates the role of Cu/dielectric composite structures in governing thermal transport and enables intra-layer spatial κ mapping from realistic BEOL layouts, as shown in Fig. 2 [2]. This framework provides a methodology for predictive thermal analysis of advanced ICs by capturing both layer-level κ variations and intra-layer spatial distributions. 
+
+II. EXPERIMENTAL SETUP AND SAMPLE PREPARATION 
+
+The sample preparation and TDTR measurement procedures are illustrated in Fig. 3 . The chip was fabricated using a commercial 22 nm process node. The five lowest interconnect layers (M1–M5, Fig. 3(a) ) were sequentially exposed by plasma FIB milling, followed by Al transducer deposition for TDTR measurements ( Fig. 3(b) ). Thermal characterizations were performed from M1 to M5 to minimize the number of fitting parameters. The exposed surfaces exhibited sufficient smoothness and large-area uniform regions suitable for reliable TDTR measurements ( Figs. 3(c–d) ). TDTR is a pump–probe optical technique, and its experimental setup and measurement principles are schematically described in Fig. 4 and Ref. [3]. The heat capacities used in the TDTR measurements are summarized in Fig. 5 . As an example, the high-magnification SEM image of M5 in Fig. 5(a) was used to extract the in-plane Cu area fraction. By combining the SEM analysis with the TEM cross-sectional images shown in Fig. 5(b) , the Cu and dielectric volume fractions of each interconnect layer were determined. The corresponding effective volumetric heat capacities are summarized in Fig. 5(c) .
+
+III. RESULTS AND DISCUSSION 
+
+Figs. 6(a–b) show the TDTR fitting curves for each interconnect layer measured using 5× and 20× objective lenses to exclude the spot-size dependence of the extracted κ values. The extracted κ are summarized in Fig. 6(c) , showing good consistency between the two measurements. Fig. 6(d) presents the sensitivity analysis of M5, confirming the reliability of the fitting results. Consistently low effective κ approaching 1 W/m-K are obtained with both objective lenses, mainly attributed to the large Cu/dielectric thermal boundary resistance (TBR) induced by the high density of nanoscale interfaces and Ta barriers surrounding the Cu wires [4–6]. The physical origin of the thermal degradation was further elucidated by nanoscale structural and elemental analyses using BF-TEM and EDS, as shown in Fig. 7 . Fig. 7(a) shows the confined sub-100 nm Cu interconnects, while Fig. 7(b) presents the Cu distribution. Fig 7(c) highlights the continuous Ta diffusion barrier layers surrounding the Cu wires, and Fig. 7(d) shows the corresponding Si and O elemental maps of the dielectric layer. The dense Ta barrier layers introduce additional interfaces, resulting in large Cu/dielectric TBR. Combined with grain boundary scattering, these interfacial effects significantly reduce the effective κ.Based on the nanoscale structural analysis discussed above, the wire κ was further evaluated following the framework shown in Fig. 8 (a) . Accordingly, the linewidth ( w)-dependent wire κ under different grain boundary (GB) conditions was calculated, as shown in Fig. 8(b) , together with DFT results from the literature [7]. By fixing the wire κ, the dielectric κ and Cu/dielectric TBR were extracted through EMT fitting of the experimental data ( Fig. 8(c) ), and the extracted values are summarized in Fig. 8(d) . The upper bound of dielectric κ (κdie )
+
+was set as 1.5 W/m-K and κdie was assumed to be identical for layers M2–M5, which share a porous low-k dielectric distinct from that of M1. The obtained TBR values are consistent with previously reported single-interface measurements [8]. While the EMT model reveals the physical origins of κ
+
+degradation, a generalizable predictive relationship linking BEOL structural parameters to effective κ is essential for extending thermal analysis beyond individual experimental measurements. As shown in Fig. 9 , more than 40 layer-resolved TDTR measurement results were compiled and statistically analyzed to establish an empirical prediction model for the κ of interconnect layers based on two key structural parameters: linewidth ( w) and Cu volume fraction ( f). The assumed formula has the form of: 
+
+κeff = (1 - f )κdie + f κCu 
+
+ww +A
+
+1 + B fw (1 + ww0
+
+)-1 
+
+Here, the κCu and κdie are fixed to represent the intrinsic contributions of Cu and dielectric, with an electron mean free path A of 39 nm to account for linewidth-dependent size effects. The fitting parameters B and w0 describe the strength and characteristic decay length of Cu/dielectric TBR, respectively, where w0 represents the linewidth above which the interfacial effect becomes progressively less significant. Fig. 9(a) 
+
+compares the model predictions using the best fit B and w0
+
+(~120 nm) with experimental results, where the size of each data point represents the measured κ value. The corresponding 
+
+κ contour map calculated from the model is also presented using the same color scale, showing good agreement between the model and experimental data. The dashed line indicates a linewidth of 3 w0, corresponding to approximately 360 nm. The model further reveals a critical interplay between w
+
+and f. At ultra-narrow linewidths, increasing f fails to improve the effective κ and can even degrade it due to enhanced TBR penalties; a higher f becomes beneficial only at larger linewidths ( Fig. 9(b) ). At a fixed w = 50 nm ( Fig. 9(c) ), minimizing the interfacial parameter B to 30% of its best-fit value yields a ~2.5-fold increase in the κeff , highlighting the dominant role of interfacial resistance. While the empirical model captures layer-level κ variations, the local structural information from realistic layouts enables further reconstruction of intra-layer κ distributions. Specifically, Cu pixels were extracted from the layout, which was then discretized into Cu- and dielectric-containing cells. The local structural parameters of each cell were used as inputs for the EMT model, with the parameters extracted in Fig. 7 , to calculate the corresponding κ values of each cell. The reconstruction process is illustrated in Fig. 10 with a cell size of 500 nm. Layer-resolved κ mapping was further performed using TDTR with different objective lenses and spatial step sizes to validate the calculated results, as shown in Fig. 11(a– b) . The obtained κ profiles enable a direct comparison between experimental measurements and model predictions. As shown in the enlarged view in Fig. 11(c) , the reconstructed κ
+
+distributions agree well with the TDTR mapping results, accurately capturing the low-κ regions and reproducing the measured spacing between adjacent low-κ strips (~20 μm). 
+
+IV. FINITE ELEMENT SIMULATION 
+
+The experimentally calibrated κ distributions were further incorporated into finite element analysis (FEA) model enabled by COMSOL to evaluate their impact on thermal prediction, as shown in Fig. 12 . The reconstructed κ maps and estimated heat-source distributions (blue regions) with corresponding spatial resolutions were implemented in the simulations ( Figs. 12(a–b) ). Identical total power dissipation was maintained for all simulation cases. The resulting maximum temperature rise (Fig. 12(c) ) increases as finer κ and heat-source distributions are resolved, because localized low-κ regions and heat generation are progressively captured [9]. This trend indicates that conventional thermal models based on averaged material properties may underestimate hotspot temperatures by neglecting local thermal inhomogeneity. These results further demonstrate the importance of incorporating realistic κ
+
+distributions for thermal analysis of BEOL interconnects. 
+
+V. CONCLUSION 
+
+In summary, we establish a structure-aware κ modeling framework for BEOL thermal analysis by deriving ageneralizable empirical structure-to-κ relationship from extensive TDTR measurements and reconstructing layer-resolved κ distributions from realistic layouts. This framework enables high-resolution prediction of thermal variations and provides a quantitative methodology for thermal analysis and management in advanced ICs. Compared with conventional simulation-based approaches, this framework enables efficient 
+
+κ prediction through a simplified κ extraction methodology while maintaining physical relevance (Fig. 13 ). More importantly, the proposed modeling framework can be readily extended to scaled BEOL technologies, providing a general methodology for thermal analysis of future technology nodes. ACKNOWLEDGMENT 
+
+The authors acknowledge the financial support from the National Key Research and Development Program of China (Grant No. 2024YFA1207901) and the National Natural Science Foundation of China (NSFC) (Grant Nos. 62574007, T2550270). 
+
+REFERENCES                         
+
+> [1] W.-Y. Woon et al. ,Nat Rev Electr Eng , vol. 2, no. 9, pp. 598–613, 2025. [2] C.-W. Nan et al ., J. Appl. Phys. , vol. 81, no. 10, pp. 6692–6699, 1997. [3] D. G. Cahill, Rev. Sci. Instrum. , vol. 75, no. 12, pp. 5119–5122, 2004. [4] T. Zhan et al ., ACS Appl. Mater. Interfaces , vol. 14, no. 5, pp. 7392–7404, 2022. [5] T. Zhan et al ., ACS Appl. Mater. Interfaces, vol. 12, no. 19, pp. 22347– 22356, 2020. [6] Y. He et al ., EDTM , 2026. [7] A. Wang et al ., Appl. Phys. Lett ., vol. 124, no. 21, pp. 212202, 2024. [8] Z. Huang et al ., IEDM , 2025. [9] B. Vermeersch et al ., IEDM , 2024. [10] T. Chou et al ., IEDM , 2025. [11] L. Wang et al ., IEDM , 2024. [12] S. Mishra et al ., VLSI , 2024.
+
+Fig. 1. Motivation of this work: The rapid evolution of conventional chips toward advanced 2.5D/3D integrated systems has led to an exponential increase in interconnect density. This increase results in longer thermal dissipation paths and more complex heat transport characteristics, making the BEOL interconnect stack a major bottleneck for advanced thermal management. 
+
+Fig. 2. Comparison between conventional standalone experimental/simulation approaches and the proposed coupled experiment–simulation framework for layer-resolved BEOL thermal conductivity reconstruction. 
+
+Fig. 3. Schematic of sample preparation and the measurement workflow. (a) Original BEOL structure of the chip. (b) Exposed BEOL stack after P-FIB delayering. (c) Al transducer layer deposition followed by sequential measurements. (d) Optical and surface morphology observation during the actual experiment. 
+
+Fig. 4. Schematic illustration of the TDTR experimental setup used in this study. 
+
+Fig. 5. Workflow of volumetric heat capacity extraction for individual layers: (a) Identification of Cu regions by extracting high-brightness pixels from the SEM image to yield the surface Cu fraction. (b) Determination of the total Cu fraction by combining hmetal and htotal . (c) Extracted volumetric heat capacity ( CV) of each individual interconnect layer. 
+
+Fig. 6. TDTR data analysis and fitting: (a)-(b) Measured TDTR ratio signals and corresponding best fits for individual layers with 5× and 20× objective lenses. (c) Measured κ of individual layers compiled using both 5× and 20× objective lenses. (d) Sensitivity analysis curves for the M5 layer measurement. Fig. 12. FEA incorporating detailed κ distributions: (a) κ distribution maps at different spatial resolutions, with M1 shown as an example. (b) Corresponding FEA model with resolution-dependent heat source (blue regions) definitions. (c) Simulated temperature rise for models with different spatial resolutions. The inset illustrates the evolution of the temperature profiles as the spatial resolution is refined from 3 μm to 500 nm. 
+
+Fig. 9. Empirical κ prediction model of BEOL interconnects as a function of w and 
+
+f. (a) Contour map of the fitted effective κ as a function of w and f empirical model. Colored circles represent experimentally measured κ values. (b) Evolution of the effective κ with w for different f, (c) Dependence of the effective κ on f for different interfacial parameter B, showing that stronger interfacial effect (larger B)increasingly suppresses the thermal conductivity. 
+
+Fig. 7. Structural and elemental analysis of the BEOL stack: (a) BF TEM image of the interconnect stack; (b)-(c) EDS map showing the Cu and Ta distribution; (d) EDS maps of Si and O in the dielectric. The scale bar is 200 nm. 
+
+Fig. 8. κ analysis of Cu interconnect wires: (a) Schematic illustration of the two dominant scattering mechanisms in the wire. (b) Calculated thermal conductivity of Cu wires as a function of w. (c) Best-fit results of the effective κ model to the experimental data. (d) Thermal transport parameters extracted from the fitting procedure and their comparison with different Cu/dielectric TBRs from [8]. 
+
+Fig. 11. Layer-resolved κ mapping by TDTR: (a) Mapping results obtained using a 20× objective lens with a step size of 3 μm, and (b) Mapping results obtained using a 5× objective lens with a step size of 10 μm. (c) Detailed κ map of M1, with the spatial intervals between adjacent strips highlighted. 
+
+Fig. 10. Effective κ map extracted from layout information: (a) Schematic illustration of the procedure used to derive the effective κ map from the original layout image, and (b) The resulting effective κ maps extracted from the layout figures of metal layers M2–M5. The scale bar is 40 μm. 
+
+Fig. 13. Comparison of the proposed framework with previous BEOL thermal modeling approaches in terms of modeling foundation, generalizable structure– κ
+
+relationships, layout-aware κ reconstruction, and κ evaluation methods. *Note: For Ref. [10], a detailed model was constructed for the M0 layer, while the remaining layers were treated as an effective κ obtained from an additional FEA model.

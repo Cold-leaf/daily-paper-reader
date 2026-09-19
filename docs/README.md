@@ -41,17 +41,17 @@
 <section class="dpr-home-dashboard-card dpr-home-report-card">
   <div class="dpr-home-dashboard-header">
     <div>
-      <span class="dpr-home-dashboard-kicker">2026-09-18</span>
+      <span class="dpr-home-dashboard-kicker">2026-09-19</span>
       <h3 class="dpr-home-dashboard-title">今日汇总</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">共 2 篇</strong>
+    <strong class="dpr-home-dashboard-count">共 1 篇</strong>
   </div>
   <dl class="dpr-home-dashboard-stats">
     <div class="dpr-home-dashboard-stat"><dt>累计更新</dt><dd>1 次</dd></div>
     <div class="dpr-home-dashboard-stat"><dt>精读</dt><dd>0</dd></div>
-    <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>2</dd></div>
+    <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>1</dd></div>
   </dl>
-  <p class="dpr-home-dashboard-body">最近更新：2026-09-18 21:40:07 UTC<br>状态：成功</p>
+  <p class="dpr-home-dashboard-body">最近更新：2026-09-19 21:16:32 UTC<br>状态：成功</p>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-brief-card">
   <div class="dpr-home-dashboard-header">
@@ -62,7 +62,8 @@
     <strong class="dpr-home-dashboard-count">AI</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<p>2026-09-18 日报精选2篇速读：先进节点BEOL互连热导率建模框架（7.0分）与热反射测量中三维各向异性热导张量可识别性研究（6.0分）。最值得关注的是用大量分层热测量数据驱动的BEOL热导率预测框架，以及单方向热反射测量难以恢复完整张量、需多方向测量的结论。普通读者可优先了解芯片互连散热建模，并留意热测量实验设计对结果可靠性的影响。</p>
+<p>2026-09-19 日报：仅速读1篇，精读0篇，主题是薄金属膜中 Wiedemann-Franz 定律的实验评估。</p>
+<p>最值得看的是“热反射+电测量”联合检验薄膜热-电输运关系的方向，</p>
   </div>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-deep-card">
@@ -84,12 +85,12 @@
       <span class="dpr-home-dashboard-kicker">今日累计</span>
       <h3 class="dpr-home-dashboard-title">速读推荐</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">2 篇</strong>
+    <strong class="dpr-home-dashboard-count">1 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="Predictive Structure to Thermal Conductivity Modeling Framework for BEOL Interconnect Stacks in Advanced Technology Nodes Enabled by Extensive Layer Resolved Thermal Measurements">Predictive Structure to Thermal Conductivity Modeling Framework for BEOL Interconnect Stacks in Advanced Technology Nodes Enabled by Extensive Layer Resolved Thermal Measurements</span></li><li><span class="dpr-home-dashboard-paper-title" title="Identifiability of the three-dimensional anisotropic thermal-conductivity tensor in thermoreflectance measurements: Single-orientation limits and full-tensor recover">Identifiability of the three-dimensional anisotropic thermal-conductivity tensor in thermoreflectance measurements: Single-orientation limits and full-tensor recover</span></li></ul>
+<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="Experimental assessment of the Wiedemann-Franz law in thin metal films using thermoreflectance and electrical measurements">Experimental assessment of the Wiedemann-Franz law in thin metal films using thermoreflectance and electrical measurements</span></li></ul>
   </div>
-  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">thermal-gnn <strong>2</strong></span></div>
+  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">thermal-gnn <strong>1</strong></span></div>
 </section>
 </div>
 

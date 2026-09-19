@@ -1,0 +1,25 @@
+{
+  "date": "20260919",
+  "date_label": "",
+  "generated_at": "2026-09-19 21:16:32 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2609.17990v1",
+      "route": "202609/19/2609.17990v1-experimental-assessment-of-the-wiedemann-franz-law-in-thin-metal-films-using-thermoreflectance-and-electrical-measurements",
+      "title": "Experimental assessment of the Wiedemann-Franz law in thin metal films using thermoreflectance and electrical measurements",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "thermal-gnn"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "金属薄膜热物性对微电子热建模至关重要",
+      "first_seen_at": "2026-09-19 21:16:32 UTC",
+      "updated_at": "2026-09-19 21:16:32 UTC"
+    }
+  ]
+}

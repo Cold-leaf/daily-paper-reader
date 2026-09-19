@@ -1,0 +1,54 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-09-19T21:15:19.028484+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2609.17990v1",
+      "source": "arxiv",
+      "title": "Experimental assessment of the Wiedemann-Franz law in thin metal films using thermoreflectance and electrical measurements",
+      "abstract": "Accurate thermal properties of metal thin films are essential for microelectronic thermal modeling and for interpreting thermoreflectance measurements when signals are sensitive to film thermal transport. In practice, film thermal conductivity is commonly inferred from electrical resistivity via the Wiedemann-Franz (WF) law with the Sommerfeld-Lorenz number L_0, neglecting phonon contributions and microstructure-dependent scattering. Here, we combine square-pulsed source (SPS) thermoreflectance with van der Pauw measurements to characterize thermal and electrical transport in Al, Ti, and Ta thin films prepared by thermal evaporation, e-beam evaporation, and magnetron sputtering. SPS measurements from 80 to 300 K yield the film thermal conductivity k_m and volumetric heat capacity C_m, with C_m agreeing with bulk values within +/-8%. Compared with WF-based estimates using L_0 and a modeled resistivity, \\r{ho}_model (T)=\\r{ho}_bulk (T)+\\r{ho}_0, k_m deviates by 5-20% for Al and Ti and up to 40% for sputtered Ta at 300 K. While the smaller deviations are comparable to experimental uncertainty, the large mismatch for Ta demonstrates the limitation of applying the bulk L_0 to highly resistive metal films. Apparent Lorenz numbers L_app=k_m \\r{ho}_meas/T from 150 to 300 K further reveal that deposition-induced disorder, grain-boundary scattering, and possible phase-related effects can modify the correlation between heat and charge transport in thin metal films. These results clarify the applicability of the WF law to deposited metal thin films and offer practical guidance for thermal modeling and thermoreflectance analysis.",
+      "authors": [
+        "Zhiwei Deng",
+        "Jinlong Ma",
+        "Puqing Jiang"
+      ],
+      "primary_category": "cond-mat.mes-hall",
+      "categories": [
+        "cond-mat.mes-hall"
+      ],
+      "published": "2026-09-16T01:22:16+00:00",
+      "link": "https://arxiv.org/pdf/2609.17990v1",
+      "tags": [
+        "keyword:thermal-gnn",
+        "query:thermal-gnn"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "thermal properties of metal thin films essential for microelectronic thermal modeling",
+      "llm_evidence_cn": "金属薄膜热物性对微电子热建模至关重要",
+      "llm_evidence": "金属薄膜热物性对微电子热建模至关重要",
+      "canonical_evidence": "金属薄膜热物性对微电子热建模至关重要",
+      "llm_tldr_en": "Thermal properties of metal thin films matter for microelectronic thermal modeling, yet conductivity is often inferred from resistivity via the Wiedemann-Franz law, ignoring phonon and microstructure effects. The authors combine square-pulsed thermoreflectance with van der Pauw measurements on Al, Ti and Ta films.",
+      "llm_tldr_cn": "金属薄膜的热物性对微电子热建模和热反射测量解读至关重要，但实践中常借维德曼-弗兰兹定律由电阻率推断热导率，忽略声子贡献与微结构散射。本文结合方脉冲源热反射与范德堡电学测量，表征Al、Ti、Ta薄膜的热与电输运性质。结果表明该定律在薄膜中的适用性存在偏差，为微电子热建模提供更准确的物性依据。",
+      "llm_tldr": "金属薄膜的热物性对微电子热建模和热反射测量解读至关重要，但实践中常借维德曼-弗兰兹定律由电阻率推断热导率，忽略声子贡献与微结构散射。本文结合方脉冲源热反射与范德堡电学测量，表征Al、Ti、Ta薄膜的热与电输运性质。结果表明该定律在薄膜中的适用性存在偏差，为微电子热建模提供更准确的物性依据。",
+      "llm_tags": [
+        "query:thermal-gnn"
+      ],
+      "matched_query_tag": "query:thermal-gnn",
+      "matched_query_text": "approaches for evaluating the accuracy of thermal models in microelectronics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

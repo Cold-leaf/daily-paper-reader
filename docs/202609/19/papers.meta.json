@@ -1,0 +1,24 @@
+{
+  "label": "2026-09-19",
+  "date": "2026-09-19",
+  "generated_at": "2026-09-19T21:16:37",
+  "count": 1,
+  "papers": [
+    {
+      "paper_id": "202609/19/2609.17990v1-experimental-assessment-of-the-wiedemann-franz-law-in-thin-metal-films-using-thermoreflectance-and-electrical-measurements",
+      "section": "quick",
+      "title_en": "Experimental assessment of the Wiedemann-Franz law in thin metal films using thermoreflectance and electrical measurements",
+      "authors": "Zhiwei Deng, Jinlong Ma, Puqing Jiang",
+      "date": "2026-09-16",
+      "pdf": "https://arxiv.org/pdf/2609.17990v1",
+      "score": "6.0",
+      "evidence": "金属薄膜热物性对微电子热建模至关重要",
+      "tldr": "金属薄膜热导常由电阻率经 Wiedemann-Franz 定律推算，但体材 L0 忽略声子与微结构散射。本文用方脉冲源热反射与 van der Pauw 法表征 Al、Ti、Ta 薄膜的 80–300 K 热/电输运。结果 C_m 与体材值偏差 ±8%，而 WF 估算热导在 Al/Ti 偏差 5–20%，溅射 Ta 达 40%。表观 Lorenz 数揭示无序和晶界散射影响，为热建模与热反射分析提供依据。",
+      "tags": "query:thermal-gnn",
+      "abstract_en": "Accurate thermal properties of metal thin films are essential for microelectronic thermal modeling and for interpreting thermoreflectance measurements when signals are sensitive to film thermal transport. In practice, film thermal conductivity is commonly inferred from electrical resistivity via the Wiedemann-Franz (WF) law with the Sommerfeld-Lorenz number L_0, neglecting phonon contributions and microstructure-dependent scattering. Here, we combine square-pulsed source (SPS) thermoreflectance with van der Pauw measurements to characterize thermal and electrical transport in Al, Ti, and Ta thin films prepared by thermal evaporation, e-beam evaporation, and magnetron sputtering. SPS measurements from 80 to 300 K yield the film thermal conductivity k_m and volumetric heat capacity C_m, with C_m agreeing with bulk values within +/-8%. Compared with WF-based estimates using L_0 and a modeled resistivity, \\r{ho}_model (T)=\\r{ho}_bulk (T)+\\r{ho}_0, k_m deviates by 5-20% for Al and Ti and up to 40% for sputtered Ta at 300 K. While the smaller deviations are comparable to experimental uncertainty, the large mismatch for Ta demonstrates the limitation of applying the bulk L_0 to highly resistive metal films. Apparent Lorenz numbers L_app=k_m \\r{ho}_meas/T from 150 to 300 K further reveal that deposition-induced disorder, grain-boundary scattering, and possible phase-related effects can modify the correlation between heat and charge transport in thin metal films. These results clarify the applicability of the WF law to deposited metal thin films and offer practical guidance for thermal modeling and thermoreflectance analysis.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
